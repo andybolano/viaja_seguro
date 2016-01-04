@@ -1,23 +1,20 @@
 var uri = "../../public";
 var app;
-(function(){
-    app = angular.module("empresa", ['ngRoute','ui.keypress']);
-    
-    app.config(['$routeProvider', '$locationProvider', function AppConfig($routeProvider, $locationProvider){
-            
-            
-            $routeProvider
-          
-                  
-                    .when("/home", {
-                        templateUrl: 'home.html'
+(function () {
+    app = angular.module("empresa", ['ngRoute', 'ui.keypress']);
+
+    app.config(['$routeProvider', '$locationProvider', function AppConfig($routeProvider, $locationProvider) {
+            $routeProvider.when("/home", {
+                templateUrl: 'home.html'
+            })
+                    .when("/registrarConductor", {
+                        templateUrl: 'registrarConductor.html'
                     })
-                    .otherwise({
-                        redirectTo:"/default"
-                    });
-                    
-            
-    }]);
+                    .when("/empresa/conductores", {
+                        templateUrl: 'showConductor.html'
+                    })
+                    .otherwise({redirectTo: '/home'})
+        }]);
 
     app.directive('ngEnter', function () {
         return function (scope, elements, attrs) {
@@ -31,9 +28,9 @@ var app;
             });
         };
     });
-    
-    app.filter('ifEmpty', function() {
-        return function(input, defaultValue) {
+
+    app.filter('ifEmpty', function () {
+        return function (input, defaultValue) {
             if (angular.isUndefined(input) || input === null || input === '') {
                 return defaultValue;
             }
@@ -41,19 +38,19 @@ var app;
             return input;
         };
     });
-    
-    app.directive('uploaderModel',['$parse',function($parse){
-        return{
-            restrict: 'A',
-            link: function(scope,iElement,iAttrs){
-                iElement.on('change',function(e)
-                {
-                    $parse(iAttrs.uploaderModel).assign(scope,iElement[0].files[0]);
-                });
-            }
-        };
 
-    }]);
+    app.directive('uploaderModel', ['$parse', function ($parse) {
+            return{
+                restrict: 'A',
+                link: function (scope, iElement, iAttrs) {
+                    iElement.on('change', function (e)
+                    {
+                        $parse(iAttrs.uploaderModel).assign(scope, iElement[0].files[0]);
+                    });
+                }
+            };
+
+        }]);
 
 
 })();
