@@ -11,7 +11,7 @@ var app;
                         templateUrl: 'registrarConductor.html'
                     })
                     .when("/empresa/conductores", {
-                        templateUrl: 'showConductor.html'
+                        templateUrl: 'showConductor.html',
                     })
                     .otherwise({redirectTo: '/home'})
         }]);
@@ -31,7 +31,7 @@ var app;
 
     app.filter('ifEmpty', function () {
         return function (input, defaultValue) {
-            if (angular.isUndefined(input) || input === null || input === '') {
+                if (angular.isUndefined(input) || input === null || input === '') {
                 return defaultValue;
             }
 
@@ -51,6 +51,27 @@ var app;
             };
 
         }]);
+
+    app.filter('cut',function(){
+        return function (value, wordwise, max, tail) {
+            if (!value) return '';
+
+            max = parseInt(max, 10);
+            if (!max) return value;
+            if (value.length <= max) return value;
+
+            value = value.substr(0, max);
+            if (wordwise) {
+                var lastspace = value.lastIndexOf(' ');
+                if (lastspace != -1) {
+                    value = value.substr(0, lastspace);
+                }
+            }
+
+            return value + (tail || ' …');
+        };
+    });
+
 
 
 })();
