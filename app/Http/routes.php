@@ -16,3 +16,4 @@ Route::get('/', function () {
 });
 
 include 'Routes/Conductores.php';
+include 'Routes/Vehiculos.php';

@@ -1,2 +1,2 @@
 <?php
-Route::resource('/api/empresa/conductores', 'Empresa\ConductorController');
+Route::resource('api/empresa/conductores', 'Empresa\ConductorController');
