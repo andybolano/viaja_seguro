@@ -29,10 +29,10 @@
                             <th>Acciones</th>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="conductor in conductores | filter : filtro">
+                                <tr ng-repeat="conductor in Conductores | filter : filtro">
                                     <td>{{conductor.id}}</td>
                                     <td>
-                                        <img src="{{conductor.foto}}" class="circle" style="width: 35px;">
+                                        <img ng-src="{{conductor.foto}}" class="circle" style="width: 35px;">
                                     </td>
                                     <td>{{conductor.nombres}}</td>
                                     <td>{{conductor.apellidos}}</td>

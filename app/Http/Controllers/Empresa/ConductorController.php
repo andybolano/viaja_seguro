@@ -17,48 +17,49 @@ class ConductorController extends Controller
     {
         $conductores = [
             [
-                id => 0,
-                nombres => "Jose Miguel",
-                apellidos => "Soto Acosta",
-                direccion => "Cll tal cual",
-                telefono => "3015941826",
-                edad => "23 años"
+                'id' => '0',
+                'foto' => 'http://materializecss.com/images/yuna.jpg',
+                'nombres' => 'Jose Miguel',
+                'apellidos' => 'Soto Acosta',
+                'direccion' => 'Cll tal cual',
+                'telefono' => '3015941826',
+                'edad' => '23 años'
             ],
             [
-                id => 1,
-                foto => "http://materializecss.com/images/yuna.jpg",
-                nombres => "Jose Miguel",
-                apellidos => "Soto Acosta",
-                direccion => "Cll tal cual",
-                telefono => "3015941826",
-                edad => "23 años"
+                'id' => '1',
+                'foto' => 'http://materializecss.com/images/yuna.jpg',
+                'nombres' => 'Jose Miguel',
+                'apellidos' => 'Soto Acosta',
+                'direccion' => 'Cll tal cual',
+                'telefono' => '3015941826',
+                'edad' => '23 años'
             ],
             [
-                id => 2,
-                foto=> "http://materializecss.com/images/yuna.jpg",
-                nombres => "Jose Miguel",
-                apellidos => "Soto Acosta",
-                direccion => "Cll tal cual",
-                telefono => "3015941826",
-                edad => "23 años"
+                'id' => '2',
+                'foto' => 'http://materializecss.com/images/yuna.jpg',
+                'nombres' => 'Jose Miguel',
+                'apellidos' => 'Soto Acosta',
+                'direccion' => 'Cll tal cual',
+                'telefono' => '3015941826',
+                'edad' => '23 años'
             ],
             [
-                id => 3,
-                foto=> "http://materializecss.com/images/yuna.jpg",
-                nombres => "Jose Miguel",
-                apellidos => "Soto Acosta",
-                direccion => "Cll tal cual",
-                telefono => "3015941826",
-                edad => "23 años"
+                'id' => '3',
+                'foto' => 'http://materializecss.com/images/yuna.jpg',
+                'nombres' => 'Jose Miguel',
+                'apellidos' => 'Soto Acosta',
+                'direccion' => 'Cll tal cual',
+                'telefono' => '3015941826',
+                'edad' => '23 años'
             ],
             [
-                id => 4,
-                foto=> "http://materializecss.com/images/yuna.jpg",
-                nombres => "Jose Miguel",
-                apellidos => "Soto Acosta",
-                direccion => "Cll tal cual",
-                telefono => "3015941826",
-                edad => "23 años"
+                'id' => '4',
+                'foto' => 'http://materializecss.com/images/yuna.jpg',
+                'nombres' => 'Jose Miguel',
+                'apellidos' => 'Soto Acosta',
+                'direccion' => 'Cll tal cual',
+                'telefono' => '3015941826',
+                'edad' => '23 años'
             ]
         ];
         return $conductores;
@@ -92,7 +93,7 @@ class ConductorController extends Controller
         $conductor->direccion = $data["direccion"];
         $conductor->telefono = $data["telefono"];
         $conductor->correo = $data["correo"];
-        $busqueda = Cliente::select("identificacion")
+        $busqueda = Conductor::select("identificacion")
             ->where("identificacion",$data["identificacion"])
             ->first();
         if ($busqueda == null) {

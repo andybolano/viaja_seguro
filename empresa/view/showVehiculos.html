@@ -26,7 +26,7 @@
                             <th>Acciones</th>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="conductor in conductores | filter : filtro">
+                            <tr ng-repeat="vehiculo in Vehiculos | filter : filtro">
                                 <td>{{vehiculo.placa}}</td>
                                 <td>{{vehiculo.modelo}}</td>
                                 <td>{{vehiculo.color}}</td>
@@ -132,7 +132,7 @@
                                 <th>Acciones</th>
                                 </thead>
                                 <tbody>
-                                <tr ng-repeat="conductor in conductores | filter : filtro">
+                                <tr ng-repeat="conductor in Conductores | filter : filtro">
                                     <td>{{conductor.id}}</td>
                                     <td>
                                         <img src="http://materializecss.com/images/yuna.jpg" class="circle" style="width: 35px;">

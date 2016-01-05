@@ -17,22 +17,22 @@ class VehiculoController extends Controller
     {
         $vehiculos = [
           [
-              placa => 'UJSK-123',
-              modelo => 'KIA 2010',
-              color => 'Amarillo',
-              conductor => 'Jose miguel soto'
+              'placa' => 'UJSK-123',
+              'modelo' => 'KIA 2010',
+              'color' => 'Amarillo',
+              'conductor' => 'Jose miguel soto'
           ],
             [
-                placa => 'UJSK-345',
-                modelo => 'KIA 2010',
-                color => 'Amarillo',
-                conductor => 'Jose miguel soto'
+                'placa' => 'UJSK-345',
+                'modelo' => 'KIA 2010',
+                'color' => 'Amarillo',
+                'conductor' => 'Jose miguel soto'
             ],
             [
-                placa => 'UJSK-156',
-                modelo => 'KIA 2010',
-                color => 'Amarillo',
-                conductor => 'Jose miguel soto'
+                'placa' => 'UJSK-156',
+                'modelo' => 'KIA 2010',
+                'color' => 'Amarillo',
+                'conductor' => 'Jose miguel soto'
             ],
         ];
         return $vehiculos;

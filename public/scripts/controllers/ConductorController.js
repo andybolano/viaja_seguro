@@ -15,6 +15,15 @@ app.controller('ConductorController', function ($scope, ConductorServicio) {
         });
     }
 
+    function loadVendedores () {
+        var promiseGet = ConductorServicio.getAll();
+        promiseGet.then(function (pl) {
+            $scope.Conductores = pl.conductores;
+        }, function (errorPl) {
+            console.log('Error Al Cargar Datos', errorPl);
+        });
+    }
+
     $scope.nuevoConductor = function  () {
         $scope.editMode = false;
         $scope.active = "";
