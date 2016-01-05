@@ -25,18 +25,20 @@
                             <th>Apellidos</th>
                             <th>Direccion</th>
                             <th>Telefono</th>
+                            <th>Edad</th>
                             <th>Acciones</th>
                             </thead>
                             <tbody>
                                 <tr ng-repeat="conductor in conductores | filter : filtro">
                                     <td>{{conductor.id}}</td>
                                     <td>
-                                        <img src="http://materializecss.com/images/yuna.jpg" class="circle" style="width: 35px;">
+                                        <img src="{{conductor.foto}}" class="circle" style="width: 35px;">
                                     </td>
                                     <td>{{conductor.nombres}}</td>
                                     <td>{{conductor.apellidos}}</td>
                                     <td>{{conductor.direccion}}</td>
                                     <td>{{conductor.telefono}}</td>
+                                    <td>{{conductor.edad}}</td>
                                     <td>
                                         <a href="javascript:" ng-click="show(conductor)">
                                             <i class="material-icons prefix">visibility</i>
@@ -73,38 +75,38 @@
                     <div class="row">
                         <div class="input-field col s6">
                             <i class="material-icons prefix">payment</i>
-                            <input id="icon_payment" type="tel" class="validate">
+                            <input id="icon_payment" type="tel" class="validate" name="identificacion">
                             <label for="icon_payment">Identificacion</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s6">
                             <i class="material-icons prefix">account_circle</i>
-                            <input id="icon_person" type="tel" class="validate">
+                            <input id="icon_person" type="tel" class="validate" name="nombres">
                             <label for="icon_person">Nombres</label>
                         </div>
                         <div class="input-field col s6">
                             <i class="material-icons prefix">account_circle</i>
-                            <input id="icon_person" type="tel" class="validate">
+                            <input id="icon_person" type="tel" class="validate" name="apellidos">
                             <label for="icon_person">Apellidos</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s6">
                             <i class="material-icons prefix">person_pin_circle</i>
-                            <input id="icon_pain" type="tel" class="validate">
+                            <input id="icon_pain" type="tel" class="validate" name="direccion">
                             <label for="icon_pain">Direccion</label>
                         </div>
                         <div class="input-field col s6">
                             <i class="material-icons prefix">phone</i>
-                            <input id="icon_phone" type="tel" class="validate">
+                            <input id="icon_phone" type="tel" class="validate" name="telefono">
                             <label for="icon_phone">Telefono</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s6">
                             <i class="material-icons prefix">contact_mail</i>
-                            <input id="icon_mail" type="tel" class="validate">
+                            <input id="icon_mail" type="tel" class="validate" name="correo">
                             <label for="icon_mail">Correo</label>
                         </div>
                     </div>

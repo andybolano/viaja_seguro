@@ -15,7 +15,7 @@ app.controller('ConductorController', function ($scope, ConductorServicio) {
         });
     }
 
-    $scope.nuevo = function  () {
+    $scope.nuevoConductor = function  () {
         $scope.editMode = false;
         $scope.active = "";
         $scope.Conductor = {};

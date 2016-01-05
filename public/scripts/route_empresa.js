@@ -7,11 +7,11 @@ var app;
             $routeProvider.when("/home", {
                 templateUrl: 'home.html'
             })
-                    .when("/registrarConductor", {
-                        templateUrl: 'registrarConductor.html'
-                    })
                     .when("/empresa/conductores", {
                         templateUrl: 'showConductor.html',
+                    })
+                    .when("/empresa/vehiculos", {
+                        templateUrl: 'showVehiculos.html'
                     })
                     .otherwise({redirectTo: '/home'})
         }]);

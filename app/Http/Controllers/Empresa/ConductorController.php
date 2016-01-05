@@ -26,6 +26,7 @@ class ConductorController extends Controller
             ],
             [
                 id => 1,
+                foto => "http://materializecss.com/images/yuna.jpg",
                 nombres => "Jose Miguel",
                 apellidos => "Soto Acosta",
                 direccion => "Cll tal cual",
@@ -34,6 +35,7 @@ class ConductorController extends Controller
             ],
             [
                 id => 2,
+                foto=> "http://materializecss.com/images/yuna.jpg",
                 nombres => "Jose Miguel",
                 apellidos => "Soto Acosta",
                 direccion => "Cll tal cual",
@@ -42,6 +44,7 @@ class ConductorController extends Controller
             ],
             [
                 id => 3,
+                foto=> "http://materializecss.com/images/yuna.jpg",
                 nombres => "Jose Miguel",
                 apellidos => "Soto Acosta",
                 direccion => "Cll tal cual",
@@ -50,6 +53,7 @@ class ConductorController extends Controller
             ],
             [
                 id => 4,
+                foto=> "http://materializecss.com/images/yuna.jpg",
                 nombres => "Jose Miguel",
                 apellidos => "Soto Acosta",
                 direccion => "Cll tal cual",
@@ -80,7 +84,23 @@ class ConductorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $conductor = new Conductor();
+        $conductor->identificacion = $data["identificacion"];
+        $conductor->nombres = $data["nombres"];
+        $conductor->apellidos = $data["apellidos"];
+        $conductor->direccion = $data["direccion"];
+        $conductor->telefono = $data["telefono"];
+        $conductor->correo = $data["correo"];
+        $busqueda = Cliente::select("identificacion")
+            ->where("identificacion",$data["identificacion"])
+            ->first();
+        if ($busqueda == null) {
+            $conductor->save();
+            return JsonResponse::create(array('message' => "Guardado Correctamente", "identificacion" => $conductor->identificacion), 200);
+        }else{
+            return JsonResponse::create(array('message' => "El conductor ya esta registrado", "identificacion" => $conductor->identificacion), 200);
+        }
     }
 
     /**
@@ -91,7 +111,9 @@ class ConductorController extends Controller
      */
     public function show($id)
     {
-        //
+        return Conductor::select('*')
+            ->where("identificacion",$id)
+            ->first();
     }
 
     /**
