@@ -1,22 +1,25 @@
 var uri = "../../public";
 var app;
-(function(){
-    app = angular.module("superadmin", ['ngRoute','ui.keypress']);
-    
-    app.config(['$routeProvider', '$locationProvider', function AppConfig($routeProvider, $locationProvider){
-            
-            
-            $routeProvider
-          
-                  
-                    .when("/home", {
-                        templateUrl: 'home.html'
-                    })
-                    .otherwise({
-                        redirectTo:"/default"
-                    });
-                    
-            
+(function () {
+    app = angular.module("superadmin", ['ngRoute', 'ui.keypress']);
+
+    app.config(['$routeProvider', '$locationProvider', function AppConfig($routeProvider, $locationProvider) {
+
+
+        $routeProvider
+
+
+            .when("/home", {
+                templateUrl: 'home.html'
+            })
+            .when("/gestionar_empresas", {
+                templateUrl: 'gestionar_empresas.html'
+            })
+            .otherwise({
+                redirectTo: "/default"
+            });
+
+
     }]);
 
     app.directive('ngEnter', function () {
@@ -31,9 +34,9 @@ var app;
             });
         };
     });
-    
-    app.filter('ifEmpty', function() {
-        return function(input, defaultValue) {
+
+    app.filter('ifEmpty', function () {
+        return function (input, defaultValue) {
             if (angular.isUndefined(input) || input === null || input === '') {
                 return defaultValue;
             }
@@ -41,14 +44,13 @@ var app;
             return input;
         };
     });
-    
-    app.directive('uploaderModel',['$parse',function($parse){
-        return{
+
+    app.directive('uploaderModel', ['$parse', function ($parse) {
+        return {
             restrict: 'A',
-            link: function(scope,iElement,iAttrs){
-                iElement.on('change',function(e)
-                {
-                    $parse(iAttrs.uploaderModel).assign(scope,iElement[0].files[0]);
+            link: function (scope, iElement, iAttrs) {
+                iElement.on('change', function (e) {
+                    $parse(iAttrs.uploaderModel).assign(scope, iElement[0].files[0]);
                 });
             }
         };
@@ -57,5 +59,4 @@ var app;
 
 
 })();
-
 
