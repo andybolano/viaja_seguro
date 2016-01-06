@@ -40,11 +40,8 @@
                                     <td>{{conductor.telefono}}</td>
                                     <td>{{conductor.edad}}</td>
                                     <td>
-                                        <a href="javascript:" ng-click="show(conductor)">
-                                            <i class="material-icons prefix">visibility</i>
-                                        </a>
                                         <a href="javascript:" ng-click="modificar(conductor)">
-                                            <i class="material-icons prefix">mode_edit</i>
+                                            <i class="material-icons prefix">visibility</i>
                                         </a>
                                         <a href="javascript:" ng-click="eliminar(conductor.id)">
                                             <i class="material-icons prefix">delete</i>
@@ -60,7 +57,7 @@
     </div>
 
     <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-        <a class="btn-floating btn-large waves-effect waves-light orange" ng-click="nuevoConductor()">
+        <a class="btn-floating btn-large waves-effect waves-light red" ng-click="nuevoConductor()">
             <i class="material-icons">add</i>
         </a>
     </div>
@@ -104,11 +101,9 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="input-field col s6">
+                        <div class="col s6">
                             <i class="material-icons prefix">today</i>
-                            <label for="icon_today" class="{{active}}">Fecha de nacimiento</label>
-                            <input type="date" class="datepicker">
-
+                            <label  class="{{active}}">Fecha de nacimiento</label>
                             <input id="icon_today" type="date" class="validate datapicker" name="correo" ng-model="Conductor.fecha">
                         </div>
                         <div class="input-field col s6">
