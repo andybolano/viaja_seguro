@@ -105,6 +105,13 @@
                     </div>
                     <div class="row">
                         <div class="input-field col s6">
+                            <i class="material-icons prefix">today</i>
+                            <label for="icon_today" class="{{active}}">Fecha de nacimiento</label>
+                            <input type="date" class="datepicker">
+
+                            <input id="icon_today" type="date" class="validate datapicker" name="correo" ng-model="Conductor.fecha">
+                        </div>
+                        <div class="input-field col s6">
                             <i class="material-icons prefix">contact_mail</i>
                             <input id="icon_mail" type="tel" class="validate" name="correo" ng-model="Conductor.correo">
                             <label for="icon_mail" class="{{active}}">Correo</label>
