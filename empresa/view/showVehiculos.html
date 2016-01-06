@@ -35,7 +35,7 @@
                                     <a href="javascript:" ng-click="show(vehiculo)">
                                         <i class="material-icons prefix">visibility</i>
                                     </a>
-                                    <a href="javascript:" ng-click="actualizar(vehiculo)">
+                                    <a href="javascript:" ng-click="modificar(vehiculo)">
                                         <i class="material-icons prefix">mode_edit</i>
                                     </a>
                                     <a href="javascript:" ng-click="eliminar(vehiculo.placa)">
@@ -60,34 +60,43 @@
     <div id="modalNuevoVehiculo" class="modal modal-fixed-footer">
         <form action="" name="formVehiculo">
             <div class="modal-content">
-                <h2>Nuevo vehiculo</h2>
+                <h2>{{titulo}}</h2>
 
                 <div class="row">
 
                     <div class="row">
                         <div class="input-field col s6">
                             <i class="material-icons prefix">payment</i>
-                            <input id="icon_payment" type="tel" class="validate" name="placa" ng-model="placa">
-                            <label for="icon_payment">Placa</label>
+                            <input id="icon_payment" type="tel" class="validate" name="placa" ng-model="Vehiculo.placa">
+                            <label for="icon_payment" class="{{active}}">Placa</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s6">
                             <i class="material-icons prefix">local_taxi</i>
-                            <input id="icon_person" type="tel" class="validate" name="modelo" ng-model="modelo">
-                            <label for="icon_person">Modelo</label>
+                            <input id="icon_person" type="tel" class="validate" name="modelo" ng-model="Vehiculo.modelo">
+                            <label for="icon_person" class="{{active}}">Modelo</label>
                         </div>
                         <div class="input-field col s6">
                             <i class="material-icons prefix">invert_colors_off</i>
-                            <input id="icon_person" type="tel" class="validate" name="color"  ng-model="color">
-                            <label for="icon_person">Color</label>
+                            <input id="icon_person" type="tel" class="validate" name="color"  ng-model="Vehiculo.color">
+                            <label for="icon_person" class="{{active}}">Color</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s6">
                             <i class="material-icons prefix">airline_seat_recline_normal</i>
-                            <input id="icon_phone" type="tel" class="validate" name="conductor" ng-model="conductor" ng-click="buscarConductor()">
-                            <label for="icon_phone">Conductor</label>
+                            <input id="icon_phone" type="tel" class="validate" name="conductor" ng-model="Vehiculo.conductor" ng-click="buscarConductor()">
+                            <label for="icon_phone" class="{{active}}">Conductor</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <i class="material-icons prefix">payment</i>
+                            <label for="icon_payment" class="{{active}}">Tipo de documento</label>
+                            <select class="browser-default">
+                                <option value="">SEGURO</option>
+                                <option value="">SOAT</option>
+                                <option value="">TECNOMECANICA</option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -141,7 +150,7 @@
                                     <td>{{conductor.apellidos}}</td>
                                     <td>{{conductor.telefono}}</td>
                                     <td>
-                                        <a href="javascript:" ng-click="select(conductor)">
+                                        <a href="javascript:" ng-click="selectConductor(conductor.id)">
                                             <i class="material-icons prefix">visibility</i>
                                             <labe>Seleccionar</labe>
                                         </a>

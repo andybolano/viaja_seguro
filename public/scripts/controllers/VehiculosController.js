@@ -1,10 +1,18 @@
 app.controller('VehiculosController', function ($scope, VehiculoServicio) {
     $scope.Vehiculos = [];
+    $scope.vehiculo = {};
 
     $scope.titulo;
     $scope.active;
     $scope.editMode = false;
     cargarVehiculos();
+
+    function initialize(){
+        $scope.vehiculo = {
+            placa: "",
+            modelo: ""
+        }
+    }
 
     function cargarVehiculos() {
         var promiseGet = VehiculoServicio.getAll();
@@ -18,7 +26,7 @@ app.controller('VehiculosController', function ($scope, VehiculoServicio) {
     $scope.nuevoVehiculo = function  () {
         $scope.editMode = false;
         $scope.active = "";
-        $scope.Conductor = {};
+        $scope.Vehiculo = {};
         $scope.titulo = "Registrar nuevo vehiculo";
         $("#modalNuevoVehiculo").openModal();
     }
@@ -29,5 +37,18 @@ app.controller('VehiculosController', function ($scope, VehiculoServicio) {
         $scope.Conductor = {};
         $scope.titulo = "Registrar nuevo vehiculo";
         $("#modalBuscarconductor").openModal();
+    }
+
+    $scope.modificar = function  (vehiculo) {
+        $scope.editMode = true;
+        $scope.titulo = "Modificar vehiculo"
+        $scope.active = "active";
+        $scope.Vehiculo = vehiculo;
+        $("#modalNuevoVehiculo").openModal();
+    };
+
+    $scope.selectConductor = function (conductor){
+        $scope.Vehiculo.conductor = conductor;
+        $("#modalBuscarconductor").closeModal();
     }
 })

@@ -43,7 +43,7 @@
                                         <a href="javascript:" ng-click="show(conductor)">
                                             <i class="material-icons prefix">visibility</i>
                                         </a>
-                                        <a href="javascript:" ng-click="actualizar(conductor)">
+                                        <a href="javascript:" ng-click="modificar(conductor)">
                                             <i class="material-icons prefix">mode_edit</i>
                                         </a>
                                         <a href="javascript:" ng-click="eliminar(conductor.id)">
@@ -68,46 +68,46 @@
     <div id="modalNuevoConductor" class="modal modal-fixed-footer">
         <form action="" name="formConductor">
             <div class="modal-content">
-                <h2>Nuevo Conductor</h2>
+                <h2>{{titulo}}</h2>
 
                 <div class="row">
 
                     <div class="row">
                         <div class="input-field col s6">
                             <i class="material-icons prefix">payment</i>
-                            <input id="icon_payment" type="tel" class="validate" name="identificacion">
-                            <label for="icon_payment">Identificacion</label>
+                            <input id="icon_payment" type="tel" class="validate" name="id" ng-model="Conductor.id">
+                            <label for="icon_payment" class="{{active}}">Identificacion</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s6">
                             <i class="material-icons prefix">account_circle</i>
-                            <input id="icon_person" type="tel" class="validate" name="nombres">
-                            <label for="icon_person">Nombres</label>
+                            <input id="icon_person" type="tel" class="validate" name="nombres"ng-model="Conductor.nombres">
+                            <label for="icon_person" class="{{active}}">Nombres</label>
                         </div>
                         <div class="input-field col s6">
                             <i class="material-icons prefix">account_circle</i>
-                            <input id="icon_person" type="tel" class="validate" name="apellidos">
-                            <label for="icon_person">Apellidos</label>
+                            <input id="icon_person" type="tel" class="validate" name="apellidos" ng-model="Conductor.apellidos">
+                            <label for="icon_person" class="{{active}}">Apellidos</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s6">
                             <i class="material-icons prefix">person_pin_circle</i>
-                            <input id="icon_pain" type="tel" class="validate" name="direccion">
-                            <label for="icon_pain">Direccion</label>
+                            <input id="icon_pain" type="tel" class="validate" name="direccion" ng-model="Conductor.direccion">
+                            <label for="icon_pain" class="{{active}}">Direccion</label>
                         </div>
                         <div class="input-field col s6">
                             <i class="material-icons prefix">phone</i>
-                            <input id="icon_phone" type="tel" class="validate" name="telefono">
-                            <label for="icon_phone">Telefono</label>
+                            <input id="icon_phone" type="tel" class="validate" name="telefono" ng-model="Conductor.telefono">
+                            <label for="icon_phone" class="{{active}}">Telefono</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s6">
                             <i class="material-icons prefix">contact_mail</i>
-                            <input id="icon_mail" type="tel" class="validate" name="correo">
-                            <label for="icon_mail">Correo</label>
+                            <input id="icon_mail" type="tel" class="validate" name="correo" ng-model="Conductor.correo">
+                            <label for="icon_mail" class="{{active}}">Correo</label>
                         </div>
                     </div>
 

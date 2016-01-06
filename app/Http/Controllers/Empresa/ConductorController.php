@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 
 class ConductorController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -23,7 +24,8 @@ class ConductorController extends Controller
                 'apellidos' => 'Soto Acosta',
                 'direccion' => 'Cll tal cual',
                 'telefono' => '3015941826',
-                'edad' => '23 años'
+                'edad' => '23 años',
+                'correo' => 'jomisoac@gmail.com'
             ],
             [
                 'id' => '1',
@@ -32,7 +34,8 @@ class ConductorController extends Controller
                 'apellidos' => 'Soto Acosta',
                 'direccion' => 'Cll tal cual',
                 'telefono' => '3015941826',
-                'edad' => '23 años'
+                'edad' => '23 años',
+                'correo' => 'jomisoac@gmail.com'
             ],
             [
                 'id' => '2',
@@ -41,7 +44,8 @@ class ConductorController extends Controller
                 'apellidos' => 'Soto Acosta',
                 'direccion' => 'Cll tal cual',
                 'telefono' => '3015941826',
-                'edad' => '23 años'
+                'edad' => '23 años',
+                'correo' => 'jomisoac@gmail.com'
             ],
             [
                 'id' => '3',
@@ -50,7 +54,8 @@ class ConductorController extends Controller
                 'apellidos' => 'Soto Acosta',
                 'direccion' => 'Cll tal cual',
                 'telefono' => '3015941826',
-                'edad' => '23 años'
+                'edad' => '23 años',
+                'correo' => 'jomisoac@gmail.com'
             ],
             [
                 'id' => '4',
@@ -59,7 +64,8 @@ class ConductorController extends Controller
                 'apellidos' => 'Soto Acosta',
                 'direccion' => 'Cll tal cual',
                 'telefono' => '3015941826',
-                'edad' => '23 años'
+                'edad' => '23 años',
+                'correo' => 'jomisoac@gmail.com'
             ]
         ];
         return $conductores;
