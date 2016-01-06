@@ -14,5 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
 include 'Routes/Conductores.php';
 include 'Routes/Vehiculos.php';
+
+include('Routes/Empresas.php');
+include('Routes/ServiciosEmpresa.php');
