@@ -6,13 +6,26 @@ var app;
     app.config(['$routeProvider', '$locationProvider', function AppConfig($routeProvider, $locationProvider) {
             $routeProvider.when("/home", {
                 templateUrl: 'home.html'
-            })
-                    .when("/empresa/conductores", {
-                        templateUrl: 'showConductor.html',
-                    })
-                    .when("/empresa/vehiculos", {
-                        templateUrl: 'showVehiculos.html'
-                    })
+                })
+                .when("/empresa/conductores", {
+                    templateUrl: 'showConductor.html',
+                })
+                .when("/empresa/vehiculos", {
+                    templateUrl: 'showVehiculos.html'
+                })
+                .when("/empresa/clientes", {
+                    templateUrl: 'showClientes.html'
+                })
+                .when("/empresa/asignar/pasajero", {
+                    templateUrl: 'servicioPasajero.html'
+                })
+                .when("/empresa/asignar/giro", {
+                    templateUrl: 'servicioGiro.html'
+                })
+                .when("/empresa/asignar/paquete", {
+                    templateUrl: 'servicioPaquete.html'
+                })
+
                     .otherwise({redirectTo: '/home'})
         }]);
 

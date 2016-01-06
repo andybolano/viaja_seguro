@@ -17,6 +17,7 @@ Route::get('/', function () {
 
 include 'Routes/Conductores.php';
 include 'Routes/Vehiculos.php';
+include 'Routes/Clientes.php';
 
 include('Routes/Empresas.php');
 include('Routes/ServiciosEmpresa.php');
