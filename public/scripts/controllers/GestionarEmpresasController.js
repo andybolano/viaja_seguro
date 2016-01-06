@@ -9,6 +9,7 @@ function GestionarEmpresasController($scope, empresasService, serviciosEmpresaSe
     $scope.empresas = [];
     $scope.servicios = [];
     $scope.editMode = false;
+    $scope.nombreForm = "";
 
     $scope.nuevo = nuevo;
     $scope.guardar = guardar;
@@ -81,6 +82,8 @@ function GestionarEmpresasController($scope, empresasService, serviciosEmpresaSe
     function nuevo(){
         $scope.selectedEmpresa = {};
         $scope.selectedEmpresa.servicios = [];
+        $scope.nombreForm = "Nueva Empresa";
+        $scope.editMode = false;
         loadServicios();
         $("#modalNuevaEmpresa").openModal();
     }
@@ -104,6 +107,7 @@ function GestionarEmpresasController($scope, empresasService, serviciosEmpresaSe
         checkServicios(empresa);
         $scope.selectedEmpresa = empresa;
         $scope.editMode = true;
+        $scope.nombreForm = "Modificar Empresa";
         $("#modalNuevaEmpresa").openModal();
     }
 
