@@ -1,0 +1,196 @@
+<div ng-controller="ServiciosController" class="contenedor">
+    <div class="row white">
+        <div class="col s12 z-depth-1">
+            <div class="contenedor">
+                <div class="row">
+                    <div class="col s8">
+                        <h2>Pasajeros</h2>
+                    </div>
+                    <div class="col s4">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">search</i>
+                            <input id="icon_prefix" type="tel" ng-model="filtro">
+                            <label for="icon_prefix">Filtrar</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <table class="striped bordered">
+                            <thead>
+                                <th>Identificacion</th>
+                                <th>Nombres</th>
+                                <th>Apellidos</th>
+                                <th>Telefono</th>
+                                <th>Origen</th>
+                                <th>Destino</th>
+                                <th>Vehiculo</th>
+                                <th>Acciones</th>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="pasajero in Pasajeros | filter : filtro">
+                                <td>{{pasajero.idPasajero}}</td>
+                                <td>{{pasajero.nombres}}</td>
+                                <td>{{pasajero.apellidos}}</td>
+                                <td>{{pasajero.telefono}}</td>
+                                <td>{{pasajero.origen}}</td>
+                                <td>{{pasajero.destino}}</td>
+                                <td>{{pasajero.vehiculo}}</td>
+                                <td>
+                                    <a href="javascript:" ng-click="modificar(conductor)">
+                                        <i class="material-icons prefix">visibility</i>
+                                    </a>
+                                    <a href="javascript:" ng-click="eliminar(conductor.id)">
+                                        <i class="material-icons prefix">delete</i>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+        <a class="btn-floating btn-large waves-effect waves-light red" ng-click="nuevoPasajero()">
+            <i class="material-icons">add</i>
+        </a>
+    </div>
+
+    <!--modal asignar pasajeros-->
+    <div id="modalAsignarPasajero" class="modal modal-fixed-footer">
+        <form action="" name="formConductor">
+            <div class="modal-content">
+                <h2>{{titulo}}</h2>
+
+                <div class="row">
+
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <i class="material-icons prefix">payment</i>
+                            <input id="icon_payment" type="tel" class="validate" name="id" ng-model="Pasajero.idPasajero">
+                            <label for="icon_payment" class="{{active}}">Identificacion</label>
+                        </div>
+                        <div class="col s6">
+                            <a class="waves-effect waves-light btn" ng-click="buscarClientes()"><i class="material-icons left">search</i>Buscar en clientes</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <i class="material-icons prefix">account_circle</i>
+                            <input id="icon_person" type="tel" class="validate" name="nombres"ng-model="Pasajero.nombres">
+                            <label for="icon_person" class="{{active}}">Nombres</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <i class="material-icons prefix">account_circle</i>
+                            <input id="icon_person" type="tel" class="validate" name="apellidos" ng-model="Pasajero.apellidos">
+                            <label for="icon_person" class="{{active}}">Apellidos</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <i class="material-icons prefix">person_pin_circle</i>
+                            <input id="icon_pain" type="tel" class="validate" name="direccion" ng-model="Pasajero.origen">
+                            <label for="icon_pain" class="{{active}}">Origen</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <i class="material-icons prefix">person_pin_circle</i>
+                            <input id="icon_pain2" type="tel" class="validate" name="direccion" ng-model="Pasajero.destino">
+                            <label for="icon_pain2" class="{{active}}">Destino</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <i class="material-icons prefix">phone</i>
+                            <input id="icon_phone" type="tel" class="validate" name="telefono" ng-model="Pasajero.telefono">
+                            <label for="icon_phone" class="{{active}}">Telefono</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <i class="material-icons prefix">local_taxi</i>
+                            <input id="icon_taxi" type="tel" class="validate" name="correo" ng-model="Vehiculo" readonly>
+                            <label for="icon_taxi" class="active">Vehiculo en turno</label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
+                   style="margin-left:10px;">Salir</a>
+                <input type="button" class="waves-effect waves-light btn orange" ng-click="guardar()" ng-hide="editMode"
+                       ng-disabled="!formConductor.$valid" value="Guardar">
+                <input type="button" class="waves-effect waves-light btn orange" ng-click="update()" ng-show="editMode"
+                       ng-disabled="!formConductor.$valid" value="Modificar">
+            </div>
+        </form>
+    </div>
+    <!--fin modal-->
+
+    <!--modal buscar clientes-->
+
+    <div id="modalBuscarClientes" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h2>{{titulo}}</h2>
+            <div class="row white" ng-controller="ClientesController">
+                <div class="col s12 z-depth-1">
+                    <div class="contenedor">
+                        <div class="row">
+                            <div class="col s8">
+                                <h2>Gestion de Clientes</h2>
+                            </div>
+                            <div class="col s4">
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">search</i>
+                                    <input id="icon_prefix" type="tel" ng-model="filtro">
+                                    <label for="icon_prefix">Filtrar</label>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <table class="striped bordered">
+                                    <thead>
+                                    <th>Identificacion</th>
+                                    <th>Foto</th>
+                                    <th>Nombres</th>
+                                    <th>Apellidos</th>
+                                    <th>Direccion</th>
+                                    <th>Telefono</th>
+                                    <th>Acciones</th>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="cliente in Clientes | filter : filtro">
+                                        <td>{{cliente.idCliente}}</td>
+                                        <td>
+                                            <img ng-src="{{cliente.foto}}" class="circle" style="width: 35px;">
+                                        </td>
+                                        <td>{{cliente.nombres}}</td>
+                                        <td>{{cliente.apellidos}}</td>
+                                        <td>{{cliente.direccion}}</td>
+                                        <td>{{cliente.telefono}}</td>
+                                        <td>
+                                        <td>
+                                            <a href="javascript:" ng-click="selectCliente(cliente)">
+                                                <i class="material-icons prefix">visibility</i>
+                                                <labe>Seleccionar</labe>
+                                            </a>
+                                        </td>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
+                   style="margin-left:10px;">Salir</a>
+        </div>
+    </div>
+</div>

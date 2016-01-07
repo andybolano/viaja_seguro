@@ -61,12 +61,20 @@
                 <h2>{{titulo}}</h2>
 
                 <div class="row">
-
                     <div class="row">
                         <div class="input-field col s6">
                             <i class="material-icons prefix">payment</i>
                             <input id="icon_payment" type="tel" class="validate" name="placa" ng-model="Vehiculo.placa">
                             <label for="icon_payment" class="{{active}}">Placa</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <div class="col s11">
+                                <div class="file-field input-field">
+                                    <input id="foto" name="logo" type="file" accept="image/*" required>
+                                    <i class="material-icons prefix">photo</i>
+                                    <input type="text" placeholder="Foto del vehiculo" class="file-path validate">
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -88,13 +96,66 @@
                             <label for="icon_phone" class="{{active}}">Conductor</label>
                         </div>
                         <div class="input-field col s6">
+                            <i class="material-icons prefix" >event_seat</i>
+                            <input id="icon_cupo" type="tel" class="validate" name="cupos" ng-model="Vehiculo.cupos">
+                            <label for="icon_cupo" class="{{active}}">Cupos</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s4">
                             <i class="material-icons prefix">payment</i>
-                            <label for="icon_payment" class="{{active}}">Tipo de documento</label>
-                            <select class="browser-default">
-                                <option value="">SEGURO</option>
-                                <option value="">SOAT</option>
-                                <option value="">TECNOMECANICA</option>
-                            </select>
+                            Documentacion del vehiculo
+                        </div>
+                        <br><br>
+                        <div class="row">
+                            <div class="col s4">
+                                <p>
+                                    <input type="checkbox" id="seguro" />
+                                    <label for="seguro">SEGURO</label>
+                                </p>
+                            </div>
+                            <div class="col s6" ng-show="false">
+                                <p>
+                                    <label>Fecha de vencimiento</label>
+                                </p>
+                                <input type="date">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s4">
+                                <p>
+                                    <input type="checkbox" id="soat" />
+                                    <label for="soat">SOAT</label>
+                                </p>
+                            </div>
+                            <div class="col s6" ng-show="false">
+                                <p>
+                                    <label>Fecha de vencimiento</label>
+                                </p>
+                                <input type="date">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s4">
+                                <p>
+                                    <input type="checkbox" id="tecno" />
+                                    <label for="tecno">TECNOMECANICA</label>
+                                </p>
+                            </div>
+                            <div class="col s6" ng-show="false">
+                                <p>
+                                    <label>Fecha de vencimiento</label>
+                                </p>
+                                <input type="date">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s4">
+                                <p>
+                                    <input type="checkbox" id="tarjeta" />
+                                    <label for="tarjeta">TARJETA DE PROPIEDAD</label>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -124,7 +185,6 @@
                                 <input id="icon_prefix" type="tel" ng-model="filtro">
                                 <label for="icon_prefix">Filtrar</label>
                             </div>
-
                         </div>
                     </div>
                     <div class="row">

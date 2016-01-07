@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class VehiculoController extends Controller
+class ClienteController extends Controller
 {
-    private $vehiculoEnTurno = 'UJSK-345';
+
     /**
      * Display a listing of the resource.
      *
@@ -16,32 +16,32 @@ class VehiculoController extends Controller
      */
     public function index()
     {
-        $vehiculos = [
-          [
-              'placa' => 'UJSK-123',
-              'modelo' => 'KIA 2010',
-              'color' => 'Amarillo',
-              'conductor' => 'Jose miguel soto'
-          ],
+        $clientes = [
             [
-                'placa' => 'UJSK-345',
-                'modelo' => 'KIA 2010',
-                'color' => 'Amarillo',
-                'conductor' => 'Jose miguel soto'
+                'id' => '0',
+                'idCliente' => '123',
+                'foto' => 'http://materializecss.com/images/yuna.jpg',
+                'nombres' => 'Jose Miguel',
+                'apellidos' => 'Soto Acosta',
+                'direccion' => 'Cll tal cual',
+                'telefono' => '3015941826',
+                'fechaNac' => '03/07/1992'
             ],
             [
-                'placa' => 'UJSK-156',
-                'modelo' => 'KIA 2010',
-                'color' => 'Amarillo',
-                'conductor' => 'Jose miguel soto'
+                'id' => '1',
+                'idCliente' => '123',
+                'foto' => 'http://materializecss.com/images/yuna.jpg',
+                'nombres' => 'Jose Miguel',
+                'apellidos' => 'Soto Acosta',
+                'direccion' => 'Cll tal cual',
+                'telefono' => '3015941826',
+                'fechaNac' => '03/07/1992'
             ],
         ];
-        return $vehiculos;
+        return $clientes;
+
     }
 
-    public function getVehiculoEnTurno(){
-        return $this->vehiculoEnTurno;
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -61,7 +61,7 @@ class VehiculoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
@@ -72,7 +72,7 @@ class VehiculoController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
