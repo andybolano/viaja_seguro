@@ -88,14 +88,7 @@ font-size: 14px;
 height:30px;
 padding-left: 10px;
 }
- input[type="text"], input[type="password"], input[type="email"], textarea   {
-            padding: 1px;
-            margin: 0;
-            height:30px;
-            border:1px solid #c3c3c3;
-            padding-left: 10px;
-            top:-10px;
-            }
+
 
 label {
   font-size:12px;
