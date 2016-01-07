@@ -8,11 +8,11 @@ class EmpresaController extends Controller
 {
 
     private $empresas = [
-        ['id'=> '1', 'nombre'=> 'Cootrasan', 'direccion'=> 'lejos', 'telefono'=> '9876896', 'servicios' => [], 'activa' => true],
-        ['id'=> '2', 'nombre'=> 'Coomulcod', 'direccion'=> 'por ahi', 'telefono'=> '123456', 'activa' => true,
+        ['id'=> '1', 'nombre'=> 'Cootrasan', 'direccion'=> 'lejos', 'telefono'=> '9876896', 'servicios' => [], 'estado' => ['value'=> true, 'lavel'=>'Activa']],
+        ['id'=> '2', 'nombre'=> 'Coomulcod', 'direccion'=> 'por ahi', 'telefono'=> '123456', 'estado' => ['value'=> true, 'lavel'=>'Activa'],
             'servicios' => [['id' => 1, 'concepto' => 'Manejor de reservas']]
         ],
-        ['id'=> '3', 'nombre'=> 'TrnasValle', 'direccion'=> 'quien save', 'telefono'=> '495483', 'servicios' => [], 'activa' => false],
+        ['id'=> '3', 'nombre'=> 'TrnasValle', 'direccion'=> 'quien save', 'telefono'=> '495483', 'servicios' => [], 'estado' => ['value'=> false, 'lavel'=>'Inactiva']],
     ];
     /**
      * Display a listing of the resource.
@@ -21,11 +21,7 @@ class EmpresaController extends Controller
      */
     public function index()
     {
-        return [
-            ['id'=> '1', 'nombre'=> 'Cootrasan', 'direccion'=> 'lejos', 'telefono'=> '9876896', 'servicios' => []],
-            ['id'=> '2', 'nombre'=> 'Coomulcod', 'direccion'=> 'por ahi', 'telefono'=> '123456',
-                'servicios' => [['id' => 1, 'concepto' => 'Manejor de reservas']]
-            ]];
+        return $this->empresas;
     }
 
     /**

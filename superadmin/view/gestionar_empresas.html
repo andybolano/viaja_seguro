@@ -25,6 +25,7 @@
                                 <th>Dirección</th>
                                 <th>Teléfono</th>
                                 <th>Servicios contrtados</th>
+                                <th>Estado</th>
                                 <th>Acciones</th>
                                 </thead>
                                 <tbody>
@@ -37,6 +38,7 @@
                                     <td>{{empresa.direccion}}</td>
                                     <td>{{empresa.telefono}}</td>
                                     <td>{{empresa.servicios.length}}</td>
+                                    <td>{{empresa.estado.lavel}}</td>
                                     <td>
                                         <a href="javascript:" ng-click="actualizar(empresa)">
                                             <i class="material-icons prefix">visibility</i>
@@ -83,11 +85,22 @@
                     </div>
 
                     <div class="row">
-                        <div class="col s11">
+                        <div class="col s7">
                             <div class="input-field">
                                 <i class="material-icons prefix">account_circle</i>
                                 <input id="nombre" name="nombre" type="text" ng-model="selectedEmpresa.nombre" required>
                                 <label for="nombre" class="{{active}}">Nombre</label>
+                            </div>
+                        </div>
+                        <div class="col s5">
+                            <label class="active">Estado</label>
+                            <div class="switch">
+                                <label>
+                                    Activa
+                                    <input type="checkbox" ng-model="selectedEmpresa.estado.value" id="selectedEmpresa.id">
+                                    <span class="lever"></span>
+                                    Inactiva
+                                </label>
                             </div>
                         </div>
                     </div>
