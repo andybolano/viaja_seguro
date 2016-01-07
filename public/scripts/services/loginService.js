@@ -5,6 +5,6 @@
 
 app.service('loginService', function($http){
     this.login = function (usuario){
-        return $http.post(uri + '/api/login', usuario);
+        return $http.post('../public/api/login', usuario);
     }
 });

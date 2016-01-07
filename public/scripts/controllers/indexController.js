@@ -8,6 +8,11 @@ app.controller('indexController', function($scope) {
         $scope.hoy = hoy;
     }
 
+    $scope.cerrarSesion = function(){
+        sessionStorage.removeItem("usuario");
+        window.location.href = "../../public/login.html";
+    }
+
 });
 
 

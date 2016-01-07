@@ -9,8 +9,10 @@ class LoginController extends Controller
     {
         $username = $request->json()->get('name');
         $userpass = $request->json()->get('pass');
-        if($username == 'admin' && $userpass == 'admin'){
-            return ['name' => $username, 'pass' => $userpass];
+        if($username == 'admin' && $userpass == '1234'){
+            return ['name' => $username, 'pass' => $userpass, 'rol' => 'superadmin'];
+        }else if($username == 'empresa1' && $userpass == '1234'){
+            return ['name' => $username, 'pass' => $userpass, 'rol' => 'userempresa'];
         } else {
             return response()->json(['mensajeError' => 'Usuario o contraseña incorrectos'], 401);
         }
