@@ -5,6 +5,8 @@ app.controller('ServiciosController', function ($scope, serviceEmpresaServicios)
     $scope.titulo;
     $scope.active;
     $scope.editMode = false;
+    $scope.inputDisable = false;
+
     cargarGiros();
     cargarPaquetes();
     cargarPasajeros();
@@ -21,10 +23,25 @@ app.controller('ServiciosController', function ($scope, serviceEmpresaServicios)
 
     $scope.nuevoPasajero = function() {
         $scope.editMode = false;
-        $scope.active = "active";
         $scope.Pasajero = {};
         $scope.titulo = "Asignar Pasajero"
         $("#modalAsignarPasajero").openModal();
+    }
+
+    $scope.buscarClientes = function(){
+        $scope.titulo = "Seleccionar cliente como pasajero"
+        $("#modalBuscarClientes").openModal();
+    }
+
+    $scope.selectCliente = function(cliente){
+        $scope.Pasajero.idPasajero = cliente.idCliente;
+        $scope.Pasajero.nombres = cliente.nombres;
+        $scope.Pasajero.apellidos = cliente.apellidos;
+        $scope.Pasajero.origen = cliente.direccion;
+        $scope.Pasajero.telefono = cliente.telefono;
+        $scope.inputDisable = true;
+        $scope.active = 'active';
+        $("#modalBuscarClientes").closeModal();
     }
 
     function cargarGiros() {
@@ -36,6 +53,13 @@ app.controller('ServiciosController', function ($scope, serviceEmpresaServicios)
         });
     }
 
+    $scope.nuevoGiro = function() {
+        $scope.editMode = false;
+        $scope.Giro = {};
+        $scope.titulo = "Asignar Giro"
+        $("#modalAsignarGiro").openModal();
+    }
+
     function cargarPaquetes() {
         var promiseGet = serviceEmpresaServicios.getPaquetes();
         promiseGet.then(function (pl) {
@@ -43,6 +67,13 @@ app.controller('ServiciosController', function ($scope, serviceEmpresaServicios)
         },function (errorPl) {
             console.log('Error Al Cargar Datos', errorPl);
         });
+    }
+
+    $scope.nuevoPaquete = function() {
+        $scope.editMode = false;
+        $scope.Giro = {};
+        $scope.titulo = "Asignar Paquete"
+        $("#modalAsignarPaquete").openModal();
     }
 
     function cargarVehiculoEnTurno(){

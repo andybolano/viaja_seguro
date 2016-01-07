@@ -19,10 +19,10 @@ var app;
                 .when("/empresa/asignar/pasajero", {
                     templateUrl: 'servicioPasajero.html'
                 })
-                .when("/empresa/asignar/giro", {
+                .when("/empresa/asignar/giros", {
                     templateUrl: 'servicioGiro.html'
                 })
-                .when("/empresa/asignar/paquete", {
+                .when("/empresa/asignar/paquetes", {
                     templateUrl: 'servicioPaquete.html'
                 })
 
