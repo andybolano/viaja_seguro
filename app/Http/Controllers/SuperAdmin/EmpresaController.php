@@ -1,5 +1,6 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\SuperAdmin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 
@@ -7,10 +8,11 @@ class EmpresaController extends Controller
 {
 
     private $empresas = [
-        ['id'=> '1', 'nombre'=> 'Cootrasan', 'direccion'=> 'lejos', 'telefono'=> '9876896', 'servicios' => []],
-        ['id'=> '2', 'nombre'=> 'Coomulcod', 'direccion'=> 'por ahi', 'telefono'=> '123456',
+        ['id'=> '1', 'nombre'=> 'Cootrasan', 'direccion'=> 'lejos', 'telefono'=> '9876896', 'servicios' => [], 'activa' => true],
+        ['id'=> '2', 'nombre'=> 'Coomulcod', 'direccion'=> 'por ahi', 'telefono'=> '123456', 'activa' => true,
             'servicios' => [['id' => 1, 'concepto' => 'Manejor de reservas']]
-        ]
+        ],
+        ['id'=> '3', 'nombre'=> 'TrnasValle', 'direccion'=> 'quien save', 'telefono'=> '495483', 'servicios' => [], 'activa' => false],
     ];
     /**
      * Display a listing of the resource.

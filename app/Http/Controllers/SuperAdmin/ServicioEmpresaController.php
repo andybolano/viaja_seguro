@@ -1,15 +1,15 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\SuperAdmin;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 class ServicioEmpresaController extends Controller
 {
     private $servicios =[
-        ['id' => 1, 'concepto' => 'Manejor de reservas'],
-        ['id' => 2, 'concepto' => 'Giros y encomiendas'],
+        ['id' => 1, 'concepto' => 'Reservas de pasajes'],
+        ['id' => 2, 'concepto' => 'Giros'],
+        ['id' => 3, 'concepto' => 'Encomiendas'],
     ];
 
     /**
