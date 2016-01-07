@@ -12,8 +12,10 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return ('welcome');
 });
+
+Route::post('/api/login', 'LoginController@autenticarUsuario');
 
 include 'Routes/Conductores.php';
 include 'Routes/Vehiculos.php';

@@ -17,7 +17,7 @@
 <div ng-controller="indexController">
     <div class="navbar-fixed">
         <nav style="height:60px;line-height: 60px; ">
-            <div class="nav-wrapper orange accent-4">
+            <div class="nav-wrapper red accent-4">
                 <a style="float:left;margin-top:10px;margin-left:10px;width:40px; height:40px;border-radius:6px;text-align: center;"
                    class="waves-effect waves-light" onclick="abrirMenu();">
                     <i style="line-height:35px;" class="mdi-navigation-menu"></i>
@@ -46,37 +46,16 @@
                             <img alt="image" class="circle" style="border:2px solid #FFFFFF;"
                                  src="../../public/images/profile.jpg" width="50px;">
 
-                            <div style="color:#FFFFFF;font-weight:900;margin-top:-15px;">Viaja Seguro/div>
+                            <div style="color:#FFFFFF;font-weight:900;margin-top:-15px;">Viaja Seguro</div>
                                 <div style="color:#FFFFFF;margin-top:-25px;font-size:12px;">Super Administrador</div>
                             </div>
                     </li>
                 </ul>
 
-
-            <li style="background-color: #FFFFFF">
-                <ul class="collapsible" style="background-color: #FFFFFF">
-                    <li>
-                        <a class="collapsible-header  waves-effect waves-teal" href="javascript:;"
-                           style="left:-15px;width:220px;"><i class="material-icons left"
-                                                              style="margin-left:-20px;margin-top:0px">shopping_cart</i>Menu
-                            Desplegable</a>
-
-                        <div class="collapsible-body" style="background-color: #FFFFFF">
-                            <ul>
-                                <li><a href="#/pedidosClientes">item 1</a></li>
-                                <li><a href="#/pedidosVendedores">item 2</a></li>
-
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-
-
+            <li>
+                <i class="material-icons left" >perm_identity</i>
+                <a href="#/gestionar_empresas" >Gestionar Empresas</a>
             </li>
-            <li><i class="material-icons left">trending_up</i><a href="#/homeUsuario">Item Normal</a></li>
-
-
-            <li><i class="material-icons left">settings</i><a href="#/homeUsuario">Configuracion</a></li>
 
         </ul>
     </div>

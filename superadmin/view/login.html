@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html ng-app="superadmin" class="red accent-4" >
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viaja Seguro | Admin</title>
+
+    <link href="../../public/css/materialize.css" rel="stylesheet"/>
+    <link href="../../public/css/animate.css" rel="stylesheet">
+    <link href="../../public/css/style.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link rel="shortcut icon" href="../../public/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../../public/favicon.ico" type="image/x-icon">
+</head>
+<body>
+<div ng-controller="loginController">
+    <div class="row red accent-4" style="margin-top: 10%;">
+
+        <div class="col s12" style="text-align: center;">
+            <img src="../../public/images/logo.png" width="125px;">
+        </div>
+        <div class="offset-s4 col s4 z-depth-1 white" style="padding: 30px;">
+            <div class="row">
+                <div class="col s12" style="text-align: center">
+                    <h2 >Iniciar Sesion</h2>
+                </div>
+                <div class="col s12" style="text-align: center;color:red;">
+                    {{mensajeError}}
+                </div>
+            </div>
+            <form name="formLogin">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="mdi-action-account-circle prefix"></i>
+                        <input type="text" ng-model="usuario.name" id="username" name="username" required>
+                        <label class="{{active}}" for="username">Usuario</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="mdi-communication-vpn-key prefix"></i>
+                        <input type="password" ng-model="usuario.pass" id="pass" name="pass" required>
+                        <label class="{{active}}" for="pass">Contraseña</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12" style="text-align: center;">
+                        <button class="btn waves-effect waves-light red accent-4" type="submit" ng-click="iniciarSesion()"
+                                ng-class="{'disabled': formLogin.$invalid}">
+                            Iniciar Sesion
+                            <i class="material-icons right">send</i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<script src="../../public/js/jquery/jquery-2.1.1.min.js"></script>
+<script src="../../public/js/materialize.js" type="text/javascript"></script>
+<script src="../../public/js/angular/angular.js"></script>
+<script src="../../public/js/angular/angular-route.js" type="text/javascript"></script>
+<script src="../../public/js/angular/ui-utils.min.js" type="text/javascript"></script>
+<script src="../../public/scripts/route_superadmin.js" type="text/javascript"></script>
+
+<!-- controladores-->
+<script src="../../public/scripts/controllers/loginController.js" type="text/javascript"></script>
+
+<!-- servicios-->
+<script src="../../public/scripts/services/loginService.js" type="text/javascript"></script>
+
+</body>
+</html>

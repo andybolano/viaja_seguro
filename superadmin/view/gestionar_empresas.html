@@ -67,7 +67,7 @@
 
             <form action="" name="formEmpresa">
                 <div class="modal-content">
-                    <h2>Nueva Empresa</h2>
+                    <h2>{{nombreForm}}</h2>
 
                     <!img class="responsive-img" ng-src="selectedEmpresa.logo">
                     <div class="row">
@@ -98,7 +98,7 @@
                         <div class="col s11">
                             <div class="input-field">
                                 <i class="material-icons prefix">location_on</i>
-                                <input id="direccion" name="direccion" type="text" ng-model="selectedEmpresa.direccion" required>
+                                <input id="direccion" name="direccion" type="text" ng-model="selectedEmpresa.direccion" required class="active">
                                 <label for="direccion">Direccion</label>
                             </div>
                         </div>

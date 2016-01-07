@@ -12,6 +12,12 @@ var app;
             .when("/home", {
                 templateUrl: 'home.html'
             })
+            .when("/login", {
+                template: '',
+                controller:function($window){
+                        $window.location.href = "login.html";
+                    }
+            })
             .when("/gestionar_empresas", {
                 templateUrl: 'gestionar_empresas.html'
             })
