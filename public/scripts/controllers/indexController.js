@@ -9,8 +9,8 @@ app.controller('indexController', function($scope) {
     }
 
     $scope.cerrarSesion = function(){
-        sessionStorage.removeItem("usuario");
-        window.location.href = "../../public/login.html";
+        sessionStorage.removeItem('usuario');
+        window.location.href = '../../public/login.html';
     }
 
 });
