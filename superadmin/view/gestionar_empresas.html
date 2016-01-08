@@ -1,150 +1,231 @@
 <div ng-controller="GestionarEmpresasController" class="contenedor">
-        <div class="row white">
-            <div class="col s12 z-depth-1">
-                <div class="contenedor">
-                    <div class="row">
-                        <div class="col s8">
-                            <h2>Gestion de Empresas</h2>
-                        </div>
-                        <div class="col s4">
-                            <div class="input-field col s12">
-                                <i class="material-icons prefix">search</i>
-                                <input id="icon_prefix" type="text" ng-model="filtro">
-                                <label for="icon_prefix" class="{{active}}">Filtrar</label>
-                            </div>
-
-                        </div>
+    <div class="row white">
+        <div class="col s12 z-depth-1">
+            <div class="contenedor">
+                <div class="row">
+                    <div class="col s8">
+                        <h2>Gestion de Empresas</h2>
                     </div>
-                    <div class="row">
-                        <div class="col s12">
-                            <table class="striped bordered responsive-table">
-                                <thead>
-                                <th>Id</th>
-                                <th>Logo</th>
-                                <th>Nombre</th>
-                                <th>Dirección</th>
-                                <th>Teléfono</th>
-                                <th>Servicios contrtados</th>
-                                <th>Estado</th>
-                                <th>Acciones</th>
-                                </thead>
-                                <tbody>
-                                <tr ng-repeat="empresa in empresas | filter : filtro">
-                                    <td>{{empresa.id}}</td>
-                                    <td>
-                                        <img src="http://materializecss.com/images/yuna.jpg" class="circle" style="width: 35px;">
-                                    </td>
-                                    <td>{{empresa.nombre}}</td>
-                                    <td>{{empresa.direccion}}</td>
-                                    <td>{{empresa.telefono}}</td>
-                                    <td>{{empresa.servicios.length}}</td>
-                                    <td>{{empresa.estado.lavel}}</td>
-                                    <td>
-                                        <a href="javascript:" ng-click="actualizar(empresa)">
-                                            <i class="material-icons prefix">visibility</i>
-                                        </a>
-                                        <a href="javascript:" ng-click="eliminar(empresa.id)">
-                                            <i class="material-icons prefix">delete</i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+                    <div class="col s4">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">search</i>
+                            <input id="icon_prefix" type="text" ng-model="filtro">
+                            <label for="icon_prefix" class="{{active}}">Filtrar</label>
                         </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <table class="striped bordered">
+                            <thead>
+                            <th>Código</th>
+                            <th>Logo</th>
+                            <th>Nombre</th>
+                            <th>Dirección</th>
+                            <th>Teléfono</th>
+                            <th>Servicios contrtados</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="empresa in empresas | filter : filtro">
+                                <td>{{empresa.codigo}}</td>
+                                <td>
+                                    <img src="http://materializecss.com/images/yuna.jpg" class="circle"
+                                         style="width: 35px;">
+                                </td>
+                                <td>{{empresa.nombre}}</td>
+                                <td>{{empresa.direccion}}</td>
+                                <td>{{empresa.telefono}}</td>
+                                <td>{{empresa.servicios.length}}</td>
+                                <td>{{empresa.estado.lavel}}</td>
+                                <td>
+                                    <a href="javascript:" ng-click="actualizar(empresa)">
+                                        <i class="material-icons prefix">visibility</i>
+                                    </a>
+                                    <a href="javascript:" ng-click="eliminar(empresa.id)">
+                                        <i class="material-icons prefix">delete</i>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-            <a class="btn-floating btn-large waves-effect waves-light orange" ng-click="nuevo()">
-                <i class="material-icons">add</i>
-            </a>
-        </div>
+    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+        <a class="btn-floating btn-large waves-effect waves-light orange" ng-click="nuevo()">
+            <i class="material-icons">add</i>
+        </a>
+    </div>
 
-        <div id="modalNuevaEmpresa" class="modal modal-fixed-footer" >
+    <div id="modalNuevaEmpresa" class="modal modal-fixed-footer" style="width: 70%;min-height:85%;">
+        <div class="modal-content">
+            <h2>{{nombreForm}}</h2>
 
-            <form action="" name="formEmpresa">
-                <div class="modal-content">
-                    <h2>{{nombreForm}}</h2>
+            <div class="row">
 
-                    <!img class="responsive-img" ng-src="selectedEmpresa.logo">
-                    <div class="row">
-                        <div class="col s11">
-                            <div class="file-field input-field">
-                                <i class="material-icons prefix">photo</i>
-                                <input id="logo" name="logo" type="file" accept="image/*" required>
-                                <label f class="{{active}}"or="logo">
-                                    <span ng-if="!selectedEmpresa.logo">Seleccionar Logo</span>
-                                    {{selectedEmpresa.logo}}
-                                </label>
+                <div class="col s7">
+
+                    <form class="col s12" name="formEmpresa">
+                        <div class="row">
+                            <div class="col s6">
+                                <div class="input-field">
+                                    <i class="material-icons prefix">account_circle</i>
+                                    <input id="codigo" name="codigo" type="text" ng-model="selectedEmpresa.codigo"
+                                           required disabled>
+                                    <label for="codigo" class="{{active}}">Código</label>
+                                </div>
+                            </div>
+                            <div class="col s6">
+                                <label class="active">Estado</label>
+
+                                <div class="switch center">
+                                    <label>
+                                        Activa
+                                        <input type="checkbox" ng-model="selectedEmpresa.estado.value"
+                                               id="selectedEmpresa.id">
+                                        <span class="lever"></span>
+                                        Inactiva
+                                    </label>
+                                </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <div class="input-field">
+                                    <i class="material-icons prefix">account_circle</i>
+                                    <input id="nombre" name="nombre" type="text" ng-model="selectedEmpresa.nombre"
+                                           required>
+                                    <label for="nombre" class="{{active}}">Nombre</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s7">
+                                <div class="input-field">
+                                    <i class="material-icons prefix">location_on</i>
+                                    <input id="direccion" name="direccion" type="text"
+                                           ng-model="selectedEmpresa.direccion" required class="active">
+                                    <label for="direccion" class="{{active}}">Dirección</label>
+                                </div>
+                            </div>
+                            <div class="col s5">
+                                <div class="input-field">
+                                    <i class="material-icons prefix">call</i>
+                                    <input id="telefono" name="telefono" type="text" ng-model="selectedEmpresa.telefono"
+                                           required>
+                                    <label for="telefono" class="{{active}}">Teléfono</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <div class="input-field">
+                                    <i class="material-icons prefix" style="padding-left: 3px;">playlist_add_check</i>
+
+                                    <p style="padding-left: 45px; padding-top: 3px">Servicios</p>
+                                </div>
+                                <div class="divider"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <p ng-repeat="servicio in servicios" style="margin-bottom: 0; margin-top: 0; margin-left: 10px">
+                                    <input type="checkbox" ng-model="servicio.selected" id="servicio{{servicio.id}}"/>
+                                    <label for="servicio{{servicio.id}}">{{servicio.concepto}}</label>
+                                </p>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+
+                <div class="col s5">
+                    <div class="col s12" id="image" style="max-height: 300px;">
+
                     </div>
-                    <div class="row">
+
+                    <div class="file-field input-field col s12">
+                        <a id="cambiar" ng-click="modificarImagen()" hidden style="display: none" href="javascript:;"
+                           class="btn col s12 red">Cambiar</a>
                     </div>
 
-                    <div class="row">
-                        <div class="col s7">
-                            <div class="input-field">
-                                <i class="material-icons prefix">account_circle</i>
-                                <input id="nombre" name="nombre" type="text" ng-model="selectedEmpresa.nombre" required>
-                                <label for="nombre" class="{{active}}">Nombre</label>
-                            </div>
+                    <div class="file-field input-field col s12">
+                        <div class="btn col s12">
+                            <span><i class="mdi-image-photo-camera"></i></span>
+                            <input id="files" uploader-model="selectedEmpresa.logo" type="file">
                         </div>
-                        <div class="col s5">
-                            <label class="active">Estado</label>
-                            <div class="switch">
-                                <label>
-                                    Activa
-                                    <input type="checkbox" ng-model="selectedEmpresa.estado.value" id="selectedEmpresa.id">
-                                    <span class="lever"></span>
-                                    Inactiva
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s6">
-                            <div class="input-field">
-                                <i class="material-icons prefix">location_on</i>
-                                <input id="direccion" name="direccion" type="text" ng-model="selectedEmpresa.direccion" required class="active">
-                                <label for="direccion" class="{{active}}">Direccion</label>
-                            </div>
-                        </div>
-                        <div class="col s5">
-                            <div class="input-field">
-                                <i class="material-icons prefix">call</i>
-                                <input id="telefono" name="telefono" type="text" ng-model="selectedEmpresa.telefono" required>
-                                <label for="telefono" class="{{active}}">Telefono</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s4">
-                            <div class="input-field top">
-                                <i class="material-icons prefix left">playlist_add_check</i>
-                                <p style="padding-left: 45px; padding-top: 3px">Servicios</p>
-                            </div>
-                        </div>
-                        <div class="col s8">
-                            <p ng-repeat="servicio in servicios" style="margin-bottom: 0; margin-left: 10px">
-                                <input type="checkbox" ng-model="servicio.selected" id="servicio{{servicio.id}}" />
-                                <label for="servicio{{servicio.id}}">{{servicio.concepto}}</label>
-                            </p>
+                        <div class="file-path-wrapper">
+                            <!--<input class="file-path validate" type="text">-->
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
-                       style="margin-left:10px;">Salir</a>
-                    <input type="button" class="waves-effect waves-light btn orange" ng-click="guardar()" ng-hide="editMode"
-                           ng-disabled="!formEmpresa.$valid" value="Guardar">
-                    <input type="button" class="waves-effect waves-light btn orange" ng-click="update()" ng-show="editMode"
-                           ng-disabled="!formEmpresa.$valid" value="Modificar">
-                </div>
-            </form>
+
+
+            </div>
         </div>
 
+        <div class="modal-footer">
+            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
+               style="margin-left:10px;">Salir</a>
+            <input type="button" class="waves-effect waves-light btn orange" ng-click="guardar()" ng-hide="editMode"
+                   ng-disabled="!formEmpresa.$valid" value="Guardar">
+            <input type="button" class="waves-effect waves-light btn orange" ng-click="update()" ng-show="editMode"
+                   ng-disabled="!formEmpresa.$valid" value="Modificar">
+        </div>
 
     </div>
+
+
+</div>
+
+<script>
+    $(document).ready(function(){
+        function archivo(evt) {
+            var files = evt.target.files; // FileList object
+
+            //Obtenemos la imagen del campo "file".
+            for (var i = 0, f; f = files[i]; i++) {
+                //Solo admitimos imágenes.
+                if (!f.type.match('image.*')) {
+                    continue;
+                }
+
+                var reader = new FileReader();
+
+                reader.onload = (function(theFile) {
+                    return function(e) {
+                        // Creamos la imagen.
+                        document.getElementById("image").innerHTML = ['<img class="thumb" style="width:100%" src="', e.target.result, '" title="', escape(theFile.name), '"/>'].join('');
+                    };
+                })(f);
+                reader.readAsDataURL(f);
+            }
+        }
+
+        document.getElementById('files').addEventListener('change', archivo, false);
+
+        $(':file').change(function(){
+            //obtenemos un array con los datos del archivo
+            var file = $("#files")[0].files[0];
+            //obtenemos el nombre del archivo
+            var fileName = file.name;
+            //obtenemos la extensión del archivo
+            //document.getElementById("nombreImagen").value=fileName;
+            fileExtension = fileName.substring(fileName.lastIndexOf('.') + 1);
+            //obtenemos el tamaño del archivo
+            var fileSize = file.size;
+            //obtenemos el tipo de archivo image/png ejemplo
+            var fileType = file.type;
+
+            $("#cambiar").show();
+            //mensaje con la información del archivo
+            // alert("<span class='info'>Archivo para subir: "+fileName+", peso total: "+fileSize+" bytes.</span>");
+        });
+    });
+</script>

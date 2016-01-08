@@ -8,11 +8,11 @@ class EmpresaController extends Controller
 {
 
     private $empresas = [
-        ['id'=> '1', 'nombre'=> 'Cootrasan', 'direccion'=> 'lejos', 'telefono'=> '9876896', 'servicios' => [], 'estado' => ['value'=> true, 'lavel'=>'Activa']],
-        ['id'=> '2', 'nombre'=> 'Coomulcod', 'direccion'=> 'por ahi', 'telefono'=> '123456', 'estado' => ['value'=> true, 'lavel'=>'Activa'],
-            'servicios' => [['id' => 1, 'concepto' => 'Manejor de reservas']]
+        ['codigo'=> '1', 'nombre'=> 'Cootrasan', 'logo' => '', 'direccion'=> 'lejos', 'telefono'=> '9876896', 'servicios' => [], 'estado' => ['value'=> true, 'lavel'=>'Activa']],
+        ['codigo'=> '2', 'nombre'=> 'Coomulcod', 'logo' => '', 'direccion'=> 'por ahi', 'telefono'=> '123456', 'estado' => ['value'=> true, 'lavel'=>'Activa'],
+            'servicios' => [['codigo' => 1, 'concepto' => 'Manejor de reservas']]
         ],
-        ['id'=> '3', 'nombre'=> 'TrnasValle', 'direccion'=> 'quien save', 'telefono'=> '495483', 'servicios' => [], 'estado' => ['value'=> false, 'lavel'=>'Inactiva']],
+        ['codigo'=> '3', 'nombre'=> 'TrnasValle', 'logo' => '', 'direccion'=> 'quien save', 'telefono'=> '495483', 'servicios' => [], 'estado' => ['value'=> false, 'lavel'=>'Inactiva']],
     ];
     /**
      * Display a listing of the resource.
@@ -38,10 +38,10 @@ class EmpresaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $codigo
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($codigo)
     {
         //
     }
@@ -50,10 +50,10 @@ class EmpresaController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  int  $codigo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $codigo)
     {
         //
     }
@@ -61,10 +61,10 @@ class EmpresaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int  $codigo
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($codigo)
     {
         //
     }

@@ -18,6 +18,7 @@ function GestionarEmpresasController($scope, empresasService, serviciosEmpresaSe
     $scope.actualizar = actualizar;
     $scope.update = update;
     $scope.eliminar = eliminar;
+    $scope.modificarImagen = modificarImagen;
 
     init();
     function init(){
@@ -113,6 +114,10 @@ function GestionarEmpresasController($scope, empresasService, serviciosEmpresaSe
         $scope.nombreForm = "Modificar Empresa";
         $scope.active = "active";
         $("#modalNuevaEmpresa").openModal();
+    }
+
+    function modificarImagen(){
+        alert(JSON.stringify($scope.selectedEmpresa.logo));
     }
 
     function update(){
