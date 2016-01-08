@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return ('welcome');
+    echo '<script>location.href=\'login.html\';</script>';
 });
 
 Route::post('/api/login', 'LoginController@autenticarUsuario');

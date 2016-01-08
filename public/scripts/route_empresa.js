@@ -29,6 +29,20 @@ var app;
                     .otherwise({redirectTo: '/home'})
         }]);
 
+
+    app.run(function($rootScope, $location){
+        $rootScope.$on('$routeChangeStart', function(){
+            var usuario = JSON.parse(sessionStorage.getItem('usuario'));
+            var owner = 'userempresa';
+            if(!usuario || usuario.rol != owner){
+                window.location.href = '../../public/login.html';
+            }
+            if(($location.path() === '/login') && usuario.rol == owner){
+                $location.path('/home');
+            }
+        })
+    });
+
     app.directive('ngEnter', function () {
         return function (scope, elements, attrs) {
             elements.bind('keydown keypress', function (event) {

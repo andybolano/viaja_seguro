@@ -7,15 +7,13 @@ var app;
 
 
         $routeProvider
-
-
             .when("/home", {
                 templateUrl: 'home.html'
             })
             .when("/login", {
                 template: '',
-                controller:function($window){
-                        $window.location.href = "login.html";
+                controller:function(){
+                        window.location.href = '../../public/login.html';
                     }
             })
             .when("/gestionar_empresas", {
@@ -27,6 +25,19 @@ var app;
 
 
     }]);
+
+    app.run(function($rootScope, $location){
+        $rootScope.$on('$routeChangeStart', function(){
+            var usuario = JSON.parse(sessionStorage.getItem('usuario'));
+            var owner = 'superadmin';
+            if(!usuario || usuario.rol != owner){
+                window.location.href = '../../public/login.html';
+            }
+            if(($location.path() === '/login') && usuario.rol == owner){
+                $location.path('/home');
+            }
+        })
+    });
 
     app.directive('ngEnter', function () {
         return function (scope, elements, attrs) {
