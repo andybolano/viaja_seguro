@@ -23,6 +23,7 @@
                             <th>Modelo</th>
                             <th>Color</th>
                             <th>Conductor</th>
+                            <th>Cupos</th>
                             <th>Acciones</th>
                             </thead>
                             <tbody>
@@ -31,8 +32,8 @@
                                 <td>{{vehiculo.modelo}}</td>
                                 <td>{{vehiculo.color}}</td>
                                 <td>{{vehiculo.conductor}}</td>
+                                <td>{{vehiculo.cupos}}</td>
                                 <td>
-                               
                                     <a href="javascript:" ng-click="modificar(vehiculo)">
                                         <i class="material-icons prefix">visibility</i>
                                     </a>
@@ -54,122 +55,153 @@
             <i class="material-icons">add</i>
         </a>
     </div>
-    <!--modal nuevo vehiculo-->
-    <div id="modalNuevoVehiculo" class="modal modal-fixed-footer">
-        <form action="" name="formVehiculo">
-            <div class="modal-content">
-                <h2>{{titulo}}</h2>
 
-                <div class="row">
-                    <div class="row">
-                        <div class="input-field col s6">
-                            <i class="material-icons prefix">payment</i>
-                            <input id="icon_payment" type="tel" class="validate" name="placa" ng-model="Vehiculo.placa">
-                            <label for="icon_payment" class="{{active}}">Placa</label>
-                        </div>
-                        <div class="input-field col s6">
-                            <div class="col s11">
-                                <div class="file-field input-field">
-                                    <input id="foto" name="logo" type="file" accept="image/*" required>
-                                    <i class="material-icons prefix">photo</i>
-                                    <input type="text" placeholder="Foto del vehiculo" class="file-path validate">
-                                </div>
+
+    <!--modal nuevo vehiculo-->
+    <div id="modalNuevoVehiculo" class="modal modal-fixed-footer" style="width: 90%;min-height:85%;">
+        <div class="modal-content">
+            <h2>{{titulo}}</h2>
+            <div class="row">
+                <div class="col s8">
+                    <form class="col s12">
+                        <div class="row">
+                            <div class="input-field col s4">
+                                <i class="material-icons prefix">payment</i>
+                                <input id="icon_payment" type="tel" class="validate" name="placa" ng-model="Vehiculo.placa">
+                                <label for="icon_payment" class="{{active}}">Placa</label>
+                            </div>
+
+                            <div class="input-field col s4">
+                                <i class="material-icons prefix">local_taxi</i>
+                                <input id="icon_person" type="text" class="validate" name="modelo" ng-model="Vehiculo.modelo">
+                                <label for="icon_person" class="{{active}}">Modelo</label>
+                            </div>
+                            <div class="input-field col s4">
+                                <i class="material-icons prefix">invert_colors_off</i>
+                                <input id="icon_person2" type="text" class="validate" name="color"  ng-model="Vehiculo.color">
+                                <label for="icon_person2" class="{{active}}">Color</label>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="input-field col s4">
+                                <i class="material-icons prefix">airline_seat_recline_normal</i>
+                                <input id="icon_phone" type="text" class="validate" name="conductor" ng-model="Vehiculo.conductor" ng-click="buscarConductor()">
+                                <label for="icon_phone" class="{{active}}">Conductor</label>
+                            </div>
+                            <div class="input-field col s4">
+                                <i class="material-icons prefix" >event_seat</i>
+                                <input id="icon_cupo" type="text" class="validate" name="cupos" ng-model="Vehiculo.cupos">
+                                <label for="icon_cupo" class="{{active}}">Cupos</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <i class="material-icons prefix">payment</i>
+                                Documentacion del vehiculo
+                            </div>
+
+                            <div class="row col s6">
+                                <fieldset>
+                                    <div class="col s4">
+                                        <p>
+                                            <input type="checkbox" id="seguro" />
+                                            <label for="seguro">SEGURO</label>
+                                        </p>
+                                    </div>
+                                    <div class="col s12" ng-show="true">
+                                        <p>
+                                            <label>Fecha de vencimiento</label>
+                                        </p>
+                                        <input type="date">
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="row col s6">
+                                <fieldset>
+                                    <div class="col s4">
+                                        <p>
+                                            <input type="checkbox" id="soat" />
+                                            <label for="soat">SOAT</label>
+                                        </p>
+                                    </div>
+                                    <div class="col s12" ng-show="true">
+                                        <p>
+                                            <label>Fecha de vencimiento</label>
+                                        </p>
+                                        <input type="date">
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="row col s6">
+                                <fieldset>
+                                    <div class="col s4">
+                                        <p>
+                                            <input type="checkbox" id="tecno" />
+                                            <label for="tecno">TECNOMECANICA</label>
+                                        </p>
+                                    </div>
+                                    <div class="col s12" ng-show="true">
+                                        <p>
+                                            <label>Fecha de vencimiento</label>
+                                        </p>
+                                        <input type="date">
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="row col s6">
+                                <fieldset>
+                                    <div class="col s12">
+                                        <p>
+                                            <input type="checkbox" id="tarjeta" />
+                                            <label for="tarjeta">TARJETA DE PROPIEDAD</label>
+                                        </p>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+
+                <div class="col s4">
+                    <div class="col s12" id="image">
+
                     </div>
-                    <div class="row">
-                        <div class="input-field col s6">
-                            <i class="material-icons prefix">local_taxi</i>
-                            <input id="icon_person" type="tel" class="validate" name="modelo" ng-model="Vehiculo.modelo">
-                            <label for="icon_person" class="{{active}}">Modelo</label>
-                        </div>
-                        <div class="input-field col s6">
-                            <i class="material-icons prefix">invert_colors_off</i>
-                            <input id="icon_person" type="tel" class="validate" name="color"  ng-model="Vehiculo.color">
-                            <label for="icon_person" class="{{active}}">Color</label>
-                        </div>
+
+                    <div class="file-field input-field col s12">
+                        <a id="cambiar" ng-click="modificarImagen()" hidden style="display: none" href="javascript:;" class="btn col s12 red">Cambiar</a>
                     </div>
-                    <div class="row">
-                        <div class="input-field col s6">
-                            <i class="material-icons prefix">airline_seat_recline_normal</i>
-                            <input id="icon_phone" type="tel" class="validate" name="conductor" ng-model="Vehiculo.conductor" ng-click="buscarConductor()">
-                            <label for="icon_phone" class="{{active}}">Conductor</label>
+
+                    <div class="file-field input-field col s12">
+                        <div class="btn col s12">
+                            <span><i class="mdi-image-photo-camera"></i></span>
+                            <input id="files" uploader-model="Conductor.imagen" type="file">
                         </div>
-                        <div class="input-field col s6">
-                            <i class="material-icons prefix" >event_seat</i>
-                            <input id="icon_cupo" type="tel" class="validate" name="cupos" ng-model="Vehiculo.cupos">
-                            <label for="icon_cupo" class="{{active}}">Cupos</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s4">
-                            <i class="material-icons prefix">payment</i>
-                            Documentacion del vehiculo
-                        </div>
-                        <br><br>
-                        <div class="row">
-                            <div class="col s4">
-                                <p>
-                                    <input type="checkbox" id="seguro" />
-                                    <label for="seguro">SEGURO</label>
-                                </p>
-                            </div>
-                            <div class="col s6" ng-show="false">
-                                <p>
-                                    <label>Fecha de vencimiento</label>
-                                </p>
-                                <input type="date">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col s4">
-                                <p>
-                                    <input type="checkbox" id="soat" />
-                                    <label for="soat">SOAT</label>
-                                </p>
-                            </div>
-                            <div class="col s6" ng-show="false">
-                                <p>
-                                    <label>Fecha de vencimiento</label>
-                                </p>
-                                <input type="date">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col s4">
-                                <p>
-                                    <input type="checkbox" id="tecno" />
-                                    <label for="tecno">TECNOMECANICA</label>
-                                </p>
-                            </div>
-                            <div class="col s6" ng-show="false">
-                                <p>
-                                    <label>Fecha de vencimiento</label>
-                                </p>
-                                <input type="date">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col s4">
-                                <p>
-                                    <input type="checkbox" id="tarjeta" />
-                                    <label for="tarjeta">TARJETA DE PROPIEDAD</label>
-                                </p>
-                            </div>
+                        <div class="file-path-wrapper">
+                            <!--<input class="file-path validate" type="text">-->
                         </div>
                     </div>
                 </div>
+
+
             </div>
-            <div class="modal-footer">
-                <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
-                   style="margin-left:10px;">Salir</a>
-                <input type="button" class="waves-effect waves-light btn orange" ng-click="guardar()" ng-hide="editMode"
-                       ng-disabled="!formVehiculo.$valid" value="Guardar">
-                <input type="button" class="waves-effect waves-light btn orange" ng-click="update()" ng-show="editMode"
-                       ng-disabled="!formVehiculo.$valid" value="Modificar">
-            </div>
-        </form>
+        </div>
+
+        <div class="modal-footer">
+            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red " style="margin-left:10px;">Salir</a>
+            <a ng-disabled="!formVehiculo.$valid"  class="waves-effect waves-light btn green" ng-hide="editMode" ng-click="guardar()">Guardar</a>
+            <a ng-disabled="!formVehiculo.$valid"  class="waves-effect waves-light btn green" ng-show="editMode" ng-click="modificar()">Modificar</a>
+        </div>
+
     </div>
+
+
+
+
+
+
+
+
     <!--modal buscar conductor-->
     <div id="modalBuscarconductor" class="modal modal-fixed-footer" ng-controller="ConductorController">
         <div class="row white">
@@ -226,6 +258,52 @@
                    style="margin-left:10px;">Salir</a>
             </div>
     </div>
-
+</div>
 
 </div>
+
+<script>
+    $(document).ready(function(){
+        function archivo(evt) {
+            var files = evt.target.files;
+
+            //Obtenemos la imagen
+            for (var i = 0, f; f = files[i]; i++) {
+                //Solo imágenes.
+                if (!f.type.match('image.*')) {
+                    continue;
+                }
+
+                var reader = new FileReader();
+
+                reader.onload = (function(theFile) {
+                    return function(e) {
+                        // se crea la imagen
+                        document.getElementById("image").innerHTML = ['<img class="thumb" style="width:100%;" src="', e.target.result, '" title="', escape(theFile.name), '"/>'].join('');
+                    };
+                })(f);
+                reader.readAsDataURL(f);
+            }
+        }
+
+        document.getElementById('files').addEventListener('change', archivo, false);
+
+        $(':file').change(function(){
+            //obtenemos un array con los datos del archivo
+            var file = $("#files")[0].files[0];
+            //obtenemos el nombre del archivo
+            var fileName = file.name;
+            //obtenemos la extensión del archivo
+            fileExtension = fileName.substring(fileName.lastIndexOf('.') + 1);
+            //obtenemos el tamaño del archivo
+            var fileSize = file.size;
+            //obtenemos el tipo de archivo image/png ejemplo
+            var fileType = file.type;
+
+            $("#cambiar").show();
+            //mensaje con la información del archivo
+            // alert("<span class='info'>Archivo para subir: "+fileName+", peso total: "+fileSize+" bytes.</span>");
+        });
+    });
+</script>
+

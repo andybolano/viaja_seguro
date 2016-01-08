@@ -21,19 +21,22 @@ class VehiculoController extends Controller
               'placa' => 'UJSK-123',
               'modelo' => 'KIA 2010',
               'color' => 'Amarillo',
-              'conductor' => 'Jose miguel soto'
+              'conductor' => 'Jose miguel soto',
+              'cupos' => '4'
           ],
             [
                 'placa' => 'UJSK-345',
                 'modelo' => 'KIA 2010',
                 'color' => 'Amarillo',
-                'conductor' => 'Jose miguel soto'
+                'conductor' => 'Jose miguel soto',
+                'cupos' => '4'
             ],
             [
                 'placa' => 'UJSK-156',
                 'modelo' => 'KIA 2010',
                 'color' => 'Amarillo',
-                'conductor' => 'Jose miguel soto'
+                'conductor' => 'Jose miguel soto',
+                'cupos' => '4'
             ],
         ];
         return $vehiculos;
