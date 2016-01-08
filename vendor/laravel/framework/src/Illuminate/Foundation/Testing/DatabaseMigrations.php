@@ -6,7 +6,9 @@ trait DatabaseMigrations
 {
     public function runDatabaseMigrations()
     {
-        $this->artisan('migrate');
+        $this->afterApplicationCreated(function () {
+            $this->artisan('migrate');
+        });
 
         $this->beforeApplicationDestroyed(function () {
             $this->artisan('migrate:rollback');
