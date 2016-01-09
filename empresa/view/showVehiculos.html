@@ -219,7 +219,7 @@
                                 <th>Nombres</th>
                                 <th>Apellidos</th>
                                 <th>Teléfono</th>
-                                <th>Acciones</th>
+                                <th>Seleccionar</th>
                                 </thead>
                                 <tbody>
                                 <tr ng-repeat="conductor in Conductores | filter : filtro">
@@ -232,8 +232,7 @@
                                     <td>{{conductor.telefono}}</td>
                                     <td>
                                         <a href="javascript:" ng-click="selectConductor(conductor.id)">
-                                            <i class="material-icons prefix">visibility</i>
-                                            <labe>Seleccionar</labe>
+                                            <i class="material-icons prefix">touch_app</i>
                                         </a>
                                     </td>
                                 </tr>

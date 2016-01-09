@@ -73,8 +73,8 @@
                             <input id="icon_payment" type="text" class="validate" name="id" ng-model="Pasajero.idPasajero">
                             <label for="icon_payment" class="{{active}}">Identificación</label>
                         </div>
-                        <div class="col s6">
-                            <a class="waves-effect waves-light btn" ng-click="buscarClientes()"><i class="material-icons left">search</i>Buscar en clientes</a>
+                        <div class="input-field col s1">
+                            <a class="btn-floating btn-sm waves-effect waves-light light-green" ng-click="buscarClientes()"><i class="material-icons">search</i></a>
                         </div>
                     </div>
                     <div class="row">
@@ -137,9 +137,6 @@
                 <div class="col s12 z-depth-1">
                     <div class="contenedor">
                         <div class="row">
-                            <div class="col s8">
-                                <h2>Gestion de Clientes</h2>
-                            </div>
                             <div class="col s4">
                                 <div class="input-field col s12">
                                     <i class="material-icons prefix">search</i>
@@ -159,7 +156,7 @@
                                     <th>Apellidos</th>
                                     <th>Dirección</th>
                                     <th>Teléfono</th>
-                                    <th>Acciones</th>
+                                    <th>Seleccionar</th>
                                     </thead>
                                     <tbody>
                                     <tr ng-repeat="cliente in Clientes | filter : filtro">
@@ -172,12 +169,9 @@
                                         <td>{{cliente.direccion}}</td>
                                         <td>{{cliente.telefono}}</td>
                                         <td>
-                                        <td>
                                             <a href="javascript:" ng-click="selectCliente(cliente)">
-                                                <i class="material-icons prefix">visibility</i>
-                                                <labe>Seleccionar</labe>
+                                                <i class="material-icons prefix">touch_app</i>
                                             </a>
-                                        </td>
                                         </td>
                                     </tr>
                                     </tbody>

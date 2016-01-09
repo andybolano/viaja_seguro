@@ -29,16 +29,27 @@ app.controller('ServiciosController', function ($scope, serviceEmpresaServicios)
     }
 
     $scope.buscarClientes = function(){
-        $scope.titulo = "Seleccionar cliente como pasajero"
+        $scope.titulo = "Seleccionar cliente"
         $("#modalBuscarClientes").openModal();
     }
 
     $scope.selectCliente = function(cliente){
+        $scope.Giro = cliente;
         $scope.Pasajero.idPasajero = cliente.idCliente;
         $scope.Pasajero.nombres = cliente.nombres;
         $scope.Pasajero.apellidos = cliente.apellidos;
         $scope.Pasajero.origen = cliente.direccion;
         $scope.Pasajero.telefono = cliente.telefono;
+        $scope.inputDisable = true;
+        $scope.active = 'active';
+        $("#modalBuscarClientes").closeModal();
+    }
+
+    $scope.selectClienteGiro = function(cliente){
+        $scope.Giro.idRemitente = cliente.idCliente;
+        $scope.Giro.nombresRemitente = cliente.nombres + " " + cliente.apellidos;
+        $scope.Giro.telRemitente = cliente.telefono;
+        $scope.Giro.origen = cliente.direccion;
         $scope.inputDisable = true;
         $scope.active = 'active';
         $("#modalBuscarClientes").closeModal();
