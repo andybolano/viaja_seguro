@@ -1,0 +1,190 @@
+<div ng-controller="PagosController" class="contenedor">
+    <div class="row white">
+        <div class="col s12 z-depth-1">
+            <div class="contenedor">
+                <div class="row">
+                    <div class="col s8">
+                        <h2>Planillas</h2>
+                    </div>
+                    <div class="col s4">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">search</i>
+                            <input id="icon_prefix" type="tel" ng-model="filtro">
+                            <label for="icon_prefix">Filtrar</label>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <table class="striped bordered">
+                            <thead>
+                            <th>Numero de planilla</th>
+                            <th>Conductor</th>
+                            <th>Acciones</th>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="planilla in Planillas | filter : filtro">
+                                <td>{{planilla.numPlanilla}}</td>
+                                <td>{{planilla.conductor}}</td>
+                                <td>
+                                    <a href="javascript:" ng-click="modificar(planilla)">
+                                        <i class="material-icons prefix">visibility</i>
+                                    </a>
+                                    <a href="javascript:" ng-click="eliminar(planilla.id)">
+                                        <i class="material-icons prefix">delete</i>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+        <a class="btn-floating btn-large waves-effect waves-light red" ng-click="nuevoPagoPlanilla()">
+            <i class="material-icons">add</i>
+        </a>
+    </div>
+
+    <!--Modal nueva planilla-->
+    <div id="modalPagarPlanilla" class="modal modal-fixed-footer" style="width: 90%;min-height:85%;">
+        <div class="modal-content">
+            <h2>{{titulo}}</h2>
+            <div class="row">
+                <div class="row col s9">
+                    <form class="col s12">
+                        <div class="row">
+                            <div class="input-field col s4">
+                                <i class="material-icons prefix">payment</i>
+                                <input  id="icon_payment" type="text" class="validate" name="id" value="0002" readonly>
+                                <label for="icon_payment" class="active">Numero de panilla de viaje</label>
+                            </div>
+                            <div class="input-field col s4" ng-controller="ServiciosController">
+                                <i class="material-icons prefix">payment</i>
+                                <input  id="icon_payment3" type="text" class="validate" name="id" ng-model="Vehiculo" readonly>
+                                <label for="icon_payment3" class="active">Vehiculo en turno</label>
+                            </div>
+                            <div class="input-field col s4" ng-controller="ServiciosController">
+                                <i class="material-icons prefix">attach_money</i>
+                                <input  id="icon_payment4" type="text" class="validate" name="id" ng-value="10000 | currency" readonly>
+                                <label for="icon_payment4" class="active">Valor fijo de planilla</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s4">
+                                <i class="material-icons prefix">payment</i>
+                                <input  id="icon_payment1" type="text" class="validate" name="id" ng-model="Planilla.id" >
+                                <label for="icon_payment1" class="{{active}}">Identificacion del conductor</label>
+                            </div>
+                            <div class="input-field col s4">
+                                <i class="material-icons prefix">person</i>
+                                <input  id="icon_person" type="text" class="validate" name="id" ng-model="Planilla.nombres" >
+                                <label for="icon_person" class="{{active}}">Nombre del conductor</label>
+                            </div>
+                            <div class="input-field col s3">
+                                <i class="material-icons prefix">phone</i>
+                                <input id="icon_phone" type="text" class="validate" name="telefono" ng-model="Planilla.telefono">
+                                <label for="icon_phone" class="{{active}}">Telefono</label>
+
+                            </div>
+                            <div class="input-field col s1">
+                                <a class="btn-floating btn-sm waves-effect waves-light light-green" ng-click="buscarConductor()"><i class="material-icons">search</i></a>
+                            </div>
+                        </div>
+                        <div class="row col s12">
+                            <h2>Datos pasajeros</h2><br>
+                        </div>
+                        <div class="row" data-ng-repeat="i in [1,2,3,4]">
+                            <fieldset id="field">
+                                <div class="input-field col s4">
+                                    <i class="material-icons prefix">payment</i>
+                                    <input  id="icon_payment2" type="text" class="validate" name="id" ng-model="Planilla.idPasajero" >
+                                    <label for="icon_payment2" class="{{active}}">Identificacion del pasajero</label>
+                                </div>
+                                <div class="input-field col s4">
+                                    <i class="material-icons prefix">person</i>
+                                    <input  id="icon_person1" type="text" class="validate" name="id" ng-model="Planilla.nombresPasajero" >
+                                    <label for="icon_person1" class="{{active}}">Nombre del pasajero</label>
+                                </div>
+                                <div class="input-field col s3">
+                                    <i class="material-icons prefix">phone</i>
+                                    <input id="icon_phone1" type="text" class="validate" name="telefono" ng-model="Planilla.telefonoPasajero">
+                                    <label for="icon_phone1" class="{{active}}">Telefono</label>
+
+                                </div>
+                            </fieldset>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red " style="margin-left:10px;">Salir</a>
+            <a ng-disabled="!formPlanilla.$valid"  class="waves-effect waves-light btn green" ng-hide="editMode" ng-click="guardar()">Guardar</a>
+            <a ng-disabled="!formPlanilla.$valid"  class="waves-effect waves-light btn green" ng-show="editMode" ng-click="modificar()">Modificar</a>
+        </div>
+
+    </div>
+
+    <!--modal buscar conductor-->
+    <div id="modalBuscarconductor" class="modal modal-fixed-footer" ng-controller="ConductorController">
+        <div class="row white">
+            <div class="col s12 z-depth-1">
+                <div class="contenedor">
+                    <div class="row">
+                        <div class="col s8">
+                            <h2>Seleccionar conductor</h2>
+                        </div>
+                        <div class="col s4">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">search</i>
+                                <input id="icon_search" type="tel" ng-model="filtro">
+                                <label for="icon_search">Filtrar</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <table class="striped bordered">
+                                <thead>
+                                <th>Id</th>
+                                <th>Foto</th>
+                                <th>Nombres</th>
+                                <th>Apellidos</th>
+                                <th>Telefono</th>
+                                <th>Acciones</th>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="conductor in Conductores | filter : filtro">
+                                    <td>{{conductor.id}}</td>
+                                    <td>
+                                        <img src="http://materializecss.com/images/yuna.jpg" class="circle" style="width: 35px;">
+                                    </td>
+                                    <td>{{conductor.nombres}}</td>
+                                    <td>{{conductor.apellidos}}</td>
+                                    <td>{{conductor.telefono}}</td>
+                                    <td>
+                                        <a href="javascript:" ng-click="selectConductor(conductor)">
+                                            <i class="material-icons prefix">touch_app</i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
+                   style="margin-left:10px;">Salir</a>
+            </div>
+        </div>
+    </div>
+</div>

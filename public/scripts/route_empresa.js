@@ -25,8 +25,19 @@ var app;
                 .when("/empresa/asignar/paquetes", {
                     templateUrl: 'servicioPaquete.html'
                 })
-
-                    .otherwise({redirectTo: '/home'})
+                .when("/empresa/pagos/planilla", {
+                    templateUrl: 'showPagosPlanilla.html'
+                })
+                .when("/empresa/pagos/ahorro", {
+                    templateUrl: 'showPagosAhorro.html'
+                })
+                .when("/empresa/pagos/pension", {
+                    templateUrl: 'showPagosPension.html'
+                })
+                .when("/empresa/pagos/seguridad", {
+                    templateUrl: 'showPagosSeguridad.html'
+                })
+                 .otherwise({redirectTo: '/home'})
         }]);
 
 
