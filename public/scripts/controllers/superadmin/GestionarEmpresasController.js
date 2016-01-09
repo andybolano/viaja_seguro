@@ -19,6 +19,7 @@ function GestionarEmpresasController($scope, empresasService, serviciosEmpresaSe
     $scope.update = update;
     $scope.eliminar = eliminar;
     $scope.modificarImagen = modificarImagen;
+    $scope.showNoLogo = showNoLogo;
 
     init();
     function init(){
@@ -88,17 +89,20 @@ function GestionarEmpresasController($scope, empresasService, serviciosEmpresaSe
         $scope.nombreForm = "Nueva Empresa";
         $scope.active = "";
         $scope.editMode = false;
+        $scope.fileimage = null;
         loadServicios();
         $("#modalNuevaEmpresa").openModal();
     }
 
     function guardar(){
         updateServicios($scope.selectedEmpresa);
-        $scope.empresas.push($scope.selectedEmpresa);
-        success(1);
         empresasService.post($scope.selectedEmpresa).then(success, error);
         function success(p) {
+
             $("#modalNuevaEmpresa").closeModal();
+            $scope.selectedEmpresa = p.data;
+            modificarImagen();
+            $scope.empresas.push($scope.selectedEmpresa);
             //init();
             Materialize.toast('Registro guardado correctamente', 5000);
         }
@@ -117,16 +121,35 @@ function GestionarEmpresasController($scope, empresasService, serviciosEmpresaSe
     }
 
     function modificarImagen(){
-        alert(JSON.stringify($scope.selectedEmpresa.logo));
+        if($scope.fileimage) {
+            var data = new FormData();
+            data.append('logo', $scope.fileimage);
+            empresasService.postLogo($scope.selectedEmpresa.codigo, data).then(success, error);
+            function success(p) {
+                //init();
+                $scope.selectedEmpresa.logo = p.data.nombrefile;
+                Materialize.toast('Logo guardado correctamente', 5000);
+            }
+
+            function error(error) {
+                Materialize.toast('No se pudo guardar el archivo, error inesperado', 5000);
+                console.log('Error al guardar', error);
+            }
+        }
+    }
+
+    function showNoLogo(){
+        alert('error al cargar imagen')
     }
 
     function update(){
         updateServicios($scope.selectedEmpresa);
         success(1);
-        //empresasService.put($scope.selectedEmpresa, $scope.selectedEmpresa.id).then(success, error);
+        //empresasService.put($scope.selectedEmpresa, $scope.selectedEmpresa.codigo).then(success, error);
         function success(p) {
             $("#modalNuevaEmpresa").closeModal();
             $scope.editMode = false;
+            modificarImagen();
             //init();
             Materialize.toast('Registro modificado correctamente', 5000);
         }
@@ -135,11 +158,12 @@ function GestionarEmpresasController($scope, empresasService, serviciosEmpresaSe
         }
     }
 
-    function eliminar(id){
-        success(1);
-        //empresasService.delete($scope.selectedEmpresa.id).then(success, error);
+    function eliminar(codigo){
+        if(confirm('¿Deseas eliminar el registro?') ==true) {
+            success(1);
+            //empresasService.delete(codigo).then(success, error);
+        }
         function success(p) {
-            $("#modalNuevaEmpresa").closeModal();
             //init();
             Materialize.toast('Registro eliminado', 5000);
         }
