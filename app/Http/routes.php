@@ -20,6 +20,7 @@ Route::post('/api/login', 'LoginController@autenticarUsuario');
 include 'Routes/Conductores.php';
 include 'Routes/Vehiculos.php';
 include 'Routes/Clientes.php';
+include 'Routes/Pagos.php';
 
 include('Routes/Empresas.php');
 include('Routes/ServiciosEmpresa.php');
