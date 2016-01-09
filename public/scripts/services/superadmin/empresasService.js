@@ -17,6 +17,14 @@ function empresasService($http) {
         return $http.post(uri + '/api/empresas', object);
     }
 
+    this.postLogo = function (id, object) {
+        return $http.post(
+            uri + '/api/empresas/' + id + '/logo', object,
+            {transformRequest: angular.identity, headers: {'Content-Type': undefined}
+            }
+        );
+    }
+
     this.put = function (object, id) {
         return $http.put(uri + '/api/empresa/' + id, object);
     }

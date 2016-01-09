@@ -8,11 +8,11 @@ class EmpresaController extends Controller
 {
 
     private $empresas = [
-        ['codigo'=> '1', 'nombre'=> 'Cootrasan', 'logo' => '', 'direccion'=> 'lejos', 'telefono'=> '9876896', 'servicios' => [], 'estado' => ['value'=> true, 'lavel'=>'Activa']],
-        ['codigo'=> '2', 'nombre'=> 'Coomulcod', 'logo' => '', 'direccion'=> 'por ahi', 'telefono'=> '123456', 'estado' => ['value'=> true, 'lavel'=>'Activa'],
+        ['codigo'=> '1', 'nombre'=> 'Cootrasan', 'logo' => 'http://localhost/midev/viaja_seguro/public/images/empresas/empresa1.png', 'direccion'=> 'lejos', 'telefono'=> '9876896', 'servicios' => [], 'estado' => ['value'=> true, 'lavel'=>'Activa']],
+        ['codigo'=> '2', 'nombre'=> 'Coomulcod', 'logo' => 'http://localhost/midev/viaja_seguro/public/images/empresas/empresa2.png', 'direccion'=> 'por ahi', 'telefono'=> '123456', 'estado' => ['value'=> true, 'lavel'=>'Activa'],
             'servicios' => [['codigo' => 1, 'concepto' => 'Manejor de reservas']]
         ],
-        ['codigo'=> '3', 'nombre'=> 'TrnasValle', 'logo' => '', 'direccion'=> 'quien save', 'telefono'=> '495483', 'servicios' => [], 'estado' => ['value'=> false, 'lavel'=>'Inactiva']],
+        ['codigo'=> '3', 'nombre'=> 'TrnasValle', 'logo' => 'http://localhost/midev/viaja_seguro/public/images/empresas/empresa3.png', 'direccion'=> 'quien save', 'telefono'=> '495483', 'servicios' => [], 'estado' => ['value'=> false, 'lavel'=>'Inactiva']],
     ];
     /**
      * Display a listing of the resource.
@@ -32,7 +32,35 @@ class EmpresaController extends Controller
      */
     public function store(Request $request)
     {
+        try{
+            $data = $request->json()->all();
+            $data['codigo'] = '4';
+            //guardar modelo
+            return response()->json($data, 201);
+        } catch (\Exception $exc) {
+            return response()->json(array("exception"=>$exc->getMessage()), 400);
+        }
+    }
 
+    /**
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $codigo
+     * @return mixed
+     */
+    public function saveLogo(Request $request, $codigo)
+    {
+        try{
+            if ($request->hasFile('logo')) {
+                $request->file('logo')->move('images/empresas/', "empresa$codigo.png");
+                //actualizar ruta en el modelo
+                $nombrefile = $_SERVER['PHP_SELF'].'/../images/empresas/'."empresa$codigo.png";
+                return response()->json(['nombrefile'=>$nombrefile], 201);
+            }else {
+                return response()->json([], 400);
+            }
+        } catch (\Exception $exc) {
+            return response()->json(array("exception"=>$exc->getMessage()), 400);
+        }
     }
 
     /**
