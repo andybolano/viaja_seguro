@@ -19,7 +19,7 @@
                     <div class="col s12">
                         <table class="striped bordered">
                             <thead>
-                            <th>Numero de planilla</th>
+                            <th>Número de planilla</th>
                             <th>Conductor</th>
                             <th>Acciones</th>
                             </thead>
@@ -61,24 +61,26 @@
                             <div class="input-field col s4">
                                 <i class="material-icons prefix">payment</i>
                                 <input  id="icon_payment" type="text" class="validate" name="id" value="0002" readonly>
-                                <label for="icon_payment" class="active">Numero de panilla de viaje</label>
+                                <label for="icon_payment" class="active">Número de planilla de viaje</label>
                             </div>
                             <div class="input-field col s4" ng-controller="ServiciosController">
                                 <i class="material-icons prefix">payment</i>
                                 <input  id="icon_payment3" type="text" class="validate" name="id" ng-model="Vehiculo" readonly>
-                                <label for="icon_payment3" class="active">Vehiculo en turno</label>
+                                <label for="icon_payment3" class="active">Vehículo en turno</label>
                             </div>
                             <div class="input-field col s4" ng-controller="ServiciosController">
                                 <i class="material-icons prefix">attach_money</i>
                                 <input  id="icon_payment4" type="text" class="validate" name="id" ng-value="10000 | currency" readonly>
                                 <label for="icon_payment4" class="active">Valor fijo de planilla</label>
                             </div>
+                            <input type="date" class="datepicker">
+
                         </div>
                         <div class="row">
                             <div class="input-field col s4">
                                 <i class="material-icons prefix">payment</i>
                                 <input  id="icon_payment1" type="text" class="validate" name="id" ng-model="Planilla.id" >
-                                <label for="icon_payment1" class="{{active}}">Identificacion del conductor</label>
+                                <label for="icon_payment1" class="{{active}}">Identificación del conductor</label>
                             </div>
                             <div class="input-field col s4">
                                 <i class="material-icons prefix">person</i>
@@ -88,7 +90,7 @@
                             <div class="input-field col s3">
                                 <i class="material-icons prefix">phone</i>
                                 <input id="icon_phone" type="text" class="validate" name="telefono" ng-model="Planilla.telefono">
-                                <label for="icon_phone" class="{{active}}">Telefono</label>
+                                <label for="icon_phone" class="{{active}}">Teléno</label>
 
                             </div>
                             <div class="input-field col s1">
@@ -103,7 +105,7 @@
                                 <div class="input-field col s4">
                                     <i class="material-icons prefix">payment</i>
                                     <input  id="icon_payment2" type="text" class="validate" name="id" ng-model="Planilla.idPasajero" >
-                                    <label for="icon_payment2" class="{{active}}">Identificacion del pasajero</label>
+                                    <label for="icon_payment2" class="{{active}}">Identificación del pasajero</label>
                                 </div>
                                 <div class="input-field col s4">
                                     <i class="material-icons prefix">person</i>
@@ -113,7 +115,7 @@
                                 <div class="input-field col s3">
                                     <i class="material-icons prefix">phone</i>
                                     <input id="icon_phone1" type="text" class="validate" name="telefono" ng-model="Planilla.telefonoPasajero">
-                                    <label for="icon_phone1" class="{{active}}">Telefono</label>
+                                    <label for="icon_phone1" class="{{active}}">Teléfono</label>
 
                                 </div>
                             </fieldset>
@@ -157,7 +159,7 @@
                                 <th>Nombres</th>
                                 <th>Apellidos</th>
                                 <th>Telefono</th>
-                                <th>Acciones</th>
+                                <th>Seleccionar</th>
                                 </thead>
                                 <tbody>
                                 <tr ng-repeat="conductor in Conductores | filter : filtro">
@@ -188,3 +190,13 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function(){
+        $('.datepicker').pickadate({
+            selectMonths: true, // Creates a dropdown to control month
+            selectYears: 15 // Creates a dropdown of 15 years to control year
+        });
+    });
+</script>
+

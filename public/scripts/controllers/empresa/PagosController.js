@@ -32,12 +32,12 @@ app.controller('PagosController', function ($scope, serviceEmpresaPagos) {
     $scope.nuevoPagoPlanilla = function() {
         $scope.editMode = false;
         $scope.Planilla = {};
-        $scope.titulo = "Modal planilla"
+        $scope.titulo = "Nueva planilla"
         $("#modalPagarPlanilla").openModal();
     }
 
     $scope.buscarConductor = function(){
-        $scope.titulo = "Seleccione el conductor para la planilla";
+        $scope.titulo = "Formulario de planilla";
         $("#modalBuscarconductor").openModal();
     }
 
