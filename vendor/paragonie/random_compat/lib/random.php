@@ -58,11 +58,7 @@ if (PHP_VERSION_ID < 70000) {
          */
         if (extension_loaded('libsodium')) {
             // See random_bytes_libsodium.php
-            if (PHP_VERSION_ID >= 50300 && function_exists('\\Sodium\\randombytes_buf')) {
-                require_once $RandomCompatDIR.'/random_bytes_libsodium.php';
-            } elseif (method_exists('Sodium', 'randombytes_buf')) {
-                require_once $RandomCompatDIR.'/random_bytes_libsodium_legacy.php';
-            }
+            require_once $RandomCompatDIR.'/random_bytes_libsodium.php';
         }
         if (
             !function_exists('random_bytes') && 
@@ -79,8 +75,8 @@ if (PHP_VERSION_ID < 70000) {
             // that is not helpful to us here.
             
             // See random_bytes_dev_urandom.php
-                require_once $RandomCompatDIR.'/random_bytes_dev_urandom.php';
-            }
+            require_once $RandomCompatDIR.'/random_bytes_dev_urandom.php';
+        }
         if (
             !function_exists('random_bytes') &&
             PHP_VERSION_ID >= 50307 &&

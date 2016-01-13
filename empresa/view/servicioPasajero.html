@@ -9,8 +9,8 @@
                     <div class="col s4">
                         <div class="input-field col s12">
                             <i class="material-icons prefix">search</i>
-                            <input id="icon_prefix" type="tel" ng-model="filtro">
-                            <label for="icon_prefix">Filtrar</label>
+                            <input id="icon_prefix1" type="text" ng-model="filtro">
+                            <label for="icon_prefix1">Filtrar</label>
                         </div>
                     </div>
                 </div>
@@ -18,10 +18,10 @@
                     <div class="col s12">
                         <table class="striped bordered">
                             <thead>
-                                <th>Identificacion</th>
+                                <th>Identificación</th>
                                 <th>Nombres</th>
                                 <th>Apellidos</th>
-                                <th>Telefono</th>
+                                <th>Teléfono</th>
                                 <th>Origen</th>
                                 <th>Destino</th>
                                 <th>Vehiculo</th>
@@ -70,46 +70,46 @@
                     <div class="row">
                         <div class="input-field col s6">
                             <i class="material-icons prefix">payment</i>
-                            <input id="icon_payment" type="tel" class="validate" name="id" ng-model="Pasajero.idPasajero">
-                            <label for="icon_payment" class="{{active}}">Identificacion</label>
+                            <input id="icon_payment" type="text" class="validate" name="id" ng-model="Pasajero.idPasajero">
+                            <label for="icon_payment" class="{{active}}">Identificación</label>
                         </div>
-                        <div class="col s6">
-                            <a class="waves-effect waves-light btn" ng-click="buscarClientes()"><i class="material-icons left">search</i>Buscar en clientes</a>
+                        <div class="input-field col s1">
+                            <a class="btn-floating btn-sm waves-effect waves-light light-green" ng-click="buscarClientes()"><i class="material-icons">search</i></a>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s6">
                             <i class="material-icons prefix">account_circle</i>
-                            <input id="icon_person" type="tel" class="validate" name="nombres"ng-model="Pasajero.nombres">
+                            <input id="icon_person" type="text" class="validate" name="nombres"ng-model="Pasajero.nombres">
                             <label for="icon_person" class="{{active}}">Nombres</label>
                         </div>
                         <div class="input-field col s6">
                             <i class="material-icons prefix">account_circle</i>
-                            <input id="icon_person" type="tel" class="validate" name="apellidos" ng-model="Pasajero.apellidos">
+                            <input id="icon_person" type="text" class="validate" name="apellidos" ng-model="Pasajero.apellidos">
                             <label for="icon_person" class="{{active}}">Apellidos</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s6">
                             <i class="material-icons prefix">person_pin_circle</i>
-                            <input id="icon_pain" type="tel" class="validate" name="direccion" ng-model="Pasajero.origen">
+                            <input id="icon_pain" type="text" class="validate" name="direccion" ng-model="Pasajero.origen">
                             <label for="icon_pain" class="{{active}}">Origen</label>
                         </div>
                         <div class="input-field col s6">
                             <i class="material-icons prefix">person_pin_circle</i>
-                            <input id="icon_pain2" type="tel" class="validate" name="direccion" ng-model="Pasajero.destino">
+                            <input id="icon_pain2" type="text" class="validate" name="direccion" ng-model="Pasajero.destino">
                             <label for="icon_pain2" class="{{active}}">Destino</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s6">
                             <i class="material-icons prefix">phone</i>
-                            <input id="icon_phone" type="tel" class="validate" name="telefono" ng-model="Pasajero.telefono">
-                            <label for="icon_phone" class="{{active}}">Telefono</label>
+                            <input id="icon_phone" type="text" class="validate" name="telefono" ng-model="Pasajero.telefono">
+                            <label for="icon_phone" class="{{active}}">Teléfono</label>
                         </div>
                         <div class="input-field col s6">
                             <i class="material-icons prefix">local_taxi</i>
-                            <input id="icon_taxi" type="tel" class="validate" name="correo" ng-model="Vehiculo" readonly>
+                            <input id="icon_taxi" type="text" class="validate" name="correo" ng-model="Vehiculo" readonly>
                             <label for="icon_taxi" class="active">Vehiculo en turno</label>
                         </div>
                     </div>
@@ -137,13 +137,10 @@
                 <div class="col s12 z-depth-1">
                     <div class="contenedor">
                         <div class="row">
-                            <div class="col s8">
-                                <h2>Gestion de Clientes</h2>
-                            </div>
                             <div class="col s4">
                                 <div class="input-field col s12">
                                     <i class="material-icons prefix">search</i>
-                                    <input id="icon_prefix" type="tel" ng-model="filtro">
+                                    <input id="icon_prefix" type="text" ng-model="filtro">
                                     <label for="icon_prefix">Filtrar</label>
                                 </div>
 
@@ -153,13 +150,13 @@
                             <div class="col s12">
                                 <table class="striped bordered">
                                     <thead>
-                                    <th>Identificacion</th>
+                                    <th>Identificacin</th>
                                     <th>Foto</th>
                                     <th>Nombres</th>
                                     <th>Apellidos</th>
-                                    <th>Direccion</th>
-                                    <th>Telefono</th>
-                                    <th>Acciones</th>
+                                    <th>Dirección</th>
+                                    <th>Teléfono</th>
+                                    <th>Seleccionar</th>
                                     </thead>
                                     <tbody>
                                     <tr ng-repeat="cliente in Clientes | filter : filtro">
@@ -172,12 +169,9 @@
                                         <td>{{cliente.direccion}}</td>
                                         <td>{{cliente.telefono}}</td>
                                         <td>
-                                        <td>
                                             <a href="javascript:" ng-click="selectCliente(cliente)">
-                                                <i class="material-icons prefix">visibility</i>
-                                                <labe>Seleccionar</labe>
+                                                <i class="material-icons prefix">touch_app</i>
                                             </a>
-                                        </td>
                                         </td>
                                     </tr>
                                     </tbody>

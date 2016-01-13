@@ -655,7 +655,7 @@ class Builder
     }
 
     /**
-     * Add a relationship count / exists condition to the query.
+     * Add a relationship count condition to the query.
      *
      * @param  string  $relation
      * @param  string  $operator
@@ -672,13 +672,7 @@ class Builder
 
         $relation = $this->getHasRelationQuery($relation);
 
-        // If we only need to check for the existence of the relation, then we can
-        // optimize the subquery to only run a "where exists" clause instead of
-        // the full "count" clause. This will make the query run much faster.
-        $queryType = $this->shouldRunExistsQuery($operator, $count)
-                ? 'getRelationQuery' : 'getRelationCountQuery';
-
-        $query = $relation->{$queryType}($relation->getRelated()->newQuery(), $this);
+        $query = $relation->getRelationCountQuery($relation->getRelated()->newQuery(), $this);
 
         if ($callback) {
             call_user_func($callback, $query);
@@ -690,7 +684,7 @@ class Builder
     }
 
     /**
-     * Add nested relationship count / exists conditions to the query.
+     * Add nested relationship count conditions to the query.
      *
      * @param  string  $relations
      * @param  string  $operator
@@ -718,7 +712,7 @@ class Builder
     }
 
     /**
-     * Add a relationship count / exists condition to the query.
+     * Add a relationship count condition to the query.
      *
      * @param  string  $relation
      * @param  string  $boolean
@@ -731,7 +725,7 @@ class Builder
     }
 
     /**
-     * Add a relationship count / exists condition to the query with where clauses.
+     * Add a relationship count condition to the query with where clauses.
      *
      * @param  string    $relation
      * @param  \Closure  $callback
@@ -745,7 +739,7 @@ class Builder
     }
 
     /**
-     * Add a relationship count / exists condition to the query with where clauses.
+     * Add a relationship count condition to the query with where clauses.
      *
      * @param  string  $relation
      * @param  \Closure|null  $callback
@@ -757,7 +751,7 @@ class Builder
     }
 
     /**
-     * Add a relationship count / exists condition to the query with an "or".
+     * Add a relationship count condition to the query with an "or".
      *
      * @param  string  $relation
      * @param  string  $operator
@@ -770,7 +764,7 @@ class Builder
     }
 
     /**
-     * Add a relationship count / exists condition to the query with where clauses and an "or".
+     * Add a relationship count condition to the query with where clauses and an "or".
      *
      * @param  string    $relation
      * @param  \Closure  $callback
@@ -797,45 +791,11 @@ class Builder
     {
         $this->mergeModelDefinedRelationWheresToHasQuery($hasQuery, $relation);
 
-        if ($this->shouldRunExistsQuery($operator, $count)) {
-            $not = ($operator === '<' && $count === 1);
-
-            return $this->addWhereExistsQuery($hasQuery->toBase(), $boolean, $not);
-        }
-
-        return $this->whereCountQuery($hasQuery->toBase(), $operator, $count, $boolean);
-    }
-
-    /**
-     * Check if we can run an "exists" query to optimize performance.
-     *
-     * @param  string  $operator
-     * @param  int  $count
-     * @return bool
-     */
-    protected function shouldRunExistsQuery($operator, $count)
-    {
-        return ($operator === '>=' && $count === 1) || ($operator === '<' && $count === 1);
-    }
-
-    /**
-     * Add a sub query count clause to the query.
-     *
-     * @param  \Illuminate\Database\Query\Builder $query
-     * @param  string  $operator
-     * @param  int  $count
-     * @param  string  $boolean
-     * @return $this
-     */
-    protected function whereCountQuery(QueryBuilder $query, $operator = '>=', $count = 1, $boolean = 'and')
-    {
         if (is_numeric($count)) {
             $count = new Expression($count);
         }
 
-        $this->query->addBinding($query->getBindings(), 'where');
-
-        return $this->where(new Expression('('.$query->toSql().')'), $operator, $count, $boolean);
+        return $this->where(new Expression('('.$hasQuery->toSql().')'), $operator, $count, $boolean);
     }
 
     /**
@@ -855,6 +815,8 @@ class Builder
         $hasQuery->mergeWheres(
             $relationQuery->wheres, $relationQuery->getBindings()
         );
+
+        $this->query->addBinding($hasQuery->getBindings(), 'where');
     }
 
     /**

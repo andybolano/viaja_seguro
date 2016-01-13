@@ -398,7 +398,7 @@ if (! function_exists('data_get')) {
         while (($segment = array_shift($key)) !== null) {
             if ($segment === '*') {
                 if (! is_array($target) && ! $target instanceof ArrayAccess) {
-                    return value($default);
+                    return $default;
                 }
 
                 $result = Arr::pluck($target, $key);

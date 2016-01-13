@@ -107,7 +107,7 @@ class Dispatcher implements DispatcherContract
      */
     public function hasListeners($eventName)
     {
-        return isset($this->listeners[$eventName]) || isset($this->wildcards[$eventName]);
+        return isset($this->listeners[$eventName]);
     }
 
     /**
@@ -457,11 +457,7 @@ class Dispatcher implements DispatcherContract
      */
     public function forget($event)
     {
-        if (Str::contains($event, '*')) {
-            unset($this->wildcards[$event]);
-        } else {
-            unset($this->listeners[$event], $this->sorted[$event]);
-        }
+        unset($this->listeners[$event], $this->sorted[$event]);
     }
 
     /**

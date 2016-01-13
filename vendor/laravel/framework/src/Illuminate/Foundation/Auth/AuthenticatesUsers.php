@@ -105,7 +105,7 @@ trait AuthenticatesUsers
     /**
      * Get the failed login response instance.
      *
-     * @param \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request  $response
      * @return \Illuminate\Http\Response
      */
     protected function sendFailedLoginResponse(Request $request)
@@ -157,7 +157,7 @@ trait AuthenticatesUsers
      */
     public function logout()
     {
-        Auth::guard($this->getGuard())->logout();
+        Auth::logout();
 
         return redirect(property_exists($this, 'redirectAfterLogout') ? $this->redirectAfterLogout : '/');
     }

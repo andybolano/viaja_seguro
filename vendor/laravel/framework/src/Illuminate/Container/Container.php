@@ -739,13 +739,7 @@ class Container implements ArrayAccess, ContainerContract
         // an abstract type such as an Interface of Abstract Class and there is
         // no binding registered for the abstractions so we need to bail out.
         if (! $reflector->isInstantiable()) {
-            if (! empty($this->buildStack)) {
-                $previous = implode(', ', $this->buildStack);
-
-                $message = "Target [$concrete] is not instantiable while building [$previous].";
-            } else {
-                $message = "Target [$concrete] is not instantiable.";
-            }
+            $message = "Target [$concrete] is not instantiable.";
 
             throw new BindingResolutionException($message);
         }

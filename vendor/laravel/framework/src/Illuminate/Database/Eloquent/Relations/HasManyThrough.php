@@ -79,20 +79,19 @@ class HasManyThrough extends Relation
     }
 
     /**
-     * Add the constraints for a relationship query.
+     * Add the constraints for a relationship count query.
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @param  \Illuminate\Database\Eloquent\Builder  $parent
-     * @param  array|mixed  $columns
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function getRelationQuery(Builder $query, Builder $parent, $columns = ['*'])
+    public function getRelationCountQuery(Builder $query, Builder $parent)
     {
         $parentTable = $this->parent->getTable();
 
         $this->setJoin($query);
 
-        $query->select($columns);
+        $query->select(new Expression('count(*)'));
 
         $key = $this->wrap($parentTable.'.'.$this->firstKey);
 

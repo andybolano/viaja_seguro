@@ -40,13 +40,6 @@ class Translator extends NamespacedItemResolver implements TranslatorInterface
     protected $loaded = [];
 
     /**
-     * The message selector.
-     * 
-     * @var \Symfony\Component\Translation\MessageSelector
-     */
-    protected $selector;
-
-    /**
      * Create a new translator instance.
      *
      * @param  \Illuminate\Translation\LoaderInterface  $loader
