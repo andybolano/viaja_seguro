@@ -67,7 +67,24 @@
                         <div class="row">
                             <div class="input-field col s4">
                                 <i class="material-icons prefix">payment</i>
-                                <input id="icon_payment" type="tel" class="validate" name="placa" ng-model="Vehiculo.placa">
+                                <input id="icon_payment2" type="text" class="validate" name="propietario" ng-model="Vehiculo.propietario">
+                                <label for="icon_payment2" class="{{active}}">Identificacion propietario</label>
+                            </div>
+                            <div class="input-field col s4">
+                                <i class="material-icons prefix">person</i>
+                                <input id="icon_person3" type="text" class="validate" name="nombreP" ng-model="Vehiculo.nombrePropietario">
+                                <label for="icon_person3" class="{{active}}">Nombres propietario</label>
+                            </div>
+                            <div class="input-field col s4">
+                                <i class="material-icons prefix" >phone</i>
+                                <input id="icon_phone1" type="text" class="validate" name="phone" ng-model="Vehiculo.telefonoPropietario">
+                                <label for="icon_phone1" class="{{active}}">Telefono</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s4">
+                                <i class="material-icons prefix">payment</i>
+                                <input id="icon_payment" type="text" class="validate" name="placa" ng-model="Vehiculo.placa">
                                 <label for="icon_payment" class="{{active}}">Placa</label>
                             </div>
 
@@ -86,7 +103,12 @@
                             <div class="input-field col s4">
                                 <i class="material-icons prefix">airline_seat_recline_normal</i>
                                 <input id="icon_phone" type="text" class="validate" name="conductor" ng-model="Vehiculo.conductor" ng-click="buscarConductor()">
-                                <label for="icon_phone" class="{{active}}">Conductor</label>
+                                <label for="icon_phone" class="{{active}}">Identificacion conductor</label>
+                            </div>
+                            <div class="input-field col s4">
+                                <i class="material-icons prefix">person</i>
+                                <input id="icon_person1" type="text" class="validate" name="nombreC" ng-model="Vehiculo.nombreConductor">
+                                <label for="icon_person2" class="{{active}}">Conductor</label>
                             </div>
                             <div class="input-field col s4">
                                 <i class="material-icons prefix" >event_seat</i>
@@ -231,7 +253,7 @@
                                     <td>{{conductor.apellidos}}</td>
                                     <td>{{conductor.telefono}}</td>
                                     <td>
-                                        <a href="javascript:" ng-click="selectConductor(conductor.id)">
+                                        <a href="javascript:" ng-click="selectConductor(conductor)">
                                             <i class="material-icons prefix">touch_app</i>
                                         </a>
                                     </td>

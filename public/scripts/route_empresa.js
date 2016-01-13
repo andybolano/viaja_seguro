@@ -40,7 +40,10 @@ var app;
                 .when("/empresa/pagos/seguridad", {
                     templateUrl: 'showPagosSeguridad.html'
                 })
-                 .otherwise({redirectTo: '/home'})
+                .when("/empresa/deducciones", {
+                    templateUrl: 'showDeducciones.html'
+                })
+                 .otherwise({redirectTo: '/'})
         }]);
 
 

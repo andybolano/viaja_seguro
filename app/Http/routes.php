@@ -21,6 +21,7 @@ include 'Routes/Conductores.php';
 include 'Routes/Vehiculos.php';
 include 'Routes/Clientes.php';
 include 'Routes/Pagos.php';
+include 'Routes/Deducciones.php';
 
 include('Routes/Empresas.php');
 include('Routes/ServiciosEmpresa.php');

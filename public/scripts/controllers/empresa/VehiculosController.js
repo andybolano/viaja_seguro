@@ -45,7 +45,8 @@ app.controller('VehiculosController', function ($scope, VehiculoServicio) {
     };
 
     $scope.selectConductor = function (conductor){
-        $scope.Vehiculo.conductor = conductor;
+        $scope.Vehiculo.conductor = conductor.id;
+        $scope.Vehiculo.nombreConductor = conductor.nombres + " " + conductor.apellidos;
         $scope.active = 'active';
         $("#modalBuscarconductor").closeModal();
     }
