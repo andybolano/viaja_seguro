@@ -7,8 +7,11 @@ var app;
             $routeProvider.when("/home", {
                 templateUrl: 'home.html'
                 })
+                .when("/empresa/centrales", {
+                    templateUrl: 'gestionarCentrales.html'
+                })
                 .when("/empresa/conductores", {
-                    templateUrl: 'showConductor.html',
+                    templateUrl: 'showConductor.html'
                 })
                 .when("/empresa/vehiculos", {
                     templateUrl: 'showVehiculos.html'
