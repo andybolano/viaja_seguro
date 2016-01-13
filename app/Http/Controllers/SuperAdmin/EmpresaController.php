@@ -8,11 +8,11 @@ class EmpresaController extends Controller
 {
 
     private $empresas = [
-        ['codigo'=> '1', 'nombre'=> 'Cootrasan', 'logo' => 'http://localhost/midev/viaja_seguro/public/images/empresas/empresa1.png', 'direccion'=> 'lejos', 'telefono'=> '9876896', 'servicios' => [], 'estado' => ['value'=> true, 'lavel'=>'Activa']],
-        ['codigo'=> '2', 'nombre'=> 'Coomulcod', 'logo' => 'http://localhost/midev/viaja_seguro/public/images/empresas/empresa2.png', 'direccion'=> 'por ahi', 'telefono'=> '123456', 'estado' => ['value'=> true, 'lavel'=>'Activa'],
+        ['id' => 1, 'nit'=> '344353451', 'pjuridica'=> '4645635', 'nombre'=> 'Cootrasan', 'logo' => 'http://localhost/midev/viaja_seguro/public/images/empresas/empresa1.png', 'direccion'=> 'lejos', 'telefono'=> '9876896', 'servicios' => [], 'estado' => ['value'=> true, 'lavel'=>'Activa']],
+        ['id' => 2, 'nit'=> '224534521', 'pjuridica'=> '3453454', 'nombre'=> 'Coomulcod', 'logo' => 'http://localhost/midev/viaja_seguro/public/images/empresas/empresa2.png', 'direccion'=> 'por ahi', 'telefono'=> '123456', 'estado' => ['value'=> true, 'lavel'=>'Activa'],
             'servicios' => [['codigo' => 1, 'concepto' => 'Manejor de reservas']]
         ],
-        ['codigo'=> '3', 'nombre'=> 'TrnasValle', 'logo' => 'http://localhost/midev/viaja_seguro/public/images/empresas/empresa3.png', 'direccion'=> 'quien save', 'telefono'=> '495483', 'servicios' => [], 'estado' => ['value'=> false, 'lavel'=>'Inactiva']],
+        ['id' => 3, 'nit'=> '334354353', 'pjuridica'=> '3465775', 'nombre'=> 'TrnasValle', 'logo' => 'http://localhost/midev/viaja_seguro/public/images/empresas/empresa3.png', 'direccion'=> 'quien save', 'telefono'=> '495483', 'servicios' => [], 'estado' => ['value'=> false, 'lavel'=>'Inactiva']],
     ];
     /**
      * Display a listing of the resource.

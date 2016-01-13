@@ -19,8 +19,9 @@
                     <div class="col s12">
                         <table class="striped bordered">
                             <thead>
-                            <th>Código</th>
-                            <th>Logo</th>
+                            <th></th>
+                            <th>NIT</th>
+                            <th>Personeria Juridica nº</th>
                             <th>Nombre</th>
                             <th>Dirección</th>
                             <th>Teléfono</th>
@@ -30,10 +31,11 @@
                             </thead>
                             <tbody>
                             <tr ng-repeat="empresa in empresas | filter : filtro">
-                                <td>{{empresa.codigo}}</td>
                                 <td>
                                     <img src="{{empresa.logo}}" class="circle" style="width: 30px; height: 30px; margin-top: 4px">
                                 </td>
+                                <td>{{empresa.nit}}</td>
+                                <td>{{empresa.pjuridica}}</td>
                                 <td>{{empresa.nombre}}</td>
                                 <td>{{empresa.direccion}}</td>
                                 <td>{{empresa.telefono}}</td>
@@ -74,10 +76,10 @@
                         <div class="row">
                             <div class="col s6">
                                 <div class="input-field">
-                                    <i class="material-icons prefix">account_circle</i>
-                                    <input id="codigo" name="codigo" type="text" ng-model="selectedEmpresa.codigo"
+                                    <i class="material-icons prefix">payment</i>
+                                    <input id="codigo" name="codigo" type="text" ng-model="selectedEmpresa.nit"
                                            disabled>
-                                    <label for="codigo" class="{{active}}">Código</label>
+                                    <label for="codigo" class="{{active}}">NIT</label>
                                 </div>
                             </div>
                             <div class="col s6">
@@ -91,6 +93,16 @@
                                         <span class="lever"></span>
                                         Inactiva
                                     </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <div class="input-field">
+                                    <i class="material-icons prefix">book</i>
+                                    <input id="pjuridica" name="pjuridica" type="text" ng-model="selectedEmpresa.pjuridica"
+                                           required>
+                                    <label for="pjuridica" class="{{active}}">Personeria Juridica nº</label>
                                 </div>
                             </div>
                         </div>
