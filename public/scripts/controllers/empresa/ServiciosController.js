@@ -95,4 +95,18 @@ app.controller('ServiciosController', function ($scope, serviceEmpresaServicios)
             console.log('Error Al Cargar Datos', errorPl);
         });
     }
+
+    $scope.eliminar = function (deduccion){
+        if(confirm('¿Deseas eliminar el registro?') ==true) {
+            success(1);
+            //centralesService.delete(codigo).then(success, error);
+        }
+        function success(p) {
+            //init();
+            Materialize.toast('Registro eliminado', 5000);
+        }
+        function error(error) {
+            cconsole.log('Error al eliminar', error);
+        }
+    }
 })
