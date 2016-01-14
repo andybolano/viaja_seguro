@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Empresa;
 
+use App\Conductor;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Mockery\CountValidator\Exception;
 
 class ConductorController extends Controller
 {
@@ -16,60 +19,8 @@ class ConductorController extends Controller
      */
     public function index()
     {
-        $conductores = [
-            [
-                'id' => '0',
-                'foto' => 'http://materializecss.com/images/yuna.jpg',
-                'nombres' => 'Jose Miguel',
-                'apellidos' => 'Soto Acosta',
-                'direccion' => 'Cll tal cual',
-                'telefono' => '3015941826',
-                'edad' => '23 años',
-                'correo' => 'jomisoac@gmail.com'
-            ],
-            [
-                'id' => '1',
-                'foto' => 'http://materializecss.com/images/yuna.jpg',
-                'nombres' => 'Jose Miguel',
-                'apellidos' => 'Soto Acosta',
-                'direccion' => 'Cll tal cual',
-                'telefono' => '3015941826',
-                'edad' => '23 años',
-                'correo' => 'jomisoac@gmail.com'
-            ],
-            [
-                'id' => '2',
-                'foto' => 'http://materializecss.com/images/yuna.jpg',
-                'nombres' => 'Jose Miguel',
-                'apellidos' => 'Soto Acosta',
-                'direccion' => 'Cll tal cual',
-                'telefono' => '3015941826',
-                'edad' => '23 años',
-                'correo' => 'jomisoac@gmail.com'
-            ],
-            [
-                'id' => '3',
-                'foto' => 'http://materializecss.com/images/yuna.jpg',
-                'nombres' => 'Jose Miguel',
-                'apellidos' => 'Soto Acosta',
-                'direccion' => 'Cll tal cual',
-                'telefono' => '3015941826',
-                'edad' => '23 años',
-                'correo' => 'jomisoac@gmail.com'
-            ],
-            [
-                'id' => '4',
-                'foto' => 'http://materializecss.com/images/yuna.jpg',
-                'nombres' => 'Jose Miguel',
-                'apellidos' => 'Soto Acosta',
-                'direccion' => 'Cll tal cual',
-                'telefono' => '3015941826',
-                'edad' => '23 años',
-                'correo' => 'jomisoac@gmail.com'
-            ]
-        ];
+        $conductores = Conductor::all();
         return $conductores;
-
     }
 
 
@@ -143,7 +94,26 @@ class ConductorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try{
+//            $data = $request->all();
+            $conductor = Conductor::select("*")
+                ->where("identificacion", $id)
+                ->first();
+
+            $conductor->identificacion = $request->identificacion;
+            $conductor->nombres = $request->nombres;
+            $conductor->apellidos = $request->apellidos;
+            $conductor->direccion = $request->direccion;
+            $conductor->telefono = $request->telefono;
+            $conductor->correo = $request->correo;
+            if($conductor->save() == true){
+                return JsonResponse::create(array('message' => "Actualizado Correctamente"), 200);
+            }else {
+                return JsonResponse::create(array('message' => "No se pudo actualizar el registro"), 200);
+            }
+        }catch(Exception $e){
+            return JsonResponse::create(array('message' => "No se pudo guardar el registro", "exception"=>$e->getMessage()), 401);
+        }
     }
 
     /**
@@ -154,6 +124,20 @@ class ConductorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try{
+            $conductor = Conductor::select("*")
+                ->where("identificacion", $id)
+                ->first();
+            if (is_null ($conductor))
+            {
+                App::abort(404);
+            }else{
+                $conductor->delete();
+                return JsonResponse::create(array('message' => "Conductor eliminado correctamente", "request" =>json_encode($id)), 200);
+            }
+        }catch (Exception $ex) {
+            return JsonResponse::create(array('message' => "No se pudo Eliminar el conductor", "exception"=>$ex->getMessage(), "request" =>json_encode($id)), 401);
+        }
+
     }
 }

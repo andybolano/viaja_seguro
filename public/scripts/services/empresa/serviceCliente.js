@@ -11,17 +11,17 @@ app.service('ClienteServicio', function ($http) {
     }
 
     this.put = function  (object,id) {
-        var req = $http.put(uri + '/api/empresa/clientes' + id, object)
+        var req = $http.put(uri + '/api/empresa/clientes/' + id, object)
         return req;
     }
 
     this.delete = function  (id) {
-        var req = $http.delete(uri + '/api/empresa/clientes' + id)
+        var req = $http.delete(uri + '/api/empresa/clientes/' + id)
         return req;
     }
 
     this.get = function  (id) {
-        var req = $http.get(uri + '/api/empresa/clientes' + id)
+        var req = $http.get(uri + '/api/empresa/clientes/' + id)
         return req;
     }
 });

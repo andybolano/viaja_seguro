@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Empresa;
 
+use App\Cliente;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use PhpParser\Node\Expr\Clone_;
 
 class ClienteController extends Controller
 {
@@ -16,30 +19,8 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        $clientes = [
-            [
-                'id' => '0',
-                'idCliente' => '123',
-                'foto' => 'http://materializecss.com/images/yuna.jpg',
-                'nombres' => 'Jose Miguel',
-                'apellidos' => 'Soto Acosta',
-                'direccion' => 'Cll tal cual',
-                'telefono' => '3015941826',
-                'fechaNac' => '03/07/1992'
-            ],
-            [
-                'id' => '1',
-                'idCliente' => '123',
-                'foto' => 'http://materializecss.com/images/yuna.jpg',
-                'nombres' => 'Jose Miguel',
-                'apellidos' => 'Soto Acosta',
-                'direccion' => 'Cll tal cual',
-                'telefono' => '3015941826',
-                'fechaNac' => '03/07/1992'
-            ],
-        ];
+        $clientes = Cliente::all();
         return $clientes;
-
     }
 
 
@@ -61,7 +42,23 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-
+        $data = $request->all();
+        $cliente = new Cliente();
+        $cliente->identificacion = $data["identificacion"];
+        $cliente->nombres = $data["nombres"];
+        $cliente->apellidos = $data["apellidos"];
+        $cliente->direccion = $data["direccion"];
+        $cliente->telefono = $data["telefono"];
+        $cliente->fechaNac = $request->fechaNac;
+        $busqueda = Cliente::select("identificacion")
+            ->where("identificacion",$data["identificacion"])
+            ->first();
+        if ($busqueda == null) {
+            $cliente->save();
+            return JsonResponse::create(array('message' => "Guardado Correctamente", "identificacion" => $cliente->identificacion), 200);
+        }else{
+            return JsonResponse::create(array('message' => "El cliente ya esta registrado", "identificacion" => $cliente->identificacion), 200);
+        }
     }
 
     /**
@@ -95,7 +92,26 @@ class ClienteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try{
+//            $data = $request->all();
+            $cliente = Cliente::select("*")
+                ->where("identificacion", $id)
+                ->first();
+
+            $cliente->identificacion = $request->identificacion;
+            $cliente->nombres = $request->nombres;
+            $cliente->apellidos = $request->apellidos;
+            $cliente->direccion = $request->direccion;
+            $cliente->telefono = $request->telefono;
+            $cliente->fechaNac = $request->fechaNac;
+            if($cliente->save() == true){
+                return JsonResponse::create(array('message' => "Actualizado Correctamente"), 200);
+            }else {
+                return JsonResponse::create(array('message' => "No se pudo actualizar el registro"), 200);
+            }
+        }catch(Exception $e){
+            return JsonResponse::create(array('message' => "No se pudo guardar el registro", "exception"=>$e->getMessage()), 401);
+        }
     }
 
     /**
@@ -106,6 +122,19 @@ class ClienteController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try{
+            $cliente = Cliente::select("*")
+                ->where("identificacion", $id)
+                ->first();
+            if (is_null ($cliente))
+            {
+                App::abort(404);
+            }else{
+                $cliente->delete();
+                return JsonResponse::create(array('message' => "Cleinte eliminado correctamente", "request" =>json_encode($id)), 200);
+            }
+        }catch (Exception $ex) {
+            return JsonResponse::create(array('message' => "No se pudo Eliminar el cliente", "exception"=>$ex->getMessage(), "request" =>json_encode($id)), 401);
+        }
     }
 }

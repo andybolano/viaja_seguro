@@ -20,7 +20,6 @@
                         <table class="striped bordered">
                             <thead>
                             <th>Identificación</th>
-                            <th>Foto</th>
                             <th>Nombres</th>
                             <th>Apellidos</th>
                             <th>Dirección</th>
@@ -30,10 +29,7 @@
                             </thead>
                             <tbody>
                             <tr ng-repeat="cliente in Clientes | filter : filtro">
-                                <td>{{cliente.idCliente}}</td>
-                                <td>
-                                    <img ng-src="{{cliente.foto}}" class="circle" style="width: 35px;">
-                                </td>
+                                <td>{{cliente.identificacion}}</td>
                                 <td>{{cliente.nombres}}</td>
                                 <td>{{cliente.apellidos}}</td>
                                 <td>{{cliente.direccion}}</td>
@@ -43,7 +39,7 @@
                                     <a href="javascript:" ng-click="modificar(cliente)">
                                         <i class="material-icons prefix">visibility</i>
                                     </a>
-                                    <a href="javascript:" ng-click="eliminar(cliente.id)">
+                                    <a href="javascript:" ng-click="eliminar(cliente.identificacion)">
                                         <i class="material-icons prefix">delete</i>
                                     </a>
                                 </td>
@@ -63,7 +59,7 @@
     </div>
 
     <div id="modalNuevoCliente" class="modal modal-fixed-footer">
-        <form action="" name="formConductor">
+        <form action="" name="formCliente">
             <div class="modal-content">
                 <h2>{{titulo}}</h2>
 
@@ -72,7 +68,7 @@
                     <div class="row">
                         <div class="input-field col s6">
                             <i class="material-icons prefix">payment</i>
-                            <input id="icon_payment" type="text" class="validate" name="id" ng-model="Cliente.id">
+                            <input id="icon_payment" type="text" class="validate" name="identificacion" ng-model="Cliente.identificacion">
                             <label for="icon_payment" class="{{active}}">Identificación</label>
                         </div>
                     </div>
@@ -114,9 +110,9 @@
                 <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
                    style="margin-left:10px;">Salir</a>
                 <input type="button" class="waves-effect waves-light btn orange" ng-click="guardar()" ng-hide="editMode"
-                       ng-disabled="!formConductor.$valid" value="Guardar">
+                       ng-disabled="!formCliente.$valid" value="Guardar">
                 <input type="button" class="waves-effect waves-light btn orange" ng-click="update()" ng-show="editMode"
-                       ng-disabled="!formConductor.$valid" value="Modificar">
+                       ng-disabled="!formCliente.$valid" value="Modificar">
             </div>
         </form>
     </div>

@@ -30,7 +30,7 @@
                             </thead>
                             <tbody>
                                 <tr ng-repeat="conductor in Conductores | filter : filtro">
-                                    <td>{{conductor.id}}</td>
+                                    <td>{{conductor.identificacion}}</td>
                                     <td>
                                         <img ng-src="{{conductor.foto}}" class="circle" style="width: 35px;">
                                     </td>
@@ -43,7 +43,7 @@
                                         <a href="javascript:" ng-click="modificar(conductor)">
                                             <i class="material-icons prefix">visibility</i>
                                         </a>
-                                        <a href="javascript:" ng-click="eliminar(conductor.id)">
+                                        <a href="javascript:" ng-click="eliminar(conductor.identificacion)">
                                             <i class="material-icons prefix">delete</i>
                                         </a>
                                     </td>
@@ -74,7 +74,7 @@
                     <div class="row">
                         <div class="input-field col s4">
                             <i class="material-icons prefix">payment</i>
-                            <input id="icon_payment" type="text" class="validate" name="id" ng-model="Conductor.id">
+                            <input id="icon_payment" type="text" class="validate" name="identificacion" ng-model="Conductor.identificacion">
                             <label for="icon_payment" class="{{active}}">Identificación</label>
                         </div>
 
@@ -144,7 +144,7 @@
     <div class="modal-footer">
         <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red " style="margin-left:10px;">Salir</a>
         <a ng-disabled="!formConductor.$valid"  class="waves-effect waves-light btn green" ng-hide="editMode" ng-click="guardar()">Guardar</a>
-        <a ng-disabled="!formConductor.$valid"  class="waves-effect waves-light btn green" ng-show="editMode" ng-click="modificar()">Modificar</a>
+        <a ng-disabled="!formConductor.$valid"  class="waves-effect waves-light btn green" ng-show="editMode" ng-click="update()">Modificar</a>
     </div>
 
 </div>

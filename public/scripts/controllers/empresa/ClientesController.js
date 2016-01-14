@@ -33,14 +33,14 @@ app.controller('ClientesController', function ($scope, ClienteServicio) {
 
     $scope.guardar = function  () {
         var object = {
-            id : $scope.Cliente.id,
+            identificacion : $scope.Cliente.identificacion,
             nombres : $scope.Cliente.nombres,
             apellidos : $scope.Cliente.apellidos,
             telefono : $scope.Cliente.telefono,
             direccion : $scope.Cliente.direccion,
-            correo: $scope.Cliente.correo
+            fechaNac: $scope.Cliente.fechaNac
         };
-
+        console.log(object);
         var promisePost = ClienteServicio.post(object);
         promisePost.then(function (pl) {
                 $("#modalNuevoCliente").closeModal();
@@ -64,13 +64,15 @@ app.controller('ClientesController', function ($scope, ClienteServicio) {
 
     $scope.update = function  () {
         var object = {
-            id : $scope.Cliente.id,
+            identificacion : $scope.Cliente.identificacion,
             nombres : $scope.Cliente.nombres,
             apellidos : $scope.Cliente.apellidos,
             telefono : $scope.Cliente.telefono,
             direccion : $scope.Cliente.direccion,
+            fechaNac: $scope.Cliente.fechaNac
         };
-        var promisePut = ClienteServicio.put(object,$scope.Cliente.id);
+        console.log(object);
+        var promisePut = ClienteServicio.put(object,$scope.Cliente.identificacion);
         promisePut.then(function (pl) {
                 $("#modalNuevoCliente").closeModal();
                 cargarClientes();
@@ -81,17 +83,16 @@ app.controller('ClientesController', function ($scope, ClienteServicio) {
             });
     }
 
-    $scope.eliminar = function (deduccion){
-        if(confirm('¿Deseas eliminar el registro?') ==true) {
-            success(1);
-            //centralesService.delete(codigo).then(success, error);
-        }
-        function success(p) {
-            //init();
-            Materialize.toast('Registro eliminado', 5000);
-        }
-        function error(error) {
-            cconsole.log('Error al eliminar', error);
+    $scope.eliminar = function (id){
+        if(confirm('¿Deseas eliminar el registro?') == true) {
+            var promiseDelete = ClienteServicio.delete(id);
+            promiseDelete.then(function (pl) {
+                    cargarClientes();
+                    Materialize.toast(pl.data.message, 5000, 'rounded');
+                },
+                function (errorPl) {
+                    console.log('No se pudo eliminar el registro', errorPl);
+                });
         }
     }
 })

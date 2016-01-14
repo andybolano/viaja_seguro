@@ -32,10 +32,11 @@
                                     <div class="switch">
                                         <label>
                                             Desactivado
-                                            <input type="checkbox" ng-checked="{{deduccion.activo}}">
+                                            <input ng-model="deduccion.estado" type="checkbox" ng-checked="{{deduccion.estado}}" ng-change="change()" ng-click="updateEstado(deduccion)">
                                             <span class="lever"></span>
                                             Activado
                                         </label>
+                                        {{deduccion.estado}}
                                     </div>
                                 </td>
                                 <td>
@@ -62,7 +63,7 @@
     </div>
 
     <div id="modalNuevaDeduccion" class="modal modal-fixed-footer">
-        <form >
+        <form name="formDeduccion">
             <div class="modal-content">
                 <h2>{{titulo}}</h2>
 
@@ -73,6 +74,16 @@
                             <input id="icon_person2" type="text" class="validate" name="nombre"ng-model="Deduccion.nombre">
                             <label for="icon_person2" class="{{active}}">Nombre</label>
                         </div>
+                        <div class="input-field col s6">
+                            <div class="switch">
+                                <label>
+                                    Desactivado
+                                    <input name="estado" type="checkbox" ng-checked="{{Deduccion.estado}}" ng-model="Deduccion.estado">
+                                    <span class="lever"></span>
+                                    Activado
+                                </label>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="row">
@@ -82,14 +93,9 @@
                             <label for="icon_person1" class="{{active}}">Descipción</label>
                         </div>
                         <div class="input-field col s6">
-                            <div class="switch">
-                                <label>
-                                    Desactivado
-                                    <input type="checkbox" ng-checked="{{Deduccion.activo}}">
-                                    <span class="lever"></span>
-                                    Activado
-                                </label>
-                            </div>
+                            <i class="material-icons prefix">attach_money</i>
+                            <input id="icon_person3" type="text" class="validate" name="valor"ng-model="Deduccion.valor">
+                            <label for="icon_person3" class="{{active}}">Valor</label>
                         </div>
                     </div>
                 </div>

@@ -6,11 +6,23 @@ app.controller('ServiciosController', function ($scope, serviceEmpresaServicios)
     $scope.active;
     $scope.editMode = false;
     $scope.inputDisable = false;
-
+    init();
     cargarGiros();
     cargarPaquetes();
     cargarPasajeros();
     cargarVehiculoEnTurno();
+
+    function init(){
+        $scope.Pasajero = {
+            identificacion : "",
+            nombres : "",
+            apellidos : "",
+            telefono : "",
+            origen : "",
+            destino : "",
+            vehiculo : ""
+        }
+    }
 
     function cargarPasajeros() {
         var promiseGet = serviceEmpresaServicios.getPasajeros();
@@ -28,6 +40,10 @@ app.controller('ServiciosController', function ($scope, serviceEmpresaServicios)
         $("#modalAsignarPasajero").openModal();
     }
 
+    $scope.modificarPasajero = function(){
+
+    }
+
     $scope.buscarClientes = function(){
         $scope.titulo = "Seleccionar cliente"
         $("#modalBuscarClientes").openModal();
@@ -35,7 +51,7 @@ app.controller('ServiciosController', function ($scope, serviceEmpresaServicios)
 
     $scope.selectCliente = function(cliente){
         $scope.Giro = cliente;
-        $scope.Pasajero.idPasajero = cliente.idCliente;
+        $scope.Pasajero.identificacion = cliente.identificacion;
         $scope.Pasajero.nombres = cliente.nombres;
         $scope.Pasajero.apellidos = cliente.apellidos;
         $scope.Pasajero.origen = cliente.direccion;
@@ -45,8 +61,67 @@ app.controller('ServiciosController', function ($scope, serviceEmpresaServicios)
         $("#modalBuscarClientes").closeModal();
     }
 
+    $scope.guardarPasajero = function(){
+        var object = {
+            identificacion : $scope.Pasajero.identificacion,
+            nombres : $scope.Pasajero.nombres,
+            apellidos : $scope.Pasajero.apellidos,
+            telefono : $scope.Pasajero.telefono,
+            origen : $scope.Pasajero.origen,
+            destino : $scope.Pasajero.destino,
+            vehiculo : $scope.Vehiculo
+        };
+        console.log(object);
+        var promisePost = serviceEmpresaServicios.postPasajero(object);
+        promisePost.then(function (pl) {
+                $("#modalAsignarPasajero").closeModal();
+                cargarPasajeros();
+                Materialize.toast(pl.data.message, 5000, 'rounded');
+            },
+            function (errorPl) {
+                console.log('Error Al Cargar Datos', errorPl);
+            });
+    }
+
+    $scope.updatePasajero = function(){
+        var object = {
+            identificacion : $scope.Pasajero.identificacion,
+            nombres : $scope.Pasajero.nombres,
+            apellidos : $scope.Pasajero.apellidos,
+            telefono : $scope.Pasajero.telefono,
+            origen : $scope.Pasajero.origen,
+            destino : $scope.Pasajero.destino,
+            vehiculo : $scope.Vehiculo
+        };
+        console.log(object);
+        var promisePut = serviceEmpresaServicios.putPasajero(object, $scope.Pasajero.identificacion);
+        promisePut.then(function (pl) {
+                $("#modalAsignarPasajero").closeModal();
+                cargarPasajeros();
+                Materialize.toast(pl.data.message, 5000, 'rounded');
+            },
+            function (errorPl) {
+                console.log('Error Al Cargar Datos', errorPl);
+            });
+    }
+
+    $scope.deletePasajero = function(id){
+        if(confirm('¿Deseas eliminar el registro?') == true) {
+            var promiseDelete = serviceEmpresaServicios.deletePasajero(id);
+            promiseDelete.then(function (pl) {
+                    cargarPasajeros();
+                    Materialize.toast(pl.data.message, 5000, 'rounded');
+                },
+                function (errorPl) {
+                    console.log('No se pudo eliminar el registro', errorPl);
+                });
+        }
+    }
+
+
+
     $scope.selectClienteGiro = function(cliente){
-        $scope.Giro.idRemitente = cliente.idCliente;
+        $scope.Giro.idRemitente = cliente.identificacion;
         $scope.Giro.nombresRemitente = cliente.nombres + " " + cliente.apellidos;
         $scope.Giro.telRemitente = cliente.telefono;
         $scope.Giro.origen = cliente.direccion;
@@ -69,6 +144,63 @@ app.controller('ServiciosController', function ($scope, serviceEmpresaServicios)
         $scope.Giro = {};
         $scope.titulo = "Asignar Giro"
         $("#modalAsignarGiro").openModal();
+    }
+
+    $scope.guardarGiro = function(){
+        var object = {
+            identificacion : $scope.Pasajero.identificacion,
+            nombres : $scope.Pasajero.nombres,
+            apellidos : $scope.Pasajero.apellidos,
+            telefono : $scope.Pasajero.telefono,
+            origen : $scope.Pasajero.origen,
+            destino : $scope.Pasajero.destino,
+            vehiculo : $scope.Vehiculo
+        };
+        console.log(object);
+        var promisePost = serviceEmpresaServicios.postGiro(object);
+        promisePost.then(function (pl) {
+                $("#modalAsignarGiro").closeModal();
+                cargarPasajeros();
+                Materialize.toast(pl.data.message, 5000, 'rounded');
+            },
+            function (errorPl) {
+                console.log('Error Al Cargar Datos', errorPl);
+            });
+    }
+
+    $scope.updateGiro = function(){
+        var object = {
+            identificacion : $scope.Pasajero.identificacion,
+            nombres : $scope.Pasajero.nombres,
+            apellidos : $scope.Pasajero.apellidos,
+            telefono : $scope.Pasajero.telefono,
+            origen : $scope.Pasajero.origen,
+            destino : $scope.Pasajero.destino,
+            vehiculo : $scope.Vehiculo
+        };
+        console.log(object);
+        var promisePut = serviceEmpresaServicios.putGiro(object, $scope.Pasajero.identificacion);
+        promisePut.then(function (pl) {
+                $("#modalAsignarGiro").closeModal();
+                cargarGiros();
+                Materialize.toast(pl.data.message, 5000, 'rounded');
+            },
+            function (errorPl) {
+                console.log('Error Al Cargar Datos', errorPl);
+            });
+    }
+
+    $scope.deleteGiro = function(id){
+        if(confirm('¿Deseas eliminar el registro?') == true) {
+            var promiseDelete = serviceEmpresaServicios.deleteGiro(id);
+            promiseDelete.then(function (pl) {
+                    cargarGiros();
+                    Materialize.toast(pl.data.message, 5000, 'rounded');
+                },
+                function (errorPl) {
+                    console.log('No se pudo eliminar el registro', errorPl);
+                });
+        }
     }
 
     function cargarPaquetes() {
@@ -94,19 +226,5 @@ app.controller('ServiciosController', function ($scope, serviceEmpresaServicios)
         },function (errorPl) {
             console.log('Error Al Cargar Datos', errorPl);
         });
-    }
-
-    $scope.eliminar = function (deduccion){
-        if(confirm('¿Deseas eliminar el registro?') ==true) {
-            success(1);
-            //centralesService.delete(codigo).then(success, error);
-        }
-        function success(p) {
-            //init();
-            Materialize.toast('Registro eliminado', 5000);
-        }
-        function error(error) {
-            cconsole.log('Error al eliminar', error);
-        }
     }
 })

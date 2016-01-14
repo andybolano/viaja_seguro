@@ -29,7 +29,7 @@
                             </thead>
                             <tbody>
                             <tr ng-repeat="pasajero in Pasajeros | filter : filtro">
-                                <td>{{pasajero.idPasajero}}</td>
+                                <td>{{pasajero.identificacion}}</td>
                                 <td>{{pasajero.nombres}}</td>
                                 <td>{{pasajero.apellidos}}</td>
                                 <td>{{pasajero.telefono}}</td>
@@ -37,10 +37,10 @@
                                 <td>{{pasajero.destino}}</td>
                                 <td>{{pasajero.vehiculo}}</td>
                                 <td>
-                                    <a href="javascript:" ng-click="modificar(conductor)">
+                                    <a href="javascript:" ng-click="modificar(pasajero)">
                                         <i class="material-icons prefix">visibility</i>
                                     </a>
-                                    <a href="javascript:" ng-click="eliminar(conductor.id)">
+                                    <a href="javascript:" ng-click="eliminar(pasajero.identificacion)">
                                         <i class="material-icons prefix">delete</i>
                                     </a>
                                 </td>
@@ -63,14 +63,14 @@
     <div id="modalAsignarPasajero" class="modal modal-fixed-footer">
         <form action="" name="formConductor">
             <div class="modal-content">
-                <h2>{{titulo}}</h2>
+                <h2>Asignar pasajero</h2>
 
                 <div class="row">
 
                     <div class="row">
                         <div class="input-field col s6">
                             <i class="material-icons prefix">payment</i>
-                            <input id="icon_payment" type="text" class="validate" name="id" ng-model="Pasajero.idPasajero">
+                            <input id="icon_payment" type="text" class="validate" name="identificacion" ng-model="Pasajero.identificacion">
                             <label for="icon_payment" class="{{active}}">Identificación</label>
                         </div>
                         <div class="input-field col s1">
@@ -80,24 +80,24 @@
                     <div class="row">
                         <div class="input-field col s6">
                             <i class="material-icons prefix">account_circle</i>
-                            <input id="icon_person" type="text" class="validate" name="nombres"ng-model="Pasajero.nombres">
-                            <label for="icon_person" class="{{active}}">Nombres</label>
+                            <input id="icon_person2" type="text" class="validate" name="nombres"ng-model="Pasajero.nombres">
+                            <label for="icon_person2" class="{{active}}">Nombres</label>
                         </div>
                         <div class="input-field col s6">
                             <i class="material-icons prefix">account_circle</i>
-                            <input id="icon_person" type="text" class="validate" name="apellidos" ng-model="Pasajero.apellidos">
-                            <label for="icon_person" class="{{active}}">Apellidos</label>
+                            <input id="icon_person3" type="text" class="validate" name="apellidos" ng-model="Pasajero.apellidos">
+                            <label for="icon_person3" class="{{active}}">Apellidos</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s6">
                             <i class="material-icons prefix">person_pin_circle</i>
-                            <input id="icon_pain" type="text" class="validate" name="direccion" ng-model="Pasajero.origen">
+                            <input id="icon_pain" type="text" class="validate" name="origen" ng-model="Pasajero.origen">
                             <label for="icon_pain" class="{{active}}">Origen</label>
                         </div>
                         <div class="input-field col s6">
                             <i class="material-icons prefix">person_pin_circle</i>
-                            <input id="icon_pain2" type="text" class="validate" name="direccion" ng-model="Pasajero.destino">
+                            <input id="icon_pain2" type="text" class="validate" name="destino" ng-model="Pasajero.destino">
                             <label for="icon_pain2" class="{{active}}">Destino</label>
                         </div>
                     </div>
@@ -109,7 +109,7 @@
                         </div>
                         <div class="input-field col s6">
                             <i class="material-icons prefix">local_taxi</i>
-                            <input id="icon_taxi" type="text" class="validate" name="correo" ng-model="Vehiculo" readonly>
+                            <input id="icon_taxi" type="text" class="validate" name="vehiculo" ng-model="Vehiculo" readonly>
                             <label for="icon_taxi" class="active">Vehiculo en turno</label>
                         </div>
                     </div>
@@ -119,9 +119,9 @@
             <div class="modal-footer">
                 <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
                    style="margin-left:10px;">Salir</a>
-                <input type="button" class="waves-effect waves-light btn orange" ng-click="guardar()" ng-hide="editMode"
+                <input type="button" class="waves-effect waves-light btn orange" ng-click="guardarPasajero()" ng-hide="editMode"
                        ng-disabled="!formConductor.$valid" value="Guardar">
-                <input type="button" class="waves-effect waves-light btn orange" ng-click="update()" ng-show="editMode"
+                <input type="button" class="waves-effect waves-light btn orange" ng-click="updatePasajero()" ng-show="editMode"
                        ng-disabled="!formConductor.$valid" value="Modificar">
             </div>
         </form>
@@ -151,7 +151,6 @@
                                 <table class="striped bordered">
                                     <thead>
                                     <th>Identificacin</th>
-                                    <th>Foto</th>
                                     <th>Nombres</th>
                                     <th>Apellidos</th>
                                     <th>Dirección</th>
@@ -160,10 +159,7 @@
                                     </thead>
                                     <tbody>
                                     <tr ng-repeat="cliente in Clientes | filter : filtro">
-                                        <td>{{cliente.idCliente}}</td>
-                                        <td>
-                                            <img ng-src="{{cliente.foto}}" class="circle" style="width: 35px;">
-                                        </td>
+                                        <td>{{cliente.identificacion}}</td>
                                         <td>{{cliente.nombres}}</td>
                                         <td>{{cliente.apellidos}}</td>
                                         <td>{{cliente.direccion}}</td>
