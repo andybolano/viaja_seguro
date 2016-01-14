@@ -1,17 +1,12 @@
 <?php namespace App\Http\Controllers\SuperAdmin;
 
+use App\Model\Servicio;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 class ServicioEmpresaController extends Controller
 {
-    private $servicios =[
-        ['id' => 1, 'concepto' => 'Reservas de pasajes'],
-        ['id' => 2, 'concepto' => 'Giros'],
-        ['id' => 3, 'concepto' => 'Encomiendas'],
-    ];
-
     /**
      * Display a listing of the resource.
      *
@@ -19,7 +14,7 @@ class ServicioEmpresaController extends Controller
      */
     public function index()
     {
-        return response()->json($this->servicios, 200);
+        return Servicio::all();
     }
 
     /**

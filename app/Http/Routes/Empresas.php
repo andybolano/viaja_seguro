@@ -1,7 +1,7 @@
 <?php
 
 Route::resource('/api/empresas', 'SuperAdmin\EmpresaController');
-Route::post('/api/empresas/{codigo}/logo', 'SuperAdmin\EmpresaController@saveLogo');
+Route::post('/api/empresas/{id}/logo', 'SuperAdmin\EmpresaController@saveLogo');
 
 Route::resource('/api/empresas/{id}/centrales', 'Empresa\CentralesController');
 

@@ -40,7 +40,7 @@
                                 <td>{{empresa.direccion}}</td>
                                 <td>{{empresa.telefono}}</td>
                                 <td>{{empresa.servicios.length}}</td>
-                                <td>{{empresa.estado.lavel}}</td>
+                                <td><p ng-show="empresa.estado">Activa</p><p ng-show="!empresa.estado">Inactiva</p></td>
                                 <td>
                                     <a href="javascript:" ng-click="actualizar(empresa)">
                                         <i class="material-icons prefix">visibility</i>
@@ -78,7 +78,7 @@
                                 <div class="input-field">
                                     <i class="material-icons prefix">payment</i>
                                     <input id="codigo" name="codigo" type="text" ng-model="selectedEmpresa.nit"
-                                           disabled>
+                                           ng-disabled="editMode" required>
                                     <label for="codigo" class="{{active}}">NIT</label>
                                 </div>
                             </div>
@@ -88,7 +88,7 @@
                                 <div class="switch center">
                                     <label>
                                         Activa
-                                        <input type="checkbox" ng-model="selectedEmpresa.estado.value"
+                                        <input type="checkbox" ng-model="selectedEmpresa.estado"
                                                id="selectedEmpresa.id">
                                         <span class="lever"></span>
                                         Inactiva

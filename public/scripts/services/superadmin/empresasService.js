@@ -10,7 +10,7 @@ function empresasService($http) {
     }
 
     this.get = function (id) {
-        return $http.get(uri + '/api/empresa/' + id);
+        return $http.get(uri + '/api/empresas/' + id);
     }
 
     this.post = function (object) {
@@ -26,10 +26,10 @@ function empresasService($http) {
     }
 
     this.put = function (object, id) {
-        return $http.put(uri + '/api/empresa/' + id, object);
+        return $http.put(uri + '/api/empresas/' + id, object);
     }
 
     this.delete = function (id) {
-        return $http.delete(uri + '/api/empresa/' + id);
+        return $http.delete(uri + '/api/empresas/' + id);
     }
 }

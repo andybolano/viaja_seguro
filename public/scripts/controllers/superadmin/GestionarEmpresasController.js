@@ -102,12 +102,12 @@ function GestionarEmpresasController($scope, empresasService, serviciosEmpresaSe
             $("#modalNuevaEmpresa").closeModal();
             $scope.selectedEmpresa = p.data;
             modificarImagen();
-            $scope.empresas.push($scope.selectedEmpresa);
-            //init();
+            //$scope.empresas.push($scope.selectedEmpresa);
+            init();
             Materialize.toast('Registro guardado correctamente', 5000);
         }
         function error(error) {
-            cconsole.log('Error al guardar', error);
+            console.log('Error al guardar', error);
         }
     }
 
@@ -144,31 +144,29 @@ function GestionarEmpresasController($scope, empresasService, serviciosEmpresaSe
 
     function update(){
         updateServicios($scope.selectedEmpresa);
-        success(1);
-        //empresasService.put($scope.selectedEmpresa, $scope.selectedEmpresa.codigo).then(success, error);
+        empresasService.put($scope.selectedEmpresa, $scope.selectedEmpresa.id).then(success, error);
         function success(p) {
             $("#modalNuevaEmpresa").closeModal();
             $scope.editMode = false;
             modificarImagen();
-            //init();
+            init();
             Materialize.toast('Registro modificado correctamente', 5000);
         }
         function error(error) {
-            cconsole.log('Error al actualizar', error);
+            console.log('Error al actualizar', error);
         }
     }
 
     function eliminar(codigo){
-        if(confirm('¿Deseas eliminar el registro?') ==true) {
-            success(1);
-            //empresasService.delete(codigo).then(success, error);
+        if(confirm('¿Deseas eliminar el registro? \n no es recomendable') ==true) {
+            empresasService.delete(codigo).then(success, error);
         }
         function success(p) {
-            //init();
+            init();
             Materialize.toast('Registro eliminado', 5000);
         }
         function error(error) {
-            cconsole.log('Error al eliminar', error);
+            console.log('Error al eliminar', error);
         }
     }
 

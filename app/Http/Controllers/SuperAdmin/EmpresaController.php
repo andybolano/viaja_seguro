@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers\SuperAdmin;
 
 use App\Http\Controllers\Controller;
+use App\Model\Empresa;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 
@@ -8,11 +9,19 @@ class EmpresaController extends Controller
 {
 
     private $empresas = [
-        ['id' => 1, 'nit'=> '344353451', 'pjuridica'=> '4645635', 'nombre'=> 'Cootrasan', 'logo' => 'http://localhost/midev/viaja_seguro/public/images/empresas/empresa1.png', 'direccion'=> 'lejos', 'telefono'=> '9876896', 'servicios' => [], 'estado' => ['value'=> true, 'lavel'=>'Activa']],
-        ['id' => 2, 'nit'=> '224534521', 'pjuridica'=> '3453454', 'nombre'=> 'Coomulcod', 'logo' => 'http://localhost/midev/viaja_seguro/public/images/empresas/empresa2.png', 'direccion'=> 'por ahi', 'telefono'=> '123456', 'estado' => ['value'=> true, 'lavel'=>'Activa'],
-            'servicios' => [['codigo' => 1, 'concepto' => 'Manejor de reservas']]
-        ],
-        ['id' => 3, 'nit'=> '334354353', 'pjuridica'=> '3465775', 'nombre'=> 'TrnasValle', 'logo' => 'http://localhost/midev/viaja_seguro/public/images/empresas/empresa3.png', 'direccion'=> 'quien save', 'telefono'=> '495483', 'servicios' => [], 'estado' => ['value'=> false, 'lavel'=>'Inactiva']],
+        [
+            'id' => 2,
+            'nit'=> '224534521',
+            'pjuridica'=> '3453454',
+            'nombre'=> 'Coomulcod',
+            'logo' => 'http://localhost/midev/viaja_seguro/public/images/empresas/empresa2.png',
+            'direccion'=> 'por ahi',
+            'telefono'=> '123456',
+            'estado' => true,
+            'servicios' => [
+                ['codigo' => 1, 'concepto' => 'Manejor de reservas']
+            ]
+        ]
     ];
     /**
      * Display a listing of the resource.
@@ -21,7 +30,8 @@ class EmpresaController extends Controller
      */
     public function index()
     {
-        return $this->empresas;
+        $empresas = Empresa::with('servicios')->get();
+        return $empresas;
     }
 
     /**
@@ -34,9 +44,14 @@ class EmpresaController extends Controller
     {
         try{
             $data = $request->json()->all();
-            $data['codigo'] = '4';
-            //guardar modelo
-            return response()->json($data, 201);
+            $empresa_servicios = $data['servicios'];
+            unset($data['servicios']);
+            $empresa = new Empresa($data);
+            $empresa->save();
+            foreach($empresa_servicios as $servicio){
+                $empresa->servicios()->attach($servicio['id']);
+            }
+            return response()->json($empresa, 201);
         } catch (\Exception $exc) {
             return response()->json(array("exception"=>$exc->getMessage()), 400);
         }
@@ -66,34 +81,67 @@ class EmpresaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $codigo
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($codigo)
+    public function show($id)
     {
-        //
+        $empresa = Empresa::find($id);
+        $empresa->load('servicios');
+        return $empresa;
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $codigo
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $codigo)
+    public function update(Request $request, $id)
     {
-        //
+        try{
+            $data = $request->json()->all();
+            $empresa_servicios = isset($data['servicios']) ? $data['servicios'] : false;
+            unset($data['servicios']);
+            $empresa = $this->show($id);
+            if($empresa){
+                //actualizo los compos de la empresa
+                foreach($data as $campo=>$valor){
+                    $empresa->$campo = $valor;
+                }
+                $empresa->save();
+                if($empresa_servicios){
+                    $servicios = [];
+                    foreach($empresa_servicios as $servicio){
+                        $servicios[] = $servicio['id'];
+                    }
+                    $empresa->servicios()->sync($servicios);
+                }
+                return response()->json(['mensaje' => 'registro actualizado'], 201);
+            }else{
+                return response()->json(['mensaje' => 'la empresa no existe'], 400);
+            }
+        } catch (\Exception $exc) {
+            return response()->json(array("exception"=>$exc->getMessage(), ''=>$exc->getLine()), 400);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $codigo
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($codigo)
+    public function destroy($id)
     {
-        //
+        $empresa = $this->show($id);
+        if($empresa){
+            $empresa->servicios()->detach();
+            $empresa->delete();
+            return response()->json(['mensaje' => 'registro eliminado'], 201);
+        }else{
+            return response()->json(['mensaje' => 'la empresa no existe'], 400);
+        }
     }
 }
