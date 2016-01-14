@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Empresa;
 
-use App\Pasajero;
-use App\Giro;
-use App\Paquete;
+use App\Model\Pasajero;
+use App\Model\Giro;
+use App\Model\Paquete;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests;

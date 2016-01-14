@@ -59,16 +59,18 @@ class EmpresaController extends Controller
 
     /**
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $codigo
+     * @param  int  $id
      * @return mixed
      */
-    public function saveLogo(Request $request, $codigo)
+    public function saveLogo(Request $request, $id)
     {
         try{
             if ($request->hasFile('logo')) {
-                $request->file('logo')->move('images/empresas/', "empresa$codigo.png");
-                //actualizar ruta en el modelo
-                $nombrefile = $_SERVER['PHP_SELF'].'/../images/empresas/'."empresa$codigo.png";
+                $request->file('logo')->move('images/empresas/', "empresa$id.png");
+                $nombrefile = $_SERVER['PHP_SELF'].'/../images/empresas/'."empresa$id.png";
+                $empresa = $this->show($id);
+                $empresa->logo = $nombrefile;
+                $empresa->save();
                 return response()->json(['nombrefile'=>$nombrefile], 201);
             }else {
                 return response()->json([], 400);

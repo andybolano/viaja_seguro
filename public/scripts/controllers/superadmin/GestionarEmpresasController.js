@@ -19,7 +19,6 @@ function GestionarEmpresasController($scope, empresasService, serviciosEmpresaSe
     $scope.update = update;
     $scope.eliminar = eliminar;
     $scope.modificarImagen = modificarImagen;
-    $scope.showNoLogo = showNoLogo;
 
     init();
     function init(){
@@ -124,9 +123,9 @@ function GestionarEmpresasController($scope, empresasService, serviciosEmpresaSe
         if($scope.fileimage) {
             var data = new FormData();
             data.append('logo', $scope.fileimage);
-            empresasService.postLogo($scope.selectedEmpresa.codigo, data).then(success, error);
+            empresasService.postLogo($scope.selectedEmpresa.id, data).then(success, error);
             function success(p) {
-                //init();
+                init();
                 $scope.selectedEmpresa.logo = p.data.nombrefile;
                 Materialize.toast('Logo guardado correctamente', 5000);
             }
@@ -136,10 +135,6 @@ function GestionarEmpresasController($scope, empresasService, serviciosEmpresaSe
                 console.log('Error al guardar', error);
             }
         }
-    }
-
-    function showNoLogo(){
-        alert('error al cargar imagen')
     }
 
     function update(){

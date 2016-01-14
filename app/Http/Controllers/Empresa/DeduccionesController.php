@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Deduccion;
+use App\Model\Deduccion;
 
 class DeduccionesController extends Controller
 {

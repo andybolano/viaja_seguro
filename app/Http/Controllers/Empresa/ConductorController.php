@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Empresa;
 
-use App\Conductor;
+use App\Model\Conductor;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests;
