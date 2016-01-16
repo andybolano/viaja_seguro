@@ -23,7 +23,13 @@ class ConductorController extends Controller
         return $conductores;
     }
 
+    public function getVehiculo($id){
+        $vehiculo = Conductor::select('vehiculo_id')
+            ->where('identificacion', $id)
+            ->first();
+        return $vehiculo;
 
+    }
     /**
      * Show the form for creating a new resource.
      *

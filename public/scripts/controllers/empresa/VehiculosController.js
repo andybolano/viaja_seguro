@@ -18,8 +18,9 @@ app.controller('VehiculosController', function ($scope, VehiculoServicio) {
         var promiseGet = VehiculoServicio.getAll();
         promiseGet.then(function (pl) {
             $scope.Vehiculos = pl.data;
+            Materialize.toast('Vehiculos cargados correctamente', 5000, 'rounded');
         },function (errorPl) {
-            console.log('Error Al Cargar Datos', errorPl);
+            Materialize.toast('Ocurrio un error al cargar los vehiculos', 5000, 'rounded');
         });
     }
 
@@ -32,7 +33,7 @@ app.controller('VehiculosController', function ($scope, VehiculoServicio) {
     }
 
     $scope.buscarConductor = function(){
-        $scope.titulo = "Seleccione el conductor para el vehiculo";
+        $scope.titulo = "Registrar vehiculo";
         $("#modalBuscarconductor").openModal();
     }
 

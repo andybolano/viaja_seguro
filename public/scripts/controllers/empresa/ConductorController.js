@@ -15,9 +15,24 @@ app.controller('ConductorController', function ($scope, ConductorServicio) {
 
 
     function cargarConductores() {
+        var finalizar = false;
         var promiseGet = ConductorServicio.getAll();
         promiseGet.then(function (pl) {
             $scope.Conductores = pl.data;
+            angular.forEach($scope.Conductores, function(conductor){
+                if(finalizar == false){
+                    if(conductor.vehiculo_id == null){
+                        if (confirm('El conductor ' + conductor.nombres + " " + conductor.apellidos + " No tiene vehiculo asociado desea registrar uno?") == true) {
+                            $scope.editMode = false;
+                            $scope.active = "";
+                            $scope.Conductor = {};
+                            $scope.titulo = "Asignar vehiculo a " + conductor.nombres + " " + conductor.apellidos;
+                            finalizar = true;
+                            $("#modalAsignarVehiculoC").openModal();
+                        }
+                    }
+                }
+            });
         },function (errorPl) {
             console.log('Error Al Cargar Datos', errorPl);
         });
@@ -96,4 +111,28 @@ app.controller('ConductorController', function ($scope, ConductorServicio) {
                 });
         }
     }
+
+    //if ($scope.Vehiculo == null) {
+    //    if (confirm('El conductor ' + pl.data.nombres + " " + pl.data.apellidos + " No tiene vehiculo asociado desea registrar uno?") == true) {
+    //        $("#modalAsignarVehiculoC").OpenModal();
+    //    }
+    //} else {
+    //    cargarConductores();
+    //}
+
+    $scope.consutarVehiculo = function(id){
+        var promiseGet = ConductorServicio.getVehiculoC(id);
+        promiseGet.then(function(pl){
+            $scope.Vehiculo = pl.data;
+            if ($scope.Vehiculo == null) {
+                if (confirm('El conductor ' + pl.data.nombres + " " + pl.data.apellidos + " No tiene vehiculo asociado desea registrar uno?") == true) {
+                    $("#modalAsignarVehiculoC").OpenModal();
+                }
+            } else {
+                cargarConductores();
+            }
+        });
+    }
+
+
 })

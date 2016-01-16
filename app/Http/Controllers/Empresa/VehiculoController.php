@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers\Empresa;
 
+use App\Model\Conductor;
+use App\Model\Vehiculo;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Mockery\CountValidator\Exception;
 
 class VehiculoController extends Controller
 {
@@ -16,30 +20,14 @@ class VehiculoController extends Controller
      */
     public function index()
     {
-        $vehiculos = [
-          [
-              'placa' => 'UJSK-123',
-              'modelo' => 'KIA 2010',
-              'color' => 'Amarillo',
-              'conductor' => 'Jose miguel soto',
-              'cupos' => '4'
-          ],
-            [
-                'placa' => 'UJSK-345',
-                'modelo' => 'KIA 2010',
-                'color' => 'Amarillo',
-                'conductor' => 'Jose miguel soto',
-                'cupos' => '4'
-            ],
-            [
-                'placa' => 'UJSK-156',
-                'modelo' => 'KIA 2010',
-                'color' => 'Amarillo',
-                'conductor' => 'Jose miguel soto',
-                'cupos' => '4'
-            ],
-        ];
-        return $vehiculos;
+        try{
+//            $vehiculos = Vehiculo::all();
+            $vehiculos = Vehiculo::all();
+//            $conductor = Vehiculo::find($vehiculos->id)->vehiculo;
+            return $vehiculos;
+        }catch(Exception $e){
+            return JsonResponse::create(array('message' => "Error al cargar los vehiculos", "exception"=>$e->getMessage()), 401);
+        }
     }
 
     public function getVehiculoEnTurno(){
