@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Conductor extends Model
 {
-    protected $table = 'viaja_seguro_conductores';
+    protected $table = 'conductores';
 
     protected $fillable = ['identificacion', 'nombres', 'apellidos', 'imagen', 'telefono', 'direccion', 'correo'];
 
