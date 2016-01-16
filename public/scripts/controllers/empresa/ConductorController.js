@@ -1,4 +1,4 @@
-app.controller('ConductorController', function ($scope, ConductorServicio) {
+app.controller('ConductorController', function ($scope, ConductorServicio, VehiculoServicio) {
     $scope.Conductores = [];
     $scope.conductor = {};
     $scope.titulo;
@@ -25,8 +25,9 @@ app.controller('ConductorController', function ($scope, ConductorServicio) {
                         if (confirm('El conductor ' + conductor.nombres + " " + conductor.apellidos + " No tiene vehiculo asociado desea registrar uno?") == true) {
                             $scope.editMode = false;
                             $scope.active = "";
-                            $scope.Conductor = {};
-                            $scope.titulo = "Asignar vehiculo a " + conductor.nombres + " " + conductor.apellidos;
+                            $scope.Vehiculo = {};
+                            $scope.Vehiculo.ide_conductor = conductor.identificacion;
+                            $scope.titulo = "Asignar vehiculo a: " + (conductor.nombres + " " + conductor.apellidos).toUpperCase();
                             finalizar = true;
                             $("#modalAsignarVehiculoC").openModal();
                         }
@@ -120,18 +121,28 @@ app.controller('ConductorController', function ($scope, ConductorServicio) {
     //    cargarConductores();
     //}
 
-    $scope.consutarVehiculo = function(id){
-        var promiseGet = ConductorServicio.getVehiculoC(id);
-        promiseGet.then(function(pl){
-            $scope.Vehiculo = pl.data;
-            if ($scope.Vehiculo == null) {
-                if (confirm('El conductor ' + pl.data.nombres + " " + pl.data.apellidos + " No tiene vehiculo asociado desea registrar uno?") == true) {
-                    $("#modalAsignarVehiculoC").OpenModal();
-                }
-            } else {
+    $scope.guardarVehiculo = function(){
+        var object = {
+            ide_conductor : $scope.Vehiculo.ide_conductor,
+            ide_propietario : $scope.Vehiculo.ide_propietario,
+            nombre_propietario : $scope.Vehiculo.nombre_propietario,
+            tel_propietario : $scope.Vehiculo.tel_propietario,
+            placa : $scope.Vehiculo.placa,
+            modelo : $scope.Vehiculo.modelo,
+            color : $scope.Vehiculo.color,
+            codigo_vial : $scope.Vehiculo.codigo_vial,
+            cupos : $scope.Vehiculo.cupos
+        };
+        console.log(object);
+        var promisePost = VehiculoServicio.post(object);
+        promisePost.then(function (pl) {
+                $("#modalAsignarVehiculoC").closeModal();
                 cargarConductores();
-            }
-        });
+                Materialize.toast(pl.data.message, 5000, 'rounded');
+            },
+            function (errorPl) {
+                console.log('Error Al Cargar Datos', errorPl);
+            });
     }
 
 

@@ -52,7 +52,35 @@ class VehiculoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $vehiculo = new Vehiculo();
+
+        $conductor = Conductor::select("*")
+            ->where("identificacion", $data["ide_conductor"])
+            ->first();
+        $conductor->vehiculo_id = $data["placa"];
+
+        $vehiculo->ide_conductor = $data["ide_conductor"];
+        $vehiculo->placa = $data["placa"];
+        $vehiculo->modelo = $data["modelo"];
+        $vehiculo->color = $data["color"];
+        $vehiculo->codigo_vial = $data["codigo_vial"];
+        $vehiculo->cupos = $data["cupos"];
+        $vehiculo->ide_propietario = $data["ide_propietario"];
+        $vehiculo->nombre_propietario = $data["nombre_propietario"];
+        $vehiculo->tel_propietario = $data["tel_propietario"];
+
+
+        $busqueda = Vehiculo::select("placa")
+            ->where("placa",$data["placa"])
+            ->first();
+        if ($busqueda == null) {
+            $conductor->save();
+            $vehiculo->save();
+            return JsonResponse::create(array('message' => "Se asigno el vehiculo correctametne."), 200);
+        }else{
+            return JsonResponse::create(array('message' => "La placa del vehiculo ya se encuentra registrada."), 200);
+        }
     }
 
     /**
