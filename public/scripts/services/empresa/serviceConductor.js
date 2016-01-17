@@ -25,7 +25,11 @@ app.service('ConductorServicio', function ($http) {
         return req;
     }
 
-    this.getVehiculoC = function(id){
-        var req = $http.get(uri + '/api/empresa/conductores/getVehiculo/' + id)
+    this.postImagen = function (id, object) {
+        return $http.post(
+            uri + '/api/empresas/conducdor/imagen/' + id, object,
+            {transformRequest: angular.identity, headers: {'Content-Type': undefined}
+            }
+        );
     }
 });

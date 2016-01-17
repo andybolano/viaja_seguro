@@ -52,6 +52,30 @@ app.controller('VehiculosController', function ($scope, VehiculoServicio) {
         $("#modalBuscarconductor").closeModal();
     }
 
+    $scope.guardar = function(){
+        var object = {
+            ide_conductor : $scope.Vehiculo.ide_conductor,
+            ide_propietario : $scope.Vehiculo.ide_propietario,
+            nombre_propietario : $scope.Vehiculo.nombre_propietario,
+            tel_propietario : $scope.Vehiculo.tel_propietario,
+            placa : $scope.Vehiculo.placa,
+            modelo : $scope.Vehiculo.modelo,
+            color : $scope.Vehiculo.color,
+            codigo_vial : $scope.Vehiculo.codigo_vial,
+            cupos : $scope.Vehiculo.cupos
+        };
+        console.log(object);
+        var promisePost = VehiculoServicio.post(object);
+        promisePost.then(function (pl) {
+                $("#modalAsignarVehiculoC").closeModal();
+                cargarConductores();
+                Materialize.toast(pl.data.message, 5000, 'rounded');
+            },
+            function (errorPl) {
+                console.log('Error Al Cargar Datos', errorPl);
+            });
+    }
+
     $scope.eliminar = function (deduccion){
         if(confirm('¿Deseas eliminar el registro?') ==true) {
             success(1);

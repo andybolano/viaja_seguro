@@ -62,6 +62,7 @@ app.controller('ConductorController', function ($scope, ConductorServicio, Vehic
                 $("#modalNuevoConductor").closeModal();
                 cargarConductores();
                 Materialize.toast(pl.data.message, 5000, 'rounded');
+                modificarImagen();
             },
             function (errorPl) {
                 console.log('Error Al Cargar Datos', errorPl);
@@ -93,6 +94,7 @@ app.controller('ConductorController', function ($scope, ConductorServicio, Vehic
                 $("#modalNuevoConductor").closeModal();
                 cargarConductores();
                 Materialize.toast(pl.data.message, 5000, 'rounded');
+                modificarImagen();
             },
             function (errorPl) {
                 console.log('Error Al Cargar Datos', errorPl);
@@ -145,5 +147,21 @@ app.controller('ConductorController', function ($scope, ConductorServicio, Vehic
             });
     }
 
+    function modificarImagen(){
+        if($scope.fileimage) {
+            var data = new FormData();
+            data.append('imagen', $scope.fileimage);
+            ConductorServicio.postImagen($scope.Conductor.identificacion, data).then(success, error);
+            function success(p) {
+                $scope.Conductor.imagen = p.data.nombrefile;
+                Materialize.toast('Imagen guardado correctamente', 5000);
+            }
+
+            function error(error) {
+                Materialize.toast('No se pudo guardar el archivo, error inesperado', 5000);
+                console.log('Error al guardar', error);
+            }
+        }
+    }
 
 })

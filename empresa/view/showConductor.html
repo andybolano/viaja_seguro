@@ -32,7 +32,7 @@
                                 <tr ng-repeat="conductor in Conductores| filter : filtro">
                                     <td>{{conductor.identificacion}}</td>
                                     <td>
-                                        <img ng-src="{{conductor.foto}}" class="circle" style="width: 35px;">
+                                        <img ng-src="{{conductor.imagen}}" class="circle" style="width: 35px;">
                                     </td>
                                     <td>{{conductor.nombres}}</td>
                                     <td>{{conductor.apellidos}}</td>
@@ -118,24 +118,20 @@
                 </div>
 
                 <div class="col s4">
-                    <div class="col s12" id="image">
-
+                    <div class="col s12" id="image" style="max-height: 300px;">
+                        <img class="thumb center" id="imagenlogo" style="width:100%" src="{{Conductor.imagen}}" title="logo" alt="seleccione foto"/>
                     </div>
-
-                    <div class="file-field input-field col s12">
-                        <a id="cambiar" ng-click="modificarImagen()" hidden style="display: none" href="javascript:;" class="btn col s12 red">Cambiar</a>
-                    </div>
-
                     <div class="file-field input-field col s12">
                         <div class="btn col s12">
                             <span><i class="mdi-image-photo-camera"></i></span>
-                            <input id="files" uploader-model="Conductor.imagen" type="file">
+                            <input id="files" uploader-model="fileimage" type="file">
                         </div>
                         <div class="file-path-wrapper">
-                            <!--<input class="file-path validate" type="text">-->
                         </div>
                     </div>
                 </div>
+
+
             </div>
         </div>
 
@@ -259,6 +255,7 @@
                         </div>
                     </form>
                 </div>
+
                 <div class="col s4">
                     <div class="col s12" id="imageV"></div>
                     <div class="file-field input-field col s12">
