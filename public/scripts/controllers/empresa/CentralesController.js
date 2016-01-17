@@ -3,11 +3,12 @@
  */
 app.controller('CentralesController', CentralesController);
 
-function CentralesController($scope, centralesService){
+function CentralesController($scope, centralesService, ciudadesService){
 
     $scope.selectedCentral = {};
     $scope.centrales = [];
     $scope.servicios = [];
+    $scope.ciudades = [];
     $scope.editMode = false;
     $scope.nombreForm = "";
     $scope.active = "";
@@ -18,6 +19,9 @@ function CentralesController($scope, centralesService){
     $scope.actualizar = actualizar;
     $scope.update = update;
     $scope.eliminar = eliminar;
+
+    $scope.openCiudades = openCiudades;
+    $scope.selecionarCiudad = selecionarCiudad;
 
     init();
     function init(){
@@ -52,7 +56,7 @@ function CentralesController($scope, centralesService){
             $("#modalNuevaCentral").closeModal();
             $scope.selectedCentral = p.data;
             $scope.centrales.push($scope.selectedCentral);
-            //init();
+            init();
             Materialize.toast('Registro guardado correctamente', 5000);
         }
         function error(error) {
@@ -69,14 +73,11 @@ function CentralesController($scope, centralesService){
     }
 
     function update(){
-        updateServicios($scope.selectedCentral);
-        success(1);
-        //centralesService.put($scope.selectedCentral, $scope.selectedCentral.codigo).then(success, error);
+        centralesService.put($scope.selectedCentral, $scope.selectedCentral.id).then(success, error);
         function success(p) {
             $("#modalNuevaCentral").closeModal();
             $scope.editMode = false;
-            modificarImagen();
-            //init();
+            init();
             Materialize.toast('Registro modificado correctamente', 5000);
         }
         function error(error) {
@@ -84,17 +85,38 @@ function CentralesController($scope, centralesService){
         }
     }
 
-    function eliminar(codigo){
+    function eliminar(id){
         if(confirm('¿Deseas eliminar el registro?') ==true) {
-            success(1);
-            //centralesService.delete(codigo).then(success, error);
+            centralesService.delete(id).then(success, error);
         }
         function success(p) {
-            //init();
+            init();
             Materialize.toast('Registro eliminado', 5000);
         }
         function error(error) {
             cconsole.log('Error al eliminar', error);
+        }
+    }
+
+    function selecionarCiudad(ciudad){
+        $scope.selectedCentral.ciudad = ciudad;
+        $("#modalSeleccionarCiudad").closeModal();
+    }
+
+    function openCiudades(){
+        if(!$scope.editMode) {
+            loadCiudades();
+            $("#modalSeleccionarCiudad").openModal();
+        }
+    }
+
+    function loadCiudades(){
+        ciudadesService.getAll().then(success, error);
+        function success(p) {
+            $scope.ciudades = p.data;
+        }
+        function error(error) {
+            console.log('Error al cargar la ciudades', error);
         }
     }
 

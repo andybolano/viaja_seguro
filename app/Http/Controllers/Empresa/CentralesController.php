@@ -1,5 +1,8 @@
 <?php namespace App\Http\Controllers\Empresa;
 
+use App\Model\Central;
+use App\Model\Ciudad;
+use App\Model\Empresa;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -17,9 +20,15 @@ class CentralesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($empresa_id)
     {
-        return $this->centrales;
+        try{
+            $centrales = Empresa::find($empresa_id)->centrales;
+            $centrales->load('ciudad');
+            return $centrales;
+        }catch(\Exception $e){
+            return response()->json(array("exception"=>$e->getMessage()), 400);
+        }
     }
 
     /**
@@ -28,13 +37,16 @@ class CentralesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $empresa_id)
     {
         try{
             $data = $request->json()->all();
-            $data['id'] = 4;
-            //guardar modelo
-            return response()->json($data, 201);
+            $ciudad = Ciudad::find($data['ciudad']['id']);
+            unset($data['ciudad']);
+            $central = new Central($data);
+            $central->ciudad()->associate($ciudad);
+            Empresa::find($empresa_id)->centrales()->save($central);
+            return response()->json($central, 201);
         } catch (\Exception $exc) {
             return response()->json(array("exception"=>$exc->getMessage()), 400);
         }
@@ -55,12 +67,25 @@ class CentralesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $codigo
+     * @param  int  $empresa_id, $central_id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $codigo)
+    public function update(Request $request, $empresa_id, $central_id)
     {
-        //
+        try{
+            if($central = Central::find($central_id)) {
+                $data = $request->json()->all();
+                $central->direccion = $data['direccion'];
+                $central->telefono = $data['telefono'];
+                $central->save();
+                return response()->json(['mensaje' => 'registro actualizado'], 201);
+            }else{
+                return response()->json(['mensaje' => 'la central no existe'], 400);
+            }
+        } catch (\Exception $exc) {
+            return response()->json(array("exception"=>$exc->getMessage(), ''=>$exc->getLine()), 400);
+        }
+
     }
 
     /**
@@ -69,8 +94,19 @@ class CentralesController extends Controller
      * @param  int  $codigo
      * @return \Illuminate\Http\Response
      */
-    public function destroy($codigo)
+    public function destroy(Request $request, $empresa_id, $central_id)
     {
-        //
+        try{
+            $central = Central::find($central_id);
+            if($central){
+                $central->delete();
+                return response()->json(['mensaje' => 'registro eliminado'], 201);
+            }else{
+                return response()->json(['mensaje' => 'la central no existe'], 400);
+            }
+        } catch (\Exception $exc) {
+            return response()->json(array("exception"=>$exc->getMessage(), ''=>$exc->getLine()), 400);
+        }
+
     }
 }

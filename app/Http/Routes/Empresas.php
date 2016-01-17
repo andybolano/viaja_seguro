@@ -3,7 +3,7 @@
 Route::resource('/api/empresas', 'SuperAdmin\EmpresaController');
 Route::post('/api/empresas/{id}/logo', 'SuperAdmin\EmpresaController@saveLogo');
 
-Route::resource('/api/empresas/{id}/centrales', 'Empresa\CentralesController');
+Route::resource('/api/empresas/{empresa_id}/centrales', 'Empresa\CentralesController');
 
 //pasajeros//
 Route::get('/api/empresa/obtener/pasajeros', 'Empresa\ServiciosController@getPasajeros');

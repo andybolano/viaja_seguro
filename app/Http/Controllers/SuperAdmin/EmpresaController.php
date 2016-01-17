@@ -7,22 +7,6 @@ use App\Http\Requests;
 
 class EmpresaController extends Controller
 {
-
-    private $empresas = [
-        [
-            'id' => 2,
-            'nit'=> '224534521',
-            'pjuridica'=> '3453454',
-            'nombre'=> 'Coomulcod',
-            'logo' => 'http://localhost/midev/viaja_seguro/public/images/empresas/empresa2.png',
-            'direccion'=> 'por ahi',
-            'telefono'=> '123456',
-            'estado' => true,
-            'servicios' => [
-                ['codigo' => 1, 'concepto' => 'Manejor de reservas']
-            ]
-        ]
-    ];
     /**
      * Display a listing of the resource.
      *
