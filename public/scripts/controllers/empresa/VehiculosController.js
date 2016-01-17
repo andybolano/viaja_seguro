@@ -18,8 +18,9 @@ app.controller('VehiculosController', function ($scope, VehiculoServicio) {
         var promiseGet = VehiculoServicio.getAll();
         promiseGet.then(function (pl) {
             $scope.Vehiculos = pl.data;
+            Materialize.toast('Vehiculos cargados correctamente', 5000, 'rounded');
         },function (errorPl) {
-            console.log('Error Al Cargar Datos', errorPl);
+            Materialize.toast('Ocurrio un error al cargar los vehiculos', 5000, 'rounded');
         });
     }
 
@@ -32,7 +33,7 @@ app.controller('VehiculosController', function ($scope, VehiculoServicio) {
     }
 
     $scope.buscarConductor = function(){
-        $scope.titulo = "Seleccione el conductor para el vehiculo";
+        $scope.titulo = "Registrar vehiculo";
         $("#modalBuscarconductor").openModal();
     }
 
@@ -49,6 +50,30 @@ app.controller('VehiculosController', function ($scope, VehiculoServicio) {
         $scope.Vehiculo.nombreConductor = conductor.nombres + " " + conductor.apellidos;
         $scope.active = 'active';
         $("#modalBuscarconductor").closeModal();
+    }
+
+    $scope.guardar = function(){
+        var object = {
+            ide_conductor : $scope.Vehiculo.ide_conductor,
+            ide_propietario : $scope.Vehiculo.ide_propietario,
+            nombre_propietario : $scope.Vehiculo.nombre_propietario,
+            tel_propietario : $scope.Vehiculo.tel_propietario,
+            placa : $scope.Vehiculo.placa,
+            modelo : $scope.Vehiculo.modelo,
+            color : $scope.Vehiculo.color,
+            codigo_vial : $scope.Vehiculo.codigo_vial,
+            cupos : $scope.Vehiculo.cupos
+        };
+        console.log(object);
+        var promisePost = VehiculoServicio.post(object);
+        promisePost.then(function (pl) {
+                $("#modalAsignarVehiculoC").closeModal();
+                cargarConductores();
+                Materialize.toast(pl.data.message, 5000, 'rounded');
+            },
+            function (errorPl) {
+                console.log('Error Al Cargar Datos', errorPl);
+            });
     }
 
     $scope.eliminar = function (deduccion){

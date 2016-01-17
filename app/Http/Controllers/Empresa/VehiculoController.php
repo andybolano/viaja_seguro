@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers\Empresa;
 
+use App\Model\Conductor;
+use App\Model\Vehiculo;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Mockery\CountValidator\Exception;
 
 class VehiculoController extends Controller
 {
@@ -16,30 +20,14 @@ class VehiculoController extends Controller
      */
     public function index()
     {
-        $vehiculos = [
-          [
-              'placa' => 'UJSK-123',
-              'modelo' => 'KIA 2010',
-              'color' => 'Amarillo',
-              'conductor' => 'Jose miguel soto',
-              'cupos' => '4'
-          ],
-            [
-                'placa' => 'UJSK-345',
-                'modelo' => 'KIA 2010',
-                'color' => 'Amarillo',
-                'conductor' => 'Jose miguel soto',
-                'cupos' => '4'
-            ],
-            [
-                'placa' => 'UJSK-156',
-                'modelo' => 'KIA 2010',
-                'color' => 'Amarillo',
-                'conductor' => 'Jose miguel soto',
-                'cupos' => '4'
-            ],
-        ];
-        return $vehiculos;
+        try{
+//            $vehiculos = Vehiculo::all();
+            $vehiculos = Vehiculo::all();
+//            $conductor = Vehiculo::find($vehiculos->id)->vehiculo;
+            return $vehiculos;
+        }catch(Exception $e){
+            return JsonResponse::create(array('message' => "Error al cargar los vehiculos", "exception"=>$e->getMessage()), 401);
+        }
     }
 
     public function getVehiculoEnTurno(){
@@ -64,7 +52,35 @@ class VehiculoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $vehiculo = new Vehiculo();
+
+        $conductor = Conductor::select("*")
+            ->where("identificacion", $data["ide_conductor"])
+            ->first();
+        $conductor->vehiculo_id = $data["placa"];
+
+        $vehiculo->ide_conductor = $data["ide_conductor"];
+        $vehiculo->placa = $data["placa"];
+        $vehiculo->modelo = $data["modelo"];
+        $vehiculo->color = $data["color"];
+        $vehiculo->codigo_vial = $data["codigo_vial"];
+        $vehiculo->cupos = $data["cupos"];
+        $vehiculo->ide_propietario = $data["ide_propietario"];
+        $vehiculo->nombre_propietario = $data["nombre_propietario"];
+        $vehiculo->tel_propietario = $data["tel_propietario"];
+
+
+        $busqueda = Vehiculo::select("placa")
+            ->where("placa",$data["placa"])
+            ->first();
+        if ($busqueda == null) {
+            $conductor->save();
+            $vehiculo->save();
+            return JsonResponse::create(array('message' => "Se asigno el vehiculo correctametne."), 200);
+        }else{
+            return JsonResponse::create(array('message' => "La placa del vehiculo ya se encuentra registrada."), 200);
+        }
     }
 
     /**

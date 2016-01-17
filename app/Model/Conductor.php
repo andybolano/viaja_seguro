@@ -8,7 +8,11 @@ class Conductor extends Model
 {
     protected $table = 'conductores';
 
-    protected $fillable = ['identificacion', 'nombres', 'apellidos', 'imagen', 'telefono', 'direccion', 'correo'];
+    protected $fillable = ['vehiculo_id', 'identificacion', 'nombres', 'apellidos', 'imagen', 'telefono', 'direccion', 'correo'];
 
     public $timestamps = false;
+
+    public function vehiculo(){
+        return $this->belongsTo(Vehiculo::class, 'id');
+    }
 }

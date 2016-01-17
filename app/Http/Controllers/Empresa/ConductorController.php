@@ -23,7 +23,33 @@ class ConductorController extends Controller
         return $conductores;
     }
 
+    public function getVehiculo($id){
+        $vehiculo = Conductor::select('vehiculo_id')
+            ->where('identificacion', $id)
+            ->first();
+        return $vehiculo;
 
+    }
+
+    public function guardaImagen(Request $request, $id)
+    {
+        try{
+            $conductor = Conductor::select('identificacion')
+                ->where('identificacion', $id)->first();
+
+            if ($request->hasFile('imagen')) {
+                $request->file('imagen')->move('images/conductores/', "conductor$id.png");
+                $nombrefile = $_SERVER['PHP_SELF'].'/../images/conductores/'."conductor$id.png";
+                $conductor->imagen = $nombrefile;
+                $conductor->save();
+                return response()->json(['nombrefile'=>$nombrefile], 201);
+            }else {
+                return response()->json([], 400);
+            }
+        } catch (\Exception $exc) {
+            return response()->json(array("exception"=>$exc->getMessage()), 400);
+        }
+    }
     /**
      * Show the form for creating a new resource.
      *

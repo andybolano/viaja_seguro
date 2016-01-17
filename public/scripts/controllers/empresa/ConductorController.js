@@ -1,4 +1,4 @@
-app.controller('ConductorController', function ($scope, ConductorServicio) {
+app.controller('ConductorController', function ($scope, ConductorServicio, VehiculoServicio) {
     $scope.Conductores = [];
     $scope.conductor = {};
     $scope.titulo;
@@ -15,9 +15,25 @@ app.controller('ConductorController', function ($scope, ConductorServicio) {
 
 
     function cargarConductores() {
+        var finalizar = false;
         var promiseGet = ConductorServicio.getAll();
         promiseGet.then(function (pl) {
             $scope.Conductores = pl.data;
+            angular.forEach($scope.Conductores, function(conductor){
+                if(finalizar == false){
+                    if(conductor.vehiculo_id == null){
+                        if (confirm('El conductor ' + conductor.nombres + " " + conductor.apellidos + " No tiene vehiculo asociado desea registrar uno?") == true) {
+                            $scope.editMode = false;
+                            $scope.active = "";
+                            $scope.Vehiculo = {};
+                            $scope.Vehiculo.ide_conductor = conductor.identificacion;
+                            $scope.titulo = "Asignar vehiculo a: " + (conductor.nombres + " " + conductor.apellidos).toUpperCase();
+                            finalizar = true;
+                            $("#modalAsignarVehiculoC").openModal();
+                        }
+                    }
+                }
+            });
         },function (errorPl) {
             console.log('Error Al Cargar Datos', errorPl);
         });
@@ -46,6 +62,7 @@ app.controller('ConductorController', function ($scope, ConductorServicio) {
                 $("#modalNuevoConductor").closeModal();
                 cargarConductores();
                 Materialize.toast(pl.data.message, 5000, 'rounded');
+                modificarImagen();
             },
             function (errorPl) {
                 console.log('Error Al Cargar Datos', errorPl);
@@ -77,6 +94,7 @@ app.controller('ConductorController', function ($scope, ConductorServicio) {
                 $("#modalNuevoConductor").closeModal();
                 cargarConductores();
                 Materialize.toast(pl.data.message, 5000, 'rounded');
+                modificarImagen();
             },
             function (errorPl) {
                 console.log('Error Al Cargar Datos', errorPl);
@@ -96,4 +114,54 @@ app.controller('ConductorController', function ($scope, ConductorServicio) {
                 });
         }
     }
+
+    //if ($scope.Vehiculo == null) {
+    //    if (confirm('El conductor ' + pl.data.nombres + " " + pl.data.apellidos + " No tiene vehiculo asociado desea registrar uno?") == true) {
+    //        $("#modalAsignarVehiculoC").OpenModal();
+    //    }
+    //} else {
+    //    cargarConductores();
+    //}
+
+    $scope.guardarVehiculo = function(){
+        var object = {
+            ide_conductor : $scope.Vehiculo.ide_conductor,
+            ide_propietario : $scope.Vehiculo.ide_propietario,
+            nombre_propietario : $scope.Vehiculo.nombre_propietario,
+            tel_propietario : $scope.Vehiculo.tel_propietario,
+            placa : $scope.Vehiculo.placa,
+            modelo : $scope.Vehiculo.modelo,
+            color : $scope.Vehiculo.color,
+            codigo_vial : $scope.Vehiculo.codigo_vial,
+            cupos : $scope.Vehiculo.cupos
+        };
+        console.log(object);
+        var promisePost = VehiculoServicio.post(object);
+        promisePost.then(function (pl) {
+                $("#modalAsignarVehiculoC").closeModal();
+                cargarConductores();
+                Materialize.toast(pl.data.message, 5000, 'rounded');
+            },
+            function (errorPl) {
+                console.log('Error Al Cargar Datos', errorPl);
+            });
+    }
+
+    function modificarImagen(){
+        if($scope.fileimage) {
+            var data = new FormData();
+            data.append('imagen', $scope.fileimage);
+            ConductorServicio.postImagen($scope.Conductor.identificacion, data).then(success, error);
+            function success(p) {
+                $scope.Conductor.imagen = p.data.nombrefile;
+                Materialize.toast('Imagen guardado correctamente', 5000);
+            }
+
+            function error(error) {
+                Materialize.toast('No se pudo guardar el archivo, error inesperado', 5000);
+                console.log('Error al guardar', error);
+            }
+        }
+    }
+
 })
