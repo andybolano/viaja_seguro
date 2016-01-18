@@ -31,7 +31,7 @@
                                 <td>{{vehiculo.placa}}</td>
                                 <td>{{vehiculo.modelo}}</td>
                                 <td>{{vehiculo.color}}</td>
-                                <td>{{vehiculo.conductor}}</td>
+                                <td>{{vehiculo.ide_conductor}}</td>
                                 <td>{{vehiculo.cupos}}</td>
                                 <td>
                                     <a href="javascript:" ng-click="modificar(vehiculo)">
@@ -182,21 +182,15 @@
                 </div>
 
                 <div class="col s4">
-                    <div class="col s12" id="image">
-
+                    <div class="col s12" id="imagev" style="max-height: 300px;">
+                        <img class="thumb center" id="imagen" style="width:100%" src="{{Vehiculo.imagen}}" title="imagen" alt="seleccione foto"/>
                     </div>
-
-                    <div class="file-field input-field col s12">
-                        <a id="cambiar" ng-click="modificarImagen()" hidden style="display: none" href="javascript:;" class="btn col s12 red">Cambiar</a>
-                    </div>
-
                     <div class="file-field input-field col s12">
                         <div class="btn col s12">
                             <span><i class="mdi-image-photo-camera"></i></span>
-                            <input id="files" uploader-model="Conductor.imagen" type="file">
+                            <input id="files" uploader-model="fileimageV" type="file" name="filesv">
                         </div>
                         <div class="file-path-wrapper">
-                            <!--<input class="file-path validate" type="text">-->
                         </div>
                     </div>
                 </div>
@@ -208,7 +202,7 @@
         <div class="modal-footer">
             <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red " style="margin-left:10px;">Salir</a>
             <a ng-disabled="!formVehiculo.$valid"  class="waves-effect waves-light btn green" ng-hide="editMode" ng-click="guardar()">Guardar</a>
-            <a ng-disabled="!formVehiculo.$valid"  class="waves-effect waves-light btn green" ng-show="editMode" ng-click="modificar()">Modificar</a>
+            <a ng-disabled="!formVehiculo.$valid"  class="waves-effect waves-light btn green" ng-show="editMode" ng-click="update()">Modificar</a>
         </div>
 
     </div>
@@ -241,7 +235,7 @@
                         <div class="col s12">
                             <table class="striped bordered">
                                 <thead>
-                                <th>Id</th>
+                                <th>Identificacion</th>
                                 <th>Foto</th>
                                 <th>Nombres</th>
                                 <th>Apellidos</th>
@@ -250,7 +244,7 @@
                                 </thead>
                                 <tbody>
                                 <tr ng-repeat="conductor in Conductores | filter : filtro">
-                                    <td>{{conductor.id}}</td>
+                                    <td>{{conductor.identificacion}}</td>
                                     <td>
                                         <img src="http://materializecss.com/images/yuna.jpg" class="circle" style="width: 35px;">
                                     </td>
@@ -283,20 +277,18 @@
     $(document).ready(function(){
         function archivo(evt) {
             var files = evt.target.files;
-
             //Obtenemos la imagen
             for (var i = 0, f; f = files[i]; i++) {
                 //Solo imágenes.
                 if (!f.type.match('image.*')) {
                     continue;
                 }
-
                 var reader = new FileReader();
 
                 reader.onload = (function(theFile) {
                     return function(e) {
                         // se crea la imagen
-                        document.getElementById("image").innerHTML = ['<img class="thumb" style="width:100%;" src="', e.target.result, '" title="', escape(theFile.name), '"/>'].join('');
+                        document.getElementById("imagev").innerHTML = ['<img class="thumb" style="width:100%;" src="', e.target.result, '" title="', escape(theFile.name), '"/>'].join('');
                     };
                 })(f);
                 reader.readAsDataURL(f);

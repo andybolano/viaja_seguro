@@ -7,10 +7,11 @@ app.controller('VehiculosController', function ($scope, VehiculoServicio) {
     $scope.editMode = false;
     cargarVehiculos();
 
-    function initialize(){
-        $scope.vehiculo = {
+    function init(){
+        $scope.Vehiculo = {
             placa: "",
-            modelo: ""
+            modelo: "",
+            imagen: ""
         }
     }
 
@@ -19,6 +20,7 @@ app.controller('VehiculosController', function ($scope, VehiculoServicio) {
         promiseGet.then(function (pl) {
             $scope.Vehiculos = pl.data;
             Materialize.toast('Vehiculos cargados correctamente', 5000, 'rounded');
+            init();
         },function (errorPl) {
             Materialize.toast('Ocurrio un error al cargar los vehiculos', 5000, 'rounded');
         });
@@ -46,8 +48,8 @@ app.controller('VehiculosController', function ($scope, VehiculoServicio) {
     };
 
     $scope.selectConductor = function (conductor){
-        $scope.Vehiculo.conductor = conductor.id;
-        $scope.Vehiculo.nombreConductor = conductor.nombres + " " + conductor.apellidos;
+        $scope.Vehiculo.ide_conductor = conductor.identificacion;
+        //$scope.Vehiculo.nombreConductor = conductor.nombres + " " + conductor.apellidos;
         $scope.active = 'active';
         $("#modalBuscarconductor").closeModal();
     }
@@ -67,26 +69,66 @@ app.controller('VehiculosController', function ($scope, VehiculoServicio) {
         console.log(object);
         var promisePost = VehiculoServicio.post(object);
         promisePost.then(function (pl) {
-                $("#modalAsignarVehiculoC").closeModal();
-                cargarConductores();
+                $("#modalNuevoVehiculo").closeModal();
                 Materialize.toast(pl.data.message, 5000, 'rounded');
+                $scope.modificarImagenVehiculo();
             },
             function (errorPl) {
                 console.log('Error Al Cargar Datos', errorPl);
             });
     }
 
-    $scope.eliminar = function (deduccion){
-        if(confirm('¿Deseas eliminar el registro?') ==true) {
-            success(1);
-            //centralesService.delete(codigo).then(success, error);
+    $scope.update = function  () {
+        var object = {
+            ide_conductor : $scope.Vehiculo.ide_conductor,
+            ide_propietario : $scope.Vehiculo.ide_propietario,
+            nombre_propietario : $scope.Vehiculo.nombre_propietario,
+            tel_propietario : $scope.Vehiculo.tel_propietario,
+            placa : $scope.Vehiculo.placa,
+            modelo : $scope.Vehiculo.modelo,
+            color : $scope.Vehiculo.color,
+            codigo_vial : $scope.Vehiculo.codigo_vial,
+            cupos : $scope.Vehiculo.cupos
+        };
+        console.log(object);
+        var promisePut = VehiculoServicio.put(object,$scope.Vehiculo.placa);
+        promisePut.then(function (pl) {
+                $("#modalNuevoVehiculo").closeModal();
+                Materialize.toast(pl.data.message, 5000, 'rounded');
+                $scope.modificarImagenVehiculo();
+            },
+            function (errorPl) {
+                console.log('Error Al Cargar Datos', errorPl);
+            });
+    }
+
+    $scope.eliminar = function  (id) {
+        if(confirm('¿Deseas eliminar el registro?') == true) {
+            var promiseDelete = VehiculoServicio.delete(id);
+            promiseDelete.then(function (pl) {
+                    cargarVehiculos();
+                    Materialize.toast(pl.data.message, 5000, 'rounded');
+                },
+                function (errorPl) {
+                    console.log('No se pudo eliminar el registro', errorPl);
+                });
         }
-        function success(p) {
-            //init();
-            Materialize.toast('Registro eliminado', 5000);
-        }
-        function error(error) {
-            cconsole.log('Error al eliminar', error);
+    }
+
+    $scope.modificarImagenVehiculo = function (){
+        if($scope.fileimageV) {
+            var data = new FormData();
+            data.append('imagenv', $scope.fileimageV);
+            VehiculoServicio.postImagen($scope.Vehiculo.placa, data).then(success, error);
+            function success(p) {
+                cargarVehiculos();
+                Materialize.toast('Imagen guardada correctamente', 5000);
+            }
+
+            function error(error) {
+                Materialize.toast('No se pudo guardar el archivo, error inesperado', 5000);
+                console.log('Error al guardar', error);
+            }
         }
     }
 })

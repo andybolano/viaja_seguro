@@ -83,6 +83,26 @@ class VehiculoController extends Controller
         }
     }
 
+    public function guardaImagen(Request $request, $id)
+    {
+        try{
+            $vehiculo = Vehiculo::select('*')
+                ->where('placa', $id)->first();
+
+            if ($request->hasFile('imagenv')) {
+                $request->file('imagenv')->move('images/vehiculos/', "vehiculo$id.png");
+                $nombrefile = $_SERVER['PHP_SELF'].'/../images/vehiculos/'."vehiculo$id.png";
+                $vehiculo->imagen = $nombrefile;
+                $vehiculo->save();
+                return response()->json(['nombrefile'=>$nombrefile], 201);
+            }else {
+                return response()->json([], 400);
+            }
+        } catch (\Exception $exc) {
+            return response()->json(array("exception"=>$exc->getMessage()), 400);
+        }
+    }
+
     /**
      * Display the specified resource.
      *
@@ -114,7 +134,33 @@ class VehiculoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+        $vehiculo = Vehiculo::select("*")
+            ->where("placa", $data["placa"])
+            ->first();
+
+        $conductor = Conductor::select("*")
+            ->where("identificacion", $data["ide_conductor"])
+            ->first();
+        $conductor->vehiculo_id = $data["placa"];
+
+        $vehiculo->ide_conductor = $data["ide_conductor"];
+        $vehiculo->placa = $data["placa"];
+        $vehiculo->modelo = $data["modelo"];
+        $vehiculo->color = $data["color"];
+        $vehiculo->codigo_vial = $data["codigo_vial"];
+        $vehiculo->cupos = $data["cupos"];
+        $vehiculo->ide_propietario = $data["ide_propietario"];
+        $vehiculo->nombre_propietario = $data["nombre_propietario"];
+        $vehiculo->tel_propietario = $data["tel_propietario"];
+
+//
+//        $busqueda = Vehiculo::select("placa")
+//            ->where("placa",$data["placa"])
+//            ->first();
+        $conductor->save();
+        $vehiculo->save();
+        return JsonResponse::create(array('message' => "Vehiculo actualizado correctametne."), 200);
     }
 
     /**
@@ -125,6 +171,19 @@ class VehiculoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try{
+            $vehiculo = Vehiculo::select("*")
+                ->where("placa", $id)
+                ->first();
+            if (is_null ($vehiculo))
+            {
+                App::abort(404);
+            }else{
+                $vehiculo->delete();
+                return JsonResponse::create(array('message' => "Vehiculo eliminado correctamente", "request" =>json_encode($id)), 200);
+            }
+        }catch (Exception $ex) {
+            return JsonResponse::create(array('message' => "No se pudo Eliminar el vehiculo", "exception"=>$ex->getMessage(), "request" =>json_encode($id)), 401);
+        }
     }
 }

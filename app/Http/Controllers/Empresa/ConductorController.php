@@ -34,7 +34,7 @@ class ConductorController extends Controller
     public function guardaImagen(Request $request, $id)
     {
         try{
-            $conductor = Conductor::select('identificacion')
+            $conductor = Conductor::select('*')
                 ->where('identificacion', $id)->first();
 
             if ($request->hasFile('imagen')) {
