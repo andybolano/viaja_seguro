@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Empresa;
 
 use App\Model\Cliente;
 use App\Model\Conductor;
+use App\Model\Documentacion;
 use App\Model\Vehiculo;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -22,9 +23,7 @@ class VehiculoController extends Controller
     public function index()
     {
         try{
-//            $vehiculos = Vehiculo::all();
             $vehiculos = Vehiculo::all();
-//            $conductor = Vehiculo::find($vehiculos->id)->vehiculo;
             return $vehiculos;
         }catch(Exception $e){
             return JsonResponse::create(array('message' => "Error al cargar los vehiculos", "exception"=>$e->getMessage()), 401);
@@ -33,6 +32,11 @@ class VehiculoController extends Controller
 
     public function getVehiculoEnTurno(){
         return $this->vehiculoEnTurno;
+    }
+
+    public function getDocumentacion(){
+        $documentacion = Documentacion::all();
+        return $documentacion;
     }
     /**
      * Show the form for creating a new resource.

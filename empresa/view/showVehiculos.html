@@ -110,11 +110,7 @@
                                 <input id="icon_phone" type="text" class="validate" name="conductor" ng-model="Vehiculo.ide_conductor" ng-click="buscarConductor()">
                                 <label for="icon_phone" class="{{active}}">Identificacion conductor</label>
                             </div>
-                            <!--<div class="input-field col s4">-->
-                                <!--<i class="material-icons prefix">person</i>-->
-                                <!--<input id="icon_person1" type="text" class="validate" name="nombreC" ng-model="Vehiculo.nombreConductor">-->
-                                <!--<label for="icon_person2" class="{{active}}">Conductor</label>-->
-                            <!--</div>-->
+
                             <div class="input-field col s4">
                                 <i class="material-icons prefix" >event_seat</i>
                                 <input id="icon_cupo" type="text" class="validate" name="cupos" ng-maxlength="3" ng-model="Vehiculo.cupos">
@@ -127,54 +123,19 @@
                                 Documentación del vehículo
                             </div>
 
-                            <div class="row col s6">
-                                <fieldset>
-                                    <div class="col s4">
-                                        <p>
-                                            <input type="checkbox" id="seguro" />
-                                            <label for="seguro">SEGURO</label>
-                                        </p>
-                                    </div>
-                                    <div class="col s12" ng-show="true">
-                                        <input type="date" class="datepicker" placeholder="Fecha de vencimiento">
-                                    </div>
-                                </fieldset>
-                            </div>
-                            <div class="row col s6">
-                                <fieldset>
-                                    <div class="col s4">
-                                        <p>
-                                            <input type="checkbox" id="soat" />
-                                            <label for="seguro">SOAT</label>
-                                        </p>
-                                    </div>
-                                    <div class="col s12" ng-show="true">
-                                        <input type="date" class="datepicker" placeholder="Fecha de vencimiento">
-                                    </div>
-                                </fieldset>
-                            </div>
-                            <div class="row col s6">
-                                <fieldset>
-                                    <div class="col s4">
-                                        <p>
-                                            <input type="checkbox" id="tecno" />
-                                            <label for="tecno">TECNOMECÁNICA</label>
-                                        </p>
-                                    </div>
-                                    <div class="col s12" ng-show="true">
-                                        <input type="date" class="datepicker" placeholder="Fecha de vencimiento">
-                                    </div>
-                                </fieldset>
-                            </div>
-                            <div class="row col s6">
+                            <div class="row col s6" ng-repeat="documento in Documentacion">
                                 <fieldset>
                                     <div class="col s12">
-                                        <p>
-                                            <input type="checkbox" id="tarjeta" />
-                                            <label for="tarjeta">TARJETA DE PROPIEDAD</label>
+                                        <p style="margin-bottom: 0; margin-top: 0; margin-left: 10px">
+                                            <input type="checkbox" ng-model="documento.selected" id="documento{{documento.id}}"/>
+                                            <label for="documento{{documento.id}}">{{documento.nombre}}</label>
                                         </p>
                                     </div>
+                                    <div class="col s12" ng-if="documento.nombre !== 'TARJETA DE PROPIEDAD'">
+                                        <input type="date" class="validate datapicker" name="fecha" ng-model="Vehiculo.fecha">
+                                    </div>
                                 </fieldset>
+                                <a href="javascript:;" ng-click="checkDocumentos(documento)">prueba</a>
                             </div>
                         </div>
                     </form>
@@ -206,13 +167,6 @@
         </div>
 
     </div>
-
-
-
-
-
-
-
 
     <!--modal buscar conductor-->
     <div id="modalBuscarconductor" class="modal modal-fixed-footer" ng-controller="ConductorController">

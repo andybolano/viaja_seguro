@@ -5,6 +5,7 @@ app.controller('ConductorController', function ($scope, ConductorServicio, Vehic
     $scope.active;
     $scope.editMode = false;
     cargarConductores();
+    cargarDocumentacion();
 
     function initialize(){
         $scope.conductor = {
@@ -180,6 +181,16 @@ app.controller('ConductorController', function ($scope, ConductorServicio, Vehic
                 console.log('Error al guardar', error);
             }
         }
+    }
+
+    function cargarDocumentacion(){
+        var promiseGet = VehiculoServicio.getDocumentacion();
+        promiseGet.then(function (pl) {
+            $scope.Documentacion = pl.data;
+            console.log($scope.Documentacion);
+        },function (errorPl) {
+            Materialize.toast('Ocurrio un error al cargar los documentos', 5000, 'rounded');
+        });
     }
 
 })

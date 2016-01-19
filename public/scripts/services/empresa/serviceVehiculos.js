@@ -26,4 +26,9 @@ app.service('VehiculoServicio', function ($http) {
             }
         );
     }
+
+    this.getDocumentacion = function(){
+        var req = $http.get(uri+'/api/empresa/documentacion');
+        return req;
+    }
 });

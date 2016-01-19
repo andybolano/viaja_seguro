@@ -73,8 +73,6 @@
                                 <input  id="icon_payment4" type="text" class="validate" name="id" ng-value="10000 | currency" readonly>
                                 <label for="icon_payment4" class="active">Valor fijo de planilla</label>
                             </div>
-                            <input type="date" class="datepicker">
-
                         </div>
                         <div class="row">
                             <div class="input-field col s4">
@@ -121,6 +119,25 @@
                             </fieldset>
                         </div>
                     </form>
+                </div>
+                <!--deducciones-->
+                <div class="row col s3" ng-controller="DeduccionesController">
+                    <ul class="list-group">
+                        <fieldset>
+                            <table class="striped bordered">
+                                <thead>
+                                    <th>Deduccion</th>
+                                    <th>Valor</th>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="deduccion in Deducciones" ng-if="deduccion.estado == 'true'">
+                                    <td>{{deduccion.nombre}}</td>
+                                    <td>{{deduccion.valor | currency}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </fieldset>
+                    </ul>
                 </div>
             </div>
         </div>

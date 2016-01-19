@@ -6,13 +6,10 @@ app.controller('VehiculosController', function ($scope, VehiculoServicio) {
     $scope.active;
     $scope.editMode = false;
     cargarVehiculos();
+    cargarDocumentacion();
 
     function init(){
-        $scope.Vehiculo = {
-            placa: "",
-            modelo: "",
-            imagen: ""
-        }
+        $scope.Vehiculo = {}
     }
 
     function cargarVehiculos() {
@@ -131,5 +128,15 @@ app.controller('VehiculosController', function ($scope, VehiculoServicio) {
                 console.log('Error al guardar', error);
             }
         }
+    }
+
+    function cargarDocumentacion(){
+        var promiseGet = VehiculoServicio.getDocumentacion();
+        promiseGet.then(function (pl) {
+            $scope.Documentacion = pl.data;
+            console.log($scope.Documentacion);
+        },function (errorPl) {
+            Materialize.toast('Ocurrio un error al cargar los documentos', 5000, 'rounded');
+        });
     }
 })

@@ -105,7 +105,7 @@
                             <div class="col s4">
                                 <i class="material-icons prefix">today</i>
                                 <label  class="{{active}}">Fecha de nacimiento</label>
-                                <input id="icon_today" type="date" class="validate datapicker" name="correo" ng-model="Conductor.fecha">
+                                <input id="icon_today" type="date" class="validate datapicker" name="fecha" ng-model="Conductor.fecha">
                             </div>
                             <div class="input-field col s4">
                                 <i class="material-icons prefix">contact_mail</i>
@@ -203,52 +203,16 @@
                                 Documentación del vehículo
                             </div>
 
-                            <div class="row col s6">
-                                <fieldset>
-                                    <div class="col s4">
-                                        <p>
-                                            <input type="checkbox" id="seguro" />
-                                            <label for="seguro">SEGURO</label>
-                                        </p>
-                                    </div>
-                                    <div class="col s12" ng-show="true">
-                                        <input type="date" class="datepicker" placeholder="Fecha de vencimiento">
-                                    </div>
-                                </fieldset>
-                            </div>
-                            <div class="row col s6">
-                                <fieldset>
-                                    <div class="col s4">
-                                        <p>
-                                            <input type="checkbox" id="soat" />
-                                            <label for="seguro">SOAT</label>
-                                        </p>
-                                    </div>
-                                    <div class="col s12" ng-show="true">
-                                        <input type="date" class="datepicker" placeholder="Fecha de vencimiento">
-                                    </div>
-                                </fieldset>
-                            </div>
-                            <div class="row col s6">
-                                <fieldset>
-                                    <div class="col s4">
-                                        <p>
-                                            <input type="checkbox" id="tecno" />
-                                            <label for="tecno">TECNOMECÁNICA</label>
-                                        </p>
-                                    </div>
-                                    <div class="col s12" ng-show="true">
-                                        <input type="date" class="datepicker" placeholder="Fecha de vencimiento">
-                                    </div>
-                                </fieldset>
-                            </div>
-                            <div class="row col s6">
+                            <div class="row col s6" ng-repeat="documento in Documentacion">
                                 <fieldset>
                                     <div class="col s12">
-                                        <p>
-                                            <input type="checkbox" id="tarjeta" />
-                                            <label for="tarjeta">TARJETA DE PROPIEDAD</label>
+                                        <p style="margin-bottom: 0; margin-top: 0; margin-left: 10px">
+                                            <input type="checkbox" ng-model="documento.selected" id="documento{{documento.id}}"/>
+                                            <label for="documento{{documento.id}}">{{documento.nombre}}</label>
                                         </p>
+                                    </div>
+                                    <div class="col s12" ng-if="documento.nombre !== 'TARJETA DE PROPIEDAD'">
+                                        <input type="date" class="datepicker" placeholder="Fecha de vencimiento">
                                     </div>
                                 </fieldset>
                             </div>
