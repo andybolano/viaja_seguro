@@ -1,35 +1,41 @@
 var uri = "../../public";
 var app;
 (function () {
-    app = angular.module("empresa", ['ngRoute', 'ui.keypress']);
+    app = angular.module("central", ['ngRoute', 'ui.keypress']);
 
     app.config(['$routeProvider', '$locationProvider', function AppConfig($routeProvider, $locationProvider) {
-            $routeProvider.when("/home", {
+        $routeProvider.when("/home", {
                 templateUrl: 'home.html'
-                })
-                .when("/empresa/centrales", {
-                    templateUrl: 'gestionarCentrales.html'
-                })
-                .when("/empresa/conductores", {
-                    templateUrl: 'showConductor.html'
-                })
-                .when("/empresa/vehiculos", {
-                    templateUrl: 'showVehiculos.html'
-                })
-                .when("/empresa/clientes", {
-                    templateUrl: 'showClientes.html'
-                })
-                .when("/empresa/deducciones", {
-                    templateUrl: 'showDeducciones.html'
-                })
-                 .otherwise({redirectTo: '/'})
-        }]);
+            })
+            .when("/central/asignar/pasajero", {
+                templateUrl: 'servicioPasajero.html'
+            })
+            .when("/central/asignar/giros", {
+                templateUrl: 'servicioGiro.html'
+            })
+            .when("/central/asignar/paquetes", {
+                templateUrl: 'servicioPaquete.html'
+            })
+            .when("/central/pagos/planilla", {
+                templateUrl: 'showPagosPlanilla.html'
+            })
+            .when("/central/pagos/ahorro", {
+                templateUrl: 'showPagosAhorro.html'
+            })
+            .when("/central/pagos/pension", {
+                templateUrl: 'showPagosPension.html'
+            })
+            .when("/central/pagos/seguridad", {
+                templateUrl: 'showPagosSeguridad.html'
+            })
+            .otherwise({redirectTo: '/'})
+    }]);
 
 
     app.run(function($rootScope, $location){
         $rootScope.$on('$routeChangeStart', function(){
             var usuario = JSON.parse(sessionStorage.getItem('usuario'));
-            var owner = 'userempresa';
+            var owner = 'usercentral';
             if(!usuario || usuario.rol != owner){
                 window.location.href = '../../public/login.html';
             }
@@ -54,7 +60,7 @@ var app;
 
     app.filter('ifEmpty', function () {
         return function (input, defaultValue) {
-                if (angular.isUndefined(input) || input === null || input === '') {
+            if (angular.isUndefined(input) || input === null || input === '') {
                 return defaultValue;
             }
 
@@ -63,17 +69,17 @@ var app;
     });
 
     app.directive('uploaderModel', ['$parse', function ($parse) {
-            return{
-                restrict: 'A',
-                link: function (scope, iElement, iAttrs) {
-                    iElement.on('change', function (e)
-                    {
-                        $parse(iAttrs.uploaderModel).assign(scope, iElement[0].files[0]);
-                    });
-                }
-            };
+        return{
+            restrict: 'A',
+            link: function (scope, iElement, iAttrs) {
+                iElement.on('change', function (e)
+                {
+                    $parse(iAttrs.uploaderModel).assign(scope, iElement[0].files[0]);
+                });
+            }
+        };
 
-        }]);
+    }]);
 
     app.filter('cut',function(){
         return function (value, wordwise, max, tail) {

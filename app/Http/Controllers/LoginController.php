@@ -13,6 +13,8 @@ class LoginController extends Controller
             return ['name' => $username, 'pass' => $userpass, 'rol' => 'superadmin'];
         }else if($username == 'empresa1' && $userpass == '1234'){
             return ['name' => $username, 'pass' => $userpass, 'rol' => 'userempresa'];
+        }else if($username == 'central1' && $userpass == '1234'){
+            return ['name' => $username, 'pass' => $userpass, 'rol' => 'usercentral'];
         } else {
             return response()->json(['mensajeError' => 'Usuario o contraseña incorrectos'], 401);
         }

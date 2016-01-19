@@ -18,6 +18,8 @@ app.controller('loginController', function($scope, loginService) {
                 window.location.href = "../superadmin/view/#/gestionar_empresas";
             }else if(usuario.rol == 'userempresa') {
                 window.location.href = "../empresa/view/#/empresa/conductores";
+            }else  if(usuario.rol == 'usercentral'){
+                window.location.href = "../central/view/#/central/asignar/pasajero";
             }
         }
         function error(error) {
