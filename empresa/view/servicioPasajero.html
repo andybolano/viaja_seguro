@@ -37,10 +37,10 @@
                                 <td>{{pasajero.destino}}</td>
                                 <td>{{pasajero.vehiculo}}</td>
                                 <td>
-                                    <a href="javascript:" ng-click="modificar(pasajero)">
+                                    <a href="javascript:" ng-click="modificarPasajero(pasajero)">
                                         <i class="material-icons prefix">visibility</i>
                                     </a>
-                                    <a href="javascript:" ng-click="eliminar(pasajero.identificacion)">
+                                    <a href="javascript:" ng-click="deletePasajero(pasajero.id)">
                                         <i class="material-icons prefix">delete</i>
                                     </a>
                                 </td>
@@ -61,20 +61,17 @@
 
     <!--modal asignar pasajeros-->
     <div id="modalAsignarPasajero" class="modal modal-fixed-footer">
-        <form action="" name="formConductor">
+        <form action="" name="formPasajero">
             <div class="modal-content">
-                <h2>Asignar pasajero</h2>
+                <h2>{{titulo}}</h2>
 
                 <div class="row">
 
                     <div class="row">
                         <div class="input-field col s6">
                             <i class="material-icons prefix">payment</i>
-                            <input id="icon_payment" type="text" class="validate" name="identificacion" ng-model="Pasajero.identificacion">
+                            <input id="icon_payment" type="text" class="validate" name="identificacion" ng-model="Pasajero.identificacion" ng-blur="selectCliente()">
                             <label for="icon_payment" class="{{active}}">Identificación</label>
-                        </div>
-                        <div class="input-field col s1">
-                            <a class="btn-floating btn-sm waves-effect waves-light light-green" ng-click="buscarClientes()"><i class="material-icons">search</i></a>
                         </div>
                     </div>
                     <div class="row">
@@ -90,15 +87,35 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="input-field col s6">
-                            <i class="material-icons prefix">person_pin_circle</i>
-                            <input id="icon_pain" type="text" class="validate" name="origen" ng-model="Pasajero.origen">
-                            <label for="icon_pain" class="{{active}}">Origen</label>
+                        <div class="input-field col s0"><i class="material-icons">local_taxi</i>
+                        </div>
+                        <div   class="input-field col s4" >
+                            <select class="browser-default" name="mySelect" id="mySelect1"
+                                    ng-options="ciudad.nombre for ciudad in ciudades track by ciudad.id"
+                                    ng-model="Pasajero.origen">
+                                <option value="" disabled selected>Seleccione ciudad origen</option>
+                            </select>
                         </div>
                         <div class="input-field col s6">
                             <i class="material-icons prefix">person_pin_circle</i>
-                            <input id="icon_pain2" type="text" class="validate" name="destino" ng-model="Pasajero.destino">
-                            <label for="icon_pain2" class="{{active}}">Destino</label>
+                            <input id="icon_pain" type="text" class="validate" name="origen" ng-model="Pasajero.direccionO">
+                            <label for="icon_pain" class="{{active}}">Dirección origen</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s0"><i class="material-icons">local_taxi</i>
+                        </div>
+                        <div   class="input-field col s4" >
+                            <select class="browser-default" name="mySelect" id="mySelect"
+                                   ng-options="ciudad.nombre for ciudad in ciudades track by ciudad.id"
+                                   ng-model="Pasajero.destino">
+                                <option value="" disabled selected>Seleccione ciudad destino</option>
+                            </select>
+                        </div>
+                        <div class="input-field col s6">
+                            <i class="material-icons prefix">person_pin_circle</i>
+                            <input id="icon_pain2" type="text" class="validate" name="origen" ng-model="Pasajero.direccionD">
+                            <label for="icon_pain2" class="{{active}}">Dirección destino</label>
                         </div>
                     </div>
                     <div class="row">
@@ -120,67 +137,11 @@
                 <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
                    style="margin-left:10px;">Salir</a>
                 <input type="button" class="waves-effect waves-light btn orange" ng-click="guardarPasajero()" ng-hide="editMode"
-                       ng-disabled="!formConductor.$valid" value="Guardar">
+                       ng-disabled="!formPasajero.$valid" value="Guardar">
                 <input type="button" class="waves-effect waves-light btn orange" ng-click="updatePasajero()" ng-show="editMode"
-                       ng-disabled="!formConductor.$valid" value="Modificar">
+                       ng-disabled="!formPasajero.$valid" value="Modificar">
             </div>
         </form>
     </div>
     <!--fin modal-->
-
-    <!--modal buscar clientes-->
-
-    <div id="modalBuscarClientes" class="modal modal-fixed-footer">
-        <div class="modal-content">
-            <h2>{{titulo}}</h2>
-            <div class="row white" ng-controller="ClientesController">
-                <div class="col s12 z-depth-1">
-                    <div class="contenedor">
-                        <div class="row">
-                            <div class="col s4">
-                                <div class="input-field col s12">
-                                    <i class="material-icons prefix">search</i>
-                                    <input id="icon_prefix" type="text" ng-model="filtro">
-                                    <label for="icon_prefix">Filtrar</label>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col s12">
-                                <table class="striped bordered">
-                                    <thead>
-                                    <th>Identificacin</th>
-                                    <th>Nombres</th>
-                                    <th>Apellidos</th>
-                                    <th>Dirección</th>
-                                    <th>Teléfono</th>
-                                    <th>Seleccionar</th>
-                                    </thead>
-                                    <tbody>
-                                    <tr ng-repeat="cliente in Clientes | filter : filtro">
-                                        <td>{{cliente.identificacion}}</td>
-                                        <td>{{cliente.nombres}}</td>
-                                        <td>{{cliente.apellidos}}</td>
-                                        <td>{{cliente.direccion}}</td>
-                                        <td>{{cliente.telefono}}</td>
-                                        <td>
-                                            <a href="javascript:" ng-click="selectCliente(cliente)">
-                                                <i class="material-icons prefix">touch_app</i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
-                   style="margin-left:10px;">Salir</a>
-        </div>
-    </div>
 </div>

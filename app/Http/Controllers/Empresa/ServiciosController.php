@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Empresa;
 
+use App\Model\Cliente;
 use App\Model\Pasajero;
 use App\Model\Giro;
 use App\Model\Paquete;
@@ -24,8 +25,12 @@ class ServiciosController extends Controller
         $pasajero->nombres = $data["nombres"];
         $pasajero->apellidos = $data["apellidos"];
         $pasajero->telefono = $data["telefono"];
+
         $pasajero->origen = $data["origen"];
+        $pasajero->direccionO = $data["direccionO"];
         $pasajero->destino = $data["destino"];
+
+        $pasajero->direccionD = $data["direccionD"];
         $pasajero->vehiculo = $data["vehiculo"];
         if ($pasajero->save() == true) {
             return JsonResponse::create(array('message' => "Guardado Correctamente", "identificacion" => $pasajero->identificacion), 200);
@@ -36,15 +41,21 @@ class ServiciosController extends Controller
 
     public function putPasajero(Request $request, $id){
         try{
-//            $data = $request->all();
+            $data = $request->all();
             $pasajero = Pasajero::select("*")
                 ->where("identificacion", $id)
                 ->first();
-            $pasajero->identificacion = $request->identificacion;
-            $pasajero->nombres = $request->nombres;
-            $pasajero->apellidos = $request->apellidos;
-            $pasajero->direccion = $request->direccion;
-            $pasajero->telefono = $request->telefono;
+            $pasajero->identificacion = $data["identificacion"];
+            $pasajero->nombres = $data["nombres"];
+            $pasajero->apellidos = $data["apellidos"];
+            $pasajero->telefono = $data["telefono"];
+
+            $pasajero->origen = $data["origen"];
+            $pasajero->direccionO = $data["direccionO"];
+            $pasajero->destino = $data["destino"];
+
+            $pasajero->direccionD = $data["direccionD"];
+            $pasajero->vehiculo = $data["vehiculo"];
             if($pasajero->save() == true){
                 return JsonResponse::create(array('message' => "Actualizado Correctamente"), 200);
             }else {
@@ -64,7 +75,7 @@ class ServiciosController extends Controller
             {
                 App::abort(404);
             }else{
-                $Pasajero->delete();
+                $pasajero->delete();
                 return JsonResponse::create(array('message' => "Cleinte eliminado correctamente", "request" =>json_encode($id)), 200);
             }
         }catch (Exception $ex) {
@@ -79,16 +90,75 @@ class ServiciosController extends Controller
         return $giros;
     }
 
-    public function postGiro(){
+    public function postGiro(Request $request){
+        $data = $request->all();
+        $giro = new Giro();
+
+        $giro->ide_remitente = $data['ide_remitente'];
+        $giro->nombres_remitente = $data['nombres_remitente'];
+        $giro->tel_remitente = $data['tel_remitente'];
+        $giro->ide_receptor = $data['ide_receptor'];
+        $giro->nombres_receptor = $data['nombres_receptor'];
+        $giro->tel_receptor = $data['tel_receptor'];
+        $giro->origen = $data['origen'];
+        $giro->direccionO = $data['direccionO'];
+        $giro->destino = $data['destino'];
+        $giro->direccionD = $data['direccionD'];
+        $giro->vehiculo = $data['vehiculo'];
+        $giro->cantidad = $data['cantidad'];
+
+        if ($giro->save() == true) {
+            return JsonResponse::create(array('message' => "Guardado Correctamente"), 200);
+        }else{
+            return JsonResponse::create(array('message' => "El Pasajero ya esta registrado"), 200);
+        }
+
 
     }
 
-    public function putGiro(){
-
+    public function putGiro(Request $request, $id){
+        try{
+            $data = $request->all();
+            $giro = Giro::select("*")
+                ->where("id", $id)
+                ->first();
+            $giro->ide_remitente = $data['ide_remitente'];
+            $giro->nombres_remitente = $data['nombres_remitente'];
+            $giro->tel_remitente = $data['tel_remitente'];
+            $giro->ide_receptor = $data['ide_receptor'];
+            $giro->nombres_receptor = $data['nombres_receptor'];
+            $giro->tel_receptor = $data['tel_receptor'];
+            $giro->origen = $data['origen'];
+            $giro->direccionO = $data['direccionO'];
+            $giro->destino = $data['destino'];
+            $giro->direccionD = $data['direccionD'];
+            $giro->vehiculo = $data['vehiculo'];
+            $giro->cantidad = $data['cantidad'];
+            if($giro->save() == true){
+                return JsonResponse::create(array('message' => "Actualizado Correctamente"), 200);
+            }else {
+                return JsonResponse::create(array('message' => "No se pudo actualizar el registro"), 200);
+            }
+        }catch(Exception $e){
+            return JsonResponse::create(array('message' => "No se pudo guardar el registro", "exception"=>$e->getMessage()), 401);
+        }
     }
 
-    public function deleteGiro(){
-
+    public function deleteGiro($id){
+        try{
+            $giro = Giro::select("*")
+                ->where("id", $id)
+                ->first();
+            if (is_null ($giro))
+            {
+                App::abort(404);
+            }else{
+                $giro->delete();
+                return JsonResponse::create(array('message' => "Giro eliminado correctamente", "request" =>json_encode($id)), 200);
+            }
+        }catch (Exception $ex) {
+            return JsonResponse::create(array('message' => "No se pudo Eliminar el Giro", "exception"=>$ex->getMessage(), "request" =>json_encode($id)), 401);
+        }
     }
 
     public function getPaquetes(){
@@ -96,16 +166,78 @@ class ServiciosController extends Controller
         return $paquetes;
     }
 
-    public function postPaquete(){
+    public function postPaquete(Request $request){
+        $data = $request->all();
+        $paquete = new Paquete();
 
+        $paquete->ide_remitente = $data['ide_remitente'];
+        $paquete->nombres_remitente = $data['nombres_remitente'];
+        $paquete->tel_remitente = $data['tel_remitente'];
+        $paquete->ide_receptor = $data['ide_receptor'];
+        $paquete->nombres_receptor = $data['nombres_receptor'];
+        $paquete->tel_receptor = $data['tel_receptor'];
+        $paquete->origen = $data['origen'];
+        $paquete->direccionO = $data['direccionO'];
+        $paquete->destino = $data['destino'];
+        $paquete->direccionD = $data['direccionD'];
+        $paquete->vehiculo = $data['vehiculo'];
+        $paquete->descripcion_paquete = $data['descripcion_paquete'];
+
+        if ($paquete->save() == true) {
+            return JsonResponse::create(array('message' => "Guardado Correctamente"), 200);
+        }else{
+            return JsonResponse::create(array('message' => "El Pasajero ya esta registrado"), 200);
+        }
     }
 
-    public function putPaquete(){
-
+    public function putPaquete(Request $request, $id){
+        try{
+            $data = $request->all();
+            $paquete = Paquete::select("*")
+                ->where("id", $id)
+                ->first();
+            $paquete->ide_remitente = $data['ide_remitente'];
+            $paquete->nombres_remitente = $data['nombres_remitente'];
+            $paquete->tel_remitente = $data['tel_remitente'];
+            $paquete->ide_receptor = $data['ide_receptor'];
+            $paquete->nombres_receptor = $data['nombres_receptor'];
+            $paquete->tel_receptor = $data['tel_receptor'];
+            $paquete->origen = $data['origen'];
+            $paquete->direccionO = $data['direccionO'];
+            $paquete->destino = $data['destino'];
+            $paquete->direccionD = $data['direccionD'];
+            $paquete->vehiculo = $data['vehiculo'];
+            $paquete->descripcion_paquete = $data['descripcion_paquete'];
+            if($paquete->save() == true){
+                return JsonResponse::create(array('message' => "Actualizado Correctamente"), 200);
+            }else {
+                return JsonResponse::create(array('message' => "No se pudo actualizar el registro"), 200);
+            }
+        }catch(Exception $e){
+            return JsonResponse::create(array('message' => "No se pudo guardar el registro", "exception"=>$e->getMessage()), 401);
+        }
     }
 
-    public function deletePaquete(){
+    public function deletePaquete($id){
+        try{
+            $paquete = Paquete::select("*")
+                ->where("id", $id)
+                ->first();
+            if (is_null ($paquete))
+            {
+                App::abort(404);
+            }else{
+                $paquete->delete();
+                return JsonResponse::create(array('message' => "Paquete eliminado correctamente", "request" =>json_encode($id)), 200);
+            }
+        }catch (Exception $ex) {
+            return JsonResponse::create(array('message' => "No se pudo Eliminar el paquete", "exception"=>$ex->getMessage(), "request" =>json_encode($id)), 401);
+        }
+    }
 
+    public function getCliente($id){
+        $cliente = Cliente::select("*")->where("identificacion", $id)->first();
+        return $cliente;
     }
     /**
      * Display a listing of the resource.

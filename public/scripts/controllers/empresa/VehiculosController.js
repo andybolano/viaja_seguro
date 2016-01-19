@@ -121,6 +121,7 @@ app.controller('VehiculosController', function ($scope, VehiculoServicio) {
             data.append('imagenv', $scope.fileimageV);
             VehiculoServicio.postImagen($scope.Vehiculo.placa, data).then(success, error);
             function success(p) {
+                location.reload();
                 cargarVehiculos();
                 Materialize.toast('Imagen guardada correctamente', 5000);
             }

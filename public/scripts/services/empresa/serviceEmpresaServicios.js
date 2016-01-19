@@ -15,7 +15,7 @@ app.service('serviceEmpresaServicios', function ($http) {
     }
 
     this.deletePasajero = function(id){
-        var req = $http.delete(uri+'/api/empresa/pasajeros'+ id);
+        var req = $http.delete(uri+'/api/empresa/pasajeros/'+ id);
         return req;
     }
 
@@ -35,17 +35,17 @@ app.service('serviceEmpresaServicios', function ($http) {
     }
 
     this.putGiro = function(object,id){
-        var req = $http.put(uri+'/api/empresa/giros'+ id, object);
+        var req = $http.put(uri+'/api/empresa/giros/'+ id, object);
         return req;
     }
 
     this.deleteGiro = function(id){
-        var req = $http.delete(uri+'/api/empresa/giros'+ id);
+        var req = $http.delete(uri+'/api/empresa/giros/'+ id);
         return req;
     }
 
     this.getGiro = function(id){
-        var req = $http.get(uri+'/api/empresa/giros'+ id);
+        var req = $http.get(uri+'/api/empresa/giros/'+ id);
         return req;
     }
 
@@ -60,22 +60,27 @@ app.service('serviceEmpresaServicios', function ($http) {
     }
 
     this.putPaquete = function(object,id){
-        var req = $http.put(uri+'/api/empresa/paquetes'+ id, object);
+        var req = $http.put(uri+'/api/empresa/paquetes/'+ id, object);
         return req;
     }
 
     this.deletePaquete = function(id){
-        var req = $http.delete(uri+'/api/empresa/paquetes'+ id);
+        var req = $http.delete(uri+'/api/empresa/paquetes/'+ id);
         return req;
     }
 
     this.getPaquete = function(id){
-        var req = $http.get(uri+'/api/empresa/paquetes'+ id);
+        var req = $http.get(uri+'/api/empresa/paquetes/'+ id);
         return req;
     }
 
     this.getVehiculoEnTurno = function(){
         var req = $http.get(uri + '/api/empresa/vehiculo/getVehiculoEnTurno');
+        return req;
+    }
+
+    this.getCliente = function(id){
+        var req = $http.get(uri + '/api/empresa/vehiculo/getCliente/' + id);
         return req;
     }
 });

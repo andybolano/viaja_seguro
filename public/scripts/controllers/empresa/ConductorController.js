@@ -154,6 +154,7 @@ app.controller('ConductorController', function ($scope, ConductorServicio, Vehic
             function success(p) {
                 $scope.Conductor.imagen = p.data.nombrefile;
                 Materialize.toast('Imagen guardado correctamente', 5000);
+                location.reload();
                 cargarConductores();
             }
 

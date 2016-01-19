@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Empresa;
 
+use App\Model\Cliente;
 use App\Model\Conductor;
 use App\Model\Vehiculo;
 use Illuminate\Http\JsonResponse;
@@ -33,7 +34,6 @@ class VehiculoController extends Controller
     public function getVehiculoEnTurno(){
         return $this->vehiculoEnTurno;
     }
-
     /**
      * Show the form for creating a new resource.
      *

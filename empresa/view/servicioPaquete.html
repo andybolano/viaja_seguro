@@ -32,21 +32,21 @@
                             </thead>
                             <tbody>
                                 <tr ng-repeat="paquete in Paquetes| filter : filtro">
-                                    <td>{{paquete.idRemitente}}</td>
-                                    <td>{{paquete.remitente}}</td>
-                                    <td>{{paquete.telRemitente}}</td>
-                                    <td>{{paquete.idReceptor}}</td>
-                                    <td>{{paquete.receptor}}</td>
-                                    <td>{{paquete.telReceptor}}</td>
+                                    <td>{{paquete.ide_remitente}}</td>
+                                    <td>{{paquete.nombres_remitente}}</td>
+                                    <td>{{paquete.tel_remitente}}</td>
+                                    <td>{{paquete.ide_receptor}}</td>
+                                    <td>{{paquete.nombres_receptor}}</td>
+                                    <td>{{paquete.tel_receptor}}</td>
                                     <td>{{paquete.origen}}</td>
                                     <td>{{paquete.destino}}</td>
                                     <td>{{paquete.vehiculo}}</td>
-                                    <td>{{paquete.descripcionPaquete}}</td>
+                                    <td>{{paquete.descripcion_paquete}}</td>
                                     <td>
-                                        <a href="javascript:" ng-click="modificar(paquete)">
+                                        <a href="javascript:" ng-click="modificarPaquete(paquete)">
                                             <i class="material-icons prefix">visibility</i>
                                         </a>
-                                        <a href="javascript:" ng-click="eliminar(paquete.id)">
+                                        <a href="javascript:" ng-click="deletePaquete(paquete.id)">
                                             <i class="material-icons prefix">delete</i>
                                         </a>
                                     </td>
@@ -76,51 +76,68 @@
                         <div class="row">
                             <div class="input-field col s4">
                                 <i class="material-icons prefix">payment</i>
-                                <input id="icon_payment" type="text" class="validate" name="id" ng-model="Giro.idRemitente">
+                                <input id="icon_payment" type="text" class="validate" name="id" ng-model="Paquete.ide_remitente" ng-blur="selectClientePaquete()">
                                 <label for="icon_payment" class="{{active}}">Id remitente</label>
                             </div>
                             <div class="input-field col s4">
                                 <i class="material-icons prefix">account_circle</i>
-                                <input id="icon_person" type="text" class="validate" name="nombres"ng-model="Giro.nombresRemitente">
+                                <input id="icon_person" type="text" class="validate" name="nombres"ng-model="Paquete.nombres_remitente">
                                 <label for="icon_person" class="{{active}}">Nombre remitente</label>
                             </div>
                             <div class="input-field col s3">
                                 <i class="material-icons prefix">phone</i>
-                                <input id="icon_phone" type="text" class="validate" name="telefono" ng-model="Giro.telRemitente">
+                                <input id="icon_phone" type="text" class="validate" name="telefono" ng-model="Paquete.tel_remitente">
                                 <label for="icon_phone" class="{{active}}">Teléfono remitente</label>
-                            </div>
-                            <div class="input-field col s1">
-                                <a class="btn-floating btn-sm waves-effect waves-light light-green" ng-click="buscarClientes()"><i class="material-icons">search</i></a>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s4">
                                 <i class="material-icons prefix">payment</i>
-                                <input id="icon_payment3" type="text" class="validate" name="id" ng-model="Giro.idReceptor">
+                                <input id="icon_payment3" type="text" class="validate" name="id" ng-model="Paquete.ide_receptor">
                                 <label for="icon_payment3" class="{{active}}">Id receptor</label>
                             </div>
                             <div class="input-field col s4">
                                 <i class="material-icons prefix">account_circle</i>
-                                <input id="icon_person2" type="text" class="validate" name="apellidos" ng-model="Giro.receptor">
+                                <input id="icon_person2" type="text" class="validate" name="apellidos" ng-model="Paquete.nombres_receptor">
                                 <label for="icon_person2" class="{{active}}">Nombre receptor</label>
                             </div>
                             <div class="input-field col s3">
                                 <i class="material-icons prefix">phone</i>
-                                <input id="icon_phone2" type="text" class="validate" name="telefono" ng-model="Giro.telReceptor">
+                                <input id="icon_phone2" type="text" class="validate" name="telefono" ng-model="Paquete.tel_receptor">
                                 <label for="icon_phone2" class="{{active}}">Teléfono receptor</label>
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="input-field col s6">
-                                <i class="material-icons prefix">person_pin_circle</i>
-                                <input id="icon_pain" type="text" class="validate" name="direccion" ng-model="Giro.origen">
-                                <label for="icon_pain" class="{{active}}">Origen</label>
+                            <div class="input-field col s0"><i class="material-icons">local_taxi</i>
+                            </div>
+                            <div   class="input-field col s4" >
+                                <select class="browser-default" name="mySelect" id="mySelect1"
+                                        ng-options="ciudad.nombre for ciudad in ciudades track by ciudad.id"
+                                        ng-model="Paquete.origen">
+                                    <option value="" disabled selected>Seleccione ciudad origen</option>
+                                </select>
                             </div>
                             <div class="input-field col s6">
                                 <i class="material-icons prefix">person_pin_circle</i>
-                                <input id="icon_pain2" type="text" class="validate" name="direccion" ng-model="Giro.destino">
-                                <label for="icon_pain2" class="{{active}}">Destino</label>
+                                <input id="icon_pain" type="text" class="validate" name="origen" ng-model="Paquete.direccionO">
+                                <label for="icon_pain" class="{{active}}">Dirección origen</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s0"><i class="material-icons">local_taxi</i>
+                            </div>
+                            <div   class="input-field col s4" >
+                                <select class="browser-default" name="mySelect" id="mySelect"
+                                        ng-options="ciudad.nombre for ciudad in ciudades track by ciudad.id"
+                                        ng-model="Paquete.destino" placeholder="Ciudad destino">
+                                    <option value="" disabled selected>Seleccione ciudad destino</option>
+                                </select>
+                            </div>
+                            <div class="input-field col s6">
+                                <i class="material-icons prefix">person_pin_circle</i>
+                                <input id="icon_pain2" type="text" class="validate" name="origen" ng-model="Paquete.direccionD">
+                                <label for="icon_pain2" class="{{active}}">Dirección destino</label>
                             </div>
                         </div>
                         <div class="row">
@@ -131,7 +148,7 @@
                             </div>
                             <div class="input-field col s6">
                                 <i class="material-icons prefix">card_giftcard</i>
-                                <textarea id="icon_giro" type="text" class="validate materialize-textarea" name="descripcion" ng-model="Giro.descripcionPaquete"></textarea>
+                                <textarea id="icon_giro" type="text" class="validate materialize-textarea" name="descripcion" ng-model="Paquete.descripcion_paquete"></textarea>
                                 <label for="icon_giro" class="{{active}}">Descripción del paquete</label>
                             </div>
                         </div>
@@ -142,69 +159,10 @@
 
         <div class="modal-footer">
             <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red " style="margin-left:10px;">Salir</a>
-            <a ng-disabled="!formPaquete.$valid"  class="waves-effect waves-light btn green" ng-hide="editMode" ng-click="guardar()">Guardar</a>
-            <a ng-disabled="!formPaquete.$valid"  class="waves-effect waves-light btn green" ng-show="editMode" ng-click="modificar()">Modificar</a>
+            <a ng-disabled="!formPaquete.$valid"  class="waves-effect waves-light btn green" ng-hide="editMode" ng-click="guardarPaquete()">Guardar</a>
+            <a ng-disabled="!formPaquete.$valid"  class="waves-effect waves-light btn green" ng-show="editMode" ng-click="updatePaquete(Paquete.id)">Modificar</a>
         </div>
 
     </div>
     <!--&#45;&#45;fin modal-->
-
-    <!--modal buscar clientes-->
-    <div id="modalBuscarClientes" class="modal modal-fixed-footer">
-        <div class="modal-content">
-            <h2>{{titulo}}</h2>
-            <div class="row white" ng-controller="ClientesController">
-                <div class="col s12 z-depth-1">
-                     <div class="contenedor">
-                     <div class="row">
-                        <div class="col s4">
-                            <div class="input-field col s12">
-                                <i class="material-icons prefix">search</i>
-                                <input id="icon_prefix1" type="text" ng-model="filtro">
-                                <label for="icon_prefix1">Filtrar</label>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s12">
-                            <table class="striped bordered">
-                                <thead>
-                                <th>Identificacin</th>
-                                <th>Foto</th>
-                                <th>Nombres</th>
-                                <th>Apellidos</th>
-                                <th>Dirección</th>
-                                <th>Teléfono</th>
-                                <th>Seleccionar</th>
-                                </thead>
-                                <tbody>
-                                    <tr ng-repeat="cliente in Clientes| filter : filtro">
-                                        <td>{{cliente.idCliente}}</td>
-                                        <td>
-                                            <img ng-src="{{cliente.foto}}" class="circle" style="width: 35px;">
-                                        </td>
-                                        <td>{{cliente.nombres}}</td>
-                                        <td>{{cliente.apellidos}}</td>
-                                        <td>{{cliente.direccion}}</td>
-                                        <td>{{cliente.telefono}}</td>
-                                        <td>
-                                            <a href="javascript:" ng-click="selectClienteGiro(cliente)">
-                                                <i class="material-icons prefix">touch_app</i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="modal-footer">
-            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
-               style="margin-left:10px;">Salir</a>
-        </div>
-    </div>
 </div>
