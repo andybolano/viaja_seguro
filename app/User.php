@@ -11,9 +11,13 @@ class User extends Authenticatable
      *
      * @var array
      */
+    protected $table = 'usuarios';
+
     protected $fillable = [
-        'name', 'email', 'password',
+        'usuario', 'contrasena', 'rol',
     ];
+
+    public $timestamps = false;
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -21,6 +25,6 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'contrasena', 'remember_token',
     ];
 }

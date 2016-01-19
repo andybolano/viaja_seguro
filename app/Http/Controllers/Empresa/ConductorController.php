@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Empresa;
 
 use App\Model\Conductor;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests;
@@ -70,6 +71,12 @@ class ConductorController extends Controller
     {
         $data = $request->all();
         $conductor = new Conductor();
+
+        $usuario = new User();
+        $usuario->usuario = $data['identificacion'];
+        $usuario->contrasena = $data['identificacion'];
+        $usuario->rol = 'conductor';
+
         $conductor->identificacion = $data["identificacion"];
         $conductor->nombres = $data["nombres"];
         $conductor->apellidos = $data["apellidos"];
@@ -81,6 +88,7 @@ class ConductorController extends Controller
             ->first();
         if ($busqueda == null) {
             $conductor->save();
+            $usuario->save();
             return JsonResponse::create(array('message' => "Guardado Correctamente", "identificacion" => $conductor->identificacion), 200);
         }else{
             return JsonResponse::create(array('message' => "El conductor ya esta registrado", "identificacion" => $conductor->identificacion), 200);
