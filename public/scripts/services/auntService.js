@@ -8,6 +8,14 @@ app.service('authService', function($http, $location, jwtHelper){
         return $http.post('../public/api/login', usuario);
     };
 
+    this.updatePassword = function (usuario, contrasenas){
+        return $http.post(
+            '../public/api/usuarios/'+usuario.id+'/change_pass',
+            contrasenas,
+            {headers:  {'Authorization': 'Bearer '+sessionStorage.getItem('jwt')}}
+        );
+    };
+
     this.storeUser = function (jwt) {
         sessionStorage.setItem('jwt', jwt);
         var usuario = jwtHelper.decodeToken(jwt).usuario;
@@ -24,5 +32,9 @@ app.service('authService', function($http, $location, jwtHelper){
         if(($location.path() === '/login') && usuario.rol == owner){
             $location.path('/home');
         }
+    }
+
+    this.currentUser = function(){
+        return JSON.parse(sessionStorage.getItem('usuario'));
     }
 });

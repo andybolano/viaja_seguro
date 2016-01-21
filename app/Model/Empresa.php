@@ -6,7 +6,6 @@ class Empresa extends Model
 {
     protected $table = 'empresas';
 
-    protected $guarded = ['id'];
     protected $casts = ['estado' => 'boolean'];
 
     public $timestamps = false;
@@ -19,5 +18,10 @@ class Empresa extends Model
     public function servicios()
     {
         return $this->belongsToMany(Servicio::class, 'empresa_servicios', 'empresa_id', 'servicio_id');
+    }
+
+    public function usuario()
+    {
+        return $this->belongsTo(Usuario::class);
     }
 }

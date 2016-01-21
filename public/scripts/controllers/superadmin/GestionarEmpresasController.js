@@ -19,6 +19,7 @@ function GestionarEmpresasController($scope, empresasService, serviciosEmpresaSe
     $scope.update = update;
     $scope.eliminar = eliminar;
     $scope.modificarImagen = modificarImagen;
+    $scope.generarDatosAcceso = generarDatosAcceso;
 
     init();
     function init(){
@@ -85,6 +86,7 @@ function GestionarEmpresasController($scope, empresasService, serviciosEmpresaSe
     function nuevo(){
         $scope.selectedEmpresa = {};
         $scope.selectedEmpresa.servicios = [];
+        $scope.selectedEmpresa.usuario = {};
         $scope.nombreForm = "Nueva Empresa";
         $scope.active = "";
         $scope.editMode = false;
@@ -163,6 +165,12 @@ function GestionarEmpresasController($scope, empresasService, serviciosEmpresaSe
         function error(error) {
             console.log('Error al eliminar', error);
         }
+    }
+
+    function generarDatosAcceso()
+    {
+        $scope.selectedEmpresa.usuario.nombre = $scope.selectedEmpresa.nombre.toLowerCase()+'_'+Math.floor((Math.random() * (999 - 101 + 1)) + 101);
+        $scope.selectedEmpresa.usuario.contrasena = $scope.selectedEmpresa.usuario.nombre;
     }
 
 }

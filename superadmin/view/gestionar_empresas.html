@@ -68,11 +68,9 @@
         <div class="modal-content">
             <h2>{{nombreForm}}</h2>
 
+            <form class="col s12" name="formEmpresa">
             <div class="row">
-
                 <div class="col s7">
-
-                    <form class="col s12" name="formEmpresa">
                         <div class="row">
                             <div class="col s6">
                                 <div class="input-field">
@@ -152,10 +150,7 @@
                                 </p>
                             </div>
                         </div>
-                    </form>
-
                 </div>
-
                 <div class="col s5">
                     <div class="col s12" id="image" style="max-height: 300px;">
                         <img class="thumb center" id="imagenlogo" style="width:100%" src="{{selectedEmpresa.logo}}" title="logo" alt="seleccione el logo"/>
@@ -176,9 +171,50 @@
                         </div>
                     </div>
                 </div>
-
-
             </div>
+            <div class="row" ng-hide="editMode">
+                <div class="col s12">
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="input-field">
+                                <i class="material-icons prefix" style="padding-left: 3px;">lock</i>
+
+                                <p style="padding-left: 45px; padding-top: 3px">Datos de acceso</p>
+                            </div>
+                            <div class="divider"></div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="input-field">
+                                <i class="material-icons prefix">account_circle</i>
+                                <input id="username" name="username" type="text" ng-model="selectedEmpresa.usuario.nombre"
+                                       required>
+                                <label for="username" class="{{active}}" ng-class="{'active': selectedEmpresa.usuario.contrasena}">Nombre de usuario</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="input-field">
+                                <i class="material-icons prefix">vpn_key</i>
+                                <input id="contrasena" name="contrasena" type="text" ng-model="selectedEmpresa.usuario.contrasena"
+                                       required>
+                                <label for="contrasena" class="{{active}}" ng-class="{'active': selectedEmpresa.usuario.contrasena}">Contraseña</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <input type="button" class="waves-effect waves-light btn col s4 offset-s8" value="Generar Datos"
+                               ng-click="generarDatosAcceso()" ng-disabled="formEmpresa.nombre.$invalid">
+                            </input>
+                    </div>
+                </div>
+            </div>
+            </form>
         </div>
 
         <div class="modal-footer">

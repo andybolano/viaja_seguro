@@ -17,12 +17,18 @@ Route::get('/', function () {
 
 Route::post('/api/login', 'LoginController@autenticarUsuario');
 
-include 'Routes/Conductores.php';
-include 'Routes/Vehiculos.php';
-include 'Routes/Clientes.php';
-include 'Routes/Pagos.php';
-include 'Routes/Deducciones.php';
 
-include('Routes/Empresas.php');
-include('Routes/ServiciosEmpresa.php');
-include('Routes/Ciudades.php');
+Route::group(['middleware' => 'jwt.auth'], function () {
+    include 'Routes/Conductores.php';
+    include 'Routes/Vehiculos.php';
+    include 'Routes/Clientes.php';
+    include 'Routes/Pagos.php';
+    include 'Routes/Deducciones.php';
+
+    include('Routes/Empresas.php');
+    include('Routes/ServiciosEmpresa.php');
+    include('Routes/Ciudades.php');
+
+    include('Routes/Usuarios.php');
+
+});

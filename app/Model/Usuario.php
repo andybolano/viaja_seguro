@@ -14,4 +14,14 @@ class Usuario extends Authenticatable
     {
         return $this->belongsTo(Rol::class);
     }
+
+    public static function nuevo($nombre, $contrasena, $id_rol)
+    {
+       return parent::create([
+           'email' => $nombre,
+           'password' => password_hash($contrasena, PASSWORD_DEFAULT),
+           'estado' => -1,
+           'rol_id' => $id_rol
+       ]);
+    }
 }

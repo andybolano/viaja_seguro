@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Controller;
 use App\Model\Empresa;
+use App\Model\Rol;
+use App\Model\Usuario;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 
@@ -30,6 +32,10 @@ class EmpresaController extends Controller
             $data = $request->json()->all();
             $empresa_servicios = $data['servicios'];
             unset($data['servicios']);
+            $data_usuario = $data['usuario'];
+            unset($data['usuario']);
+            $usuario = Usuario::nuevo($data_usuario['nombre'], $data_usuario['contrasena'], $this->getRol()->id);
+            $data['usuario_id'] = $usuario->id;
             $empresa = new Empresa($data);
             $empresa->save();
             foreach($empresa_servicios as $servicio){
@@ -124,10 +130,17 @@ class EmpresaController extends Controller
         $empresa = $this->show($id);
         if($empresa){
             $empresa->servicios()->detach();
+            $usuario = $empresa->usuario;
             $empresa->delete();
+            $usuario->delete();
             return response()->json(['mensaje' => 'registro eliminado'], 201);
         }else{
             return response()->json(['mensaje' => 'la empresa no existe'], 400);
         }
+    }
+
+    public function getRol()
+    {
+        return Rol::where('nombre', 'EMPRESA')->first();
     }
 }
