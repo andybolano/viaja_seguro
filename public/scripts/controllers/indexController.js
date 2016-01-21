@@ -9,6 +9,8 @@ app.controller('indexController', function($scope, authService) {
     }
 
     $scope.userImagen = authService.currentUser().imagen;
+    $scope.nameEmpresa = authService.currentUser().empresa.nombre;
+    $scope.userRol = authService.currentUser().rol;
     $scope.cerrarSesion = function(){
         sessionStorage.clear();
         window.location.href = '../../public/login.html';
