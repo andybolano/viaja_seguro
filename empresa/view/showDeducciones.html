@@ -18,28 +18,24 @@
                 <div class="row">
                     <div class="col s12">
                         <table class="striped bordered">
-                            <thead>
-                                <th>Id</th>
+                            <thead class="center">
                                 <th>Nombre</th>
-                                <th>Estado</th>
                                 <th>Valor</th>
+                                <th class="center">Estado</th>
                                 <th>Acciones</th>
                             </thead>
                             <tbody>
                             <tr ng-repeat="deduccion in Deducciones | filter : filtro">
-                                <td>{{deduccion.id}}</td>
                                 <td>{{deduccion.nombre}}</td>
+                                <td>{{deduccion.valor | currency}}</td>
                                 <td>
-                                    <div class="switch">
+                                    <div class="switch center">
                                         <label>
-                                            Desactivado
                                             <input ng-model="deduccion.estado" type="checkbox" ng-checked="{{deduccion.estado}}" ng-change="change()" ng-click="updateEstado(deduccion)">
                                             <span class="lever"></span>
-                                            Activado
                                         </label>
                                     </div>
                                 </td>
-                                <td>{{deduccion.valor | currency}}</td>
                                 <td>
                                     <a href="javascript:" ng-click="modificar(deduccion)">
                                         <i class="material-icons prefix">visibility</i>

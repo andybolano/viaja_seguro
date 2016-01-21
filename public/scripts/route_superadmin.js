@@ -1,10 +1,15 @@
 var uri = "../../public";
 var app;
 (function () {
-    app = angular.module("superadmin", ['ngRoute', 'ui.keypress']);
+    app = angular.module("superadmin", ['ngRoute', 'ui.keypress', 'angular-jwt']);
 
-    app.config(['$routeProvider', '$locationProvider', function AppConfig($routeProvider, $locationProvider) {
+    app.config(['$routeProvider', '$httpProvider', 'jwtInterceptorProvider', function ($routeProvider, $httpProvider, jwtInterceptorProvider) {
 
+        jwtInterceptorProvider.tokenGetter = function() {
+            return sessionStorage.getItem('jwt');
+        };
+
+        $httpProvider.interceptors.push('jwtInterceptor');
 
         $routeProvider
             .when("/home", {
@@ -26,16 +31,9 @@ var app;
 
     }]);
 
-    app.run(function($rootScope, $location){
+    app.run(function($rootScope, authService){
         $rootScope.$on('$routeChangeStart', function(){
-            var usuario = JSON.parse(sessionStorage.getItem('usuario'));
-            var owner = 'superadmin';
-            if(!usuario || usuario.rol != owner){
-                window.location.href = '../../public/login.html';
-            }
-            if(($location.path() === '/login') && usuario.rol == owner){
-                $location.path('/home');
-            }
+            authService.checkAuthentication('SUPER_ADM');
         })
     });
 
