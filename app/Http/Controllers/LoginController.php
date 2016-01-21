@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use App\Model\Empresa;
 use App\Model\Usuario;
 use Illuminate\Http\Request;
 use JWTAuth;
@@ -17,13 +18,7 @@ class LoginController extends Controller
         try {
             $user = Usuario::where('email' ,$credentials['email'])->first();
             if(password_verify($credentials['password'] , $user->password)) {
-                $token = JWTAuth::fromUser($user, [
-                    'usuario' => [
-                        'id' => $user->id,
-                        'nombre' => $user->email,
-                        'estado' => $user->estado,
-                        'rol' => $user->rol->nombre
-                    ]]);
+                $token = JWTAuth::fromUser($user, $this->getData($user));
 
             } else {
                 return response()->json(['mensajeError' => 'Usuario o contraseña incorrectos'], 401);
@@ -35,6 +30,29 @@ class LoginController extends Controller
 
         // todo bien devuelve el token
         return response()->json(compact('token'));
+    }
+
+    private function getData($user)
+    {
+        $data = [
+            'usuario' => [
+                'id' => $user->id,
+                'nombre' => $user->email,
+                'estado' => $user->estado,
+                'rol' => $user->rol->nombre
+            ]];
+        switch($user->rol->nombre){
+            case 'EMPRESA':
+                $empresa = Empresa::where('usuario_id', $user->id)->first();
+                $data['usuario']['empresa'] = [
+                    'id' => $empresa->id,
+                    'nombre' => $empresa->nombre
+                ];
+
+                $data['usuario']['imagen'] =  $empresa->logo;
+                break;
+        }
+        return $data;
     }
 
 }

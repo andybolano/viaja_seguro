@@ -32,4 +32,17 @@ class UsuariosController extends Controller
         return response()->json(['mensaje' => 'Contraseña actualizada'], 200);
     }
 
+    public function create(Request $request)
+    {
+        try {
+            $user = Usuario::nuevo($request->get('name'), $request->get('pass'), $request->get('id_rol'));
+        } catch (Exception $e) {
+            return response()->json(['error' => 'User already exists.'], \HttpResponse::HTTP_CONFLICT);
+        }
+
+        $token = JWTAuth::fromUser($user);
+
+        return response()->json(compact('token'));
+    }
+
 }

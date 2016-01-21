@@ -20,7 +20,6 @@ class Usuario extends Authenticatable
        return parent::create([
            'email' => $nombre,
            'password' => password_hash($contrasena, PASSWORD_DEFAULT),
-           'estado' => -1,
            'rol_id' => $id_rol
        ]);
     }

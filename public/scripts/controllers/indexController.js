@@ -1,4 +1,4 @@
-app.controller('indexController', function($scope) {
+app.controller('indexController', function($scope, authService) {
     hoy();
     function hoy() {
         var meses = new Array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
@@ -8,6 +8,7 @@ app.controller('indexController', function($scope) {
         $scope.hoy = hoy;
     }
 
+    $scope.userImagen = authService.currentUser().imagen;
     $scope.cerrarSesion = function(){
         sessionStorage.clear();
         window.location.href = '../../public/login.html';

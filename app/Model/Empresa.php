@@ -6,6 +6,8 @@ class Empresa extends Model
 {
     protected $table = 'empresas';
 
+    protected $guarded = ['id'];
+
     protected $casts = ['estado' => 'boolean'];
 
     public $timestamps = false;

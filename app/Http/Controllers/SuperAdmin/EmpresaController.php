@@ -28,7 +28,7 @@ class EmpresaController extends Controller
      */
     public function store(Request $request)
     {
-        try{
+//        try{
             $data = $request->json()->all();
             $empresa_servicios = $data['servicios'];
             unset($data['servicios']);
@@ -37,14 +37,18 @@ class EmpresaController extends Controller
             $usuario = Usuario::nuevo($data_usuario['nombre'], $data_usuario['contrasena'], $this->getRol()->id);
             $data['usuario_id'] = $usuario->id;
             $empresa = new Empresa($data);
-            $empresa->save();
-            foreach($empresa_servicios as $servicio){
-                $empresa->servicios()->attach($servicio['id']);
+            if($empresa->save()) {
+                foreach ($empresa_servicios as $servicio) {
+                    $empresa->servicios()->attach($servicio['id']);
+                }
+                return response()->json($empresa, 201);
+            }else{
+                return response()->json(['mensajeError' => 'no se ha podido almacenar el usuario'], 400);
+                $usuario->delete();
             }
-            return response()->json($empresa, 201);
-        } catch (\Exception $exc) {
-            return response()->json(array("exception"=>$exc->getMessage()), 400);
-        }
+//        } catch (\Exception $exc) {
+//            return response()->json(array("exception"=>$exc->getMessage()), 400);
+//        }
     }
 
     /**

@@ -1,9 +1,16 @@
 var uri = "../../public";
 var app;
 (function () {
-    app = angular.module("empresa", ['ngRoute', 'ui.keypress']);
+    app = angular.module("empresa", ['ngRoute', 'ui.keypress', 'angular-jwt']);
 
-    app.config(['$routeProvider', '$locationProvider', function AppConfig($routeProvider, $locationProvider) {
+    app.config(['$routeProvider', '$httpProvider', 'jwtInterceptorProvider', function($routeProvider, $httpProvider, jwtInterceptorProvider) {
+
+        jwtInterceptorProvider.tokenGetter = function() {
+            return sessionStorage.getItem('jwt');
+        };
+
+        $httpProvider.interceptors.push('jwtInterceptor');
+
             $routeProvider.when("/home", {
                 templateUrl: 'home.html'
                 })
@@ -26,16 +33,9 @@ var app;
         }]);
 
 
-    app.run(function($rootScope, $location){
+    app.run(function($rootScope, authService){
         $rootScope.$on('$routeChangeStart', function(){
-            var usuario = JSON.parse(sessionStorage.getItem('usuario'));
-            var owner = 'userempresa';
-            if(!usuario || usuario.rol != owner){
-                window.location.href = '../../public/login.html';
-            }
-            if(($location.path() === '/login') && usuario.rol == owner){
-                $location.path('/home');
-            }
+            authService.checkAuthentication('EMPRESA');
         })
     });
 
