@@ -3,6 +3,8 @@
 use App\Model\Central;
 use App\Model\Ciudad;
 use App\Model\Empresa;
+use App\Model\Rol;
+use App\Model\Usuario;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -43,9 +45,16 @@ class CentralesController extends Controller
             $data = $request->json()->all();
             $ciudad = Ciudad::find($data['ciudad']['id']);
             unset($data['ciudad']);
+            $data_usuario = $data['usuario'];
+            unset($data['usuario']);
+            $usuario = Usuario::nuevo($data_usuario['nombre'], $data_usuario['contrasena'], $this->getRol()->id);
+            $data['usuario_id'] = $usuario->id;
             $central = new Central($data);
             $central->ciudad()->associate($ciudad);
-            Empresa::find($empresa_id)->centrales()->save($central);
+            if(!Empresa::find($empresa_id)->centrales()->save($central)){
+                return response()->json(['mensajeError' => 'no se ha podido almacenar el usuario'], 400);
+                $usuario->delete();
+            }
             return response()->json($central, 201);
         } catch (\Exception $exc) {
             return response()->json(array("exception"=>$exc->getMessage()), 400);
@@ -108,5 +117,10 @@ class CentralesController extends Controller
             return response()->json(array("exception"=>$exc->getMessage(), ''=>$exc->getLine()), 400);
         }
 
+    }
+
+    public function getRol()
+    {
+        return Rol::where('nombre', 'CENTRAL_EMPRESA')->first();
     }
 }

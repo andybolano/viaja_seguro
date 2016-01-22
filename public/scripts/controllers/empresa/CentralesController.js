@@ -3,7 +3,7 @@
  */
 app.controller('CentralesController', CentralesController);
 
-function CentralesController($scope, centralesService, ciudadesService){
+function CentralesController($scope, centralesService, ciudadesService, authService){
 
     $scope.selectedCentral = {};
     $scope.centrales = [];
@@ -22,6 +22,8 @@ function CentralesController($scope, centralesService, ciudadesService){
 
     $scope.openCiudades = openCiudades;
     $scope.selecionarCiudad = selecionarCiudad;
+
+    $scope.generarDatosAcceso = generarDatosAcceso;
 
     init();
     function init(){
@@ -42,6 +44,7 @@ function CentralesController($scope, centralesService, ciudadesService){
 
     function nuevo(){
         $scope.selectedCentral = {};
+        $scope.selectedCentral.usuario = {};
         $scope.nombreForm = "Nueva Central";
         $scope.active = "";
         $scope.editMode = false;
@@ -118,6 +121,12 @@ function CentralesController($scope, centralesService, ciudadesService){
         function error(error) {
             console.log('Error al cargar la ciudades', error);
         }
+    }
+
+    function generarDatosAcceso()
+    {
+        $scope.selectedCentral.usuario.nombre = authService.currentUser().empresa.nombre.toLowerCase()+'_'+$scope.selectedCentral.ciudad.nombre.toLowerCase()+'_'+Math.floor((Math.random() * (999 - 101 + 1)) + 101);
+        $scope.selectedCentral.usuario.contrasena = $scope.selectedCentral.usuario.nombre;
     }
 
 }

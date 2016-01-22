@@ -11,6 +11,7 @@ app.controller('loginController', function($scope, authService) {
     $scope.contrasenasDiferentes = false;
 
     $scope.iniciarSesion = function(){
+        $scope.mensajeError = '';
         authService.login($scope.usuario).then(success, error);
         function success(p) {
             var usuario = authService.storeUser(p.data.token);
@@ -37,6 +38,7 @@ app.controller('loginController', function($scope, authService) {
     }
 
     $scope.comfirmarContrasenas = function(){
+        $scope.mensajeError = '';
         if($scope.nuevaContrasena != $scope.nuevaContrasenaConfirmacion){
             $scope.contrasenasDiferentes = true;
             $scope.formCambiarContrasena.$valid = false;

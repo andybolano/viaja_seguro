@@ -60,39 +60,84 @@
         <div class="modal-content">
             <h2>{{nombreForm}}</h2>
             <div class="row">
-                <div class="col s12">
-                    <form class="col s12" name="formNuevaCentral">
-                        <div class="row" ng-show="editMode">
-                            <div class="input-field col s12">
-                                <i class="material-icons prefix">payment</i>
-                                <input id="icon_payment" type="text" class="validate" name="placa" ng-model="selectedCentral.id" disabled>
-                                <label for="icon_payment" class="{{active}}">Id</label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <i class="material-icons prefix">local_taxi</i>
-                                <input id="ciudad" type="text" class="validate" name="ciudad" ng-model="selectedCentral.ciudad.nombre" readonly required ng-click="openCiudades()">
-                                <label for="ciudad" class="{{active}}" ng-class="{'active' : selectedCentral.ciudad.nombre}">Ciudad</label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <i class="material-icons prefix">invert_colors_off</i>
-                                <input id="direccion" type="text" class="validate" name="direccion"  ng-model="selectedCentral.direccion" required>
-                                <label for="direccion" class="{{active}}">Direccion</label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <i class="material-icons prefix">airline_seat_recline_normal</i>
-                                <input id="telefono" type="text" class="validate" name="telefono" ng-model="selectedCentral.telefono" required>
-                                <label for="telefono" class="{{active}}">Telefono</label>
-                            </div>
-                        </div>
-                    </form>
 
-                </div>
+                <form class="col s12" name="formNuevaCentral">
+                    <div class="row">
+                    <div class="col s12">
+                    <div class="row" ng-show="editMode">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">payment</i>
+                            <input id="icon_payment" type="text" class="validate" name="placa" ng-model="selectedCentral.id" disabled>
+                            <label for="icon_payment" class="{{active}}">Id</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">local_taxi</i>
+                            <input id="ciudad" type="text" class="validate" name="ciudad" ng-model="selectedCentral.ciudad.nombre" readonly required ng-click="openCiudades()">
+                            <label for="ciudad" class="{{active}}" ng-class="{'active' : selectedCentral.ciudad.nombre}">Ciudad</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">invert_colors_off</i>
+                            <input id="direccion" type="text" class="validate" name="direccion"  ng-model="selectedCentral.direccion" required>
+                            <label for="direccion" class="{{active}}">Direccion</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">airline_seat_recline_normal</i>
+                            <input id="telefono" type="text" class="validate" name="telefono" ng-model="selectedCentral.telefono" required>
+                            <label for="telefono" class="{{active}}">Telefono</label>
+                        </div>
+                    </div>
+                    </div>
+                    </div>
+
+                    <div class="row" ng-hide="editMode">
+                        <div class="col s12">
+                            <div class="row">
+                                <div class="col s12">
+                                    <div class="input-field">
+                                        <i class="material-icons prefix" style="padding-left: 3px;">lock</i>
+
+                                        <p style="padding-left: 45px; padding-top: 3px">Datos de acceso</p>
+                                    </div>
+                                    <div class="divider"></div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col s12">
+                                    <div class="input-field">
+                                        <i class="material-icons prefix">account_circle</i>
+                                        <input id="username" name="username" type="text" ng-model="selectedCentral.usuario.nombre"
+                                               ng-required="!editMode">
+                                        <label for="username" class="{{active}}" ng-class="{'active': selectedCentral.usuario.nombre}">Nombre de usuario</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col s12">
+                                    <div class="input-field">
+                                        <i class="material-icons prefix">vpn_key</i>
+                                        <input id="contrasena" name="contrasena" type="text" ng-model="selectedCentral.usuario.contrasena"
+                                               ng-required="!editMode">
+                                        <label for="contrasena" class="{{active}}" ng-class="{'active': selectedCentral.usuario.contrasena}">Contraseña</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <input type="button" class="waves-effect waves-light btn col s4 offset-s8" value="Generar Datos"
+                                       ng-click="generarDatosAcceso()" ng-disabled="formEmpresa.nombre.$invalid">
+                                </input>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
 

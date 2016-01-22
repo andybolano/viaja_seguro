@@ -4,8 +4,8 @@
 
 app.service('centralesService', centralesService);
 
-function centralesService($http) {
-    var myuri = uri + '/api/empresas/3/centrales';
+function centralesService($http, authService) {
+    var myuri = uri + '/api/empresas/'+authService.currentUser().empresa.id+'/centrales';
     this.getAll = function () {
         return $http.get(myuri);
     }
