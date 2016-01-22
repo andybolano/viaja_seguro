@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Empresa;
 
 use App\Model\Conductor;
-use App\User;
+use App\Model\Usuario;
+use App\Model\Rol;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests;
@@ -72,10 +73,9 @@ class ConductorController extends Controller
         $data = $request->all();
         $conductor = new Conductor();
 
-        $usuario = new User();
-        $usuario->usuario = $data['identificacion'];
-        $usuario->contrasena = $data['identificacion'];
-        $usuario->rol = 'conductor';
+        //USUARIO
+        $usuario = Usuario::nuevo($data['identificacion'], $data['identificacion'], $this->getRol()->id);
+        $data['usuario_id'] = $usuario->id;
 
         $conductor->identificacion = $data["identificacion"];
         $conductor->nombres = $data["nombres"];
@@ -83,6 +83,7 @@ class ConductorController extends Controller
         $conductor->direccion = $data["direccion"];
         $conductor->telefono = $data["telefono"];
         $conductor->correo = $data["correo"];
+        $conductor->usuario_id = $data['usuario_id'];
         $busqueda = Conductor::select("identificacion")
             ->where("identificacion",$data["identificacion"])
             ->first();
@@ -95,6 +96,11 @@ class ConductorController extends Controller
         }
     }
 
+
+    public function getRol()
+    {
+        return Rol::where('nombre', 'CONDUCTOR')->first();
+    }
     /**
      * Display the specified resource.
      *
