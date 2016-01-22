@@ -17,6 +17,9 @@ var app;
                 .when("/empresa/centrales", {
                     templateUrl: 'gestionarCentrales.html'
                 })
+                .when("/empresa/rutas", {
+                    templateUrl: 'gestionarRutas.html'
+                })
                 .when("/empresa/conductores", {
                     templateUrl: 'showConductor.html'
                 })

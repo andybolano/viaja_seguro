@@ -167,9 +167,8 @@ function GestionarEmpresasController($scope, empresasService, serviciosEmpresaSe
         }
     }
 
-    function generarDatosAcceso()
-    {
-        $scope.selectedEmpresa.usuario.nombre = $scope.selectedEmpresa.nombre.toLowerCase()+'_'+Math.floor((Math.random() * (999 - 101 + 1)) + 101);
+    function generarDatosAcceso(){
+        $scope.selectedEmpresa.usuario.nombre = ($scope.selectedEmpresa.nombre.toLowerCase()+'_'+Math.floor((Math.random() * (999 - 101 + 1)) + 101)).replace(/\s+/g, '');
         $scope.selectedEmpresa.usuario.contrasena = $scope.selectedEmpresa.usuario.nombre;
     }
 

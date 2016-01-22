@@ -63,7 +63,7 @@ function CentralesController($scope, centralesService, ciudadesService, authServ
             Materialize.toast('Registro guardado correctamente', 5000);
         }
         function error(error) {
-            cconsole.log('Error al guardar', error);
+            console.log('Error al guardar', error);
         }
     }
 
@@ -84,7 +84,7 @@ function CentralesController($scope, centralesService, ciudadesService, authServ
             Materialize.toast('Registro modificado correctamente', 5000);
         }
         function error(error) {
-            cconsole.log('Error al actualizar', error);
+            console.log('Error al actualizar', error);
         }
     }
 
@@ -97,7 +97,7 @@ function CentralesController($scope, centralesService, ciudadesService, authServ
             Materialize.toast('Registro eliminado', 5000);
         }
         function error(error) {
-            cconsole.log('Error al eliminar', error);
+            console.log('Error al eliminar', error);
         }
     }
 
@@ -123,9 +123,11 @@ function CentralesController($scope, centralesService, ciudadesService, authServ
         }
     }
 
-    function generarDatosAcceso()
-    {
-        $scope.selectedCentral.usuario.nombre = authService.currentUser().empresa.nombre.toLowerCase()+'_'+$scope.selectedCentral.ciudad.nombre.toLowerCase()+'_'+Math.floor((Math.random() * (999 - 101 + 1)) + 101);
+    function generarDatosAcceso(){
+        $scope.selectedCentral.usuario.nombre = (
+            authService.currentUser().empresa.nombre.toLowerCase()+
+            '_'+$scope.selectedCentral.ciudad.nombre.toLowerCase()+
+            '_'+Math.floor((Math.random() * (999 - 101 + 1)) + 101)).replace(/\s+/g, '');
         $scope.selectedCentral.usuario.contrasena = $scope.selectedCentral.usuario.nombre;
     }
 

@@ -5,6 +5,8 @@ Route::post('/api/empresas/{id}/logo', 'SuperAdmin\EmpresaController@saveLogo');
 
 Route::resource('/api/empresas/{empresa_id}/centrales', 'Empresa\CentralesController');
 
+Route::resource('/api/empresas/{empresa_id}/rutas', 'Empresa\RutasController');
+
 //pasajeros//
 Route::get('/api/empresa/obtener/pasajeros', 'Empresa\ServiciosController@getPasajeros');
 Route::post('/api/empresa/pasajeros', 'Empresa\ServiciosController@postPasajero');
