@@ -9,7 +9,11 @@ app.controller('indexController', function($scope, authService) {
     }
 
     $scope.userImagen = authService.currentUser().imagen;
-    $scope.nameEmpresa = authService.currentUser().empresa.nombre;
+    if (authService.currentUser().empresa) {
+        $scope.userNombre = authService.currentUser().empresa.nombre;
+    } else if(authService.currentUser().central){
+        $scope.userNombre = authService.currentUser().central.empresa.nombre+'-'+authService.currentUser().central.ciudad;
+    }
     $scope.userRol = authService.currentUser().rol;
     $scope.cerrarSesion = function(){
         sessionStorage.clear();
