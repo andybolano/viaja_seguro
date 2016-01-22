@@ -60,7 +60,7 @@ class LoginController extends Controller
                     'ciudad' => $central->ciudad,
                     'empresa' => [
                         'id' => $central->empresa->id,
-                        'nombre' => $central->empres->nombre,
+                        'nombre' => $central->empresa->nombre,
                     ]
                 ];
 
