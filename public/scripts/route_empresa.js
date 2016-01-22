@@ -1,7 +1,7 @@
 var uri = "../../public";
 var app;
 (function () {
-    app = angular.module("empresa", ['ngRoute', 'ui.keypress', 'angular-jwt']);
+    app = angular.module("empresa", ['ngRoute', 'ui.keypress', 'angular-jwt', 'google-maps']);
 
     app.config(['$routeProvider', '$httpProvider', 'jwtInterceptorProvider', function($routeProvider, $httpProvider, jwtInterceptorProvider) {
 

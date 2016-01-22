@@ -3,7 +3,7 @@
  */
 app.controller('CentralesController', CentralesController);
 
-function CentralesController($scope, centralesService, ciudadesService, authService){
+function CentralesController($scope, centralesService, ciudadesService, authService, MarkerCreatorService){
 
     $scope.selectedCentral = {};
     $scope.centrales = [];
