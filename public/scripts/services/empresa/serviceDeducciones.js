@@ -14,4 +14,9 @@ app.service('DeduccionesServicio', function ($http) {
         var req = $http.post(uri + '/api/empresa/deducciones', formData,{transformRequest: angular.identity,
             headers: {'Content-Type': undefined}});
     }
+
+    this.delete = function  (id) {
+        var req = $http.delete(uri + '/api/empresa/deducciones/' + id)
+        return req;
+    }
 });

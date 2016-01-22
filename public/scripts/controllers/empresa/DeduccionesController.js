@@ -49,39 +49,34 @@ app.controller('DeduccionesController', function ($scope, DeduccionesServicio) {
 
     $scope.guardar = function  () {
         var formData=new FormData();
+
         formData.append('nombre',$scope.Deduccion.nombre);
         formData.append('descripcion',$scope.Deduccion.descripcion);
         formData.append('valor',$scope.Deduccion.valor);
         formData.append('estado',$scope.Deduccion.estado);
-        var promiseGet = DeduccionesServicio.post(formData);
-        promiseGet.then(function (pl) {
+        var promisePost = DeduccionesServicio.post(formData);
+        promisePost.then(function (pl) {
                 $('#modalNuevaDeduccion').closeModal();
+                Materialize.toast(pl.data.message, 5000, 'rounded');
                 cargarDeducciones();
-                Materialize.toast(d.data.message,3000,'rounded');
             },
             function (err) {
-                if(err.status == 401){
-                    alert(err.data.message);
-                    console.log(err.data.exception);
-                }else{
-                    $('#modalProductos').closeModal();
-                    Materialize.toast("Error al procesar la solicitud",3000,'rounded');
-                }
+                $('#modalNuevaDeduccion').closeModal();
+                Materialize.toast("Error al procesar la solicitud",3000,'rounded');
                 console.log(err);
             });
     }
 
-    $scope.eliminar = function (deduccion){
-        if(confirm('¿Deseas eliminar el registro?') ==true) {
-            success(1);
-            //centralesService.delete(codigo).then(success, error);
-        }
-        function success(p) {
-            //init();
-            Materialize.toast('Registro eliminado', 5000);
-        }
-        function error(error) {
-            cconsole.log('Error al eliminar', error);
+    $scope.eliminar = function (id){
+        if(confirm('¿Deseas eliminar el registro?') == true) {
+            var promiseDelete = DeduccionesServicio.delete(id);
+            promiseDelete.then(function (pl) {
+                    cargarDeducciones();
+                    Materialize.toast(pl.data.message, 5000, 'rounded');
+                },
+                function (errorPl) {
+                    console.log('No se pudo eliminar el registro', errorPl);
+                });
         }
     }
 

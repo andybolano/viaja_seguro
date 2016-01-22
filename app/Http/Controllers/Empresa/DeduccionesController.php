@@ -48,11 +48,12 @@ class DeduccionesController extends Controller
             $deduccion->descripcion = $request->descripcion;
             $deduccion->valor = $request->valor;
             $deduccion->estado = $request->estado;
+
             $deduccion->save();
             return JsonResponse::create(array('message' => "Registro guardado correctamente"), 200);
 
         } catch (Exception $exc) {
-            return JsonResponse::create(array('message' => "No se pudo enviar el pedido", "exception"=>$exc->getMessage(), "request" =>json_encode($data)), 401);
+            return JsonResponse::create(array('message' => "Error al registrar los datos", "exception"=>$exc->getMessage(), "request" =>json_encode($data)), 401);
         }
     }
 
@@ -87,7 +88,20 @@ class DeduccionesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $deduccion = Deduccion::select("*")->where("id", $id)->first();
+
+            $deduccion->nombre = $request->nombre;
+            $deduccion->descripcion = $request->descripcion;
+            $deduccion->valor = $request->valor;
+            $deduccion->estado = $request->estado;
+
+            $deduccion->save();
+            return JsonResponse::create(array('message' => "Registro actualizado correctamente"), 200);
+
+        } catch (Exception $exc) {
+            return JsonResponse::create(array('message' => "Error al actualizar los datos", "exception"=>$exc->getMessage(), "request" =>json_encode($data)), 401);
+        }
     }
 
     public function updateEstado($id,$estado){
@@ -96,7 +110,13 @@ class DeduccionesController extends Controller
             $deduccion->estado = $estado;
             $deduccion->save();
 
-            return JsonResponse::create(array('message' => "Estado de $deduccion->nombre actualizado correctamente",200));
+            if($estado == 'true'){
+                $mensaje = 'Activado';
+            }else{
+                $mensaje = 'Desactivado';
+            }
+
+            return JsonResponse::create(array('message' => "$deduccion->nombre $mensaje correctamente",200));
 
         } catch (Exception $exc) {
             return JsonResponse::create(array('message' => "No se pudo cambiar el estado de la deduccion", "exception"=>$exc->getMessage(), 401));
@@ -112,6 +132,20 @@ class DeduccionesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try{
+            $deduccion = Deduccion::select("*")
+                ->where("id", $id)
+                ->first();
+            if (is_null ($deduccion))
+            {
+                App::abort(404);
+            }else{
+                $deduccion->delete();
+                return JsonResponse::create(array('message' => "Deduccion eliminada correctamente", "request" =>json_encode($id)), 200);
+            }
+        }catch (Exception $ex) {
+            return JsonResponse::create(array('message' => "No se pudo Eliminar la deduccion", "exception"=>$ex->getMessage(), "request" =>json_encode($id)), 401);
+        }
+
     }
 }
