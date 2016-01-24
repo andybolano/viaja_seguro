@@ -1,7 +1,7 @@
 /**
  * Created by tav0 on 12/01/16.
  */
-app.controller('CentralesController', CentralesController, ['MapController']);
+app.controller('CentralesController', CentralesController);
 
 function CentralesController($scope, centralesService, ciudadesService, authService, MarkerCreatorService){
 
@@ -73,22 +73,7 @@ function CentralesController($scope, centralesService, ciudadesService, authServ
         $scope.nombreForm = "Modificar Central";
         $scope.active = "active";
         $("#modalNuevaCentral").openModal();
-        $scope.mapa = {};
-        $scope.mapa.latitude = central.miDireccionLa;
-        $scope.mapa.longitude = central.miDireccionLo;
-        $scope.map = {
-            center: {
-                latitude: $scope.mapa.latitude,
-                longitude: $scope.mapa.longitude
-            },
-            zoom: 15,
-            markers: [],
-            control: {},
-            options: {
-                scrollwheel: true
-            }
-        };
-        $scope.map.markers.push($scope.mapa);
+        this.cargarMapa();
     }
 
     function update(){
@@ -145,6 +130,26 @@ function CentralesController($scope, centralesService, ciudadesService, authServ
             '_'+$scope.selectedCentral.ciudad.nombre.toLowerCase()+
             '_'+Math.floor((Math.random() * (999 - 101 + 1)) + 101)).replace(/\s+/g, '');
         $scope.selectedCentral.usuario.contrasena = $scope.selectedCentral.usuario.nombre;
+    }
+
+    $scope.cargarMapa = function(){
+        MarkerCreatorService.crearPunto($scope.selectedCentral.miDireccionLa, $scope.selectedCentral.miDireccionLo, function(marker){
+            marker.options.labelContent = "Tu direccion";
+            $scope.autentiaMarker = marker;
+            $scope.map = {
+                center: {
+                    latitude: $scope.autentiaMarker.latitude,
+                    longitude: $scope.autentiaMarker.longitude
+                },
+                zoom: 15,
+                markers: [],
+                control: {},
+                options: {
+                    scrollwheel: true
+                }
+            };
+            $scope.map.markers.push($scope.autentiaMarker);
+        });
     }
 
 }

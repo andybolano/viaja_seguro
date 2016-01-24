@@ -8,15 +8,6 @@ app.controller('MapCtrl', ['MarkerCreatorService', '$scope', function (MarkerCre
 
     $scope.selectedCentral.direccion = '';
 
-    $scope.cargarMapa = function(){
-        var marker = {};
-        marker.la = $scope.selectedCentral.miDireccionLa;
-        marker.lo = $scope.selectedCentral.miDireccionLo;
-        MarkerCreatorService.cargarMapa(function(marker){
-
-        });
-    }
-
     $scope.map = {
         center: {
             latitude: $scope.autentiaMarker.latitude,
@@ -30,6 +21,26 @@ app.controller('MapCtrl', ['MarkerCreatorService', '$scope', function (MarkerCre
         }
     };
     $scope.map.markers.push($scope.autentiaMarker);
+
+    $scope.cargarMapa = function(){
+        MarkerCreatorService.crearPunto($scope.selectedCentral.miDireccionLa, $scope.selectedCentral.miDireccionLo, function(marker){
+            marker.options.labelContent = "Tu direccion";
+            $scope.autentiaMarker = marker;
+            $scope.map = {
+                center: {
+                    latitude: $scope.autentiaMarker.latitude,
+                    longitude: $scope.autentiaMarker.longitude
+                },
+                zoom: 15,
+                markers: [],
+                control: {},
+                options: {
+                    scrollwheel: true
+                }
+            };
+            $scope.map.markers.push($scope.autentiaMarker);
+        });
+    }
 
     $scope.agregarUbicacionActual = function () {
         MarkerCreatorService.ubicacionActual(function (marker) {
