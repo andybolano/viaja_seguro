@@ -64,7 +64,7 @@ class VehiculoController extends Controller
             ->first();
         $conductor->vehiculo_id = $data["placa"];
 
-        $vehiculo->ide_conductor = $data["ide_conductor"];
+        $vehiculo->conductor_id = $data["ide_conductor"];
         $vehiculo->placa = $data["placa"];
         $vehiculo->modelo = $data["modelo"];
         $vehiculo->color = $data["color"];

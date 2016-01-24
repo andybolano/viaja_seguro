@@ -13,7 +13,7 @@ class Vehiculo extends Model
     protected $fillable = ['imagen', 'placa', 'modelo', 'color', 'codigo_vial', 'ide_propietario', 'nombre_propietario', 'tel_propietario', 'cupos'];
 
     public function conductor(){
-        return $this->hasOne(Conductor::class, 'id');
+        return $this->hasOne(Conductor::class, 'identificacion');
     }
 
     public function documentacion(){

@@ -26,19 +26,8 @@ app.controller('MapCtrl', ['MarkerCreatorService', '$scope', function (MarkerCre
         MarkerCreatorService.crearPunto($scope.selectedCentral.miDireccionLa, $scope.selectedCentral.miDireccionLo, function(marker){
             marker.options.labelContent = "Tu direccion";
             $scope.autentiaMarker = marker;
-            $scope.map = {
-                center: {
-                    latitude: $scope.autentiaMarker.latitude,
-                    longitude: $scope.autentiaMarker.longitude
-                },
-                zoom: 15,
-                markers: [],
-                control: {},
-                options: {
-                    scrollwheel: true
-                }
-            };
             $scope.map.markers.push($scope.autentiaMarker);
+            refresh(marker);
         });
     }
 
