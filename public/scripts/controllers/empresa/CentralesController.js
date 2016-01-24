@@ -1,7 +1,7 @@
 /**
  * Created by tav0 on 12/01/16.
  */
-app.controller('CentralesController', CentralesController);
+app.controller('CentralesController', CentralesController, ['MapController']);
 
 function CentralesController($scope, centralesService, ciudadesService, authService, MarkerCreatorService){
 
@@ -67,12 +67,28 @@ function CentralesController($scope, centralesService, ciudadesService, authServ
         }
     }
 
-    function actualizar(empresa){
-        $scope.selectedCentral = empresa;
+    function actualizar(central){
+        $scope.selectedCentral = central;
         $scope.editMode = true;
         $scope.nombreForm = "Modificar Central";
         $scope.active = "active";
         $("#modalNuevaCentral").openModal();
+        $scope.mapa = {};
+        $scope.mapa.latitude = central.miDireccionLa;
+        $scope.mapa.longitude = central.miDireccionLo;
+        $scope.map = {
+            center: {
+                latitude: $scope.mapa.latitude,
+                longitude: $scope.mapa.longitude
+            },
+            zoom: 15,
+            markers: [],
+            control: {},
+            options: {
+                scrollwheel: true
+            }
+        };
+        $scope.map.markers.push($scope.mapa);
     }
 
     function update(){

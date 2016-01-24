@@ -6,15 +6,16 @@ app.controller('MapCtrl', ['MarkerCreatorService', '$scope', function (MarkerCre
         $scope.autentiaMarker = marker;
     });
 
-    $scope.cargarDireccion = function(){
-        MarkerCreatorService.crearPunto($scope.selectedCentral.miDireccionLa, $scope.selectedCentral.miDireccionLo, function(marker){
-            marker.options.labelContent = 'Estas aqui !';
-            $scope.autentiaMarker.latitude = $scope.selectedCentral.miDireccionLa;
-            $scope.autentiaMarker.longitude = $scope.selectedCentral.miDireccionLo;
-        })
-    }
-
     $scope.selectedCentral.direccion = '';
+
+    $scope.cargarMapa = function(){
+        var marker = {};
+        marker.la = $scope.selectedCentral.miDireccionLa;
+        marker.lo = $scope.selectedCentral.miDireccionLo;
+        MarkerCreatorService.cargarMapa(function(marker){
+
+        });
+    }
 
     $scope.map = {
         center: {

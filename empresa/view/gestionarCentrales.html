@@ -74,8 +74,9 @@
                             <input ng-hide="true" ng-model="selectedCentral.miDireccionLa">
                             <input ng-hide="true" ng-model="selectedCentral.miDireccionLo">
                         </div>
+                        <a class="btn btn-default" href="javascript:;" ng-click="cargarMapa()">cargar</a>
                         <!--<div id="mapa" class="col s12"></div>-->
-                        <div class="map_container" >
+                        <div class="map_container">
                             <google-map center="map.center" zoom="map.zoom" draggable="true" options="map.options" control="map.control">
                                 <markers models="map.markers" coords="'self'" options="'options'" isLabel='true'></markers>
                             </google-map>

@@ -52,10 +52,17 @@ app.factory('MarkerCreatorService', function () {
         }
     }
 
+    function cargarMapa(central){
+        var marker = create(central.miDireccionLa, central.miDireccionLo);
+        console.log(marker)
+        return marker;
+    }
+
     return {
         crearPunto: crearPunto,
         crearDireccion: crearDireccion,
-        ubicacionActual: ubicacionActual
+        ubicacionActual: ubicacionActual,
+        cargarMapa: cargarMapa
     };
 
 });
