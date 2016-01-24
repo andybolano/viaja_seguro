@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Empresa;
 
 use App\Model\Cliente;
 use App\Model\Conductor;
-use App\Model\Documentacion;
+use App\Model\Documento;
 use App\Model\Vehiculo;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -15,6 +15,7 @@ use Mockery\CountValidator\Exception;
 class VehiculoController extends Controller
 {
     private $vehiculoEnTurno = 'UJSK-345';
+
     /**
      * Display a listing of the resource.
      *
@@ -35,7 +36,7 @@ class VehiculoController extends Controller
     }
 
     public function getDocumentacion(){
-        $documentacion = Documentacion::all();
+        $documentacion = Documento::all();
         return $documentacion;
     }
     /**
