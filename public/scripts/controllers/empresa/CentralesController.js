@@ -73,7 +73,6 @@ function CentralesController($scope, centralesService, ciudadesService, authServ
         $scope.nombreForm = "Modificar Central";
         $scope.active = "active";
         $("#modalNuevaCentral").openModal();
-        this.cargarMapa();
     }
 
     function update(){

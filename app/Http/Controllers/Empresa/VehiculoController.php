@@ -70,7 +70,7 @@ class VehiculoController extends Controller
         $vehiculo->color = $data["color"];
         $vehiculo->codigo_vial = $data["codigo_vial"];
         $vehiculo->cupos = $data["cupos"];
-        $vehiculo->ide_propietario = $data["ide_propietario"];
+        $vehiculo->identificacion_propietario = $data["ide_propietario"];
         $vehiculo->nombre_propietario = $data["nombre_propietario"];
         $vehiculo->tel_propietario = $data["tel_propietario"];
 
@@ -148,13 +148,13 @@ class VehiculoController extends Controller
             ->first();
         $conductor->vehiculo_id = $data["placa"];
 
-        $vehiculo->ide_conductor = $data["ide_conductor"];
+        $vehiculo->conductor_id = $data["ide_conductor"];
         $vehiculo->placa = $data["placa"];
         $vehiculo->modelo = $data["modelo"];
         $vehiculo->color = $data["color"];
         $vehiculo->codigo_vial = $data["codigo_vial"];
         $vehiculo->cupos = $data["cupos"];
-        $vehiculo->ide_propietario = $data["ide_propietario"];
+        $vehiculo->identificacion_propietario = $data["ide_propietario"];
         $vehiculo->nombre_propietario = $data["nombre_propietario"];
         $vehiculo->tel_propietario = $data["tel_propietario"];
 

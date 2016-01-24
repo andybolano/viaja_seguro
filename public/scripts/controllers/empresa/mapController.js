@@ -22,6 +22,7 @@ app.controller('MapCtrl', ['MarkerCreatorService', '$scope', function (MarkerCre
     };
     $scope.map.markers.push($scope.autentiaMarker);
 
+
     $scope.cargarMapa = function(){
         MarkerCreatorService.crearPunto($scope.selectedCentral.miDireccionLa, $scope.selectedCentral.miDireccionLo, function(marker){
             marker.options.labelContent = "Tu direccion";
