@@ -136,7 +136,7 @@ app.controller('VehiculosController', function ($scope, VehiculoServicio) {
             $scope.Documentacion = pl.data;
             console.log($scope.Documentacion);
         },function (errorPl) {
-            Materialize.toast('Ocurrio un error al cargar los documentos', 5000, 'rounded');
+            //Materialize.toast('Ocurrio un error al cargar los documentos', 5000, 'rounded');
         });
     }
 })
