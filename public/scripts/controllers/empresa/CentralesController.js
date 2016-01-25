@@ -74,20 +74,11 @@ function CentralesController($scope, centralesService, ciudadesService, authServ
         $scope.nombreForm = "Modificar Central";
         $scope.active = "active";
         $("#modalNuevaCentral").openModal();
-        $scope.map = {
-            center: new google.maps.LatLng(central.miDireccionLa, central.miDireccionLo),
-            zoom: 15,
-            markers: [],
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        }
-        var coordenada1 = new google.maps.LatLng(central.miDireccionLa, central.miDireccionLo);
-        var map = new google.maps.Map($("#dvMap")[0], $scope.map);
-        var marcador = new google.maps.Marker({position: coordenada1,map: map, animation: 1, title:"Tu direcion"});
-
-
+        cargarLocalizacion(central);
     }
 
     function update(){
+        console.log($scope.selectedCentral)
         centralesService.put($scope.selectedCentral, $scope.selectedCentral.id).then(success, error);
         function success(p) {
             $("#modalNuevaCentral").closeModal();
@@ -169,8 +160,7 @@ function CentralesController($scope, centralesService, ciudadesService, authServ
             crearDireccion(direccion, function(marker) {
                 $scope.selectedCentral.miDireccionLa = marker.latitude;
                 $scope.selectedCentral.miDireccionLo = marker.longitude;
-                $scope.map.markers.push(marker);
-                refresh(marker);
+                console.log($scope.selectedCentral.miDireccionLo)
             });
         }
     };
@@ -193,10 +183,23 @@ function CentralesController($scope, centralesService, ciudadesService, authServ
                 var coordenada1 = new google.maps.LatLng(latitude, longitude);
                 var map = new google.maps.Map($("#dvMap")[0], $scope.map);
                 var marcador = new google.maps.Marker({position: coordenada1,map: map, animation: 1, title:direccion});
+                return coordenada1;
             } else {
                 alert("Dirección desconocida: " + direccion);
             }
         });
+    }
+
+    function cargarLocalizacion(central){
+        $scope.map = {
+            center: new google.maps.LatLng(central.miDireccionLa, central.miDireccionLo),
+            zoom: 15,
+            markers: [],
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        var coordenada1 = new google.maps.LatLng(central.miDireccionLa, central.miDireccionLo);
+        var map = new google.maps.Map($("#dvMap")[0], $scope.map);
+        var marcador = new google.maps.Marker({position: coordenada1,map: map, animation: 1, title:"Tu direcion"});
     }
 
 }

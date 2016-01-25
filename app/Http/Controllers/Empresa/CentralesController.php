@@ -84,6 +84,8 @@ class CentralesController extends Controller
         try{
             if($central = Central::find($central_id)) {
                 $data = $request->json()->all();
+                $central->miDireccionLa = $data['miDireccionLa'];
+                $central->miDireccionLo = $data['miDireccionLo'];
                 $central->direccion = $data['direccion'];
                 $central->telefono = $data['telefono'];
                 $central->save();
