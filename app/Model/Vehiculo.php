@@ -13,10 +13,10 @@ class Vehiculo extends Model
     protected $fillable = ['imagen', 'placa', 'modelo', 'color', 'codigo_vial', 'ide_propietario', 'nombre_propietario', 'tel_propietario', 'cupos'];
 
     public function conductor(){
-        return $this->hasOne(Conductor::class, 'identificacion');
+        return $this->belongsTo(Conductor::class);
     }
 
     public function documentacion(){
-        return $this->belongsToMany(Documentacion::class, 'documentacion_vehiculo', 'ide_vehiculo', 'ide_documentacion', 'fecha_vencimiento');
+        return $this->belongsToMany(Documento::class, 'documentos_vehiculo', 'vehiculo_id', 'documento_id', 'fecha_vencimiento');
     }
 }

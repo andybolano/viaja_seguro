@@ -13,6 +13,6 @@ class Conductor extends Model
     public $timestamps = false;
 
     public function vehiculo(){
-        return $this->belongsTo(Vehiculo::class, 'conductor_id');
+        return $this->hasOne(Vehiculo::class);
     }
 }
