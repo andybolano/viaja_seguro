@@ -137,7 +137,7 @@
                     </div>
 
                     <!--mapa-->
-                    <div class="row col s8" ng-controller="MapCtrl">
+                    <div class="row col s8" >
                         <p>
                             <input  type="text" placeholder="Buscar direccion" ng-model="selectedCentral.direccion" style="width: 210px"/>
                             <a class="btn btn-default" href="javascript:;" ng-click="agregarDireccion()">Buscar direccion!</a>
@@ -146,11 +146,13 @@
                             <input ng-hide="true" ng-model="selectedCentral.miDireccionLa">
                             <input ng-hide="true" ng-model="selectedCentral.miDireccionLo">
                         </div>
-                        <div class="map_container" >
-                            <google-map center="map.center" zoom="map.zoom" draggable="true" options="map.options" control="map.control" refresh="!map.isMapElementHidden">
-                                <markers models="map.markers" coords="'self'" options="'options'" isLabel='true'></markers>
-                            </google-map>
-                        </div>
+                        <!--<div class="map_container" >-->
+                            <!--<google-map center="map.center" zoom="map.zoom" draggable="true" options="map.options" control="map.control" refresh="!map.isMapElementHidden">-->
+                                <!--<markers models="map.markers" coords="'self'" options="'options'" isLabel='true'></markers>-->
+                            <!--</google-map>-->
+
+                        <!--</div>-->
+                        <div id="dvMap" style="height: 380px; width: 580px;"></div>
 
                     </div>
                     <!--fin mapa-->
@@ -198,4 +200,3 @@
         </div>
     </div>
 </div>
-

@@ -3,7 +3,7 @@
  */
 app.controller('CentralesController', CentralesController);
 
-function CentralesController($scope, centralesService, ciudadesService, authService, MarkerCreatorService){
+function CentralesController($scope, centralesService, ciudadesService, authService){
 
     $scope.selectedCentral = {};
     $scope.centrales = [];
@@ -50,6 +50,7 @@ function CentralesController($scope, centralesService, ciudadesService, authServ
         $scope.editMode = false;
         $scope.fileimage = null;
         $("#modalNuevaCentral").openModal();
+        ubicacionActual();
     }
 
     function guardar(){
@@ -73,6 +74,17 @@ function CentralesController($scope, centralesService, ciudadesService, authServ
         $scope.nombreForm = "Modificar Central";
         $scope.active = "active";
         $("#modalNuevaCentral").openModal();
+        $scope.map = {
+            center: new google.maps.LatLng(central.miDireccionLa, central.miDireccionLo),
+            zoom: 15,
+            markers: [],
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        var coordenada1 = new google.maps.LatLng(central.miDireccionLa, central.miDireccionLo);
+        var map = new google.maps.Map($("#dvMap")[0], $scope.map);
+        var marcador = new google.maps.Marker({position: coordenada1,map: map, animation: 1, title:"Tu direcion"});
+
+
     }
 
     function update(){
@@ -131,23 +143,59 @@ function CentralesController($scope, centralesService, ciudadesService, authServ
         $scope.selectedCentral.usuario.contrasena = $scope.selectedCentral.usuario.nombre;
     }
 
-    $scope.cargarMapa = function(){
-        MarkerCreatorService.crearPunto($scope.selectedCentral.miDireccionLa, $scope.selectedCentral.miDireccionLo, function(marker){
-            marker.options.labelContent = "Tu direccion";
-            $scope.autentiaMarker = marker;
-            $scope.map = {
-                center: {
-                    latitude: $scope.autentiaMarker.latitude,
-                    longitude: $scope.autentiaMarker.longitude
-                },
-                zoom: 15,
-                markers: [],
-                control: {},
-                options: {
-                    scrollwheel: true
+    function ubicacionActual() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                $scope.selectedCentral.miDireccionLa = position.coords.latitude;
+                $scope.selectedCentral.miDireccionLo = position.coords.longitude;
+                $scope.map = {
+                    center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
+                    zoom: 15,
+                    markers: [],
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
                 }
-            };
-            $scope.map.markers.push($scope.autentiaMarker);
+                var coordenada1 = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                var map = new google.maps.Map($("#dvMap")[0], $scope.map);
+                var marcador = new google.maps.Marker({position: coordenada1,map: map, animation: 1, title:"Tu direcion"});
+            });
+        } else {
+            alert('No se pudo localizar si posicion');
+        }
+    }
+
+    $scope.agregarDireccion = function() {
+        var direccion = $scope.selectedCentral.direccion;
+        if (direccion !== '') {
+            crearDireccion(direccion, function(marker) {
+                $scope.selectedCentral.miDireccionLa = marker.latitude;
+                $scope.selectedCentral.miDireccionLo = marker.longitude;
+                $scope.map.markers.push(marker);
+                refresh(marker);
+            });
+        }
+    };
+
+    function crearDireccion(direccion) {
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({'address' : direccion}, function (results, status) {
+            if (status === google.maps.GeocoderStatus.OK) {
+                var firstAddress = results[0];
+                var latitude = firstAddress.geometry.location.lat();
+                var longitude = firstAddress.geometry.location.lng();
+                $scope.selectedCentral.miDireccionLa = latitude;
+                $scope.selectedCentral.miDireccionLo = longitude;
+                $scope.map = {
+                    center: new google.maps.LatLng(latitude, longitude),
+                    zoom: 15,
+                    markers: [],
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                }
+                var coordenada1 = new google.maps.LatLng(latitude, longitude);
+                var map = new google.maps.Map($("#dvMap")[0], $scope.map);
+                var marcador = new google.maps.Marker({position: coordenada1,map: map, animation: 1, title:direccion});
+            } else {
+                alert("Dirección desconocida: " + direccion);
+            }
         });
     }
 
