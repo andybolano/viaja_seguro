@@ -23,6 +23,7 @@
                             <th>Ciudad</th>
                             <th>Direccion</th>
                             <th>Telefono</th>
+                            <th>Nombre de usuario</th>
                             <th>Acciones</th>
                             </thead>
                             <tbody>
@@ -31,6 +32,7 @@
                                     <td>{{central.ciudad.nombre}}</td>
                                     <td>{{central.direccion}}</td>
                                     <td>{{central.telefono}}</td>
+                                    <td>{{central.usuario.email}}</td>
                                     <td>
                                         <a href="javascript:" ng-click="actualizar(central)">
                                             <i class="material-icons prefix">visibility</i>
@@ -90,6 +92,27 @@
                                 <label for="telefono" class="{{active}}">Telefono</label>
                             </div>
                         </div>
+                        <div class="row" >
+                            <div class="col s12">
+                                <div class="row">
+                                    <div class="col s12">
+                                        <div class="input-field">
+                                            <i class="material-icons prefix" style="padding-left: 3px;">lock</i>
+
+                                            <p style="padding-left: 45px; padding-top: 3px">Datos de acceso</p>
+                                        </div>
+                                        <div class="divider"></div>
+                                    </div>
+                                </div>
+                                <div class="col s12">
+                                    <div class="input-field">
+                                        <i class="material-icons prefix">account_circle</i>
+                                        <input id="name" name="username" type="text" ng-model="selectedCentral.usuario.email" readonly>
+                                        <label for="username" class="active" ng-class="{'active': selectedCentral.usuario.email}">Nombre de usuario</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="row" ng-hide="editMode">
                                 <div class="col s12">
@@ -146,12 +169,7 @@
                             <input ng-hide="true" ng-model="selectedCentral.miDireccionLa">
                             <input ng-hide="true" ng-model="selectedCentral.miDireccionLo">
                         </div>
-                        <!--<div class="map_container" >-->
-                            <!--<google-map center="map.center" zoom="map.zoom" draggable="true" options="map.options" control="map.control" refresh="!map.isMapElementHidden">-->
-                                <!--<markers models="map.markers" coords="'self'" options="'options'" isLabel='true'></markers>-->
-                            <!--</google-map>-->
 
-                        <!--</div>-->
                         <div id="dvMap" style="height: 380px; width: 580px;"></div>
 
                     </div>

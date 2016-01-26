@@ -155,7 +155,7 @@ function CentralesController($scope, centralesService, ciudadesService, authServ
     }
 
     $scope.agregarDireccion = function() {
-        var direccion = $scope.selectedCentral.direccion;
+        var direccion = $scope.selectedCentral.ciudad.nombre + " " + $scope.selectedCentral.direccion;
         if (direccion !== '') {
             crearDireccion(direccion, function(marker) {
                 $scope.selectedCentral.miDireccionLa = marker.latitude;

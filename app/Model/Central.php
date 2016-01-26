@@ -26,4 +26,10 @@ class Central extends Model
         return $this->hasMany(Ruta::class, 'id_central_origen', 'id');
     }
 
+    public function usuario()
+    {
+        return $this->belongsTo(Usuario::class);
+    }
+
+
 }

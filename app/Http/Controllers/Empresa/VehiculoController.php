@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Empresa;
 
+use App\Model\Central;
 use App\Model\Cliente;
 use App\Model\Conductor;
 use App\Model\Documento;
@@ -25,6 +26,7 @@ class VehiculoController extends Controller
     {
         try{
             $vehiculos = Vehiculo::all();
+            $vehiculos->load('conductor');
             return $vehiculos;
         }catch(Exception $e){
             return JsonResponse::create(array('message' => "Error al cargar los vehiculos", "exception"=>$e->getMessage()), 401);
@@ -63,9 +65,10 @@ class VehiculoController extends Controller
         $conductor = Conductor::select("*")
             ->where("identificacion", $data["ide_conductor"])
             ->first();
+
         $conductor->vehiculo_id = $data["placa"];
 
-        $vehiculo->conductor_id = $data["ide_conductor"];
+        $vehiculo->conductor_id = $data['ide_conductor'];
         $vehiculo->placa = $data["placa"];
         $vehiculo->modelo = $data["modelo"];
         $vehiculo->color = $data["color"];
@@ -141,12 +144,13 @@ class VehiculoController extends Controller
     {
         $data = $request->all();
         $vehiculo = Vehiculo::select("*")
-            ->where("placa", $data["placa"])
+            ->where("placa", $id)
             ->first();
 
         $conductor = Conductor::select("*")
             ->where("identificacion", $data["ide_conductor"])
             ->first();
+
         $conductor->vehiculo_id = $data["placa"];
 
         $vehiculo->conductor_id = $data["ide_conductor"];

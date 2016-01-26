@@ -54,7 +54,7 @@ app.controller('VehiculosController', function ($scope, VehiculoServicio) {
     $scope.guardar = function(){
         var object = {
             ide_conductor : $scope.Vehiculo.ide_conductor,
-            ide_propietario : $scope.Vehiculo.ide_propietario,
+            ide_propietario : $scope.Vehiculo.identificacion_propietario,
             nombre_propietario : $scope.Vehiculo.nombre_propietario,
             tel_propietario : $scope.Vehiculo.tel_propietario,
             placa : $scope.Vehiculo.placa,
@@ -78,7 +78,7 @@ app.controller('VehiculosController', function ($scope, VehiculoServicio) {
     $scope.update = function  () {
         var object = {
             ide_conductor : $scope.Vehiculo.ide_conductor,
-            ide_propietario : $scope.Vehiculo.ide_propietario,
+            ide_propietario : $scope.Vehiculo.identificacion_propietario,
             nombre_propietario : $scope.Vehiculo.nombre_propietario,
             tel_propietario : $scope.Vehiculo.tel_propietario,
             placa : $scope.Vehiculo.placa,

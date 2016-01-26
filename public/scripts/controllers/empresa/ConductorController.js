@@ -22,12 +22,12 @@ app.controller('ConductorController', function ($scope, ConductorServicio, Vehic
             $scope.Conductores = pl.data;
             angular.forEach($scope.Conductores, function(conductor){
                 if(finalizar == false){
-                    if(conductor.vehiculo_id == ""){
+                    if(conductor.vehiculo_id == ''){
                         if (confirm('El conductor ' + conductor.nombres + " " + conductor.apellidos + " No tiene vehiculo asociado desea registrar uno?") == true) {
                             $scope.editMode = false;
                             $scope.active = "";
                             $scope.Vehiculo = {};
-                            $scope.Vehiculo.ide_conductor = conductor.identificacion;
+                            $scope.Vehiculo.ide_conductor = conductor.id;
                             $scope.titulo = "Asignar vehiculo a: " + (conductor.nombres + " " + conductor.apellidos).toUpperCase();
                             finalizar = true;
                             $("#modalAsignarVehiculoC").openModal();

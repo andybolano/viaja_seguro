@@ -27,6 +27,7 @@ class CentralesController extends Controller
         try{
             $centrales = Empresa::find($empresa_id)->centrales;
             $centrales->load('ciudad');
+            $centrales->load('usuario');
             return $centrales;
         }catch(\Exception $e){
             return response()->json(array("exception"=>$e->getMessage()), 400);
