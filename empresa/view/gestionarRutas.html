@@ -42,6 +42,7 @@
                 <div class="col s6">
                     <div class="row"><h2>Origen</h2></div>
                     <div class="row">
+                        <a href="javascript:;" class="btn btn-default" ng-click="agregarDireccionO()"></a>
                         <select class="browser-default" name="selectOrigen" id="selectOrigen"
                                 ng-options="central.ciudad.nombre for central in centrales"
                                 ng-model="ruta.origen" required>
@@ -52,7 +53,7 @@
                 <div class="col s6">
                     <div class="row"><h2>Destino</h2></div>
                     <div class="row">
-
+                        <a href="javascript:;" class="btn btn-default" ng-click="agregarDireccionD()"></a>
                         <select class="browser-default" name="selectDestino" id="selectDestino"
                                 ng-options="central.ciudad.nombre for central in centrales"
                                 ng-model="ruta.destino" required>
@@ -61,6 +62,14 @@
                     </div>
                 </div>
             </div>
+                <div class="row">
+                    <!--mapa-->
+                    <div class="row col s12" >
+                        <div id="dvMap" style="height: 380px; width: 580px;"></div>
+
+                    </div>
+                    <!--fin mapa-->
+                </div>
             </form>
         </div>
         <div class="modal-footer">
