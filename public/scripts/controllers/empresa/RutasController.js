@@ -136,4 +136,30 @@ function RutasController($scope, centralesService, rutasService){
         //google.maps.addOverlay(polyline);
     }
 
+    $scope.trazarRuta = function(){
+        var directionsDisplay = new google.maps.DirectionsRenderer();
+        var directionsService = new google.maps.DirectionsService();
+
+        var request = {
+            origin: $scope.ruta.origen.ciudad.nombre + " , " + $scope.ruta.origen.direccion,
+            destination: $scope.ruta.destino.ciudad.nombre + " , " + $scope.ruta.destino.direccion,
+            travelMode: google.maps.DirectionsTravelMode[$('#modo_viaje').val()],
+            unitSystem: google.maps.DirectionsUnitSystem[$('#tipo_sistema').val()],
+            provideRouteAlternatives: true
+        };
+
+        directionsService.route(request, function(response, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+                var map = new google.maps.Map($("#map_canvas")[0], request);
+                directionsDisplay.setMap(map);
+                $("#panel_ruta").text("");
+
+                directionsDisplay.setPanel($("#panel_ruta").get(0));
+                directionsDisplay.setDirections(response);
+            } else {
+                alert("No existen rutas entre ambos puntos");
+            }
+        });
+    }
+
 }
