@@ -89,7 +89,7 @@ app.controller('ConductorController', function ($scope, ConductorServicio, Vehic
             correo: $scope.Conductor.correo
         };
         console.log(object);
-        var promisePut = ConductorServicio.put(object,$scope.Conductor.identificacion);
+        var promisePut = ConductorServicio.put(object,$scope.Conductor.id);
         promisePut.then(function (pl) {
                 $("#modalNuevoConductor").closeModal();
                 Materialize.toast(pl.data.message, 5000, 'rounded');

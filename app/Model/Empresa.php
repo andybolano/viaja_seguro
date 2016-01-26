@@ -17,6 +17,11 @@ class Empresa extends Model
         return $this->hasMany(Central::class);
     }
 
+    public function conductores()
+    {
+        return $this->hasMany(Conductor::class);
+    }
+
     public function servicios()
     {
         return $this->belongsToMany(Servicio::class, 'empresa_servicios', 'empresa_id', 'servicio_id');

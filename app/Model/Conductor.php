@@ -15,4 +15,9 @@ class Conductor extends Model
     public function vehiculo(){
         return $this->hasOne(Vehiculo::class);
     }
+
+    public function empresa()
+    {
+        return $this->belongsTo(Empresa::class);
+    }
 }

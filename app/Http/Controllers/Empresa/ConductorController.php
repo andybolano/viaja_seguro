@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Empresa;
 
+use App\Model\Empresa;
 use App\Model\Conductor;
 use App\Model\Usuario;
 use App\Model\Rol;
@@ -19,10 +20,14 @@ class ConductorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($empresa_id)
     {
-        $conductores = Conductor::all();
-        return $conductores;
+        try{
+            $conductores = Empresa::find($empresa_id)->conductores;
+            return $conductores;
+        }catch(\Exception $e){
+            return response()->json(array("exception"=>$e->getMessage()), 400);
+        }
     }
 
     public function getVehiculo($id){
@@ -68,8 +73,23 @@ class ConductorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $empresa_id)
     {
+        try{
+            $data = $request->json()->all();
+
+            $conductor = new Conductor($data);
+            if(!Empresa::find($empresa_id)->conductores()->save($conductor)){
+                return response()->json(['mensajeError' => 'no se ha podido almacenar el usuario'], 400);
+            }
+            return response()->json($conductor, 201);
+        } catch (\Exception $exc) {
+            return response()->json(array("exception"=>$exc->getMessage()), 400);
+        }
+
+
+
+
         $data = $request->all();
         $conductor = new Conductor();
 
@@ -137,7 +157,7 @@ class ConductorController extends Controller
         try{
 //            $data = $request->all();
             $conductor = Conductor::select("*")
-                ->where("identificacion", $id)
+                ->where("id", $id)
                 ->first();
 
             $conductor->identificacion = $request->identificacion;
@@ -166,7 +186,7 @@ class ConductorController extends Controller
     {
         try{
             $conductor = Conductor::select("*")
-                ->where("identificacion", $id)
+                ->where("id", $id)
                 ->first();
             if (is_null ($conductor))
             {

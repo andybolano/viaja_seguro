@@ -1,28 +1,24 @@
-app.service('ConductorServicio', function ($http) {
+app.service('ConductorServicio', function ($http , authService) {
+    var myuri = uri + '/api/empresas/'+authService.currentUser().empresa.id+'/conductores';
 
     this.getAll = function  () {
-        var req = $http.get(uri + '/api/empresa/conductores');
-        return req;
+        return $http.get(myuri);
     }
 
     this.post = function  (object) {
-        var req = $http.post(uri + '/api/empresa/conductores', object)
-        return req;
+        return $http.post(myuri, object)
     }
 
     this.put = function  (object,id) {
-        var req = $http.put(uri + '/api/empresa/conductores/' + id, object)
-        return req;
+        return $http.put(myuri + '/' + id, object)
     }
 
     this.delete = function  (id) {
-        var req = $http.delete(uri + '/api/empresa/conductores/' + id)
-        return req;
+        return $http.delete(myuri + '/' + id)
     }
 
     this.get = function  (id) {
-        var req = $http.get(uri + '/api/empresa/conductores/' + id)
-        return req;
+        return $http.get(myuri + '/' + id)
     }
 
     this.postImagen = function (id, object) {
