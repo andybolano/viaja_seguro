@@ -63,7 +63,7 @@ post: /api/empresas/{empresa_id}/pagos_prestaciones/{prestacion_id} : guarda una
 get: /api/conductores/{conductor_id}/pagos_prestaciones/{prestacion_id} : obtiene el pagos de las prestaciones de un conductor
 
 //API SERVICIOS 
-get: /api/servicios_empresa : obtienes los servicios para las empresas :
+*get: /api/servicios_empresa : obtienes los servicios para las empresas :
 
 
 //API GIROS
