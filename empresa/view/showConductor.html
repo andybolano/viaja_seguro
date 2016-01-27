@@ -25,7 +25,6 @@
                             <th>Apellidos</th>
                             <th>Dirección</th>
                             <th>Teléfono</th>
-                            <th>Edad</th>
                             <th>Acciones</th>
                             </thead>
                             <tbody>
@@ -38,7 +37,6 @@
                                     <td>{{conductor.apellidos}}</td>
                                     <td>{{conductor.direccion}}</td>
                                     <td>{{conductor.telefono}}</td>
-                                    <td>{{conductor.edad}}</td>
                                     <td>
                                         <a href="javascript:" ng-click="modificar(conductor)">
                                             <i class="material-icons prefix">visibility</i>
@@ -98,18 +96,18 @@
                                 <input id="icon_phone" type="text" class="validate" name="telefono" ng-model="Conductor.telefono">
                                 <label for="icon_phone" class="{{active}}">Teléfono</label>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col s4">
-                                <i class="material-icons prefix">today</i>
-                                <label  class="{{active}}">Fecha de nacimiento</label>
-                                <input id="icon_today" type="date" class="validate datapicker" name="fecha" ng-model="Conductor.fecha">
-                            </div>
                             <div class="input-field col s4">
                                 <i class="material-icons prefix">contact_mail</i>
                                 <input id="icon_mail2" type="text" class="validate" name="correo" ng-model="Conductor.correo">
                                 <label for="icon_mail2" class="{{active}}">Correo</label>
                             </div>
+                        </div>
+                        <div class="row">
+                            <!--<div class="col s4">-->
+                                <!--<i class="material-icons prefix">today</i>-->
+                                <!--<label  class="{{active}}">Fecha de nacimiento</label>-->
+                                <!--<input id="icon_today" type="date" class="validate datapicker" name="fecha" ng-model="Conductor.fecha">-->
+                            <!--</div>-->
                         </div>
                     </form>
 

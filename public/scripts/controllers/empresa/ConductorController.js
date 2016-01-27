@@ -22,7 +22,7 @@ app.controller('ConductorController', function ($scope, ConductorServicio, Vehic
             $scope.Conductores = pl.data;
             angular.forEach($scope.Conductores, function(conductor){
                 if(finalizar == false){
-                    if(conductor.vehiculo_id == ''){
+                    if(conductor.vehiculo_id == null){
                         if (confirm('El conductor ' + conductor.nombres + " " + conductor.apellidos + " No tiene vehiculo asociado desea registrar uno?") == true) {
                             $scope.editMode = false;
                             $scope.active = "";
@@ -105,8 +105,8 @@ app.controller('ConductorController', function ($scope, ConductorServicio, Vehic
         if(confirm('¿Deseas eliminar el registro?') == true) {
             var promiseDelete = ConductorServicio.delete(id);
             promiseDelete.then(function (pl) {
-                    cargarConductores();
                     Materialize.toast(pl.data.message, 5000, 'rounded');
+                    cargarConductores();
                 },
                 function (errorPl) {
                     console.log('No se pudo eliminar el registro', errorPl);

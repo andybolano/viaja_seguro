@@ -182,22 +182,18 @@ class ConductorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($empresa_id, $id)
     {
         try{
-            $conductor = Conductor::select("*")
-                ->where("id", $id)
-                ->first();
-            if (is_null ($conductor))
-            {
-                App::abort(404);
-            }else{
+            $conductor = Conductor::find($id);
+            if($conductor){
                 $conductor->delete();
-                return JsonResponse::create(array('message' => "Conductor eliminado correctamente", "request" =>json_encode($id)), 200);
+                return response()->json(['message' => 'Registro eliminado'], 201);
+            }else{
+                return response()->json(['message' => 'El conductor no existe'], 400);
             }
-        }catch (Exception $ex) {
-            return JsonResponse::create(array('message' => "No se pudo Eliminar el conductor", "exception"=>$ex->getMessage(), "request" =>json_encode($id)), 401);
+        } catch (\Exception $exc) {
+            return response()->json(array("exception"=>$exc->getMessage(), ''=>$exc->getLine()), 400);
         }
-
     }
 }
