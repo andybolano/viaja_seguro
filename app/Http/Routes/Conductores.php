@@ -1,7 +1,12 @@
 <?php
-Route::resource('/api/empresas/{empresa_id}/conductores', 'Empresa\ConductorController');
-Route::put('/api/empresas/{empresa_id}/conductores/{id}', 'Empresa\ConductorController@update');
-Route::delete('/api/empresas/{empresa_id}/conductores/{id}', 'Empresa\ConductorController@destroy');
-Route::get('/api/empresa/conductores/getVehiculo/{id}', 'Empresa\ConductorController@getVehiculo');
-//imagen
-Route::post('/api/empresas/conducdor/imagen/{id}', 'Empresa\ConductorController@guardaImagen');
+Route::get('/api/conductores/{conductor_id}', 'Empresa\ConductorController@show');
+Route::post('/api/conductores/{conductor_id}/imagen', 'Empresa\ConductorController@guardaImagen');
+Route::put('/api/conductor/{conductor_id}', 'Empresa\ConductorController@update');
+Route::delete('/api/conductor/{conductor_id}', 'Empresa\ConductorController@destroy');
+Route::get('/api/conductores/{conductor_id}/vehiculo', 'Empresa\ConductorController@getVehiculo');
+Route::post('/api/conductores/{conductor_id}/vehiculo', 'Empresa\ConductorController@postVehiculo');
+
+
+
+
+

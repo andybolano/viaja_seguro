@@ -31,11 +31,42 @@ class ConductorController extends Controller
     }
 
     public function getVehiculo($id){
-        $vehiculo = Conductor::select('vehiculo_id')
-            ->where('identificacion', $id)
-            ->first();
-        return $vehiculo;
+        return $vehiculo = Conductor::find($id)->vehiculo;
+    }
 
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request, $empresa_id)
+    {
+        try{
+            $data = $request->json()->all();
+            //USUARIO
+            $usuario = Usuario::nuevo($data['identificacion'], $data['identificacion'], $this->getRol()->id);
+            $data['usuario_id'] = $usuario->id;
+
+            $conductor = new Conductor($data);
+            if(!Empresa::find($empresa_id)->conductores()->save($conductor)){
+                return response()->json(['mensajeError' => 'no se ha podido almacenar el usuario'], 400);
+            }
+            return response()->json($conductor, 201);
+        } catch (\Exception $exc) {
+            return response()->json(array("exception"=>$exc->getMessage()), 400);
+        }
     }
 
     public function guardaImagen(Request $request, $id)
@@ -57,65 +88,6 @@ class ConductorController extends Controller
             return response()->json(array("exception"=>$exc->getMessage()), 400);
         }
     }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request, $empresa_id)
-    {
-        try{
-            $data = $request->json()->all();
-
-            $conductor = new Conductor($data);
-            if(!Empresa::find($empresa_id)->conductores()->save($conductor)){
-                return response()->json(['mensajeError' => 'no se ha podido almacenar el usuario'], 400);
-            }
-            return response()->json($conductor, 201);
-        } catch (\Exception $exc) {
-            return response()->json(array("exception"=>$exc->getMessage()), 400);
-        }
-
-
-
-
-        $data = $request->all();
-        $conductor = new Conductor();
-
-        //USUARIO
-        $usuario = Usuario::nuevo($data['identificacion'], $data['identificacion'], $this->getRol()->id);
-        $data['usuario_id'] = $usuario->id;
-
-        $conductor->identificacion = $data["identificacion"];
-        $conductor->nombres = $data["nombres"];
-        $conductor->apellidos = $data["apellidos"];
-        $conductor->direccion = $data["direccion"];
-        $conductor->telefono = $data["telefono"];
-        $conductor->correo = $data["correo"];
-        $conductor->usuario_id = $data['usuario_id'];
-        $busqueda = Conductor::select("identificacion")
-            ->where("identificacion",$data["identificacion"])
-            ->first();
-        if ($busqueda == null) {
-            $conductor->save();
-            $usuario->save();
-            return JsonResponse::create(array('message' => "Guardado Correctamente", "identificacion" => $conductor->identificacion), 200);
-        }else{
-            return JsonResponse::create(array('message' => "El conductor ya esta registrado", "identificacion" => $conductor->identificacion), 200);
-        }
-    }
-
 
     public function getRol()
     {
@@ -129,9 +101,17 @@ class ConductorController extends Controller
      */
     public function show($id)
     {
-        return Conductor::select('*')
-            ->where("identificacion",$id)
-            ->first();
+        $conductor = Conductor::find($id);
+
+        if (!$conductor){
+            $conductor = Conductor::where('identificacion', $id )->first();
+            if(!$conductor){
+                return response()->json(array("message"=> 'No se encontro el conductor'), 400);
+            }
+        }
+        return $conductor->load('empresa');
+//        $empresa = Empresa::select('id', 'nombre')->where('id', $conductor->empresa_id)->first();
+//        $conductor->empresa()->associate($empresa);
     }
 
     /**
@@ -195,5 +175,9 @@ class ConductorController extends Controller
         } catch (\Exception $exc) {
             return response()->json(array("exception"=>$exc->getMessage(), ''=>$exc->getLine()), 400);
         }
+    }
+
+    public function postVehiculo(){
+
     }
 }
