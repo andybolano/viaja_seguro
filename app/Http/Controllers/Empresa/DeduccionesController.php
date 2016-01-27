@@ -7,6 +7,7 @@ use Illuminate\Http\JsonResponse;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Model\Deduccion;
+use App\Model\Empresa;
 
 class DeduccionesController extends Controller
 {
@@ -16,11 +17,14 @@ class DeduccionesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($empresa_id)
     {
-        $deducciones = Deduccion::all();
-
-        return $deducciones;
+        try{
+            $deducciones = Empresa::find($empresa_id)->deducciones;
+            return $deducciones;
+        }catch(\Exception $e){
+            return response()->json(array("exception"=>$e->getMessage()), 400);
+        }
     }
 
 
@@ -40,20 +44,19 @@ class DeduccionesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $empresa_id)
     {
-        try {
-            $deduccion = new Deduccion();
-            $deduccion->nombre = $request->nombre;
-            $deduccion->descripcion = $request->descripcion;
-            $deduccion->valor = $request->valor;
-            $deduccion->estado = $request->estado;
+        try{
+            $data = $request->json()->all();
 
-            $deduccion->save();
-            return JsonResponse::create(array('message' => "Registro guardado correctamente"), 200);
+            $deduccion = new Deduccion($data);
 
-        } catch (Exception $exc) {
-            return JsonResponse::create(array('message' => "Error al registrar los datos", "exception"=>$exc->getMessage(), "request" =>json_encode($data)), 401);
+            if(!Empresa::find($empresa_id)->deducciones()->save($deduccion)){
+                return response()->json(['mensajeError' => 'no se ha podido almacenar el registro'], 400);
+            }
+            return response()->json($deduccion, 201);
+        } catch (\Exception $exc) {
+            return response()->json(array("exception"=>$exc->getMessage()), 400);
         }
     }
 
@@ -89,7 +92,7 @@ class DeduccionesController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $deduccion = Deduccion::select("*")->where("id", $id)->first();
+            $deduccion = Deduccion::find($id);
 
             $deduccion->nombre = $request->nombre;
             $deduccion->descripcion = $request->descripcion;
@@ -133,9 +136,7 @@ class DeduccionesController extends Controller
     public function destroy($id)
     {
         try{
-            $deduccion = Deduccion::select("*")
-                ->where("id", $id)
-                ->first();
+            $deduccion = Deduccion::find($id);
             if (is_null ($deduccion))
             {
                 App::abort(404);
