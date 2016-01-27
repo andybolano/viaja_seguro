@@ -12,11 +12,6 @@ use App\Http\Controllers\Controller;
 
 class CentralesController extends Controller
 {
-    private $centrales = [
-        ['id' => 1, 'ciudad' => 'Valledupar', 'direccion' => 'av siempre viva', 'telefono' => '3456789'],
-        ['id' => 2, 'ciudad' => 'La Jagua', 'direccion' => 'una calle', 'telefono' => '8765432'],
-        ['id' => 3, 'ciudad' => 'Fonseca', 'direccion' => 'ahi', 'telefono' => '1123456']
-    ];
     /**
      * Display a listing of the resource.
      *
@@ -77,10 +72,10 @@ class CentralesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $empresa_id, $central_id
+     * @param  int $central_id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $empresa_id, $central_id)
+    public function update(Request $request, $central_id)
     {
         try{
             if($central = Central::find($central_id)) {
@@ -103,15 +98,17 @@ class CentralesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $codigo
+     * @param  int  $central_id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $empresa_id, $central_id)
+    public function destroy($central_id)
     {
         try{
             $central = Central::find($central_id);
             if($central){
+                $usuario = $central->usuario;
                 $central->delete();
+                $usuario->delete();
                 return response()->json(['mensaje' => 'registro eliminado'], 201);
             }else{
                 return response()->json(['mensaje' => 'la central no existe'], 400);
@@ -122,7 +119,19 @@ class CentralesController extends Controller
 
     }
 
-    public function getRol()
+    public function getConductores($id)
+    {
+        $conductores = Central::find($id)->conductores;
+        return $conductores;
+    }
+
+    public function getVehiculos($id)
+    {
+        $vehiculos = Central::find($id)->vehiculos;
+        return $vehiculos;
+    }
+
+    private function getRol()
     {
         return Rol::where('nombre', 'CENTRAL_EMPRESA')->first();
     }

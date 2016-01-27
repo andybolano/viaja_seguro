@@ -3,7 +3,8 @@ get: /api/conductores/{conductor_id} : devuelve un conductor con id y nombre de 
 put: /api/conductores/{conductor_id} : actualiza los datos del conductor
 delete: /api/conductores/{conductor_id} : elimina un conductor, vehiculo y usuario osaciado
 get: /api/conductores/{conductor_id}/vehiculo : obtiene el vehiculo del conducotor
-post: /api/conductores/{conductor_id}/imagen : guara la imagen del conductor
+post: /api/conductores/{conductor_id}/imagen : guarda la imagen del conductor
+post: /api/conductores/{conductor_id}/vehiculo : guarda el vehiculo del conductor
 
 //API EMPRESAS
 get: /api/empresas : obtiene todas las empresas
@@ -21,14 +22,21 @@ get: /api/empresas/{empresa_id}/vehiculos : obtiene todos los vehiculos asociado
 *get: /api/empresas/{empresa_id}/clientes : obtiene los clientes de la empresa
 *get: /api/empresas/{empresa_id}/clientes/{cliente_id} : obtiene los datos del cliente
 
+//rutas empresa
+get: /api/empresas/{empresa_id}/rutas : obtienes las rutas de la empresa
+
+//API RUTAS
+post: /api/empresas/{empresa_id}/rutas : guarda una ruta
+delete: /api/rutas/{ruta_id} : elimina una ruta
+
 //API CENTRALES
 get: /api/empresas/{empresa_id}/centrales : obtienes las centrales asociadas a la empresa
 post: /api/empresas/{empresa_id}/centrales : guarda una central asocida a la empresa logeada
 put: /api/centrales/{central_id} : actuliza los datos de la central
 delete: /api/centrales/{central_id} : elimina una central y todos los datos asociados a ella 
 //vehiculos central
-get: /api/empresas/{empresa_id}/centrales/{central_id}/vehiculos: obtiene todos los vehiculos de la central
-get: /api/empresas/{empresa_id}/centrales/{central_id}/conductores: obtiene todos los conductores asociados a la central
+get: /api/centrales/{central_id}/vehiculos: obtiene todos los vehiculos de la central
+get: /api/centrales/{central_id}/conductores: obtiene todos los conductores asociados a la central
 
 //API EMPRESA DEDUCCIONES
 get: /api/empresas/{empresa_id}/deducciones : obtienes las deducciones asociadas a la empresa
@@ -79,6 +87,7 @@ delete: /api/pasajeros/{pasajeros_id} : etc
 
 //API VEHICULOS
 put: /api/vehiculos/{vehiculo_id} : etc
+post: /api/vehiculos/{vehiculo_id}/imagen : gusrada la imagen del vehiculo
 
 //API LOGIN
 post: /api/login : envido de datos de inicio de sesion

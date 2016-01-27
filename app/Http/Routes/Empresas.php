@@ -9,9 +9,4 @@ Route::delete('/api/empresas/{empresa_id}', 'SuperAdmin\EmpresaController@destro
 Route::get('/api/empresas/{empresa_id}/vehiculos', 'SuperAdmin\EmpresaController@getVehiculos');
 Route::get('/api/empresas/{empresa_id}/conductores', 'SuperAdmin\EmpresaController@getConductores');
 
-Route::post('/api/empresas/{id}/logo', 'SuperAdmin\EmpresaController@saveLogo');
-
-Route::resource('/api/empresas/{empresa_id}/centrales', 'Empresa\CentralesController');
-
-
-Route::resource('/api/empresas/{empresa_id}/rutas', 'Empresa\RutasController');
+Route::get('/api/empresas/{empresa_id}/rutas', 'SuperAdmin\EmpresaController@getRutas');

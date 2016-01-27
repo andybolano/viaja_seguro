@@ -31,9 +31,14 @@ class Central extends Model
         return $this->belongsTo(Usuario::class);
     }
 
-    public function conductor()
+    public function conductores()
     {
-        return $this->hasOne(Conductor::class);
+        return $this->hasMany(Conductor::class);
+    }
+
+    public function vehiculos()
+    {
+        return $this->hasManyThrough(Vehiculo::class, Conductor::class);
     }
 
     public function pasajeros()

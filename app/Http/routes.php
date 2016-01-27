@@ -29,6 +29,8 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     include 'Routes/Deducciones.php';
 
     include('Routes/Empresas.php');
+    include('Routes/Rutas.php');
+    include('Routes/Centrales.php');
     include('Routes/ServiciosEmpresa.php');
     include('Routes/Ciudades.php');
 

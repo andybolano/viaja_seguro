@@ -47,7 +47,7 @@ class EmpresaController extends Controller
             unset($data['servicios']);
             $data_usuario = $data['usuario'];
             unset($data['usuario']);
-            $usuario = Usuario::nuevo($data_usuario['nombre'], $data_usuario['contrasena'], Rol::where('nombre', 'EMPRESA')->first()->id);
+            $usuario = Usuario::nuevo($data_usuario['nombre'], $data_usuario['contrasena'], $this->getRol()->id);
             $data['usuario_id'] = $usuario->id;
             $empresa = new Empresa($data);
             if($empresa->save()) {
@@ -155,4 +155,24 @@ class EmpresaController extends Controller
         return $vehiculos;
     }
 
+    public function getRutas($id)
+    {
+        $centrales = Empresa::find($id)->centrales;
+        $rutas = [];
+        foreach ($centrales as $central) {
+            foreach ($central->rutas as $ruta) {
+                $rutas[] = [
+                    'id' => $ruta->id,
+                    'origen' => $ruta->origen->load('ciudad'),
+                    'destino' => $ruta->destino->load('ciudad')
+                ];
+            }
+        }
+        return $rutas;
+    }
+
+    private function getRol()
+    {
+        return Rol::where('nombre', 'EMPRESA')->first();
+    }
 }

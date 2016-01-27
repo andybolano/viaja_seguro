@@ -14,27 +14,6 @@ use App\Http\Controllers\Controller;
 class RutasController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index($empresa_id)
-    {
-        $centrales = Empresa::find($empresa_id)->centrales;
-        $rutas = [];
-        foreach ($centrales as $central) {
-            foreach ($central->rutas as $ruta) {
-                $rutas[] = [
-                    'id' => $ruta->id,
-                    'origen' => $ruta->origen->load('ciudad'),
-                    'destino' => $ruta->destino->load('ciudad')
-                ];
-            }
-        }
-        return $rutas;
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -59,7 +38,7 @@ class RutasController extends Controller
      * @param  int  $codigo
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $empresa_id, $ruta_id)
+    public function destroy(Request $request, $ruta_id)
     {
         $ruta = Ruta::find($ruta_id);
         if($ruta){
@@ -68,10 +47,5 @@ class RutasController extends Controller
         }else{
             return response()->json(['mensaje' => 'la central no existe'], 400);
         }
-    }
-
-    public function getRol()
-    {
-        return Rol::where('nombre', 'CENTRAL_EMPRESA')->first();
     }
 }
