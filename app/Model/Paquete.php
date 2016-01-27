@@ -11,4 +11,8 @@ class Paquete extends Model
     protected $fillable = ['identificacion', 'nombres', 'apellidos', 'telefono', 'direccion', 'fechaN'];
 
     public $timestamps = false;
+
+    public function central(){
+        return $this->belongsTo(Central::class);
+    }
 }

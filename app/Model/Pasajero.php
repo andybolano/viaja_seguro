@@ -11,4 +11,8 @@ class Pasajero extends Model
     protected $fillable = ['identificacion', 'nombres', 'apellidos', 'telefono', 'origen', 'destino', 'vehiculo'];
 
     public $timestamps = false;
+
+    public function central(){
+        return $this->belongsTo(Central::class);
+    }
 }
