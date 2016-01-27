@@ -17,6 +17,9 @@ Route::get('/', function () {
 
 Route::post('/api/login', 'LoginController@autenticarUsuario');
 
+Route::post('/api/usuarios/clientes', 'Cliente\ClienteController@store');
+Route::post('/api/usuarios/conductores', 'Empresa\Conductores@store');
+
 
 Route::group(['middleware' => 'jwt.auth'], function () {
     include 'Routes/Conductores.php';

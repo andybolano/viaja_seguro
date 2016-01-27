@@ -46,14 +46,19 @@ class ClienteController extends Controller
             $data['usuario_id'] = $usuario->id;
 
             $cliente = new Cliente($data);
-            if(!$cliente){
-                return response()->json(['mensajeError' => 'no se ha podido almacenar el usuario'], 400);
+            if(!$cliente->save()){
+                return response()->json(['menssage' => 'No se ha podido almacenar el usuario'], 400);
                 $usuario->delete();
             }
             return response()->json($cliente, 201);
         } catch (\Exception $exc) {
             return response()->json(array("exception"=>$exc->getMessage()), 400);
         }
+    }
+
+    public function getRol()
+    {
+        return Rol::where('nombre', 'CLIENTE')->first();
     }
 
     public function storeImagen(Request $request, $cliente_id){
@@ -73,6 +78,8 @@ class ClienteController extends Controller
             return response()->json(array("exception"=>$exc->getMessage()), 400);
         }
     }
+
+
 
     /**
      * Display the specified resource.
