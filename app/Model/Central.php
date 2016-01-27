@@ -31,5 +31,8 @@ class Central extends Model
         return $this->belongsTo(Usuario::class);
     }
 
+    public function vehiculos(){
+        return $this->hasMany(Vehiculo::class);
+    }
 
 }

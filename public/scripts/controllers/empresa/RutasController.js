@@ -8,17 +8,33 @@ function RutasController($scope, centralesService, rutasService){
     $scope.rutas = [];
     $scope.centrales = [];
     $scope.ruta = {};
+    $scope.mostrar = '';
     $scope.cont = true;
 
     //funciones
     $scope.nuevo = nuevo;
     $scope.guardar = guardar;
     $scope.eliminar = eliminar;
+    $scope.verRuta = verRuta;
 
     function nuevo(){
         $scope.ruta = {};
+        $scope.mostrar = 'false';
         loadCentrales();
         $("#modalRutas").openModal();
+        $("#mapa").text("");
+
+    }
+
+    function verRuta(ruta){
+        $scope.ruta = ruta;
+        $scope.mostrar = 'true';
+        $("#modalRutas").openModal();
+        $scope.ruta.origen.ciudad.nombre = ruta.origen.ciudad.nombre;
+        $scope.ruta.origen.direccion = ruta.origen.direccion;
+        $scope.ruta.destino.ciudad.nombre = ruta.destino.ciudad.nombre;
+        $scope.ruta.destino.direccion = ruta.destino.direccion;
+        $scope.trazarRuta();
     }
 
     function guardar(){
@@ -152,6 +168,12 @@ function RutasController($scope, centralesService, rutasService){
             if (status == google.maps.DirectionsStatus.OK) {
                 var map = new google.maps.Map($("#map_canvas")[0], request);
                 directionsDisplay.setMap(map);
+                var marker = new google.maps.Marker({
+                    map: map,
+                    title:"Esto es un marcador",
+                    animation: 1,
+                    icon: '../../public/images/marker.png'
+                });
                 $("#panel_ruta").text("");
 
                 directionsDisplay.setPanel($("#panel_ruta").get(0));

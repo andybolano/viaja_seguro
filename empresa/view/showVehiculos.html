@@ -116,6 +116,15 @@
                                 <input id="icon_cupo" type="text" class="validate" name="cupos" ng-maxlength="3" ng-model="Vehiculo.cupos">
                                 <label for="icon_cupo" class="{{active}}">Cupos</label>
                             </div>
+
+                            <div class="input-field col s4" ng-controlle="RutasController">
+                                <select class="browser-default" name="selectOrigen" id="selectOrigen"
+                                        ng-options="central.ciudad.nombre for central in centrales"
+                                        ng-model="ruta.origen" required>
+                                    <option value="" disabled selected>Seleccione ciudad origen</option>
+                                </select>
+                            </div>
+
                         </div>
                         <div class="row">
                             <div class="col s12">

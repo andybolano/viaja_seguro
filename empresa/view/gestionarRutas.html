@@ -22,6 +22,9 @@
                                 <td>{{ruta.origen.ciudad.nombre}}</td>
                                 <td>{{ruta.destino.ciudad.nombre}}</td>
                                 <td>
+                                    <a href="javascript:" ng-click="verRuta(ruta)">
+                                        <i class="material-icons prefix">visibility</i>
+                                    </a>
                                     <a href="javascript:" ng-click="eliminar(ruta.id)">
                                         <i class="material-icons prefix">delete</i>
                                     </a>
@@ -85,7 +88,7 @@
                         </select>
                     </div>
                     <br />
-                    <div>
+                    <div id="mapa">
                         <div id="map_canvas" style="float:left; width:70%; height:500px"></div>
                         <div id="panel_ruta" style="float:right; overflow: auto; width:30%; height: 500px"></div>
                     </div>
@@ -95,8 +98,10 @@
         </div>
         <div class="modal-footer">
             <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red " style="margin-left:10px;">Salir</a>
-            <a ng-disabled="formNuevaRuta.$invalid"  class="waves-effect waves-light btn green"
-               ng-click="guardar()">Guardar</a>
+            <div ng-hide="{{mostrar}}">
+                <a ng-disabled="formNuevaRuta.$invalid"  class="waves-effect waves-light btn green"
+                   ng-click="guardar()">Guardar</a>
+            </div>
         </div>
     </div>
 

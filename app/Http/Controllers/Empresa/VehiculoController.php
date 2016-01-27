@@ -28,8 +28,8 @@ class VehiculoController extends Controller
             $vehiculos = Vehiculo::all();
             $vehiculos->load('conductor');
             return $vehiculos;
-        }catch(Exception $e){
-            return JsonResponse::create(array('message' => "Error al cargar los vehiculos", "exception"=>$e->getMessage()), 401);
+        }catch(\Exception $e){
+            return response()->json(array("exception"=>$e->getMessage()), 400);
         }
     }
 
@@ -66,6 +66,8 @@ class VehiculoController extends Controller
             ->where("identificacion", $data["ide_conductor"])
             ->first();
 
+        $ciudad = Central::find($data['central']['id']);
+
         $conductor->vehiculo_id = $data["placa"];
 
         $vehiculo->conductor_id = $data['ide_conductor'];
@@ -78,6 +80,7 @@ class VehiculoController extends Controller
         $vehiculo->nombre_propietario = $data["nombre_propietario"];
         $vehiculo->tel_propietario = $data["tel_propietario"];
 
+        $vehiculo->central()->associate($central);
 
         $busqueda = Vehiculo::select("placa")
             ->where("placa",$data["placa"])
@@ -144,7 +147,7 @@ class VehiculoController extends Controller
     {
         $data = $request->all();
         $vehiculo = Vehiculo::select("*")
-            ->where("placa", $id)
+            ->where("id", $id)
             ->first();
 
         $conductor = Conductor::select("*")

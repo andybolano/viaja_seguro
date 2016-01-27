@@ -46,6 +46,7 @@ app.controller('VehiculosController', function ($scope, VehiculoServicio) {
 
     $scope.selectConductor = function (conductor){
         $scope.Vehiculo.ide_conductor = conductor.identificacion;
+        $scope.Vehiculo.condudcor_id = conductor.id;
         //$scope.Vehiculo.nombreConductor = conductor.nombres + " " + conductor.apellidos;
         $scope.active = 'active';
         $("#modalBuscarconductor").closeModal();
@@ -53,7 +54,7 @@ app.controller('VehiculosController', function ($scope, VehiculoServicio) {
 
     $scope.guardar = function(){
         var object = {
-            ide_conductor : $scope.Vehiculo.ide_conductor,
+            ide_conductor : $scope.Vehiculo.conductor.id,
             ide_propietario : $scope.Vehiculo.identificacion_propietario,
             nombre_propietario : $scope.Vehiculo.nombre_propietario,
             tel_propietario : $scope.Vehiculo.tel_propietario,
@@ -77,7 +78,7 @@ app.controller('VehiculosController', function ($scope, VehiculoServicio) {
 
     $scope.update = function  () {
         var object = {
-            ide_conductor : $scope.Vehiculo.ide_conductor,
+            ide_conductor : $scope.Vehiculo.condudcor_id,
             ide_propietario : $scope.Vehiculo.identificacion_propietario,
             nombre_propietario : $scope.Vehiculo.nombre_propietario,
             tel_propietario : $scope.Vehiculo.tel_propietario,
