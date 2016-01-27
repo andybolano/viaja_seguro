@@ -1,42 +1,42 @@
 //API CONDUCTORES
-get: /api/conductores/{conductor_id} : devuelve un conductor con id y nombre de la empresa
-put: /api/conductores/{conductor_id} : actualiza los datos del conductor
-delete: /api/conductores/{conductor_id} : elimina un conductor, vehiculo y usuario osaciado
-get: /api/conductores/{conductor_id}/vehiculo : obtiene el vehiculo del conducotor
-post: /api/conductores/{conductor_id}/imagen : guarda la imagen del conductor
-post: /api/conductores/{conductor_id}/vehiculo : guarda el vehiculo del conductor
+*get: /api/conductores/{conductor_id} : devuelve un conductor con id y nombre de la empresa
+*put: /api/conductores/{conductor_id} : actualiza los datos del conductor
+*delete: /api/conductores/{conductor_id} : elimina un conductor, vehiculo y usuario osaciado
+*get: /api/conductores/{conductor_id}/vehiculo : obtiene el vehiculo del conducotor
+*post: /api/conductores/{conductor_id}/imagen : guarda la imagen del conductor
+*post: /api/conductores/{conductor_id}/vehiculo : guarda el vehiculo del conductor
 
 //API EMPRESAS
-get: /api/empresas : obtiene todas las empresas
-post: /api/empresas : guarda una empresa y su usuario
-post: /api/empresas/{id}/logo : guarda el logo de la empresa
-put: /api/empresas/{empresa_id} : actualiza los datos de la empresa
-delete: /api/empresas/{empresa_id} : elimina una empresa y toda la informacion asociada a ella !!!OJO CON ESTO!!!
+*get: /api/empresas : obtiene todas las empresas
+*post: /api/empresas : guarda una empresa y su usuario
+*post: /api/empresas/{id}/logo : guarda el logo de la empresa
+*put: /api/empresas/{empresa_id} : actualiza los datos de la empresa
+*delete: /api/empresas/{empresa_id} : elimina una empresa y toda la informacion asociada a ella !!!OJO CON ESTO!!!
 ##Hay que reunirnos para tener en cuenta las eliminaciones
 
 //vehiculos empresa
-get: /api/empresas/{empresa_id}/conductores : obtiene los conductores asociados a la empresa
-get: /api/empresas/{empresa_id}/vehiculos : obtiene todos los vehiculos asociados a la empresa
+*get: /api/empresas/{empresa_id}/conductores : obtiene los conductores asociados a la empresa
+*get: /api/empresas/{empresa_id}/vehiculos : obtiene todos los vehiculos asociados a la empresa
 
 //clientes empresa
-*get: /api/empresas/{empresa_id}/clientes : obtiene los clientes de la empresa
-*get: /api/empresas/{empresa_id}/clientes/{cliente_id} : obtiene los datos del cliente
+get: /api/empresas/{empresa_id}/clientes : obtiene los clientes de la empresa
+get: /api/empresas/{empresa_id}/clientes/{cliente_id} : obtiene los datos del cliente
 
 //rutas empresa
-get: /api/empresas/{empresa_id}/rutas : obtienes las rutas de la empresa
+*get: /api/empresas/{empresa_id}/rutas : obtienes las rutas de la empresa
 
 //API RUTAS
-post: /api/empresas/{empresa_id}/rutas : guarda una ruta
-delete: /api/rutas/{ruta_id} : elimina una ruta
+*post: /api/empresas/{empresa_id}/rutas : guarda una ruta
+*delete: /api/rutas/{ruta_id} : elimina una ruta
 
 //API CENTRALES
-get: /api/empresas/{empresa_id}/centrales : obtienes las centrales asociadas a la empresa
-post: /api/empresas/{empresa_id}/centrales : guarda una central asocida a la empresa logeada
-put: /api/centrales/{central_id} : actuliza los datos de la central
-delete: /api/centrales/{central_id} : elimina una central y todos los datos asociados a ella 
+*get: /api/empresas/{empresa_id}/centrales : obtienes las centrales asociadas a la empresa
+*post: /api/empresas/{empresa_id}/centrales : guarda una central asocida a la empresa logeada
+*put: /api/centrales/{central_id} : actuliza los datos de la central
+*delete: /api/centrales/{central_id} : elimina una central y todos los datos asociados a ella
 //vehiculos central
-get: /api/centrales/{central_id}/vehiculos: obtiene todos los vehiculos de la central
-get: /api/centrales/{central_id}/conductores: obtiene todos los conductores asociados a la central
+*get: /api/centrales/{central_id}/vehiculos: obtiene todos los vehiculos de la central
+*get: /api/centrales/{central_id}/conductores: obtiene todos los conductores asociados a la central
 
 //API EMPRESA DEDUCCIONES
 get: /api/empresas/{empresa_id}/deducciones : obtienes las deducciones asociadas a la empresa
