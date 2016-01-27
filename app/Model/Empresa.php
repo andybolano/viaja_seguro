@@ -32,6 +32,11 @@ class Empresa extends Model
         return $this->belongsToMany(Servicio::class, 'empresa_servicios', 'empresa_id', 'servicio_id');
     }
 
+    public function deducciones()
+    {
+        return $this->hasMany(Deduccion::class);
+    }
+
     public function usuario()
     {
         return $this->belongsTo(Usuario::class);
