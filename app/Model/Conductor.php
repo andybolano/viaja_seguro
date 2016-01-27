@@ -20,4 +20,8 @@ class Conductor extends Model
     {
         return $this->belongsTo(Empresa::class)->select('id', 'nombre');
     }
+
+    public function central(){
+        return $this->belongsTo(Central::class);
+    }
 }

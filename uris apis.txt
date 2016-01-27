@@ -18,8 +18,8 @@ get: /api/empresas/{empresa_id}/conductores : obtiene los conductores asociados 
 get: /api/empresas/{empresa_id}/vehiculos : obtiene todos los vehiculos asociados a la empresa
 
 //clientes empresa
-get: /api/empresas/{empresa_id}/clientes : obtiene los clientes de la empresa
-get: /api/empresas/{empresa_id}/clientes/{cliente_id} : obtiene los datos del cliente
+*get: /api/empresas/{empresa_id}/clientes : obtiene los clientes de la empresa
+*get: /api/empresas/{empresa_id}/clientes/{cliente_id} : obtiene los datos del cliente
 
 //API CENTRALES
 get: /api/empresas/{empresa_id}/centrales : obtienes las centrales asociadas a la empresa

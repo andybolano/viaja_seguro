@@ -21,6 +21,19 @@ class EmpresaController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $empresa = Empresa::find($id);
+        $empresa->load('servicios');
+        return $empresa;
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -34,7 +47,7 @@ class EmpresaController extends Controller
             unset($data['servicios']);
             $data_usuario = $data['usuario'];
             unset($data['usuario']);
-            $usuario = Usuario::nuevo($data_usuario['nombre'], $data_usuario['contrasena'], $this->getRol()->id);
+            $usuario = Usuario::nuevo($data_usuario['nombre'], $data_usuario['contrasena'], Rol::where('nombre', 'EMPRESA')->first()->id);
             $data['usuario_id'] = $usuario->id;
             $empresa = new Empresa($data);
             if($empresa->save()) {
@@ -72,19 +85,6 @@ class EmpresaController extends Controller
         } catch (\Exception $exc) {
             return response()->json(array("exception"=>$exc->getMessage()), 400);
         }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $empresa = Empresa::find($id);
-        $empresa->load('servicios');
-        return $empresa;
     }
 
     /**
@@ -143,8 +143,16 @@ class EmpresaController extends Controller
         }
     }
 
-    public function getRol()
+    public function getConductores($id)
     {
-        return Rol::where('nombre', 'EMPRESA')->first();
+        $conductores = Empresa::find($id)->conductores;
+        return $conductores;
     }
+
+    public function getVehiculos($id)
+    {
+        $vehiculos = Empresa::find($id)->vehiculos;
+        return $vehiculos;
+    }
+
 }
