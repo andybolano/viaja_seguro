@@ -23,62 +23,18 @@ app.controller('VehiculosController', function ($scope, VehiculoServicio) {
         });
     }
 
-    $scope.nuevoVehiculo = function  () {
-        $scope.editMode = false;
-        $scope.active = "";
-        $scope.Vehiculo = {};
-        $scope.titulo = "Registrar nuevo vehiculo";
-        $("#modalNuevoVehiculo").openModal();
-    }
-
-    $scope.buscarConductor = function(){
-        $scope.titulo = "Registrar vehiculo";
-        $("#modalBuscarconductor").openModal();
-    }
-
     $scope.modificar = function  (vehiculo) {
-        $scope.editMode = true;
-        $scope.titulo = "Modificar vehiculo"
+        //$scope.editMode = true;
+        $scope.titulo = "VEHICULO CON PLACA: " + vehiculo.placa;
         $scope.active = "active";
         $scope.Vehiculo = vehiculo;
         $("#modalNuevoVehiculo").openModal();
     };
 
-    $scope.selectConductor = function (conductor){
-        $scope.Vehiculo.ide_conductor = conductor.identificacion;
-        $scope.Vehiculo.condudcor_id = conductor.id;
-        //$scope.Vehiculo.nombreConductor = conductor.nombres + " " + conductor.apellidos;
-        $scope.active = 'active';
-        $("#modalBuscarconductor").closeModal();
-    }
-
-    $scope.guardar = function(){
-        var object = {
-            ide_conductor : $scope.Vehiculo.conductor.id,
-            ide_propietario : $scope.Vehiculo.identificacion_propietario,
-            nombre_propietario : $scope.Vehiculo.nombre_propietario,
-            tel_propietario : $scope.Vehiculo.tel_propietario,
-            placa : $scope.Vehiculo.placa,
-            modelo : $scope.Vehiculo.modelo,
-            color : $scope.Vehiculo.color,
-            codigo_vial : $scope.Vehiculo.codigo_vial,
-            cupos : $scope.Vehiculo.cupos
-        };
-        console.log(object);
-        var promisePost = VehiculoServicio.post(object);
-        promisePost.then(function (pl) {
-                $("#modalNuevoVehiculo").closeModal();
-                Materialize.toast(pl.data.message, 5000, 'rounded');
-                $scope.modificarImagenVehiculo();
-            },
-            function (errorPl) {
-                console.log('Error Al Cargar Datos', errorPl);
-            });
-    }
 
     $scope.update = function  () {
         var object = {
-            ide_conductor : $scope.Vehiculo.condudcor_id,
+            ide_conductor : $scope.Vehiculo.conductor.identificaicon,
             ide_propietario : $scope.Vehiculo.identificacion_propietario,
             nombre_propietario : $scope.Vehiculo.nombre_propietario,
             tel_propietario : $scope.Vehiculo.tel_propietario,

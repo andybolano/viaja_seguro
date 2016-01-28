@@ -4,8 +4,8 @@ app.service('VehiculoServicio', function ($http) {
         return req;
     }
 
-    this.post = function  (object) {
-        var req = $http.post(uri + '/api/empresa/vehiculos', object)
+    this.post = function  (object, id) {
+        var req = $http.post(uri + '/api/conductores/'+id+'/vehiculo', object)
         return req;
     }
 
