@@ -154,9 +154,9 @@ class VehiculoController extends Controller
             ->where("identificacion", $data["ide_conductor"])
             ->first();
 
-        $conductor->vehiculo_id = $data["placa"];
+        $conductor->vehiculo_id = $data["vehiculo_id"];
 
-        $vehiculo->conductor_id = $data["ide_conductor"];
+        $vehiculo->conductor_id = $data["conductor_id"];
         $vehiculo->placa = $data["placa"];
         $vehiculo->modelo = $data["modelo"];
         $vehiculo->color = $data["color"];
