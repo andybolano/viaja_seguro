@@ -40,19 +40,29 @@ app.controller('ConductorController', function ($scope, ConductorServicio, Vehic
             apellidos : $scope.Conductor.apellidos,
             telefono : $scope.Conductor.telefono,
             direccion : $scope.Conductor.direccion,
-            correo: $scope.Conductor.correo
+            correo: $scope.Conductor.correo,
+
+            vehiculo : {
+                identetificacion_propietario : $scope.Vehiculo.ide_propietario,
+                nombre_propietario : $scope.Vehiculo.nombre_propietario,
+                tel_propietario : $scope.Vehiculo.tel_propietario,
+                placa : $scope.Vehiculo.placa,
+                modelo : $scope.Vehiculo.modelo,
+                color : $scope.Vehiculo.color,
+                codigo_vial : $scope.Vehiculo.codigo_vial,
+                cupos : $scope.Vehiculo.cupos
+            }
         };
         console.log(object);
         var promisePost = ConductorServicio.post(object);
         promisePost.then(function (pl) {
-                $("#modalNuevoConductor").closeModal();
-            $scope.guardarVehiculo();
-                Materialize.toast(pl.data.message, 5000, 'rounded');
-                modificarImagen();
-            },
-            function (errorPl) {
-                console.log('Error Al Cargar Datos', errorPl);
-            });
+            $("#modalNuevoConductor").closeModal();
+            Materialize.toast(pl.data.message, 5000, 'rounded');
+            modificarImagen();
+            modificarImagenVehiculo();
+        },function (errorPl) {
+            console.log('Error Al Cargar Datos', errorPl);
+        });
     }
 
     $scope.modificar = function  (conductor) {
@@ -134,7 +144,6 @@ app.controller('ConductorController', function ($scope, ConductorServicio, Vehic
                 $scope.Conductor.imagen = p.data.nombrefile;
                 Materialize.toast('Imagen guardado correctamente', 5000);
                 //location.reload();
-                cargarConductores();
             }
 
             function error(error) {
@@ -144,14 +153,15 @@ app.controller('ConductorController', function ($scope, ConductorServicio, Vehic
         }
     }
 
-    $scope.modificarImagenVehiculo = function (){
+    function modificarImagenVehiculo(){
         if($scope.fileimageV) {
             var data = new FormData();
             data.append('imagenv', $scope.fileimageV);
             VehiculoServicio.postImagen($scope.Vehiculo.placa, data).then(success, error);
             function success(p) {
                 $scope.Vehiculo.imagen = p.data.nombrefile;
-                //Materialize.toast('Imagen guardada correctamente', 5000);
+                cargarConductores();
+                Materialize.toast('Imagen guardada correctamente', 5000);
             }
 
             function error(error) {

@@ -21,7 +21,7 @@ app.service('VehiculoServicio', function ($http) {
 
     this.postImagen = function (id, object) {
         return $http.post(
-            uri + '/api/empresas/vehiculo/imagen/' + id, object,
+            uri + '/api/vehiculos/' + id+ '/imagen', object,
             {transformRequest: angular.identity, headers: {'Content-Type': undefined}
             }
         );
