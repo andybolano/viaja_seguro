@@ -6,6 +6,3 @@ Route::put('/api/deducciones/{deduccion_id}', 'Empresa\DeduccionesController@upd
 Route::put('/api/deducciones/{deduccion_id}/estado/{valor_estado}', 'Empresa\DeduccionesController@updateEstado');
 Route::delete('/api/deducciones/{deduccion_id}', 'Empresa\DeduccionesController@destroy');
 
-
-Route::resource('/api/empresa/deducciones','Empresa\DeduccionesController');
-Route::put('/api/empresa/deducciones/{id}/{estado}', 'Empresa\DeduccionesController@updateEstado');

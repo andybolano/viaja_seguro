@@ -46,7 +46,7 @@ class DeduccionesController extends Controller
      */
     public function store(Request $request, $empresa_id)
     {
-        try{
+//        try{
             $data = $request->json()->all();
 
             $deduccion = new Deduccion($data);
@@ -55,9 +55,9 @@ class DeduccionesController extends Controller
                 return response()->json(['mensajeError' => 'no se ha podido almacenar el registro'], 400);
             }
             return response()->json($deduccion, 201);
-        } catch (\Exception $exc) {
-            return response()->json(array("exception"=>$exc->getMessage()), 400);
-        }
+//        } catch (\Exception $exc) {
+//            return response()->json(array("exception"=>$exc->getMessage()), 400);
+//        }
     }
 
     /**
@@ -139,7 +139,7 @@ class DeduccionesController extends Controller
             $deduccion = Deduccion::find($id);
             if (is_null ($deduccion))
             {
-                App::abort(404);
+                \App::abort(404);
             }else{
                 $deduccion->delete();
                 return JsonResponse::create(array('message' => "Deduccion eliminada correctamente", "request" =>json_encode($id)), 200);
