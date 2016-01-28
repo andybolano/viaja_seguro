@@ -5,16 +5,15 @@
 app.service('rutasService', rutasService);
 
 function rutasService($http, authService) {
-    var myuri = uri + '/api/empresas/'+authService.currentUser().empresa.id+'/rutas';
     this.getAll = function () {
-        return $http.get(myuri);
+        return $http.get(uri + '/api/empresas/'+authService.currentUser().empresa.id+'/rutas');
     }
 
     this.post = function (object) {
-        return $http.post(myuri, object);
+        return $http.post(uri + '/api/empresas/'+authService.currentUser().empresa.id+'/rutas', object);
     }
 
     this.delete = function (id) {
-        return $http.delete(myuri + '/' + id);
+        return $http.delete(uri + '/api/rutas/' + id);
     }
 }
