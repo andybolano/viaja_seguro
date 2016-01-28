@@ -86,11 +86,11 @@ put: /api/pasajeros/{pasajeros_id} : etc
 delete: /api/pasajeros/{pasajeros_id} : etc
 
 //API VEHICULOS
-put: /api/vehiculos/{vehiculo_id} : etc
-post: /api/vehiculos/{vehiculo_id}/imagen : gusrada la imagen del vehiculo
+*put: /api/vehiculos/{vehiculo_id} : etc
+*post: /api/vehiculos/{vehiculo_id}/imagen : gusrada la imagen del vehiculo
 
 //API LOGIN
-post: /api/login : envido de datos de inicio de sesion
+*post: /api/login : envido de datos de inicio de sesion
 
 
 //API REGISTRARSE

@@ -8,5 +8,6 @@ Route::delete('/api/empresas/{empresa_id}', 'SuperAdmin\EmpresaController@destro
 
 Route::get('/api/empresas/{empresa_id}/vehiculos', 'SuperAdmin\EmpresaController@getVehiculos');
 Route::get('/api/empresas/{empresa_id}/conductores', 'SuperAdmin\EmpresaController@getConductores');
+Route::post('/api/empresas/{empresa_id}/conductores', 'SuperAdmin\EmpresaController@storeConductor');
 
 Route::get('/api/empresas/{empresa_id}/rutas', 'SuperAdmin\EmpresaController@getRutas');

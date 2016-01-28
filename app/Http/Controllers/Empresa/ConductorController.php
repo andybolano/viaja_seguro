@@ -24,24 +24,6 @@ class ConductorController extends Controller
         return $conductor->vehiculo;
     }
 
-//    public function store(Request $request, $empresa_id)
-//    {
-//        try{
-//            $data = $request->json()->all();
-//            //USUARIO
-//            $usuario = Usuario::nuevo($data['identificacion'], $data['identificacion'], $this->getRol()->id);
-//            $data['usuario_id'] = $usuario->id;
-//
-//            $conductor = new Conductor($data);
-//            if(!Empresa::find($empresa_id)->conductores()->save($conductor)){
-//                return response()->json(['mensajeError' => 'no se ha podido almacenar el usuario'], 400);
-//            }
-//            return response()->json($conductor, 201);
-//        } catch (\Exception $exc) {
-//            return response()->json(array("exception"=>$exc->getMessage()), 400);
-//        }
-//    }
-
     public function guardaImagen(Request $request, $id)
     {
         try{
@@ -137,24 +119,12 @@ class ConductorController extends Controller
 
     public function postVehiculo(Request $request, $conductor_id){
         $data = $request->all();
-        $vehiculo = new Vehiculo();
-
-        $conductor = Conductor::find($conductor_id);
-
-        $vehiculo->placa = $data["placa"];
-        $vehiculo->modelo = $data["modelo"];
-        $vehiculo->color = $data["color"];
-        $vehiculo->codigo_vial = $data["codigo_vial"];
-        $vehiculo->cupos = $data["cupos"];
-        $vehiculo->identificacion_propietario = $data["ide_propietario"];
-        $vehiculo->nombre_propietario = $data["nombre_propietario"];
-        $vehiculo->tel_propietario = $data["tel_propietario"];
-
         $busqueda = Vehiculo::select("placa")
             ->where("placa",$data["placa"])
             ->first();
         if ($busqueda == null) {
-            if(!$conductor->vehiculo()->save($vehiculo)){
+            $conductor = Conductor::find($conductor_id);
+            if(!$conductor->vehiculo()->save(new Vehiculo($data))){
                 return response()->json(['mensajeError' => 'no se ha podido almacenar el registro'], 400);
                 $usuario->delete();
             }

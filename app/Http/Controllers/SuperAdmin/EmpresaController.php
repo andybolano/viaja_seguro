@@ -1,9 +1,11 @@
 <?php namespace App\Http\Controllers\SuperAdmin;
 
 use App\Http\Controllers\Controller;
+use App\Model\Conductor;
 use App\Model\Empresa;
 use App\Model\Rol;
 use App\Model\Usuario;
+use App\Model\Vehiculo;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 
@@ -47,7 +49,7 @@ class EmpresaController extends Controller
             unset($data['servicios']);
             $data_usuario = $data['usuario'];
             unset($data['usuario']);
-            $usuario = Usuario::nuevo($data_usuario['nombre'], $data_usuario['contrasena'], $this->getRol()->id);
+            $usuario = Usuario::nuevo($data_usuario['nombre'], $data_usuario['contrasena'], $this->getRol('EMPRESA')->id);
             $data['usuario_id'] = $usuario->id;
             $empresa = new Empresa($data);
             if($empresa->save()) {
@@ -143,6 +145,43 @@ class EmpresaController extends Controller
         }
     }
 
+    public function storeConductor(Request $request, $empresa_id)
+    {
+        try{
+            $data = $request->json()->all();
+            $usuario = Usuario::nuevo($data['identificacion'], $data['identificacion'], $this->getRol('CONDUCTOR')->id);
+            $data['usuario_id'] = $usuario->id;
+            $vehiculo_conductor = $data['vehiculo'];
+            unset($data['vehiculo']);
+
+            $conductor = new Conductor($data);
+            $empresa = Empresa::find($empresa_id);
+            if(!$empresa->conductores()->save($conductor)){
+                $usuario->delete();
+                return response()->json(['mensajeError' => 'no se ha podido almacenar el registro'], 400);
+            }
+            $this->storeVehiculoconductor($conductor, $vehiculo_conductor);
+        } catch (\Exception $exc) {
+            return response()->json(array("exception"=>$exc->getMessage()), 400);
+        }
+    }
+
+    private function storeVehiculoconductor(&$conductor, $data){
+        $busqueda = Vehiculo::select("placa")
+            ->where("placa",$data["placa"])
+            ->first();
+        if ($busqueda == null) {
+            if(!$conductor->vehiculo()->save(new Vehiculo($data))){
+                $conductor->usuario->delete();
+                $conductor->delete();
+                return response()->json(['mensajeError' => 'no se ha podido almacenar el vehiculo dle conductor'], 400);
+            }
+            return response()->json(array('message' => "Se g uardo el registro correctametne."), 200);
+        }else{
+            return response()->json(array('message' => "La placa del vehiculo ya se encuentra registrada."), 200);
+        }
+    }
+
     public function getConductores($id)
     {
         $conductores = Empresa::find($id)->conductores;
@@ -171,8 +210,8 @@ class EmpresaController extends Controller
         return $rutas;
     }
 
-    private function getRol()
+    private function getRol($nombre)
     {
-        return Rol::where('nombre', 'EMPRESA')->first();
+        return Rol::where('nombre', $nombre)->first();
     }
 }
