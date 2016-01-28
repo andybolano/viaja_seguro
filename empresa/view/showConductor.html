@@ -66,7 +66,7 @@
             <h2>{{titulo}}</h2>
             <div class="row">
                 <div class="col s8">
-                    <form class="col s12">
+                    <form class="col s12" name="formCondcutor" id="formCondcutor">
                         <div class="row">
                             <div class="input-field col s4">
                                 <i class="material-icons prefix">payment</i>
@@ -126,7 +126,108 @@
                         </div>
                     </div>
                 </div>
+                <br><br>
+                <div class="row" >
+                    <div class="col s12">
+                        <div class="row">
+                            <div class="col s12">
+                                <div class="input-field">
+                                    <i class="material-icons prefix" style="padding-left: 3px;">local_taxi</i>
 
+                                    <h2 style="padding-left: 45px; padding-top: 3px">Datos del vehiculo</h2>
+                                </div>
+                                <div class="divider"></div>
+                                <div class="row">
+                                    <div class="col s8">
+                                        <form class="col s12" name="formDatosVechivulo" id="formDatosVechivulo">
+                                            <div class="row">
+                                                <div class="input-field col s4">
+                                                    <i class="material-icons prefix">payment</i>
+                                                    <input id="icon_payment2" type="text" class="validate" name="propietario" ng-model="Vehiculo.ide_propietario">
+                                                    <label for="icon_payment2" class="{{active}}">Identificacion propietario</label>
+                                                </div>
+                                                <div class="input-field col s4">
+                                                    <i class="material-icons prefix">person</i>
+                                                    <input id="icon_person3" type="text" class="validate" name="nombreP" ng-model="Vehiculo.nombre_propietario">
+                                                    <label for="icon_person3" class="{{active}}">Nombres propietario</label>
+                                                </div>
+                                                <div class="input-field col s4">
+                                                    <i class="material-icons prefix" >phone</i>
+                                                    <input id="icon_phone1" type="text" class="validate" name="phone" ng-model="Vehiculo.tel_propietario">
+                                                    <label for="icon_phone1" class="{{active}}">Telefono</label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s4">
+                                                    <i class="material-icons prefix">payment</i>
+                                                    <input id="icon_payment3" type="text" class="validate" name="placa" ng-model="Vehiculo.placa">
+                                                    <label for="icon_payment3" class="{{active}}">Placa</label>
+                                                </div>
+
+                                                <div class="input-field col s4">
+                                                    <i class="material-icons prefix">local_taxi</i>
+                                                    <input id="icon_person31" type="text" class="validate" name="modelo" ng-model="Vehiculo.modelo">
+                                                    <label for="icon_person31" class="{{active}}">Modelo</label>
+                                                </div>
+                                                <div class="input-field col s2">
+                                                    <i class="material-icons prefix">invert_colors_off</i>
+                                                    <input id="icon_person23" type="text" class="validate" name="color"  ng-model="Vehiculo.color">
+                                                    <label for="icon_person23" class="{{active}}">Color</label>
+                                                </div>
+                                                <div class="input-field col s2">
+                                                    <i class="material-icons prefix">airport_shuttle</i>
+                                                    <input id="icon_person4" type="text" class="validate" name="vial"  ng-model="Vehiculo.codigo_vial">
+                                                    <label for="icon_person4" class="{{active}}">C. vial</label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s4">
+                                                    <i class="material-icons prefix" >event_seat</i>
+                                                    <input id="icon_cupo" type="text" class="validate" name="cupos" ng-model="Vehiculo.cupos">
+                                                    <label for="icon_cupo" class="{{active}}">Cupos</label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col s12">
+                                                    <i class="material-icons prefix">payment</i>
+                                                    Documentación del vehículo
+                                                </div>
+
+                                                <div class="row col s6" ng-repeat="documento in Documentacion">
+                                                    <fieldset>
+                                                        <div class="col s12">
+                                                            <p style="margin-bottom: 0; margin-top: 0; margin-left: 10px">
+                                                                <input type="checkbox" ng-model="documento.selected" id="documento{{documento.id}}"/>
+                                                                <label for="documento{{documento.id}}">{{documento.nombre}}</label>
+                                                            </p>
+                                                        </div>
+                                                        <div class="col s12" ng-if="documento.nombre !== 'TARJETA DE PROPIEDAD'">
+                                                            <input type="date" class="datepicker" placeholder="Fecha de vencimiento">
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                    <div class="col s4">
+                                        <div class="col s12" id="imagev" style="max-height: 300px;">
+                                            <img class="thumb center" id="imagen" style="width:100%" src="{{Vehiculo.imagen}}" title="imagen" alt="seleccione foto"/>
+                                        </div>
+                                        <div class="file-field input-field col s12">
+                                            <div class="btn col s12">
+                                                <span><i class="mdi-image-photo-camera"></i></span>
+                                                <input id="filesv" uploader-model="fileimageV" type="file" name="filesv">
+                                            </div>
+                                            <div class="file-path-wrapper">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             </div>
         </div>
@@ -140,104 +241,104 @@
     </div>
 
     <!--modal asignar vehiculo conductor-->
-    <div id="modalAsignarVehiculoC" class="modal modal-fixed-footer" style="width: 90%;min-height:85%;">
-        <div class="modal-content">
-            <h2>{{titulo}}</h2>
-            <div class="row">
-                <div class="col s8">
-                    <form class="col s12">
-                        <div class="row">
-                            <div class="input-field col s4">
-                                <i class="material-icons prefix">payment</i>
-                                <input id="icon_payment2" type="text" class="validate" name="propietario" ng-model="Vehiculo.ide_propietario">
-                                <label for="icon_payment2" class="{{active}}">Identificacion propietario</label>
-                            </div>
-                            <div class="input-field col s4">
-                                <i class="material-icons prefix">person</i>
-                                <input id="icon_person3" type="text" class="validate" name="nombreP" ng-model="Vehiculo.nombre_propietario">
-                                <label for="icon_person3" class="{{active}}">Nombres propietario</label>
-                            </div>
-                            <div class="input-field col s4">
-                                <i class="material-icons prefix" >phone</i>
-                                <input id="icon_phone1" type="text" class="validate" name="phone" ng-model="Vehiculo.tel_propietario">
-                                <label for="icon_phone1" class="{{active}}">Telefono</label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="input-field col s4">
-                                <i class="material-icons prefix">payment</i>
-                                <input id="icon_payment3" type="text" class="validate" name="placa" ng-model="Vehiculo.placa">
-                                <label for="icon_payment3" class="{{active}}">Placa</label>
-                            </div>
+    <!--<div id="modalAsignarVehiculoC" class="modal modal-fixed-footer" style="width: 90%;min-height:85%;">-->
+        <!--<div class="modal-content">-->
+            <!--<h2>{{titulo}}</h2>-->
+            <!--<div class="row">-->
+                <!--<div class="col s8">-->
+                    <!--<form class="col s12">-->
+                        <!--<div class="row">-->
+                            <!--<div class="input-field col s4">-->
+                                <!--<i class="material-icons prefix">payment</i>-->
+                                <!--<input id="icon_payment2" type="text" class="validate" name="propietario" ng-model="Vehiculo.ide_propietario">-->
+                                <!--<label for="icon_payment2" class="{{active}}">Identificacion propietario</label>-->
+                            <!--</div>-->
+                            <!--<div class="input-field col s4">-->
+                                <!--<i class="material-icons prefix">person</i>-->
+                                <!--<input id="icon_person3" type="text" class="validate" name="nombreP" ng-model="Vehiculo.nombre_propietario">-->
+                                <!--<label for="icon_person3" class="{{active}}">Nombres propietario</label>-->
+                            <!--</div>-->
+                            <!--<div class="input-field col s4">-->
+                                <!--<i class="material-icons prefix" >phone</i>-->
+                                <!--<input id="icon_phone1" type="text" class="validate" name="phone" ng-model="Vehiculo.tel_propietario">-->
+                                <!--<label for="icon_phone1" class="{{active}}">Telefono</label>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="row">-->
+                            <!--<div class="input-field col s4">-->
+                                <!--<i class="material-icons prefix">payment</i>-->
+                                <!--<input id="icon_payment3" type="text" class="validate" name="placa" ng-model="Vehiculo.placa">-->
+                                <!--<label for="icon_payment3" class="{{active}}">Placa</label>-->
+                            <!--</div>-->
 
-                            <div class="input-field col s4">
-                                <i class="material-icons prefix">local_taxi</i>
-                                <input id="icon_person31" type="text" class="validate" name="modelo" ng-model="Vehiculo.modelo">
-                                <label for="icon_person31" class="{{active}}">Modelo</label>
-                            </div>
-                            <div class="input-field col s2">
-                                <i class="material-icons prefix">invert_colors_off</i>
-                                <input id="icon_person23" type="text" class="validate" name="color"  ng-model="Vehiculo.color">
-                                <label for="icon_person23" class="{{active}}">Color</label>
-                            </div>
-                            <div class="input-field col s2">
-                                <i class="material-icons prefix">airport_shuttle</i>
-                                <input id="icon_person4" type="text" class="validate" name="vial"  ng-model="Vehiculo.codigo_vial">
-                                <label for="icon_person4" class="{{active}}">C. vial</label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="input-field col s4">
-                                <i class="material-icons prefix" >event_seat</i>
-                                <input id="icon_cupo" type="text" class="validate" name="cupos" ng-model="Vehiculo.cupos">
-                                <label for="icon_cupo" class="{{active}}">Cupos</label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col s12">
-                                <i class="material-icons prefix">payment</i>
-                                Documentación del vehículo
-                            </div>
+                            <!--<div class="input-field col s4">-->
+                                <!--<i class="material-icons prefix">local_taxi</i>-->
+                                <!--<input id="icon_person31" type="text" class="validate" name="modelo" ng-model="Vehiculo.modelo">-->
+                                <!--<label for="icon_person31" class="{{active}}">Modelo</label>-->
+                            <!--</div>-->
+                            <!--<div class="input-field col s2">-->
+                                <!--<i class="material-icons prefix">invert_colors_off</i>-->
+                                <!--<input id="icon_person23" type="text" class="validate" name="color"  ng-model="Vehiculo.color">-->
+                                <!--<label for="icon_person23" class="{{active}}">Color</label>-->
+                            <!--</div>-->
+                            <!--<div class="input-field col s2">-->
+                                <!--<i class="material-icons prefix">airport_shuttle</i>-->
+                                <!--<input id="icon_person4" type="text" class="validate" name="vial"  ng-model="Vehiculo.codigo_vial">-->
+                                <!--<label for="icon_person4" class="{{active}}">C. vial</label>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="row">-->
+                            <!--<div class="input-field col s4">-->
+                                <!--<i class="material-icons prefix" >event_seat</i>-->
+                                <!--<input id="icon_cupo" type="text" class="validate" name="cupos" ng-model="Vehiculo.cupos">-->
+                                <!--<label for="icon_cupo" class="{{active}}">Cupos</label>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="row">-->
+                            <!--<div class="col s12">-->
+                                <!--<i class="material-icons prefix">payment</i>-->
+                                <!--Documentación del vehículo-->
+                            <!--</div>-->
 
-                            <div class="row col s6" ng-repeat="documento in Documentacion">
-                                <fieldset>
-                                    <div class="col s12">
-                                        <p style="margin-bottom: 0; margin-top: 0; margin-left: 10px">
-                                            <input type="checkbox" ng-model="documento.selected" id="documento{{documento.id}}"/>
-                                            <label for="documento{{documento.id}}">{{documento.nombre}}</label>
-                                        </p>
-                                    </div>
-                                    <div class="col s12" ng-if="documento.nombre !== 'TARJETA DE PROPIEDAD'">
-                                        <input type="date" class="datepicker" placeholder="Fecha de vencimiento">
-                                    </div>
-                                </fieldset>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+                            <!--<div class="row col s6" ng-repeat="documento in Documentacion">-->
+                                <!--<fieldset>-->
+                                    <!--<div class="col s12">-->
+                                        <!--<p style="margin-bottom: 0; margin-top: 0; margin-left: 10px">-->
+                                            <!--<input type="checkbox" ng-model="documento.selected" id="documento{{documento.id}}"/>-->
+                                            <!--<label for="documento{{documento.id}}">{{documento.nombre}}</label>-->
+                                        <!--</p>-->
+                                    <!--</div>-->
+                                    <!--<div class="col s12" ng-if="documento.nombre !== 'TARJETA DE PROPIEDAD'">-->
+                                        <!--<input type="date" class="datepicker" placeholder="Fecha de vencimiento">-->
+                                    <!--</div>-->
+                                <!--</fieldset>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</form>-->
+                <!--</div>-->
 
-                <div class="col s4">
-                    <div class="col s12" id="imagev" style="max-height: 300px;">
-                        <img class="thumb center" id="imagen" style="width:100%" src="{{Vehiculo.imagen}}" title="imagen" alt="seleccione foto"/>
-                    </div>
-                    <div class="file-field input-field col s12">
-                        <div class="btn col s12">
-                            <span><i class="mdi-image-photo-camera"></i></span>
-                            <input id="filesv" uploader-model="fileimageV" type="file" name="filesv">
-                        </div>
-                        <div class="file-path-wrapper">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                <!--<div class="col s4">-->
+                    <!--<div class="col s12" id="imagev" style="max-height: 300px;">-->
+                        <!--<img class="thumb center" id="imagen" style="width:100%" src="{{Vehiculo.imagen}}" title="imagen" alt="seleccione foto"/>-->
+                    <!--</div>-->
+                    <!--<div class="file-field input-field col s12">-->
+                        <!--<div class="btn col s12">-->
+                            <!--<span><i class="mdi-image-photo-camera"></i></span>-->
+                            <!--<input id="filesv" uploader-model="fileimageV" type="file" name="filesv">-->
+                        <!--</div>-->
+                        <!--<div class="file-path-wrapper">-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
 
-        <div class="modal-footer">
-            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red " style="margin-left:10px;">Salir</a>
-            <a ng-disabled="!formVehiculo.$valid"  class="waves-effect waves-light btn green" ng-hide="editMode" ng-click="guardarVehiculo()">Guardar</a>
-        </div>
+        <!--<div class="modal-footer">-->
+            <!--<a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red " style="margin-left:10px;">Salir</a>-->
+            <!--<a ng-disabled="!formVehiculo.$valid"  class="waves-effect waves-light btn green" ng-hide="editMode" ng-click="guardarVehiculo()">Guardar</a>-->
+        <!--</div>-->
 
-    </div>
+    <!--</div>-->
     <!--fin modal agregar vehiculo conductor-->
 </div>
 <script>

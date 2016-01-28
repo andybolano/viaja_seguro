@@ -1,59 +1,51 @@
 //API CONDUCTORES
-*get: /api/conductores/{conductor_id} : devuelve un conductor con id y nombre de la empresa
-*put: /api/conductores/{conductor_id} : actualiza los datos del conductor
-*delete: /api/conductores/{conductor_id} : elimina un conductor, vehiculo y usuario osaciado
-*get: /api/conductores/{conductor_id}/vehiculo : obtiene el vehiculo del conducotor
-*post: /api/conductores/{conductor_id}/imagen : guarda la imagen del conductor
-*post: /api/conductores/{conductor_id}/vehiculo : guarda el vehiculo del conductor
+#get: /api/conductores/{conductor_id} : devuelve un conductor con id y nombre de la empresa
+#put: /api/conductores/{conductor_id} : actualiza los datos del conductor
+#delete: /api/conductores/{conductor_id} : elimina un conductor, vehiculo y usuario osaciado
+#get: /api/conductores/{conductor_id}/vehiculo : obtiene el vehiculo del conducotor
+#post: /api/conductores/{conductor_id}/imagen : guara la imagen del conductor
 
 //API EMPRESAS
-*get: /api/empresas : obtiene todas las empresas
-*post: /api/empresas : guarda una empresa y su usuario
-*post: /api/empresas/{id}/logo : guarda el logo de la empresa
-*put: /api/empresas/{empresa_id} : actualiza los datos de la empresa
-*delete: /api/empresas/{empresa_id} : elimina una empresa y toda la informacion asociada a ella !!!OJO CON ESTO!!!
+#get: /api/empresas : obtiene todas las empresas
+#post: /api/empresas : guarda una empresa y su usuario
+#post: /api/empresas/{id}/logo : guarda el logo de la empresa
+#put: /api/empresas/{empresa_id} : actualiza los datos de la empresa
+#delete: /api/empresas/{empresa_id} : elimina una empresa y toda la informacion asociada a ella !!!OJO CON ESTO!!!
 ##Hay que reunirnos para tener en cuenta las eliminaciones
 
 //vehiculos empresa
-*get: /api/empresas/{empresa_id}/conductores : obtiene los conductores asociados a la empresa
-*get: /api/empresas/{empresa_id}/vehiculos : obtiene todos los vehiculos asociados a la empresa
+#get: /api/empresas/{empresa_id}/conductores : obtiene los conductores asociados a la empresa
+#get: /api/empresas/{empresa_id}/vehiculos : obtiene todos los vehiculos asociados a la empresa
 
 //clientes empresa
 get: /api/empresas/{empresa_id}/clientes : obtiene los clientes de la empresa
 get: /api/empresas/{empresa_id}/clientes/{cliente_id} : obtiene los datos del cliente
 
-//rutas empresa
-*get: /api/empresas/{empresa_id}/rutas : obtienes las rutas de la empresa
-
-//API RUTAS
-*post: /api/empresas/{empresa_id}/rutas : guarda una ruta
-*delete: /api/rutas/{ruta_id} : elimina una ruta
-
 //API CENTRALES
-*get: /api/empresas/{empresa_id}/centrales : obtienes las centrales asociadas a la empresa
-*post: /api/empresas/{empresa_id}/centrales : guarda una central asocida a la empresa logeada
-*put: /api/centrales/{central_id} : actuliza los datos de la central
-*delete: /api/centrales/{central_id} : elimina una central y todos los datos asociados a ella
+get: /api/empresas/{empresa_id}/centrales : obtienes las centrales asociadas a la empresa
+post: /api/empresas/{empresa_id}/centrales : guarda una central asocida a la empresa logeada
+put: /api/centrales/{central_id} : actuliza los datos de la central
+delete: /api/centrales/{central_id} : elimina una central y todos los datos asociados a ella 
 //vehiculos central
-*get: /api/centrales/{central_id}/vehiculos: obtiene todos los vehiculos de la central
-*get: /api/centrales/{central_id}/conductores: obtiene todos los conductores asociados a la central
+get: /api/empresas/{empresa_id}/centrales/{central_id}/vehiculos: obtiene todos los vehiculos de la central
+get: /api/empresas/{empresa_id}/centrales/{central_id}/conductores: obtiene todos los conductores asociados a la central
 
 //API EMPRESA DEDUCCIONES
-get: /api/empresas/{empresa_id}/deducciones : obtienes las deducciones asociadas a la empresa
-post: /api/empresas/{empresa_id}/deducciones : guarda una central asocida a la empresa logeada
-put: /api/deducciones/{deduccion_id}: actuliza los datos de la deduccion
-put: /api/deducciones/{deduccion_id}/estado/{valor_estado} : cambia el estado de la deduccion
-delete: /api/deducciones/{deduccion_id} : elimina una deduccion
+#get: /api/empresas/{empresa_id}/deducciones : obtienes las deducciones asociadas a la empresa
+#post: /api/empresas/{empresa_id}/deducciones : guarda una central asocida a la empresa logeada
+#put: /api/deducciones/{deduccion_id}: actuliza los datos de la deduccion
+#put: /api/deducciones/{deduccion_id}/estado/{valor_estado} : cambia el estado de la deduccion
+#delete: /api/deducciones/{deduccion_id} : elimina una deduccion
 
 //API CIUDADES
-get: /api/ciudades : obtiene las ciudades
+#get: /api/ciudades : obtiene las ciudades
 
 //API CLIENTES
-get: /api/clientes 
-post:/api/clientes
-post /api/clientes/{cliente_id}/imagen
-put: /api/clientes/{cliente_id}
-delete: /api/clientes/{cliente_id}
+#get: /api/clientes 
+#post:/api/clientes
+#post /api/clientes/{cliente_id}/imagen
+#put: /api/clientes/{cliente_id}
+#delete: /api/clientes/{cliente_id}
 
 //API PRESTACIONES
 *get: /api/prestaciones : obtiene las prestaciones
@@ -63,42 +55,35 @@ delete: /api/clientes/{cliente_id}
 *post: /api/conductores/{conductor_id}/pagos_prestaciones : guarda el pago de un coductor
 
 //API SERVICIOS 
-*get: /api/servicios_empresa : obtienes los servicios para las empresas :
+get: /api/servicios_empresa : obtienes los servicios para las empresas :
 
 
 //API GIROS
-get: /api/centrales/{central_id}/giros : obtiene los giros enviados a la central
-post: /api/centrales/{central_id}/giros  : etc
-put: /api/giros/{giro_id} : etc
-delete: /api/giros/{giro_id} : etc
+#get: /api/centrales/{central_id}/giros : obtiene los giros enviados a la central
+#post: /api/centrales/{central_id}/giros  : etc
+#put: /api/giros/{giro_id} : etc
+#delete: /api/giros/{giro_id} : etc
 
 //API PAQUETES
-get: /api/centrales/{central_id}/paquetes : etc
-post: /api/centrales/{central_id}/paquetes : etc
-put: /api/paquetes/{paquete_id} : etc
-delete: /api/paquetes{paquete_id} : etc
+#get: /api/centrales/{central_id}/paquetes : etc
+#post: /api/centrales/{central_id}/paquetes : etc
+#put: /api/paquetes/{paquete_id} : etc
+#delete: /api/paquetes{paquete_id} : etc
 
 
 //API PASAJEROS
-get: /api/centrales/{central_id}/pasajeros : etc
-post: /api/centrales/{central_id}/pasajeros : etc
-put: /api/pasajeros/{pasajeros_id} : etc
-delete: /api/pasajeros/{pasajeros_id} : etc
+#get: /api/centrales/{central_id}/pasajeros : etc
+#post: /api/centrales/{central_id}/pasajeros : etc
+#put: /api/pasajeros/{pasajeros_id} : etc
+#delete: /api/pasajeros/{pasajeros_id} : etc
 
 //API VEHICULOS
 put: /api/vehiculos/{vehiculo_id} : etc
-post: /api/vehiculos/{vehiculo_id}/imagen : gusrada la imagen del vehiculo
 
 //API LOGIN
-post: /api/login : envido de datos de inicio de sesion
+#post: /api/login : envido de datos de inicio de sesion
 
 
 //API REGISTRARSE
-post: /api/usuarios/clientes : registra un cliente
-post: /api/usuarios/conductores : registra un conductor
-
-
-
-
-
-
+#post: /api/usuarios/clientes : registra un cliente
+#post: /api/usuarios/conductores : registra un conductor

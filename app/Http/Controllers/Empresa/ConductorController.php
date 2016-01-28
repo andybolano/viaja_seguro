@@ -24,28 +24,35 @@ class ConductorController extends Controller
         return $conductor->vehiculo;
     }
 
-//    public function store(Request $request, $empresa_id)
-//    {
-//        try{
-//            $data = $request->json()->all();
-//            //USUARIO
-//            $usuario = Usuario::nuevo($data['identificacion'], $data['identificacion'], $this->getRol()->id);
-//            $data['usuario_id'] = $usuario->id;
-//
-//            $conductor = new Conductor($data);
-//            if(!Empresa::find($empresa_id)->conductores()->save($conductor)){
-//                return response()->json(['mensajeError' => 'no se ha podido almacenar el usuario'], 400);
-//            }
-//            return response()->json($conductor, 201);
-//        } catch (\Exception $exc) {
-//            return response()->json(array("exception"=>$exc->getMessage()), 400);
-//        }
-//    }
+    public function getRol()
+    {
+        return Rol::where('nombre', 'CONDUCTOR')->first();
+    }
+
+    public function store(Request $request, $empresa_id)
+    {
+        try{
+            $data = $request->json()->all();
+            //USUARIO
+            $usuario = Usuario::nuevo($data['identificacion'], $data['identificacion'], $this->getRol()->id);
+            $data['usuario_id'] = $usuario->id;
+
+            $conductor = new Conductor($data);
+            if(!Empresa::find($empresa_id)->conductores()->save($conductor)){
+                $usuario->delete();
+                return response()->json(['mensajeError' => 'no se ha podido almacenar el usuario'], 400);
+            }
+            return response()->json($conductor, 201);
+        } catch (\Exception $exc) {
+            return response()->json(array("exception"=>$exc->getMessage()), 400);
+        }
+    }
 
     public function guardaImagen(Request $request, $id)
     {
         try{
-            $conductor = Conductor::find($id);
+            $conductor = Conductor::select('*')
+            ->where('identificacion', $id)->first();
             if(!$conductor){
                 return response()->json(array("message"=> 'No se encontro el conductor'), 400);
             }
@@ -139,7 +146,7 @@ class ConductorController extends Controller
         $data = $request->all();
         $vehiculo = new Vehiculo();
 
-        $conductor = Conductor::find($conductor_id);
+        $conductor = Conductor::select('*')->where('identificacion', $conductor_id)->first();
 
         $vehiculo->placa = $data["placa"];
         $vehiculo->modelo = $data["modelo"];
@@ -156,7 +163,6 @@ class ConductorController extends Controller
         if ($busqueda == null) {
             if(!$conductor->vehiculo()->save($vehiculo)){
                 return response()->json(['mensajeError' => 'no se ha podido almacenar el registro'], 400);
-                $usuario->delete();
             }
             return JsonResponse::create(array('message' => "Se asigno el vehiculo correctametne."), 200);
         }else{

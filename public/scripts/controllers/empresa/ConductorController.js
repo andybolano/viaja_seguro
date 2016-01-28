@@ -20,21 +20,6 @@ app.controller('ConductorController', function ($scope, ConductorServicio, Vehic
         var promiseGet = ConductorServicio.getAll();
         promiseGet.then(function (pl) {
             $scope.Conductores = pl.data;
-            angular.forEach($scope.Conductores, function(conductor){
-                if(finalizar == false){
-                    if(conductor.vehiculo_id == null){
-                        if (confirm('El conductor ' + conductor.nombres + " " + conductor.apellidos + " No tiene vehiculo asociado desea registrar uno?") == true) {
-                            $scope.editMode = false;
-                            $scope.active = "";
-                            $scope.Vehiculo = {};
-                            $scope.Vehiculo.ide_conductor = conductor.id;
-                            $scope.titulo = "Asignar vehiculo a: " + (conductor.nombres + " " + conductor.apellidos).toUpperCase();
-                            finalizar = true;
-                            $("#modalAsignarVehiculoC").openModal();
-                        }
-                    }
-                }
-            });
         },function (errorPl) {
             console.log('Error Al Cargar Datos', errorPl);
         });
@@ -44,7 +29,7 @@ app.controller('ConductorController', function ($scope, ConductorServicio, Vehic
         $scope.editMode = false;
         $scope.active = "";
         $scope.Conductor = {};
-        $scope.titulo = "Crear Conductor"
+        $scope.titulo = "Registrar Conductor";
         $("#modalNuevoConductor").openModal();
     }
 
@@ -61,6 +46,7 @@ app.controller('ConductorController', function ($scope, ConductorServicio, Vehic
         var promisePost = ConductorServicio.post(object);
         promisePost.then(function (pl) {
                 $("#modalNuevoConductor").closeModal();
+            $scope.guardarVehiculo();
                 Materialize.toast(pl.data.message, 5000, 'rounded');
                 modificarImagen();
             },
@@ -114,17 +100,9 @@ app.controller('ConductorController', function ($scope, ConductorServicio, Vehic
         }
     }
 
-    //if ($scope.Vehiculo == null) {
-    //    if (confirm('El conductor ' + pl.data.nombres + " " + pl.data.apellidos + " No tiene vehiculo asociado desea registrar uno?") == true) {
-    //        $("#modalAsignarVehiculoC").OpenModal();
-    //    }
-    //} else {
-    //    cargarConductores();
-    //}
 
     $scope.guardarVehiculo = function(){
         var object = {
-            ide_conductor : $scope.Vehiculo.ide_conductor,
             ide_propietario : $scope.Vehiculo.ide_propietario,
             nombre_propietario : $scope.Vehiculo.nombre_propietario,
             tel_propietario : $scope.Vehiculo.tel_propietario,
@@ -135,7 +113,7 @@ app.controller('ConductorController', function ($scope, ConductorServicio, Vehic
             cupos : $scope.Vehiculo.cupos
         };
         console.log(object);
-        var promisePost = VehiculoServicio.post(object);
+        var promisePost = VehiculoServicio.post(object, $scope.Conductor.identificacion);
         promisePost.then(function (pl) {
                 $("#modalAsignarVehiculoC").closeModal();
                 Materialize.toast(pl.data.message, 5000, 'rounded');
@@ -155,7 +133,7 @@ app.controller('ConductorController', function ($scope, ConductorServicio, Vehic
             function success(p) {
                 $scope.Conductor.imagen = p.data.nombrefile;
                 Materialize.toast('Imagen guardado correctamente', 5000);
-                location.reload();
+                //location.reload();
                 cargarConductores();
             }
 

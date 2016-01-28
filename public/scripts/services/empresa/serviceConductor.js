@@ -10,20 +10,20 @@ app.service('ConductorServicio', function ($http , authService) {
     }
 
     this.put = function  (object,id) {
-        return $http.put(myuri + '/' + id, object)
+        return $http.put(uri + '/api/conductor/' + id, object)
     }
 
     this.delete = function  (id) {
-        return $http.delete(myuri + '/' + id)
+        return $http.delete(uri + '/api/conductor/' + id)
     }
 
     this.get = function  (id) {
-        return $http.get(myuri + '/' + id)
+        return $http.get(uri+ '/api/conductores/' + id)
     }
 
     this.postImagen = function (id, object) {
         return $http.post(
-            uri + '/api/empresas/conducdor/imagen/' + id, object,
+            uri + '/api/conductores/'+ id+'/imagen' , object,
             {transformRequest: angular.identity, headers: {'Content-Type': undefined}
             }
         );
