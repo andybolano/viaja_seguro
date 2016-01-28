@@ -1,22 +1,26 @@
-app.service('DeduccionesServicio', function ($http) {
+app.service('DeduccionesServicio', function ($http, authService) {
+    var myuri = uri + '/api/empresas/'+authService.currentUser().empresa.id+'/deducciones';
+
 
     this.getAll = function () {
-        var req = $http.get(uri + '/api/empresa/deducciones');
-        return req;
+        return $http.get(myuri);
+    }
+
+    this.post = function(object){
+        return $http.post(myuri, object);
     }
 
     this.updateEstado =  function (id,estado){
-        var req = $http.put(uri + '/api/empresa/deducciones/'+id+'/'+estado);
-        return req;
+        return $http.put(uri + '/api/deducciones/'+id+'/estado/'+estado);
     }
 
-    this.post = function(formData){
-        var req = $http.post(uri + '/api/empresa/deducciones', formData,{transformRequest: angular.identity,
-            headers: {'Content-Type': undefined}});
+    this.put = function($object, $id){
+        return $http.put(uri + "/api/deducciones/" + $id, $object);
     }
+
 
     this.delete = function  (id) {
-        var req = $http.delete(uri + '/api/empresa/deducciones/' + id)
+        var req = $http.delete(uri + '/api/deducciones/' + id)
         return req;
     }
 });

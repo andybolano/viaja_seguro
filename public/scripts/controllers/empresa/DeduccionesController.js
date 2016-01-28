@@ -5,15 +5,11 @@ app.controller('DeduccionesController', function ($scope, DeduccionesServicio) {
     $scope.active;
     $scope.editMode = false;
     cargarDeducciones();
+    initialize();
 
     function initialize(){
-        $scope.Deduccion = {
-            nombre: "",
-            descripcion: "",
-            valor: "",
-            estado: ""
-        }
-    }
+        $scope.Deduccion = {}
+      }
     function cargarDeducciones() {
         var promiseGet = DeduccionesServicio.getAll();
         promiseGet.then(function (pl) {
@@ -24,9 +20,18 @@ app.controller('DeduccionesController', function ($scope, DeduccionesServicio) {
     }
 
     $scope.nuevaDeduccion = function() {
+        $scope.Deduccion = {};
         $scope.editMode = false;
         $scope.active = "";
         $scope.titulo = "Nueva deducción"
+        $("#modalNuevaDeduccion").openModal();
+    }
+
+    $scope.modificar = function(deduccion){
+        $scope.editMode = true;
+        $scope.Deduccion = deduccion;
+        $scope.active = "active";
+        $scope.titulo = "Modificar deducción"
         $("#modalNuevaDeduccion").openModal();
     }
 
@@ -48,17 +53,38 @@ app.controller('DeduccionesController', function ($scope, DeduccionesServicio) {
     }
 
     $scope.guardar = function  () {
-        var formData=new FormData();
 
-        formData.append('nombre',$scope.Deduccion.nombre);
-        formData.append('descripcion',$scope.Deduccion.descripcion);
-        formData.append('valor',$scope.Deduccion.valor);
-        formData.append('estado',$scope.Deduccion.estado);
-        var promisePost = DeduccionesServicio.post(formData);
+        var object = {
+            nombre: $scope.Deduccion.nombre,
+            descripcion: $scope.Deduccion.descripcion,
+            valor: $scope.Deduccion.valor,
+            estado: $scope.Deduccion.estado
+        }
+        var promisePost = DeduccionesServicio.post(object);
         promisePost.then(function (pl) {
                 $('#modalNuevaDeduccion').closeModal();
                 Materialize.toast(pl.data.message, 5000, 'rounded');
                 cargarDeducciones();
+            },
+            function (err) {
+                $('#modalNuevaDeduccion').closeModal();
+                Materialize.toast("Error al procesar la solicitud",3000,'rounded');
+                console.log(err);
+            });
+    }
+
+    $scope.update = function(){
+        var object = {
+            nombre: $scope.Deduccion.nombre,
+            descripcion: $scope.Deduccion.descripcion,
+            valor: $scope.Deduccion.valor,
+            estado: $scope.Deduccion.estado
+        }
+        var promisePut = DeduccionesServicio.put(object, $scope.Deduccion.id);
+        promisePut.then(function (pl) {
+                $('#modalNuevaDeduccion').closeModal();
+                cargarDeducciones();
+                Materialize.toast(pl.data.message, 5000, 'rounded');
             },
             function (err) {
                 $('#modalNuevaDeduccion').closeModal();
