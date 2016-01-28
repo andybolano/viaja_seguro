@@ -147,23 +147,19 @@ class EmpresaController extends Controller
 
     public function storeConductor(Request $request, $empresa_id)
     {
-        try{
-            $data = $request->json()->all();
-            $usuario = Usuario::nuevo($data['identificacion'], $data['identificacion'], $this->getRol('CONDUCTOR')->id);
-            $data['usuario_id'] = $usuario->id;
-            $vehiculo_conductor = $data['vehiculo'];
-            unset($data['vehiculo']);
+        $data = $request->json()->all();
+        $usuario = Usuario::nuevo($data['identificacion'], $data['identificacion'], $this->getRol('CONDUCTOR')->id);
+        $data['usuario_id'] = $usuario->id;
+        $vehiculo_conductor = $data['vehiculo'];
+        unset($data['vehiculo']);
 
-            $conductor = new Conductor($data);
-            $empresa = Empresa::find($empresa_id);
-            if(!$empresa->conductores()->save($conductor)){
-                $usuario->delete();
-                return response()->json(['mensajeError' => 'no se ha podido almacenar el registro'], 400);
-            }
-            $this->storeVehiculoconductor($conductor, $vehiculo_conductor);
-        } catch (\Exception $exc) {
-            return response()->json(array("exception"=>$exc->getMessage()), 400);
+        $conductor = new Conductor($data);
+        $empresa = Empresa::find($empresa_id);
+        if(!$empresa->conductores()->save($conductor)){
+            $usuario->delete();
+            return response()->json(['mensajeError' => 'no se ha podido almacenar el registro'], 400);
         }
+        $this->storeVehiculoconductor($conductor, $vehiculo_conductor);
     }
 
     private function storeVehiculoconductor(&$conductor, $data){
@@ -176,7 +172,7 @@ class EmpresaController extends Controller
                 $conductor->delete();
                 return response()->json(['mensajeError' => 'no se ha podido almacenar el vehiculo dle conductor'], 400);
             }
-            return response()->json(array('message' => "Se g uardo el registro correctametne."), 200);
+            return response()->json($conductor, 200);
         }else{
             return response()->json(array('message' => "La placa del vehiculo ya se encuentra registrada."), 200);
         }

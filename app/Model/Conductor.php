@@ -8,7 +8,7 @@ class Conductor extends Model
 {
     protected $table = 'conductores';
 
-    protected $fillable = ['vehiculo_id', 'identificacion', 'nombres', 'apellidos', 'imagen', 'telefono', 'direccion', 'correo'];
+    protected $fillable = ['vehiculo_id', 'identificacion', 'nombres', 'apellidos', 'imagen', 'telefono', 'direccion', 'correo', 'usuario_id'];
 
     public $timestamps = false;
 
