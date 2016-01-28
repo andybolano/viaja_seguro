@@ -20,7 +20,7 @@ Route::post('/api/login', 'LoginController@autenticarUsuario');
 Route::post('/api/usuarios/clientes', 'Cliente\ClienteController@store');
 Route::post('/api/usuarios/conductores', 'Empresa\Conductores@store');
 
-
+Route::get('/api/empresas', 'SuperAdmin\EmpresaController@index');
 Route::group(['middleware' => 'jwt.auth'], function () {
     include 'Routes/Conductores.php';
     include 'Routes/Vehiculos.php';
