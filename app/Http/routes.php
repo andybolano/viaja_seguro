@@ -18,7 +18,7 @@ Route::get('/', function () {
 Route::post('/api/login', 'LoginController@autenticarUsuario');
 
 Route::post('/api/usuarios/clientes', 'Cliente\ClienteController@store');
-Route::post('/api/usuarios/conductores', 'Empresa\Conductores@store');
+Route::post('/api/usuarios/conductores', 'UsuariosController@registrarConductor');
 
 Route::get('/api/empresas', 'SuperAdmin\EmpresaController@index');
 Route::group(['middleware' => 'jwt.auth'], function () {

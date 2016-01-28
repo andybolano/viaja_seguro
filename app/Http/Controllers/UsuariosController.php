@@ -1,5 +1,7 @@
 <?php namespace App\Http\Controllers;
 
+use App\Model\Conductor;
+use App\Model\Empresa;
 use App\Model\Usuario;
 use Illuminate\Http\Request;
 use JWTAuth;
@@ -43,6 +45,33 @@ class UsuariosController extends Controller
         $token = JWTAuth::fromUser($user);
 
         return response()->json(compact('token'));
+    }
+
+    public function registrarConductor(Request $request)
+    {
+        $data = $request->json()->all();
+        $user = Usuario::nuevo($data['identificacion'], $data['contrasena'], $this->getRol('CONDUCTOR')->id);
+        unset($data['contrasena']);
+        $data['usuario_id'] = $user->id;
+        unset($data['vehiculo']);
+        $empresa_id = $data['empresa_id'];
+        unset($data['empresa_id']);
+
+        $conductor = new Conductor($data);
+        $empresa = Empresa::find($empresa_id);
+        if(!$empresa->conductores()->save($conductor)){
+            $user->delete();
+            return response()->json(['mensajeError' => 'no se ha podido almacenar el registro'], 400);
+        }
+
+        $token = JWTAuth::fromUser($user);
+
+        return response()->json(compact('token'));
+    }
+
+    private function getRol($nombre)
+    {
+        return Rol::where('nombre', $nombre)->first();
     }
 
 }
