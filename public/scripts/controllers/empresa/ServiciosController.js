@@ -1,4 +1,4 @@
-app.controller('ServiciosController', function ($scope, serviceEmpresaServicios, ciudadesService) {
+app.controller('ServiciosController', function ($scope, serviceEmpresaServicios, ciudadesService, pasajerosService, girosService, paquetesService) {
     $scope.Pasajeros = [];
     $scope.Giros = [];
     $scope.Paquetes = [];
@@ -20,7 +20,7 @@ app.controller('ServiciosController', function ($scope, serviceEmpresaServicios,
     }
 
     function cargarPasajeros() {
-        var promiseGet = serviceEmpresaServicios.getPasajeros();
+        var promiseGet = pasajerosService.getAll();
         promiseGet.then(function (pl) {
             $scope.Pasajeros = pl.data;
         },function (errorPl) {
@@ -61,8 +61,6 @@ app.controller('ServiciosController', function ($scope, serviceEmpresaServicios,
     $scope.guardarPasajero = function(){
         var object = {
             identificacion : $scope.Pasajero.identificacion,
-            nombres : $scope.Pasajero.nombres,
-            apellidos : $scope.Pasajero.apellidos,
             telefono : $scope.Pasajero.telefono,
             origen : $scope.Pasajero.origen.nombre,
             direccionO : $scope.Pasajero.direccionO,
@@ -72,7 +70,7 @@ app.controller('ServiciosController', function ($scope, serviceEmpresaServicios,
 
         };
         console.log(object);
-        var promisePost = serviceEmpresaServicios.postPasajero(object);
+        var promisePost = pasajerosService.post(object);
         promisePost.then(function (pl) {
                 $("#modalAsignarPasajero").closeModal();
                 cargarPasajeros();
@@ -86,8 +84,6 @@ app.controller('ServiciosController', function ($scope, serviceEmpresaServicios,
     $scope.updatePasajero = function(){
         var object = {
             identificacion : $scope.Pasajero.identificacion,
-            nombres : $scope.Pasajero.nombres,
-            apellidos : $scope.Pasajero.apellidos,
             telefono : $scope.Pasajero.telefono,
             origen : $scope.Pasajero.origen.nombre,
             direccionO : $scope.Pasajero.direccionO,
@@ -96,7 +92,7 @@ app.controller('ServiciosController', function ($scope, serviceEmpresaServicios,
             vehiculo : $scope.Vehiculo
         };
         console.log(object);
-        var promisePut = serviceEmpresaServicios.putPasajero(object, $scope.Pasajero.identificacion);
+        var promisePut = pasajerosService.put(object, $scope.Pasajero.id);
         promisePut.then(function (pl) {
                 $("#modalAsignarPasajero").closeModal();
                 cargarPasajeros();
@@ -109,7 +105,7 @@ app.controller('ServiciosController', function ($scope, serviceEmpresaServicios,
 
     $scope.deletePasajero = function(id){
         if(confirm('¿Deseas eliminar el registro?') == true) {
-            var promiseDelete = serviceEmpresaServicios.deletePasajero(id);
+            var promiseDelete = pasajerosService.delete(id);
             promiseDelete.then(function (pl) {
                     cargarPasajeros();
                     Materialize.toast(pl.data.message, 5000, 'rounded');
@@ -121,7 +117,7 @@ app.controller('ServiciosController', function ($scope, serviceEmpresaServicios,
     }
 
     function cargarGiros() {
-        var promiseGet = serviceEmpresaServicios.getGiros();
+        var promiseGet = girosService.getAll();
         promiseGet.then(function (pl) {
             $scope.Giros = pl.data;
         },function (errorPl) {
@@ -162,8 +158,6 @@ app.controller('ServiciosController', function ($scope, serviceEmpresaServicios,
     $scope.guardarGiro = function(){
         var object = {
             ide_remitente : $scope.Giro.ide_remitente,
-            nombres_remitente : $scope.Giro.nombres_remitente,
-            tel_remitente : $scope.Giro.tel_remitente,
             ide_receptor : $scope.Giro.ide_receptor,
             nombres_receptor : $scope.Giro.nombres_receptor,
             tel_receptor : $scope.Giro.tel_receptor,
@@ -175,7 +169,7 @@ app.controller('ServiciosController', function ($scope, serviceEmpresaServicios,
             cantidad : $scope.Giro.cantidad
         };
         console.log(object);
-        var promisePost = serviceEmpresaServicios.postGiro(object);
+        var promisePost = girosService.post(object);
         promisePost.then(function (pl) {
                 $("#modalAsignarGiro").closeModal();
                 cargarGiros();
@@ -189,8 +183,6 @@ app.controller('ServiciosController', function ($scope, serviceEmpresaServicios,
     $scope.updateGiro = function(){
         var object = {
             ide_remitente : $scope.Giro.ide_remitente,
-            nombres_remitente : $scope.Giro.nombres_remitente,
-            tel_remitente : $scope.Giro.tel_remitente,
             ide_receptor : $scope.Giro.ide_receptor,
             nombres_receptor : $scope.Giro.nombres_receptor,
             tel_receptor : $scope.Giro.tel_receptor,
@@ -202,7 +194,7 @@ app.controller('ServiciosController', function ($scope, serviceEmpresaServicios,
             cantidad : $scope.Giro.cantidad
         };
         console.log(object);
-        var promisePut = serviceEmpresaServicios.putGiro(object, $scope.Giro.id);
+        var promisePut = girosService.put(object, $scope.Giro.id);
         promisePut.then(function (pl) {
                 $("#modalAsignarGiro").closeModal();
                 cargarGiros();
@@ -215,7 +207,7 @@ app.controller('ServiciosController', function ($scope, serviceEmpresaServicios,
 
     $scope.deleteGiro = function(id){
         if(confirm('¿Deseas eliminar el registro?') == true) {
-            var promiseDelete = serviceEmpresaServicios.deleteGiro(id);
+            var promiseDelete = girosService.delete(id);
             promiseDelete.then(function (pl) {
                     cargarGiros();
                     Materialize.toast(pl.data.message, 5000, 'rounded');
@@ -227,7 +219,7 @@ app.controller('ServiciosController', function ($scope, serviceEmpresaServicios,
     }
 
     function cargarPaquetes() {
-        var promiseGet = serviceEmpresaServicios.getPaquetes();
+        var promiseGet = paquetesService.getAll();
         promiseGet.then(function (pl) {
             $scope.Paquetes = pl.data;
         },function (errorPl) {
@@ -268,8 +260,6 @@ app.controller('ServiciosController', function ($scope, serviceEmpresaServicios,
     $scope.guardarPaquete = function(){
         var object = {
             ide_remitente : $scope.Paquete.ide_remitente,
-            nombres_remitente : $scope.Paquete.nombres_remitente,
-            tel_remitente : $scope.Paquete.tel_remitente,
             ide_receptor : $scope.Paquete.ide_receptor,
             nombres_receptor : $scope.Paquete.nombres_receptor,
             tel_receptor : $scope.Paquete.tel_receptor,
@@ -280,8 +270,7 @@ app.controller('ServiciosController', function ($scope, serviceEmpresaServicios,
             vehiculo : $scope.Vehiculo,
             descripcion_paquete : $scope.Paquete.descripcion_paquete
         }
-
-        var promisePost = serviceEmpresaServicios.postPaquete(object);
+        var promisePost = paquetesService.post(object);
         promisePost.then(function (pl) {
                 $("#modalAsignarPaquete").closeModal();
                 cargarPaquetes();
@@ -295,8 +284,6 @@ app.controller('ServiciosController', function ($scope, serviceEmpresaServicios,
     $scope.updatePaquete = function(id){
         var object = {
             ide_remitente : $scope.Paquete.ide_remitente,
-            nombres_remitente : $scope.Paquete.nombres_remitente,
-            tel_remitente : $scope.Paquete.tel_remitente,
             ide_receptor : $scope.Paquete.ide_receptor,
             nombres_receptor : $scope.Paquete.nombres_receptor,
             tel_receptor : $scope.Paquete.tel_receptor,
@@ -308,7 +295,7 @@ app.controller('ServiciosController', function ($scope, serviceEmpresaServicios,
             descripcion_paquete : $scope.Paquete.descripcion_paquete
         }
 
-        var promisePut = serviceEmpresaServicios.putPaquete(object, id );
+        var promisePut = paquetesService.put(object, id );
         promisePut.then(function (pl) {
                 $("#modalAsignarPaquete").closeModal();
                 cargarPaquetes();
@@ -321,7 +308,7 @@ app.controller('ServiciosController', function ($scope, serviceEmpresaServicios,
 
     $scope.deletePaquete = function(id){
         if(confirm('¿Deseas eliminar el registro?') == true) {
-            var promiseDelete = serviceEmpresaServicios.deletePaquete(id);
+            var promiseDelete = paquetesService.delete(id);
             promiseDelete.then(function (pl) {
                     cargarPaquetes();
                     Materialize.toast(pl.data.message, 5000, 'rounded');

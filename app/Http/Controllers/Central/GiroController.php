@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Central;
 
 use App\Model\Giro;
 use Illuminate\Http\Request;
-
+use Illuminate\Http\JsonResponse;
+use App\Model\Central;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -27,8 +28,18 @@ class GiroController extends Controller
     public function store(Request $request, $central_id){
         try{
             $data = $request->json()->all();
+            $giro = new Giro();
+            $giro->ide_remitente = $data['ide_remitente'];
+            $giro->ide_receptor = $data['ide_receptor'];
+            $giro->nombres_receptor = $data['nombres_receptor'];
+            $giro->tel_receptor = $data['tel_receptor'];
+            $giro->origen = $data['origen'];
+            $giro->direccionO = $data['direccionO'];
+            $giro->destino = $data['destino'];
+            $giro->direccionD = $data['direccionD'];
+            $giro->vehiculo = $data['vehiculo'];
+            $giro->cantidad = $data['cantidad'];
 
-            $giro = new Giro($data);
             if(!Central::find($central_id)->giros()->save($giro)){
                 return response()->json(['mensajeError' => 'No se ha posido registrar al giro'], 400);
             }
