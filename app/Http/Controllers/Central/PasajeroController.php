@@ -91,9 +91,7 @@ class PasajeroController extends Controller
     {
         try{
             $data = $request->all();
-            $pasajero = Pasajero::select("*")
-                ->where("identificacion", $id)
-                ->first();
+            $pasajero = Pasajero::find($id);
             $pasajero->identificacion = $data["identificacion"];
             $pasajero->nombres = $data["nombres"];
             $pasajero->apellidos = $data["apellidos"];
