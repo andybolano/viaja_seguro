@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Central;
 
 use App\Model\Central;
+use App\Model\Cliente;
 use App\Model\Pasajero;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -20,10 +21,10 @@ class PasajeroController extends Controller
     {
         try{
             $pasajeros = Central::find($central_id)->pasajeros;
-            $pasajeros->load('central');
+            $pasajeros->load('central', 'cliente');
             return $pasajeros;
         }catch(\Exception $e){
-            return response()->json(array("exception"=>$e->getMessage()), 400);
+            return response()->json(array('message' => 'Error'), 400);
         }
     }
 
@@ -47,7 +48,9 @@ class PasajeroController extends Controller
     {
         try{
             $data = $request->json()->all();
-
+            $busqueda = Cliente::select('identificacion')
+                ->where('identificacion', $data['identificaicon'])
+                ->first();
             $pasajero = new Pasajero($data);
             if(!Central::find($central_id)->pasajeros()->save($pasajero)){
                 return response()->json(['mensajeError' => 'No se ha posido registrar al pasajero'], 400);

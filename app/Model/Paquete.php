@@ -12,7 +12,13 @@ class Paquete extends Model
 
     public $timestamps = false;
 
-    public function central(){
+    public function central()
+    {
         return $this->belongsTo(Central::class);
+    }
+
+    public function cliente()
+    {
+        return $this->belongsTo(Cliente::class);
     }
 }

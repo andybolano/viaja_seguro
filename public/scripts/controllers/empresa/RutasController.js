@@ -22,8 +22,6 @@ function RutasController($scope, centralesService, rutasService){
         $scope.mostrar = 'false';
         loadCentrales();
         $("#modalRutas").openModal();
-        $("#mapa").text("");
-
     }
 
     function verRuta(ruta){
