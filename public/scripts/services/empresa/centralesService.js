@@ -5,24 +5,23 @@
 app.service('centralesService', centralesService);
 
 function centralesService($http, authService) {
-    var myuri = uri + '/api/empresas/'+authService.currentUser().empresa.id+'/centrales';
     this.getAll = function () {
-        return $http.get(myuri);
+        return $http.get(uri + '/api/empresas/'+authService.currentUser().empresa.id+'/centrales');
     }
 
     this.get = function (id) {
-        return $http.get(myuri + '/' + id);
+        return $http.get(uri + '/api/empresas/'+authService.currentUser().empresa.id+'/centrales/' + id);
     }
 
     this.post = function (object) {
-        return $http.post(myuri, object);
+        return $http.post(uri + '/api/empresas/'+authService.currentUser().empresa.id+'/centrales', object);
     }
 
     this.put = function (object, id) {
-        return $http.put(myuri + '/' + id, object);
+        return $http.put(uri + '/api/centrales' + '/' + id, object);
     }
 
     this.delete = function (id) {
-        return $http.delete(myuri + '/' + id);
+        return $http.delete(uri + '/api/centrales' + '/' + id);
     }
 }
