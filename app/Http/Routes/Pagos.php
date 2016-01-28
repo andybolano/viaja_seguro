@@ -1,6 +1,6 @@
 <?php
 
-Route::get('/api/empresa/pagos/planilla', 'Empresa\PagosController@getPlanillas');
-Route::get('/api/empresa/pagos/ahorro', 'Empresa\PagosController@getAhorros');
-Route::get('/api/empresa/pagos/pension', 'Empresa\PagosController@getPension');
-Route::get('api/empresa/pagos/seguridad', 'Empresa\PagosController@getSeguridad');
+Route::get('/api/prestaciones', 'Empresa\PagosController@getPrestaciones');
+Route::get('/api/empresas/{empresa_id}/pagos_prestaciones/{prestacion_id}', 'Empresa\PagosController@getPagosEmpresaPrestacion');
+Route::get('/api/conductores/{conductor_id}/pagos_prestaciones/{prestacion_id?}', 'Empresa\PagosController@getPagosConductor');
+Route::post('/api/conductores/{conductor_id}/pagos_prestaciones', 'Empresa\PagosController@storePago');

@@ -21,7 +21,17 @@ class Conductor extends Model
         return $this->belongsTo(Empresa::class)->select('id', 'nombre');
     }
 
-    public function central(){
+    public function central()
+    {
         return $this->belongsTo(Central::class);
+    }
+
+    public function pagosPrestaciones($prestacion_id = null)
+    {
+        if($prestacion_id){
+            return $this->hasMany(PagoPrestacion::class, 'conductor_id', 'id')->where('prestacion_id', '=', $prestacion_id)->get();
+        }else {
+            return $this->hasMany(PagoPrestacion::class, 'conductor_id', 'id');
+        }
     }
 }

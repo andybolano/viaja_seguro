@@ -27,6 +27,11 @@ class Empresa extends Model
         return $this->hasManyThrough(Vehiculo::class, Conductor::class);
     }
 
+    public function pagosPrestaciones()
+    {
+        return $this->hasManyThrough(PagoPrestacion::class, Conductor::class);
+    }
+
     public function servicios()
     {
         return $this->belongsToMany(Servicio::class, 'empresa_servicios', 'empresa_id', 'servicio_id');
