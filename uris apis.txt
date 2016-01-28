@@ -95,7 +95,7 @@ delete: /api/pasajeros/{pasajeros_id} : etc
 
 //API REGISTRARSE
 post: /api/usuarios/clientes : registra un cliente
-post: /api/usuarios/conductores : registra un conductor
+*post: /api/usuarios/conductores : registra un conductor
 
 
 
