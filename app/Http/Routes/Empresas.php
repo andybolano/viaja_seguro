@@ -1,5 +1,5 @@
 <?php
-Route::get('/api/empresas', 'SuperAdmin\EmpresaController@index');
+//Route::get('/api/empresas', 'SuperAdmin\EmpresaController@index');
 Route::get('/api/empresas/{empresa_id}', 'SuperAdmin\EmpresaController@show');
 Route::post('/api/empresas', 'SuperAdmin\EmpresaController@store');
 Route::post('/api/empresas/{empresa_id}/logo', 'SuperAdmin\EmpresaController@saveLogo');
