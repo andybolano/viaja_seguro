@@ -29,10 +29,10 @@
                             </thead>
                             <tbody>
                             <tr ng-repeat="pasajero in Pasajeros | filter : filtro">
-                                <td>{{pasajero.identificacion}}</td>
-                                <td>{{pasajero.nombres}}</td>
-                                <td>{{pasajero.apellidos}}</td>
-                                <td>{{pasajero.telefono}}</td>
+                                <td>{{pasajero.cliente.identificacion}}</td>
+                                <td>{{pasajero.cliente.nombres}}</td>
+                                <td>{{pasajero.cliente.apellidos}}</td>
+                                <td>{{pasajero.cliente.telefono}}</td>
                                 <td>{{pasajero.origen}}</td>
                                 <td>{{pasajero.destino}}</td>
                                 <td>{{pasajero.vehiculo}}</td>

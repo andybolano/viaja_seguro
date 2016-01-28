@@ -11,4 +11,9 @@ class Cliente extends Model
     protected $fillable = ['identificacion', 'nombres', 'apellidos', 'telefono', 'direccion', 'fechaN'];
 
     public $timestamps = false;
+
+    public function pasajeros()
+    {
+        return $this->hasMany(Pasajero::class);
+    }
 }

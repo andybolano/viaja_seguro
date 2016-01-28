@@ -12,7 +12,13 @@ class Giro extends Model
 
     public $timestamps = false;
 
-    public function central(){
+    public function central()
+    {
         return $this->belongsTo(Central::class);
+    }
+
+    public function clientes()
+    {
+        return $this->hasMany(Cliente::class);
     }
 }

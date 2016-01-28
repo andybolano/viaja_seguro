@@ -12,7 +12,13 @@ class Pasajero extends Model
 
     public $timestamps = false;
 
-    public function central(){
-        return $this->belongsTo(Central::class);
+    public function central()
+    {
+        return $this->belongsTo(Central::class)->select('id', 'empresa_id', 'direccion', 'telefono');
+    }
+
+    public function cliente()
+    {
+        return $this->belongsTo(Cliente::class);
     }
 }
