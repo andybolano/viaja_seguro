@@ -27,6 +27,10 @@ class PagosController extends Controller
         foreach ($conductores as $c) {
             $pagosConductor = $c->pagosPrestaciones($prestacion_id);
             foreach ($pagosConductor as $p) {
+                $p->conductor = [
+                    'nombre' => $c->nombres.' '.$c->apellidos,
+                    'identificacion' => $c->identificacion
+                ];
                 $pagos[] = $p;
             }
         }
@@ -54,7 +58,7 @@ class PagosController extends Controller
         $conductor = Conductor::find($conductor_id);
         $pago = new PagoPrestacion([
             'prestacion_id' => $data['prestacion_id'],
-            'fecha' => $data['fecha'],
+            'fecha' => date("Y-m-d"),
             'valor' => $data['valor'],
         ]);
         if(!$conductor->pagosPrestaciones()->save($pago)){

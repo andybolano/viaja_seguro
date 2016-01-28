@@ -56,11 +56,11 @@ put: /api/clientes/{cliente_id}
 delete: /api/clientes/{cliente_id}
 
 //API PRESTACIONES
-get: /api/prestaciones : obtiene las prestaciones
+*get: /api/prestaciones : obtiene las prestaciones
 
-get: /api/empresas/{empresa_id}/pagos_prestaciones/{prestacion_id}: obtienes las prestaciones asociadas a la empresa
-post: /api/empresas/{empresa_id}/pagos_prestaciones/{prestacion_id} : guarda una prestacion asocida a la empresa logeada
-get: /api/conductores/{conductor_id}/pagos_prestaciones/{prestacion_id} : obtiene el pagos de las prestaciones de un conductor
+*get: /api/empresas/{empresa_id}/pagos_prestaciones/{prestacion_id}: obtienes las prestaciones asociadas a la empresa
+*get: /api/conductores/{conductor_id}/pagos_prestaciones/{prestacion_id} : obtiene el pagos de las prestaciones de un conductor
+*post: /api/conductores/{conductor_id}/pagos_prestaciones : guarda el pago de un coductor
 
 //API SERVICIOS 
 *get: /api/servicios_empresa : obtienes los servicios para las empresas :

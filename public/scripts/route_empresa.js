@@ -1,7 +1,7 @@
 var uri = "../../public";
 var app;
 (function () {
-    app = angular.module("empresa", ['ngRoute', 'ui.keypress', 'angular-jwt', 'google-maps']);
+    app = angular.module("empresa", ['ngRoute', 'ui.keypress', 'angular-jwt']);
 
     app.config(['$routeProvider', '$httpProvider', 'jwtInterceptorProvider', function($routeProvider, $httpProvider, jwtInterceptorProvider) {
 
@@ -31,6 +31,9 @@ var app;
                 })
                 .when("/empresa/deducciones", {
                     templateUrl: 'showDeducciones.html'
+                })
+                .when("/empresa/pagos_prestaciones", {
+                    templateUrl: 'registrarPagosPrestaciones.html'
                 })
                  .otherwise({redirectTo: '/'})
         }]);
