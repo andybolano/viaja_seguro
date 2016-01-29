@@ -187,6 +187,7 @@ class EmpresaController extends Controller
     public function getVehiculos($id)
     {
         $vehiculos = Empresa::find($id)->vehiculos;
+        $vehiculos->load('conductor');
         return $vehiculos;
     }
 

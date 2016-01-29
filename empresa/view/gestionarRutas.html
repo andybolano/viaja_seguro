@@ -42,7 +42,7 @@
         <div class="modal-content">
             <form name="formNuevaRuta">
             <div class="row">
-                <div class="col s6">
+                <div class="col s4">
                     <div class="row"><h2>Origen</h2></div>
                     <div class="row">
                         <!--<a href="javascript:;" class="btn btn-default" ng-click="agregarDireccionO()"></a>-->
@@ -53,7 +53,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="col s6">
+                <div class="col s4">
                     <div class="row"><h2>Destino</h2></div>
                     <div class="row">
                         <!--<a href="javascript:;" class="btn btn-default" ng-click="agregarDireccionD()"></a>-->
@@ -64,6 +64,13 @@
                         </select>
                     </div>
                 </div>
+                <div class="col s4">
+                    <div class="row"><h2><br></h2></div>
+                    <div class="row">
+                        <a class="btn btn-block" href="javascript:;" ng-click="trazarRuta()" value="Buscar ruta">Trazar ruta</a>
+                    </div>
+
+                </div>
             </div>
                 <div class="row">
                     <!--&lt;!&ndash;mapa&ndash;&gt;-->
@@ -72,10 +79,6 @@
 
                     <!--</div>-->
                     <!--&lt;!&ndash;fin mapa&ndash;&gt;-->
-                    <div>
-                        <a class="btn btn-block" href="javascript:;" ng-click="trazarRuta()" value="Buscar ruta">Trazar ruta</a>
-                    </div>
-                    <br />
                     <div id="rutaOps">
                         <select id="modo_viaje" class="opciones_ruta">
                             <option value="DRIVING" selected="selected">Auto</option>

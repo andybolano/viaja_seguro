@@ -6,7 +6,7 @@ app.controller('VehiculosController', function ($scope, VehiculoServicio) {
     $scope.active;
     $scope.editMode = false;
     cargarVehiculos();
-    cargarDocumentacion();
+    //cargarDocumentacion();
 
     function init(){
         $scope.Vehiculo = {}
@@ -71,7 +71,7 @@ app.controller('VehiculosController', function ($scope, VehiculoServicio) {
 
     $scope.modificarImagenVehiculo = function (){
         if($scope.fileimageV) {
-            var data = new FormData();
+         var data = new FormData();
             data.append('imagenv', $scope.fileimageV);
             VehiculoServicio.postImagen($scope.Vehiculo.placa, data).then(success, error);
             function success(p) {
@@ -87,13 +87,13 @@ app.controller('VehiculosController', function ($scope, VehiculoServicio) {
         }
     }
 
-    function cargarDocumentacion(){
-        var promiseGet = VehiculoServicio.getDocumentacion();
-        promiseGet.then(function (pl) {
-            $scope.Documentacion = pl.data;
-            console.log($scope.Documentacion);
-        },function (errorPl) {
-            //Materialize.toast('Ocurrio un error al cargar los documentos', 5000, 'rounded');
-        });
-    }
+    //function cargarDocumentacion(){
+    //    var promiseGet = VehiculoServicio.getDocumentacion();
+    //    promiseGet.then(function (pl) {
+    //        $scope.Documentacion = pl.data;
+    //        console.log($scope.Documentacion);
+    //    },function (errorPl) {
+    //        //Materialize.toast('Ocurrio un error al cargar los documentos', 5000, 'rounded');
+    //    });
+    //}
 })

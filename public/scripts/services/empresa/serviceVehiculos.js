@@ -1,6 +1,7 @@
-app.service('VehiculoServicio', function ($http) {
+app.service('VehiculoServicio', function ($http, authService) {
+    var myuri = uri + '/api/empresas/'+authService.currentUser().empresa.id+'/vehiculos';
     this.getAll = function(){
-        var req = $http.get(uri+'/api/empresa/vehiculos');
+        var req = $http.get(myuri);
         return req;
     }
 
@@ -10,12 +11,12 @@ app.service('VehiculoServicio', function ($http) {
     }
 
     this.put = function  (object,id) {
-        var req = $http.put(uri + '/api/empresa/vehiculos/' + id, object)
+        var req = $http.put(uri + '/api/vehiculos/' + id, object)
         return req;
     }
 
     this.delete = function  (id) {
-        var req = $http.delete(uri + '/api/empresa/vehiculos/' + id)
+        var req = $http.delete(uri + '/api/vehiculos/' + id)
         return req;
     }
 
