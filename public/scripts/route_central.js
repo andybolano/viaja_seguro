@@ -1,7 +1,7 @@
 var uri = "../../public";
 var app;
 (function () {
-    app = angular.module("central", ['ngRoute', 'ui.keypress', 'angular-jwt']);
+    app = angular.module("central", ['ngRoute', 'ui.keypress', 'angular-jwt', 'dndLists']);
 
     app.config(['$routeProvider', '$httpProvider', 'jwtInterceptorProvider', function AppConfig($routeProvider, $httpProvider, jwtInterceptorProvider) {
 
@@ -34,6 +34,9 @@ var app;
             })
             .when("/central/pagos/seguridad", {
                 templateUrl: 'showPagosSeguridad.html'
+            })
+            .when("/central/turnos", {
+                templateUrl: 'gestionarTrunos.html'
             })
             .otherwise({redirectTo: '/'})
     }]);
