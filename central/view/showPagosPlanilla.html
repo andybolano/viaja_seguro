@@ -25,8 +25,8 @@
                             </thead>
                             <tbody>
                             <tr ng-repeat="planilla in Planillas | filter : filtro">
-                                <td>{{planilla.numPlanilla}}</td>
-                                <td>{{planilla.conductor}}</td>
+                                <td>{{planilla.numero_planilla}}</td>
+                                <td>{{planilla.conductor.nombres}} {{planilla.conductor.apellidos}}</td>
                                 <td>
                                     <a href="javascript:" ng-click="modificar(planilla)">
                                         <i class="material-icons prefix">visibility</i>
@@ -121,7 +121,7 @@
                     </form>
                 </div>
                 <!--deducciones-->
-                <div class="row col s3" ng-controller="DeduccionesController">
+                <div class="row col s3">
                     <ul class="list-group">
                         <fieldset>
                             <table class="striped bordered">
@@ -130,7 +130,7 @@
                                     <th>Valor</th>
                                 </thead>
                                 <tbody>
-                                <tr ng-repeat="deduccion in Deducciones" ng-if="deduccion.estado == 'true'">
+                                <tr ng-repeat="deduccion in Deducciones" ng-if="deduccion.estado == true">
                                     <td>{{deduccion.nombre}}</td>
                                     <td>{{deduccion.valor | currency}}</td>
                                 </tr>
@@ -151,7 +151,7 @@
     </div>
 
     <!--modal buscar conductor-->
-    <div id="modalBuscarconductor" class="modal modal-fixed-footer" ng-controller="ConductorController">
+    <div id="modalBuscarconductor" class="modal modal-fixed-footer">
         <div class="row white">
             <div class="col s12 z-depth-1">
                 <div class="contenedor">

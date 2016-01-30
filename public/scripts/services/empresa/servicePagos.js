@@ -1,4 +1,4 @@
-app.service('serviceEmpresaPagos', function ($http) {
+app.service('serviceEmpresaPagos', function ($http, authService) {
     this.getPagoPlanilla = function(){
         var req = $http.get(uri+'/api/empresa/pagos/planilla');
         return req;
@@ -17,5 +17,13 @@ app.service('serviceEmpresaPagos', function ($http) {
     this.getPagoPension = function(){
         var req = $http.get(uri + '/api/empresa/pagos/pension');
         return req;
+    }
+
+    this.getDeducciones = function(){
+        return $http.get(uri + '/api/empresas/'+ authService.currentUser().central.empresa.id+'/deducciones');
+    }
+
+    this.getConductores = function (){
+        return $http.get(uri + '/api/empresas/'+authService.currentUser().central.empresa.id+'/conductores');
     }
 });

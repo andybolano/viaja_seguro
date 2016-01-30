@@ -143,7 +143,7 @@
                                             <div class="row">
                                                 <div class="input-field col s4">
                                                     <i class="material-icons prefix">payment</i>
-                                                    <input id="icon_payment2" type="text" class="validate" name="propietario" ng-model="Vehiculo.ide_propietario">
+                                                    <input id="icon_payment2" type="text" class="validate" name="propietario" ng-model="Vehiculo.identificacion_propietario">
                                                     <label for="icon_payment2" class="{{active}}">Identificacion propietario</label>
                                                 </div>
                                                 <div class="input-field col s4">
@@ -193,16 +193,41 @@
                                                     Documentación del vehículo
                                                 </div>
 
-                                                <div class="row col s6" ng-repeat="documento in Documentacion">
+                                                <div class="row col s6">
                                                     <fieldset>
                                                         <div class="col s12">
                                                             <p style="margin-bottom: 0; margin-top: 0; margin-left: 10px">
-                                                                <input type="checkbox" ng-model="documento.selected" id="documento{{documento.id}}"/>
-                                                                <label for="documento{{documento.id}}">{{documento.nombre}}</label>
+                                                                <input type="checkbox" ng-model="Vehiculo.soat" id="soat"/>
+                                                                <label for="soat">SOAT</label>
                                                             </p>
                                                         </div>
-                                                        <div class="col s12" ng-if="documento.nombre !== 'TARJETA DE PROPIEDAD'">
-                                                            <input type="date" class="datepicker" placeholder="Fecha de vencimiento">
+                                                        <div class="col s12">
+                                                            <p>Fecha de vencimiento</p>
+                                                            <input type="date" class="datepicker" name="fecha_soat" ng-model="Vehiculo.fecha_soat" id="fecha_soat"  ui-date="{ dateFormat: 'yy-MM-DD' }" min-date="minDate">
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                                <div class="row col s6">
+                                                    <fieldset>
+                                                        <div class="col s12">
+                                                            <p style="margin-bottom: 0; margin-top: 0; margin-left: 10px">
+                                                                <input type="checkbox" ng-model="Vehiculo.tecnomecanica" id="tecnomecanica"/>
+                                                                <label for="tecnomecanica">TECNOMECANICA</label>
+                                                            </p>
+                                                        </div>
+                                                        <div class="col s12">
+                                                            <p>Fecha de vencimiento</p>
+                                                            <input type="date" class="datepicker" name="fecha_tecnomecanica" ng-model="Vehiculo.fecha_tecnomecanica" id="fecha_tecnomecanica"  ui-date="{ dateFormat: 'yy-MM-DD' }" min-date="minDate">
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                                <div class="row col s6">
+                                                    <fieldset>
+                                                        <div class="col s12">
+                                                            <p style="margin-bottom: 0; margin-top: 0; margin-left: 10px">
+                                                                <input type="checkbox" ng-model="Vehiculo.tarjeta_propiedad" id="tpropiedad"/>
+                                                                <label for="tpropiedad">TARJETA DE PROPIEDAD</label>
+                                                            </p>
                                                         </div>
                                                     </fieldset>
                                                 </div>
@@ -344,6 +369,13 @@
 </div>
 <script>
     $(document).ready(function () {
+//        $(function() {
+//            $("#fecha_soat").datepicker();
+//            $("#fecha_soat").datepicker({dateFormat: 'yy/mm/dd'});
+//            $("#fecha_tecnomecanica").datepicker();
+//            $("#fecha_tecnomecanica").datepicker({dateFormat: 'yy/mm/dd'});
+//        });
+
         function archivo(evt) {
             var files = evt.target.files;
 
@@ -428,3 +460,11 @@
     });
 </script>
 
+<!--<script>-->
+    <!--$(document).ready(function(){-->
+        <!--$('.datepicker').pickadate({-->
+            <!--selectMonths: true, // Creates a dropdown to control month-->
+            <!--selectYears: 15 // Creates a dropdown of 15 years to control year-->
+        <!--});-->
+    <!--});-->
+<!--</script>-->

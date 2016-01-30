@@ -7,18 +7,36 @@ app.controller('PagosController', function ($scope, serviceEmpresaPagos) {
     $scope.titulo;
     $scope.active;
     $scope.editMode = false;
-
-    cargarPagoAhorro();
-    cargarPagoPension();
-    cargarPagoPlanillas();
-    cargarPagoSeguridad();
+    initialize();
 
     function initialize(){
-        $scope.planilla = {
-            idConductor: "",
-            nombres: ""
-        }
+        $scope.planilla = {}
+        cargarPagoAhorro();
+        cargarPagoPension();
+        cargarPagoPlanillas();
+        cargarPagoSeguridad();
+        cargarDeducciones();
+        cargarConductores();
     }
+
+    function cargarDeducciones(){
+        var promiseGet = serviceEmpresaPagos.getDeducciones();
+        promiseGet.then(function (pl) {
+            $scope.Deducciones = pl.data;
+        },function (errorPl) {
+            console.log('Error Al Cargar Datos', errorPl);
+        });
+    }
+
+    function cargarConductores(){
+        var promiseGet = serviceEmpresaPagos.getConductores();
+        promiseGet.then(function (pl) {
+            $scope.Conductores = pl.data;
+        },function (errorPl) {
+            console.log('Error Al Cargar Datos', errorPl);
+        });
+    }
+
 
     function cargarPagoPlanillas() {
         var promiseGet = serviceEmpresaPagos.getPagoPlanilla();

@@ -20,8 +20,12 @@ class DeduccionesController extends Controller
     public function index($empresa_id)
     {
         try{
-            $deducciones = Empresa::find($empresa_id)->deducciones;
-            return $deducciones;
+            if($deducciones = Empresa::find($empresa_id)->deducciones){
+                return $deducciones;
+            }else if($deducciones = Empresa::find($empresa_id)->centrales){
+                return $deducciones;
+            }
+
         }catch(\Exception $e){
             return response()->json(array("exception"=>$e->getMessage()), 400);
         }
@@ -110,6 +114,12 @@ class DeduccionesController extends Controller
     public function updateEstado($id,$estado){
         try {
             $deduccion = Deduccion::find($id);
+            if($estado == true){
+                $estado = false;
+            }else{
+                $estado = true;
+            }
+
             $deduccion->estado = $estado;
             $deduccion->save();
 
@@ -119,7 +129,8 @@ class DeduccionesController extends Controller
                 $mensaje = 'Desactivado';
             }
 
-            return JsonResponse::create(array('message' => "$deduccion->nombre $mensaje correctamente",200));
+            return $estado;
+//            return JsonResponse::create(array('message' => "$deduccion->nombre $mensaje correctamente",200));
 
         } catch (Exception $exc) {
             return JsonResponse::create(array('message' => "No se pudo cambiar el estado de la deduccion", "exception"=>$exc->getMessage(), 401));

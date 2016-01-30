@@ -1,4 +1,4 @@
-app.controller('ConductorController', function ($scope, ConductorServicio, VehiculoServicio) {
+app.controller('ConductorController', function ($scope, ConductorServicio, VehiculoServicio, $filter) {
     $scope.Conductores = [];
     $scope.conductor = {};
     $scope.titulo;
@@ -13,6 +13,7 @@ app.controller('ConductorController', function ($scope, ConductorServicio, Vehic
             nomnbres: ""
         }
     }
+
 
 
     function cargarConductores() {
@@ -45,14 +46,19 @@ app.controller('ConductorController', function ($scope, ConductorServicio, Vehic
             correo: $scope.Conductor.correo,
 
             vehiculo : {
-                identetificacion_propietario : $scope.Vehiculo.ide_propietario,
+                identificacion_propietario : $scope.Vehiculo.identificacion_propietario,
                 nombre_propietario : $scope.Vehiculo.nombre_propietario,
                 tel_propietario : $scope.Vehiculo.tel_propietario,
                 placa : $scope.Vehiculo.placa,
                 modelo : $scope.Vehiculo.modelo,
                 color : $scope.Vehiculo.color,
                 codigo_vial : $scope.Vehiculo.codigo_vial,
-                cupos : $scope.Vehiculo.cupos
+                cupos : $scope.Vehiculo.cupos,
+                soat: $scope.Vehiculo.soat,
+                fecha_soat: $filter('date')($scope.Vehiculo.fecha_soat, 'yyyy-MM-dd'),
+                tecnomecanica: $scope.Vehiculo.tecnomecanica,
+                fecha_tecnomecanica: $filter('date')($scope.Vehiculo.fecha_tecnomecanica, 'yyyy-MM-dd'),
+                tarjeta_propiedad: $scope.Vehiculo.tarjeta_propiedad
             }
         };
         console.log(object);
@@ -62,7 +68,7 @@ app.controller('ConductorController', function ($scope, ConductorServicio, Vehic
             Materialize.toast(pl.data.message, 5000, 'rounded');
             modificarImagen();
             modificarImagenVehiculo();
-            location.reload();
+            //location.reload();
         },function (errorPl) {
             console.log('Error Al Cargar Datos', errorPl);
         });

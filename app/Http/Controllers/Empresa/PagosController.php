@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Empresa;
 
+use App\Model\Planilla;
 use App\Model\Conductor;
 use App\Model\Empresa;
 use App\Model\PagoPrestacion;
@@ -16,6 +17,12 @@ class PagosController extends Controller
     /**
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
+    public function getPlanilla(){
+        $planilla = Planilla::all();
+        $planilla->load('conductor');
+        return $planilla;
+    }
+
     public function getPrestaciones(){
         return Prestacion::all();
     }

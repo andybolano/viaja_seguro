@@ -1,7 +1,6 @@
 app.service('DeduccionesServicio', function ($http, authService) {
     var myuri = uri + '/api/empresas/'+authService.currentUser().empresa.id+'/deducciones';
 
-
     this.getAll = function () {
         return $http.get(myuri);
     }
