@@ -2,10 +2,10 @@
 
 use App\Model\Conductor;
 use App\Model\Empresa;
+use App\Model\Rol;
 use App\Model\Usuario;
 use Illuminate\Http\Request;
 use JWTAuth;
-use Tymon\JWTAuth\Exceptions\JWTException;
 
 class UsuariosController extends Controller
 {
@@ -38,8 +38,8 @@ class UsuariosController extends Controller
     {
         try {
             $user = Usuario::nuevo($request->get('name'), $request->get('pass'), $request->get('id_rol'));
-        } catch (Exception $e) {
-            return response()->json(['error' => 'User already exists.'], \HttpResponse::HTTP_CONFLICT);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'User already exists.'], 409);
         }
 
         $token = JWTAuth::fromUser($user);
