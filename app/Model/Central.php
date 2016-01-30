@@ -23,7 +23,7 @@ class Central extends Model
 
     public function rutas()
     {
-        return $this->hasMany(Ruta::class, 'id_central_origen', 'id');
+        return $this->hasMany(Ruta::class, 'id_central_origen', 'id')->select('id', 'id_central_destino');
     }
 
     public function usuario()

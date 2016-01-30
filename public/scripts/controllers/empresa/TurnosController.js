@@ -6,23 +6,45 @@ app.controller('TurnosController', TurnosController);
 function TurnosController($scope, turnosService){
 
     $scope.conductores = [];
-    $scope.selectedConductor = {};
+    $scope.selectedTurno = {};
     $scope.rutas = [];
     $scope.selectedRuta = {};
 
-    $scope.addConductor = addConductor;
+    $scope.addNewConductor = addNewConductor;
     $scope.selectConductor = selectConductor;
+    $scope.remove = remove;
+    $scope.movedConductor = movedConductor;
+    $scope.addConductor = addConductor;
 
-    function addConductor(ruta){
+    function addNewConductor(ruta){
         $scope.selectedRuta = ruta;
-        $scope.selectedRuta.conductores = [];
         cargarConductores();
         $("#modalBuscarconductor").openModal();
     }
 
     function selectConductor (conductor){
-        $scope.selectedRuta.conductores.push(conductor);
+        var nuevoTurno = {
+            'ruta_id': $scope.selectedRuta.id,
+            'conductor_id': conductor.id,
+            'turno': $scope.selectedRuta.turnos.length+1,
+            'conductor': conductor
+        };
+        $scope.selectedRuta.turnos.push(nuevoTurno);
         $("#modalBuscarconductor").closeModal();
+    }
+
+    function remove(ruta, $index){
+        ruta.turnos.splice($index, 1);
+    }
+
+    function movedConductor(ruta, $index){
+        ruta.turnos.splice($index, 1);
+    }
+
+    function addConductor(ruta){
+        for(var i=0; i<ruta.turnos.length; i++){
+            ruta.turnos[i].turno = i+1;
+        }
     }
 
     cargarRutas();

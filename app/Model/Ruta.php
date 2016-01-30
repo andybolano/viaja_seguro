@@ -21,4 +21,9 @@ class Ruta extends Model
         return $this->belongsTo(Central::class, 'id_central_destino', 'id');
     }
 
+    public function turnos()
+    {
+        return $this->hasMany(Turno::class, 'ruta_id')->orderBy('turno');
+    }
+
 }

@@ -199,7 +199,7 @@ class EmpresaController extends Controller
             foreach ($central->rutas as $ruta) {
                 $rutas[] = [
                     'id' => $ruta->id,
-                    'origen' => $ruta->origen->load('ciudad'),
+                    'origen' => $central->load('ciudad'),
                     'destino' => $ruta->destino->load('ciudad')
                 ];
             }

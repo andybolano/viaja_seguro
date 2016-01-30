@@ -9,23 +9,35 @@
                         <p><a class="btn waves-effect waves-light">Despachar<i class="material-icons right">send</i></a></p>
                     </div>
                     <div class="col s1">
-                        </p><a class="btn waves-effect waves-light red" ng-click="addConductor(ruta)">
+                        </p><a class="btn waves-effect waves-light red" ng-click="addNewConductor(ruta)">
                         <i class="material-icons">add</i>
                         </a></p>
                     </div>
                 </div>
                 <div class="row">
-                    <ul dnd-list="conductores" class="col s12 collection">
-                        <li ng-repeat="conductor in ruta.conductores"
-                            dnd-draggable="conductor"
-                            dnd-moved="conductores.splice($index, 1)"
+                    <ul dnd-list="ruta.turnos" class="col s12 collection"
+                        dnd-inserted="addConductor(ruta)">
+                        <li ng-repeat="turno in ruta.turnos"
+                            dnd-draggable="turno"
+                            dnd-moved="movedConductor(ruta, $index)"
                             dnd-effect-allowed="move"
-                            dnd-selected="selectedConductor = conductor"
-                            class="grey lighten-5 z-depth-1 collection-item avatar">
+                            dnd-selected="selectedTurno = turno"
+                            class="grey lighten-5 z-depth-1 collection-item">
                             <div class="row valign-wrapper" style="margin: 0">
-                                <img src="http://materializecss.com/images/yuna.jpg" alt="" class="circle">
-                                <span class="title">{{conductor.nombres}} {{conductor.apellidos}}</span>
-                                <span class="secondary-content">{{$index+1}}</span>
+                                <div class="col s1" style="padding-left: 0">
+                                    <span class="left" style="margin-right: 5px"><h4>{{turno.turno}}</h4></span>
+                                </div>
+                                <div class="col s2">
+                                    <img src="http://materializecss.com/images/yuna.jpg" alt="" class="circle" style="width: 30px;margin-right: 5px;">
+                                </div>
+                                <div class="col s8">
+                                    <span class="title">{{turno.conductor.nombres}} {{turno.conductor.apellidos}}</span>
+                                </div>
+                                <div class="col s1" style="padding: 0 0">
+                                    <a class="waves-effect waves-teal" style="float: right" ng-click="remove(ruta, $index)">
+                                        <i class="material-icons prefix small">delete</i>
+                                    </a>
+                                </div>
                             </div>
                         </li>
                     </ul>
