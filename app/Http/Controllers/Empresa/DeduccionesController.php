@@ -20,8 +20,12 @@ class DeduccionesController extends Controller
     public function index($empresa_id)
     {
         try{
-            $deducciones = Empresa::find($empresa_id)->deducciones;
-            return $deducciones;
+            if($deducciones = Empresa::find($empresa_id)->deducciones){
+                return $deducciones;
+            }else if($deducciones = Empresa::find($empresa_id)->centrales){
+                return $deducciones;
+            }
+
         }catch(\Exception $e){
             return response()->json(array("exception"=>$e->getMessage()), 400);
         }
@@ -110,11 +114,11 @@ class DeduccionesController extends Controller
     public function updateEstado($id,$estado){
         try {
             $deduccion = Deduccion::find($id);
-//            if($estado == false){
-//                $estado = false;
-//            }else{
-//                $estado = true;
-//            }
+            if($estado == true){
+                $estado = false;
+            }else{
+                $estado = true;
+            }
 
             $deduccion->estado = $estado;
             $deduccion->save();
