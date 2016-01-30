@@ -36,14 +36,10 @@ app.controller('DeduccionesController', function ($scope, DeduccionesServicio) {
     }
 
     $scope.updateEstado = function(deduccion){
-        var nuevoEstado;
-        if (deduccion.estado == 'true'){
-            nuevoEstado = 'false';
-        }else{
-            nuevoEstado = 'true';
-        }
+
+        console.log(deduccion.estado)
         //alert(JSON.stringify(object));
-        var promisePut = DeduccionesServicio.updateEstado(deduccion.id, nuevoEstado);
+        var promisePut = DeduccionesServicio.updateEstado(deduccion.id, deduccion.estado);
         promisePut.then(function (pl) {
             cargarDeducciones();
             Materialize.toast(pl.data.message, 5000, 'rounded');

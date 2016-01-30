@@ -8,7 +8,9 @@ class Deduccion extends Model
 {
     protected $table = 'deducciones';
 
-    protected $fillable = ['nombre', 'descripcion', 'valor', 'estado'];
+    protected $casts = ['estado' => 'boolean'];
+
+    protected $fillable = ['id','nombre', 'descripcion', 'valor', 'estado'];
 
     public $timestamps = false;
 }

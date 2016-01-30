@@ -1,6 +1,11 @@
 app.service('DeduccionesServicio', function ($http, authService) {
-    var myuri = uri + '/api/empresas/'+authService.currentUser().empresa.id+'/deducciones';
-
+    if(authService.currentUser().empresa.id){
+        var myuri = uri + '/api/empresas/'+authService.currentUser().empresa.id+'/deducciones';
+    }else if(authService.currentUser().central.empresa.id){
+        var myuri = uri + '/api/empresas/'+authService.currentUser().central.empresa.id+'/deducciones';
+    }else{
+        console.log('Error al intentar consultar la uri deducciones...')
+    }
 
     this.getAll = function () {
         return $http.get(myuri);
