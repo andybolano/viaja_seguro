@@ -11,4 +11,8 @@ class Planilla extends Model
     protected $fillable = ['id', 'numero_planilla'];
 
     public $timestamps = false;
+
+    public function conductor(){
+        return $this->belongsTo(Conductor::class);
+    }
 }
