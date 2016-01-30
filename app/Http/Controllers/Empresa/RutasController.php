@@ -48,4 +48,9 @@ class RutasController extends Controller
             return response()->json(['mensaje' => 'la central no existe'], 400);
         }
     }
+
+    public function getConductoresEnTurno($ruta_id)
+    {
+        return Ruta::find($ruta_id)->turnos;
+    }
 }

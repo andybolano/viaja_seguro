@@ -126,8 +126,9 @@ class CentralesController extends Controller
         foreach ($central->rutas as $ruta) {
             $rutas[] = [
                 'id' => $ruta->id,
-                'origen' => $ruta->origen->load('ciudad'),
-                'destino' => $ruta->destino->load('ciudad')
+                //'origen' => $ruta->origen->load('ciudad'),
+                'destino' => $ruta->destino->load('ciudad'),
+                'turnos' => $ruta->turnos->load('conductor')
             ];
         }
         return $rutas;
