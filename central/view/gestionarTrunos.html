@@ -1,31 +1,90 @@
 <div ng-controller="TurnosController" class="contenedor">
-    <div class="row white">
-        <div class="col s12 z-depth-1">
-            <div class="contenedor">
+    <div class="col s12 ">
+        <div class="row z-depth-1 white"
+             ng-repeat="ruta in rutas">
+            <div class="contenedor simpleDemo col s12">
                 <div class="row">
-                    <div class="col s4 simpleDemo card-panel grey lighten-5 z-depth-1">
-                        <h4>Conductores</h4>
-                        <ul dnd-list="conductores" >
-                            <li ng-repeat="conductor in conductores"
-                                dnd-draggable="conductor"
-                                dnd-moved="conductores.splice($index, 1)"
-                                dnd-effect-allowed="move"
-                                dnd-selected="selectedConductor = conductor"
-                                ng-class="{'active': selectedConductor === conductor}">
-                                    <div class="row valign-wrapper" style="margin: 0">
-                                        <div class="col s2">
-                                            <img src="http://materializecss.com/images/yuna.jpg" class="circle" style="width: 30px;">
-                                        </div>
-                                        <div class="col s10">
-                                          <span class="black-text">
-                                            {{conductor.nombres}} {{conductor.apellidos}}
-                                          </span>
-                                        </div>
-                                    </div>
-                            </li>
-                        </ul>
+                    <div class="col s9"><p style="font-size: 20px">{{ruta.destino.ciudad.nombre}}</p></div>
+                    <div class="col s2">
+                        <p><a class="btn waves-effect waves-light">Despachar<i class="material-icons right">send</i></a></p>
+                    </div>
+                    <div class="col s1">
+                        </p><a class="btn waves-effect waves-light red" ng-click="addConductor(ruta)">
+                        <i class="material-icons">add</i>
+                        </a></p>
                     </div>
                 </div>
+                <div class="row">
+                    <ul dnd-list="conductores" class="col s12 collection">
+                        <li ng-repeat="conductor in ruta.conductores"
+                            dnd-draggable="conductor"
+                            dnd-moved="conductores.splice($index, 1)"
+                            dnd-effect-allowed="move"
+                            dnd-selected="selectedConductor = conductor"
+                            class="grey lighten-5 z-depth-1 collection-item avatar">
+                            <div class="row valign-wrapper" style="margin: 0">
+                                <img src="http://materializecss.com/images/yuna.jpg" alt="" class="circle">
+                                <span class="title">{{conductor.nombres}} {{conductor.apellidos}}</span>
+                                <span class="secondary-content">{{$index+1}}</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--modal buscar conductor-->
+    <div id="modalBuscarconductor" class="modal modal-fixed-footer">
+        <div class="row white">
+            <div class="contenedor">
+                <div class="row">
+                    <div class="col s7">
+                        <h2>Seleccionar conductor</h2>
+                    </div>
+                    <div class="col s5">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">search</i>
+                            <input id="icon_prefix" type="tel" ng-model="filtro">
+                            <label for="icon_prefix">Filtrar</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <table class="striped bordered">
+                            <thead>
+                            <th>Identificacion</th>
+                            <th>Foto</th>
+                            <th>Nombres</th>
+                            <th>Apellidos</th>
+                            <th>Teléfono</th>
+                            <th>Seleccionar</th>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="conductor in conductores | filter : filtro">
+                                <td>{{conductor.identificacion}}</td>
+                                <td>
+                                    <img src="http://materializecss.com/images/yuna.jpg" class="circle" style="width: 35px;">
+                                </td>
+                                <td>{{conductor.nombres}}</td>
+                                <td>{{conductor.apellidos}}</td>
+                                <td>{{conductor.telefono}}</td>
+                                <td>
+                                    <a href="javascript:" ng-click="selectConductor(conductor)">
+                                        <i class="material-icons prefix">touch_app</i>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
+                   style="margin-left:10px;">Salir</a>
             </div>
         </div>
     </div>

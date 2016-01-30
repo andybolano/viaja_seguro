@@ -12,6 +12,7 @@
  * otherwise you can't drop to it once it's empty
  */
 .simpleDemo ul[dnd-list] {
+    border: 0;
     min-height: 42px;
     padding-left: 0px;
 }
@@ -49,8 +50,10 @@
     border: 1px solid #ddd;
     display: block;
     padding: 10px 15px;
-    margin-bottom: -1px;
-    margin-top: 2px;
+    margin: 2px 2px;
+    float: left;
+    height: 70px;
+    width: 240px;
 }
 
 /**
