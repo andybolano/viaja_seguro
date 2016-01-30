@@ -119,6 +119,20 @@ class CentralesController extends Controller
 
     }
 
+    public function getRutas($id)
+    {
+        $central = Central::find($id);
+        $rutas = [];
+        foreach ($central->rutas as $ruta) {
+            $rutas[] = [
+                'id' => $ruta->id,
+                'origen' => $ruta->origen->load('ciudad'),
+                'destino' => $ruta->destino->load('ciudad')
+            ];
+        }
+        return $rutas;
+    }
+
     public function getConductores($id)
     {
         $conductores = Central::find($id)->conductores;
@@ -135,4 +149,5 @@ class CentralesController extends Controller
     {
         return Rol::where('nombre', 'CENTRAL_EMPRESA')->first();
     }
+
 }
