@@ -68,7 +68,7 @@ app.controller('ConductorController', function ($scope, ConductorServicio, Vehic
             Materialize.toast(pl.data.message, 5000, 'rounded');
             modificarImagen();
             modificarImagenVehiculo();
-            //location.reload();
+            location.reload();
         },function (errorPl) {
             console.log('Error Al Cargar Datos', errorPl);
         });
