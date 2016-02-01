@@ -15,13 +15,13 @@ Route::get('/', function () {
     echo '<script>location.href=\'login.html\';</script>';
 });
 
-Route::post('/api/login', 'LoginController@autenticarUsuario');
+Route::post('/api/login', array('middleware' => 'cors', 'uses' => 'LoginController@autenticarUsuario'));
 
 Route::post('/api/usuarios/clientes', 'Cliente\ClienteController@store');
 Route::post('/api/usuarios/conductores', 'UsuariosController@registrarConductor');
 
 Route::get('/api/empresas', 'SuperAdmin\EmpresaController@index');
-Route::group(['middleware' => 'jwt.auth'], function () {
+Route::group(['middleware' => 'jwt.auth', 'middleware' => 'cors'], function () {
     include 'Routes/Conductores.php';
     include 'Routes/Vehiculos.php';
     include 'Routes/Cliente.php';
