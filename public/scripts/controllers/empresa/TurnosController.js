@@ -15,6 +15,7 @@ function TurnosController($scope, turnosService){
     $scope.remove = remove;
     $scope.movedConductor = movedConductor;
     $scope.addConductor = addConductor;
+    $scope.updateTurnos = updateTurnos;
 
     function addNewConductor(ruta){
         $scope.selectedRuta = ruta;
@@ -42,6 +43,10 @@ function TurnosController($scope, turnosService){
     }
 
     function addConductor(ruta){
+        updateTurnos(ruta);
+    }
+
+    function updateTurnos(ruta){
         for(var i=0; i<ruta.turnos.length; i++){
             ruta.turnos[i].turno = i+1;
         }

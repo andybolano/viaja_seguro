@@ -174,8 +174,9 @@ class EmpresaController extends Controller
 //        $conductor->fecha_tecnomecanica->format('Y-m-d');
         if ($busqueda == null) {
             if(!$conductor->vehiculo()->save(new Vehiculo($data))){
-                $conductor->usuario->delete();
+                $usuario = $conductor->usuario;
                 $conductor->delete();
+                $usuario->delete();
                 return response()->json(['mensajeError' => 'no se ha podido almacenar el vehiculo dle conductor'], 400);
             }
             return response()->json($conductor, 200);

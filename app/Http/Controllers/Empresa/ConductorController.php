@@ -107,7 +107,9 @@ class ConductorController extends Controller
         try{
             $conductor = Conductor::find($id);
             if($conductor){
+                $usuario = $conductor->usuario;
                 $conductor->delete();
+                $usuario->delete();
                 return response()->json(['message' => 'Registro eliminado'], 201);
             }else{
                 return response()->json(['message' => 'El conductor no existe'], 400);
