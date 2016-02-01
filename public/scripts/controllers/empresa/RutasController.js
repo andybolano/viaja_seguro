@@ -19,14 +19,14 @@ function RutasController($scope, centralesService, rutasService){
 
     function nuevo(){
         $scope.ruta = {};
-        $scope.mostrar = 'false';
+        $scope.editMode = true;
         loadCentrales();
         $("#modalRutas").openModal();
     }
 
     function verRuta(ruta){
         $scope.ruta = ruta;
-        $scope.mostrar = 'true';
+        $scope.editMode = false;
         $("#modalRutas").openModal();
         $scope.ruta.origen.ciudad.nombre = ruta.origen.ciudad.nombre;
         $scope.ruta.origen.direccion = ruta.origen.direccion;

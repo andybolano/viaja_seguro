@@ -167,11 +167,6 @@ class EmpresaController extends Controller
         $busqueda = Vehiculo::select("placa")
             ->where("placa",$data["placa"])
             ->first();
-//        $data['fecha_soat'] = date('Y-m-d');
-
-//        $data['fecha_soat'] = date_format($data['fecha_soat'], 'Y-m-d');
-//        $conductor->fecha_soat->format('Y-m-d');
-//        $conductor->fecha_tecnomecanica->format('Y-m-d');
         if ($busqueda == null) {
             if(!$conductor->vehiculo()->save(new Vehiculo($data))){
                 $conductor->usuario->delete();
