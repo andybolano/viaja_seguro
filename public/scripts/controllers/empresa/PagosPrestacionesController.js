@@ -11,6 +11,7 @@ function PagosPrestacionesController($scope, prestacionesService){
     $scope.selectedConductorCedula = '';
     $scope.pagosPrestacion = [];
     $scope.nuevaPrestacion = {};
+    $scope.prestacionAvtive = false;
 
     $scope.loadPagos = loadPagos;
     $scope.nuevo = nuevo;
@@ -19,6 +20,7 @@ function PagosPrestacionesController($scope, prestacionesService){
     $scope.buscarConductor = buscarConductor;
 
     function loadPagos(prestacion){
+        $scope.prestacionAvtive = true;
         $scope.selectedPrestacion = prestacion;
         prestacionesService.getPagos($scope.selectedPrestacion.id).then(success, error);
         function success(p) {
