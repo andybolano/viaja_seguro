@@ -36,6 +36,7 @@ function TurnosController($scope, turnosService){
 
     function remove(ruta, $index){
         ruta.turnos.splice($index, 1);
+        updateTurnos(ruta);
     }
 
     function movedConductor(ruta, $index){
