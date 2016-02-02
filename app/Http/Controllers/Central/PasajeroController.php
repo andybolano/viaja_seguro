@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Central;
 
 use App\Model\Central;
 use App\Model\Cliente;
+use App\Model\Conductor;
 use App\Model\Pasajero;
-use DoctrineTest\InstantiatorTestAsset\PharAsset;
+use App\Model\Usuario;
+use App\Model\Rol;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests;
@@ -18,11 +20,10 @@ class PasajeroController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($central_id)
+    public function index($conductor_id)
     {
         try{
-            $pasajeros = Central::find($central_id)->pasajeros;
-            $pasajeros->load('central', 'cliente');
+            $pasajeros = Conductor::find($conductor_id)->pasajeros;
             return $pasajeros;
         }catch(\Exception $e){
             return response()->json(array('message' => 'Error'), 400);
@@ -48,15 +49,12 @@ class PasajeroController extends Controller
     public function store(Request $request, $central_id)
     {
         $data = $request->json()->all();
-        $usuario = Usuario::nuevo($data['identificacion'], $data['identificacion'], $this->getRol('CLIENTE')->id);
-        $data['usuario_id'] = $usuario->id;
-        $cliente = $data['cliente'];
-        unset($data['cliente']);
 
         $pasajero = new Pasajero($data);
+        $conductor = Conductor::find($data['conductor_id']);
+        $conductor->pasajeros()->save($pasajero);
         $central = Central::find($central_id);
         if(!$central->pasajeros()->save($pasajero)){
-            $usuario->delete();
             return response()->json(['mensajeError' => 'no se ha podido almacenar el registro'], 400);
         }
     }
@@ -97,15 +95,10 @@ class PasajeroController extends Controller
             $pasajero = Pasajero::find($id);
             $pasajero->identificacion = $data["identificacion"];
             $pasajero->nombres = $data["nombres"];
-            $pasajero->apellidos = $data["apellidos"];
             $pasajero->telefono = $data["telefono"];
-
-            $pasajero->origen = $data["origen"];
-            $pasajero->direccionO = $data["direccionO"];
-            $pasajero->destino = $data["destino"];
-
+            $pasajero->direccion = $data["direccion"];
             $pasajero->direccionD = $data["direccionD"];
-            $pasajero->vehiculo = $data["vehiculo"];
+
             if($pasajero->save() == true){
                 return JsonResponse::create(array('message' => "Actualizado Correctamente"), 200);
             }else {
@@ -136,5 +129,10 @@ class PasajeroController extends Controller
         }catch (Exception $ex) {
             return JsonResponse::create(array('message' => "No se pudo Eliminar el Pasajero", "exception"=>$ex->getMessage(), "request" =>json_encode($id)), 401);
         }
+    }
+
+    private function getRol($nombre)
+    {
+        return Rol::where('nombre', $nombre)->first();
     }
 }

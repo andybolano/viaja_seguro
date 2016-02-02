@@ -16,6 +16,7 @@ function TurnosController($scope, turnosService){
     $scope.movedConductor = movedConductor;
     $scope.addConductor = addConductor;
     $scope.updateTurnos = updateTurnos;
+    $scope.addPasajero = addPasajero;
 
     function addNewConductor(ruta){
         $scope.selectedRuta = ruta;
@@ -80,4 +81,89 @@ function TurnosController($scope, turnosService){
             console.log('Error al cargar conductores', error);
         }
     }
+
+    function cargarVehiculoConductor(conductor_id){
+        turnosService.cargarVehiculoConductor(conductor_id).then(success, error);
+        function success(p) {
+            $scope.vehiculo = p.data;
+        }
+        function error(error) {
+            console.log('Error los datos del vehiculo', error);
+        }
+    }
+
+    //SERVICIOS
+    $scope.Pasajeros = {};
+    $scope.Paquetes = {};
+    $scope.Giros = {};
+    $scope.listaPasajeros = {};
+    $scope.listaPaquetes = {};
+    $scope.listaGiros = {};
+
+    function refrescarPasajeros(conductor_id){
+        document.getElementById("guardar").disabled = false;
+        document.getElementById("actualizar").disabled = true;
+        turnosService.refrescarPasajeros(conductor_id).then(success, error);
+        function  success(p){
+            $scope.listaPasajeros = p.data;
+            $scope.Pasajeros = "";
+        }
+        function error(error){
+            console.log('error a traer la lista de pasajeros')
+        }
+    }
+
+    function addPasajero(conductor){
+        $scope.conductor = conductor;
+        cargarVehiculoConductor($scope.conductor.id);
+        refrescarPasajeros($scope.conductor.id);
+        $('#modalAddPasajero').openModal();
+    }
+
+    $scope.asignarPasajero = function(){
+        $scope.Pasajeros.conductor_id = $scope.conductor.id;
+        if($scope.vehiculo.cupos == 0){
+            Materialize.toast('Este conductor no tiene cupos disponibles','5000',"rounded");
+        }else{
+            turnosService.asignarPasajero($scope.Pasajeros).then(success, error);
+            function  success(p){
+                $scope.vehiculo.cupos = $scope.vehiculo.cupos-1;
+                var obj = {
+                    cupos : $scope.vehiculo.cupos
+                }
+                turnosService.updateCuposVehiculo($scope.vehiculo.id, obj);
+                refrescarPasajeros($scope.conductor.id);
+            }
+            function error(error){
+                console.log('Error al guardar')
+            }
+        }
+    }
+
+    $scope.cargarModificarPasajero = function(item){
+        document.getElementById("actualizar").disabled = false;
+        document.getElementById("guardar").disabled = true;
+        $scope.Pasajeros = item;
+    };
+
+    $scope.modificarPasajero = function(){
+        turnosService.modificarPasajero($scope.Pasajeros.id, $scope.Pasajeros).then(success, error);
+        function  success(p){
+            Materialize.toast(p.message,'5000',"rounded");
+            refrescarPasajeros($scope.conductor.id);
+            document.getElementById("guardar").disabled = false;
+            document.getElementById("actualizar").disabled = true;
+        }
+        function error(error){
+            console.log('Error al guardar')
+        }
+    };
+
+    $scope.limpiar = function(){
+        document.getElementById("guardar").disabled = false;
+        document.getElementById("actualizar").disabled = true;
+        $scope.Pasajeros = "";
+        $scope.Paquetes = "";
+        $scope.Giros = "";
+    };
 }

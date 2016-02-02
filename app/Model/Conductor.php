@@ -34,4 +34,9 @@ class Conductor extends Model
             return $this->hasMany(PagoPrestacion::class, 'conductor_id', 'id');
         }
     }
+
+    public function pasajeros()
+    {
+        return $this->hasMany(Pasajero::class);
+    }
 }
