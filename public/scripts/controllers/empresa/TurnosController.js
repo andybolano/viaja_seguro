@@ -31,6 +31,7 @@ function TurnosController($scope, turnosService){
             'conductor': conductor
         };
         $scope.selectedRuta.turnos.push(nuevoTurno);
+        updateTurnos($scope.selectedRuta);
         $("#modalBuscarconductor").closeModal();
     }
 
@@ -50,6 +51,12 @@ function TurnosController($scope, turnosService){
     function updateTurnos(ruta){
         for(var i=0; i<ruta.turnos.length; i++){
             ruta.turnos[i].turno = i+1;
+        }
+        turnosService.updateTurnos(ruta.id, {'turnos' : ruta.turnos}).then(success, error);
+        function success(p) {
+        }
+        function error(error) {
+            console.log('Error al cargar conductores', error);
         }
     }
 

@@ -38,7 +38,7 @@ class RutasController extends Controller
      * @param  int  $codigo
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $ruta_id)
+    public function destroy($ruta_id)
     {
         $ruta = Ruta::find($ruta_id);
         if($ruta){
@@ -52,5 +52,20 @@ class RutasController extends Controller
     public function getConductoresEnTurno($ruta_id)
     {
         return Ruta::find($ruta_id)->turnos;
+    }
+
+    public function updateConductoresEnTurno(Request $request, $ruta_id)
+    {
+        $data = $request->json()->all();
+        $turnos_actuales = [];
+        foreach($data['turnos'] as $turno){
+            $turnos_actuales[$turno['conductor_id']] = ['turno' => $turno['turno']];
+        }
+        $ruta = Ruta::find($ruta_id);
+        if($ruta->toUpdateTurnos()->sync($turnos_actuales)){
+            return response()->json(['mensaje' => 'turnos modifcados'], 201);
+        }else{
+            return response()->json(['mensajError' => 'error al actualizar lso turnos'], 400);
+        }
     }
 }

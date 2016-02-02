@@ -23,7 +23,12 @@ class Ruta extends Model
 
     public function turnos()
     {
-        return $this->hasMany(Turno::class, 'ruta_id')->orderBy('turno');
+        return $this->hasMany(Turno::class, 'ruta_id')->select('conductor_id', 'turno')->orderBy('turno');
+    }
+
+    public function toUpdateTurnos()
+    {
+        return $this->belongsToMany(Conductor::class, 'turnos')->withPivot('turno');
     }
 
 }
