@@ -8,7 +8,8 @@ class Giro extends Model
 {
     protected $table = 'giros';
 
-    protected $fillable = ['identificacion', 'nombres', 'apellidos', 'telefono', 'direccion', 'fechaN'];
+    protected $fillable = ['ide_remitente', 'nombres', 'telefono', 'direccion', 'nombre_receptor',
+        'telefono_receptor', 'monto', 'direccionD', 'conductor_id', 'central_id'];
 
     public $timestamps = false;
 

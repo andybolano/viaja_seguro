@@ -39,4 +39,14 @@ class Conductor extends Model
     {
         return $this->hasMany(Pasajero::class);
     }
+
+    public function giros()
+    {
+        return $this->hasMany(Giro::class);
+    }
+
+    public function paquetes()
+    {
+        return $this->hasMany(Paquete::class);
+    }
 }

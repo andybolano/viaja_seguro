@@ -8,7 +8,8 @@ class Paquete extends Model
 {
     protected $table = 'paquetes';
 
-    protected $fillable = ['identificacion', 'nombres', 'apellidos', 'telefono', 'direccion', 'fechaN'];
+    protected $fillable = ['ide_remitente', 'nombres', 'telefono', 'direccion', 'nombre_receptor',
+        'telefono_receptor', 'descripcion_paquete', 'direccionD', 'conductor_id', 'central_id'];
 
     public $timestamps = false;
 

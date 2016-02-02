@@ -19,6 +19,7 @@ app.service('turnosService', function ($http , authService) {
         return $http.put(uri + '/api/vehiculos/'+id,cupo);
     }
 
+    //pasajeros
     this.refrescarPasajeros = function (id) {
         return $http.get(uri+'/api/centrales/'+id+'/pasajeros');
     }
@@ -27,8 +28,33 @@ app.service('turnosService', function ($http , authService) {
         return $http.post(uri+'/api/centrales/'+authService.currentUser().central.id+'/pasajeros', object);
     }
 
-    this.modificarPasajero = function(id, object){
-        return $http.put(uri+'/api/pasajeros/'+id, object);
+    this.modificarPasajero = function(id, object) {
+        return $http.put(uri + '/api/pasajeros/' + id, object);
     }
 
+    //giros
+    this.refrescarGiros = function (id) {
+        return $http.get(uri+'/api/centrales/'+id+'/giros');
+    }
+
+    this.asignarGiro = function(object){
+        return $http.post(uri+'/api/centrales/'+authService.currentUser().central.id+'/giros', object);
+    }
+
+    this.modificarGiro = function(id, object) {
+        return $http.put(uri + '/api/giros/' + id, object);
+    }
+
+    //paquetes
+    this.refrescarPaquetes = function (id) {
+        return $http.get(uri+'/api/centrales/'+id+'/paquetes');
+    }
+
+    this.asignarPaquete = function(object){
+        return $http.post(uri+'/api/centrales/'+authService.currentUser().central.id+'/paquetes', object);
+    }
+
+    this.modificarPaquete = function(id, object) {
+        return $http.put(uri + '/api/paquetes/' + id, object);
+    }
 });

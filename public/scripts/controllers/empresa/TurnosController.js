@@ -17,6 +17,8 @@ function TurnosController($scope, turnosService){
     $scope.addConductor = addConductor;
     $scope.updateTurnos = updateTurnos;
     $scope.addPasajero = addPasajero;
+    $scope.addGiro = addGiro;
+    $scope.addPaquete = addPaquete;
 
     function addNewConductor(ruta){
         $scope.selectedRuta = ruta;
@@ -100,6 +102,7 @@ function TurnosController($scope, turnosService){
     $scope.listaPaquetes = {};
     $scope.listaGiros = {};
 
+    ///pasajeros
     function refrescarPasajeros(conductor_id){
         document.getElementById("guardar").disabled = false;
         document.getElementById("actualizar").disabled = true;
@@ -159,9 +162,119 @@ function TurnosController($scope, turnosService){
         }
     };
 
+    ////Giros
+    function refrescarGiros(conductor_id){
+        document.getElementById("guardarG").disabled = false;
+        document.getElementById("actualizarG").disabled = true;
+        turnosService.refrescarGiros(conductor_id).then(success, error);
+        function  success(p){
+            $scope.listaGiros = p.data;
+            $scope.Giros = "";
+        }
+        function error(error){
+            console.log('error a traer la lista de pasajeros')
+        }
+    }
+
+    function addGiro(conductor){
+        $scope.conductor = conductor;
+        refrescarGiros($scope.conductor.id);
+        $('#modalAddGiro').openModal();
+    }
+
+    $scope.asignarGiro = function(){
+        $scope.Giros.conductor_id = $scope.conductor.id;
+        turnosService.asignarGiro($scope.Giros).then(success, error);
+        function  success(p){
+            refrescarGiros($scope.conductor.id);
+        }
+        function error(error){
+            console.log('Error al guardar')
+        }
+    }
+
+    $scope.cargarModificarGiro = function(item){
+        document.getElementById("actualizarG").disabled = false;
+        document.getElementById("guardarG").disabled = true;
+        $scope.Giros = item;
+    };
+
+    $scope.modificarGiro = function(){
+        turnosService.modificarGiro($scope.Giros.id, $scope.Giros).then(success, error);
+        function  success(p){
+            Materialize.toast(p.message,'5000',"rounded");
+            refrescarGiros($scope.conductor.id);
+            document.getElementById("guardarG").disabled = false;
+            document.getElementById("actualizarG").disabled = true;
+        }
+        function error(error){
+            console.log('Error al guardar')
+        }
+    };
+
+    ////Paquetes
+    function refrescarPaquetes(conductor_id){
+        document.getElementById("guardarP").disabled = false;
+        document.getElementById("actualizarP").disabled = true;
+        turnosService.refrescarPaquetes(conductor_id).then(success, error);
+        function  success(p){
+            $scope.listaPaquetes = p.data;
+            $scope.Paquetes = "";
+        }
+        function error(error){
+            console.log('error a traer la lista de paquetes')
+        }
+    }
+
+    function addPaquete(conductor){
+        $scope.conductor = conductor;
+        refrescarPaquetes($scope.conductor.id);
+        $('#modalAddPaquetes').openModal();
+    }
+
+    $scope.asignarPaquete = function(){
+        $scope.Paquetes.conductor_id = $scope.conductor.id;
+        turnosService.asignarPaquete($scope.Paquetes).then(success, error);
+        function  success(p){
+            refrescarPaquetes($scope.conductor.id);
+        }
+        function error(error){
+            console.log('Error al guardar')
+        }
+    }
+
+    $scope.cargarModificarPaquete = function(item){
+        document.getElementById("actualizarP").disabled = false;
+        document.getElementById("guardarP").disabled = true;
+        $scope.Paquetes = item;
+    };
+
+    $scope.modificarPaquete = function(){
+        turnosService.modificarPaquete($scope.Paquetes.id, $scope.Paquetes).then(success, error);
+        function  success(p){
+            Materialize.toast(p.message,'5000',"rounded");
+            refrescarPaquetes($scope.conductor.id);
+            document.getElementById("guardarP").disabled = false;
+            document.getElementById("actualizarP").disabled = true;
+        }
+        function error(error){
+            console.log('Error al guardar')
+        }
+    };
+
+    $scope.verDescripcionPaquete = function(paquete){
+        $scope.Paquete = paquete;
+        $('#modalDescripcionPaquete').openModal();
+    }
+
+    ///
     $scope.limpiar = function(){
         document.getElementById("guardar").disabled = false;
         document.getElementById("actualizar").disabled = true;
+        document.getElementById("guardarG").disabled = false;
+        document.getElementById("actualizarG").disabled = true;
+        document.getElementById("guardarP").disabled = false;
+        document.getElementById("actualizarP").disabled = true;
         $scope.Pasajeros = "";
         $scope.Paquetes = "";
         $scope.Giros = "";
