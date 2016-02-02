@@ -14,7 +14,7 @@ class PaqueteController extends Controller
     public function index($central_id){
         try{
             $paquetes = Central::find($central_id)->paquetes;
-            $paquetes->load('central');
+            $paquetes->load('central', 'cliente');
             return $paquetes;
         }catch(\Exception $e){
             return response()->json(array("exception"=>$e->getMessage()), 400);

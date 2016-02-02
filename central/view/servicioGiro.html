@@ -32,9 +32,9 @@
                             </thead>
                             <tbody>
                             <tr ng-repeat="giro in Giros| filter : filtro">
-                                <td>{{giro.ide_remitente}}</td>
-                                <td>{{giro.nombres_remitente}}</td>
-                                <td>{{giro.tel_remitente}}</td>
+                                <td>{{giro.cliente.identificacion}}</td>
+                                <td>{{giro.cliente.nombres}} {{giro.cliente.apellidos}}</td>
+                                <td>{{giro.cliente.telefono}}</td>
                                 <td>{{giro.ide_receptor}}</td>
                                 <td>{{giro.nombres_receptor}}</td>
                                 <td>{{giro.tel_receptor}}</td>

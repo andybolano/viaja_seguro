@@ -21,4 +21,9 @@ class Pasajero extends Model
     {
         return $this->belongsTo(Cliente::class);
     }
+
+    public function vehiculo()
+    {
+        return $this->belongsTo(Vehiculo::class);
+    }
 }

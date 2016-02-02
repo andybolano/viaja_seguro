@@ -14,7 +14,7 @@ class GiroController extends Controller
     public function index($central_id){
         try{
             $giros = Central::find($central_id)->giros;
-            $giros->load('central');
+            $giros->load('central', 'cliente');
             return $giros;
         }catch(\Exception $e){
             return response()->json(array("exception"=>$e->getMessage()), 400);

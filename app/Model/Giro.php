@@ -14,11 +14,16 @@ class Giro extends Model
 
     public function central()
     {
-        return $this->belongsTo(Central::class);
+        return $this->belongsTo(Central::class)->select('id', 'empresa_id', 'direccion', 'telefono');
     }
 
-    public function clientes()
+    public function cliente()
     {
-        return $this->hasMany(Cliente::class);
+        return $this->belongsTo(Cliente::class);
+    }
+
+    public function vehiculo()
+    {
+        return $this->belongsTo(Vehiculo::class);
     }
 }

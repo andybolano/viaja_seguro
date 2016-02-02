@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Central;
 use App\Model\Central;
 use App\Model\Cliente;
 use App\Model\Pasajero;
+use DoctrineTest\InstantiatorTestAsset\PharAsset;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests;
@@ -46,18 +47,17 @@ class PasajeroController extends Controller
      */
     public function store(Request $request, $central_id)
     {
-        try{
-            $data = $request->json()->all();
-            $busqueda = Cliente::select('identificacion')
-                ->where('identificacion', $data['identificaicon'])
-                ->first();
-            $pasajero = new Pasajero($data);
-            if(!Central::find($central_id)->pasajeros()->save($pasajero)){
-                return response()->json(['mensajeError' => 'No se ha posido registrar al pasajero'], 400);
-            }
-            return response()->json($pasajero, 201);
-        } catch (\Exception $exc) {
-            return response()->json(array("exception"=>$exc->getMessage()), 400);
+        $data = $request->json()->all();
+        $usuario = Usuario::nuevo($data['identificacion'], $data['identificacion'], $this->getRol('CLIENTE')->id);
+        $data['usuario_id'] = $usuario->id;
+        $cliente = $data['cliente'];
+        unset($data['cliente']);
+
+        $pasajero = new Pasajero($data);
+        $central = Central::find($central_id);
+        if(!$central->pasajeros()->save($pasajero)){
+            $usuario->delete();
+            return response()->json(['mensajeError' => 'no se ha podido almacenar el registro'], 400);
         }
     }
 

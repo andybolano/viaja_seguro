@@ -33,7 +33,7 @@ app.controller('loginController', function($scope, authService) {
         } else if (rol == 'EMPRESA') {
             window.location.href = "../empresa/view/#/empresa/conductores";
         } else if (rol == 'CENTRAL_EMPRESA') {
-            window.location.href = "../central/view/#/central/asignar/pasajero";
+            window.location.href = "../central/view/#/central/turnos";
         }
     }
 
