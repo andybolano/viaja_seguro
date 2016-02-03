@@ -8,7 +8,7 @@ Route::get('/api/conductores/{conductor_id}/vehiculo', 'Empresa\ConductorControl
 Route::post('/api/conductores/{conductor_id}/vehiculo', 'Empresa\ConductorController@postVehiculo');
 
 Route::post('/api/conductores/{conductor_id}/ubicacion', 'Empresa\ConductorController@postUbicacion');
-Route::get('/api/conductores/{conductor_id}/ubicacion', 'Empresa\ConductorController@getUbicacion');
+Route::get('/api/conductores/ubicacion', 'Empresa\ConductorController@getUbicacion');
 
 
 
