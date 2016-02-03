@@ -135,4 +135,23 @@ class ConductorController extends Controller
             return JsonResponse::create(array('message' => "La placa del vehiculo ya se encuentra registrada."), 200);
         }
     }
+
+    public function postUbicacion(Request $request, $conductor_id){
+        $data = $request->all();
+
+        $busqueda = \DB::table('ubicacion_conductor')->select('conductor_id')->where('conductor_id', $conductor_id)->first();
+        if($busqueda != null){
+            \DB::table('ubicacion_conductor')->insert(
+                array('conductor_id' => $conductor_id, 'latitud' => $data['latitud'], 'longitud' => $data['longitud'])
+            );
+        }else{
+            DB::table('ubicacion_conductor')->where('conductor_id', $conductor_id)
+                ->update(['latitud' => $data['latitud'], 'longitud' => $data['longitud']]);
+        }
+    }
+
+    public function getUbicacion(){
+        $busqueda = \DB::table('ubicacion_conductor')->select('*')->get();
+        return $busqueda;
+    }
 }

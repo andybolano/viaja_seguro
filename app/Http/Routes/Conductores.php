@@ -7,6 +7,8 @@ Route::delete('/api/conductor/{conductor_id}', 'Empresa\ConductorController@dest
 Route::get('/api/conductores/{conductor_id}/vehiculo', 'Empresa\ConductorController@getVehiculo');
 Route::post('/api/conductores/{conductor_id}/vehiculo', 'Empresa\ConductorController@postVehiculo');
 
+Route::post('/api/conductores/{conductor_id}/ubicacion', 'Empresa\ConductorController@postUbicacion');
+Route::get('/api/conductores/{conductor_id}/ubicacion', 'Empresa\ConductorController@getUbicacion');
 
 
 
