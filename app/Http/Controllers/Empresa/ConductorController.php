@@ -140,7 +140,7 @@ class ConductorController extends Controller
         $data = $request->all();
 
         $busqueda = \DB::table('ubicacion_conductor')->select('conductor_id')->where('conductor_id', $conductor_id)->first();
-        if($busqueda != null){
+        if($busqueda == null){
             \DB::table('ubicacion_conductor')->insert(
                 array('conductor_id' => $conductor_id, 'latitud' => $data['latitud'], 'longitud' => $data['longitud'])
             );
