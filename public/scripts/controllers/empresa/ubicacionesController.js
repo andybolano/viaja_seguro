@@ -36,13 +36,13 @@ app.controller('ubicacionesController', function ($scope, turnosService, ubicaci
             var marcadores = [];
 
             $.each($scope.ubicaciones,function(i,obj){
-                var imagen = {
-                    url: obj.conductor.imagen,
-                    size: new google.maps.Size(80, 80),
-                    origin: new google.maps.Point(0, 0),
-                    anchor: new google.maps.Point(17, 34),
-                    scaledSize: new google.maps.Size(25, 25)
-                };
+                //var imagen = {
+                //    url: obj.conductor.imagen,
+                //    size: new google.maps.Size(80, 80),
+                //    origin: new google.maps.Point(0, 0),
+                //    anchor: new google.maps.Point(17, 34),
+                //    scaledSize: new google.maps.Size(25, 25)
+                //};
                 var datos = [
                     [
                         obj.conductor.nombres +' ' + obj.conductor.apellidos + ' CODIGO VIAL: ' + obj.vehiculo_conductor.codigo_vial,
@@ -52,7 +52,7 @@ app.controller('ubicacionesController', function ($scope, turnosService, ubicaci
                         'undefined',
                         obj.latitud,
                         obj.longitud,
-                        imagen
+                        uri +'`/images/marker.png'
                     ]
                 ];
 

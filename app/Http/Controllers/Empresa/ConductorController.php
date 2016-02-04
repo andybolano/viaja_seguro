@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Empresa;
 
+use DB;
 use App\Model\Ubicacion;
 use App\Model\Conductor;
 use App\Model\Vehiculo;
