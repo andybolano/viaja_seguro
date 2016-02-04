@@ -1,6 +1,6 @@
 <?php
 //Route::post('/api/empresas/{empresa_id}/conductores','Empresa\ConductorController@store');
-Route::get('/api/conductores/ubicacion', 'Empresa\ConductorController@getUbicacion');
+Route::get('/api/conductores/rutas/{ruta_id}/ubicacion', 'Empresa\ConductorController@getUbicacion');
 Route::get('/api/conductores/{conductor_id}', 'Empresa\ConductorController@show');
 Route::post('/api/conductores/{conductor_id}/imagen', 'Empresa\ConductorController@guardaImagen');
 Route::put('/api/conductor/{conductor_id}', 'Empresa\ConductorController@update');

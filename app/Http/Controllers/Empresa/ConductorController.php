@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers\Empresa;
 
-use DB;
-use App\Model\Empresa;
+use App\Model\Ubicacion;
 use App\Model\Conductor;
-use App\Model\Usuario;
-use App\Model\Rol;
 use App\Model\Vehiculo;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -151,8 +148,10 @@ class ConductorController extends Controller
         }
     }
 
-    public function getUbicacion(){
-        $busqueda = \DB::table('ubicacion_conductor')->select('*')->get();
+    public function getUbicacion($ruta_id){
+        $busqueda = Ubicacion::select('*')->where('ruta_id', $ruta_id)->get();
+//        $busqueda = \DB::table('ubicacion_conductor')->select('*')->where('ruta_id', $ruta_id)->get();
+        $busqueda->load('conductor', 'vehiculo_conductor');
         if(!$busqueda){
             return JsonResponse::create(array('message' => 'No se encontraron ubicaciones'));
         }else{

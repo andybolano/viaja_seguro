@@ -38,6 +38,9 @@ var app;
             .when("/central/turnos", {
                 templateUrl: 'gestionarTrunos.html'
             })
+            .when("/central/conductores/ubicaciones",{
+                templateUrl: 'ubicaciones.html'
+            })
             .otherwise({redirectTo: '/'})
     }]);
 

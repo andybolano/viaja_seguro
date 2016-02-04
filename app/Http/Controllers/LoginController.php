@@ -60,7 +60,9 @@ class LoginController extends Controller
                     'empresa' => [
                         'id' => $central->empresa->id,
                         'nombre' => $central->empresa->nombre,
-                    ]
+                    ],
+                    'miDireccionLa' => $central->miDireccionLa,
+                    'miDireccionLo' => $central->miDireccionLo
                 ];
 
                 $data['usuario']['imagen'] =  $central->empresa->logo;

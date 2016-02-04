@@ -25,4 +25,8 @@ class Vehiculo extends Model
         return $this->belongsToMany(Documento::class, 'documentos_vehiculo', 'vehiculo_id', 'documento_id', 'fecha_vencimiento');
     }
 
+    public function ubicacion(){
+        return $this->hasOne(Ubicacion::class, 'conductor_id');
+    }
+
 }
