@@ -32,9 +32,9 @@
                             </thead>
                             <tbody>
                                 <tr ng-repeat="paquete in Paquetes| filter : filtro">
-                                    <td>{{paquete.ide_remitente}}</td>
-                                    <td>{{paquete.nombres_remitente}}</td>
-                                    <td>{{paquete.tel_remitente}}</td>
+                                    <td>{{paquete.cliente.identificacion}}</td>
+                                    <td>{{paquete.cliente.nombres}} {{paquete.cliente.apellidos}} </td>
+                                    <td>{{paquete.cliente.telefono}}</td>
                                     <td>{{paquete.ide_receptor}}</td>
                                     <td>{{paquete.nombres_receptor}}</td>
                                     <td>{{paquete.tel_receptor}}</td>

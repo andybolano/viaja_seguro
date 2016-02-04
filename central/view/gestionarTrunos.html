@@ -29,7 +29,7 @@
                                     <span class="left" style="margin-right: 5px"><h4>{{turno.turno}}</h4></span>
                                 </div>
                                 <div class="col s2">
-                                    <img src="http://materializecss.com/images/yuna.jpg" alt="" class="circle" style="width: 30px;margin-right: 5px;">
+                                    <img ng-src="{{turno.conductor.imagen}}" alt="" class="circle" style="width: 30px;margin-right: 5px;">
                                 </div>
                                 <div class="col s8">
                                     <span class="title">{{turno.conductor.nombres}} {{turno.conductor.apellidos}}</span>
@@ -39,6 +39,17 @@
                                         <i class="material-icons prefix small">delete</i>
                                     </a>
                                 </div>
+                            </div>
+                            <div class="center">
+                                <a class="waves-effect waves-teal" ng-click="addPasajero(turno.conductor)" >
+                                    <i class="material-icons prefix small">person</i>
+                                </a>
+                                <a class="waves-effect waves-teal" ng-click="addGiro(turno.conductor)">
+                                    <i class="material-icons prefix small">attach_money</i>
+                                </a>
+                                <a class="waves-effect waves-teal" ng-click="addPaquete(turno.conductor)" >
+                                    <i class="material-icons prefix small">redeem</i>
+                                </a>
                             </div>
                         </li>
                     </ul>
@@ -99,4 +110,215 @@
                style="margin-left:10px;">Salir</a>
         </div>
     </div>
+
+
+    <!--modal add pasajeros-->
+    <div id="modalAddPasajero" class="modal modal-fixed-footer" style="width: 90%;min-height:85%;">
+        <form action="" name="formPasajero">
+            <div class="modal-content">
+                <h2>Asignar pasajeros a: {{conductor.nombres}} {{conductor.apellidos}}</h2>
+                <h2>Cupos disponibles: {{vehiculo.cupos}}</h2>
+                <div class="col s12 z-depth-1">
+                    <div class="contenedor">
+                        <div class="row">
+                            <div class="col s12">
+                                <table  class="striped">
+                                    <thead>
+                                        <th >identificacion</th>
+                                        <th>Nombres y apellidos</th>
+                                        <th >Telefono</th>
+                                        <th >Recoger en</th>
+                                        <th >Dejar en</th>
+                                        <!--opciones-->
+                                        <th width="10px"></th>
+                                        <th width="10px"></th>
+                                        <th width="10px"></th>
+                                    </thead>
+                                    <tbody>
+                                    <tr style="background-color: transparent;">
+                                        <td><input type="text" ng-model="Pasajeros.identificacion"></td>
+                                        <td><input type="text" ng-model="Pasajeros.nombres"></td>
+                                        <td><input type="text" ng-model="Pasajeros.telefono"></td>
+                                        <td><input type="text" ng-model="Pasajeros.direccion"></td>
+                                        <td><input type="text" ng-model="Pasajeros.direccionD"></td>
+                                        <td><button class="btn waves-effect waves-light green " title="Guardar" id="guardar" ng-click="asignarPasajero();" disabled="" ><i class="material-icons">save</i></button></td>
+                                        <td><button class="btn waves-effect waves-light blue"  title="Actualizar" id="actualizar" ng-click="modificarPasajero();" disabled="" ><i class="material-icons">reply</i></button></td>
+                                        <td><button class="btn waves-effect waves-light red"  title="limpiar" id="limpiar" ng-click="limpiar();"><i class="material-icons">clear</i></button></td>
+                                    </tr>
+                                    <tr ng-repeat ="pasajero in listaPasajeros">
+                                        <td>{{pasajero.identificacion}}</td>
+                                        <td>{{pasajero.nombres}} {{pasajero.cliente.apellidos}}</td>
+                                        <td>{{pasajero.telefono}}</td>
+                                        <td>{{pasajero.direccion}}</td>
+                                        <td>{{pasajero.direccionD}}</td>
+                                        <td></td>
+                                        <td style="text-align: center;"><a href="javascript:;" title="editar" ng-click="cargarModificarPasajero(pasajero);"><i class="material-icons">create</i></a></td>
+                                        <td style="text-align: center;"><a href="javascript:;" title="editar"><i class="material-icons" style="color:#F44336">remove</i></a></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
+                   style="margin-left:10px;">Salir</a>
+            </div>
+        </form>
+    </div>
+    <!--fin modal add pasajeros-->
+
+    <!--modal asignar giros-->
+    <div id="modalAddGiro" class="modal modal-fixed-footer" style="width: 90%;min-height:85%;">
+        <form action="" name="formPasajero">
+            <div class="modal-content">
+                <h2>Asignar giros a: {{conductor.nombres}} {{conductor.apellidos}}</h2>
+                <div class="col s12 z-depth-1">
+                    <div class="contenedor">
+                        <div class="row">
+                            <div class="col s12">
+                                <table  class="striped">
+                                    <thead>
+                                    <th >id remitente</th>
+                                    <th>Nombres y apellidos</th>
+                                    <th >Telefono</th>
+                                    <th >Recoger en</th>
+                                    <th >Entregar a</th>
+                                    <th>Telefono</th>
+                                    <th>Entregar en</th>
+                                    <th>Monto</th>
+                                    <!--opciones-->
+                                    <th width="10px"></th>
+                                    <th width="10px"></th>
+                                    <th width="10px"></th>
+                                    </thead>
+                                    <tbody>
+                                    <tr style="background-color: transparent;">
+                                        <td><input type="text" ng-model="Giros.ide_remitente"></td>
+                                        <td><input type="text" ng-model="Giros.nombres"></td>
+                                        <td><input type="text" ng-model="Giros.telefono"></td>
+                                        <td><input type="text" ng-model="Giros.direccion"></td>
+                                        <td><input type="text" ng-model="Giros.nombre_receptor"></td>
+                                        <td><input type="text" ng-model="Giros.telefono_receptor"></td>
+                                        <td><input type="text" ng-model="Giros.direccionD"></td>
+                                        <td><input type="text" ng-model="Giros.monto"></td>
+                                        <td><button class="btn waves-effect waves-light green " title="Guardar" id="guardarG" ng-click="asignarGiro();" disabled="" ><i class="material-icons">save</i></button></td>
+                                        <td><button class="btn waves-effect waves-light blue"  title="Actualizar" id="actualizarG" ng-click="modificarGiro();" disabled="" ><i class="material-icons">reply</i></button></td>
+                                        <td><button class="btn waves-effect waves-light red"  title="limpiar" id="limpiar" ng-click="limpiar();"><i class="material-icons">clear</i></button></td>
+                                    </tr>
+                                    <tr ng-repeat ="giro in listaGiros">
+                                        <td>{{giro.ide_remitente}}</td>
+                                        <td>{{giro.nombres}}</td>
+                                        <td>{{giro.telefono}}</td>
+                                        <td>{{giro.direccion}}</td>
+                                        <td>{{giro.nombre_receptor}}</td>
+                                        <td>{{giro.telefono_receptor}}</td>
+                                        <td>{{giro.direccionD}}</td>
+                                        <td>{{giro.monto | currency}}</td>
+                                        <td></td>
+                                        <td style="text-align: center;"><a href="javascript:;" title="editar" ng-click="cargarModificarGiro(giro);"><i class="material-icons">create</i></a></td>
+                                        <td style="text-align: center;"><a href="javascript:;" title="editar"><i class="material-icons" style="color:#F44336">remove</i></a></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
+                   style="margin-left:10px;">Salir</a>
+            </div>
+        </form>
+    </div>
+    <!--fin modal asignar giros-->
+
+    <!--modal asignar paquetes-->
+    <div id="modalAddPaquetes" class="modal modal-fixed-footer" style="width: 90%;min-height:85%;">
+        <form action="" name="formPaquete">
+            <div class="modal-content">
+                <h2>Asignar paquetes a: {{conductor.nombres}} {{conductor.apellidos}}</h2>
+                <div class="col s12 z-depth-1">
+                    <div class="contenedor">
+                        <div class="row">
+                            <div class="col s12">
+                                <table  class="striped">
+                                    <thead>
+                                    <th >id remitente</th>
+                                    <th>Nombres y apellidos</th>
+                                    <th >Telefono</th>
+                                    <th >Recoger en</th>
+                                    <th >Entregar a</th>
+                                    <th>Telefono</th>
+                                    <th>Entregar en</th>
+                                    <th>Descripcion</th>
+                                    <!--opciones-->
+                                    <th width="10px"></th>
+                                    <th width="10px"></th>
+                                    <th width="10px"></th>
+                                    </thead>
+                                    <tbody>
+                                    <tr style="background-color: transparent;">
+                                        <td><input type="text" ng-model="Paquetes.ide_remitente"></td>
+                                        <td><input type="text" ng-model="Paquetes.nombres"></td>
+                                        <td><input type="text" ng-model="Paquetes.telefono"></td>
+                                        <td><input type="text" ng-model="Paquetes.direccion"></td>
+                                        <td><input type="text" ng-model="Paquetes.nombre_receptor"></td>
+                                        <td><input type="text" ng-model="Paquetes.telefono_receptor"></td>
+                                        <td><input type="text" ng-model="Paquetes.direccionD"></td>
+                                        <td><input type="text" ng-model="Paquetes.descripcion_paquete"></td>
+                                        <td><button class="btn waves-effect waves-light green " title="Guardar" id="guardarP" ng-click="asignarPaquete();" disabled="" ><i class="material-icons">save</i></button></td>
+                                        <td><button class="btn waves-effect waves-light blue"  title="Actualizar" id="actualizarP" ng-click="modificarPaquete();" disabled="" ><i class="material-icons">reply</i></button></td>
+                                        <td><button class="btn waves-effect waves-light red"  title="limpiar" id="limpiar" ng-click="limpiar();"><i class="material-icons">clear</i></button></td>
+                                    </tr>
+                                    <tr ng-repeat ="paquete in listaPaquetes">
+                                        <td>{{paquete.ide_remitente}}</td>
+                                        <td>{{paquete.nombres}}</td>
+                                        <td>{{paquete.telefono}}</td>
+                                        <td>{{paquete.direccion}}</td>
+                                        <td>{{paquete.nombre_receptor}}</td>
+                                        <td>{{paquete.telefono_receptor}}</td>
+                                        <td>{{paquete.direccionD}}</td>
+                                        <td>
+                                            <a class="waves-effect waves-teal" ng-click="verDescripcionPaquete(paquete)">
+                                                <i class="material-icons prefix small">visibility</i>
+                                            </a>
+                                        </td>
+                                        <td></td>
+                                        <td style="text-align: center;"><a href="javascript:;" title="editar" ng-click="cargarModificarPaquete(paquete);"><i class="material-icons">create</i></a></td>
+                                        <td style="text-align: center;"><a href="javascript:;" title="editar"><i class="material-icons" style="color:#F44336">remove</i></a></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
+                   style="margin-left:10px;">Salir</a>
+            </div>
+        </form>
+    </div>
+    <!--fin modal asignar paquetes-->
+
+    <!--modal descripcion-->
+    <div id="modalDescripcionPaquete" class="modal">
+        <div class="modal-content">
+            <h4>Descripcion del paquete</h4>
+            <h2>{{Paquete.descripcion_paquete}}</h2>
+        </div>
+        <div class="modal-footer">
+            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
+               style="margin-left:10px;">Salir</a>
+        </div>
+    </div>
+    <!--fin modal descripcion-->
+
+
+
 </div>

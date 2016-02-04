@@ -66,8 +66,8 @@ class ClienteController extends Controller
             $cliente = Cliente::find($cliente_id);
 
             if ($request->hasFile('imagen')) {
-                $request->file('imagen')->move('images/clientes/', "conductor$cliente_id.png");
-                $nombrefile = $_SERVER['PHP_SELF'].'/../images/clientes/'."conductor$cliente_id.png";
+                $request->file('imagen')->move('images/clientes/', "cliete$cliente_id.png");
+                $nombrefile = $_SERVER['PHP_SELF'].'/../images/clientes/'."cliente$cliente_id.png";
                 $cliente->imagen = $nombrefile;
                 $cliente->save();
                 return response()->json(['nombrefile'=>$nombrefile], 201);
@@ -89,7 +89,15 @@ class ClienteController extends Controller
      */
     public function show($id)
     {
-        return Cliente::find($id);
+       $cliente = Cliente::find($id);
+
+        if (!$cliente){
+            $cliente = Cliente::where('identificacion', $id)->first();
+            if(!$cliente){
+                return JsonResponse::create(array("message"=> 'No se encontro el cliente puede registrarlo si continua'), 400);
+            }
+        }
+        return $cliente;
     }
 
     /**

@@ -8,7 +8,7 @@ class Pasajero extends Model
 {
     protected $table = 'pasajeros';
 
-    protected $fillable = ['identificacion', 'nombres', 'apellidos', 'telefono', 'origen', 'destino', 'vehiculo'];
+    protected $fillable = ['identificacion', 'nombres', 'telefono', 'direccion', 'direccionD', 'conductor_id', 'central_id'];
 
     public $timestamps = false;
 
@@ -17,8 +17,18 @@ class Pasajero extends Model
         return $this->belongsTo(Central::class)->select('id', 'empresa_id', 'direccion', 'telefono');
     }
 
+    public function conductor()
+    {
+        return $this->belongsTo(Conductor::class);
+    }
+
     public function cliente()
     {
         return $this->belongsTo(Cliente::class);
+    }
+
+    public function vehiculo()
+    {
+        return $this->belongsTo(Vehiculo::class);
     }
 }

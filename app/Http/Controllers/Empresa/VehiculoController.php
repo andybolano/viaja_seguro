@@ -57,17 +57,18 @@ class VehiculoController extends Controller
     {
         $data = $request->all();
         $vehiculo = Vehiculo::find($id);
+        $vehiculo->cupos = $data['cupos'];
 
-        $vehiculo->placa = $data["placa"];
-        $vehiculo->modelo = $data["modelo"];
-        $vehiculo->color = $data["color"];
-        $vehiculo->codigo_vial = $data["codigo_vial"];
-        $vehiculo->cupos = $data["cupos"];
-        $vehiculo->identificacion_propietario = $data["identificacion_propietario"];
-        $vehiculo->nombre_propietario = $data["nombre_propietario"];
-        $vehiculo->tel_propietario = $data["tel_propietario"];
+//        $vehiculo->placa = $data["placa"];
+//        $vehiculo->modelo = $data["modelo"];
+//        $vehiculo->color = $data["color"];
+//        $vehiculo->codigo_vial = $data["codigo_vial"];
+//        $vehiculo->cupos = $data["cupos"];
+//        $vehiculo->identificacion_propietario = $data["identificacion_propietario"];
+//        $vehiculo->nombre_propietario = $data["nombre_propietario"];
+//        $vehiculo->tel_propietario = $data["tel_propietario"];
 
-        $vehiculo->save();
+        $vehiculo->save($data);
         return JsonResponse::create(array('message' => "Vehiculo actualizado correctametne."), 200);
     }
 }
