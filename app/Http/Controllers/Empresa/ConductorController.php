@@ -89,7 +89,7 @@ class ConductorController extends Controller
             if($conductor->save() == true){
                 return JsonResponse::create(array('message' => "Actualizado Correctamente"), 200);
             }else {
-                return JsonResponse::create(array('message' => "No se pudo actualizar el registro"), 200);
+                return JsonResponse::create(array('message' => "No se pudo actualizar el registro"), 400);
             }
         }catch(Exception $e){
             return JsonResponse::create(array('message' => "No se pudo guardar el registro", "exception"=>$e->getMessage()), 401);

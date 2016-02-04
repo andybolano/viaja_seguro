@@ -35,6 +35,9 @@ var app;
                 .when("/empresa/pagos_prestaciones", {
                     templateUrl: 'registrarPagosPrestaciones.html'
                 })
+                .when("/empresa/agendar_actividades", {
+                    templateUrl: 'agendarActividades.html'
+                })
                  .otherwise({redirectTo: '/'})
         }]);
 
