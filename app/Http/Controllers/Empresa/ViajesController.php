@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Empresa;
 
+use App\Model\Paquete;
+use App\Model\Giro;
 use App\Model\Pasajero;
+use App\Model\Viaje;
 use DB;
 use App\Model\Turno;
 use Illuminate\Http\JsonResponse;
@@ -36,10 +39,35 @@ class ViajesController extends Controller
         }
     }
 
-    public function crearViaje(&$conductor_id, &$ruta_id){
+    public function crearViaje($conductor_id, $ruta_id){
+        $viaje = new Viaje();
+
+        $viaje->conductor_id = $conductor_id;
+        $viaje->ruta_id = $ruta_id;
+        $viaje->fecha = date("Y-m-d");
+
         $pasajeros = Pasajero::select('id')->where('conductor_id', $conductor_id)->where('estado', '=', 'En ruta')->get();
         $giros = Giro::select('id')->where('conductor_id', $conductor_id)->where('estado', '=', 'En ruta')->get();
         $paquetes = Paquete::select('id')->where('conductor_id', $conductor_id)->where('estado', '=', 'En ruta')->get();
+
+        if($viaje->save()){
+            foreach ($pasajeros as $pasajero) {
+                $viaje->pasajeros()->attach($pasajero['id']);
+            }
+
+            foreach ($giros as $giro) {
+                $viaje->giros()->attach($giro['id']);
+            }
+
+            foreach ($paquetes as $paquete) {
+                $viaje->paquetes()->attach($paquete['id']);
+            }
+            return response()->json(['message' => 'Viaje creado corretamente', $viaje], 200);
+        }else{
+            return response()->json(['message' => 'No se pudo crear el viaje'], 400);
+        }
+
+
 
     }
 }
