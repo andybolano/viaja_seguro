@@ -7,6 +7,8 @@ class Turno extends Model
 
     protected $table = 'turnos';
 
+    public $fillable = ['ruta_id', 'conductor_id', 'turno'];
+
     public $timestamps = false;
 
     public function conductor()

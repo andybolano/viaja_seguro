@@ -11,6 +11,14 @@ app.service('turnosService', function ($http , authService) {
         return $http.put(uri + '/api/rutas/'+ruta_id+'/turnos', turnos);
     }
 
+    this.getTurno = function(ruta_id){
+        return $http.get(uri + '/api/rutas/'+ruta_id+'/turnos');
+    }
+
+    this.eliminarTurno = function(obj){
+        return $http.post(uri +'/api/rutas/turnos/conductor', obj);
+    }
+
     this.cargarVehiculoConductor = function(id){
         return $http.get(uri + '/api/conductores/'+id+'/vehiculo');
     }

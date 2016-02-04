@@ -279,4 +279,36 @@ function TurnosController($scope, turnosService){
         $scope.Paquetes = "";
         $scope.Giros = "";
     };
+
+    $scope.despacharConductor = function(ruta_id){
+        $scope.turnos = {};
+        turnosService.getTurno(ruta_id).then(succes, error);
+        function succes(p){
+            $scope.turnos = p.data;
+            if($scope.turnos.turno == 1){
+                ejecutarDespachoConductor($scope.turnos);
+                Materialize.toast(p.message, 5000);
+            }
+
+        }
+        function error(error){
+            Materialize.toast(error.message, 5000);
+        }
+    }
+
+    function ejecutarDespachoConductor(datos){
+        var obj = {
+            ruta_id : datos.ruta_id,
+            turno : datos.turno,
+            conductor_id : datos.conductor_id
+        }
+        turnosService.eliminarTurno(obj).then(succes, error);
+        function succes(p){
+            cargarRutas();
+            Materialize.toast(p.message, 5000);
+        }
+        function error(error){
+            Materialize.toast(error.message, 5000);
+        }
+    }
 }
