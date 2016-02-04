@@ -8,15 +8,22 @@ class Viaje extends Model
 {
     protected $table = 'viajes';
 
-    public $fillable = ['id', 'conductor_id', 'ruta_id', 'latitud', 'longitud', 'fecha', 'estado'];
+    public $fillable = ['id', 'conductor_id', 'ruta_id', 'fecha', 'estado'];
 
     public $timestamps = false;
 
-    public function conductor(){
-        return $this->belongsTo(Conductor::class);
+    public function pasajeros()
+    {
+        return $this->belongsToMany(Pasajero::class, 'viaje_pasajeros', 'viaje_id', 'pasajero_id');
     }
 
-    public function ruta(){
-        return $this->belongsTo(Ruta::class);
+    public function giros()
+    {
+        return $this->belongsToMany(Pasajero::class, 'viaje_giros', 'viaje_id', 'giro_id');
+    }
+
+    public function paquetes()
+    {
+        return $this->belongsToMany(Pasajero::class, 'viaje_paquetes', 'viaje_id', 'paquete_id');
     }
 }
