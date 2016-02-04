@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Empresa;
 
+use DB;
 use App\Model\Empresa;
 use App\Model\Conductor;
 use App\Model\Usuario;
@@ -152,6 +153,10 @@ class ConductorController extends Controller
 
     public function getUbicacion(){
         $busqueda = \DB::table('ubicacion_conductor')->select('*')->get();
-        return $busqueda;
+        if(!$busqueda){
+            return JsonResponse::create(array('message' => 'No se encontraron ubicaciones'));
+        }else{
+            return $busqueda;
+        }
     }
 }
