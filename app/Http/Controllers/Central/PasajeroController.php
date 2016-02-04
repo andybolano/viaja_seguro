@@ -24,9 +24,14 @@ class PasajeroController extends Controller
     {
         try{
             $pasajeros = Conductor::find($conductor_id)->pasajeros;
-            return $pasajeros;
+            if(!$pasajeros){
+                return response()->json(array('message' => 'El conductor no tiene pasajeros asignados'), 400);
+            }else{
+                return $pasajeros;
+            }
+
         }catch(\Exception $e){
-            return response()->json(array('message' => 'Error'), 400);
+            return response()->json(array('message' => 'No se encontro ningun dato de consulta'), 400);
         }
     }
 
