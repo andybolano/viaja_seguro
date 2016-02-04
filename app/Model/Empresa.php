@@ -17,6 +17,11 @@ class Empresa extends Model
         return $this->hasMany(Central::class);
     }
 
+    public function agendaActividades()
+    {
+        return $this->hasMany(Actividad::class);
+    }
+
     public function conductores()
     {
         return $this->hasMany(Conductor::class);

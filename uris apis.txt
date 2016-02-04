@@ -14,6 +14,11 @@
 *delete: /api/empresas/{empresa_id} : elimina una empresa y toda la informacion asociada a ella !!!OJO CON ESTO!!!
 ##Hay que reunirnos para tener en cuenta las eliminaciones
 
+*get: /api/empresas/{empresa_id}/agenda_actividades : obtiene los conductores asociados a la empresa
+*get: /api/empresas/{empresa_id}/agenda_actividades/{actividad_id} : obtiene los conductores asociados a la empresa
+*post: /api/empresas/{empresa_id}/agenda_actividades : obtiene los conductores asociados a la empresa
+*put: /api/agenda_actividades/{actividad_id} : obtiene los conductores asociados a la empresa
+
 //vehiculos empresa
 *get: /api/empresas/{empresa_id}/conductores : obtiene los conductores asociados a la empresa
 *get: /api/empresas/{empresa_id}/vehiculos : obtiene todos los vehiculos asociados a la empresa

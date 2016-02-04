@@ -30,6 +30,7 @@ Route::group(['middleware' => 'jwt.auth', 'middleware' => 'cors'], function () {
     include 'Routes/Giros.php';
     include 'Routes/Pagos.php';
     include 'Routes/Deducciones.php';
+    include 'Routes/Actividades.php';
 
     include('Routes/Empresas.php');
     include('Routes/Rutas.php');

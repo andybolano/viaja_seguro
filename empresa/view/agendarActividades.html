@@ -1,0 +1,132 @@
+<div ng-controller="ActividadesController" class="contenedor">
+    <div class="row white">
+        <div class="col s12 z-depth-1">
+            <div class="contenedor">
+                <div class="row">
+                    <div class="col s8">
+                        <h2>Agendar Actividades</h2>
+                    </div>
+                    <div class="col s4">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">search</i>
+                            <input id="icon_prefix" type="text" ng-model="filtro">
+                            <label for="icon_prefix">Filtrar</label>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <table class="striped bordered">
+                            <thead>
+                            <th>Fecha</th>
+                            <th>Hora</th>
+                            <th>Actividad</th>
+                            <th></th>
+                            <th></th>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="actividad in actividades| filter : filtro | orderBy : 'fecha'">
+                                    <td>{{actividad.fecha | date: 'MMMM d'}}</td>
+                                    <td>{{actividad.fecha | date: 'hh:mm a'}}</td>
+                                    <td>{{actividad.nombre}}</td>
+                                    <td>{{actividad.estado}}</td>
+                                    <td>
+                                        <a href="javascript:" ng-click="actualizar(actividad)">
+                                            <i class="material-icons prefix">visibility</i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5"></td>
+                                </tr>
+                                <tr ng-repeat="actividad in actividadesFinalizadas| filter : filtro | orderBy : 'fecha' : reverse">
+                                    <td>{{actividad.fecha | date: 'MMMM d'}}</td>
+                                    <td>{{actividad.fecha | date: 'hh:mm a'}}</td>
+                                    <td>{{actividad.nombre}}</td>
+                                    <td>{{actividad.estado}}</td>
+                                    <td>
+                                        <a href="javascript:" ng-click="actualizar(actividad)">
+                                            <i class="material-icons prefix">visibility</i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+        <a class="btn-floating btn-large waves-effect waves-light red" ng-click="nuevo()">
+            <i class="material-icons">add</i>
+        </a>
+    </div>
+
+
+    <!--modal nuevo central-->
+    <div id="modalNuevaActividad" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h2>{{nombreForm}}</h2>
+            <div class="row">
+                <form class="col s12" name="formNuevaActividad">
+                    <div class="row col s12">
+                        <div class="row">
+                            <div class="input-field col s9">
+                                <i class="material-icons prefix">done_all</i>
+                                <input id="nombre" type="text" class="validate" name="nombre" ng-model="selectedActividad.nombre" readonly>
+                                <label for="nombre" class="{{active}}">Nombre</label>
+                            </div>
+                            <div class="input-field col s3" ng-hide="editMode">
+                                <input id="estado" type="text" class="validate" name="estado" ng-model="selectedActividad.estado" required>
+                                <label for="estado" class="active">Estado</label>
+                            </div>
+                            <div class="input-field col s3">
+                                <select class="browser-default" name="selectestado" id="selectestado" ng-show="editMode"
+                                        ng-model="selectedActividad.estado" required>
+                                    <option value="Pendiente"> Pendiente</option>
+                                    <option value="Cancelada"> Cancelada</option>
+                                </select>
+                                <label for="selectestado" class="active">Estado</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <i class="material-icons prefix">date_range</i>
+                                <input id="fecha" type="date" class="datepicker validate" name="fecha"  ng-model="selectedActividad.fecha" required>
+                                <label for="fecha" class="active">Fecha</label>
+                            </div>
+
+                            <div class="input-field col s6">
+                                <i class="material-icons prefix">alarm</i>
+                                <input id="hora" type="time" name="hora"  ng-model="selectedActividad.hora" required>
+                                <label for="hora" class="active">Hora</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">description</i>
+                                <textarea id="descripcin" class="materialize-textarea" name="descripcin"
+                                          ng-model="selectedActividad.descripcion" length="250" maxlength="250"></textarea>
+                                <label for="descripcin" class="{{active}}">Descripcion</label>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red "
+               style="margin-left:10px;">Salir</a>
+            <a ng-disabled="formNuevaActividad.$invalid"  class="waves-effect waves-light btn green" ng-class="{'disabled': formNuevaActividad.$invalid}" ng-hide="editMode"
+               ng-click="guardar()">Guardar</a>
+            <a ng-disabled="formNuevaActividad.$invalid"  class="waves-effect waves-light btn green" ng-class="{'disabled': formNuevaActividad.$invalid}" ng-show="editMode"
+               ng-click="update()">Modificar</a>
+        </div>
+
+    </div>
+</div>
