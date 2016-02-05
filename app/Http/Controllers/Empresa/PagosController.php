@@ -7,9 +7,11 @@ use App\Model\Conductor;
 use App\Model\Empresa;
 use App\Model\PagoPrestacion;
 use App\Model\Prestacion;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Model\Viaje;
 
 class PagosController extends Controller
 {
@@ -17,10 +19,25 @@ class PagosController extends Controller
     /**
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function getPlanilla(){
+    public function getPlanillas(){
         $planilla = Planilla::all();
         $planilla->load('conductor');
         return $planilla;
+    }
+
+    public function getPlanilla($viaje){
+        $consulta = Planilla::select('*')->where('viaje_id', $viaje)->first()->load('viaje');
+        $consulta['giros'] = \DB::table('giros')->join('viaje_giros', 'giros.id', '=', 'viaje_giros.giro_id')
+            ->join('viajes', 'viaje_giros.viaje_id', '=', 'viajes.id')
+            ->where('viajes.id', $viaje)->select('*')->get();
+        $consulta['pasajeros'] = \DB::table('pasajeros')->join('viaje_pasajeros', 'pasajeros.id', '=', 'viaje_pasajeros.pasajero_id')
+            ->where('viajes.id', $viaje)->join('viajes', 'viaje_pasajeros.viaje_id', '=', 'viajes.id')->select('*')->get();
+        $consulta['paquetes'] = \DB::table('paquetes')->join('viaje_paquetes', 'paquetes.id', '=', 'viaje_paquetes.paquete_id')
+            ->where('viajes.id', $viaje)->join('viajes', 'viaje_paquetes.viaje_id', '=', 'viajes.id')->select('*')->get();
+
+        $consulta['conductor'] = Viaje::find($viaje)->conductor;
+        return JsonResponse::create($consulta);
+
     }
 
     public function getPrestaciones(){

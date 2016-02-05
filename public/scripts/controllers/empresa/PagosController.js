@@ -93,17 +93,23 @@ app.controller('PagosController', function ($scope, serviceEmpresaPagos) {
         });
     }
 
-    $scope.eliminar = function (deduccion){
-        if(confirm('¿Deseas eliminar el registro?') ==true) {
-            success(1);
-            //centralesService.delete(codigo).then(success, error);
+    $scope.verPlanilla = function(planilla){
+        $scope.Planilla = {};
+        serviceEmpresaPagos.getPlanilla(planilla.viaje_id).then(succes, error);
+        function succes(p){
+            $scope.Planilla = p.data;
+            $('#modalPlanilla').openModal();
         }
-        function success(p) {
-            //init();
-            Materialize.toast('Registro eliminado', 5000);
+        function error(){
+
         }
-        function error(error) {
-            cconsole.log('Error al eliminar', error);
-        }
+    }
+
+    $scope.imprimir = function(){
+        var printContents = document.getElementById('planilla').innerHTML;
+        var popupWin = window.open('', '_blank', 'width=300,height=300');
+        popupWin.document.open();
+        popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="../../public/css/pdf.css" /></head><body onload="window.print()">' + printContents + '</body></html>');
+        popupWin.document.close();
     }
 })
