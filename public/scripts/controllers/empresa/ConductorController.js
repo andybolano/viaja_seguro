@@ -1,9 +1,11 @@
 app.controller('ConductorController', function ($scope, ConductorServicio, VehiculoServicio, $filter) {
     $scope.Conductores = [];
+    $scope.ConductoresInactivos = [];
     $scope.conductor = {};
     $scope.titulo;
     $scope.active;
     $scope.editMode = false;
+    $scope.activos = true;
     cargarConductores();
     //cargarDocumentacion();
 
@@ -17,9 +19,17 @@ app.controller('ConductorController', function ($scope, ConductorServicio, Vehic
 
 
     function cargarConductores() {
+        $scope.Conductores = [];
+        $scope.ConductoresInactivos = [];
         var promiseGet = ConductorServicio.getAll();
-        promiseGet.then(function (pl) {
-            $scope.Conductores = pl.data;
+        promiseGet.then(function (p) {
+            for(var i=0; i<p.data.length; i++){
+                if(p.data[i].activo == true ){
+                    $scope.Conductores.push(p.data[i]);
+                }else{
+                    $scope.ConductoresInactivos.push(p.data[i]);
+                }
+            }
         },function (errorPl) {
             console.log('Error Al Cargar Datos', errorPl);
         });
@@ -92,7 +102,8 @@ app.controller('ConductorController', function ($scope, ConductorServicio, Vehic
             apellidos : $scope.Conductor.apellidos,
             telefono : $scope.Conductor.telefono,
             direccion : $scope.Conductor.direccion,
-            correo: $scope.Conductor.correo
+            correo: $scope.Conductor.correo,
+            activo: $scope.Conductor.activo
         };
         console.log(object);
         var promisePut = ConductorServicio.put(object,$scope.Conductor.id);
@@ -105,6 +116,26 @@ app.controller('ConductorController', function ($scope, ConductorServicio, Vehic
             },
             function (errorPl) {
                 console.log('Error Al Cargar Datos', errorPl);
+            });
+    }
+
+    $scope.habilitar = function  (conductor) {
+        var object = {
+            identificacion : conductor.identificacion,
+            nombres : conductor.nombres,
+            apellidos : conductor.apellidos,
+            telefono : conductor.telefono,
+            direccion : conductor.direccion,
+            correo: conductor.correo,
+            activo: true
+        };
+        var promisePut = ConductorServicio.put(object,conductor.id);
+        promisePut.then(function (pl) {
+                Materialize.toast('Conductor habilitado', 5000, 'rounded');
+                cargarConductores();
+            },
+            function (errorPl) {
+                console.log('Error habilitar conductor', errorPl);
             });
     }
 

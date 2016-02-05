@@ -5,6 +5,8 @@
                 <div class="row">
                     <div class="col s8">
                         <h2>Gestion de Conductores</h2>
+                        <a href="javascript:;" ng-click="activos = false" ng-show="activos && (ConductoresInactivos.length > 0)">Mostrar coductores sin habilitar</a>
+                        <a href="javascript:;" ng-click="activos = true" ng-hide="activos">Mostrar coductores Activos</a>
                     </div>
                     <div class="col s4">
                         <div class="input-field col s12">
@@ -12,10 +14,47 @@
                             <input id="icon_prefix" type="tel" ng-model="filtro">
                             <label for="icon_prefix">Filtrar</label>
                         </div>
-
                     </div>
                 </div>
-                <div class="row">
+                <div class="row" ng-hide="activos">
+                    <div class="col s12">
+                        <table class="striped bordered">
+                            <thead>
+                            <th>Identificación</th>
+                            <th>Foto</th>
+                            <th>Nombres</th>
+                            <th>Apellidos</th>
+                            <th>Dirección</th>
+                            <th>Teléfono</th>
+                            <th>Acciones</th>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="conductor in ConductoresInactivos | filter : filtro">
+                                <td>{{conductor.identificacion}}</td>
+                                <td>
+                                    <img id="imagen{{conductor.id}}" ng-src="{{conductor.imagen}}" class="circle" style="width: 35px;">
+                                </td>
+                                <td>{{conductor.nombres}}</td>
+                                <td>{{conductor.apellidos}}</td>
+                                <td>{{conductor.direccion}}</td>
+                                <td>{{conductor.telefono}}</td>
+                                <td>
+                                    <a href="javascript:" ng-click="modificar(conductor)">
+                                        <i class="material-icons prefix">visibility</i>
+                                    </a>
+                                    <a href="javascript:" ng-click="habilitar(conductor)">
+                                        <i class="material-icons">done_all</i>
+                                    </a>
+                                    <a href="javascript:" ng-click="eliminar(conductor.id)">
+                                        <i class="material-icons prefix">delete</i>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row" ng-show="activos">
                     <div class="col s12">
                         <table class="striped bordered">
                             <thead>
@@ -127,7 +166,7 @@
                     </div>
                 </div>
                 <br><br>
-                <div class="row" ng-hide="editMode">
+                <div class="row" ng-hide="editMode && activos">
                     <div class="col s12">
                         <div class="row">
                             <div class="col s12">
@@ -260,8 +299,8 @@
         <div class="modal-footer">
             <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red " style="margin-left:10px;">Salir</a>
             <a ng-disabled="!formConductor.$valid"  class="waves-effect waves-light btn green" ng-hide="editMode" ng-click="guardar()" style="margin-left:10px;">Guardar</a>
-            <a ng-disabled="!formConductor.$valid"  class="waves-effect waves-light btn green" ng-show="editMode" ng-click="update()" style="margin-left:10px;">Modificar</a>
-            <a ng-disabled="!formConductor.$valid" class="waves-effect waves-light btn yellow " ng-click="limpiar()" style="margin-left:10px;">Limpiar </a>
+            <a ng-disabled="!formConductor.$valid"  class="waves-effect waves-light btn green" ng-show="editMode && activos" ng-click="update()" style="margin-left:10px;">Modificar</a>
+            <a ng-disabled="!formConductor.$valid" class="waves-effect waves-light btn yellow " ng-hide="!activos" ng-click="limpiar()" style="margin-left:10px;">Limpiar </a>
         </div>
 
     </div>

@@ -155,6 +155,7 @@ class EmpresaController extends Controller
         unset($data['vehiculo']);
 
         $conductor = new Conductor($data);
+        $conductor->activo = true;
         $empresa = Empresa::find($empresa_id);
         if(!$empresa->conductores()->save($conductor)){
             $usuario->delete();
