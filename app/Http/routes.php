@@ -15,29 +15,32 @@ Route::get('/', function () {
     echo '<script>location.href=\'login.html\';</script>';
 });
 
-Route::post('/api/login', array('middleware' => 'cors', 'uses' => 'LoginController@autenticarUsuario'));
+Route::group(['middleware' => 'jwt.auth'], function () {
+    Route::post('/api/login', array('middleware' => 'cors', 'uses' => 'LoginController@autenticarUsuario'));
 
-Route::post('/api/usuarios/clientes', 'Cliente\ClienteController@store');
-Route::post('/api/usuarios/conductores', 'UsuariosController@registrarConductor');
+    Route::post('/api/usuarios/clientes', 'Cliente\ClienteController@store');
+    Route::post('/api/usuarios/conductores', 'UsuariosController@registrarConductor');
 
-Route::get('/api/empresas', 'SuperAdmin\EmpresaController@index');
-Route::group(['middleware' => 'jwt.auth', 'middleware' => 'cors'], function () {
-    include 'Routes/Conductores.php';
-    include 'Routes/Vehiculos.php';
-    include 'Routes/Cliente.php';
-    include 'Routes/Paquetes.php';
-    include 'Routes/Pasajeros.php';
-    include 'Routes/Giros.php';
-    include 'Routes/Pagos.php';
-    include 'Routes/Deducciones.php';
-    include 'Routes/Actividades.php';
+    Route::get('/api/empresas', 'SuperAdmin\EmpresaController@index');
+    Route::group(['middleware' => 'jwt.auth'], function () {
+        include 'Routes/Conductores.php';
+        include 'Routes/Vehiculos.php';
+        include 'Routes/Cliente.php';
+        include 'Routes/Paquetes.php';
+        include 'Routes/Pasajeros.php';
+        include 'Routes/Giros.php';
+        include 'Routes/Pagos.php';
+        include 'Routes/Deducciones.php';
+        include 'Routes/Actividades.php';
 
-    include('Routes/Empresas.php');
-    include('Routes/Rutas.php');
-    include('Routes/Centrales.php');
-    include('Routes/ServiciosEmpresa.php');
-    include('Routes/Ciudades.php');
+        include('Routes/Empresas.php');
+        include('Routes/Rutas.php');
+        include('Routes/Centrales.php');
+        include('Routes/ServiciosEmpresa.php');
+        include('Routes/Ciudades.php');
 
-    include('Routes/Usuarios.php');
+        include('Routes/Usuarios.php');
+
+    });
 
 });
