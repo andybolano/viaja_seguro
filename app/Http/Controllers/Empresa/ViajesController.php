@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Empresa;
 use App\Model\Paquete;
 use App\Model\Giro;
 use App\Model\Pasajero;
+use App\Model\Planilla;
 use App\Model\Viaje;
 use DB;
 use App\Model\Turno;
@@ -33,8 +34,8 @@ class ViajesController extends Controller
             if(!DB::table('turnos')->where('ruta_id', $data['ruta_id'])->where('turno', $data['turno'] )->delete()){
                 return JsonResponse::create(array('message' => 'Error al eliminar'));
             }else{
-                $this->crearViaje($data['conductor_id'], $data['ruta_id']);
-                return JsonResponse::create(array('message' => 'Despachado correctamente'));
+
+                return JsonResponse::create(array('message' => 'Despachado correctamente', 'viaje' => $this->crearViaje($data['conductor_id'], $data['ruta_id'])));
             }
         }
     }
@@ -62,12 +63,22 @@ class ViajesController extends Controller
             foreach ($paquetes as $paquete) {
                 $viaje->paquetes()->attach($paquete['id']);
             }
-            return response()->json(['message' => 'Viaje creado corretamente', $viaje], 200);
+            $this->generarDatosPlanilla($viaje);
+            return $viaje;
         }else{
-            return response()->json(['message' => 'No se pudo crear el viaje'], 400);
+            return 'No se pudo crear el viaje';
         }
+    }
 
+    public function crearPlanilla(){
 
+    }
+
+    public function generarDatosPlanilla($viaje){
+        $data = Planilla::find($viaje->id)->viaje();
+    }
+
+    public function generarNumeroPlanilla(){
 
     }
 }
