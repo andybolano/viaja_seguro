@@ -3,8 +3,8 @@
  */
 app.controller('TurnosController', TurnosController);
 
-function TurnosController($scope, turnosService){
-
+function TurnosController($scope, turnosService, serviceEmpresaPagos){
+    cargarDeducciones();
     $scope.conductores = [];
     $scope.selectedTurno = {};
     $scope.rutas = [];
@@ -314,6 +314,15 @@ function TurnosController($scope, turnosService){
         function error(error){
             Materialize.toast(error.message, 5000);
         }
+    }
+
+    function cargarDeducciones(){
+        var promiseGet = serviceEmpresaPagos.getDeducciones();
+        promiseGet.then(function (pl) {
+            $scope.Deducciones = pl.data;
+        },function (errorPl) {
+            console.log('Error Al Cargar Datos', errorPl);
+        });
     }
 
     $scope.imprimir = function(){

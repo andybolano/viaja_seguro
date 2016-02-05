@@ -20,13 +20,11 @@
                         <table class="striped bordered">
                             <thead>
                             <th>Número de planilla</th>
-                            <th>Conductor</th>
                             <th>Acciones</th>
                             </thead>
                             <tbody>
                             <tr ng-repeat="planilla in Planillas | filter : filtro">
                                 <td>{{planilla.numero_planilla}}</td>
-                                <td>{{planilla.conductor.nombres}} {{planilla.conductor.apellidos}}</td>
                                 <td>
                                     <a href="javascript:" ng-click="modificar(planilla)">
                                         <i class="material-icons prefix">visibility</i>

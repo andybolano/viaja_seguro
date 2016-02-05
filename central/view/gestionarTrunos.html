@@ -335,10 +335,10 @@
                     <div> 7755813</div>
                 </div>
                 <div id="project">
-                    <div><span>CONDUCTOR</span> {{Planilla.viaje.planilla.conductor.nombres}} {{Planilla.viaje.planilla.conductor.apellidos}}</div>
-                    <div><span>IDENTIFICACION</span> {{Planilla.viaje.planilla.conductor.identificacion}}</div>
-                    <div><span>TELEFONO</span> {{Planilla.viaje.planilla.conductor.telefono}}</div>
-                    <div><span>FECHA</span> Agosto 17, 2015</div>
+                    <div><span>CONDUCTOR: </span> {{Planilla.viaje.planilla.conductor.nombres}} {{Planilla.viaje.planilla.conductor.apellidos}}</div>
+                    <div><span>IDENTIFICACION: </span> {{Planilla.viaje.planilla.conductor.identificacion}}</div>
+                    <div><span>TELEFONO: </span> {{Planilla.viaje.planilla.conductor.telefono}}</div>
+                    <div><span>FECHA: </span> {{Planilla.viaje.viaje.fecha}}</div>
                 </div>
             </header>
             <main id="mainPlanilla">
@@ -368,9 +368,9 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
+                    <tr ng-repeat="deduccion in Deducciones" ng-if="deduccion.estado == true">
+                        <td class="center">{{deduccion.nombre}}</td>
+                        <td class="center">{{deduccion.valor | currency}}</td>
                     </tr>
                     </tbody>
                 </table>
