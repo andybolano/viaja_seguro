@@ -20,19 +20,14 @@
                         <table class="striped bordered">
                             <thead>
                             <th>Número de planilla</th>
-                            <th>Conductor</th>
                             <th>Acciones</th>
                             </thead>
                             <tbody>
                             <tr ng-repeat="planilla in Planillas | filter : filtro">
                                 <td>{{planilla.numero_planilla}}</td>
-                                <td>{{planilla.conductor.nombres}} {{planilla.conductor.apellidos}}</td>
                                 <td>
-                                    <a href="javascript:" ng-click="modificar(planilla)">
+                                    <a href="javascript:" ng-click="verPlanilla(planilla)">
                                         <i class="material-icons prefix">visibility</i>
-                                    </a>
-                                    <a href="javascript:" ng-click="eliminar(planilla.id)">
-                                        <i class="material-icons prefix">delete</i>
                                     </a>
                                 </td>
                             </tr>
@@ -44,168 +39,73 @@
         </div>
     </div>
 
-    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-        <a class="btn-floating btn-large waves-effect waves-light red" ng-click="nuevoPagoPlanilla()">
-            <i class="material-icons">add</i>
-        </a>
-    </div>
-
-    <!--Modal nueva planilla-->
-    <div id="modalPagarPlanilla" class="modal modal-fixed-footer" style="width: 90%;min-height:85%;">
-        <div class="modal-content">
-            <h2>{{titulo}}</h2>
-            <div class="row">
-                <div class="row col s9">
-                    <form class="col s12">
-                        <div class="row">
-                            <div class="input-field col s4">
-                                <i class="material-icons prefix">payment</i>
-                                <input  id="icon_payment" type="text" class="validate" name="id" value="0002" readonly>
-                                <label for="icon_payment" class="active">Número de planilla de viaje</label>
-                            </div>
-                            <div class="input-field col s4" ng-controller="ServiciosController">
-                                <i class="material-icons prefix">payment</i>
-                                <input  id="icon_payment3" type="text" class="validate" name="id" ng-model="Vehiculo" readonly>
-                                <label for="icon_payment3" class="active">Vehículo en turno</label>
-                            </div>
-                            <div class="input-field col s4" ng-controller="ServiciosController">
-                                <i class="material-icons prefix">attach_money</i>
-                                <input  id="icon_payment4" type="text" class="validate" name="id" ng-value="10000 | currency" readonly>
-                                <label for="icon_payment4" class="active">Valor fijo de planilla</label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="input-field col s4">
-                                <i class="material-icons prefix">payment</i>
-                                <input  id="icon_payment1" type="text" class="validate" name="id" ng-model="Planilla.id" >
-                                <label for="icon_payment1" class="{{active}}">Identificación del conductor</label>
-                            </div>
-                            <div class="input-field col s4">
-                                <i class="material-icons prefix">person</i>
-                                <input  id="icon_person" type="text" class="validate" name="id" ng-model="Planilla.nombres" >
-                                <label for="icon_person" class="{{active}}">Nombre del conductor</label>
-                            </div>
-                            <div class="input-field col s3">
-                                <i class="material-icons prefix">phone</i>
-                                <input id="icon_phone" type="text" class="validate" name="telefono" ng-model="Planilla.telefono">
-                                <label for="icon_phone" class="{{active}}">Teléno</label>
-
-                            </div>
-                            <div class="input-field col s1">
-                                <a class="btn-floating btn-sm waves-effect waves-light light-green" ng-click="buscarConductor()"><i class="material-icons">search</i></a>
-                            </div>
-                        </div>
-                        <div class="row col s12">
-                            <h2>Datos pasajeros</h2><br>
-                        </div>
-                        <div class="row" data-ng-repeat="i in [1,2,3,4]">
-                            <fieldset id="field">
-                                <div class="input-field col s4">
-                                    <i class="material-icons prefix">payment</i>
-                                    <input  id="icon_payment2" type="text" class="validate" name="id" ng-model="Planilla.idPasajero" >
-                                    <label for="icon_payment2" class="{{active}}">Identificación del pasajero</label>
-                                </div>
-                                <div class="input-field col s4">
-                                    <i class="material-icons prefix">person</i>
-                                    <input  id="icon_person1" type="text" class="validate" name="id" ng-model="Planilla.nombresPasajero" >
-                                    <label for="icon_person1" class="{{active}}">Nombre del pasajero</label>
-                                </div>
-                                <div class="input-field col s3">
-                                    <i class="material-icons prefix">phone</i>
-                                    <input id="icon_phone1" type="text" class="validate" name="telefono" ng-model="Planilla.telefonoPasajero">
-                                    <label for="icon_phone1" class="{{active}}">Teléfono</label>
-
-                                </div>
-                            </fieldset>
-                        </div>
-                    </form>
+    <!--modal planilla-->
+    <div id="modalPlanilla" class="modal" style="width: 90%;min-height:85%;">
+        <div id="printDiv"></div>
+        <div class="modal-content" id="planilla" >
+            <body id="bodyPlanilla">
+            <header class="clearfix" id="headerPlanilla">
+                <div id="logo">
+                    <img src="http://localhost:8080/viaja_seguro/public/images/logo.png">
                 </div>
-                <!--deducciones-->
-                <div class="row col s3">
-                    <ul class="list-group">
-                        <fieldset>
-                            <table class="striped bordered">
-                                <thead>
-                                    <th>Deduccion</th>
-                                    <th>Valor</th>
-                                </thead>
-                                <tbody>
-                                <tr ng-repeat="deduccion in Deducciones" ng-if="deduccion.estado == true">
-                                    <td>{{deduccion.nombre}}</td>
-                                    <td>{{deduccion.valor | currency}}</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </fieldset>
-                    </ul>
+                <h1 id="h1Planilla">PLANILLA N° {{Planilla.numero_planilla}}</h1>
+                <div id="company" class="clearfix">
+                    <div>Cootrasan</div>
+                    <div>Fonseca - La Guajira,<br /> Call 13 #21-34</div>
+                    <div> 7755813</div>
                 </div>
-            </div>
+                <div id="project">
+                    <div><span>CONDUCTOR: </span> {{Planilla.conductor.nombres}} {{Planilla.conductor.apellidos}}</div>
+                    <div><span>IDENTIFICACION: </span> {{Planilla.conductor.identificacion}}</div>
+                    <div><span>TELEFONO: </span> {{Planilla.conductor.telefono}}</div>
+                    <div><span>FECHA: </span> {{Planilla.viaje.fecha}}</div>
+                </div>
+            </header>
+            <main id="mainPlanilla">
+                <table class="col s9">
+                    <thead>
+                    <tr>
+                        <th class="center">IDENTIFICACION</th>
+                        <th class="center">NOMBRES Y APELLIDOS</th>
+                        <th class="center">TELEFONO</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="pasajero in Planilla.pasajeros" >
+                        <td class="center">{{pasajero.identificacion}}</td>
+                        <td class="center">{{pasajero.nombres}}</td>
+                        <td class="center">{{pasajero.telefono}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </main>
+            <fieldset>
+                <table class="col s3">
+                    <thead>
+                    <tr>
+                        <th class="center">DEDUCCION</th>
+                        <th class="center">VALOR</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="deduccion in Deducciones" ng-if="deduccion.estado == true">
+                        <td class="center">{{deduccion.nombre}}</td>
+                        <td class="center">{{deduccion.valor | currency}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </fieldset>
+            </body>
         </div>
 
         <div class="modal-footer">
-            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red " style="margin-left:10px;">Salir</a>
-            <a ng-disabled="!formPlanilla.$valid"  class="waves-effect waves-light btn green" ng-hide="editMode" ng-click="guardar()">Guardar</a>
-            <a ng-disabled="!formPlanilla.$valid"  class="waves-effect waves-light btn green" ng-show="editMode" ng-click="modificar()">Modificar</a>
-        </div>
-
-    </div>
-
-    <!--modal buscar conductor-->
-    <div id="modalBuscarconductor" class="modal modal-fixed-footer">
-        <div class="row white">
-            <div class="col s12 z-depth-1">
-                <div class="contenedor">
-                    <div class="row">
-                        <div class="col s8">
-                            <h2>Seleccionar conductor</h2>
-                        </div>
-                        <div class="col s4">
-                            <div class="input-field col s12">
-                                <i class="material-icons prefix">search</i>
-                                <input id="icon_search" type="tel" ng-model="filtro">
-                                <label for="icon_search">Filtrar</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s12">
-                            <table class="striped bordered">
-                                <thead>
-                                <th>Id</th>
-                                <th>Foto</th>
-                                <th>Nombres</th>
-                                <th>Apellidos</th>
-                                <th>Telefono</th>
-                                <th>Seleccionar</th>
-                                </thead>
-                                <tbody>
-                                <tr ng-repeat="conductor in Conductores | filter : filtro">
-                                    <td>{{conductor.id}}</td>
-                                    <td>
-                                        <img src="http://materializecss.com/images/yuna.jpg" class="circle" style="width: 35px;">
-                                    </td>
-                                    <td>{{conductor.nombres}}</td>
-                                    <td>{{conductor.apellidos}}</td>
-                                    <td>{{conductor.telefono}}</td>
-                                    <td>
-                                        <a href="javascript:" ng-click="selectConductor(conductor)">
-                                            <i class="material-icons prefix">touch_app</i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="modal-footer">
-                <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
-                   style="margin-left:10px;">Salir</a>
-            </div>
+            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
+               style="margin-left:10px;">Salir</a>
+            <a href="javascript:;" ng-click="imprimir()" class="waves-effect waves-light btn green"
+               style="margin-left:10px;">Imprimir</a>
         </div>
     </div>
+    <!--fin modal planilla-->
 </div>
 
 <script>

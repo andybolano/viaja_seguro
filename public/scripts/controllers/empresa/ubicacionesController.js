@@ -48,14 +48,23 @@ app.controller('ubicacionesController', function ($scope, turnosService, ubicaci
                         obj.conductor.nombres +' ' + obj.conductor.apellidos + ' CODIGO VIAL: ' + obj.vehiculo_conductor.codigo_vial,
                         'Conductor en ruta',
                         obj.conductor.telefono,
-                        'undefined',
+                        obj.conductor.imagen,
                         'undefined',
                         obj.latitud,
                         obj.longitud,
-                        imagen
+                        uri +'/images/marker.png'
                     ]
                 ];
 
+                var contenido = '<div >\
+                \<div >\<img src=\"imagen\'" title="Toa Baja Isla de Cabras" title="" />\
+                \</div>\<div class="contentTxt">\
+                \<h2>\obj.conductor.nombres\ +" " + obj.conductor.apellidos\</h2>\
+                \<p>\CODIGO VIAL: " + obj.vehiculo_conductor.codigo_vial\</p>\
+                \</div>\<div class="clear"></div>\</div>';
+                var infowindow = new google.maps.InfoWindow({
+                    content: contenido
+                });
 
                 for (i = 0; i < datos.length; i++) {
                     if (datos[i][1] =='undefined'){ description ='';} else { description = datos[i][1];}
@@ -69,11 +78,16 @@ app.controller('ubicacionesController', function ($scope, turnosService, ubicaci
                         map: map,
                         title: datos[i][0],
                         desc: description,
-                        tel: telephone,
+                        img: telephone,
                         email: email,
                         web: web
                     });
+
+                    google.maps.event.addListener(marker, 'click', function(){
+                        infowindow.open(map, marker);
+                    });
                 }
+
 
                 //var marcador=new google.maps.Marker({
                 //    title: obj.conductor.nombres +' '+ obj.conductor.apellidos,

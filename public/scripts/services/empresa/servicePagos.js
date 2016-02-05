@@ -4,6 +4,10 @@ app.service('serviceEmpresaPagos', function ($http, authService) {
         return req;
     }
 
+    this.getPlanilla = function(viaje){
+        return $http.get(uri+ '/api/empresa/pagos/planilla/'+viaje);
+    }
+
     this.getPagoAhorros = function(){
         var req = $http.get(uri+'/api/empresa/pagos/ahorro');
         return req;

@@ -8,11 +8,17 @@ class Planilla extends Model
 {
     protected $table = 'planilla';
 
-    protected $fillable = ['id', 'numero_planilla'];
+    protected $fillable = ['id', 'numero_planilla', 'viaje_id'];
 
     public $timestamps = false;
 
-    public function conductor(){
+    public function conductor()
+    {
         return $this->belongsTo(Conductor::class);
+    }
+
+    public function viaje()
+    {
+        return $this->belongsTo(Viaje::class);
     }
 }

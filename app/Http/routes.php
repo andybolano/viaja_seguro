@@ -14,6 +14,7 @@
 Route::get('/', function () {
     echo '<script>location.href=\'login.html\';</script>';
 });
+Route::get('pdf', 'PdfController@invoice');
 
 Route::group(['middleware' => 'cors'], function () {
     Route::post('/api/login', array('middleware' => 'cors', 'uses' => 'LoginController@autenticarUsuario'));
