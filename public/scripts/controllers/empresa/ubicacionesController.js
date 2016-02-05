@@ -36,6 +36,7 @@ app.controller('ubicacionesController', function ($scope, turnosService, ubicaci
             var marcadores = [];
 
             $.each($scope.ubicaciones,function(i,obj){
+                $scope.obj= {};
                 var imagen = {
                     url: obj.conductor.imagen,
                     size: new google.maps.Size(80, 80),
@@ -43,6 +44,7 @@ app.controller('ubicacionesController', function ($scope, turnosService, ubicaci
                     anchor: new google.maps.Point(17, 34),
                     scaledSize: new google.maps.Size(25, 25)
                 };
+                $scope.obj.imagen = obj.conductor.imagen;
                 var datos = [
                     [
                         obj.conductor.nombres +' ' + obj.conductor.apellidos + ' CODIGO VIAL: ' + obj.vehiculo_conductor.codigo_vial,
@@ -56,15 +58,7 @@ app.controller('ubicacionesController', function ($scope, turnosService, ubicaci
                     ]
                 ];
 
-                var contenido = '<div >\
-                \<div >\<img src=\"imagen\'" title="Toa Baja Isla de Cabras" title="" />\
-                \</div>\<div class="contentTxt">\
-                \<h2>\obj.conductor.nombres\ +" " + obj.conductor.apellidos\</h2>\
-                \<p>\CODIGO VIAL: " + obj.vehiculo_conductor.codigo_vial\</p>\
-                \</div>\<div class="clear"></div>\</div>';
-                var infowindow = new google.maps.InfoWindow({
-                    content: contenido
-                });
+
 
                 for (i = 0; i < datos.length; i++) {
                     if (datos[i][1] =='undefined'){ description ='';} else { description = datos[i][1];}
@@ -83,10 +77,22 @@ app.controller('ubicacionesController', function ($scope, turnosService, ubicaci
                         web: web
                     });
 
+                    var contenido = '<div >\
+                \<div >\<img ng-src="{{obj.imagen}}" title="Conductor" title="" />\
+                \</div>\<div class="contentTxt">\
+                \<h2>\obj.conductor.nombres\ +" " + obj.conductor.apellidos\</h2>\
+                \<p>\CODIGO VIAL: " + obj.vehiculo_conductor.codigo_vial\</p>\
+                \</div>\<div class="clear"></div>\</div>';
+                }
+
+                    var infowindow = new google.maps.InfoWindow({
+                        content: contenido
+                    });
                     google.maps.event.addListener(marker, 'click', function(){
                         infowindow.open(map, marker);
                     });
-                }
+
+
 
 
                 //var marcador=new google.maps.Marker({
