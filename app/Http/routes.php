@@ -15,7 +15,7 @@ Route::get('/', function () {
     echo '<script>location.href=\'login.html\';</script>';
 });
 
-Route::group(['middleware' => 'jwt.auth'], function () {
+Route::group(['middleware' => 'cors'], function () {
     Route::post('/api/login', array('middleware' => 'cors', 'uses' => 'LoginController@autenticarUsuario'));
 
     Route::post('/api/usuarios/clientes', 'Cliente\ClienteController@store');
