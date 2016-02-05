@@ -12,6 +12,11 @@ class Viaje extends Model
 
     public $timestamps = false;
 
+    public function conductor()
+    {
+        return $this->belongsTo(Conductor::class);
+    }
+
     public function pasajeros()
     {
         return $this->belongsToMany(Pasajero::class, 'viaje_pasajeros', 'viaje_id', 'pasajero_id');

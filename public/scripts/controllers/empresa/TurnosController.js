@@ -287,7 +287,8 @@ function TurnosController($scope, turnosService){
             $scope.turnos = p.data;
             if($scope.turnos.turno == 1){
                 ejecutarDespachoConductor($scope.turnos);
-                Materialize.toast(p.message, 5000);
+                Materialize.toast($scope.Planilla.message, 5000);
+                $('#modalPlanilla').openModal();
             }
 
         }
@@ -297,6 +298,7 @@ function TurnosController($scope, turnosService){
     }
 
     function ejecutarDespachoConductor(datos){
+        $scope.Planilla = {};
         var obj = {
             ruta_id : datos.ruta_id,
             turno : datos.turno,
@@ -304,11 +306,21 @@ function TurnosController($scope, turnosService){
         }
         turnosService.eliminarTurno(obj).then(succes, error);
         function succes(p){
+            $scope.Planilla = p.data;
+            console.log($scope.Planilla)
             cargarRutas();
             Materialize.toast(p.message, 5000);
         }
         function error(error){
             Materialize.toast(error.message, 5000);
         }
+    }
+
+    $scope.imprimir = function(){
+        var printContents = document.getElementById('planilla').innerHTML;
+        var popupWin = window.open('', '_blank', 'width=300,height=300');
+        popupWin.document.open();
+        popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="../../public/css/pdf.css" /></head><body onload="window.print()">' + printContents + '</body></html>');
+        popupWin.document.close();
     }
 }

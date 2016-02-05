@@ -63,19 +63,38 @@ class ViajesController extends Controller
             foreach ($paquetes as $paquete) {
                 $viaje->paquetes()->attach($paquete['id']);
             }
-            $this->generarDatosPlanilla($viaje);
-            return $viaje;
+
+            $this->crearPlanilla($viaje->id);
+            $planilla = $this->generarDatosPlanilla($viaje->id);
+
+            return array('viaje' => $viaje, 'planilla' => $planilla);
         }else{
             return 'No se pudo crear el viaje';
         }
     }
 
-    public function crearPlanilla(){
-
+    public function crearPlanilla($viaje_id){
+        $planilla = new Planilla();
+        $planilla->viaje_id = $viaje_id;
+        if($planilla->save()){
+            return JsonResponse::create('Se creo la planilla correctamente');
+        }else{
+            return JsonResponse::create('Error al crear la planilla');
+        }
     }
 
     public function generarDatosPlanilla($viaje){
-        $data = Planilla::find($viaje->id)->viaje();
+        $consulta = Planilla::select('*')->where('viaje_id', $viaje)->first()->load('viaje');
+        $consulta['giros'] = \DB::table('giros')->join('viaje_giros', 'giros.id', '=', 'viaje_giros.giro_id')
+            ->join('viajes', 'viaje_giros.viaje_id', '=', 'viajes.id')
+            ->where('viajes.id', $viaje)->select('*')->get();
+        $consulta['pasajeros'] = \DB::table('pasajeros')->join('viaje_pasajeros', 'pasajeros.id', '=', 'viaje_pasajeros.pasajero_id')
+            ->where('viajes.id', $viaje)->join('viajes', 'viaje_pasajeros.viaje_id', '=', 'viajes.id')->select('*')->get();
+        $consulta['paquetes'] = \DB::table('paquetes')->join('viaje_paquetes', 'paquetes.id', '=', 'viaje_paquetes.paquete_id')
+            ->where('viajes.id', $viaje)->join('viajes', 'viaje_paquetes.viaje_id', '=', 'viajes.id')->select('*')->get();
+
+        $consulta['conductor'] = Viaje::find($viaje)->conductor;
+        return $consulta;
     }
 
     public function generarNumeroPlanilla(){

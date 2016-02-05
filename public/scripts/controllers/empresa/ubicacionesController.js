@@ -52,7 +52,7 @@ app.controller('ubicacionesController', function ($scope, turnosService, ubicaci
                         'undefined',
                         obj.latitud,
                         obj.longitud,
-                        uri +'`/images/marker.png'
+                        uri +'/images/marker.png'
                     ]
                 ];
 

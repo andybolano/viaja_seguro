@@ -1,0 +1,60 @@
+<div class="contenedor" ng-controller="TurnosController">
+    <div class="col s12">
+        <div class="row z-depth-1 white" id="planilla">
+            <body id="bodyPlanilla">
+            <header class="clearfix" id="headerPlanilla">
+                <div id="logo">
+                    <img src="http://localhost:8080/viaja_seguro/public/images/logo.png">
+                </div>
+                <h1 id="h1Planilla">PLANILLA N° {{Planilla.viaje.planilla.numero_planilla}}</h1>
+                <div id="company" class="clearfix">
+                    <div>Cootrasan</div>
+                    <div>Fonseca - La Guajira,<br /> Call 13 #21-34</div>
+                    <div> 7755813</div>
+                </div>
+                <div id="project">
+                    <div><span>CONDUCTOR</span> {{Planilla.viaje.planilla.conductor.nombres}} {{Planilla.viaje.planilla.conductor.apellidos}}</div>
+                    <div><span>IDENTIFICACION</span> {{Planilla.viaje.planilla.conductor.identificacion}}</div>
+                    <div><span>TELEFONO</span> {{Planilla.viaje.planilla.conductor.telefono}}</div>
+                    <div><span>FECHA</span> Agosto 17, 2015</div>
+                </div>
+            </header>
+            <main id="mainPlanilla">
+                <table class="col s9">
+                    <thead>
+                        <tr>
+                            <th class="center">IDENTIFICACION</th>
+                            <th class="center">NOMBRES Y APELLIDOS</th>
+                            <th class="center">TELEFONO</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr >
+                            <td class="center">1120746041</td>
+                            <td class="center">Jose Miguel Soto Acosta</td>
+                            <td class="center">3015941826</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </main>
+            <fieldset>
+                <table class="col s3">
+                    <thead>
+                    <tr>
+                        <th class="center">DEDUCCION</th>
+                        <th class="center">VALOR</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </fieldset>
+            </body>
+        </div>
+    </div>
+<a href="javascript:;" ng-click="imprimir()" class="waves-effect waves-light btn green"
+   style="margin-left:10px;">Imprimir</a>
