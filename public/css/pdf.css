@@ -43,7 +43,7 @@ a {
   font-weight: normal;
   text-align: center;
   margin: 0 0 20px 0;
-  background: url(http://localhost:8080/viaja_seguro/public/images/dimension.png);
+  background: url(../../public/images/dimension.png);
 }
 
 #project {

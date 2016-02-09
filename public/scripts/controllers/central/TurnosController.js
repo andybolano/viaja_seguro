@@ -122,6 +122,13 @@ function TurnosController($scope, turnosService, serviceEmpresaPagos){
         }
     }
 
+    $scope.verVehiculo = function(conductor){
+        $scope.conductor = conductor;
+        $scope.active = 'active';
+        cargarVehiculoConductor($scope.conductor.id);
+        $('#modalVehiculo').openModal();
+    }
+
     function addPasajero(conductor){
         $scope.conductor = conductor;
         cargarVehiculoConductor($scope.conductor.id);
