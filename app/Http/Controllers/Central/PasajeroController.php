@@ -58,9 +58,54 @@ class PasajeroController extends Controller
         $pasajero = new Pasajero($data);
         $conductor = Conductor::find($data['conductor_id']);
         $conductor->pasajeros()->save($pasajero);
+        $mensaje = 'Se te asigno un nuevo pasajero';
+        $this->enviarNotificacion('', $mensaje, $data['conductor_id']);
         $central = Central::find($central_id);
         if(!$central->pasajeros()->save($pasajero)){
             return response()->json(['mensajeError' => 'no se ha podido almacenar el registro'], 400);
+        }
+    }
+
+    function enviarNotificacion($collapseKey, $mensaje, $conductor_id)
+    {
+        //llamar al usuario
+        $data = Conductor::find($conductor_id)->usuario;
+
+        if($data != false){
+
+            $apiKey = 'AIzaSyAZB5qS20uH0-W_btPvbLRx_D2qFHnNCt8';
+
+            $userIdentificador = $data["reg_id"];
+
+            $headers = array('Authorization:key=' . $apiKey);
+            $data = array(
+                'registration_ids' => $userIdentificador,
+                'collapse_key' => $collapseKey,
+                'data.message' => $mensaje,
+                'data.fecha' => date('Y-m-d'));
+
+            $ch = curl_init();
+
+            curl_setopt($ch, CURLOPT_URL, "https://android.googleapis.com/gcm/send");
+            if ($headers)
+                curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+
+            $response = curl_exec($ch);
+            $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            if (curl_errno($ch)) {
+                return 'fail';
+            }
+            if ($httpCode != 200) {
+                return 'status code 200';
+            }
+            curl_close($ch);
+            return $response;
+        } else {
+            return 'No existe el usuario';
         }
     }
 
@@ -123,12 +168,15 @@ class PasajeroController extends Controller
     public function destroy($id)
     {
         try{
+            $conductor = Pasajero::find($id)->conductor;
             $pasajero = Pasajero::find($id);
             if (is_null ($pasajero))
             {
                 \App::abort(404);
             }else{
                 $pasajero->delete();
+                $mensaje = 'Se retiro un pasajero que se te habia sido asignado';
+                $this->enviarNotificacion('', $mensaje, $conductor->id);
                 return JsonResponse::create(array('message' => "Pasajero eliminado correctamente", "request" =>json_encode($id)), 200);
             }
         }catch (Exception $ex) {
@@ -140,4 +188,6 @@ class PasajeroController extends Controller
     {
         return Rol::where('nombre', $nombre)->first();
     }
+
+
 }

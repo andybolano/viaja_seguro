@@ -51,4 +51,9 @@ class Conductor extends Model
     {
         return $this->hasMany(Paquete::class);
     }
+
+    public function usuario()
+    {
+        return $this->belongsTo(Usuario::class);
+    }
 }

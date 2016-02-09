@@ -27,4 +27,9 @@ class Giro extends Model
     {
         return $this->belongsTo(Vehiculo::class);
     }
+
+    public function conductor()
+    {
+        return $this->belongsTo(Conductor::class);
+    }
 }
