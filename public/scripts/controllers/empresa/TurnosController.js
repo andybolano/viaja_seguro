@@ -77,7 +77,13 @@ function TurnosController($scope, turnosService, serviceEmpresaPagos){
     function cargarConductores() {
         turnosService.getAllConductores().then(success, error);
         function success(p) {
-            $scope.conductores = p.data;
+            for(var i=0; i<p.data.length; i++){
+                if(p.data[i].activo == true ){
+                    $scope.Conductores.push(p.data[i]);
+                }else{
+                    $scope.ConductoresInactivos.push(p.data[i]);
+                }
+            }
         }
         function error(error) {
             console.log('Error al cargar conductores', error);

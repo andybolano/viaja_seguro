@@ -342,39 +342,42 @@
                 </div>
             </header>
             <main id="mainPlanilla">
-                <table class="col s9">
-                    <thead>
-                    <tr>
-                        <th class="center">IDENTIFICACION</th>
-                        <th class="center">NOMBRES Y APELLIDOS</th>
-                        <th class="center">TELEFONO</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="pasajero in Planilla.viaje.planilla.pasajeros" >
-                        <td class="center">{{pasajero.identificacion}}</td>
-                        <td class="center">{{pasajero.nombres}}</td>
-                        <td class="center">{{pasajero.telefono}}</td>
-                    </tr>
-                    </tbody>
-                </table>
+                <row class="col s6">
+                    <table >
+                        <thead>
+                        <tr>
+                            <th class="center">IDENTIFICACION</th>
+                            <th class="center">NOMBRES Y APELLIDOS</th>
+                            <th class="center">TELEFONO</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="pasajero in Planilla.viaje.planilla.pasajeros" >
+                            <td class="center">{{pasajero.identificacion}}</td>
+                            <td class="center">{{pasajero.nombres}}</td>
+                            <td class="center">{{pasajero.telefono}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </row>
+                <row class="col s3"></row>
+                <row class="col s3">
+                    <table >
+                        <thead>
+                        <tr>
+                            <th class="center">DEDUCCION</th>
+                            <th class="center">VALOR</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="deduccion in Deducciones" ng-if="deduccion.estado == true">
+                            <td class="center">{{deduccion.nombre}}</td>
+                            <td class="center">{{deduccion.valor | currency}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </row>
             </main>
-            <fieldset>
-                <table class="col s3">
-                    <thead>
-                    <tr>
-                        <th class="center">DEDUCCION</th>
-                        <th class="center">VALOR</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="deduccion in Deducciones" ng-if="deduccion.estado == true">
-                        <td class="center">{{deduccion.nombre}}</td>
-                        <td class="center">{{deduccion.valor | currency}}</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </fieldset>
             </body>
         </div>
 

@@ -41,8 +41,8 @@ var app;
             .when("/central/conductores/ubicaciones",{
                 templateUrl: 'ubicaciones.html'
             })
-            .when("/central/planilla",{
-                templateUrl: 'planilla.html'
+            .when("/central/conductores",{
+                templateUrl: 'showConductores.html'
             })
             .otherwise({redirectTo: '/'})
     }]);

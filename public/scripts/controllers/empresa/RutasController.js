@@ -22,8 +22,8 @@ function RutasController($scope, centralesService, rutasService){
         $scope.editMode = true;
         loadCentrales();
         $("#modalRutas").openModal();
-        $('#panel_ruta').hide();
-        $("#dvMap").hide();
+        //$('#panel_ruta').hide();
+        ubicacionActual();
     }
 
     function verRuta(ruta){
@@ -88,18 +88,21 @@ function RutasController($scope, centralesService, rutasService){
     function ubicacionActual() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function (position) {
-                $scope.map = {
+
+                $scope.mapa = {
                     center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
                     zoom: 15,
                     markers: [],
                     mapTypeId: google.maps.MapTypeId.ROADMAP
                 }
+                $scope.map = new google.maps.Map($("#dvMap")[0], $scope.mapa);
+
                 //var coordenada1 = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                var map = new google.maps.Map($("#dvMap")[0], $scope.map);
-                //var marcador = new google.maps.Marker({position: coordenada1,map: map, animation: 1, title:"Tu direcion"});
+                //var map = new google.maps.Map($("#dvMap")[0], $scope.map);
+                //var marcador = new google.maps.Marker({position: coordenada1,map: $scope.map, animation: 1, title:"Tu direcion"});
             });
         } else {
-            alert('No se pudo localizar si posicion');
+            alert('No se pudo localizar su posicion');
         }
     }
 

@@ -155,13 +155,17 @@ function CentralesController($scope, centralesService, ciudadesService, authServ
     }
 
     $scope.agregarDireccion = function() {
-        var direccion = $scope.selectedCentral.ciudad.nombre + " " + $scope.selectedCentral.direccion;
-        if (direccion !== '') {
-            crearDireccion(direccion, function(marker) {
-                $scope.selectedCentral.miDireccionLa = marker.latitude;
-                $scope.selectedCentral.miDireccionLo = marker.longitude;
-                console.log($scope.selectedCentral.miDireccionLo)
-            });
+        if($scope.selectedCentral.ciudad.nombre == ''){
+            Materialize.toast('No ha seleccionado ninguna ciudad', '5000', 'rounded');
+        }else{
+            var direccion = $scope.selectedCentral.ciudad.nombre + " " + $scope.selectedCentral.direccion;
+            if (direccion !== '') {
+                crearDireccion(direccion, function(marker) {
+                    $scope.selectedCentral.miDireccionLa = marker.latitude;
+                    $scope.selectedCentral.miDireccionLo = marker.longitude;
+                    console.log($scope.selectedCentral.miDireccionLo)
+                });
+            }
         }
     };
 
