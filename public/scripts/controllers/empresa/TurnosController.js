@@ -162,6 +162,22 @@ function TurnosController($scope, turnosService, serviceEmpresaPagos){
         }
     };
 
+    $scope.eliminarPasajero = function(pasajero_id){
+        turnosService.eliminarPasajero(pasajero_id).then(succes, error);
+        function succes(p){
+            refrescarPasajeros($scope.conductor.id);
+            Materialize.toast(p.message, '5000', 'rounded');
+            $scope.vehiculo.cupos = $scope.vehiculo.cupos+1;
+            var obj = {
+                cupos : $scope.vehiculo.cupos
+            }
+            turnosService.updateCuposVehiculo($scope.vehiculo.id, obj);
+        }
+        function error(error){
+            console.log('error al eliminar')
+        }
+    }
+
     ////Giros
     function refrescarGiros(conductor_id){
         document.getElementById("guardarG").disabled = false;
@@ -211,6 +227,17 @@ function TurnosController($scope, turnosService, serviceEmpresaPagos){
             console.log('Error al guardar')
         }
     };
+
+    $scope.eliminarGiro = function(giro_id){
+        turnosService.eliminarGiro(giro_id).then(succes, error);
+        function succes(p){
+            refrescarGiros($scope.conductor.id);
+            Materialize.toast(p.message, '5000', 'rounded');
+        }
+        function error(error){
+            console.log('error al eliminar')
+        }
+    }
 
     ////Paquetes
     function refrescarPaquetes(conductor_id){
@@ -265,6 +292,17 @@ function TurnosController($scope, turnosService, serviceEmpresaPagos){
     $scope.verDescripcionPaquete = function(paquete){
         $scope.Paquete = paquete;
         $('#modalDescripcionPaquete').openModal();
+    }
+
+    $scope.eliminarPaquete = function(paquete_id){
+        turnosService.eliminarPaquete(paquete_id).then(succes, error);
+        function succes(p){
+            refrescarPaquetes($scope.conductor.id);
+            Materialize.toast(p.message, '5000', 'rounded');
+        }
+        function error(error){
+            console.log('error al eliminar')
+        }
     }
 
     ///

@@ -129,7 +129,7 @@ class PasajeroController extends Controller
                 \App::abort(404);
             }else{
                 $pasajero->delete();
-                return JsonResponse::create(array('message' => "Cleinte eliminado correctamente", "request" =>json_encode($id)), 200);
+                return JsonResponse::create(array('message' => "Pasajero eliminado correctamente", "request" =>json_encode($id)), 200);
             }
         }catch (Exception $ex) {
             return JsonResponse::create(array('message' => "No se pudo Eliminar el Pasajero", "exception"=>$ex->getMessage(), "request" =>json_encode($id)), 401);

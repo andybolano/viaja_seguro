@@ -153,7 +153,7 @@
                                         <td>{{pasajero.direccionD}}</td>
                                         <td></td>
                                         <td style="text-align: center;"><a href="javascript:;" title="editar" ng-click="cargarModificarPasajero(pasajero);"><i class="material-icons">create</i></a></td>
-                                        <td style="text-align: center;"><a href="javascript:;" title="editar"><i class="material-icons" style="color:#F44336">remove</i></a></td>
+                                        <td style="text-align: center;"><a href="javascript:;" title="eliminar" ng-click="eliminarPasajero(pasajero.id)"><i class="material-icons" style="color:#F44336">remove</i></a></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -219,7 +219,7 @@
                                         <td>{{giro.monto | currency}}</td>
                                         <td></td>
                                         <td style="text-align: center;"><a href="javascript:;" title="editar" ng-click="cargarModificarGiro(giro);"><i class="material-icons">create</i></a></td>
-                                        <td style="text-align: center;"><a href="javascript:;" title="editar"><i class="material-icons" style="color:#F44336">remove</i></a></td>
+                                        <td style="text-align: center;"><a href="javascript:;" title="eliminar" ng-click="eliminarGiro(giro.id)"><i class="material-icons" style="color:#F44336">remove</i></a></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -289,7 +289,7 @@
                                         </td>
                                         <td></td>
                                         <td style="text-align: center;"><a href="javascript:;" title="editar" ng-click="cargarModificarPaquete(paquete);"><i class="material-icons">create</i></a></td>
-                                        <td style="text-align: center;"><a href="javascript:;" title="editar"><i class="material-icons" style="color:#F44336">remove</i></a></td>
+                                        <td style="text-align: center;"><a href="javascript:;" title="eliminar" ng-click="eliminarPaquete(paquete.id)"><i class="material-icons" style="color:#F44336">remove</i></a></td>
                                     </tr>
                                     </tbody>
                                 </table>

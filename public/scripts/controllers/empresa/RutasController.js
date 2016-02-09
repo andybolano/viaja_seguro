@@ -22,12 +22,16 @@ function RutasController($scope, centralesService, rutasService){
         $scope.editMode = true;
         loadCentrales();
         $("#modalRutas").openModal();
+        $('#panel_ruta').hide();
+        $("#dvMap").hide();
     }
 
     function verRuta(ruta){
         $scope.ruta = ruta;
         $scope.editMode = false;
         $("#modalRutas").openModal();
+        $('#panel_ruta').show();
+        $('#dvMap').show();
         $scope.ruta.origen.ciudad.nombre = ruta.origen.ciudad.nombre;
         $scope.ruta.origen.direccion = ruta.origen.direccion;
         $scope.ruta.destino.ciudad.nombre = ruta.destino.ciudad.nombre;
@@ -78,6 +82,24 @@ function RutasController($scope, centralesService, rutasService){
         }
         function error(error) {
             console.log('Error al cargar datos', error);
+        }
+    }
+
+    function ubicacionActual() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                $scope.map = {
+                    center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
+                    zoom: 15,
+                    markers: [],
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                }
+                //var coordenada1 = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                var map = new google.maps.Map($("#dvMap")[0], $scope.map);
+                //var marcador = new google.maps.Marker({position: coordenada1,map: map, animation: 1, title:"Tu direcion"});
+            });
+        } else {
+            alert('No se pudo localizar si posicion');
         }
     }
 
@@ -153,7 +175,8 @@ function RutasController($scope, centralesService, rutasService){
     $scope.trazarRuta = function(){
         var directionsDisplay = new google.maps.DirectionsRenderer();
         var directionsService = new google.maps.DirectionsService();
-
+        $('#panel_ruta').show();
+        $('#dvMap').show();
         var request = {
             origin: $scope.ruta.origen.ciudad.nombre + " , " + $scope.ruta.origen.direccion,
             destination: $scope.ruta.destino.ciudad.nombre + " , " + $scope.ruta.destino.direccion,

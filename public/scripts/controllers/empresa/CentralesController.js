@@ -150,7 +150,7 @@ function CentralesController($scope, centralesService, ciudadesService, authServ
                 var marcador = new google.maps.Marker({position: coordenada1,map: map, animation: 1, title:"Tu direcion"});
             });
         } else {
-            alert('No se pudo localizar si posicion');
+            alert('No se pudo localizar su posicion');
         }
     }
 

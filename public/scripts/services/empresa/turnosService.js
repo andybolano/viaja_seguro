@@ -40,6 +40,10 @@ app.service('turnosService', function ($http , authService) {
         return $http.put(uri + '/api/pasajeros/' + id, object);
     }
 
+    this.eliminarPasajero = function(pasajero_id){
+        return $http.delete(uri + '/api/pasajeros/'+ pasajero_id);
+    }
+
     //giros
     this.refrescarGiros = function (id) {
         return $http.get(uri+'/api/centrales/'+id+'/giros');
@@ -53,6 +57,10 @@ app.service('turnosService', function ($http , authService) {
         return $http.put(uri + '/api/giros/' + id, object);
     }
 
+    this.eliminarGiro = function(giro_id){
+        return $http.delete(uri + '/api/giros/'+ giro_id);
+    }
+
     //paquetes
     this.refrescarPaquetes = function (id) {
         return $http.get(uri+'/api/centrales/'+id+'/paquetes');
@@ -64,5 +72,9 @@ app.service('turnosService', function ($http , authService) {
 
     this.modificarPaquete = function(id, object) {
         return $http.put(uri + '/api/paquetes/' + id, object);
+    }
+
+    this.eliminarPaquete = function(paquete_id){
+        return $http.delete(uri + '/api/paquetes/'+ paquete_id);
     }
 });
