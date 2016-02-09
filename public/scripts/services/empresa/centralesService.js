@@ -5,8 +5,9 @@
 app.service('centralesService', centralesService);
 
 function centralesService($http, authService) {
-    this.getAll = function () {
-        return $http.get(uri + '/api/empresas/'+authService.currentUser().empresa.id+'/centrales');
+    this.getAll = function (empresa_id) {
+        empresa_id || ( empresa_id = authService.currentUser().empresa.id );
+        return $http.get(uri + '/api/empresas/'+empresa_id+'/centrales');
     }
 
     this.get = function (id) {

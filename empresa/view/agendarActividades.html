@@ -76,11 +76,11 @@
                         <div class="row">
                             <div class="input-field col s9">
                                 <i class="material-icons prefix">done_all</i>
-                                <input id="nombre" type="text" class="validate" name="nombre" ng-model="selectedActividad.nombre" readonly>
+                                <input id="nombre" type="text" class="validate" name="nombre" ng-model="selectedActividad.nombre">
                                 <label for="nombre" class="{{active}}">Nombre</label>
                             </div>
                             <div class="input-field col s3" ng-hide="editMode">
-                                <input id="estado" type="text" class="validate" name="estado" ng-model="selectedActividad.estado" required>
+                                <input id="estado" type="text" class="validate" name="estado" ng-model="selectedActividad.estado" required readonly>
                                 <label for="estado" class="active">Estado</label>
                             </div>
                             <div class="input-field col s3">

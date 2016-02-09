@@ -24,6 +24,12 @@ var app;
             .when("/gestionar_empresas", {
                 templateUrl: 'gestionar_empresas.html'
             })
+            .when("/gestionar_empresas/:id/centrales", {
+                templateUrl: 'centrales_empresa.html'
+            })
+            .when("/flota", {
+                templateUrl: 'showVehiculos.html'
+            })
             .otherwise({
                 redirectTo: "/default"
             });
