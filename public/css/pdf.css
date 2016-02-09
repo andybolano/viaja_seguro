@@ -69,8 +69,17 @@ a {
   white-space: nowrap;        
 }
 
-table {
-  width: 100%;
+#table {
+  float: left;
+  /*width: 60%;*/
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin-bottom: 20px;
+}
+
+#tableD{
+  float: right;
+  /*width: 40%;*/
   border-collapse: collapse;
   border-spacing: 0;
   margin-bottom: 20px;
@@ -93,30 +102,11 @@ table th {
   font-weight: normal;
 }
 
-table .service,
-table .desc {
-  text-align: left;
-}
-
 table td {
   padding: 20px;
-  text-align: right;
+  text-align: center;
 }
 
-table td.service,
-table td.desc {
-  vertical-align: top;
-}
-
-table td.unit,
-table td.qty,
-table td.total {
-  font-size: 1.2em;
-}
-
-table td.grand {
-  border-top: 1px solid #5D6975;;
-}
 
 #notices .notice {
   color: #5D6975;

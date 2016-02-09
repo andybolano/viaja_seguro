@@ -370,10 +370,44 @@ function TurnosController($scope, turnosService, serviceEmpresaPagos){
     }
 
     $scope.imprimir = function(){
-        var printContents = document.getElementById('planilla').innerHTML;
-        var popupWin = window.open('', '_blank', 'width=300,height=300');
-        popupWin.document.open();
-        popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="../../public/css/pdf.css" /></head><body onload="window.print()">' + printContents + '</body></html>');
-        popupWin.document.close();
+        //var printContents = document.getElementById('planilla').innerHTML;
+        //var popupWin = window.open('', 'popimpr');
+        //popupWin.document.open();
+        //popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="http://localhost:8080/viaja_seguro/public/css/pdf.css" /></head><body onload="window.print()">' + printContents + '</body></html>');
+        //popupWin.document.close();
+
+
+        var ficha = document.getElementById('planilla');
+        var ventimp = window.open(' ', 'popimpr');
+        ventimp.document.write( ficha.innerHTML );
+        ventimp.document.close();
+        var css = ventimp.document.createElement("link");
+        css.setAttribute("href", "http://localhost:8080/viaja_seguro/public/css/pdf.css");
+        css.setAttribute("rel", "stylesheet");
+        css.setAttribute("type", "text/css");
+        ventimp.document.head.appendChild(css);
+        ventimp.print( );
+        ventimp.close();
+        //var ventana = window.open(),
+        //    css = document.createElement("style"),
+        //    foo = document.querySelector("#planilla"),
+        //    ajax = function(url, elem, callback){
+        //        var xhr = new XMLHttpRequest();
+        //        xhr.open("GET", url, true);
+        //        xhr.send();
+        //        xhr.addEventListener("load", function(){
+        //            if (this.status == 200){
+        //                elem.innerHTML = this.responseText;
+        //                callback();
+        //            }
+        //        }, false);
+        //    };
+        //
+        //ajax("../css/pdf.css", css, function(){
+        //    ventana.document.body.appendChild(css);
+        //    ventana.document.body.appendChild(foo);
+        //    ventana.print();
+        //});
     }
+
 }
