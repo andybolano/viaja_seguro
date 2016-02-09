@@ -149,7 +149,7 @@ class EmpresaController extends Controller
     public function storeConductor(Request $request, $empresa_id)
     {
         $data = $request->json()->all();
-        $usuario = Usuario::nuevo($data['identificacion'], $data['identificacion'], $this->getRol('CONDUCTOR')->id, $data['reg_id']);
+        $usuario = Usuario::nuevo($data['identificacion'], $data['identificacion'], $this->getRol('CONDUCTOR')->id, '');
         $data['usuario_id'] = $usuario->id;
         $vehiculo_conductor = $data['vehiculo'];
         unset($data['vehiculo']);
