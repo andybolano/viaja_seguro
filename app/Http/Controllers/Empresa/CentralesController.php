@@ -137,6 +137,7 @@ class CentralesController extends Controller
     public function getConductores($id)
     {
         $conductores = Central::find($id)->conductores;
+        $conductores->load('vehiculo');
         return $conductores;
     }
 
