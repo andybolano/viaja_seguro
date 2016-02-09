@@ -1,8 +1,12 @@
 app.service('VehiculoServicio', function ($http, authService) {
-    var myuri = uri + '/api/empresas/'+authService.currentUser().empresa.id+'/vehiculos';
     this.getAll = function(){
-        var req = $http.get(myuri);
+        var req = $http.get(uri + '/api/empresas/'+authService.currentUser().empresa.id+'/vehiculos');
         return req;
+    }
+
+    this.getFiltering = function (empresa_id, central_id) {
+        var myuri = uri + (central_id ? '/api/centrales/'+central_id+'/vehiculos' : '/api/empresas/'+empresa_id+'/vehiculos');
+        return $http.get(myuri);
     }
 
     this.post = function  (object, id) {

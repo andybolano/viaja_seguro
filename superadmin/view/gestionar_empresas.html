@@ -25,9 +25,9 @@
                             <th>Nombre</th>
                             <th>Dirección</th>
                             <th>Teléfono</th>
-                            <th>Servicios contrtados</th>
+                            <th>Servicios contratados</th>
                             <th>Estado</th>
-                            <th>Acciones</th>
+                            <th colspan="2"></th>
                             </thead>
                             <tbody>
                             <tr ng-repeat="empresa in empresas | filter : filtro">
@@ -41,6 +41,11 @@
                                 <td>{{empresa.telefono}}</td>
                                 <td>{{empresa.servicios.length}}</td>
                                 <td><p ng-show="empresa.estado">Activa</p><p ng-show="!empresa.estado">Inactiva</p></td>
+                                <td>
+                                    <a href="#/gestionar_empresas/{{empresa.id}}/centrales">
+                                        Centrales
+                                    </a>
+                                </td>
                                 <td>
                                     <a href="javascript:" ng-click="actualizar(empresa)">
                                         <i class="material-icons prefix">visibility</i>
@@ -218,6 +223,8 @@
         </div>
 
         <div class="modal-footer">
+            <a href="#/gestionar_empresas/{{selectedEmpresa.id}}/centrales" class="modal-action modal-close waves-effect waves-light btn left"
+               style="margin-left:10px;" ng-show="editMode">Ver Centrales</a>
             <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
                style="margin-left:10px;">Salir</a>
             <input type="button" class="waves-effect waves-light btn orange" ng-click="guardar()" ng-hide="editMode"

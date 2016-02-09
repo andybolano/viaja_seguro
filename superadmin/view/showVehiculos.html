@@ -4,7 +4,7 @@
             <div class="contenedor">
                 <div class="row">
                     <div class="col s8">
-                        <h2>Gestion de vehículos</h2>
+                        <h2>Flota de vehículos</h2>
                     </div>
                     <div class="col s4">
                         <div class="input-field col s12">
@@ -13,6 +13,26 @@
                             <label for="icon_prefix1">Filtrar</label>
                         </div>
 
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s4" >
+                        <!--<a href="javascript:;" class="btn btn-default" ng-click="agregarDireccionO()"></a>-->
+                        <select class="browser-default" name="selectEmpresa" id="selectEmpresa"
+                                ng-options="empresa.nombre for empresa in empresas"
+                                ng-model="selectedEmpresa" ng-change="cargarVehiculos(selectedEmpresa)">
+                            <option value="" disabled selected>Seleccione una empresa</option>
+                        </select>
+                        <label for="selectEmpresa" class="active">Empresa</label>
+                    </div>
+                    <div class="input-field col s4" ng-show="selectedCentral">
+                        <!--<a href="javascript:;" class="btn btn-default" ng-click="agregarDireccionO()"></a>-->
+                        <select class="browser-default" name="selectCentral" id="selectCentral"
+                                ng-options="central.ciudad.nombre for central in centrales"
+                                ng-model="selectedCentral" ng-change="cargarVehiculosDeNuevo(selectedCentral)">
+                            <option value="todas" ></option>
+                        </select>
+                        <label for="selectCentral" class="active">Central</label>
                     </div>
                 </div>
                 <div class="row">
@@ -37,6 +57,9 @@
                                     <a href="javascript:" ng-click="modificar(vehiculo)">
                                         <i class="material-icons prefix">visibility</i>
                                     </a>
+                                    <a href="javascript:" ng-click="eliminar(vehiculo.placa)">
+                                        <i class="material-icons prefix">delete</i>
+                                    </a>
                                 </td>
                             </tr>
                             </tbody>
@@ -46,12 +69,6 @@
             </div>
         </div>
     </div>
-
-    <!--<div class="fixed-action-btn" style="bottom: 45px; right: 24px;">-->
-        <!--<a class="btn-floating btn-large waves-effect waves-light red" ng-click="nuevoVehiculo()">-->
-            <!--<i class="material-icons">add</i>-->
-        <!--</a>-->
-    <!--</div>-->
 
 
     <!--modal nuevo vehiculo-->
@@ -187,64 +204,6 @@
         </div>
 
     </div>
-
-    <!--modal buscar conductor-->
-    <!--<div id="modalBuscarconductor" class="modal modal-fixed-footer" ng-controller="ConductorController">-->
-        <!--<div class="row white">-->
-            <!--<div class="col s12 z-depth-1">-->
-                <!--<div class="contenedor">-->
-                    <!--<div class="row">-->
-                        <!--<div class="col s8">-->
-                            <!--<h2>Seleccionar conductor</h2>-->
-                        <!--</div>-->
-                        <!--<div class="col s4">-->
-                            <!--<div class="input-field col s12">-->
-                                <!--<i class="material-icons prefix">search</i>-->
-                                <!--<input id="icon_prefix" type="tel" ng-model="filtro">-->
-                                <!--<label for="icon_prefix">Filtrar</label>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <!--<div class="row">-->
-                        <!--<div class="col s12">-->
-                            <!--<table class="striped bordered">-->
-                                <!--<thead>-->
-                                <!--<th>Identificacion</th>-->
-                                <!--<th>Foto</th>-->
-                                <!--<th>Nombres</th>-->
-                                <!--<th>Apellidos</th>-->
-                                <!--<th>Teléfono</th>-->
-                                <!--<th>Seleccionar</th>-->
-                                <!--</thead>-->
-                                <!--<tbody>-->
-                                <!--<tr ng-repeat="conductor in Conductores | filter : filtro">-->
-                                    <!--<td>{{conductor.identificacion}}</td>-->
-                                    <!--<td>-->
-                                        <!--<img src="http://materializecss.com/images/yuna.jpg" class="circle" style="width: 35px;">-->
-                                    <!--</td>-->
-                                    <!--<td>{{conductor.nombres}}</td>-->
-                                    <!--<td>{{conductor.apellidos}}</td>-->
-                                    <!--<td>{{conductor.telefono}}</td>-->
-                                    <!--<td>-->
-                                        <!--<a href="javascript:" ng-click="selectConductor(conductor)">-->
-                                            <!--<i class="material-icons prefix">touch_app</i>-->
-                                        <!--</a>-->
-                                    <!--</td>-->
-                                <!--</tr>-->
-                                <!--</tbody>-->
-                            <!--</table>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-
-            <!--<div class="modal-footer">-->
-                <!--<a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"-->
-                   <!--style="margin-left:10px;">Salir</a>-->
-            <!--</div>-->
-    <!--</div>-->
-</div>
-
 </div>
 
 <script>

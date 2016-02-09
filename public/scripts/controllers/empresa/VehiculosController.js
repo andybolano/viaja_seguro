@@ -56,19 +56,6 @@ app.controller('VehiculosController', function ($scope, VehiculoServicio) {
             });
     }
 
-    $scope.eliminar = function  (id) {
-        if(confirm('¿Deseas eliminar el registro?') == true) {
-            var promiseDelete = VehiculoServicio.delete(id);
-            promiseDelete.then(function (pl) {
-                    cargarVehiculos();
-                    Materialize.toast(pl.data.message, 5000, 'rounded');
-                },
-                function (errorPl) {
-                    console.log('No se pudo eliminar el registro', errorPl);
-                });
-        }
-    }
-
     $scope.modificarImagenVehiculo = function (){
         if($scope.fileimageV) {
          var data = new FormData();
