@@ -6,7 +6,7 @@ class Usuario extends Authenticatable
 {
     protected $table = 'usuarios';
 
-    protected $fillable = ['email', 'password', 'rol_id', 'estado'];
+    protected $fillable = ['email', 'password', 'rol_id', 'estado', 'reg_id'];
 
     protected $hidden = ['password'];
 
@@ -15,13 +15,14 @@ class Usuario extends Authenticatable
         return $this->belongsTo(Rol::class);
     }
 
-    public static function nuevo($nombre, $contrasena, $id_rol, $estado = -1)
+    public static function nuevo($nombre, $contrasena, $id_rol, $estado = -1, $reg_id)
     {
        return parent::create([
            'email' => $nombre,
            'password' => password_hash($contrasena, PASSWORD_DEFAULT),
            'rol_id' => $id_rol,
-           'estado' => $estado
+           'estado' => $estado,
+           'reg_id'=> $reg_id
        ]);
     }
 }

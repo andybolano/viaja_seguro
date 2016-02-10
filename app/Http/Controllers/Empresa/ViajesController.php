@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Empresa;
 
+use App\Model\Conductor;
 use App\Model\Paquete;
 use App\Model\Giro;
 use App\Model\Pasajero;
@@ -100,4 +101,5 @@ class ViajesController extends Controller
     public function generarNumeroPlanilla(){
 
     }
+
 }
