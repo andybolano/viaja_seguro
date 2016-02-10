@@ -33,7 +33,7 @@ class ConductorController extends Controller
 
             if ($request->hasFile('imagen')) {
                 $request->file('imagen')->move('images/conductores/', "conductor$id.png");
-                $nombrefile = $_SERVER['PHP_SELF'].'/../images/conductores/'."conductor$id.png";
+                $nombrefile = $_SERVER['SERVER_NAME'].'/public/images/conductores/'."conductor$id.png";
                 $conductor->imagen = $nombrefile;
                 $conductor->save();
                 return response()->json(['nombrefile'=>$nombrefile], 201);

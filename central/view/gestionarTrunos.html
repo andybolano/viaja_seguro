@@ -29,7 +29,7 @@
                                     <span class="left" style="margin-right: 5px"><h4>{{turno.turno}}</h4></span>
                                 </div>
                                 <div class="col s2">
-                                    <img ng-src="{{turno.conductor.imagen}}" alt="" class="circle" style="width: 30px;margin-right: 5px;">
+                                    <img ng-src="http://{{turno.conductor.imagen}}" alt="" class="circle" style="width: 30px;margin-right: 5px;">
                                 </div>
                                 <div class="col s8">
                                     <span class="title">{{turno.conductor.nombres}} {{turno.conductor.apellidos}}</span>
@@ -136,7 +136,7 @@
 
                 <div class="col s4">
                     <div class="col s12" id="imagev" style="max-height: 300px;">
-                        <img class="thumb center" id="imagen" style="width:100%" src="{{vehiculo.imagen}}" title="imagen" alt="No posee una foto del vehiculo"/>
+                        <img class="thumb center" id="imagen" style="width:100%" ng-src=http://"{{vehiculo.imagen}}" title="imagen" alt="No posee una foto del vehiculo"/>
                     </div>
                     <div class="file-field input-field col s12">
                         <div class="btn col s12" ng-hide="true">
@@ -190,7 +190,7 @@
                         <tr ng-repeat="conductor in Conductores | filter : filtro">
                             <td>{{conductor.identificacion}}</td>
                             <td>
-                                <img src="http://materializecss.com/images/yuna.jpg" class="circle" style="width: 35px;">
+                                <img ng-src="http://{{conductor.imagen}}" class="circle" style="width: 35px;">
                             </td>
                             <td>{{conductor.nombres}}</td>
                             <td>{{conductor.apellidos}}</td>

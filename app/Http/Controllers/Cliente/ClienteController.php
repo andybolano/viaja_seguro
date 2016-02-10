@@ -51,7 +51,7 @@ class ClienteController extends Controller
 
             if ($request->hasFile('imagen')) {
                 $request->file('imagen')->move('images/clientes/', "cliete$cliente_id.png");
-                $nombrefile = $_SERVER['PHP_SELF'].'/../images/clientes/'."cliente$cliente_id.png";
+                $nombrefile = $_SERVER['SERVER_NAME'].'/public/images/clientes/'."cliente$cliente_id.png";
                 $cliente->imagen = $nombrefile;
                 $cliente->save();
                 return response()->json(['nombrefile'=>$nombrefile], 201);
