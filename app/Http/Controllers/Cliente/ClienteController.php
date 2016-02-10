@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Cliente;
 
 use App\Model\Cliente;
+use App\Model\Rol;
+use App\Model\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests;
@@ -10,25 +12,6 @@ use App\Http\Controllers\Controller;
 
 class ClienteController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        return Cliente::all();
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -42,8 +25,9 @@ class ClienteController extends Controller
             $data = $request->json()->all();
 
             //USUARIO
-            $usuario = Usuario::nuevo($data['identificacion'], $data['identificacion'], $this->getRol()->id);
+            $usuario = Usuario::nuevo($data['correo'], $data['contrasena'], $this->getRol()->id);
             $data['usuario_id'] = $usuario->id;
+            unset($data['contrasena']);
 
             $cliente = new Cliente($data);
             if(!$cliente->save()){
