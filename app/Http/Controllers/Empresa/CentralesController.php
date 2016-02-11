@@ -144,7 +144,7 @@ class CentralesController extends Controller
     public function getVehiculos($id)
     {
         $vehiculos = Central::find($id)->vehiculos;
-        return $vehiculos;
+        return $vehiculos->load('conductor');
     }
 
     private function getRol()

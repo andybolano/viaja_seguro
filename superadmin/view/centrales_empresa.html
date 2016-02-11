@@ -23,8 +23,7 @@
                             <th>Ciudad</th>
                             <th>Direccion</th>
                             <th>Telefono</th>
-                            <th>Nombre de usuario</th>
-                            <th>Acciones</th>
+                            <th></th>
                             </thead>
                             <tbody>
                                 <tr ng-repeat="central in centrales| filter : filtro">
@@ -32,7 +31,6 @@
                                     <td>{{central.ciudad.nombre}}</td>
                                     <td>{{central.direccion}}</td>
                                     <td>{{central.telefono}}</td>
-                                    <td>{{central.usuario.email}}</td>
                                     <td>
                                         <a href="javascript:" ng-click="actualizar(central)">
                                             <i class="material-icons prefix">visibility</i>
@@ -49,53 +47,45 @@
 
 
     <!--modal nuevo central-->
-    <div id="modalNuevaCentral" class="modal modal-fixed-footer" style="width: 90%;min-height:85%;">
+    <div id="modalNuevaCentral" class="modal modal-fixed-footer" style="width: 80%;min-height:80%;">
         <div class="modal-content">
             <div class="row">
                 <form class="col s12" name="formNuevaCentral">
-                    <div class="row col s4">
+                    <div class="col s4">
                         <div class="row" ng-show="editMode">
                             <div class="input-field col s12">
                                 <i class="material-icons prefix">payment</i>
-                                <input id="icon_payment" type="text" class="validate" name="placa" ng-model="selectedCentral.id" disabled>
+                                <input id="icon_payment" type="text" class="validate" name="placa" ng-model="selectedCentral.id" readonly>
                                 <label for="icon_payment" class="{{active}}">Id</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="row input-field col s12">
                                 <i class="material-icons prefix">local_taxi</i>
-                                <input id="ciudad" type="text" class="validate" name="ciudad" ng-model="selectedCentral.ciudad.nombre" disabled required>
+                                <input id="ciudad" type="text" class="validate" name="ciudad" ng-model="selectedCentral.ciudad.nombre" readonly required>
                                 <label for="ciudad" class="{{active}}">Ciudad</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="row input-field col s12">
                                 <i class="material-icons prefix">invert_colors_off</i>
-                                <input id="direccion" type="text" class="validate" name="direccion"  ng-model="selectedCentral.direccion" disabled required>
+                                <input id="direccion" type="text" class="validate" name="direccion"  ng-model="selectedCentral.direccion" readonly required>
                                 <label for="direccion" class="{{active}}">Direccion</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s12">
                                 <i class="material-icons prefix">airline_seat_recline_normal</i>
-                                <input id="telefono" type="text" class="validate" name="telefono" ng-model="selectedCentral.telefono" disabled required>
+                                <input id="telefono" type="text" class="validate" name="telefono" ng-model="selectedCentral.telefono" readonly required>
                                 <label for="telefono" class="{{active}}">Telefono</label>
                             </div>
                         </div>
                     </div>
 
                     <!--mapa-->
-                    <div class="row col s8" >
-                        <p>
-                            <input  type="text" placeholder="Buscar direccion" ng-model="selectedCentral.direccion" style="width: 210px"/>
-                            <a class="btn btn-default" href="javascript:;" ng-click="agregarDireccion()">Buscar direccion!</a>
-                        </p>
-                        <div class="row input-field col s12">
-                            <input ng-hide="true" ng-model="selectedCentral.miDireccionLa">
-                            <input ng-hide="true" ng-model="selectedCentral.miDireccionLo">
-                        </div>
+                    <div class="col s8" >
 
-                        <div id="dvMap" style="height: 380px; width: 580px;"></div>
+                        <div id="dvMap" style="height: 400px; width: 600px;"></div>
 
                     </div>
                     <!--fin mapa-->
