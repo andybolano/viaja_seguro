@@ -123,7 +123,7 @@
                                 <fieldset>
                                     <div class="col s12">
                                         <p style="margin-bottom: 0; margin-top: 0; margin-left: 10px">
-                                            <input type="checkbox" ng-model="Vehiculo.tarjeta_propiedad" id="tpropiedad" ng-checked="{{vehiculo.tarjeta_propiedad}}" disabled/>
+                                            <input type="checkbox" ng-model="vehiculo.tarjeta_propiedad" id="tpropiedad" ng-checked="{{vehiculo.tarjeta_propiedad}}" disabled/>
                                             <label for="tpropiedad">TARJETA DE PROPIEDAD</label>
                                         </p>
                                     </div>
@@ -440,7 +440,7 @@
                     <div><span>CONDUCTOR: </span> {{Planilla.viaje.planilla.conductor.nombres}} {{Planilla.viaje.planilla.conductor.apellidos}}</div>
                     <div><span>IDENTIFICACION: </span> {{Planilla.viaje.planilla.conductor.identificacion}}</div>
                     <div><span>TELEFONO: </span> {{Planilla.viaje.planilla.conductor.telefono}}</div>
-                    <div><span>FECHA: </span> {{Planilla.viaje.viaje.fecha} | date}</div>
+                    <div><span>FECHA: </span> {{Planilla.viaje.viaje.fecha | date}}</div>
                 </div>
             </header>
             <main id="mainPlanilla">

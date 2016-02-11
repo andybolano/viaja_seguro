@@ -338,8 +338,6 @@ function TurnosController($scope, turnosService, serviceEmpresaPagos){
             $scope.turnos = p.data;
             if($scope.turnos.turno == 1){
                 ejecutarDespachoConductor($scope.turnos);
-                Materialize.toast($scope.Planilla.message, 5000);
-                $('#modalPlanilla').openModal();
             }
 
         }
@@ -360,7 +358,12 @@ function TurnosController($scope, turnosService, serviceEmpresaPagos){
             $scope.Planilla = p.data;
             console.log($scope.Planilla)
             cargarRutas();
-            Materialize.toast(p.message, 5000);
+            if (p.data.message == 'Despachado correctamente'){
+                Materialize.toast($scope.Planilla.message, 5000);
+                $('#modalPlanilla').openModal();
+            }else{
+                Materialize.toast($scope.Planilla.message, 5000);
+            }
         }
         function error(error){
             Materialize.toast(error.message, 5000);
@@ -389,7 +392,7 @@ function TurnosController($scope, turnosService, serviceEmpresaPagos){
         ventimp.document.write( ficha.innerHTML );
         ventimp.document.close();
         var css = ventimp.document.createElement("link");
-        css.setAttribute("href", "http://localhost:8080/viaja_seguro/public/css/pdf.css");
+        css.setAttribute("href", "../../public/css/pdf.css");
         css.setAttribute("rel", "stylesheet");
         css.setAttribute("type", "text/css");
         ventimp.document.head.appendChild(css);
