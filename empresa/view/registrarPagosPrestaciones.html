@@ -82,10 +82,17 @@
                                 <label for="valor" class="{{active}}">Valor</label>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="row input-field col s12">
+                                <i class="material-icons prefix">invert_colors_off</i>
+                                <input id="fecha" type="date" class="validate" name="fecha"  ng-model="nuevaPrestacion.fecha" required>
+                                <label for="fecha" class="active">Fecha</label>
+                            </div>
+                        </div>
                     </div>
                     </form>
                     <div class="nav-divider"></div>
-                    <div class="col s8" ng-controller="ConductorController">
+                    <div class="col s8">
                         <div class="row">
                             <div class="col s7">
                                 <h2>Seleccionar conductor</h2>
@@ -109,7 +116,7 @@
                                     <th>Seleccionar</th>
                                     </thead>
                                     <tbody>
-                                    <tr ng-repeat="conductor in Conductores | filter : filtro">
+                                    <tr ng-repeat="conductor in conductores | filter : filtro">
                                         <td>{{conductor.identificacion}}</td>
                                         <td>
                                             <img ng-src="http://{{conductor.imagen}}" class="circle" style="width: 35px;">

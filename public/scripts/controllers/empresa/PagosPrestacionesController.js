@@ -3,7 +3,7 @@
  */
 app.controller('PagosPrestacionesController', PagosPrestacionesController);
 
-function PagosPrestacionesController($scope, prestacionesService){
+function PagosPrestacionesController($scope, prestacionesService, $filter, ConductorServicio){
 
     $scope.prestaciones = [];
     $scope.selectedPrestacion = {};
@@ -31,13 +31,32 @@ function PagosPrestacionesController($scope, prestacionesService){
         }
     }
 
+    function loadConductores(){
+        if(!$scope.conductores) {
+            ConductorServicio.getAll().then(success, error);
+            function success(p) {
+                $scope.conductores = [];
+                for(var i=0; i<p.data.length; i++){
+                    if(p.data[i].activo == true ){
+                        $scope.conductores.push(p.data[i]);
+                    }
+                }
+            }
+            function error(error) {
+                console.log('Error al cargar datos', error);
+            }
+        }
+    }
+
     function nuevo(){
-            $scope.nuevaPrestacion = {};
-            $("#modalRegistrarPago").openModal();
+        $scope.nuevaPrestacion = {};
+        loadConductores();
+        $("#modalRegistrarPago").openModal();
     }
 
     function guardar(){
         $scope.nuevaPrestacion.prestacion_id = $scope.selectedPrestacion.id;
+        $scope.nuevaPrestacion.fecha = $filter('date')($scope.nuevaPrestacion.fecha,'yyyy-MM-dd');
         prestacionesService.post($scope.nuevaPrestacion).then(success, error);
         function success(p) {
             loadPagos($scope.selectedPrestacion);

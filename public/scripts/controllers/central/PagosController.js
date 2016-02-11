@@ -11,27 +11,13 @@ app.controller('PagosController', function ($scope, serviceEmpresaPagos) {
 
     function initialize(){
         $scope.planilla = {}
-        cargarPagoAhorro();
-        cargarPagoPension();
-        cargarPagoPlanillas();
-        cargarPagoSeguridad();
         cargarDeducciones();
-        cargarConductores();
     }
 
     function cargarDeducciones(){
         var promiseGet = serviceEmpresaPagos.getDeducciones();
         promiseGet.then(function (pl) {
             $scope.Deducciones = pl.data;
-        },function (errorPl) {
-            console.log('Error Al Cargar Datos', errorPl);
-        });
-    }
-
-    function cargarConductores(){
-        var promiseGet = serviceEmpresaPagos.getConductores();
-        promiseGet.then(function (pl) {
-            $scope.Conductores = pl.data;
         },function (errorPl) {
             console.log('Error Al Cargar Datos', errorPl);
         });
@@ -66,34 +52,7 @@ app.controller('PagosController', function ($scope, serviceEmpresaPagos) {
         $("#modalBuscarconductor").closeModal();
     }
 
-    function cargarPagoAhorro() {
-        var promiseGet = serviceEmpresaPagos.getPagoAhorros();
-        promiseGet.then(function (pl) {
-            $scope.Ahorros = pl.data;
-        },function (errorPl) {
-            console.log('Error Al Cargar Datos', errorPl);
-        });
-    }
-
-    function cargarPagoPension() {
-        var promiseGet = serviceEmpresaPagos.getPagoPension();
-        promiseGet.then(function (pl) {
-            $scope.Pensiones = pl.data;
-        },function (errorPl) {
-            console.log('Error Al Cargar Datos', errorPl);
-        });
-    }
-
-    function cargarPagoSeguridad() {
-        var promiseGet = serviceEmpresaPagos.getPagoSeguridad();
-        promiseGet.then(function (pl) {
-            $scope.Seguridad = pl.data;
-        },function (errorPl) {
-            console.log('Error Al Cargar Datos', errorPl);
-        });
-    }
-
-    $scope.verPlanilla = function(planilla){
+   $scope.verPlanilla = function(planilla){
         $scope.Planilla = {};
         serviceEmpresaPagos.getPlanilla(planilla.viaje_id).then(succes, error);
         function succes(p){

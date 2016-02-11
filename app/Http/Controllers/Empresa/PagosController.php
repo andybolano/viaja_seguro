@@ -82,7 +82,7 @@ class PagosController extends Controller
         $conductor = Conductor::find($conductor_id);
         $pago = new PagoPrestacion([
             'prestacion_id' => $data['prestacion_id'],
-            'fecha' => date("Y-m-d"),
+            'fecha' => $data['fecha'] ? $data['fecha'] : date("Y-m-d"),
             'valor' => $data['valor'],
         ]);
         if(!$conductor->pagosPrestaciones()->save($pago)){
