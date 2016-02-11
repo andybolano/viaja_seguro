@@ -14,7 +14,9 @@ class PdfController extends Controller
     {
         $consulta = \DB::table('planilla')->where('numero_planilla',
         DB::raw("(select max(`numero_planilla`) from planilla)"))->where('central_id', 11)->get();
-        return JsonResponse::create($consulta);
+        foreach($consulta as $c){
+         return JsonResponse::create(++$c->numero_planilla);
+        }
     }
 
 

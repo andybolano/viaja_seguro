@@ -109,9 +109,11 @@ class ViajesController extends Controller
         $planilla = \DB::table('planilla')->where('numero_planilla',
             DB::raw("(select max(`numero_planilla`) from planilla)"))->where('central_id', $central->central_id)->get();
         if(!$planilla){
-            return $central->central_id.'-'.'A001';
+            return 'A001';
         } else {
-            return $planilla->numero_planilla++;
+            foreach($planilla as $c){
+                return ++$c->numero_planilla;
+            }
         }
     }
 
