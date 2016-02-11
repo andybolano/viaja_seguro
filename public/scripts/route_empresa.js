@@ -11,8 +11,9 @@ var app;
 
         $httpProvider.interceptors.push('jwtInterceptor');
 
-            $routeProvider.when("/home", {
-                templateUrl: 'home.html'
+            $routeProvider
+                .when("/home", {
+                    templateUrl: 'home.html'
                 })
                 .when("/empresa/centrales", {
                     templateUrl: 'gestionarCentrales.html'
@@ -73,8 +74,7 @@ var app;
 
     app.directive('uploaderModel', ['$parse', function ($parse) {
             return{
-                restrict: 'A',
-                link: function (scope, iElement, iAttrs) {
+                restrict: 'A', link:function (scope, iElement, iAttrs) {
                     iElement.on('change', function (e)
                     {
                         $parse(iAttrs.uploaderModel).assign(scope, iElement[0].files[0]);
@@ -104,7 +104,21 @@ var app;
         };
     });
 
-
+    app.controller('routEmpresasController', function($scope, authService){
+        $scope.menu =[
+            {nombre:'Centrales', link:'/empresa/centrales', icon:'flag'},
+            {nombre:'Agendar actividades', link:'/empresa/agendar_actividades', icon:'event'},
+            {nombre:'Gestionar Rutas', link:'/empresa/rutas', icon:'directions'},
+            {nombre:'Gestion de Conductores', link:'/empresa/conductores', icon:'airline_seat_recline_normal'},
+            {nombre:'Gestion de Vehiculos', link:'/empresa/vehiculos', icon:'directions_car'},
+            {nombre:'Deducciones', link:'/empresa/deducciones', icon:'rate_review'}
+        ];
+        var servicios = authService.currentUser().empresa.servicios;
+        console.log(servicios);
+        if(servicios.gestion_pagos){
+            $scope.menu.push({nombre:'Prestaciones', link:'/empresa/pagos_prestaciones', icon:'rate_review'})
+        }
+    });
 
 })();
 

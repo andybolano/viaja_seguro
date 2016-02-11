@@ -46,7 +46,8 @@ class LoginController extends Controller
                 $empresa = Empresa::where('usuario_id', $user->id)->first();
                 $data['usuario']['empresa'] = [
                     'id' => $empresa->id,
-                    'nombre' => $empresa->nombre
+                    'nombre' => $empresa->nombre,
+                    'servicios' => $this->checkServiciosEmpresa($empresa->servicios)
                 ];
 
                 $data['usuario']['imagen'] =  $empresa->logo;
@@ -60,6 +61,7 @@ class LoginController extends Controller
                     'empresa' => [
                         'id' => $central->empresa->id,
                         'nombre' => $central->empresa->nombre,
+                        'servicios' => $this->checkServiciosEmpresa($central->empresa->servicios)
                     ],
                     'miDireccionLa' => $central->miDireccionLa,
                     'miDireccionLo' => $central->miDireccionLo
@@ -69,6 +71,22 @@ class LoginController extends Controller
                 break;
         }
         return $data;
+    }
+
+    private function checkServiciosEmpresa($e_servicios)
+    {
+        $servicios = [];
+        foreach ($e_servicios as $servicio) {
+            if($servicio->concepto == 'Reservas de pasajes')
+                $servicios['gestion_pasajeros'] = true;
+            if($servicio->concepto == 'Giros')
+                $servicios['giros'] = true;
+            if($servicio->concepto == 'Encomiendas')
+                $servicios['encomiendas'] = true;
+            if($servicio->concepto == 'Gestion de Pagos')
+                $servicios['gestion_pagos'] = true;
+        }
+        return $servicios;
     }
 
 }

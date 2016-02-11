@@ -61,28 +61,12 @@
                         </ul>
                     </li>
                     
-                    <li><i class="material-icons left" >flag</i><a href="#/empresa/centrales" >Centrales</a></li>
-                    <li><i class="material-icons left" >event</i><a href="#/empresa/agendar_actividades" >Agendar actividades</a></li>
-                    <li><i class="material-icons left" >directions</i><a href="#/empresa/rutas" >Gestionar Rutas</a></li>
-                    <li><i class="material-icons left" >airline_seat_recline_normal</i><a href="#/empresa/conductores" >Gestion de Conductores</a></li>
-                    <li><i class="material-icons left" >directions_car</i><a href="#/empresa/vehiculos" >Gestion de Vehiculos</a></li>
-                    <!--<li><i class="material-icons left" >perm_identity</i><a href="#/empresa/clientes" >Gestion de Clientes</a></li>-->
-                    <!--<li style="background-color: #FFFFFF">-->
-                        <!--<ul class="collapsible" style="background-color: #FFFFFF">-->
-                            <!--<li>-->
-                                <!--<a class="collapsible-header  waves-effect waves-teal" href="javascript:;" style="left:-15px;width:220px;"><i class="material-icons left" style="margin-left:-20px;margin-top:0px">local_laundry_service</i>Gestion de servicios</a>-->
-                                <!--<div class="collapsible-body" style="background-color: #FFFFFF">-->
-                                    <!--<ul>-->
-                                        <!--<li><a href="#/empresa/asignar/pasajero">Asignar pasajeros</a></li>-->
-                                        <!--<li><a href="#/empresa/asignar/giros">Asignar giros</a></li>-->
-                                        <!--<li><a href="#/empresa/asignar/paquetes">Asignar paquetes</a></li>-->
-                                    <!--</ul>-->
-                                <!--</div>-->
-                            <!--</li>-->
-                        <!--</ul>-->
-                    <!--</li>-->
-                    <li><i class="material-icons left" >rate_review</i><a href="#/empresa/deducciones" >Deducciones</a></li>
-                    <li><i class="material-icons left" >rate_review</i><a href="#/empresa/pagos_prestaciones" >Prestaciones</a></li>
+                    <div ng-controller="routEmpresasController">
+                        <li ng-repeat="op in menu">
+                            <i class="material-icons left" >{{op.icon}}</i>
+                            <a ng-href="#{{op.link}}" >{{op.nombre}}</a>
+                        </li>
+                    </div>
                 </ul>
             </div>
             <div ng-view id="container" style="padding-left:240px">
