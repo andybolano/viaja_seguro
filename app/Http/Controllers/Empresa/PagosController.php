@@ -19,8 +19,8 @@ class PagosController extends Controller
     /**
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function getPlanillas(){
-        $planilla = Planilla::all();
+    public function getPlanillas($central){
+        $planilla = Planilla::where('central_id', $central)->get();
         $planilla->load('conductor');
         return $planilla;
     }

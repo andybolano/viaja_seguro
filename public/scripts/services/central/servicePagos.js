@@ -1,6 +1,6 @@
 app.service('serviceEmpresaPagos', function ($http, authService) {
     this.getPagoPlanilla = function(){
-        var req = $http.get(uri+'/api/empresa/pagos/planilla');
+        var req = $http.get(uri+'/api/centrales/'+authService.currentUser().central.id+'/planillas');
         return req;
     }
 

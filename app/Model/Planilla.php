@@ -8,7 +8,7 @@ class Planilla extends Model
 {
     protected $table = 'planilla';
 
-    protected $fillable = ['id', 'numero_planilla', 'viaje_id'];
+    protected $fillable = ['id', 'numero_planilla', 'viaje_id', 'central_id'];
 
     public $timestamps = false;
 
@@ -20,5 +20,10 @@ class Planilla extends Model
     public function viaje()
     {
         return $this->belongsTo(Viaje::class);
+    }
+
+    public function central()
+    {
+        return $this->belongsTo(Central::class);
     }
 }
