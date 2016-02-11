@@ -78,7 +78,7 @@ app.controller('ubicacionesController', function ($scope, turnosService, ubicaci
                     });
 
                     var contenido = '<div >\
-                \<div >\<img src="'+ (obj.conductor.imagen)+'" title="'+obj.conductor.nombres+'" title="" style="width: 150px;height: 120px;" />\
+                \<div >\<img src="http://'+ (obj.conductor.imagen)+'" title="'+obj.conductor.nombres+'" title="" style="width: 150px;height: 120px;" />\
                 \</div>\<div class="contentTxt">\
                 \<h2>'+obj.conductor.nombres+' ' + obj.conductor.apellidos+'\</h2>\
                 \<p>\TELEFONO: ' + obj.conductor.telefono+'\</p>\
