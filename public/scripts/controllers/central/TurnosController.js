@@ -22,7 +22,7 @@ function TurnosController($scope, turnosService, serviceEmpresaPagos){
 
     function addNewConductor(ruta){
         $scope.selectedRuta = ruta;
-        cargarConductores();
+        //cargarConductores();
         $("#modalBuscarconductor").openModal();
     }
 
@@ -74,21 +74,21 @@ function TurnosController($scope, turnosService, serviceEmpresaPagos){
         }
     }
 
-    function cargarConductores() {
-        turnosService.getAllConductores().then(success, error);
-        function success(p) {
-            for(var i=0; i<p.data.length; i++){
-                if(p.data[i].activo == true ){
-                    $scope.Conductores.push(p.data[i]);
-                }else{
-                    $scope.ConductoresInactivos.push(p.data[i]);
-                }
-            }
-        }
-        function error(error) {
-            console.log('Error al cargar conductores', error);
-        }
-    }
+    //function cargarConductores() {
+    //    turnosService.getAllConductores().then(success, error);
+    //    function success(p) {
+    //        for(var i=0; i<p.data.length; i++){
+    //            if(p.data[i].activo == true ){
+    //                $scope.Conductores.push(p.data[i]);
+    //            }else{
+    //                $scope.ConductoresInactivos.push(p.data[i]);
+    //            }
+    //        }
+    //    }
+    //    function error(error) {
+    //        console.log('Error al cargar conductores', error);
+    //    }
+    //}
 
     function cargarVehiculoConductor(conductor_id){
         turnosService.cargarVehiculoConductor(conductor_id).then(success, error);

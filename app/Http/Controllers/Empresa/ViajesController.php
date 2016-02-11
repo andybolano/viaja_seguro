@@ -7,6 +7,7 @@ use App\Model\Paquete;
 use App\Model\Giro;
 use App\Model\Pasajero;
 use App\Model\Planilla;
+use App\Model\Ruta;
 use App\Model\Viaje;
 use DB;
 use App\Model\Turno;
@@ -65,7 +66,7 @@ class ViajesController extends Controller
                 $viaje->paquetes()->attach($paquete['id']);
             }
 
-            $this->crearPlanilla($viaje->id);
+            $this->crearPlanilla($viaje->id, $viaje->conductor_id);
             $planilla = $this->generarDatosPlanilla($viaje->id);
 
             return array('viaje' => $viaje, 'planilla' => $planilla);
@@ -74,9 +75,14 @@ class ViajesController extends Controller
         }
     }
 
-    public function crearPlanilla($viaje_id){
+    public function crearPlanilla($viaje_id, $conductor_id){
+        $central = Conductor::find($conductor_id)->first();
+
         $planilla = new Planilla();
         $planilla->viaje_id = $viaje_id;
+        $planilla->central_id = $central->central_id;
+
+        $planilla->numero_planilla = $this->generarNumeroPlanilla($conductor_id);
         if($planilla->save()){
             return JsonResponse::create('Se creo la planilla correctamente');
         }else{
@@ -98,8 +104,15 @@ class ViajesController extends Controller
         return $consulta;
     }
 
-    public function generarNumeroPlanilla(){
-
+    public function generarNumeroPlanilla($conductor_id){
+        $central = Conductor::find($conductor_id)->first();
+        $planilla = \DB::table('planilla')->where('numero_planilla',
+            DB::raw("(select max(`numero_planilla`) from planilla)"))->where('central_id', $central->central_id)->get();
+        if(!$planilla){
+            return $central->central_id.'-'.'A001';
+        } else {
+            return $planilla->numero_planilla++;
+        }
     }
 
 }

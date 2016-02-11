@@ -21,4 +21,9 @@ class Planilla extends Model
     {
         return $this->belongsTo(Viaje::class);
     }
+
+    public function central()
+    {
+        return $this->belongsTo(Central::class);
+    }
 }
