@@ -41,13 +41,13 @@
                                 </div>
                             </div>
                             <div class="center">
-                                <a title="Asignar pasajeros" class="waves-effect waves-teal" ng-click="addPasajero(turno.conductor)" >
+                                <a  ng-if="servicios.gestion_pasajeros" title="Asignar pasajeros" class="waves-effect waves-teal" ng-click="addPasajero(turno.conductor)" >
                                     <i class="material-icons prefix small">person</i>
                                 </a>
-                                <a title="Asignar giros" class="waves-effect waves-teal" ng-click="addGiro(turno.conductor)">
+                                <a ng-if="servicios.giros" title="Asignar giros" class="waves-effect waves-teal" ng-click="addGiro(turno.conductor)">
                                     <i class="material-icons prefix small">attach_money</i>
                                 </a>
-                                <a title="Asignar paquetes" class="waves-effect waves-teal" ng-click="addPaquete(turno.conductor)" >
+                                <a ng-if="servicios.encomiendas" title="Asignar paquetes" class="waves-effect waves-teal" ng-click="addPaquete(turno.conductor)" >
                                     <i class="material-icons prefix small">redeem</i>
                                 </a>
                                 <a title="Datos del vehiculo" style="float: right" class="waves-effect waves-teal" ng-click="verVehiculo(turno.conductor)" >
@@ -215,7 +215,7 @@
 
 
     <!--modal add pasajeros-->
-    <div id="modalAddPasajero" class="modal modal-fixed-footer" style="width: 90%;min-height:85%;">
+    <div ng-if="servicios.gestion_pasajeros" id="modalAddPasajero" class="modal modal-fixed-footer" style="width: 90%;min-height:85%;">
         <form action="" name="formPasajero">
             <div class="modal-content">
                 <h2>Asignar pasajeros a: {{conductor.nombres}} {{conductor.apellidos}}</h2>
@@ -273,7 +273,7 @@
     <!--fin modal add pasajeros-->
 
     <!--modal asignar giros-->
-    <div id="modalAddGiro" class="modal modal-fixed-footer" style="width: 90%;min-height:85%;">
+    <div ng-if="servicios.giros" id="modalAddGiro" class="modal modal-fixed-footer" style="width: 90%;min-height:85%;">
         <form action="" name="formPasajero">
             <div class="modal-content">
                 <h2>Asignar giros a: {{conductor.nombres}} {{conductor.apellidos}}</h2>
@@ -339,7 +339,7 @@
     <!--fin modal asignar giros-->
 
     <!--modal asignar paquetes-->
-    <div id="modalAddPaquetes" class="modal modal-fixed-footer" style="width: 90%;min-height:85%;">
+    <div ng-if="servicios.encomiendas" id="modalAddPaquetes" class="modal modal-fixed-footer" style="width: 90%;min-height:85%;">
         <form action="" name="formPaquete">
             <div class="modal-content">
                 <h2>Asignar paquetes a: {{conductor.nombres}} {{conductor.apellidos}}</h2>

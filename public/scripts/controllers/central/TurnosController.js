@@ -3,12 +3,14 @@
  */
 app.controller('TurnosController', TurnosController);
 
-function TurnosController($scope, turnosService, serviceEmpresaPagos){
+function TurnosController($scope, turnosService, serviceEmpresaPagos, authService){
     cargarDeducciones();
     $scope.conductores = [];
     $scope.selectedTurno = {};
     $scope.rutas = [];
     $scope.selectedRuta = {};
+
+    $scope.servicios = authService.currentUser().central.empresa.servicios;
 
     $scope.addNewConductor = addNewConductor;
     $scope.selectConductor = selectConductor;
