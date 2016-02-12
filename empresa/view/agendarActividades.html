@@ -83,7 +83,7 @@
                                 <input id="estado" type="text" class="validate" name="estado" ng-model="selectedActividad.estado" required readonly>
                                 <label for="estado" class="active">Estado</label>
                             </div>
-                            <div class="input-field col s3">
+                            <div class="input-field col s3" ng-show="editMode">
                                 <select class="browser-default" name="selectestado" id="selectestado" ng-show="editMode"
                                         ng-model="selectedActividad.estado" required>
                                     <option value="Pendiente"> Pendiente</option>
