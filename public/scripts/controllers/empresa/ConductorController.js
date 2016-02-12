@@ -1,22 +1,11 @@
-app.controller('ConductorController', function ($scope, ConductorServicio, VehiculoServicio, $filter) {
+app.controller('ConductorController', function ($scope, ConductorServicio, VehiculoServicio, $filter, centralesService) {
     $scope.Conductores = [];
     $scope.ConductoresInactivos = [];
-    $scope.conductor = {};
     $scope.titulo;
     $scope.active;
     $scope.editMode = false;
     $scope.activos = true;
     cargarConductores();
-    //cargarDocumentacion();
-
-    function initialize(){
-        $scope.conductor = {
-            id: "",
-            nomnbres: ""
-        }
-    }
-
-
 
     function cargarConductores() {
         $scope.Conductores = [];
@@ -90,8 +79,6 @@ app.controller('ConductorController', function ($scope, ConductorServicio, Vehic
         $scope.titulo = "Modificar conductor"
         $scope.active = "active";
         $scope.Conductor = conductor;
-
-
         $("#modalNuevoConductor").openModal();
     };
 
@@ -119,26 +106,37 @@ app.controller('ConductorController', function ($scope, ConductorServicio, Vehic
             });
     }
 
-    $scope.habilitar = function  (conductor) {
+    $scope.openhabilitar = function(conductor){
+        $scope.editMode = true;
+        $scope.oculto = false;
+        $scope.titulo = "Habilitar conductor"
+        $scope.active = "active";
+        $scope.Conductor = conductor;
+        loadCentrales();
+        $("#modalNuevoConductor").openModal();
+    };
+
+    $scope.habilitar = function  () {
         var object = {
-            identificacion : conductor.identificacion,
-            nombres : conductor.nombres,
-            apellidos : conductor.apellidos,
-            telefono : conductor.telefono,
-            direccion : conductor.direccion,
-            correo: conductor.correo,
+            identificacion : $scope.Conductor.identificacion,
+            nombres : $scope.Conductor.nombres,
+            apellidos : $scope.Conductor.apellidos,
+            telefono : $scope.Conductor.telefono,
+            direccion : $scope.Conductor.direccion,
+            correo: $scope.Conductor.correo,
+            central_id: $scope.Conductor.central.id,
             activo: true
         };
-        var promisePut = ConductorServicio.put(object,conductor.id);
+        var promisePut = ConductorServicio.put(object,$scope.Conductor.id);
         promisePut.then(function (pl) {
                 Materialize.toast('Conductor habilitado', 5000, 'rounded');
                 cargarConductores();
+                $("#modalNuevoConductor").closeModal();
             },
             function (errorPl) {
                 console.log('Error habilitar conductor', errorPl);
             });
     }
-
 
     $scope.eliminar = function  (id) {
         if(confirm('¿Deseas eliminar el registro?') == true) {
@@ -188,14 +186,16 @@ app.controller('ConductorController', function ($scope, ConductorServicio, Vehic
         }
     }
 
-    //function cargarDocumentacion(){
-    //    var promiseGet = VehiculoServicio.getDocumentacion();
-    //    promiseGet.then(function (pl) {
-    //        $scope.Documentacion = pl.data;
-    //        console.log($scope.Documentacion);
-    //    },function (errorPl) {
-    //        Materialize.toast('Ocurrio un error al cargar los documentos', 5000, 'rounded');
-    //    });
-    //}
+    function loadCentrales(){
+        if(!$scope.centrales) {
+            centralesService.getAll().then(success, error);
+            function success(p) {
+                $scope.centrales = p.data;
+            }
+            function error(error) {
+                console.log('Error al cargar centrales', error);
+            }
+        }
+    }
 
 })

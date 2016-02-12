@@ -25,7 +25,7 @@ class Conductor extends Model
 
     public function central()
     {
-        return $this->belongsTo(Central::class);
+        return $this->belongsTo(Central::class)->select('id', 'ciudad_id');
     }
 
     public function pagosPrestaciones($prestacion_id = null)

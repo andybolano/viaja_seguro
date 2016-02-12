@@ -86,6 +86,7 @@ class ConductorController extends Controller
             $conductor->telefono = $request->telefono;
             $conductor->correo = $request->correo;
             $conductor->activo = $request->activo;
+            $conductor->central_id = $request->central_id;
             if($conductor->save() == true){
                 return JsonResponse::create(array('message' => "Actualizado Correctamente"), 200);
             }else {
