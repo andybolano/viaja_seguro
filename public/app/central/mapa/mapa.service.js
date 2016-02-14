@@ -5,9 +5,9 @@
         .module('app.centrales.mapa')
         .service('mapaService', mapaService);
 
-    function mapaService($http){
+    function mapaService($http, API){
         this.getUbicacionConductores = function(ruta_id){
-            return $http.get(uri + '/api/conductores/rutas/'+ruta_id+'/ubicacion');
+            return $http.get(API + '/api/conductores/rutas/'+ruta_id+'/ubicacion');
         }
     }
 })();
