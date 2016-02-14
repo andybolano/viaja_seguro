@@ -183,6 +183,20 @@ class EmpresaController extends Controller
 
     public function getConductores($id)
     {
+        $conductores = [];
+        foreach (Empresa::find($id)->conductores as &$conductor) {
+            if($conductor->activo) {
+                if ($conductor->central) {
+                    $conductor->central->load('ciudad');
+                }
+                $conductores[] = $conductor;
+            }
+        }
+        return $conductores;
+    }
+
+    public function getAllConductores($id)
+    {
         $conductores = Empresa::find($id)->conductores;
         foreach ($conductores as &$conductor) {
             if($conductor->central) {
