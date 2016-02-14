@@ -1,0 +1,124 @@
+<div ng-controller="planillaController as vm" class="contenedor">
+    <div class="row white">
+        <div class="col s12 z-depth-1">
+            <div class="contenedor">
+                <div class="row">
+                    <div class="col s8">
+                        <h2>Planillas</h2>
+                    </div>
+                    <div class="col s4">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">search</i>
+                            <input id="icon_prefix" type="tel" ng-model="filtro">
+                            <label for="icon_prefix">Filtrar</label>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <table class="striped responsive-table">
+                            <thead>
+                            <th>Número de planilla</th>
+                            <th>Acciones</th>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="planilla in vm.Planillas | filter : filtro">
+                                <td>{{planilla.numero_planilla}}</td>
+                                <td>
+                                    <a href="javascript:" ng-click="vm.verPlanilla(planilla)">
+                                        <i class="material-icons prefix">visibility</i>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--modal planilla-->
+    <div id="modalPlanilla" class="modal" style="width: 90%;min-height:85%;">
+        <div class="modal-content" id="planilla" >
+            <body id="bodyPlanilla">
+            <header class="clearfix" id="headerPlanilla">
+                <div id="logo">
+                    <img src="http://localhost:8080/viaja_seguro/public/images/logo.png">
+                </div>
+                <h1 id="h1Planilla">PLANILLA N° {{Planilla.numero_planilla}}</h1>
+                <div id="company" class="clearfix">
+                    <div>Cootrasan</div>
+                    <div>Fonseca - La Guajira,<br /> Call 13 #21-34</div>
+                    <div> 7755813</div>
+                </div>
+                <div id="project">
+                    <div><span>CONDUCTOR: </span> {{Planilla.conductor.nombres}} {{Planilla.conductor.apellidos}}</div>
+                    <div><span>IDENTIFICACION: </span> {{Planilla.conductor.identificacion}}</div>
+                    <div><span>TELEFONO: </span> {{Planilla.conductor.telefono}}</div>
+                    <div><span>FECHA: </span> {{Planilla.viaje.fecha | date}}</div>
+                </div>
+            </header>
+            <main id="mainPlanilla">
+                <div class="row">
+                    <div class="row"></div>
+                    <div class="col s8">
+                        <table id="table" class="striped responsive-table">
+                            <thead>
+                            <tr>
+                                <th class="center">IDENTIFICACION</th>
+                                <th class="center">NOMBRES Y APELLIDOS</th>
+                                <th class="center">TELEFONO</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="pasajero in vm.Planilla.pasajeros" >
+                                <td class="center">{{pasajero.identificacion}}</td>
+                                <td class="center">{{pasajero.nombres}}</td>
+                                <td class="center">{{pasajero.telefono}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col s1"><br></div>
+                    <div class="col s3">
+                        <table id="tableD" class="striped responsive-table">
+                            <thead>
+                            <tr>
+                                <th class="center">DEDUCCION</th>
+                                <th class="center">VALOR</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="deduccion in vm.Deducciones" ng-if="deduccion.estado == true">
+                                <td class="center">{{deduccion.nombre}}</td>
+                                <td class="center">{{deduccion.valor | currency}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+            </body>
+        </div>
+
+        <div class="modal-footer">
+            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
+               style="margin-left:10px;">Salir</a>
+            <a href="javascript:;" ng-click="vm.imprimir()" class="waves-effect waves-light btn green"
+               style="margin-left:10px;">Imprimir</a>
+        </div>
+    </div>
+    <!--fin modal planilla-->
+</div>
+
+<script>
+    $(document).ready(function(){
+        $('.datepicker').pickadate({
+            selectMonths: true, // Creates a dropdown to control month
+            selectYears: 15 // Creates a dropdown of 15 years to control year
+        });
+    });
+</script>
+

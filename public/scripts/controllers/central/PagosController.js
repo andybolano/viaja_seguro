@@ -1,12 +1,7 @@
 app.controller('PagosController', function ($scope, serviceEmpresaPagos) {
     $scope.Planillas = [];
     $scope.planilla = {};
-    $scope.Ahorros = [];
-    $scope.Pensiones = [];
-    $scope.Seguridad = [];
-    $scope.titulo;
-    $scope.active;
-    $scope.editMode = false;
+
     initialize();
 
     function initialize(){
@@ -21,35 +16,6 @@ app.controller('PagosController', function ($scope, serviceEmpresaPagos) {
         },function (errorPl) {
             console.log('Error Al Cargar Datos', errorPl);
         });
-    }
-
-
-    function cargarPagoPlanillas() {
-        var promiseGet = serviceEmpresaPagos.getPagoPlanilla();
-        promiseGet.then(function (pl) {
-            $scope.Planillas = pl.data;
-        },function (errorPl) {
-            console.log('Error Al Cargar Datos', errorPl);
-        });
-    }
-
-    $scope.nuevoPagoPlanilla = function() {
-        $scope.editMode = false;
-        $scope.Planilla = {};
-        $scope.titulo = "Nueva planilla"
-        $("#modalPagarPlanilla").openModal();
-    }
-
-    $scope.buscarConductor = function(){
-        $scope.titulo = "Formulario de planilla";
-        $("#modalBuscarconductor").openModal();
-    }
-
-    $scope.selectConductor = function (conductor){
-        $scope.Planilla = conductor;
-        $scope.Planilla.nombres = conductor.nombres + " " + conductor.apellidos;
-        $scope.active = 'active';
-        $("#modalBuscarconductor").closeModal();
     }
 
    $scope.verPlanilla = function(planilla){

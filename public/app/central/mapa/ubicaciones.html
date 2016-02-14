@@ -1,0 +1,24 @@
+<div ng-controller="mapaController as vm" class="contenedor">
+    <div class="row">
+        <div class="col s6">
+            <ul class="collection with-header">
+                <li class="collection-header"><h4>Rutas</h4></li>
+                <li class="collection-item" ng-repeat="ruta in vm.rutas">{{ruta.destino.ciudad.nombre}}<a href="javascript:;" class="secondary-content" ng-click="verConductores(ruta.id)"><i class="material-icons">satellite</i></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="modalMapaConductores" class="modal modal-fixed-footer" style="width: 100%;min-height:85%; height: 100%">
+        <div class="modal-content">
+            <div class="row">
+                <!--mapa-->
+                <div class="center" id="dvMap" style="height: 410px; width: 100%;"></div>
+                <!--fin mapa-->
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red " style="margin-left:10px;">Salir</a>
+        </div>
+    </div>
+</div>

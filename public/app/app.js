@@ -14,7 +14,11 @@
 
             //app modules
             'app.auth',
-            'ejemplo'
+            'ejemplo',
+            'app.centrales.conductores',
+            'app.centrales.mapa',
+            'app.centrales.turnos',
+            'app.centrales.planillas'
         ])
         .constant('API', '../api')
         .config(config)

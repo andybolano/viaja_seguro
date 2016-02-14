@@ -14,26 +14,9 @@ var app;
         $routeProvider.when("/home", {
                 templateUrl: 'home.html'
             })
-            .when("/central/asignar/pasajero", {
-                templateUrl: 'servicioPasajero.html'
-            })
-            .when("/central/asignar/giros", {
-                templateUrl: 'servicioGiro.html'
-            })
-            .when("/central/asignar/paquetes", {
-                templateUrl: 'servicioPaquete.html'
-            })
+
             .when("/central/pagos/planilla", {
                 templateUrl: 'showPagosPlanilla.html'
-            })
-            .when("/central/pagos/ahorro", {
-                templateUrl: 'showPagosAhorro.html'
-            })
-            .when("/central/pagos/pension", {
-                templateUrl: 'showPagosPension.html'
-            })
-            .when("/central/pagos/seguridad", {
-                templateUrl: 'showPagosSeguridad.html'
             })
             .when("/central/turnos", {
                 templateUrl: 'gestionarTrunos.html'
