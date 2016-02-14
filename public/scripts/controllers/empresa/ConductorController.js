@@ -10,7 +10,7 @@ app.controller('ConductorController', function ($scope, ConductorServicio, Vehic
     function cargarConductores() {
         $scope.Conductores = [];
         $scope.ConductoresInactivos = [];
-        var promiseGet = ConductorServicio.getAll();
+        var promiseGet = ConductorServicio.getAllwhitInactivos();
         promiseGet.then(function (p) {
             for(var i=0; i<p.data.length; i++){
                 if(p.data[i].activo == true ){
@@ -28,6 +28,9 @@ app.controller('ConductorController', function ($scope, ConductorServicio, Vehic
         $scope.editMode = false;
         $scope.active = "";
         $scope.titulo = "Registrar Conductor";
+        $scope.Conductor = {};
+        loadCentrales();
+        document.getElementById("image").innerHTML = ['<img class="thumb center" id="imagenlogo" style="width:100%" ng-src="http://',$scope.Conductor.imagen,'" title="imagen" alt="seleccione foto"/>'].join('');
         $("#modalNuevoConductor").openModal();
     }
 
@@ -43,6 +46,7 @@ app.controller('ConductorController', function ($scope, ConductorServicio, Vehic
             telefono : $scope.Conductor.telefono,
             direccion : $scope.Conductor.direccion,
             correo: $scope.Conductor.correo,
+            central_id: $scope.Conductor.central.id,
 
             vehiculo : {
                 identificacion_propietario : $scope.Vehiculo.identificacion_propietario,
@@ -90,7 +94,8 @@ app.controller('ConductorController', function ($scope, ConductorServicio, Vehic
             telefono : $scope.Conductor.telefono,
             direccion : $scope.Conductor.direccion,
             correo: $scope.Conductor.correo,
-            activo: $scope.Conductor.activo
+            activo: $scope.Conductor.activo,
+            central_id: $scope.Conductor.central.id
         };
         console.log(object);
         var promisePut = ConductorServicio.put(object,$scope.Conductor.id);
@@ -108,6 +113,7 @@ app.controller('ConductorController', function ($scope, ConductorServicio, Vehic
 
     $scope.openhabilitar = function(conductor){
         $scope.editMode = true;
+        $scope.HMode = true;
         $scope.oculto = false;
         $scope.titulo = "Habilitar conductor"
         $scope.active = "active";

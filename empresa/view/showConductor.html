@@ -143,11 +143,12 @@
                                 <label for="icon_mail2" class="{{active}}">Correo</label>
                             </div>
                         </div>
-                        <div ng-if="!activos" class="row">
-                            <div class="col s6">
-                                <select class="browser-default" name="selectOrigen" id="selectOrigen"
+                        <div class="row" ng-hide="!activos && !HMode">
+                            <div class="input-field col s8">
+                                <i class="material-icons prefix">flag</i>
+                                <select class="browser-default validate" name="selectOrigen" id="selectOrigen"
                                         ng-options="central.ciudad.nombre for central in centrales"
-                                        ng-model="Conductor.central" required>
+                                        ng-model="Conductor.central" required  style="margin-left: 42px;">
                                     <option value="" disabled selected>Seleccione Central</option>
                                 </select>
                             </div>
@@ -180,7 +181,7 @@
                                 <div class="divider"></div>
                                 <div class="row">
                                     <div class="col s8">
-                                        <form class="col s12" name="formDatosVechivulo" id="formDatosVechivulo" ng-show="Veiihculo">
+                                        <form class="col s12" name="formDatosVechivulo" id="formDatosVechivulo" ng-hide="!Veiihculo && editMode">
                                             <div class="row">
                                                 <div class="input-field col s4">
                                                     <i class="material-icons prefix">payment</i>
@@ -274,7 +275,7 @@
                                                 </div>
                                             </div>
                                         </form>
-                                        <p ng-show="!Veiihculo">No se an  reistrado datos del veiihculo</p>
+                                        <p ng-show="!Veiihculo && editMode">No se an  reistrado datos del veiihculo</p>
                                     </div>
 
                                     <div class="col s4">
@@ -301,10 +302,11 @@
         <!--{{formConductor | json}}-->
 
         <div class="modal-footer">
+            {{activos}}
             <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red " style="margin-left:10px;">Salir</a>
             <a ng-disabled="!formConductor.$valid"  class="waves-effect waves-light btn green" ng-hide="editMode" ng-click="guardar()" style="margin-left:10px;">Guardar</a>
             <a ng-disabled="!formConductor.$valid"  class="waves-effect waves-light btn green" ng-show="editMode && activos" ng-click="update()" style="margin-left:10px;">Modificar</a>
-            <a class="waves-effect waves-light btn green" ng-class="{'disabled': formConductor.$invalid}" ng-show="editMode && !activos" ng-click="habilitar()" style="margin-left:10px;">Habilitar</a>
+            <a class="waves-effect waves-light btn green" ng-class="{'disabled': formConductor.$invalid}" ng-show="editMode && !activos && HMode" ng-click="habilitar()" style="margin-left:10px;">Habilitar</a>
             <a ng-disabled="!formConductor.$valid" class="waves-effect waves-light btn yellow " ng-hide="!activos" ng-click="limpiar()" style="margin-left:10px;">Limpiar </a>
         </div>
 

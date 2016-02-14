@@ -5,6 +5,10 @@ app.service('ConductorServicio', function ($http , authService) {
         return $http.get(myuri);
     }
 
+    this.getAllwhitInactivos = function  () {
+        return $http.get(myuri+'/all');
+    }
+
     this.post = function  (object) {
         return $http.post(myuri, object)
     }
