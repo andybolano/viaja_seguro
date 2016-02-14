@@ -37,7 +37,7 @@
             <div ng-controller="MenuCtrl as vm">
                 <li ng-repeat="op in vm.menu">
                     <i class="material-icons left">{{op.icon}}</i>
-                    <a ng-href="#{{op.link}}">{{op.nombre}}</a>
+                    <a ui-sref="{{op.link}}">{{op.nombre}}</a>
                 </li>
             </div>
         </ul>

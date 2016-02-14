@@ -43,7 +43,7 @@
                 }else if(to.data && to.data.onlyAccess){
                     var user = jwt && jwtHelper.decodeToken(jwt).usuario;
                     console.log('o: '+window.location.hash+'|d: '+to.url+'user_rol: '+user.rol);
-                    if (!(!to.data.onlyAccess || to.data.onlyAccess.indexOf(user.rol) > -1 || to.data.onlyAccess == 'all')) {
+                    if (!(!to.data.onlyAccess || to.data.onlyAccess == user.rol || to.data.onlyAccess == 'all')) {
                         e.preventDefault();
                         console.log('token expired');
                         $state.go('login');
