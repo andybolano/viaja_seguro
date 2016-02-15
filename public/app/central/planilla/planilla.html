@@ -45,7 +45,7 @@
             <body id="bodyPlanilla">
             <header class="clearfix" id="headerPlanilla">
                 <div id="logo">
-                    <img src="http://localhost:8080/viaja_seguro/public/images/logo.png">
+                    <img ng-src="http://{{vm.userImagen}}">
                 </div>
                 <h1 id="h1Planilla">PLANILLA N° {{vm.planilla.numero_planilla}}</h1>
                 <div id="company" class="clearfix">
@@ -54,7 +54,7 @@
                     <div> 7755813</div>
                 </div>
                 <div id="project">
-                    <div><span>CONDUCTOR: </span> {{vm.lanilla.conductor.nombres}} {{vm.planilla.conductor.apellidos}}</div>
+                    <div><span>CONDUCTOR: </span> {{vm.planilla.conductor.nombres}} {{vm.planilla.conductor.apellidos}}</div>
                     <div><span>IDENTIFICACION: </span> {{vm.planilla.conductor.identificacion}}</div>
                     <div><span>TELEFONO: </span> {{vm.planilla.conductor.telefono}}</div>
                     <div><span>FECHA: </span> {{vm.planilla.viaje.fecha | date}}</div>
