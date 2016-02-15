@@ -9,7 +9,7 @@
         .module('app.auth')
         .service('authService', authService);
 
-    function authService($http, $location, jwtHelper, API){
+    function authService($http, jwtHelper, API){
         this.login = function (usuario){
             return $http.post(API+'/login', usuario);
         };
@@ -27,17 +27,6 @@
             var usuario = jwtHelper.decodeToken(jwt).usuario;
             sessionStorage.setItem('usuario',JSON.stringify(usuario));
             return usuario;
-        }
-
-        this.checkAuthentication = function (owner){
-            var usuario = JSON.parse(sessionStorage.getItem('usuario'));
-            var jwt = sessionStorage.getItem('jwt');
-            if(!jwt || jwtHelper.isTokenExpired(jwt) || !usuario || usuario.rol != owner){
-                window.location.href = 'login.html';
-            }
-            if(($location.path() === '/login') && usuario.rol == owner){
-                $location.path('/home');
-            }
         }
 
         this.currentUser = function(){

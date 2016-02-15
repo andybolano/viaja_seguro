@@ -8,7 +8,7 @@
 
     function config($stateProvider){
         $stateProvider
-            .state('centrales.conductores', {
+           .state('centrales_conductores', {
                 url: '/centrales/conductores',
                 templateUrl: 'central/conductores/showConductores.html',
                 data: {

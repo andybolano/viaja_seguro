@@ -8,7 +8,7 @@
 
     function config($stateProvider){
         $stateProvider
-            .state('centrales.mapa', {
+           .state('centrales_mapa', {
                 url: '/centrales/conductoes/ubicaciones',
                 templateUrl: 'central/mapa/ubicaciones.html',
                 data: {

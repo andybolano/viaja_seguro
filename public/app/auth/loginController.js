@@ -8,7 +8,7 @@
         .module('app.auth')
         .controller('loginController', loginController);
 
-    function loginController(authService) {
+    function loginController(authService, $state) {
         var vm = this;
 
         vm.usuario = {};
@@ -40,11 +40,11 @@
 
         function redirect(rol){
             if (rol == 'SUPER_ADM') {
-                window.location.href = "../superadmin/view/#/gestionar_empresas";
+
             } else if (rol == 'EMPRESA') {
-                window.location.href = "../empresa/view/#/empresa/conductores";
+
             } else if (rol == 'CENTRAL_EMPRESA') {
-                window.location.href = "../central/view/#/central/turnos";
+                $state.go('centrales_turnos');
             }
         }
 

@@ -7,7 +7,10 @@
 
     function MenuCtrl(appMenu, authService) {
         var vm = this;
-        vm.menu = appMenu.getOf(authService.currentUser().rol);
+        var user = authService.currentUser();
+        if(user) {
+            vm.menu = appMenu.getOf(user.rol);
+        }
     }
 })();
 

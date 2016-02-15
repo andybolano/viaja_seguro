@@ -8,7 +8,7 @@
 
     function config($stateProvider){
         $stateProvider
-            .state('centrales.planillas', {
+           .state('centrales_planillas', {
                 url: '/centrales/planillas',
                 templateUrl: 'central/planilla/planilla.html',
                 data: {

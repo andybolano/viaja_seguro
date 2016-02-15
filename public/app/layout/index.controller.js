@@ -5,7 +5,7 @@
         .module('ViajaSeguro')
         .controller('indexController', indexController);
 
-    function indexController(authService, $location) {
+    function indexController(authService, $location, $state) {
         var vm = this;
 
         hoy();
@@ -34,7 +34,7 @@
 
         function cerrarSesion(){
             sessionStorage.clear();
-            $location.url = '/logind';
+            $state.go('login');
         };
 
     }

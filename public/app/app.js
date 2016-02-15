@@ -13,12 +13,9 @@
             //'google-maps',
 
             //app modules
-            'app.auth',
             'ejemplo',
-            'app.centrales.conductores',
-            'app.centrales.mapa',
-            'app.centrales.turnos',
-            'app.centrales.planillas'
+            'app.auth',
+            'app.centrales'
         ])
         .constant('API', '../api')
         .config(config)
