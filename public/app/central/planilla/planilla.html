@@ -23,7 +23,7 @@
                             <th>Acciones</th>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="planilla in vm.Planillas | filter : filtro">
+                            <tr ng-repeat="planilla in vm.planillas | filter : filtro">
                                 <td>{{planilla.numero_planilla}}</td>
                                 <td>
                                     <a href="javascript:" ng-click="vm.verPlanilla(planilla)">
@@ -47,17 +47,17 @@
                 <div id="logo">
                     <img src="http://localhost:8080/viaja_seguro/public/images/logo.png">
                 </div>
-                <h1 id="h1Planilla">PLANILLA N° {{Planilla.numero_planilla}}</h1>
+                <h1 id="h1Planilla">PLANILLA N° {{vm.planilla.numero_planilla}}</h1>
                 <div id="company" class="clearfix">
                     <div>Cootrasan</div>
                     <div>Fonseca - La Guajira,<br /> Call 13 #21-34</div>
                     <div> 7755813</div>
                 </div>
                 <div id="project">
-                    <div><span>CONDUCTOR: </span> {{Planilla.conductor.nombres}} {{Planilla.conductor.apellidos}}</div>
-                    <div><span>IDENTIFICACION: </span> {{Planilla.conductor.identificacion}}</div>
-                    <div><span>TELEFONO: </span> {{Planilla.conductor.telefono}}</div>
-                    <div><span>FECHA: </span> {{Planilla.viaje.fecha | date}}</div>
+                    <div><span>CONDUCTOR: </span> {{vm.lanilla.conductor.nombres}} {{vm.planilla.conductor.apellidos}}</div>
+                    <div><span>IDENTIFICACION: </span> {{vm.planilla.conductor.identificacion}}</div>
+                    <div><span>TELEFONO: </span> {{vm.planilla.conductor.telefono}}</div>
+                    <div><span>FECHA: </span> {{vm.planilla.viaje.fecha | date}}</div>
                 </div>
             </header>
             <main id="mainPlanilla">
@@ -73,7 +73,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="pasajero in vm.Planilla.pasajeros" >
+                            <tr ng-repeat="pasajero in vm.planilla.pasajeros" >
                                 <td class="center">{{pasajero.identificacion}}</td>
                                 <td class="center">{{pasajero.nombres}}</td>
                                 <td class="center">{{pasajero.telefono}}</td>

@@ -118,6 +118,8 @@
             turnosService.cargarVehiculoConductor(conductor_id).then(success, error);
             function success(p) {
                 vm.vehiculo = p.data;
+                vm.vehiculo.fecha_soat = new Date(p.data.fecha_soat);
+                vm.vehiculo.fecha_tecnomecanica = new Date(p.data.fecha_tecnomecanica);
             }
             function error(error) {
                 console.log('Error los datos del vehiculo', error);
@@ -390,7 +392,7 @@
         }
 
         function cargarDeducciones(){
-            var promiseGet = serviceEmpresaPagos.getDeducciones();
+            var promiseGet = planillasService.getDeducciones();
             promiseGet.then(function (pl) {
                 vm.Deducciones = pl.data;
             },function (errorPl) {

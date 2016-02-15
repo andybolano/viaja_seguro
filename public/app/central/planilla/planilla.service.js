@@ -6,17 +6,17 @@
         .service('planillasService', planillasService);
 
     function planillasService($http, authService, API){
-        this.getPagoPlanilla = function(){
-            var req = $http.get(API+'/api/centrales/'+authService.currentUser().central.id+'/planillas');
+        this.getPlanillas = function(){
+            var req = $http.get(API+'/centrales/'+authService.currentUser().central.id+'/planillas');
             return req;
         }
 
         this.getPlanilla = function(viaje){
-            return $http.get(API+ '/api/empresa/pagos/planilla/'+viaje);
+            return $http.get(API+ '/empresa/pagos/planilla/'+viaje);
         }
 
         this.getDeducciones = function(){
-            return $http.get(API + '/api/empresas/'+ authService.currentUser().central.empresa.id+'/deducciones');
+            return $http.get(API + '/empresas/'+ authService.currentUser().central.empresa.id+'/deducciones');
         }
     }
 })();

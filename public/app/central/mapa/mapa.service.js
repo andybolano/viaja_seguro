@@ -7,7 +7,7 @@
 
     function mapaService($http, API){
         this.getUbicacionConductores = function(ruta_id){
-            return $http.get(API + '/api/conductores/rutas/'+ruta_id+'/ubicacion');
+            return $http.get(API + '/conductores/rutas/'+ruta_id+'/ubicacion');
         }
     }
 })();
