@@ -56,6 +56,8 @@ class UsuariosController extends Controller
         $empresa_id = $data['empresa_id'];
         unset($data['empresa_id']);
 
+        $vehiculo_conductor = $data['vehiculo'];
+        unset($data['vehiculo']);
 
         $conductor = new Conductor($data);
         $conductor->activo = false;
@@ -64,10 +66,27 @@ class UsuariosController extends Controller
             $user->delete();
             return response()->json(['mensajeError' => 'no se ha podido almacenar el registro'], 400);
         }
-
+        $this->storeVehiculoconductor($conductor, $vehiculo_conductor);
         $token = JWTAuth::fromUser($user);
 
         return response()->json(compact('token'));
+    }
+
+    private function storeVehiculoconductor(&$conductor, $data){
+        $busqueda = Vehiculo::select("placa")
+            ->where("placa",$data["placa"])
+            ->first();
+        if ($busqueda == null) {
+            if(!$conductor->vehiculo()->save(new Vehiculo($data))){
+                $usuario = $conductor->usuario;
+                $conductor->delete();
+                $usuario->delete();
+                return response()->json(['mensajeError' => 'no se ha podido almacenar el vehiculo del conductor'], 400);
+            }
+            return response()->json($conductor, 200);
+        }else{
+            return response()->json(array('message' => "La placa del vehiculo ya se encuentra registrada."), 200);
+        }
     }
 
     private function getRol($nombre)
