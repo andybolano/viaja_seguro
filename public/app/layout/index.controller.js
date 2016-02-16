@@ -17,8 +17,8 @@
             vm.hoy = hoy;
         };
 
-        vm.loadUser = loadUser;
         vm.cerrarSesion = cerrarSesion;
+        loadUser();
 
         function loadUser(){
             if(authService.currentUser()) {

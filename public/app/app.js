@@ -15,6 +15,7 @@
             //app modules
             'ejemplo',
             'app.auth',
+            'app.empresas',
             'app.centrales'
         ])
         .constant('API', '../api')

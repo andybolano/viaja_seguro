@@ -21,6 +21,8 @@
         vm.comfirmarContrasenas = comfirmarContrasenas;
         vm.cambiarContrasena = cambiarContrasena;
 
+        if(authService.currentUser()) redirect(authService.currentUser().rol);
+
         function iniciarSesion(){
             vm.mensajeError = '';
             authService.login(vm.usuario).then(success, error);
@@ -42,7 +44,7 @@
             if (rol == 'SUPER_ADM') {
 
             } else if (rol == 'EMPRESA') {
-
+                $state.go('gestion_conductores');
             } else if (rol == 'CENTRAL_EMPRESA') {
                 $state.go('centrales_turnos');
             }
