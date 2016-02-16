@@ -3,7 +3,7 @@
         <div class="col s6">
             <ul class="collection with-header">
                 <li class="collection-header"><h4>Rutas</h4></li>
-                <li class="collection-item" ng-repeat="ruta in vm.rutas">{{ruta.destino.ciudad.nombre}}<a href="javascript:;" class="secondary-content" ng-click="verConductores(ruta.id)"><i class="material-icons">satellite</i></a></li>
+                <li class="collection-item" ng-repeat="ruta in vm.rutas">{{ruta.destino.ciudad.nombre}}<a href="javascript:;" class="secondary-content" ng-click="vm.verConductores(ruta.id)"><i class="material-icons">satellite</i></a></li>
             </ul>
         </div>
     </div>
