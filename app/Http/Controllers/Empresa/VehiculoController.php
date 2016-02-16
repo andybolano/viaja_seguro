@@ -29,8 +29,7 @@ class VehiculoController extends Controller
     public function guardaImagen(Request $request, $id)
     {
         try{
-            $vehiculo = Vehiculo::select('*')
-                ->where('placa', $id)->first();
+            $vehiculo = Vehiculo::find($id);
 
             if ($request->hasFile('imagenv')) {
                 $request->file('imagenv')->move('images/vehiculos/', "vehiculo$id.png");

@@ -15,7 +15,7 @@ class Usuario extends Authenticatable
         return $this->belongsTo(Rol::class);
     }
 
-    public static function nuevo($nombre, $contrasena, $id_rol, $estado = -1, $reg_id)
+    public static function nuevo($nombre, $contrasena, $id_rol, $estado = -1, $reg_id = '')
     {
        return parent::create([
            'email' => $nombre,

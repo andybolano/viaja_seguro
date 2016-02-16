@@ -26,7 +26,7 @@ class ConductorController extends Controller
     public function guardaImagen(Request $request, $id)
     {
         try{
-            $conductor = Conductor::select('*')->where('identificacion', $id)->first();
+            $conductor = Conductor::find($id);
             if(!$conductor){
                 return response()->json(array("message"=> 'No se encontro el conductor'), 400);
             }

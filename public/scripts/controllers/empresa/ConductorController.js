@@ -161,7 +161,7 @@ app.controller('ConductorController', function ($scope, ConductorServicio, Vehic
         if($scope.fileimage) {
             var data = new FormData();
             data.append('imagen', $scope.fileimage);
-            ConductorServicio.postImagen($scope.Conductor.identificacion, data).then(success, error);
+            ConductorServicio.postImagen($scope.Conductor.id, data).then(success, error);
             function success(p) {
                 $scope.Conductor.imagen = p.data.nombrefile;
                 Materialize.toast('Imagen guardado correctamente', 5000);
@@ -178,7 +178,7 @@ app.controller('ConductorController', function ($scope, ConductorServicio, Vehic
         if($scope.fileimageV) {
             var data = new FormData();
             data.append('imagenv', $scope.fileimageV);
-            VehiculoServicio.postImagen($scope.Vehiculo.placa, data).then(success, error);
+            VehiculoServicio.postImagen($scope.Vehiculo.id, data).then(success, error);
             function success(p) {
                 $scope.Vehiculo.imagen = p.data.nombrefile;
                 cargarConductores();
