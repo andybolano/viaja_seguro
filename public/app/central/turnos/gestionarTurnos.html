@@ -161,7 +161,7 @@
 
 
     <!--modal buscar conductor-->
-    <div id="modalBuscarconductor" class="modal modal-fixed-footer row white" ng-controller="conductoresController as vm">
+    <div id="modalBuscarconductor" class="modal modal-fixed-footer row white" ng-controller="conductoresController as cm">
         <div class="contenedor modal-content">
             <div class="row">
                 <div class="col s7">
@@ -187,7 +187,7 @@
                         <th>Seleccionar</th>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="conductor in vm.Conductores | filter : filtro">
+                        <tr ng-repeat="conductor in cm.Conductores | filter : filtro">
                             <td>{{conductor.identificacion}}</td>
                             <td>
                                 <img ng-src="http://{{conductor.imagen}}" class="circle" style="width: 35px;">
@@ -219,7 +219,7 @@
         <!--<form action="" name="formPasajero">-->
             <div class="modal-content">
                 <h2>Asignar pasajeros a: {{vm.conductor.nombres}} {{vm.conductor.apellidos}}</h2>
-                <h2>Cupos disponibles: {{vm.vehiculo.cupos}}</h2>
+                <h2>Cupos disponibles: {{vm.cupos}}</h2>
                 <div class="col s12 z-depth-1">
                     <div class="contenedor">
                         <div class="row">
@@ -245,7 +245,7 @@
                                         <td><input type="text" ng-model="vm.Pasajeros.direccionD"></td>
                                         <td><button class="btn waves-effect waves-light green " title="Guardar" id="guardar" ng-click="vm.asignarPasajero();" disabled="" ><i class="material-icons">save</i></button></td>
                                         <td><button class="btn waves-effect waves-light blue"  title="Actualizar" id="actualizar" ng-click="vm.modificarPasajero();" disabled="" ><i class="material-icons">reply</i></button></td>
-                                        <td><button class="btn waves-effect waves-light red"  title="limpiar" id="limpiar" ng-click="vm.limpiar();"><i class="material-icons">clear</i></button></td>
+                                        <td><button class="btn waves-effect waves-light red"  title="limpiar" id="limpiar" ng-click="vm.limpiarPasajeros(vm.conductor.id);"><i class="material-icons">clear</i></button></td>
                                     </tr>
                                     <tr ng-repeat ="pasajero in vm.listaPasajeros">
                                         <td>{{pasajero.identificacion}}</td>
@@ -308,7 +308,7 @@
                                         <td><input type="text" ng-model="vm.Giros.monto"></td>
                                         <td><button class="btn waves-effect waves-light green " title="Guardar" id="guardarG" ng-click="vm.asignarGiro();" disabled="" ><i class="material-icons">save</i></button></td>
                                         <td><button class="btn waves-effect waves-light blue"  title="Actualizar" id="actualizarG" ng-click="vm.modificarGiro();" disabled="" ><i class="material-icons">reply</i></button></td>
-                                        <td><button class="btn waves-effect waves-light red"  title="limpiar" id="limpiar" ng-click="vm.limpiar();"><i class="material-icons">clear</i></button></td>
+                                        <td><button class="btn waves-effect waves-light red"  title="limpiar" id="limpiar" ng-click="vm.limpiarGiros(vm.conductor.id);"><i class="material-icons">clear</i></button></td>
                                     </tr>
                                     <tr ng-repeat ="giro in vm.listaGiros">
                                         <td>{{giro.ide_remitente}}</td>
@@ -374,7 +374,7 @@
                                         <td><input type="text" ng-model="vm.Paquetes.descripcion_paquete"></td>
                                         <td><button class="btn waves-effect waves-light green " title="Guardar" id="guardarP" ng-click="vm.asignarPaquete();" disabled="" ><i class="material-icons">save</i></button></td>
                                         <td><button class="btn waves-effect waves-light blue"  title="Actualizar" id="actualizarP" ng-click="vm.modificarPaquete();" disabled="" ><i class="material-icons">reply</i></button></td>
-                                        <td><button class="btn waves-effect waves-light red"  title="limpiar" id="limpiar" ng-click="vm.limpiar();"><i class="material-icons">clear</i></button></td>
+                                        <td><button class="btn waves-effect waves-light red"  title="limpiar" id="limpiar" ng-click="vm.limpiarPaquetes(vm.conductor.id);"><i class="material-icons">clear</i></button></td>
                                     </tr>
                                     <tr ng-repeat ="paquete in vm.listaPaquetes">
                                         <td>{{paquete.ide_remitente}}</td>
