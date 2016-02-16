@@ -215,7 +215,7 @@
 
 
     <!--modal add pasajeros-->
-    <div ng-if="vm.servicios.gestion_pasajeros" id="modalAddPasajero" class="modal modal-fixed-footer" style="width: 90%;min-height:85%;">
+    <div ng-if="vm.servicios.gestion_pasajeros" id="modalAddPasajero" class="modal modal-fixed-footer" style="width: 90%;min-height:85%;" >
         <!--<form action="" name="formPasajero">-->
             <div class="modal-content">
                 <h2>Asignar pasajeros a: {{vm.conductor.nombres}} {{vm.conductor.apellidos}}</h2>
@@ -489,7 +489,7 @@
         <div class="modal-footer">
             <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
                style="margin-left:10px;">Salir</a>
-            <a href="javascript:;" ng-click="imprimir()" class="waves-effect waves-light btn green"
+            <a href="javascript:;" ng-click="vm.imprimir()" class="waves-effect waves-light btn green"
                style="margin-left:10px;">Imprimir</a>
         </div>
     </div>

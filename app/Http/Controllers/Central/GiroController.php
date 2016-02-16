@@ -35,9 +35,10 @@ class GiroController extends Controller
             $this->enviarNotificacion('', $mensaje, $data['conductor_id']);
 
             if(!Central::find($central_id)->giros()->save($giro)){
+                $giro->delete();
                 return response()->json(['mensajeError' => 'No se ha posido registrar al giro'], 400);
             }
-            return response()->json($giro, 201);
+            return JsonResponse::create(array('message' => "Se asigno el giro correctamente"), 200);
         } catch (\Exception $exc) {
             return response()->json(array("exception"=>$exc->getMessage()), 400);
         }
@@ -131,7 +132,7 @@ class GiroController extends Controller
                 return JsonResponse::create(array('message' => "Giro eliminado correctamente", "request" =>json_encode($id)), 200);
             }
         }catch (Exception $ex) {
-            return JsonResponse::create(array('message' => "No se pudo Eliminar el Giro", "exception"=>$ex->getMessage(), "request" =>json_encode($id)), 401);
+            return JsonResponse::create(array('message' => "No se pudo eliminar el Giro", "exception"=>$ex->getMessage(), "request" =>json_encode($id)), 401);
         }
     }
 
