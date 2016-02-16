@@ -12,6 +12,7 @@
         initialize();
 
         function initialize(){
+            //vm.ubicaciones = [];
             cargarRutas();
         }
 
@@ -51,37 +52,37 @@
 
                 $.each(vm.ubicaciones, function (i, obj) {
                     vm.obj = {};
-
-                    var marcadores = [{
-                        position: {
-                            lat: obj.latitud,
-                            lng: obj.longitud
-                        },
-                        contenido : '<div >\
+                    if(obj.conductor.central_id == authService.currentUser().central.id && obj.conductor.activo == true){
+                        var marcadores = [{
+                            position: {
+                                lat: obj.latitud,
+                                lng: obj.longitud
+                            },
+                            contenido : '<div >\
                             \<div >\<img src="http://' + (obj.conductor.imagen) + '" title="' + obj.conductor.nombres + '" title="" style="width: 150px;height: 120px;" />\
                             \</div>\<div class="contentTxt">\
                             \<h2>' + obj.conductor.nombres + ' ' + obj.conductor.apellidos + '\</h2>\
                             \<p>\TELEFONO: ' + obj.conductor.telefono + '\</p>\
                             \<p>\CODIGO VIAL: ' + obj.vehiculo_conductor.codigo_vial + '\</p>\
                             \</div>\<div class="clear"></div>\</div>',
-                        title: obj.conductor.nombres + ' ' + obj.conductor.apellidos + ' Movil: ' + obj.vehiculo_conductor.codigo_vial,
-                    }];
+                            title: obj.conductor.nombres + ' ' + obj.conductor.apellidos + ' Movil: ' + obj.vehiculo_conductor.codigo_vial,
+                        }];
+                        for (var i = 0, j = marcadores.length; i < j; i++) {
+                            var contenido = marcadores[i].contenido;
+                            var marker = new google.maps.Marker({
+                                position: new google.maps.LatLng(marcadores[i].position.lat, marcadores[i].position.lng),
+                                map: map,
+                                title: marcadores[i].title,
+                                icon: '../assets/images/marker.png'
 
-                    for (var i = 0, j = marcadores.length; i < j; i++) {
-                        var contenido = marcadores[i].contenido;
-                        var marker = new google.maps.Marker({
-                            position: new google.maps.LatLng(marcadores[i].position.lat, marcadores[i].position.lng),
-                            map: map,
-                            title: marcadores[i].title,
-                            icon: '../assets/images/marker.png'
-
-                        });
-                        (function (marker, contenido) {
-                            google.maps.event.addListener(marker, 'click', function () {
-                                infowindow.setContent(contenido);
-                                infowindow.open(map, marker);
                             });
-                        })(marker, contenido);
+                            (function (marker, contenido) {
+                                google.maps.event.addListener(marker, 'click', function () {
+                                    infowindow.setContent(contenido);
+                                    infowindow.open(map, marker);
+                                });
+                            })(marker, contenido);
+                        }
                     }
                 });
             }
