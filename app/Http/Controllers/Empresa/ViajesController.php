@@ -26,20 +26,12 @@ class ViajesController extends Controller
 
     public function deleteTurno(Request $request){
         $data = $request->all();
-        if($t = DB::table('vehiculos')
-            ->join('turnos', 'vehiculos.conductor_id', '=', 'turnos.conductor_id')
-            ->select('vehiculos.cupos')->where('vehiculos.cupos', '>', '0')
-            ->where('turnos.conductor_id', $data['conductor_id'])->first()
-        ){
-            return JsonResponse::create(array('message' => 'El conductor que desea despachar aun se encuentra con cupos disponibles'));
+        if(!DB::table('turnos')->where('ruta_id', $data['ruta_id'])->where('turno', $data['turno'] )->delete()){
+            return JsonResponse::create(array('message' => 'Error al eliminar'));
         }else{
-            if(!DB::table('turnos')->where('ruta_id', $data['ruta_id'])->where('turno', $data['turno'] )->delete()){
-                return JsonResponse::create(array('message' => 'Error al eliminar'));
-            }else{
-
-                return JsonResponse::create(array('message' => 'Despachado correctamente', 'viaje' => $this->crearViaje($data['conductor_id'], $data['ruta_id'])));
-            }
+            return JsonResponse::create(array('message' => 'Despachado correctamente', 'viaje' => $this->crearViaje($data['conductor_id'], $data['ruta_id'])));
         }
+
     }
 
     public function crearViaje($conductor_id, $ruta_id){

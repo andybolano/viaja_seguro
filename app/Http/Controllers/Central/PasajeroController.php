@@ -62,8 +62,10 @@ class PasajeroController extends Controller
         $this->enviarNotificacion('', $mensaje, $data['conductor_id']);
         $central = Central::find($central_id);
         if(!$central->pasajeros()->save($pasajero)){
+            $pasajero->delete();
             return response()->json(['mensajeError' => 'no se ha podido almacenar el registro'], 400);
         }
+        return JsonResponse::create(array('message' => "Se asigno el pasajero correctamente"), 200);
     }
 
     function enviarNotificacion($collapseKey, $mensaje, $conductor_id)

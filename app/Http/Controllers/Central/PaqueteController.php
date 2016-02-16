@@ -39,7 +39,7 @@ class PaqueteController extends Controller
             if(!Central::find($central_id)->paquetes()->save($paquete)){
                 return response()->json(['mensajeError' => 'No se ha posido registrar al paquete'], 400);
             }
-            return response()->json($paquete, 201);
+            return JsonResponse::create(array('message' => "Paquete asignado correctamente"), 200);
         } catch (\Exception $exc) {
             return response()->json(array("exception"=>$exc->getMessage()), 400);
         }

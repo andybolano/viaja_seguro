@@ -16,9 +16,9 @@
         vm.Pasajeros = {};
         vm.Paquetes = {};
         vm.Giros = {};
-        vm.listaPasajeros = {};
-        vm.listaPaquetes = {};
-        vm.listaGiros = {};
+        vm.listaPasajeros = [];
+        vm.listaPaquetes = [];
+        vm.listaGiros = [];
 
         vm.servicios = authService.currentUser().central.empresa.servicios;
 
@@ -51,7 +51,10 @@
         vm.verDescripcionPaquete = verDescripcionPaquete;
 
         //despacho
-        vm.limpiar = limpiar;
+        vm.limpiarPasajeros = limpiarPasajeros;
+        vm.limpiarGiros = limpiarGiros;
+        vm.limpiarPaquetes = limpiarPaquetes;
+
         vm.despacharConductor = despacharConductor;
         vm.imprimir = imprimir;
 
@@ -118,6 +121,7 @@
             turnosService.cargarVehiculoConductor(conductor_id).then(success, error);
             function success(p) {
                 vm.vehiculo = p.data;
+                vm.cupos = vm.vehiculo.cupos - vm.cantidad;
                 vm.vehiculo.fecha_soat = new Date(p.data.fecha_soat);
                 vm.vehiculo.fecha_tecnomecanica = new Date(p.data.fecha_tecnomecanica);
             }
@@ -132,8 +136,16 @@
             document.getElementById("actualizar").disabled = true;
             turnosService.refrescarPasajeros(conductor_id).then(success, error);
             function  success(p){
-                vm.listaPasajeros = p.data;
-                vm.Pasajeros = "";
+                vm.listaPasajeros = [];
+                for(var i=0; i<p.data.length; i++){
+                    if(p.data[i].estado == "En ruta" ){
+                        vm.listaPasajeros.push(p.data[i]);
+                        vm.Pasajeros = "";
+                        vm.cantidad = p.data.length;
+                    }else{
+                        console.log('algun error');
+                    }
+                }
             }
             function error(error){
                 console.log('error a traer la lista de pasajeros')
@@ -143,31 +155,36 @@
         function verVehiculo(conductor){
             vm.conductor = conductor;
             vm.active = 'active';
-            cargarVehiculoConductor(vm.conductor.id);
-            $('#modalVehiculo').openModal();
+            $('#modalVehiculo').openModal({
+                dismissible: false, // Modal can be dismissed by clicking outside of the modal
+                opacity: .5, // Opacity of modal background
+                in_duration: 400, // Transition in duration
+                out_duration: 300, // Transition out duration
+                ready: function() { cargarVehiculoConductor(vm.conductor.id); }, // Callback for Modal open
+                //complete: function() { alert('Closed'); } // Callback for Modal close
+            });
         }
 
         function addPasajero(conductor){
             vm.conductor = conductor;
-            cargarVehiculoConductor(vm.conductor.id);
             refrescarPasajeros(vm.conductor.id);
+            cargarVehiculoConductor(vm.conductor.id);
             $('#modalAddPasajero').openModal();
+            vm.cupos = vm.vehiculo.cupos - vm.cantidad;
         }
 
         function asignarPasajero(){
             vm.Pasajeros.conductor_id = vm.conductor.id;
-            if(vm.vehiculo.cupos == 0){
-                Materialize.toast('Este conductor no tiene cupos disponibles','5000',"rounded");
+            if(vm.cupos == 0){
+                Materialize.toast('El conductor no posee cupos disponibles','5000',"rounded");
             }else{
                 turnosService.asignarPasajero(vm.Pasajeros).then(success, error);
             }
             function  success(p){
-                vm.vehiculo.cupos = vm.vehiculo.cupos-1;
-                var obj = {
-                    cupos : vm.vehiculo.cupos
-                }
-                turnosService.updateCuposVehiculo(vm.vehiculo.id, obj);
                 refrescarPasajeros(vm.conductor.id);
+                cargarVehiculoConductor(vm.conductor.id);
+                vm.cupos = vm.vehiculo.cupos - vm.cantidad;
+                console.log(vm.cantidad);
             }
             function error(error){
                 console.log('Error al guardar')
@@ -183,8 +200,10 @@
         function modificarPasajero(){
             turnosService.modificarPasajero(vm.Pasajeros.id, vm.Pasajeros).then(success, error);
             function  success(p){
-                Materialize.toast(p.message,'5000',"rounded");
+                Materialize.toast(p.data.message,'5000',"rounded");
                 refrescarPasajeros(vm.conductor.id);
+                cargarVehiculoConductor(vm.conductor.id);
+                vm.cupos = vm.vehiculo.cupos - vm.cantidad;
                 document.getElementById("guardar").disabled = false;
                 document.getElementById("actualizar").disabled = true;
             }
@@ -197,12 +216,9 @@
             turnosService.eliminarPasajero(pasajero_id).then(succes, error);
             function succes(p){
                 refrescarPasajeros(vm.conductor.id);
-                Materialize.toast(p.message, '5000', 'rounded');
-                vm.vehiculo.cupos = vm.vehiculo.cupos+1;
-                var obj = {
-                    cupos : vm.vehiculo.cupos
-                }
-                turnosService.updateCuposVehiculo(vm.vehiculo.id, obj);
+                cargarVehiculoConductor(vm.conductor.id);
+                vm.cupos = vm.vehiculo.cupos - vm.cantidad;
+                Materialize.toast(p.data.message, '5000', 'rounded');
             }
             function error(error){
                 console.log('error al eliminar')
@@ -216,8 +232,15 @@
             document.getElementById("actualizarG").disabled = true;
             turnosService.refrescarGiros(conductor_id).then(success, error);
             function  success(p){
-                vm.listaGiros = p.data;
-                vm.Giros = "";
+                vm.listaGiros = [];
+                for(var i=0; i<p.data.length; i++){
+                    if(p.data[i].estado == "En ruta" ){
+                        vm.listaGiros.push(p.data[i]);
+                        vm.Giros = "";
+                    }else{
+                        console.log('algun error');
+                    }
+                }
             }
             function error(error){
                 console.log('error a traer la lista de pasajeros')
@@ -234,6 +257,7 @@
             vm.Giros.conductor_id = vm.conductor.id;
             turnosService.asignarGiro(vm.Giros).then(success, error);
             function  success(p){
+                Materialize.toast(p.data.message,'5000',"rounded");
                 refrescarGiros(vm.conductor.id);
             }
             function error(error){
@@ -250,7 +274,7 @@
         function modificarGiro(){
             turnosService.modificarGiro(vm.Giros.id, vm.Giros).then(success, error);
             function  success(p){
-                Materialize.toast(p.message,'5000',"rounded");
+                Materialize.toast(p.data.message,'5000',"rounded");
                 refrescarGiros(vm.conductor.id);
                 document.getElementById("guardarG").disabled = false;
                 document.getElementById("actualizarG").disabled = true;
@@ -264,7 +288,7 @@
             turnosService.eliminarGiro(giro_id).then(succes, error);
             function succes(p){
                 refrescarGiros(vm.conductor.id);
-                Materialize.toast(p.message, '5000', 'rounded');
+                Materialize.toast(p.data.message, '5000', 'rounded');
             }
             function error(error){
                 console.log('error al eliminar')
@@ -278,8 +302,15 @@
             document.getElementById("actualizarP").disabled = true;
             turnosService.refrescarPaquetes(conductor_id).then(success, error);
             function  success(p){
-                vm.listaPaquetes = p.data;
-                vm.Paquetes = "";
+                vm.listaPaquetes = [];
+                for(var i=0; i<p.data.length; i++){
+                    if(p.data[i].estado == "En ruta" ){
+                        vm.listaPaquetes.push(p.data[i]);
+                        vm.Paquetes = "";
+                    }else{
+                        console.log('algun error');
+                    }
+                }
             }
             function error(error){
                 console.log('error a traer la lista de paquetes')
@@ -297,6 +328,7 @@
             turnosService.asignarPaquete(vm.Paquetes).then(success, error);
             function  success(p){
                 refrescarPaquetes(vm.conductor.id);
+                Materialize.toast(p.data.message, '5000', 'rounded');
             }
             function error(error){
                 console.log('Error al guardar')
@@ -312,7 +344,7 @@
         function modificarPaquete(){
             turnosService.modificarPaquete(vm.Paquetes.id, vm.Paquetes).then(success, error);
             function  success(p){
-                Materialize.toast(p.message,'5000',"rounded");
+                Materialize.toast(p.data.message, '5000', 'rounded');
                 refrescarPaquetes(vm.conductor.id);
                 document.getElementById("guardarP").disabled = false;
                 document.getElementById("actualizarP").disabled = true;
@@ -331,7 +363,7 @@
             turnosService.eliminarPaquete(paquete_id).then(succes, error);
             function succes(p){
                 refrescarPaquetes(vm.conductor.id);
-                Materialize.toast(p.message, '5000', 'rounded');
+                Materialize.toast(p.data.message, '5000', 'rounded');
             }
             function error(error){
                 console.log('error al eliminar')
@@ -339,25 +371,35 @@
         }
         //FIN PAQUETES
 
-        //DESPACHO
-        function limpiar(){
+        function limpiarPasajeros(conductor_id){
             document.getElementById("guardar").disabled = false;
             document.getElementById("actualizar").disabled = true;
+            refrescarPasajeros(conductor_id)
+            vm.Pasajeros = "";
+        };
+
+        function limpiarGiros(conductor_id){
             document.getElementById("guardarG").disabled = false;
             document.getElementById("actualizarG").disabled = true;
-            document.getElementById("guardarP").disabled = false;
-            document.getElementById("actualizarP").disabled = true;
-            vm.Pasajeros = "";
-            vm.Paquetes = "";
+            refrescarGiros(conductor_id)
             vm.Giros = "";
         };
 
+        function limpiarPaquetes(conductor_id){
+            document.getElementById("guardarP").disabled = false;
+            document.getElementById("actualizarP").disabled = true;
+            refrescarPaquetes(conductor_id)
+            vm.Paquetes = "";
+        };
+
+        //DESPACHO
         function despacharConductor(ruta_id){
             vm.turnos = {};
             turnosService.getTurno(ruta_id).then(succes, error);
             function succes(p){
                 vm.turnos = p.data;
                 if(vm.turnos.turno == 1){
+                    console.log(vm.turnos)
                     ejecutarDespachoConductor(vm.turnos);
                 }
 
@@ -369,18 +411,22 @@
 
         function ejecutarDespachoConductor(datos){
             vm.Planilla = {};
-            var obj = {
-                ruta_id : datos.ruta_id,
-                turno : datos.turno,
-                conductor_id : datos.conductor_id
+            if(vm.cupos > 0){
+                if(confirm('Este conductor aun tiene cupos disponibles, quieres despacharlo?') == true) {
+                    var obj = {
+                        ruta_id : datos.ruta_id,
+                        turno : datos.turno,
+                        conductor_id : datos.conductor_id
+                    }
+                    turnosService.eliminarTurno(obj).then(succes, error);
+                }
             }
-            turnosService.eliminarTurno(obj).then(succes, error);
             function succes(p){
                 vm.Planilla = p.data;
                 console.log(vm.Planilla)
                 cargarRutas();
                 if (p.data.message == 'Despachado correctamente'){
-                    Materialize.toast(vm.Planilla.message, 5000);
+                    Materialize.toast(p.data.message, 5000);
                     $('#modalPlanilla').openModal();
                 }else{
                     Materialize.toast(vm.Planilla.message, 5000);
