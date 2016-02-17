@@ -3,6 +3,7 @@
 
     angular
         .module('app.empresas', [
-            'app.empresas.conductores'
+            'app.empresas.conductores',
+            'app.empresas.centrales'
         ]);
 })();
