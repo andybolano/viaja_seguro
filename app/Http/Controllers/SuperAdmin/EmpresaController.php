@@ -4,8 +4,11 @@ use App\Http\Controllers\Controller;
 use App\Model\Conductor;
 use App\Model\Empresa;
 use App\Model\Rol;
+use App\Model\Ruta;
+use App\Model\Turno;
 use App\Model\Usuario;
 use App\Model\Vehiculo;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\DateTime;
@@ -228,6 +231,17 @@ class EmpresaController extends Controller
             }
         }
         return $rutas;
+    }
+
+    public function getConductoresEnRuta($ruta_id)
+    {
+        $con = \DB::table('conductores')
+            ->whereNotExists(function($query){
+                $query->select(\DB::raw(1))
+                    ->from('turnos')
+                    ->whereRaw('turnos.conductor_id = conductores.id');
+            })->get();
+        return JsonResponse::create($con);
     }
 
     private function getRol($nombre)

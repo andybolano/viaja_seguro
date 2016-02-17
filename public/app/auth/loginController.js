@@ -46,7 +46,7 @@
             } else if (rol == 'EMPRESA') {
                 $state.go('app.empresas_gestion_conductores');
             } else if (rol == 'CENTRAL_EMPRESA') {
-                $state.go('centrales_turnos');
+                $state.go('app.centrales_turnos');
             }
         }
 

@@ -8,7 +8,7 @@
 
     function config($stateProvider){
         $stateProvider
-           .state('centrales_conductores', {
+           .state('app.centrales_conductores', {
                 url: '/centrales/conductores',
                 templateUrl: 'central/conductores/showConductores.html',
                 data: {
@@ -19,7 +19,7 @@
 
     function run(appMenu){
         appMenu.addTo([
-            {nombre:'Conductores', link:'/centrales/conductores', icon:'airline_seat_recline_normal'},
+            {nombre:'Conductores', link:'app.centrales_conductores', icon:'airline_seat_recline_normal'},
         ], 'CENTRAL_EMPRESA');
     }
 })();
