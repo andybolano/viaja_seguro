@@ -3,6 +3,10 @@
 
     angular
         .module('app.empresas', [
-            'app.empresas.conductores'
+            //modules
+            'app.empresas.conductores',
+            'app.empresas.deducciones',
+            //libs
+            'google-maps'
         ]);
 })();

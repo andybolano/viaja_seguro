@@ -2,15 +2,15 @@
     'use strict';
 
     angular
-        .module('app.empresas.conductores', [])
+        .module('app.empresas.deducciones', [])
         .config(config)
         .run(run);
 
     function config($stateProvider){
         $stateProvider
-            .state('app.empresas_gestion_conductores', {
-                url: '/empresa/conductores',
-                templateUrl: 'empresas/gestion_conductores/showConductor.html',
+            .state('app.empresas_gestion_deducciones', {
+                url: '/empresa/deducciones',
+                templateUrl: 'empresas/gestion_deducciones/showDeducciones.html',
                 data: {
                     onlyAccess: 'EMPRESA'
                 }
@@ -19,7 +19,7 @@
 
     function run(appMenu){
         appMenu.addTo([
-            {nombre:'Gestion de conductores', link:'app.empresas_gestion_conductores', icon:'directions_car'}
+            {nombre:'Deducciones', link:'app.empresas_gestion_deducciones', icon:'rate_review'}
         ], 'EMPRESA');
     }
 })();
