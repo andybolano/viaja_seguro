@@ -10,6 +10,8 @@ Route::post('/api/conductores/{conductor_id}/vehiculo', 'Empresa\ConductorContro
 
 Route::post('/api/conductores/{conductor_id}/ubicacion', 'Empresa\ConductorController@postUbicacion');
 
+Route::get('/api/conductores/ruta/{ruta_id}', 'SuperAdmin\EmpresaController@getConductoresEnRuta');
+
 
 
 

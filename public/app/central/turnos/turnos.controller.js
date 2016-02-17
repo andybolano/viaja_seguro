@@ -5,7 +5,7 @@
         .module('app.centrales.turnos')
         .controller('turnosController', turnosController);
 
-    function turnosController(turnosService, planillasService, authService) {
+    function turnosController(turnosService, planillasService, authService, conductoresService) {
         var vm = this;
 
         vm.conductores = [];
@@ -60,14 +60,36 @@
 
         initialize();
         function initialize(){
+            vm.cupos = 0;
             cargarRutas();
             cargarDeducciones();
         }
 
         function addNewConductor(ruta){
+            vm.cer = {};
             vm.selectedRuta = ruta;
-            //cargarConductores();
-            $("#modalBuscarconductor").openModal();
+            $("#modalBuscarconductor").openModal({
+                dismissible: false, // Modal can be dismissed by clicking outside of the modal
+                opacity: .5, // Opacity of modal background
+                in_duration: 400, // Transition in duration
+                out_duration: 300, // Transition out duration
+                ready: function() { cargarConductores(); }, // Callback for Modal open
+                //complete: function() { alert('Closed'); } // Callback for Modal close
+            });
+        }
+
+        function cargarConductores() {
+            vm.Conductores = [];
+            var promiseGet = conductoresService.getAll();
+            promiseGet.then(function (p) {
+                for(var i = 0; i < p.data.length; i++ ) {
+                    if(p.data[i].activo == true){
+                        vm.Conductores.push(p.data[i]);
+                    }
+                }
+            },function (errorPl) {
+                console.log('Error al cargar los conductores de la central', errorPl);
+            });
         }
 
         function selectConductor (conductor){
@@ -118,6 +140,7 @@
         }
 
         function cargarVehiculoConductor(conductor_id){
+            vm.cupos = 0;
             turnosService.cargarVehiculoConductor(conductor_id).then(success, error);
             function success(p) {
                 vm.vehiculo = p.data;
