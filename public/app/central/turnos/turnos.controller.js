@@ -73,17 +73,17 @@
                 opacity: .5, // Opacity of modal background
                 in_duration: 400, // Transition in duration
                 out_duration: 300, // Transition out duration
-                ready: function() { cargarConductores(); }, // Callback for Modal open
+                ready: function() { cargarConductores(ruta.id); }, // Callback for Modal open
                 //complete: function() { alert('Closed'); } // Callback for Modal close
             });
         }
 
-        function cargarConductores() {
+        function cargarConductores(ruta_id) {
             vm.Conductores = [];
-            var promiseGet = conductoresService.getAll();
+            var promiseGet = turnosService.getConductoresEnRuta(ruta_id);
             promiseGet.then(function (p) {
                 for(var i = 0; i < p.data.length; i++ ) {
-                    if(p.data[i].activo == true){
+                    if(p.data[i].activo == true && p.data[i].central_id == authService.currentUser().central.id){
                         vm.Conductores.push(p.data[i]);
                     }
                 }

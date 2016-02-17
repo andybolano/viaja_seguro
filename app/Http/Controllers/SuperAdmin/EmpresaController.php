@@ -235,8 +235,13 @@ class EmpresaController extends Controller
 
     public function getConductoresEnRuta($ruta_id)
     {
-        $conductores = Turno::select('conductor_id')->where('ruta_id', $ruta_id)->get();
-        return JsonResponse::create($conductores);
+        $con = \DB::table('conductores')
+            ->whereNotExists(function($query){
+                $query->select(\DB::raw(1))
+                    ->from('turnos')
+                    ->whereRaw('turnos.conductor_id = conductores.id');
+            })->get();
+        return JsonResponse::create($con);
     }
 
     private function getRol($nombre)
