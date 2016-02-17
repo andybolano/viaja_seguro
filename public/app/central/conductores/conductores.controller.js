@@ -7,12 +7,11 @@
 
     function conductorController(conductoresService) {
         var vm = this;
-        vm.Conductores = {};
 
         initialize();
 
         function initialize(){
-            vm.Conductores = {}
+            vm.Conductores = [];
             cargarConductores();
         }
 
@@ -20,7 +19,11 @@
             var promiseGet = conductoresService.getAll();
 
             promiseGet.then(function (p) {
-                vm.Conductores = p.data;
+                for(var i=0; i<p.data.length; i++){
+                    if(p.data[i].activo == true ){
+                        vm.Conductores.push(p.data[i]);
+                    }
+                }
             },function (errorPl) {
                 console.log('Error al cargar los conductores de la central', errorPl);
             });

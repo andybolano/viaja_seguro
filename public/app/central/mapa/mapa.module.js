@@ -9,7 +9,7 @@
     function config($stateProvider){
         $stateProvider
            .state('centrales_mapa', {
-                url: '/centrales/conductoes/ubicaciones',
+                url: '/centrales/conductores/ubicaciones',
                 templateUrl: 'central/mapa/ubicaciones.html',
                 data: {
                     onlyAccess: 'CENTRAL_EMPRESA'
