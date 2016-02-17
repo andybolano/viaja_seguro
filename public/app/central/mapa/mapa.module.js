@@ -8,7 +8,7 @@
 
     function config($stateProvider){
         $stateProvider
-           .state('centrales_mapa', {
+           .state('app.centrales_mapa', {
                 url: '/centrales/conductores/ubicaciones',
                 templateUrl: 'central/mapa/ubicaciones.html',
                 data: {
@@ -19,7 +19,7 @@
 
     function run(appMenu){
         appMenu.addTo([
-            {nombre:'Mapa', link:'/centrales/conductores/ubicaciones', icon:'satellite'},
+            {nombre:'Mapa', link:'app.centrales_mapa', icon:'satellite'},
         ], 'CENTRAL_EMPRESA');
     }
 })();

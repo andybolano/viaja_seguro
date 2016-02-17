@@ -8,7 +8,7 @@
 
     function config($stateProvider){
         $stateProvider
-            .state('centrales_turnos', {
+            .state('app.centrales_turnos', {
                 url: '/centrales/turnos',
                 templateUrl: 'central/turnos/gestionarTurnos.html',
                 data: {
@@ -19,7 +19,7 @@
 
     function run(appMenu){
         appMenu.addTo([
-            {nombre:'Despacho conductores', link:'/centrales/turnos', icon:'supervisor_account'}
+            {nombre:'Despacho conductores', link:'app.centrales_turnos', icon:'supervisor_account'}
         ], 'CENTRAL_EMPRESA');
     }
 })();
