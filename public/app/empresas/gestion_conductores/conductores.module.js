@@ -8,18 +8,9 @@
 
     function config($stateProvider){
         $stateProvider
-            .state('gestion_conductores', {
+            .state('app.empresas_gestion_conductores', {
                 url: '/empresa/conductores',
                 templateUrl: 'empresas/gestion_conductores/showConductor.html',
-                data: {
-                    onlyAccess: 'EMPRESA'
-                }
-            })
-            .state('gestion_conductores.nuevo', {
-                url: '/empresa/conductores/crear',
-                templateUrl: 'empresas/gestion_conductores/nuevo_conductor.html',
-                controller: 'NuevoConductorController',
-                controllerAs: 'vm',
                 data: {
                     onlyAccess: 'EMPRESA'
                 }

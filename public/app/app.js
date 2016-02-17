@@ -22,7 +22,7 @@
         .config(config)
         .run(run);
 
-    function config(jwtInterceptorProvider, $httpProvider, $urlRouterProvider){
+    function config(jwtInterceptorProvider, $httpProvider, $urlRouterProvider, $stateProvider){
         jwtInterceptorProvider.tokenGetter = function() {
             return sessionStorage.getItem('jwt');
         };
@@ -32,6 +32,14 @@
         $urlRouterProvider.when('', '/');
         $urlRouterProvider.when('/', '/login');
         //$urlRouterProvider.otherwise('/login');
+
+        $stateProvider
+            .state('app', {
+                abstract : true,
+                url: '',
+                templateUrl: 'layout/layout.html',
+                controller: 'indexController as vm'
+            });
     }
 
     function run($rootScope, $state, jwtHelper) {

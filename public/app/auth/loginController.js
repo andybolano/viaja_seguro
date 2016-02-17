@@ -44,7 +44,7 @@
             if (rol == 'SUPER_ADM') {
 
             } else if (rol == 'EMPRESA') {
-                $state.go('gestion_conductores');
+                $state.go('app.empresas_gestion_conductores');
             } else if (rol == 'CENTRAL_EMPRESA') {
                 $state.go('centrales_turnos');
             }
