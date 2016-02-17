@@ -6,6 +6,7 @@
             //modules
             'app.empresas.conductores',
             'app.empresas.deducciones',
+            'app.empresas.vehiculos',
             //libs
             'google-maps'
         ]);
