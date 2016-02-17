@@ -1,0 +1,203 @@
+<div ng-controller="CentralesController as vm" class="contenedor">
+    <div class="row white">
+        <div class="col s12 z-depth-1">
+            <div class="contenedor">
+                <div class="row">
+                    <div class="col s8">
+                        <h2>Gestion de Centrales</h2>
+                    </div>
+                    <div class="col s4">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">search</i>
+                            <input id="icon_prefix" type="text" ng-model="filtro">
+                            <label for="icon_prefix">Filtrar</label>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <table class="striped bordered">
+                            <thead>
+                            <th>Id</th>
+                            <th>Ciudad</th>
+                            <th>Direccion</th>
+                            <th>Telefono</th>
+                            <th>Nombre de usuario</th>
+                            <th>Acciones</th>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="central in vm.centrales| filter : filtro">
+                                    <td>{{central.id}}</td>
+                                    <td>{{central.ciudad.nombre}}</td>
+                                    <td>{{central.direccion}}</td>
+                                    <td>{{central.telefono}}</td>
+                                    <td>{{central.usuario.email}}</td>
+                                    <td>
+                                        <a href="javascript:" ng-click="vm.actualizar(central)">
+                                            <i class="material-icons prefix">visibility</i>
+                                        </a>
+                                        <a href="javascript:" ng-click="vm.eliminar(central.id)">
+                                            <i class="material-icons prefix">delete</i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+        <a class="btn-floating btn-large waves-effect waves-light red" ng-click="vm.nuevo()">
+            <i class="material-icons">add</i>
+        </a>
+    </div>
+
+
+    <!--modal nuevo central-->
+    <div id="modalNuevaCentral" class="modal modal-fixed-footer" style="width: 90%;min-height:85%;">
+        <div class="modal-content">
+            <h2>{{vm.nombreForm}}</h2>
+            <div class="row">
+                <form class="col s12" name="formNuevaCentral">
+                    <div class="row col s4">
+                        <div class="row">
+                            <div class="row input-field col s12">
+                                <i class="material-icons prefix">local_taxi</i>
+                                <input id="ciudad" type="text" class="validate" name="ciudad" ng-model="vm.selectedCentral.ciudad.nombre"
+                                       readonly required ng-click="vm.openCiudades()">
+                                <label for="ciudad" class="{{vm.active}}" ng-class="{'active' : vm.selectedCentral.ciudad.nombre}">Ciudad</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="row input-field col s11">
+                                <i class="material-icons prefix">location_on</i>
+                                <input id="direccion" type="text" class="validate" name="direccion"  ng-model="vm.selectedCentral.direccion"
+                                       required ng-blur="vm.agregarDireccion()">
+                                <label for="direccion" class="{{vm.active}}">Direccion</label>
+                            </div>
+                            <div class="input-field col s1">
+                                <a href="javascript:;" ng-click="vm.agregarDireccion()">
+                                    <i class="material-icons prefix">location_searching</i>
+                                </a>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">airline_seat_recline_normal</i>
+                                <input id="telefono" type="text" class="validate" name="telefono" ng-model="vm.selectedCentral.telefono" required>
+                                <label for="telefono" class="{{vm.active}}">Telefono</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <div class="input-field">
+                                    <i class="material-icons prefix" style="padding-left: 3px;">lock</i>
+
+                                    <p style="padding-left: 45px; padding-top: 3px">Datos de acceso</p>
+                                </div>
+                                <div class="divider"></div>
+                            </div>
+                        </div>
+                        <div class="row" ng-show="vm.editMode">
+                            <div class="col s12">
+                                <div class="input-field">
+                                    <i class="material-icons prefix">account_circle</i>
+                                    <input id="name" name="username" type="text" ng-model="vm.selectedCentral.usuario.email" readonly>
+                                    <label for="username" class="active" ng-class="{'active': vm.selectedCentral.usuario.email}">Nombre de usuario</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" ng-hide="vm.editMode">
+                            <div class="col s12">
+                                <div class="row">
+                                    <div class="col s12">
+                                        <div class="input-field">
+                                            <i class="material-icons prefix">account_circle</i>
+                                            <input id="username" name="username" type="text" ng-model="vm.selectedCentral.usuario.nombre"
+                                                   ng-required="!vm.editMode">
+                                            <label for="username" ng-class="{'active': vm.selectedCentral.usuario.nombre}">Nombre de usuario</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s12">
+                                        <div class="input-field">
+                                            <i class="material-icons prefix">vpn_key</i>
+                                            <input id="contrasena" name="contrasena" type="text" ng-model="vm.selectedCentral.usuario.contrasena"
+                                                   ng-required="!vm.editMode">
+                                            <label for="contrasena" ng-class="{'active': vm.selectedCentral.usuario.contrasena}">Contraseña</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <input type="button" class="waves-effect waves-light btn offset-s8" value="Generar Datos"
+                                           ng-click="vm.generarDatosAcceso()" ng-class="{'disabled': formEmpresa.nombre.$invalid}">
+                                    </input>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--mapa-->
+                    <div class="row col s8" >
+                        <!--<p>-->
+                            <!--<a class="btn btn-default" href="javascript:;" ng-click="vm.agregarDireccion()">Buscar direccion!</a>-->
+                        <!--</p>-->
+                        <!--<div class="row input-field col s12">-->
+                            <!--<input ng-hide="true" ng-model="vm.selectedCentral.miDireccionLa">-->
+                            <!--<input ng-hide="true" ng-model="vm.selectedCentral.miDireccionLo">-->
+                        <!--</div>-->
+
+                        <div id="dvMap" style="height: 380px; width: 580px;"></div>
+
+                    </div>
+                    <!--fin mapa-->
+
+                </form>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red " style="margin-left:10px;">Salir</a>
+            <a class="waves-effect waves-light btn green" ng-hide="vm.editMode"
+               ng-click="vm.guardar()" ng-class="{'disabled': formNuevaCentral.$invalid}">Guardar</a>
+            <a class="waves-effect waves-light btn green" ng-show="vm.editMode"
+               ng-click="vm.update()" ng-class="{'disabled': formNuevaCentral.$invalid}">Modificar</a>
+        </div>
+
+    </div>
+
+    <!--modal seleccionar ciudad-->
+    <div id="modalSeleccionarCiudad" class="modal modal-fixed-footer">
+        <div class="modal-content no-padding">
+            <ul class="collection with-header" style="margin: 0">
+                <li class="collection-header"><h4>Seleccionar Ciudad</h4></li>
+                <li class="collection-item row">
+                    <div class="input-field col s11 no-padding">
+                        <input id="icon_filtr_ciud" type="text" ng-model="filtroCiudades">
+                        <label for="icon_prefix" style="margin: 0; padding: 0   ">Filtrar</label>
+                    </div>
+                    <div class="col s1" style="padding-top: 20px; padding-right: 5px; padding-left: 20px">
+                        <i class="material-icons prefix">search</i>
+                    </div>
+                </li>
+                <li class="collection-item" ng-repeat="ciudad in vm.ciudades| filter : filtroCiudades">
+                    <div style="padding-left: 10px">
+                        {{ciudad.nombre}}
+                        <a href="javascript:;" class="secondary-content" ng-click="vm.selecionarCiudad(ciudad)">
+                            <i class="material-icons prefix">touch_app</i>
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="modal-footer">
+            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red " style="margin-left:10px;">Cancelar</a>
+        </div>
+    </div>
+</div>
