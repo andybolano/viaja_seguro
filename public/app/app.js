@@ -16,7 +16,8 @@
             'ejemplo',
             'app.auth',
             'app.empresas',
-            'app.centrales'
+            'app.centrales',
+            'app.superadmin'
         ])
         .constant('API', '../api')
         .config(config)

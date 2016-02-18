@@ -22,6 +22,6 @@
             {nombre:'Centrales', link:'/empresa/centrales', icon:'flag'},
             {nombre:'Asd', link:'/empresa/centrales', icon:'flag'},
             {nombre:'Centrales', link:'/empresa/centrales', icon:'flag'}
-        ], 'SUPER_ADM');
+        ], 'asd');
     }
 })();

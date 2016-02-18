@@ -42,7 +42,7 @@
 
         function redirect(rol){
             if (rol == 'SUPER_ADM') {
-
+                $state.go('app.superadmin_empresas');
             } else if (rol == 'EMPRESA') {
                 $state.go('app.empresas_gestion_conductores');
             } else if (rol == 'CENTRAL_EMPRESA') {

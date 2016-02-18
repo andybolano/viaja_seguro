@@ -1,0 +1,97 @@
+<div ng-controller="CentralesEmpresaController as vm" class="contenedor">
+    <div class="row white">
+        <div class="col s12 z-depth-1">
+            <div class="contenedor">
+                <div class="row">
+                    <div class="col s8">
+                        <a href="#/gestionar_empresas" class="waves-effect waves-teal waves-light btn-flat" style="float: left; padding: 0 0">
+                            <i class="material-icons red-text text-accent-4" style="font-size: 26px;">arrow_back</i></a>
+                        <h2 style="padding-left: 20px; margin: 0 0; padding-top: 3px">Centrales {{vm.empresa.nombre}}</h2>
+                    </div>
+                    <div class="col s4">
+                        <div class="input-field col s12" style="margin-top: 0">
+                            <i class="material-icons prefix">search</i>
+                            <input id="icon_prefix" type="text" ng-model="filtro">
+                            <label for="icon_prefix">Filtrar</label>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <table class="striped bordered">
+                            <thead>
+                            <th>Id</th>
+                            <th>Ciudad</th>
+                            <th>Direccion</th>
+                            <th>Telefono</th>
+                            <th></th>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="central in vm.centrales| filter : filtro">
+                                    <td>{{central.id}}</td>
+                                    <td>{{central.ciudad.nombre}}</td>
+                                    <td>{{central.direccion}}</td>
+                                    <td>{{central.telefono}}</td>
+                                    <td>
+                                        <a href="javascript:" ng-click="vm.actualizar(central)">
+                                            <i class="material-icons prefix">visibility</i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--modal nuevo central-->
+    <div id="modalNuevaCentral" class="modal modal-fixed-footer" style="width: 80%;min-height:80%;">
+        <div class="modal-content">
+            <div class="row">
+                <form class="col s12" name="formNuevaCentral">
+                    <div class="col s4">
+                        <div class="row">
+                            <div class="row input-field col s12">
+                                <i class="material-icons prefix">local_taxi</i>
+                                <input id="ciudad" type="text" class="validate" name="ciudad" ng-model="vm.selectedCentral.ciudad.nombre" readonly required>
+                                <label for="ciudad" class="active">Ciudad</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="row input-field col s12">
+                                <i class="material-icons prefix">invert_colors_off</i>
+                                <input id="direccion" type="text" class="validate" name="direccion"  ng-model="vm.selectedCentral.direccion" readonly required>
+                                <label for="direccion" class="active">Direccion</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">airline_seat_recline_normal</i>
+                                <input id="telefono" type="text" class="validate" name="telefono" ng-model="vm.selectedCentral.telefono" readonly required>
+                                <label for="telefono" class="active">Telefono</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--mapa-->
+                    <div class="col s8" >
+
+                        <div id="dvMap" style="height: 400px; width: 600px;"></div>
+
+                    </div>
+                    <!--fin mapa-->
+
+                </form>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red " style="margin-left:10px;">Salir</a>
+        </div>
+
+    </div>
+</div>
