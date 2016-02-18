@@ -214,7 +214,13 @@ class EmpresaController extends Controller
     {
         $vehiculos = Empresa::find($id)->vehiculos;
         $vehiculos->load('conductor');
-        return $vehiculos;
+        $arr = [];
+        foreach ($vehiculos as &$vehiculo) {
+            if($vehiculo->conductor->activo) {
+                $arr[] = $vehiculo;
+            }
+        }
+        return $arr;
     }
 
     public function getRutas($id)

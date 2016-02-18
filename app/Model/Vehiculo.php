@@ -18,7 +18,7 @@ class Vehiculo extends Model
     , 'fecha_tecnomecanica', 'tarjeta_propiedad', 'conductor_id'];
 
     public function conductor(){
-        return $this->belongsTo(Conductor::class)->select('identificacion', 'id', 'nombres', 'apellidos');
+        return $this->belongsTo(Conductor::class)->select('identificacion', 'id', 'nombres', 'apellidos', 'activo');
     }
 
     public function documentacion(){

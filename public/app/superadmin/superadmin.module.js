@@ -3,6 +3,7 @@
 
     angular
         .module('app.superadmin', [
-            'app.superadmin.empresas'
+            'app.superadmin.empresas',
+            'app.superadmin.flota_vehiculos'
         ])
 })();

@@ -136,15 +136,29 @@ class CentralesController extends Controller
 
     public function getConductores($id)
     {
-        $conductores = Central::find($id)->conductores;
-        $conductores->load('vehiculo');
+        $conductores = [];
+        foreach (Central::find($id)->conductore as &$conductor) {
+            if($conductor->activo) {
+                if ($conductor->central) {
+                    $conductor->central->load('ciudad');
+                }
+                $conductores[] = $conductor;
+            }
+        }
         return $conductores;
     }
 
     public function getVehiculos($id)
     {
         $vehiculos = Central::find($id)->vehiculos;
-        return $vehiculos->load('conductor');
+        $vehiculos->load('conductor');
+        $arr = [];
+        foreach ($vehiculos as &$vehiculo) {
+            if($vehiculo->conductor->activo) {
+                $arr[] = $vehiculo;
+            }
+        }
+        return $arr;
     }
 
     private function getRol()
