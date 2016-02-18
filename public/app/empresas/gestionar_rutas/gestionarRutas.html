@@ -1,0 +1,96 @@
+<div ng-controller="RutasController as vm" class="contenedor">
+    <div class="row white">
+        <div class="col s12 z-depth-1">
+            <div class="contenedor">
+                <div class="row">
+                    <div class="col s8">
+                        <h2>Gestion de Rutas</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <table class="striped bordered">
+                            <thead>
+                            <th>Id</th>
+                            <th>Ciudad Origen</th>
+                            <th>Ciudad Destino</th>
+                            <th></th>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="ruta in vm.rutas">
+                                <td>{{ruta.id}}</td>
+                                <td>{{ruta.origen.ciudad.nombre}}</td>
+                                <td>{{ruta.destino.ciudad.nombre}}</td>
+                                <td>
+                                    <a href="javascript:" ng-click="vm.verRuta(ruta)">
+                                        <i class="material-icons prefix">visibility</i>
+                                    </a>
+                                    <a href="javascript:" ng-click="vm.eliminar(ruta.id)">
+                                        <i class="material-icons prefix">delete</i>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalRutas" class="modal modal-fixed-footer" style="width: 97%;min-height:90%;">
+        <div class="modal-content">
+            <form name="formNuevaRuta" class="row">
+                <div class="col s4">
+                    <div class="row">
+                        <div class="col s12 input-field">
+                            <select class="browser-default" name="selectOrigen" id="selectOrigen"
+                                    ng-options="central.ciudad.nombre for central in vm.centrales"
+                                    ng-model="vm.ruta.origen" required ng-change="vm.trazarRuta()" ng-hide="vm.editMode">
+                                <option value="" disabled selected>Seleccione ciudad origen</option>
+                                <input type="text" class="validate" ng-show="vm.editMode"
+                                       ng-model="vm.ruta.origen.ciudad.nombre" readonly>
+                            </select>
+                            <label for="selectOrigen" class="active">Ciudad origen</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12 input-field">
+                            <select class="browser-default" name="selectDestino" id="selectDestino"
+                                    ng-options="central.ciudad.nombre for central in vm.centrales"
+                                    ng-model="vm.ruta.destino" required ng-change="vm.trazarRuta()" ng-hide="vm.editMode">
+                                <option value="" disabled selected>Seleccione ciudad destino</option>
+                            </select>
+                            <input type="text" class="validate" ng-show="vm.editMode"
+                                   ng-model="vm.ruta.destino.ciudad.nombre" readonly>
+                            <label for="selectDestino" class="active">Ciudad destino</label>
+                        </div>
+                    </div>
+                    <div class="row" ng-hide="vm.editMode">
+                        <div class="col s12">
+                            <a class="btn btn-block" href="javascript:;" ng-click="vm.trazarRuta()">Trazar ruta</a>
+                        </div>
+                    </div>
+                    <div class="row" id="panel_ruta" style="overflow: auto; height: 300px"></div>
+                </div>
+                <div class="col s8">
+                    <div id="map_canvas" style="float:left; width:100%; height:500px"></div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red "
+               style="margin-left:10px;">Salir</a>
+            <div ng-show="vm.editMode">
+                <a class="waves-effect waves-light btn green" ng-class="{'disabled': formNuevaRuta.$invalid}"
+                   ng-click="vm.guardar()">Guardar</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+        <a class="btn-floating btn-large waves-effect waves-light red" ng-click="vm.nuevo()">
+            <i class="material-icons">add</i>
+        </a>
+    </div>
+</div>

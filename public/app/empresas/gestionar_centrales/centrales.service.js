@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('app.empresas')
+        .module('app.empresas.centrales')
         .service('centralesService', centralesService);
 
     function centralesService($http, authService, API) {
