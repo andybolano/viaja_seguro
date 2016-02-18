@@ -161,4 +161,14 @@ class ConductorController extends Controller
             return $busqueda;
         }
     }
+
+    public function updateRegId($conductor_id, $reg_id){
+        $conductor = Conductor::find($conductor_id)->usuario;
+        $conductor->reg_id = $reg_id;
+        if($conductor->save()){
+         return JsonResponse::create(array('reg_id' => $reg_id, 'Actualizado'));
+        }else{
+            return JsonResponse::create(array('reg_id' => $reg_id, 'Error'));
+        }
+    }
 }

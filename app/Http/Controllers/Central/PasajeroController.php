@@ -75,9 +75,9 @@ class PasajeroController extends Controller
 
         if($data != false){
 
-            $apiKey = 'AIzaSyAZB5qS20uH0-W_btPvbLRx_D2qFHnNCt8';
+            $apiKey = 'AIzaSyBGC9eaIOKLqALUCA6ABfDR3ziQEpTQH7s';
 
-            $userIdentificador = $data["reg_id"];
+            $userIdentificador = $data->reg_id;
 
             $headers = array('Authorization:key=' . $apiKey);
             $data = array(
@@ -179,7 +179,7 @@ class PasajeroController extends Controller
                 $pasajero->delete();
                 $mensaje = 'Se retiro un pasajero que se te habia sido asignado';
                 $this->enviarNotificacion('', $mensaje, $conductor->id);
-                return JsonResponse::create(array('message' => "Pasajero eliminado correctamente", "request" =>json_encode($id)), 200);
+                return JsonResponse::create(array('message' => "Pasajero eliminado correctamente", "request" =>json_encode($this->enviarNotificacion('', $mensaje, $conductor->id))), 200);
             }
         }catch (Exception $ex) {
             return JsonResponse::create(array('message' => "No se pudo Eliminar el Pasajero", "exception"=>$ex->getMessage(), "request" =>json_encode($id)), 401);
