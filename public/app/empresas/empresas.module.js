@@ -9,6 +9,7 @@
             'app.empresas.deducciones',
             'app.empresas.vehiculos',
             'app.empresas.rutas',
+            'app.empresas.actividades',
             //libs
             'google-maps'
         ]);
