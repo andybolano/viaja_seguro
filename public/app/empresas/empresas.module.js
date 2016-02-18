@@ -10,6 +10,7 @@
             'app.empresas.vehiculos',
             'app.empresas.rutas',
             'app.empresas.actividades',
+            'app.empresas.pagos_prestaciones',
             //libs
             'google-maps'
         ]);

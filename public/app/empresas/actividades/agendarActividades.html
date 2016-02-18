@@ -123,9 +123,9 @@
         <div class="modal-footer">
             <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red "
                style="margin-left:10px;">Salir</a>
-            <a ng-disabled="formNuevaActividad.$invalid"  class="waves-effect waves-light btn green" ng-class="{'disabled': formNuevaActividad.$invalid}" ng-hide="vm.editMode"
+            <a class="waves-effect waves-light btn green" ng-class="{'disabled': formNuevaActividad.$invalid}" ng-hide="vm.editMode"
                ng-click="vm.guardar()">Guardar</a>
-            <a ng-disabled="formNuevaActividad.$invalid"  class="waves-effect waves-light btn green" ng-class="{'disabled': formNuevaActividad.$invalid}" ng-show="vm.editMode"
+            <a class="waves-effect waves-light btn green" ng-class="{'disabled': formNuevaActividad.$invalid}" ng-show="vm.editMode"
                ng-click="vm.update()">Modificar</a>
         </div>
 

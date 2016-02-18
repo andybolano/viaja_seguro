@@ -1,0 +1,159 @@
+<div ng-controller="PagosPrestacionesController as vm" class="contenedor">
+    <div class="row white">
+        <div class="col s12 z-depth-1">
+            <div class="contenedor">
+                <div class="row">
+                    <div class="col s7">
+                        <h2>Pagos</h2>
+                    </div>
+                    <div class="col s5">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">search</i>
+                            <input id="icon_prefi" type="text" ng-model="filtro">
+                            <label for="icon_prefi">Filtrar</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <ul class="tabs">
+                            <li class="tab" ng-repeat="prestacion in vm.prestaciones">
+                                <a ng-click="vm.loadPagos(prestacion)">{{prestacion.nombre}}</a>
+                            </li>
+                        </ul>
+                        <table class="striped bordered">
+                            <thead>
+                            <th>Conductor</th>
+                            <th>Cedula</th>
+                            <th>Valor</th>
+                            <th>Fecha</th>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="pago in vm.pagosPrestacion | filter : filtro">
+                                <td>{{pago.conductor.nombre}}</td>
+                                <td>{{pago.conductor.identificacion}}</td>
+                                <td>{{pago.valor}}</td>
+                                <td>{{pago.fecha}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+        <button class="btn-floating btn-large waves-effect waves-light red" ng-click="vm.nuevo()"
+           ng-disabled="!vm.prestacionAvtive">
+            <i class="material-icons">add</i>
+        </button>
+    </div>
+
+    <div id="modalRegistrarPago" class="modal modal-fixed-footer" style="width: 90%;min-height:85%;">
+        <div class="row white">
+            <div class="contenedor">
+                <div class="row">
+                    <div class="col s7">
+                        <h2>Registrar Nuevo Pago {{vm.selectedPrestacion.nombre}}</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <form class="col s4" name="formNuevoPago">
+                        <div class="col s12">
+                        <div class="row">
+                            <div class="row input-field col s12">
+                                <i class="material-icons prefix">local_taxi</i>
+                                <input id="nombre_conductor" type="text" class="validate" name="nombre_conductor" ng-model="vm.selectedConductorNombre" readonly required>
+                                <label for="nombre_conductor" class="{{vm.active}}" ng-class="{'active' : vm.selectedConductorNombre}">Conductor</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="row input-field col s12">
+                                <i class="material-icons prefix">local_taxi</i>
+                                <input id="cedula_conductor" type="text" class="validate" name="cedula_conductor" ng-model="vm.selectedConductorCedula" readonly required>
+                                <label for="cedula_conductor" class="{{vm.active}}" ng-class="{'active' : vm.selectedConductorNombre}">Cedula</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="row input-field col s12">
+                                <i class="material-icons prefix">invert_colors_off</i>
+                                <input id="valor" type="text" class="validate" name="valor"  ng-model="vm.nuevaPrestacion.valor" required>
+                                <label for="valor" class="{{vm.active}}">Valor</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="row input-field col s12">
+                                <i class="material-icons prefix">invert_colors_off</i>
+                                <input id="fecha" type="date" class="validate" name="fecha" ng-model="vm.nuevaPrestacion.fecha" required>
+                                <label for="fecha" class="active">Fecha</label>
+                            </div>
+                        </div>
+                    </div>
+                    </form>
+                    <div class="nav-divider"></div>
+                    <div class="col s8">
+                        <div class="row">
+                            <div class="col s7">
+                                <h2>Seleccionar conductor</h2>
+                            </div>
+                            <div class="col s5" style="max-height: 27px;">
+                                <div class="input-field" style="margin-top: 0px;">
+                                    <i class="material-icons prefix">search</i>
+                                    <input id="icon_prefix" type="tel" ng-model="filtro">
+                                    <label for="icon_prefix">Filtrar</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12" style="height:335px; overflow-y:auto;">
+                                <table class="striped bordered">
+                                    <thead>
+                                    <th>Identificacion</th>
+                                    <th>Foto</th>
+                                    <th>Nombres</th>
+                                    <th>Apellidos</th>
+                                    <th>Seleccionar</th>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="conductor in vm.conductores | filter : filtro">
+                                        <td>{{conductor.identificacion}}</td>
+                                        <td>
+                                            <img ng-src="http://{{conductor.imagen}}" class="circle" style="width: 35px;">
+                                        </td>
+                                        <td>{{conductor.nombres}}</td>
+                                        <td>{{conductor.apellidos}}</td>
+                                        <td>
+                                            <a href="javascript:" ng-click="vm.selectConductor(conductor)">
+                                                <i class="material-icons prefix">touch_app</i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
+                   style="margin-left:10px;">Salir</a>
+                <a ng-class="{'disabled': formNuevoPago.$invalid}"  class="waves-effect waves-light btn green"
+                   ng-click="vm.guardar()">Guardar</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+        $('ul.tabs').tabs();
+        $('.datepicker').pickadate({
+            selectMonths: true, // Creates a dropdown to control month
+            selectYears: 15 // Creates a dropdown of 15 years to control year
+        });
+    });
+</script>
+
