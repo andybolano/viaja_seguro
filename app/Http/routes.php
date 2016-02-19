@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    echo '<script>location.href=\'login.html\';</script>';
+    echo '<script>location.href=\'app\';</script>';
 });
 Route::get('pdf', 'PdfController@invoice');
 
