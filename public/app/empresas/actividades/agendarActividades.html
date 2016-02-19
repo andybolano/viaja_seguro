@@ -27,7 +27,7 @@
                             </thead>
                             <tbody>
                                 <tr ng-repeat="actividad in vm.actividades| filter : filtro | orderBy : 'fecha'">
-                                    <td>{{actividad.fecha | date: 'MMMM d'}}</td>
+                                    <td>{{actividad.fecha | esdate: 'short'}}</td>
                                     <td>{{actividad.fecha | date: 'hh:mm a'}}</td>
                                     <td>{{actividad.nombre}}</td>
                                     <td>{{actividad.estado}}</td>
