@@ -6,6 +6,7 @@ use App\Model\Usuario;
 use Illuminate\Http\Request;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class LoginController extends Controller
 {
@@ -30,6 +31,20 @@ class LoginController extends Controller
 
         // todo bien devuelve el token
         return response()->json(compact('token'));
+    }
+
+    public function refreshToken()
+    {
+        $token = JWTAuth::getToken();
+        if(!$token){
+            return response()->json(['Token not provided'], 401);
+        }
+        try{
+            $token = JWTAuth::refresh($token);
+        }catch(TokenInvalidException $e){
+            return response()->json(['messageError' => $e->getMessage()], 403);
+        }
+        return response()->json(['token'=>$token]);
     }
 
     private function getData($user)

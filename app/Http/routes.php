@@ -17,13 +17,16 @@ Route::get('/', function () {
 Route::get('pdf', 'PdfController@invoice');
 
 Route::group(['middleware' => 'cors'], function () {
-    Route::post('/api/login', array('middleware' => 'cors', 'uses' => 'LoginController@autenticarUsuario'));
+    Route::post('/api/login', 'LoginController@autenticarUsuario');
+    Route::get('/api/new_token', 'LoginController@refreshToken');
 
     Route::post('/api/usuarios/clientes', 'Cliente\ClienteController@store');
     Route::post('/api/usuarios/conductores', 'UsuariosController@registrarConductor');
 
     Route::get('/api/empresas', 'SuperAdmin\EmpresaController@index');
+
     Route::group(['middleware' => 'jwt.auth'], function () {
+
         include 'Routes/Conductores.php';
         include 'Routes/Vehiculos.php';
         include 'Routes/Cliente.php';

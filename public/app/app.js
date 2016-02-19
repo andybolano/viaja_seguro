@@ -24,11 +24,43 @@
         .run(run);
 
     function config(jwtInterceptorProvider, $httpProvider, $urlRouterProvider, $stateProvider){
-        jwtInterceptorProvider.tokenGetter = function() {
-            return sessionStorage.getItem('jwt');
+        jwtInterceptorProvider.tokenGetter = function(jwtHelper, $http, API) {
+            var jwt = sessionStorage.getItem('jwt');
+            if(jwt){
+                if(jwtHelper.isTokenExpired(jwt)){
+                    return $http({
+                        url : API+'/new_token',
+                        skipAuthorization : true,
+                        method: 'GET',
+                        headers : { Authorization : 'Bearer '+ jwt},
+                    }).then(function(response){
+                        sessionStorage.setItem('jwt',response.data.token);
+                        return response.data.token;
+                    },function(response){
+                        store.remove('jwt');
+                    });
+                }else{
+                    return jwt;
+                }
+            }
         };
 
         $httpProvider.interceptors.push('jwtInterceptor');
+
+        //function responseInterceptor(){
+        //    return {
+        //        response: function(response){
+        //            if(response.headers('Authorization')){
+        //                var newToken = response.headers('Authorization').substr(7);
+        //                sessionStorage.setItem('jwt', newToken);
+        //                console.log(sessionStorage.getItem('jwt'));
+        //            }
+        //            return response;
+        //        }
+        //    }
+        //}
+
+        //$httpProvider.interceptors.push(responseInterceptor);
 
         $urlRouterProvider.when('', '/');
         $urlRouterProvider.when('/', '/login');
