@@ -1,0 +1,83 @@
+<div class="contenedor" ng-controller="auditoriaController as vm">
+    <div class="row white">
+        <div class="col s12 z-depth-1">
+            <div class="contenedor">
+                <div class="row">
+                    <div class="col s8">
+                        <h2>Auditoria</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="row col s8">
+                        <div class="input-field col s11">
+                            <i class="material-icons prefix"style="margin-left: -10px;">flag</i>
+                            <select class="browser-default" name="central" id="central"
+                                    ng-options="central.ciudad.nombre for central in vm.centrales"
+                                    ng-model="vm.central" required  style="margin-left: 20px;">
+                                <option value="" disabled selected>Seleccione Central</option>
+                            </select>
+                            <label for="central" class="active" style="margin-left: 20px;">Central</label>
+                        </div>
+                        <div class="input-field col s1">
+                            <a href="javascript:;" ng-click="vm.optionsCentral()">
+                                <i class="material-icons prefix">search</i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-show="vm.mostra">
+                    <div class="row">
+                        <div class="col s12">
+                            <ul class="tabs">
+                                <li class="tab col s3" class="active"><a href="#producidos">Producidos</a></li>
+                                <li class="tab col s3"><a href="#vehiculos">Vehiculos</a></li>
+                            </ul>
+                        </div>
+                        <div id="producidos" class="col s12"><br>
+                            <div class="input-field col s3">
+                                <input type="date" class="datepicker">
+                                <label for="central" class="active">Fecha inicial</label>
+                            </div>
+                            <div class="input-field col s3">
+                                <input type="date" class="datepicker">
+                                <label for="central" class="active">Fecha final</label>
+                            </div>
+                            <div class="input-field col s1" title="Consultar">
+                                <a href="javascript:;" ng-click="vm.producidosFecha()">
+                                    <i class="material-icons prefix">search</i>
+                                </a>
+                            </div>
+                        </div>
+                        <div id="vehiculos" class="col s12"><br>
+                            <div class="input-field col s2">
+                                <input type="text" >
+                                <label >CODIGO VIAL</label>
+                            </div>
+                            <div class="input-field col s1" title="Consultar vehiculo">
+                                <a href="javascript:;" ng-click="vm.producidosVehiculo()">
+                                    <i class="material-icons prefix">search</i>
+                                </a>
+                            </div>
+                            <div class="input-field col s1" title="Consultar todos" style="margin-left: -45px;">
+                                <a href="javascript:;" ng-click="vm.producidosTodosVehiculo()">
+                                    <i class="material-icons prefix">autorenew</i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="application/javascript">
+    $(document).ready(function(){
+        $('.datepicker').pickadate({
+            selectMonths: true, // Creates a dropdown to control month
+            selectYears: 15 // Creates a dropdown of 15 years to control year
+        });
+        $('ul.tabs').tabs();
+    });
+</script>
