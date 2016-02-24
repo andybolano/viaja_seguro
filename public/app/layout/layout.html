@@ -22,10 +22,10 @@
         style="width: 240px;margin-top: 60px;box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);">
         <li class="no-padding">
             <ul>
-                <li class="user">
-                    <div style="text-align: left;padding-top: 30px;padding-left: 10px;">
-                        <img alt="image" class="circle" style="border:2px solid #FFFFFF;"
-                             ng-src="http://{{vm.userImagen}}" width="60px;">
+                <li class="user center">
+                    <div style="text-align: center;padding-top: 30px;padding-left: 10px;">
+                        <img alt="image" style="border:2px solid #FFFFFF;"
+                             ng-src="http://{{vm.userImagen}}" width="90px;">
                         <div style="color:#FFFFFF;font-weight:900;margin-top:-20px;">{{vm.userNombre}}</div>
                         <div style="color:#FFFFFF;margin-top:-25px;font-size:12px;">{{vm.userRol}}</div>
                     </div>
@@ -33,12 +33,67 @@
             </ul>
         </li>
 
-        <div ng-controller="MenuCtrl as vm">
-            <li ng-repeat="op in vm.menu">
-                <i class="material-icons left">{{op.icon}}</i>
-                <a ui-sref="{{op.link}}">{{op.nombre}}</a>
-            </li>
+        <!--<div class="nav-collapse collapse" ng-controller="MenuCtrl as vm">-->
+            <!--<ul class="nav">-->
+                <!--<li ng-repeat="op in vm.menu" class="{{op.className}}"> <a href="{{op.link}}" class="{{op.submenu && 'dropdown-toggle' || ''}}" data-toggle="{{op.submenu && 'dropdown' || ''}}">{{op.nombre}}-->
+                    <!--<b ng-show="op.submenu" class="caret"></b>-->
+                <!--</a>-->
+
+                    <!--<ul class="dropdown-menu" ng-show="op.submenu">-->
+                        <!--<li ng-repeat="subItem in op.submenu"> <a href="{{subItem.link}}">{{subItem.nombre}}</a>-->
+
+                        <!--</li>-->
+                    <!--</ul>-->
+                <!--</li>-->
+            <!--</ul>-->
+        <!--</div>-->
+        <div class="nav-collapse collapse" ng-controller="MenuCtrl as vm">
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                <li ng-repeat="op in vm.menu" ng-class="{'dropdown-submenu' : op.submenu && op.submenu.length}">
+                    <i class="material-icons left">{{op.icon}}</i>
+                    <a ui-sref="{{op.link}}" id="{{op.id}}">{{op.nombre}}</a>
+                    <ul ng-if="op.submenu && op.submenu.length" class="dropdown-menu">
+                        <li ng-repeat="submenu in op.submenu">
+                            <i class="material-icons left">{{submenu.icon}}</i>
+                            <a ui-sref="{{submenu.link}}" id="{{submenu.id}}">{{submenu.nombre}}</a>
+                            <ul ng-if="submenu.subsubmenu && submenu.subsubmenu.length" class="dropdown-menu">
+                                <li ng-repeat="subsubmenu in submenu.subsubmenu">
+                                    <a ui-sref="{{subsubmenu.link}}" id="{{subsubmenu.id}}">{{subsubmenu.nombre}}</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
         </div>
+
+        <!--<div class="nav-collapse collapse" ng-controller="MenuCtrl as vm">-->
+            <!--<ul class="nav">-->
+                <!--<li ng-repeat="op in vm.menu" class="{{op.className}}">-->
+                    <!--<i class="material-icons left">{{op.icon}}</i>-->
+                    <!--<a ui-sref="{{op.link}}" class="{{op.submenu && 'dropdown-toggle' || ''}}" data-toggle="{{op.submenu && 'dropdown' || ''}}">{{op.nombre}}-->
+                        <!--&lt;!&ndash;<b ng-show="op.submenu" class="caret"></b>&ndash;&gt;-->
+                    <!--</a>-->
+                    <!--<ul class="dropdown-menu" ng-show="op.submenu">-->
+                        <!--<li ng-repeat="subitem in op.submenu">-->
+                            <!--<a href="">  {{subitem.nombre}}</a>-->
+                        <!--</li>-->
+                    <!--</ul>-->
+                <!--</li>-->
+            <!--</ul>-->
+        <!--</div>-->
+
+        <!--<div ng-controller="MenuCtrl as vm">-->
+            <!--<li ng-repeat="op in vm.menu">-->
+                <!--<i class="material-icons left">{{op.icon}}</i>-->
+                <!--<a ui-sref="{{op.link}}">{{op.nombre}}</a>-->
+                <!--<ul class="dropdown-menu" ng-show="op.submenu">-->
+                    <!--<li ng-repeat="subitem in op.submenu">-->
+                        <!--<a href="">{{subitem.nombre}}</a>-->
+                    <!--</li>-->
+                <!--</ul>-->
+            <!--</li>-->
+        <!--</div>-->
     </ul>
 </div>
 <div ui-view id="container" style="padding-left:240px">

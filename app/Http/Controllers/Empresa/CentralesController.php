@@ -137,10 +137,11 @@ class CentralesController extends Controller
     public function getConductores($id)
     {
         $conductores = [];
-        foreach (Central::find($id)->conductore as &$conductor) {
+        foreach (Central::find($id)->conductores as &$conductor) {
             if($conductor->activo) {
                 if ($conductor->central) {
                     $conductor->central->load('ciudad');
+                    $conductor->load('vehiculo');
                 }
                 $conductores[] = $conductor;
             }

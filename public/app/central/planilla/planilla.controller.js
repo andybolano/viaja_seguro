@@ -50,11 +50,17 @@
         }
 
         function imprimir(){
-            var printContents = document.getElementById('planilla').innerHTML;
-            var popupWin = window.open('', '_blank', 'width=300,height=300');
-            popupWin.document.open();
-            popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="../assets/css/pdf.css" /></head><body onload="window.print()">' + printContents + '</body></html>');
-            popupWin.document.close();
+            var ficha = document.getElementById('planilla');
+            var ventimp = window.open(' ', 'popimpr');
+            ventimp.document.write( ficha.innerHTML );
+            ventimp.document.close();
+            var css = ventimp.document.createElement("link");
+            css.setAttribute("href", "../assets/css/pdf.css");
+            css.setAttribute("rel", "stylesheet");
+            css.setAttribute("type", "text/css");
+            ventimp.document.head.appendChild(css);
+            ventimp.print( );
+            ventimp.close();
         }
     }
 })();

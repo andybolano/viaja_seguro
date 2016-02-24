@@ -75,37 +75,23 @@ class PasajeroController extends Controller
 
         if($data != false){
 
-            $apiKey = 'AIzaSyBGC9eaIOKLqALUCA6ABfDR3ziQEpTQH7s';
+            $pusher = new \Dmitrovskiy\IonicPush\PushProcessor(
+                '364e6de6',
+                '1fc7897dd96591ed26be9a32da7b268345ce312b91f03d81'
+            );
 
-            $userIdentificador = $data->reg_id;
+            $devices = array(
+                $data->reg_id
+            );
 
-            $headers = array('Authorization:key=' . $apiKey);
-            $data = array(
-                'registration_ids' => $userIdentificador,
-                'collapse_key' => $collapseKey,
-                'data.message' => $mensaje,
-                'data.fecha' => date('Y-m-d'));
+            $notification = array(
+                'message' => $mensaje,
+                'title' => 'Pasajeros',
+            );
 
-            $ch = curl_init();
+//            $pusher->notify($devices, $notification);
 
-            curl_setopt($ch, CURLOPT_URL, "https://android.googleapis.com/gcm/send");
-            if ($headers)
-                curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-
-            $response = curl_exec($ch);
-            $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-            if (curl_errno($ch)) {
-                return 'fail';
-            }
-            if ($httpCode != 200) {
-                return 'status code 200';
-            }
-            curl_close($ch);
-            return $response;
+            return $pusher->notify($devices, $notification);
         } else {
             return 'No existe el usuario';
         }

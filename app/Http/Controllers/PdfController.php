@@ -14,54 +14,31 @@ class PdfController extends Controller
 {
     public function invoice()
     {
-        $data = Conductor::find(4)->usuario;
+//        $datos = array();
+        $data = Conductor::find(3)->usuario;
+
         if($data != false){
+            $pusher = new \Dmitrovskiy\IonicPush\PushProcessor(
+                '364e6de6',
+                '1fc7897dd96591ed26be9a32da7b268345ce312b91f03d81'
+            );
 
-            $apiKey = 'd1590f03bd4e47ee5dda7beff6947418130aa9374871b231';
+            $devices = array(
+                $data->reg_id
+            );
 
-            $userIdentificador = $data->reg_id;
+            $notification = array(
+                'message' => 'Hola probando',
+                'title' => 'Notificacion',
+                'content' => 'Hola probando'
+            );
 
-            $headers = array('Authorization:key=' . $apiKey);
-            $data = array(
-                'registration_ids' => $userIdentificador,
-                'collapse_key' => '',
-                'data.messages' => 'Estamos probando el sistema',
-                'data.fecha' => date('Y-m-d'));
+//            $pusher->notify($devices, $notification);
 
-            $ch = curl_init();
+            return $pusher->notify($devices, $notification);
 
-            curl_setopt($ch, CURLOPT_URL, "https://android.googleapis.com/gcm/send");
-            if ($headers)
-                curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-
-            $response = curl_exec($ch);
-            $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-            if (curl_errno($ch)) {
-                return 'fail';
-            }
-            if ($httpCode != 200) {
-                return $data;
-            }
-            curl_close($ch);
-            return $response;
         } else {
             return 'No existe el usuario';
         }
-    }
-
-
-    public function getData()
-    {
-        $data =  [
-            'quantity'      => '1' ,
-            'description'   => 'some ramdom text',
-            'price'   => '500',
-            'total'     => '500'
-        ];
-        return $data;
     }
 }

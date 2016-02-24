@@ -11,6 +11,7 @@
             'app.empresas.rutas',
             'app.empresas.actividades',
             'app.empresas.pagos_prestaciones',
+            'app.empresas.producidos',
             //libs
             'google-maps'
         ]);
