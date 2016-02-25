@@ -7,7 +7,8 @@
 
     function auditoriaController(centralesService) {
         var vm = this;
-        vm.optionsCentral = optionsCentral;
+        vm.selectedChanged = selectedChanged;
+        vm.producidosFecha = producidosFecha;
         loadCentrales();
 
         function loadCentrales(){
@@ -22,9 +23,12 @@
             }
         }
 
-        function optionsCentral(){
+        function selectedChanged(){
             vm.mostra = true;
         }
 
+        function producidosFecha(){
+            vm.central.id *= vm.central.id;
+        }
     }
 })();

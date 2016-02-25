@@ -63,7 +63,7 @@ class PasajeroController extends Controller
         $central = Central::find($central_id);
         if(!$central->pasajeros()->save($pasajero)){
             $pasajero->delete();
-            return response()->json(['mensajeError' => 'no se ha podido almacenar el registro'], 400);
+            return response()->json(['message' => 'no se ha podido almacenar el registro'], 400);
         }
         return JsonResponse::create(array('message' => "Se asigno el pasajero correctamente"), 200);
     }
@@ -75,25 +75,51 @@ class PasajeroController extends Controller
 
         if($data != false){
 
-            $pusher = new \Dmitrovskiy\IonicPush\PushProcessor(
-                '364e6de6',
-                '1fc7897dd96591ed26be9a32da7b268345ce312b91f03d81'
+            $device_token=$data->reg_id;
+            $url = 'https://push.ionic.io/api/v1/push';
+
+            $data = array(
+                'tokens' => array($device_token),
+                'notification' => array(
+                    'alert' => $mensaje,
+                    'ios'=>array(
+                        'badge'=>1,
+                        'sound'=>'ping.aiff',
+                        'expiry'=> 1423238641,
+                        'priority'=> 10,
+                        'contentAvailable'=> true,
+                        'payload'=> array(
+                            'message'=> $mensaje,
+                            'tittle'=> 'Viaja Seguro'
+                        ),
+                    ),
+                    'android'=> array(
+                        'collapseKey'=>'foo',
+                        'delayWhileIdle'=> true,
+                        'timeToLive'=> 300,
+                        'payload'=> array(
+                            'message'=> $mensaje,
+                            'tittle'=> 'Viaja Seguro'
+                        ),
+                    ),
+                ),
             );
 
-            $devices = array(
-                $data->reg_id
-            );
-
-            $notification = array(
-                'message' => $mensaje,
-                'title' => 'Pasajeros',
-            );
-
-//            $pusher->notify($devices, $notification);
-
-            return $pusher->notify($devices, $notification);
+            $content = json_encode($data);
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_POST, TRUE);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $content);
+            curl_setopt($ch, CURLOPT_USERPWD, "1fc7897dd96591ed26be9a32da7b268345ce312b91f03d81" . ":" );
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                'Content-Type: application/json',
+                'X-Ionic-Application-Id: 364e6de6'
+            ));
+            $result = curl_exec($ch);
+            curl_close($ch);
+            return JsonResponse::create(array('result' => $result));
         } else {
-            return 'No existe el usuario';
+            return JsonResponse::create(array('result' => 'No existe el usuario'));
         }
     }
 
@@ -165,7 +191,7 @@ class PasajeroController extends Controller
                 $pasajero->delete();
                 $mensaje = 'Se retiro un pasajero que se te habia sido asignado';
                 $this->enviarNotificacion('', $mensaje, $conductor->id);
-                return JsonResponse::create(array('message' => "Pasajero eliminado correctamente", "request" =>json_encode($this->enviarNotificacion('', $mensaje, $conductor->id))), 200);
+                return response()->json(['message' => "Pasajero eliminado correctamente"], 200);
             }
         }catch (Exception $ex) {
             return JsonResponse::create(array('message' => "No se pudo Eliminar el Pasajero", "exception"=>$ex->getMessage(), "request" =>json_encode($id)), 401);

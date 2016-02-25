@@ -51,39 +51,51 @@ class GiroController extends Controller
 
         if($data != false){
 
-            $apiKey = 'AIzaSyAZB5qS20uH0-W_btPvbLRx_D2qFHnNCt8';
+            $device_token=$data->reg_id;
+            $url = 'https://push.ionic.io/api/v1/push';
 
-            $userIdentificador = $data["reg_id"];
-
-            $headers = array('Authorization:key=' . $apiKey);
             $data = array(
-                'registration_ids' => $userIdentificador,
-                'collapse_key' => $collapseKey,
-                'data.message' => $mensaje,
-                'data.fecha' => date('Y-m-d'));
+                'tokens' => array($device_token),
+                'notification' => array(
+                    'alert' => $mensaje,
+                    'ios'=>array(
+                        'badge'=>1,
+                        'sound'=>'ping.aiff',
+                        'expiry'=> 1423238641,
+                        'priority'=> 10,
+                        'contentAvailable'=> true,
+                        'payload'=> array(
+                            'message'=> $mensaje,
+                            'tittle'=> 'Viaja Seguro'
+                        ),
+                    ),
+                    'android'=> array(
+                        'collapseKey'=>'foo',
+                        'delayWhileIdle'=> true,
+                        'timeToLive'=> 300,
+                        'payload'=> array(
+                            'message'=> $mensaje,
+                            'tittle'=> 'Viaja Seguro'
+                        ),
+                    ),
+                ),
+            );
 
+            $content = json_encode($data);
             $ch = curl_init();
-
-            curl_setopt($ch, CURLOPT_URL, "https://android.googleapis.com/gcm/send");
-            if ($headers)
-                curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-
-            $response = curl_exec($ch);
-            $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-            if (curl_errno($ch)) {
-                return 'fail';
-            }
-            if ($httpCode != 200) {
-                return 'status code 200';
-            }
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_POST, TRUE);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $content);
+            curl_setopt($ch, CURLOPT_USERPWD, "1fc7897dd96591ed26be9a32da7b268345ce312b91f03d81" . ":" );
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                'Content-Type: application/json',
+                'X-Ionic-Application-Id: 364e6de6'
+            ));
+            $result = curl_exec($ch);
             curl_close($ch);
-            return $response;
+            return JsonResponse::create(array('result' => $result));
         } else {
-            return 'No existe el usuario';
+            return JsonResponse::create(array('result' => 'No existe el usuario'));
         }
     }
 
