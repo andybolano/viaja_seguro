@@ -15,19 +15,47 @@ class PdfController extends Controller
     public function invoice()
     {
 //        $datos = array();
-        $data = Conductor::find(3)->usuario;
+        $data = Conductor::find(4)->usuario;
 
         if($data != false){
-            $msg = 'Hola esto es la prueba';
-
             $device_token=$data->reg_id;
-
-
             $url = 'https://push.ionic.io/api/v1/push';
 
             $data = array(
                 'tokens' => array($device_token),
-                'notification' => array('alert' => $msg),
+                'notification' => array(
+                    'alert' => 'probando',
+                    'ios'=>array(
+                        'badge'=>1,
+                        'sound'=>'ping.aiff',
+                        'expiry'=> 1423238641,
+                        'priority'=> 10,
+                        'contentAvailable'=> true,
+                        'payload'=> array(
+                            'message' => 'Hola como estas',
+                            'title' => 'Viaja Seguro',
+                            'subtitle' => 'Giros',
+                            'vibrate' => 1,
+                            'sound' => 1,
+                            'largeIcon' => 'large_icon',
+                            'smallIcon' => 'small_icon'
+                        ),
+                    ),
+                    'android'=> array(
+                        'collapseKey'=>'foo',
+                        'delayWhileIdle'=> true,
+                        'timeToLive'=> 300,
+                        'payload'=> array(
+                            'message' => 'Hola como estas',
+                            'title' => 'Viaja Seguro',
+                            'subtitle' => 'Giros',
+                            'vibrate' => 1,
+                            'sound' => 1,
+                            'largeIcon' => 'large_icon',
+                            'smallIcon' => 'small_icon'
+                        ),
+                    ),
+                ),
             );
 
             $content = json_encode($data);
@@ -42,8 +70,9 @@ class PdfController extends Controller
                 'X-Ionic-Application-Id: 364e6de6'
             ));
             $result = curl_exec($ch);
+            var_dump($result);
             curl_close($ch);
-            return $result;
+            return JsonResponse::create($result);
 
         } else {
             return 'No existe el usuario';

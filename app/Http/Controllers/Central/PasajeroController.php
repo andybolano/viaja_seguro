@@ -90,7 +90,8 @@ class PasajeroController extends Controller
                         'contentAvailable'=> true,
                         'payload'=> array(
                             'message'=> $mensaje,
-                            'tittle'=> 'Viaja Seguro'
+                            'title'=> 'Viaja Seguro',
+                            'subtitle' => 'Pasajeros'
                         ),
                     ),
                     'android'=> array(
@@ -98,8 +99,13 @@ class PasajeroController extends Controller
                         'delayWhileIdle'=> true,
                         'timeToLive'=> 300,
                         'payload'=> array(
-                            'message'=> $mensaje,
-                            'tittle'=> 'Viaja Seguro'
+                            'message' => $mensaje,
+                            'title' => 'Viaja Seguro',
+                            'subtitle' => 'Pasajeros',
+                            'vibrate' => 1,
+                            'sound' => 1,
+                            'largeIcon' => 'large_icon',
+                            'smallIcon' => 'small_icon'
                         ),
                     ),
                 ),
@@ -116,6 +122,7 @@ class PasajeroController extends Controller
                 'X-Ionic-Application-Id: 364e6de6'
             ));
             $result = curl_exec($ch);
+            var_dump($result);
             curl_close($ch);
             return JsonResponse::create(array('result' => $result));
         } else {

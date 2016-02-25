@@ -67,7 +67,8 @@ class PaqueteController extends Controller
                         'contentAvailable'=> true,
                         'payload'=> array(
                             'message'=> $mensaje,
-                            'tittle'=> 'Viaja Seguro'
+                            'title'=> 'Viaja Seguro',
+                            'subtitle' => 'Paquetes'
                         ),
                     ),
                     'android'=> array(
@@ -75,8 +76,13 @@ class PaqueteController extends Controller
                         'delayWhileIdle'=> true,
                         'timeToLive'=> 300,
                         'payload'=> array(
-                            'message'=> $mensaje,
-                            'tittle'=> 'Viaja Seguro'
+                            'message' => $mensaje,
+                            'title' => 'Viaja Seguro',
+                            'subtitle' => 'Paquetes',
+                            'vibrate' => 1,
+                            'sound' => 1,
+                            'largeIcon' => 'large_icon',
+                            'smallIcon' => 'small_icon'
                         ),
                     ),
                 ),
@@ -92,6 +98,7 @@ class PaqueteController extends Controller
                 'X-Ionic-Application-Id: 364e6de6'
             ));
             $result = curl_exec($ch);
+            var_dump($result);
             curl_close($ch);
             return JsonResponse::create(array('result' => $result));
         } else {
