@@ -26,4 +26,9 @@ class Cliente extends Model
     {
         return $this->hasMany(Paquete::class);
     }
+
+    public function ciudad()
+    {
+     return $this->hasOne(Municipio::class);
+    }
 }

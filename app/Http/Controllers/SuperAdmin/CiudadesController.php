@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers\SuperAdmin;
 
 use App\Model\Ciudad;
+use App\Model\Departamento;
 use Illuminate\Routing\Controller;
 
 class CiudadesController extends Controller
@@ -16,4 +17,13 @@ class CiudadesController extends Controller
         return Ciudad::all();
     }
 
+    public function getDepartamentos()
+    {
+        return Departamento::all();
+    }
+
+    public function getMunicipios($departamento_id)
+    {
+        return Departamento::find($departamento_id)->municipios;
+    }
 }
