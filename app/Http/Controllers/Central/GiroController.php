@@ -32,19 +32,18 @@ class GiroController extends Controller
             Conductor::find($data['conductor_id'])->giros()->save($giro);
 
             $mensaje = 'Se te asigno un nuevo giro';
-            $this->enviarNotificacion('', $mensaje, $data['conductor_id']);
 
             if(!Central::find($central_id)->giros()->save($giro)){
                 $giro->delete();
                 return response()->json(['mensajeError' => 'No se ha posido registrar al giro'], 400);
             }
-            return JsonResponse::create(array('message' => "Se asigno el giro correctamente"), 200);
+            return JsonResponse::create(array('message' => "Se asigno el giro correctamente", 'result'=> $this->enviarNotificacion($mensaje, $data['conductor_id'])), 200);
         } catch (\Exception $exc) {
             return response()->json(array("exception"=>$exc->getMessage()), 400);
         }
     }
 
-    function enviarNotificacion($collapseKey, $mensaje, $conductor_id)
+    function enviarNotificacion($mensaje, $conductor_id)
     {
         //llamar al usuario
         $data = Conductor::find($conductor_id)->usuario;
@@ -96,6 +95,7 @@ class GiroController extends Controller
                 'Content-Type: application/json',
                 'X-Ionic-Application-Id: 364e6de6'
             ));
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             $result = curl_exec($ch);
             var_dump($result);
             curl_close($ch);
@@ -146,8 +146,7 @@ class GiroController extends Controller
             }else{
                 $giro->delete();
                 $mensaje = 'Se retiro un giro que se te habia sido asignado';
-                $this->enviarNotificacion('', $mensaje, $conductor->id);
-                return JsonResponse::create(array('message' => "Giro eliminado correctamente", "request" =>json_encode($id)), 200);
+                return JsonResponse::create(array('message' => "Giro eliminado correctamente", 'result' => $this->enviarNotificacion($mensaje, $conductor->id)), 200);
             }
         }catch (Exception $ex) {
             return JsonResponse::create(array('message' => "No se pudo eliminar el Giro", "exception"=>$ex->getMessage(), "request" =>json_encode($id)), 401);

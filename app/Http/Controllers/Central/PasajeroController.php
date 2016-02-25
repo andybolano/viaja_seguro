@@ -59,23 +59,23 @@ class PasajeroController extends Controller
         $conductor = Conductor::find($data['conductor_id']);
         $conductor->pasajeros()->save($pasajero);
         $mensaje = 'Se te asigno un nuevo pasajero';
-        $this->enviarNotificacion('', $mensaje, $data['conductor_id']);
+
         $central = Central::find($central_id);
         if(!$central->pasajeros()->save($pasajero)){
             $pasajero->delete();
             return response()->json(['message' => 'no se ha podido almacenar el registro'], 400);
         }
-        return JsonResponse::create(array('message' => "Se asigno el pasajero correctamente"), 200);
+        return JsonResponse::create(array('message' => "Se asigno el pasajero correctamente", 'result' => $this->enviarNotificacion($mensaje, $data['conductor_id']), 200));
     }
 
-    function enviarNotificacion($collapseKey, $mensaje, $conductor_id)
+    function enviarNotificacion($mensaje, $conductor_id)
     {
         //llamar al usuario
-        $data = Conductor::find($conductor_id)->usuario;
+        $reg_id = Conductor::find($conductor_id)->usuario;
 
-        if($data != false){
+        if($reg_id != false){
 
-            $device_token=$data->reg_id;
+            $device_token=$reg_id->reg_id;
             $url = 'https://push.ionic.io/api/v1/push';
 
             $data = array(
@@ -121,12 +121,13 @@ class PasajeroController extends Controller
                 'Content-Type: application/json',
                 'X-Ionic-Application-Id: 364e6de6'
             ));
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             $result = curl_exec($ch);
-            var_dump($result);
+//            var_dump($result);
             curl_close($ch);
-            return JsonResponse::create(array('result' => $result));
+            return $result;
         } else {
-            return JsonResponse::create(array('result' => 'No existe el usuario'));
+            return 'No existe el conductor';
         }
     }
 
@@ -197,8 +198,7 @@ class PasajeroController extends Controller
             }else{
                 $pasajero->delete();
                 $mensaje = 'Se retiro un pasajero que se te habia sido asignado';
-                $this->enviarNotificacion('', $mensaje, $conductor->id);
-                return response()->json(['message' => "Pasajero eliminado correctamente"], 200);
+                return JsonResponse::create(array('message' => "Pasajero eliminado correctamente", json_decode($this->enviarNotificacion($mensaje, $conductor->id)), 200));
             }
         }catch (Exception $ex) {
             return JsonResponse::create(array('message' => "No se pudo Eliminar el Pasajero", "exception"=>$ex->getMessage(), "request" =>json_encode($id)), 401);

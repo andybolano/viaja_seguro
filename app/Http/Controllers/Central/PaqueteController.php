@@ -34,12 +34,11 @@ class PaqueteController extends Controller
             Conductor::find($data['conductor_id'])->paquetes()->save($paquete);
 
             $mensaje = 'Se te asigno un nuevo paquete';
-            $this->enviarNotificacion($mensaje, $data['conductor_id']);
 
             if(!Central::find($central_id)->paquetes()->save($paquete)){
                 return response()->json(['mensajeError' => 'No se ha posido registrar al paquete'], 400);
             }
-            return JsonResponse::create(array('message' => "Paquete asignado correctamente"), 200);
+            return JsonResponse::create(array('message' => "Paquete asignado correctamente", 'result' => $this->enviarNotificacion($mensaje, $data['conductor_id'])), 200);
         } catch (\Exception $exc) {
             return response()->json(array("exception"=>$exc->getMessage()), 400);
         }
@@ -97,6 +96,7 @@ class PaqueteController extends Controller
                 'Content-Type: application/json',
                 'X-Ionic-Application-Id: 364e6de6'
             ));
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             $result = curl_exec($ch);
             var_dump($result);
             curl_close($ch);
@@ -148,8 +148,7 @@ class PaqueteController extends Controller
             }else{
                 $paquete->delete();
                 $mensaje = 'Se retiro un paquete que se te habia sido asignado';
-                $this->enviarNotificacion($mensaje, $conductor->id);
-                return response()->json(['message' => "Paquete eliminado correctamente"], 200);
+                return response()->json(['message' => "Paquete eliminado correctamente", 'result'=> $this->enviarNotificacion($mensaje, $conductor->id)], 200);
             }
         }catch (Exception $ex) {
             return JsonResponse::create(array('message' => "No se pudo Eliminar el paquete", "exception"=>$ex->getMessage(), "request" =>json_encode($id)), 401);
