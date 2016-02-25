@@ -6,5 +6,3 @@
  */
 
 Route::get('/api/ciudades', 'SuperAdmin\CiudadesController@index');
-Route::get('/api/departamentos', 'SuperAdmin\CiudadesController@getDepartamentos');
-Route::get('/api/departamentos/{dpto_id}/municipios', 'SuperAdmin\CiudadesController@getMunicipios');

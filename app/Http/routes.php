@@ -24,6 +24,8 @@ Route::group(['middleware' => 'cors'], function () {
     Route::post('/api/usuarios/conductores', 'UsuariosController@registrarConductor');
 
     Route::get('/api/empresas', 'SuperAdmin\EmpresaController@index');
+    Route::get('/api/departamentos', 'SuperAdmin\CiudadesController@getDepartamentos');
+    Route::get('/api/departamentos/{dpto_id}/municipios', 'SuperAdmin\CiudadesController@getMunicipios');
 
     Route::group(['middleware' => 'jwt.auth'], function () {
 
