@@ -16,27 +16,27 @@ class ClienteController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        try{
-            $data = $request->json()->all();
+        $data = $request->json()->all();
 
-            //USUARIO
+        if(Usuario::where('email', $data['correo'])->first()) {
+            return response()->json(['mensajeError' => 'ya existe un usuario con este correo electronico'], 409);
+        } else {
             $usuario = Usuario::nuevo($data['correo'], $data['contrasena'], $this->getRol()->id);
             $data['usuario_id'] = $usuario->id;
             unset($data['contrasena']);
 
             $cliente = new Cliente($data);
-            if(!$cliente->save()){
+            if(!$cliente->save()) {
                 return response()->json(['menssage' => 'No se ha podido almacenar el usuario'], 400);
                 $usuario->delete();
             }
             return response()->json($cliente, 201);
-        } catch (\Exception $exc) {
-            return response()->json(array("exception"=>$exc->getMessage()), 400);
         }
     }
 
@@ -45,40 +45,41 @@ class ClienteController extends Controller
         return Rol::where('nombre', 'CLIENTE')->first();
     }
 
-    public function storeImagen(Request $request, $cliente_id){
-        try{
+    public function storeImagen(Request $request, $cliente_id)
+    {
+        try {
             $cliente = Cliente::find($cliente_id);
 
-            if ($request->hasFile('imagen')) {
+            if($request->hasFile('imagen')) {
                 $request->file('imagen')->move('images/clientes/', "cliete$cliente_id.png");
-                $nombrefile = $_SERVER['SERVER_NAME'].'/public/images/clientes/'."cliente$cliente_id.png";
+                $nombrefile = $_SERVER['SERVER_NAME'] . '/public/images/clientes/' . "cliente$cliente_id.png";
                 $cliente->imagen = $nombrefile;
                 $cliente->save();
-                return response()->json(['nombrefile'=>$nombrefile], 201);
-            }else {
+                return response()->json(['nombrefile' => $nombrefile], 201);
+            } else {
                 return response()->json([], 400);
             }
-        } catch (\Exception $exc) {
-            return response()->json(array("exception"=>$exc->getMessage()), 400);
+        } catch(\Exception $exc) {
+            return response()->json(["exception" => $exc->getMessage()], 400);
         }
     }
-
 
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-       $cliente = Cliente::find($id);
+        $cliente = Cliente::find($id);
 
-        if (!$cliente){
+        if(!$cliente) {
             $cliente = Cliente::where('identificacion', $id)->first();
-            if(!$cliente){
-                return JsonResponse::create(array("message"=> 'No se encontro el cliente puede registrarlo si continua'), 400);
+            if(!$cliente) {
+                return JsonResponse::create(["message" => 'No se encontro el cliente puede registrarlo si continua'], 400);
             }
         }
         return $cliente;
@@ -87,7 +88,8 @@ class ClienteController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -98,14 +100,15 @@ class ClienteController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int                      $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
 
-        try{
+        try {
             if($cliente = Cliente::find($id)) {
 
                 $data = $request->json()->all();
@@ -118,18 +121,19 @@ class ClienteController extends Controller
 
                 $cliente->save();
                 return response()->json(['mensaje' => 'Registro actualizado'], 201);
-            }else{
+            } else {
                 return response()->json(['mensaje' => 'El cliente no existe'], 400);
             }
-        } catch (\Exception $exc) {
-            return response()->json(array("exception"=>$exc->getMessage(), ''=>$exc->getLine()), 400);
+        } catch(\Exception $exc) {
+            return response()->json(["exception" => $exc->getMessage(), '' => $exc->getLine()], 400);
         }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
