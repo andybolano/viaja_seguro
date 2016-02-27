@@ -60,7 +60,6 @@
 
         initialize();
         function initialize(){
-            vm.cupos = 0;
             cargarRutas();
             cargarDeducciones();
         }
@@ -207,10 +206,10 @@
                 refrescarPasajeros(vm.conductor.id);
                 cargarVehiculoConductor(vm.conductor.id);
                 vm.cupos = vm.vehiculo.cupos - vm.cantidad;
-                console.log(vm.cantidad);
+                Materialize.toast(p.data.message, '5000', 'rounded');
             }
             function error(error){
-                console.log('Error al guardar')
+                console.log('Error al guardar', error)
             }
         }
 
@@ -244,7 +243,7 @@
                 Materialize.toast(p.data.message, '5000', 'rounded');
             }
             function error(error){
-                console.log('error al eliminar')
+                console.log('error al eliminar', error);
             }
         }
         //FIN PASAJEROS
