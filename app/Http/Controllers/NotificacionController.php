@@ -7,16 +7,20 @@ class NotificacionController extends Controller
 {
     function enviarNotificacion($mensaje, $conductor_id, $tipo)
     {
+        $reg_id = '';
         //llamar al usuario
-        $reg_id = Conductor::find($conductor_id)->usuario;
+        if(is_array($conductor_id)){
+            $device_token = $conductor_id;
+        }else{
+            $reg_id = Conductor::find($conductor_id)->usuario;
+            $device_token = array($reg_id->reg_id);
+        }
 
         if($reg_id != false){
-
-            $device_token=$reg_id->reg_id;
             $url = 'https://push.ionic.io/api/v1/push';
 
             $data = array(
-                'tokens' => array($device_token),
+                'tokens' => $device_token,
                 'notification' => array(
                     'alert' => $mensaje,
                     'tipo' => $tipo,

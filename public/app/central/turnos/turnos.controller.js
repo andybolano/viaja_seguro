@@ -62,6 +62,7 @@
 
         initialize();
         function initialize(){
+            vm.cupos = 0;
             cargarRutas();
             cargarDeducciones();
         }

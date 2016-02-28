@@ -44,6 +44,9 @@
                                 </a>
                             </div>
                             <br><br><br>
+                            <div ng-hide="vm.todo" class="center">
+                                {{vm.mensaje}}
+                            </div>
                             <div class="row" ng-show="vm.todo">
                                 <div style="float: left">
                                     <p><strong>CANTIDAD DE REGISTROS EN LA(S) FECHA(S) ESCOGIDA: {{vm.cantidad}}</strong></p>
@@ -73,22 +76,26 @@
                                 </div>
                             </div>
                         </div>
+
+
                         <div id="vehiculos" class="col s12"><br>
                             <div class="input-field col s2">
-                                <input type="text" >
+                                <input type="text" ng-model="vm.codigo_vial">
                                 <label >CODIGO VIAL</label>
                             </div>
                             <div class="input-field col s1" title="Consultar vehiculo">
-                                <a href="javascript:;" ng-click="vm.producidosVehiculo()">
+                                <a href="javascript:;" ng-click="vm.producidosVehiculo(vm.codigo_vial)">
                                     <i class="material-icons prefix">search</i>
                                 </a>
                             </div>
-                            <div class="input-field col s1" title="Consultar todos" style="margin-left: -45px;">
-                                <a href="javascript:;" ng-click="vm.producidosTodosVehiculo()">
-                                    <i class="material-icons prefix">autorenew</i>
-                                </a>
-                            </div>
+                            <!--<div class="input-field col s1" title="Consultar todos" style="margin-left: -45px;">-->
+                                <!--<a href="javascript:;" ng-click="vm.producidosTodosVehiculo()">-->
+                                    <!--<i class="material-icons prefix">autorenew</i>-->
+                                <!--</a>-->
+                            <!--</div>-->
                         </div>
+
+
                     </div>
                 </div>
             </div>

@@ -50,7 +50,7 @@ class UsuariosController extends Controller
     public function registrarConductor(Request $request)
     {
         $data = $request->json()->all();
-        $user = Usuario::nuevo($data['identificacion'], $data['contrasena'], $this->getRol('CONDUCTOR')->id, 1, $data['reg_id']);
+        $user = Usuario::nuevo($data['identificacion'], $data['contrasena'], $this->getRol('CONDUCTOR')->id, 1);
         unset($data['contrasena']);
         $data['usuario_id'] = $user->id;
         $empresa_id = $data['empresa_id'];
