@@ -9,6 +9,8 @@
         var vm = this;
         vm.selectedChanged = selectedChanged;
         vm.producidosFecha = producidosFecha;
+        vm.producidosVehiculo = producidosVehiculo;
+        vm.producidosTodosVehiculo = producidosTodosVehiculo;
         loadCentrales();
 
         function loadCentrales(){
@@ -30,5 +32,10 @@
         function producidosFecha(){
             vm.central.id *= vm.central.id;
         }
+
+        function producidosVehiculo(vehiculo_id){}
+
+        function producidosTodosVehiculo(){}
+
     }
 })();
