@@ -158,9 +158,11 @@
                         </div>
                     </form>
                 </div>
-                <div class="col s4" style="width: 300px;height: 300px;">
-                    <div class="col s12" id="image">
-                        <img class="thumb center" id="imagenlogo" style="width:100%" ng-src="http://{{vm.Conductor.imagen}}" title="imagen" alt="seleccione foto"/>
+                <div class="col s4">
+                    <div class="col s12" id="image" >
+                        <center>
+                        <img  src="http://{{vm.Conductor.imagen}}" title="imagen" alt="seleccione foto" style="width:250px; height:250px; border-radius:50%;"/>
+                        </center>
                     </div>
                     <div class="file-field input-field col s12" ng-show="vm.activos">
                         <div class="btn col s12">
@@ -281,7 +283,7 @@
 
                             <div class="col s4">
                                 <div class="col s12" id="imagev" style="max-height: 300px;">
-                                    <img class="thumb center" id="imagen" style="width:100%" ng-src="http://{{Vehiculo.imagen}}" title="imagen" alt="seleccione foto"/>
+                                    <img class="thumb center" id="imagen" style="width:100%" ng-src="http://{{Vehiculo.imagen}}" title="imagen" alt="seleccione foto"  style="width:100px;height: 100px;border-radius: 50%;"/>
                                 </div>
                                 <div class="file-field input-field col s12">
                                     <div class="btn col s12">
