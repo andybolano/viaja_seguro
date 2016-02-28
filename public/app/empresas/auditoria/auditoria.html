@@ -31,18 +31,46 @@
                         </div>
                         <div id="producidos" class="col s12"><br>
                             <div class="input-field col s3">
-                                <input type="date" class="datepicker">
+                                <input type="date" class="datepicker" ng-model="vm.fechaI">
                                 <label >Fecha inicial</label>
-                                {{vm.central.id}}
                             </div>
                             <div class="input-field col s3">
-                                <input type="date" class="datepicker">
+                                <input type="date" class="datepicker" ng-model="vm.fechaF">
                                 <label >Fecha final</label>
                             </div>
                             <div class="input-field col s1" title="Consultar">
-                                <a href="javascript:;" ng-click="vm.producidosFecha()">
+                                <a href="javascript:;" ng-click="vm.producidosFecha(vm.fechaI, vm.fechaF)">
                                     <i class="material-icons prefix">search</i>
                                 </a>
+                            </div>
+                            <br><br><br>
+                            <div class="row" ng-show="vm.todo">
+                                <div style="float: left">
+                                    <p><strong>CANTIDAD DE REGISTROS EN LA(S) FECHA(S) ESCOGIDA: {{vm.cantidad}}</strong></p>
+                                </div>
+                                <div style="float: right">
+                                    <p><strong>TOTAL PRODUCDIDO EN LA(S) FECHA(S) ESCOGIDA: {{vm.total | currency}}</strong></p>
+                                </div>
+                            </div>
+
+                            <div class="row" ng-show="vm.todo">
+                                <hr style="width: 100%">
+                                <div class="col s12">
+                                    <table class="striped bordered">
+                                        <thead class="center">
+                                            <th>Numero de planilla</th>
+                                            <th>Fecha</th>
+                                            <th>Valor</th>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="producido in vm.producidos_fecha | filter : filtro">
+                                                <td>{{producido.numero_planilla}}</td>
+                                                <td>{{producido.fecha}}</td>
+                                                <td>{{producido.total | currency}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                         <div id="vehiculos" class="col s12"><br>
@@ -71,6 +99,9 @@
 <script type="application/javascript">
     $(document).ready(function(){
         $('.datepicker').pickadate({
+            firstDay: true,
+            format: 'yyyy/mm/dd',
+            formatSubmit: 'yyyy/mm/dd',
             selectMonths: true, // Creates a dropdown to control month
             selectYears: 15 // Creates a dropdown of 15 years to control year
         });
