@@ -474,9 +474,13 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="deduccion in vm.Deducciones" ng-if="deduccion.estado == true">
+                            <tr ng-repeat="deduccion in vm.Planilla.viaje.planilla.deducciones">
                                 <td class="center">{{deduccion.nombre}}</td>
                                 <td class="center">{{deduccion.valor | currency}}</td>
+                            </tr>
+                            <tr>
+                                <td class="center">VALOR TOTAL</td>
+                                <td class="center">{{vm.Planilla.total | currency}}</td>
                             </tr>
                             </tbody>
                         </table>

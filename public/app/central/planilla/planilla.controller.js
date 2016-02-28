@@ -42,6 +42,7 @@
             function succes(p){
                 vm.planilla = {};
                 vm.planilla = p.data;
+                vm.planilla.total = p.data.total;
                 $('#modalPlanilla').openModal();
             }
             function error(e){

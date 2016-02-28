@@ -31,4 +31,9 @@ class Viaje extends Model
     {
         return $this->belongsToMany(Pasajero::class, 'viaje_paquetes', 'viaje_id', 'paquete_id');
     }
+
+    public function deducciones()
+    {
+        return $this->belongsToMany(Deduccion::class, 'viaje_deducciones', 'viaje_id', 'deduccion_id');
+    }
 }

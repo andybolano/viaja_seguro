@@ -83,7 +83,7 @@
             var promiseGet = turnosService.getConductoresEnRuta(ruta_id);
             promiseGet.then(function (p) {
                 for(var i = 0; i < p.data.length; i++ ) {
-                    if(p.data[i].activo == true && p.data[i].central_id == authService.currentUser().central.id && p.data[i].vehiculo != null){
+                    if(p.data[i].activo == true && p.data[i].central_id == authService.currentUser().central.id){
                         vm.Conductores.push(p.data[i]);
                     }
                 }
@@ -471,13 +471,16 @@
                     var obj = {
                         ruta_id : datos.ruta_id,
                         turno : datos.turno,
-                        conductor_id : datos.conductor_id
+                        conductor_id : datos.conductor_id,
+                        deducciones : vm.Deducciones
                     }
+                    console.log(obj);
                     turnosService.eliminarTurno(obj).then(succes, error);
                 }
             }
             function succes(p){
                 vm.Planilla = p.data;
+                vm.Planilla.total = p.data.viaje.planilla.total;
                 console.log(vm.Planilla)
                 cargarRutas();
                 if (p.data.message == 'Despachado correctamente'){
@@ -494,8 +497,15 @@
 
         function cargarDeducciones(){
             var promiseGet = planillasService.getDeducciones();
-            promiseGet.then(function (pl) {
-                vm.Deducciones = pl.data;
+            promiseGet.then(function (p) {
+                vm.Deducciones = [];
+                for(var i=0; i<p.data.length; i++){
+                    if(p.data[i].estado == true ){
+                        vm.Deducciones.push(p.data[i]);
+                    }else{
+                        console.log('algun error');
+                    }
+                }
             },function (errorPl) {
                 console.log('Error Al Cargar Datos', errorPl);
             });
