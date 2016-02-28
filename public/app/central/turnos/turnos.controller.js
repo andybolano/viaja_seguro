@@ -5,7 +5,7 @@
         .module('app.centrales.turnos')
         .controller('turnosController', turnosController);
 
-    function turnosController(turnosService, planillasService, authService, conductoresService) {
+    function turnosController(turnosService, planillasService, authService) {
         var vm = this;
 
         vm.conductores = [];
@@ -19,6 +19,7 @@
         vm.listaPasajeros = [];
         vm.listaPaquetes = [];
         vm.listaGiros = [];
+        vm.cupos = 0;
 
         vm.servicios = authService.currentUser().central.empresa.servicios;
 
@@ -62,7 +63,6 @@
 
         initialize();
         function initialize(){
-            vm.cupos = 0;
             cargarRutas();
             cargarDeducciones();
         }
@@ -170,10 +170,14 @@
                     if(p.data[i].estado == "En ruta" && p.data[i].conductor_id == conductor_id ){
                         vm.listaPasajeros.push(p.data[i]);
                         vm.Pasajeros = {};
-                        vm.cantidad = vm.listaPasajeros.length;
                     }else{
                         console.log('algun error');
                     }
+                }
+                if(vm.listaPasajeros.length <= 0){
+                    vm.cantidad = 0;
+                }else{
+                    vm.cantidad = vm.listaPasajeros.length;
                 }
             }
             function error(error){
@@ -225,7 +229,15 @@
                 opacity: .5, // Opacity of modal background
                 in_duration: 400, // Transition in duration
                 out_duration: 300, // Transition out duration
-                ready: function() { refrescarPasajeros(vm.conductor.id); cargarVehiculoConductor(vm.conductor.id); vm.cupos = vm.vehiculo.cupos - vm.cantidad;}, // Callback for Modal open
+                ready: function() {
+                    refrescarPasajeros(vm.conductor.id);
+                    cargarVehiculoConductor(vm.conductor.id);
+                    if(vm.cantidad == null){
+                        vm.cupos = 0;
+                    }else{
+                        vm.cupos = vm.vehiculo.cupos - vm.cantidad;
+                    }
+                }, // Callback for Modal open
                 //complete: function() { alert('Closed'); } // Callback for Modal close
             });
         }

@@ -15,28 +15,43 @@ class PdfController extends Controller
 {
     public function invoice()
     {
-//        $con = Conductor::join('vehiculos', 'conductores.id', '=', 'vehiculos.conductor_id')
-//            ->select('conductores.id', 'conductores.nombres', 'conductores.imagen', 'conductores.apellidos',
-//                'conductores.telefono', 'conductores.activo', 'conductores.central_id', 'conductores.identificacion'
-//            )
-//            ->whereNotExists(function($query){
-//                $query->select(\DB::raw(1))
-//                    ->from('turnos')
-//                    ->whereRaw('turnos.conductor_id = conductores.id');
-//            })->get()->load('viaje');
-//
+        $reg_id = Conductor::find(4)->usuario;
+        $registration_ids = array($reg_id);
 
-        $con = \DB::table('conductores')
-            ->join('vehiculos', 'conductores.id', '=', 'vehiculos.conductor_id')
-            ->join('viajes', 'conductores.id', '=', 'viajes.conductor_id')
-            ->select('conductores.id', 'conductores.nombres', 'conductores.imagen', 'conductores.apellidos',
-                'conductores.telefono', 'conductores.activo', 'conductores.central_id', 'conductores.identificacion'
-                )
-            ->whereNotExists(function($query){
-                $query->select(\DB::raw(1))
-                    ->from('turnos')
-                    ->whereRaw('turnos.conductor_id = conductores.id');
-            })->get();
-        return JsonResponse::create($con);
+        $api_key = "AIzaSyApNpUuEY-iXEdTJKrzMxLEuwWNvskeGvU";// your Google Developers Console Project API key
+
+        $data =  array(
+            "message" => 'Hola',
+            'title' => 'Notificacion',
+        );
+
+
+        // URL to POST to
+        $gcm_url = 'https://android.googleapis.com/gcm/send';
+
+        // data to be posted
+        $fields = array('registration_ids' => $registration_ids, 'data' => $data, );
+
+        // headers for the request
+        $headers = array('Authorization: key=' . $api_key, 'Content-Type: application/json');
+
+        $curl_handle = curl_init();
+
+        //echo 'Notification PhP file';
+
+        // set CURL options
+        curl_setopt($curl_handle, CURLOPT_URL, $gcm_url);
+
+        curl_setopt($curl_handle, CURLOPT_POST, true);
+        curl_setopt($curl_handle, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
+
+        curl_setopt($curl_handle, CURLOPT_POSTFIELDS, json_encode($fields));
+
+        // send
+        $response = curl_exec($curl_handle);
+        curl_close($curl_handle);
+
+        return JsonResponse::create($response);
     }
 }

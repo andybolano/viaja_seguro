@@ -49,9 +49,7 @@ class ViajesController extends Controller
         $paquetes = Paquete::select('id')->where('conductor_id', $conductor_id)->where('estado', '=', 'En ruta')->get();
 
         if($viaje->save()){
-            $estado = Conductor::find($conductor_id)->first();
-            $estado->estado = 'En ruta';
-            $estado->save();
+
             foreach ($pasajeros as $pasajero) {
                 $viaje->pasajeros()->attach($pasajero['id']);
             }
@@ -77,6 +75,10 @@ class ViajesController extends Controller
 
             $this->crearPlanilla($viaje->id, $viaje->conductor_id, $total);
             $planilla = $this->generarDatosPlanilla($viaje->id);
+
+            $estado = Conductor::find($viaje->conductor_id);
+            $estado->estado = 'En ruta';
+            $estado->save();
 
             return array('viaje' => $viaje, 'planilla' => $planilla);
         }else{
