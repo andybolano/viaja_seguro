@@ -49,12 +49,17 @@
 
             auditoriaService.getProducidosFecha(vm.central.id, obj).then(success, error);
             function success(p){
-                vm.todo = true;
                 vm.producidos_fecha = [];
                 vm.cantidad = p.data.length;
-                for(var i = 0; i<p.data.length; i++){
-                    vm.producidos_fecha.push(p.data[i]);
-                    vm.total += p.data[i].total;
+                if(p.data.length <= 0){
+                    vm.todo = false;
+                    vm.mensaje = 'NO SE REGISTRA ACTIVIDAD PARA LAS FECHAS ESCOGIDAS';
+                }else{
+                    vm.todo = true;
+                    for(var i = 0; i<p.data.length; i++){
+                        vm.producidos_fecha.push(p.data[i]);
+                        vm.total += p.data[i].total;
+                    }
                 }
             }
             function error(error){
@@ -62,7 +67,9 @@
             }
         }
 
-        function producidosVehiculo(vehiculo_id){}
+        function producidosVehiculo(codigo_vial){
+
+        }
 
         function producidosTodosVehiculo(){}
 

@@ -1,6 +1,8 @@
 <?php namespace App\Http\Controllers\Empresa;
 
+use App\Http\Controllers\NotificacionController;
 use App\Model\Actividad;
+use App\Model\Conductor;
 use App\Model\Empresa;
 use Illuminate\Http\Request;
 
@@ -38,8 +40,19 @@ class ActividadesController extends Controller
      */
     public function store(Request $request, $empresa_id)
     {
+        $regs_id = '';
+        $conductores = Conductor::all();
+        $conductores->load('usuario');
+
+        foreach ($conductores as $conductor) {
+            $regs_id = $conductor->reg_id;
+        }
+
+        $noty = new NotificacionController();
+        $mensaje = 'La empresa ha agendado una nueva actividad';
         try{
             $data = $request->json()->all();
+            $noty->enviarNotificacion($mensaje,$regs_id,'Acividad');
             $actividad = new Actividad($data);
             if(!Empresa::find($empresa_id)->agendaActividades()->save($actividad)){
                 return response()->json(['mensajeError' => 'no se ha podido almacenar el registro'], 400);

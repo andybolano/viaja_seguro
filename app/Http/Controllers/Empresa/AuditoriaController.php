@@ -42,6 +42,9 @@ class AuditoriaController extends Controller
 
         }
         return JsonResponse::create($producido);
+    }
+
+    public function getProducidoVehiculo($codigo_vial){
 
     }
 }
