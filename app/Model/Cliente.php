@@ -8,7 +8,7 @@ class Cliente extends Model
 {
     protected $table = 'clientes';
 
-    protected $fillable = ['identificacion', 'nombres', 'apellidos', 'telefono', 'direccion', 'fechaN'];
+    protected $guarded = ['id'];
 
     public $timestamps = false;
 
@@ -29,6 +29,6 @@ class Cliente extends Model
 
     public function ciudad()
     {
-     return $this->hasOne(Municipio::class);
+        return $this->hasOne(Municipio::class);
     }
 }
