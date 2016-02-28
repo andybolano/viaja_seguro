@@ -52,22 +52,29 @@ class VehiculoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         $data = $request->all();
-        $vehiculo = Vehiculo::find($id);
-        $vehiculo->cupos = $data['cupos'];
+        $vehiculo_conductor = Conductor::find($data['conductor_id']);
 
-//        $vehiculo->placa = $data["placa"];
-//        $vehiculo->modelo = $data["modelo"];
-//        $vehiculo->color = $data["color"];
-//        $vehiculo->codigo_vial = $data["codigo_vial"];
-//        $vehiculo->cupos = $data["cupos"];
-//        $vehiculo->identificacion_propietario = $data["identificacion_propietario"];
-//        $vehiculo->nombre_propietario = $data["nombre_propietario"];
-//        $vehiculo->tel_propietario = $data["tel_propietario"];
+        if(!$vehiculo_conductor->load('vehiculo')){
+            $busqueda = Vehiculo::select("placa")
+                ->where("placa",$data["placa"])
+                ->first();
+            if ($busqueda == null) {
+                if(!$vehiculo_conductor->vehiculo()->save(new Vehiculo($data))){
+                    return response()->json(['message' => 'no se ha podido almacenar el vehiculo del conductor'], 400);
+                }else{
+                    return response()->json(['message' => 'Guardado'], 400);
+                }
 
-        $vehiculo->save($data);
-        return JsonResponse::create(array('message' => "Vehiculo actualizado correctametne."), 200);
+            }else{
+                return response()->json(array('message' => "La placa del vehiculo ya se encuentra registrada."), 200);
+            }
+        }else{
+            $vehiculo = Vehiculo::find($data['placa'])->first();
+            $vehiculo->save($data);
+            return JsonResponse::create(array('message' => "Vehiculo actualizado correctametne."), 200);
+        }
     }
 }

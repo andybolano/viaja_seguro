@@ -165,7 +165,7 @@ class EmpresaController extends Controller
             $usuario->delete();
             return response()->json(['mensajeError' => 'no se ha podido almacenar el registro'], 400);
         }
-        $this->storeVehiculoconductor($conductor, $vehiculo_conductor);
+        $this->storeVehiculoconductor($conductor->id, $vehiculo_conductor);
     }
 
     private function storeVehiculoconductor(&$conductor, $data){

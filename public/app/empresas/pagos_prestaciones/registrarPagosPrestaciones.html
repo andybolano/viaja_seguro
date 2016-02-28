@@ -77,14 +77,14 @@
                         </div>
                         <div class="row">
                             <div class="row input-field col s12">
-                                <i class="material-icons prefix">invert_colors_off</i>
+                                <i class="material-icons prefix">attach_money</i>
                                 <input id="valor" type="text" class="validate" name="valor"  ng-model="vm.nuevaPrestacion.valor" required>
                                 <label for="valor" class="{{vm.active}}">Valor</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="row input-field col s12">
-                                <i class="material-icons prefix">invert_colors_off</i>
+                                <i class="material-icons prefix">date_range</i>
                                 <input id="fecha" type="date" class="validate" name="fecha" ng-model="vm.nuevaPrestacion.fecha" required>
                                 <label for="fecha" class="active">Fecha</label>
                             </div>
@@ -109,18 +109,19 @@
                             <div class="col s12" style="height:335px; overflow-y:auto;">
                                 <table class="striped bordered">
                                     <thead>
-                                    <th>Identificacion</th>
-                                    <th>Foto</th>
+                                    <th></th>
+                                    <th>Identificación</th>
                                     <th>Nombres</th>
                                     <th>Apellidos</th>
                                     <th>Seleccionar</th>
                                     </thead>
+
                                     <tbody>
                                     <tr ng-repeat="conductor in vm.conductores | filter : filtro">
-                                        <td>{{conductor.identificacion}}</td>
                                         <td>
-                                            <img ng-src="http://{{conductor.imagen}}" class="circle" style="width: 35px;">
+                                            <img ng-src="http://{{conductor.imagen}}" class="circle" style="width:32px; height: 32px; border-radius: 50%">
                                         </td>
+                                        <td>{{conductor.identificacion}}</td>
                                         <td>{{conductor.nombres}}</td>
                                         <td>{{conductor.apellidos}}</td>
                                         <td>

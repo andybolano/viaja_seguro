@@ -19,6 +19,7 @@
                     <div class="col s12">
                         <table class="striped bordered">
                             <thead>
+                            <th></th>
                             <th>Placa</th>
                             <th>Modelo</th>
                             <th>Color</th>
@@ -28,6 +29,9 @@
                             </thead>
                             <tbody>
                             <tr ng-repeat="vehiculo in vm.Vehiculos | filter : filtro">
+                                <td>
+                                    <img ng-src="http://{{vehiculo.imagen}}" class="circle" style="width: 40px; height: 32px">
+                                </td>
                                 <td>{{vehiculo.placa}}</td>
                                 <td>{{vehiculo.modelo}}</td>
                                 <td>{{vehiculo.color}}</td>
@@ -123,7 +127,7 @@
                                 <fieldset>
                                     <div class="col s12">
                                         <p style="margin-bottom: 0; margin-top: 0; margin-left: 10px">
-                                            <input type="checkbox" ng-model="Vehiculo.soat" id="soat" ng-checked="{{vm.Vehiculo.soat}}" disabled/>
+                                            <input type="checkbox" ng-model="vm.Vehiculo.soat" id="soat" ng-checked="{{vm.Vehiculo.soat}}" disabled/>
                                             <label for="soat">SOAT</label>
                                         </p>
                                     </div>
