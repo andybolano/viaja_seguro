@@ -85,9 +85,9 @@ table tr:nth-child(2n-1) td {
 }
 
 table th,
-table td {
-  text-align: center;
-}
+/*table td {*/
+  /*text-align: center;*/
+/*}*/
 
 table th {
   padding: 5px 20px;
@@ -97,10 +97,7 @@ table th {
   font-weight: normal;
 }
 
-table td {
-  padding: 20px;
-  text-align: center;
-}
+
 
 
 #notices .notice {

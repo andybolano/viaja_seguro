@@ -244,7 +244,8 @@ class EmpresaController extends Controller
         $con = \DB::table('conductores')
             ->join('vehiculos', 'conductores.id', '=', 'vehiculos.conductor_id')
             ->select('conductores.id', 'conductores.nombres', 'conductores.imagen', 'conductores.apellidos',
-                'conductores.telefono', 'conductores.activo', 'conductores.central_id', 'conductores.identificacion')
+                'conductores.telefono', 'conductores.activo', 'conductores.central_id', 'conductores.identificacion',
+                'conductores.estado')
             ->whereNotExists(function($query){
                 $query->select(\DB::raw(1))
                     ->from('turnos')

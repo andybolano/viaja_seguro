@@ -84,7 +84,7 @@
             var promiseGet = turnosService.getConductoresEnRuta(ruta_id);
             promiseGet.then(function (p) {
                 for(var i = 0; i < p.data.length; i++ ) {
-                    if(p.data[i].activo == true && p.data[i].central_id == authService.currentUser().central.id){
+                    if(p.data[i].activo == true && p.data[i].estado == 'Disponible'){
                         vm.Conductores.push(p.data[i]);
                     }
                 }
@@ -94,15 +94,19 @@
         }
 
         function selectConductor (conductor){
-            var nuevoTurno = {
-                'ruta_id': vm.selectedRuta.id,
-                'conductor_id': conductor.id,
-                'turno': vm.selectedRuta.turnos.length+1,
-                'conductor': conductor
-            };
-            vm.selectedRuta.turnos.push(nuevoTurno);
-            updateTurnos(vm.selectedRuta);
-            $("#modalBuscarconductor").closeModal();
+            if(conductor.estado == 'En ruta'){
+                Materialize.toast('Este conductor aun se encuentra en ruta','5000',"rounded");
+            }else{
+                var nuevoTurno = {
+                    'ruta_id': vm.selectedRuta.id,
+                    'conductor_id': conductor.id,
+                    'turno': vm.selectedRuta.turnos.length+1,
+                    'conductor': conductor
+                };
+                vm.selectedRuta.turnos.push(nuevoTurno);
+                updateTurnos(vm.selectedRuta);
+                $("#modalBuscarconductor").closeModal();
+            }
         }
 
         function remove(ruta, $index){

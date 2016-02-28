@@ -49,6 +49,9 @@ class ViajesController extends Controller
         $paquetes = Paquete::select('id')->where('conductor_id', $conductor_id)->where('estado', '=', 'En ruta')->get();
 
         if($viaje->save()){
+            $estado = Conductor::find($conductor_id)->first();
+            $estado->estado = 'En ruta';
+            $estado->save();
             foreach ($pasajeros as $pasajero) {
                 $viaje->pasajeros()->attach($pasajero['id']);
             }

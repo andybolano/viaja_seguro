@@ -129,7 +129,6 @@ class ConductorController extends Controller
             $conductor = Conductor::find($conductor_id);
             if(!$conductor->vehiculo()->save(new Vehiculo($data))){
                 return response()->json(['mensajeError' => 'no se ha podido almacenar el registro'], 400);
-                $usuario->delete();
             }
             return JsonResponse::create(array('message' => "Se asigno el vehiculo correctametne."), 200);
         }else{

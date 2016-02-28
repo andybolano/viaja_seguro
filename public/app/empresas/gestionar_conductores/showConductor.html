@@ -20,20 +20,22 @@
                     <div class="col s12">
                         <table class="striped bordered">
                             <thead>
-                            <th>Identificación</th>
-                            <th>Foto</th>
-                            <th>Nombres</th>
-                            <th>Apellidos</th>
-                            <th>Dirección</th>
-                            <th>Teléfono</th>
-                            <th>Acciones</th>
+                            <th></th>
+                            <th>INDENTIFICACION</th>
+
+                            <th>NOMBRES</th>
+                            <th>APELLIDOS</th>
+                            <th>DIRECCION</th>
+                            <th>TELEFONO</th>
+                            <th>CENTRAL</th>
                             </thead>
                             <tbody>
                             <tr ng-repeat="conductor in vm.ConductoresInactivos | filter : filtro">
-                                <td>{{conductor.identificacion}}</td>
                                 <td>
-                                    <img id="imagen{{conductor.id}}" ng-src="http://{{conductor.imagen}}" class="circle" style="width: 35px;">
+                                    <img id="imagen{{conductor.id}}" ng-src="http://{{conductor.imagen}}" class="circle" style="width:32px; height: 32px; border-radius: 50%">
                                 </td>
+                                <td>{{conductor.identificacion}}</td>
+
                                 <td>{{conductor.nombres}}</td>
                                 <td>{{conductor.apellidos}}</td>
                                 <td>{{conductor.direccion}}</td>
@@ -46,7 +48,7 @@
                                         <i class="material-icons">done_all</i>
                                     </a>
                                     <a href="javascript:" ng-click="vm.eliminar(conductor.id)">
-                                        <i class="material-icons prefix">delete</i>
+                                        <i class="material-icons prefix" style="color:#c62828">delete</i>
                                     </a>
                                 </td>
                             </tr>
@@ -58,21 +60,21 @@
                     <div class="col s12">
                         <table class="striped bordered">
                             <thead>
-                            <th>Identificación</th>
-                            <th>Foto</th>
-                            <th>Nombres</th>
-                            <th>Apellidos</th>
-                            <th>Dirección</th>
-                            <th>Teléfono</th>
-                            <th>Central</th>
-                            <th>Acciones</th>
+                            <th></th>
+                            <th>INDENTIFICACION</th>
+                            <th>NOMBRES</th>
+                            <th>APELLIDOS</th>
+                            <th>DIRECCION</th>
+                            <th>TELEFONO</th>
+                            <th>CENTRAL</th>
                             </thead>
                             <tbody>
                                 <tr ng-repeat="conductor in vm.Conductores | filter : filtro">
-                                    <td>{{conductor.identificacion}}</td>
                                     <td>
-                                        <img id="imagena{{conductor.id}}" ng-src="http://{{conductor.imagen}}" class="circle" style="width: 35px;">
+                                        <img id="imagena{{conductor.id}}" ng-src="http://{{conductor.imagen}}" class="circle profile animated" style="width:32px; height: 32px; border-radius: 50%">
                                     </td>
+                                    <td>{{conductor.identificacion}}</td>
+
                                     <td>{{conductor.nombres}}</td>
                                     <td>{{conductor.apellidos}}</td>
                                     <td>{{conductor.direccion}}</td>
@@ -83,7 +85,7 @@
                                             <i class="material-icons prefix">visibility</i>
                                         </a>
                                         <a href="javascript:" ng-click="vm.eliminar(conductor.id)">
-                                            <i class="material-icons prefix">delete</i>
+                                            <i class="material-icons prefix" style="color:#c62828">delete</i>
                                         </a>
                                     </td>
                                 </tr>
@@ -155,8 +157,8 @@
                         </div>
                     </form>
                 </div>
-                <div class="col s4">
-                    <div class="col s12" id="image" style="max-height: 300px;">
+                <div class="col s4" style="width: 300px;height: 300px;">
+                    <div class="col s12" id="image">
                         <img class="thumb center" id="imagenlogo" style="width:100%" ng-src="http://{{vm.Conductor.imagen}}" title="imagen" alt="seleccione foto"/>
                     </div>
                     <div class="file-field input-field col s12" ng-show="vm.activos">
