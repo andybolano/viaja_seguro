@@ -38,58 +38,59 @@
             </form>
         </div>
     </div>
+</div>
 
-    <div id="modalCambiarContrasena" class="modal modal-fixed-footer">
-        <div class="modal-content">
-            <h2>Cambiar contraseña</h2>
-            <div class="col s12" style="text-align: center;">
-                <p>Es su primer inicio de sesion, debe cambiar su contraseña antes de continuar</p>
-            </div>
-            <div class="col s12" style="text-align: center;color:red;" ng-show="vm.mensajeError">
-                A ocurrido un error, intentelo nuevamente
-            </div>
-            <form class="col s12" name="formCambiarContrasena">
-                <div class="row">
-                    <div class="col s12">
 
-                        <div class="row">
-                            <div class="col s12">
-                                <div class="input-field">
-                                    <i class="material-icons prefix">vpn_key</i>
-                                    <input id="contrasena" name="contrasena" type="password" ng-model="vm.nuevaContrasena"
-                                           required ng-change="vm.comfirmarContrasenas()" ng-class="{'invalid' : vm.contrasenasDiferentes}">
-                                    <label for="contrasena">Contraseña</label>
-                                </div>
-                            </div>
-                        </div>
+<div id="modalCambiarContrasena" class="modal modal-fixed-footer">
+    <div class="modal-content">
+        <h2>Cambiar contraseña</h2>
+        <div class="col s12" style="text-align: center;">
+            <p>Es su primer inicio de sesion, debe cambiar su contraseña antes de continuar</p>
+        </div>
+        <div class="col s12" style="text-align: center;color:red;" ng-show="vm.mensajeError">
+            A ocurrido un error, intentelo nuevamente
+        </div>
+        <form class="col s12" name="formCambiarContrasena">
+            <div class="row">
+                <div class="col s12">
 
-                        <div class="row">
-                            <div class="col s12">
-                                <div class="input-field">
-                                    <i class="material-icons prefix">vpn_key</i>
-                                    <input id="confircontrasena" name="confircontrasena" type="password" ng-model="vm.nuevaContrasenaConfirmacion"
-                                           required ng-change="vm.comfirmarContrasenas()" ng-class="{'invalid' : vm.contrasenasDiferentes}">
-                                    <label for="confircontrasena">Confirmar Contraseña</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row" ng-show="vm.contrasenasDiferentes && formCambiarContrasena.confircontrasena.$dirty">
-                            <div class="col s12" style="text-align: center;color:red;">
-                                Error al confirmar la contraseña
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="input-field">
+                                <i class="material-icons prefix">vpn_key</i>
+                                <input id="contrasena" name="contrasena" type="password" ng-model="vm.nuevaContrasena"
+                                       required ng-change="vm.comfirmarContrasenas()" ng-class="{'invalid' : vm.contrasenasDiferentes}">
+                                <label for="contrasena">Contraseña</label>
                             </div>
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="input-field">
+                                <i class="material-icons prefix">vpn_key</i>
+                                <input id="confircontrasena" name="confircontrasena" type="password" ng-model="vm.nuevaContrasenaConfirmacion"
+                                       required ng-change="vm.comfirmarContrasenas()" ng-class="{'invalid' : vm.contrasenasDiferentes}">
+                                <label for="confircontrasena">Confirmar Contraseña</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" ng-show="vm.contrasenasDiferentes && formCambiarContrasena.confircontrasena.$dirty">
+                        <div class="col s12" style="text-align: center;color:red;">
+                            Error al confirmar la contraseña
+                        </div>
+                    </div>
                 </div>
-            </form>
-        </div>
-
-        <div class="modal-footer">
-            <button class="waves-effect waves-light btn orange" ng-click="vm.cambiarContrasena()"
-                    ng-disabled="!formCambiarContrasena.$valid">
-                Aceptar
-            </button>
-        </div>
-
+            </div>
+        </form>
     </div>
+
+    <div class="modal-footer">
+        <button class="waves-effect waves-light btn orange" ng-click="vm.cambiarContrasena()"
+                ng-disabled="!formCambiarContrasena.$valid">
+            Aceptar
+        </button>
+    </div>
+
 </div>
