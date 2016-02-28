@@ -15,6 +15,6 @@ class PdfController extends Controller
 {
     public function invoice()
     {
-//
+        $codigo_vial = '001';
     }
 }
