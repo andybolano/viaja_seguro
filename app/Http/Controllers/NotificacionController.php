@@ -21,6 +21,7 @@ class NotificacionController extends Controller
                     'alert' => $mensaje,
                     'tipo' => $tipo,
                     'ios'=>array(
+                        'tipo' => $tipo,
                         'badge'=>1,
                         'sound'=>'ping.aiff',
                         'expiry'=> 1423238641,
@@ -34,6 +35,7 @@ class NotificacionController extends Controller
                         ),
                     ),
                     'android'=> array(
+                        'tipo' => $tipo,
                         'collapseKey'=>'foo',
                         'delayWhileIdle'=> true,
                         'timeToLive'=> 300,
