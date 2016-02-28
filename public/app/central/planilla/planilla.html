@@ -20,11 +20,13 @@
                         <table class="striped responsive-table">
                             <thead>
                             <th>Número de planilla</th>
+                            <th>Valor</th>
                             <th>Acciones</th>
                             </thead>
                             <tbody>
                             <tr ng-repeat="planilla in vm.planillas | filter : filtro">
                                 <td>{{planilla.numero_planilla}}</td>
+                                <td>{{planilla.total}}</td>
                                 <td>
                                     <a href="javascript:" ng-click="vm.verPlanilla(planilla)">
                                         <i class="material-icons prefix">visibility</i>
@@ -45,7 +47,8 @@
             <body id="bodyPlanilla">
             <header class="clearfix" id="headerPlanilla">
                 <div id="logo">
-                    <img ng-src="http://{{vm.userImage}}">
+                    <img alt="image"
+                         ng-src="http://{{vm.userImagen}}" width="90px;">
                 </div>
                 <h1 id="h1Planilla">PLANILLA N° {{vm.planilla.numero_planilla}}</h1>
                 <div id="company" class="clearfix">
@@ -91,9 +94,13 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="deduccion in vm.Deducciones" ng-if="deduccion.estado == true">
+                            <tr ng-repeat="deduccion in vm.planilla.deducciones">
                                 <td class="center">{{deduccion.nombre}}</td>
                                 <td class="center">{{deduccion.valor | currency}}</td>
+                            </tr>
+                            <tr>
+                                <td class="center">VALOR TOTAL</td>
+                                <td class="center">{{vm.planilla.total | currency}}</td>
                             </tr>
                             </tbody>
                         </table>

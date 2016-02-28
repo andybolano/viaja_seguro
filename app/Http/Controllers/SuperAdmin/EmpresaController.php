@@ -242,6 +242,9 @@ class EmpresaController extends Controller
     public function getConductoresEnRuta($ruta_id)
     {
         $con = \DB::table('conductores')
+            ->join('vehiculos', 'conductores.id', '=', 'vehiculos.conductor_id')
+            ->select('conductores.id', 'conductores.nombres', 'conductores.imagen', 'conductores.apellidos',
+                'conductores.telefono', 'conductores.activo', 'conductores.central_id', 'conductores.identificacion')
             ->whereNotExists(function($query){
                 $query->select(\DB::raw(1))
                     ->from('turnos')

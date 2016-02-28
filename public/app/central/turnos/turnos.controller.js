@@ -30,6 +30,8 @@
         vm.updateTurnos = updateTurnos;
         //vehiculo
         vm.verVehiculo = verVehiculo;
+        //cliente
+        vm.getCliente = getCliente;
         //pasajeros
         vm.addPasajero = addPasajero;
         vm.asignarPasajero = asignarPasajero;
@@ -65,7 +67,6 @@
         }
 
         function addNewConductor(ruta){
-            vm.cer = {};
             vm.selectedRuta = ruta;
             $("#modalBuscarconductor").openModal({
                 dismissible: false, // Modal can be dismissed by clicking outside of the modal
@@ -82,7 +83,7 @@
             var promiseGet = turnosService.getConductoresEnRuta(ruta_id);
             promiseGet.then(function (p) {
                 for(var i = 0; i < p.data.length; i++ ) {
-                    if(p.data[i].activo == true && p.data[i].central_id == authService.currentUser().central.id && p.data[i].vehiculo != null){
+                    if(p.data[i].activo == true && p.data[i].central_id == authService.currentUser().central.id){
                         vm.Conductores.push(p.data[i]);
                     }
                 }
@@ -140,6 +141,7 @@
 
         function cargarVehiculoConductor(conductor_id){
             vm.cupos = 0;
+            vm.vehiculo = {};
             turnosService.cargarVehiculoConductor(conductor_id).then(success, error);
             function success(p) {
                 vm.vehiculo = p.data;
@@ -160,10 +162,10 @@
             function  success(p){
                 vm.listaPasajeros = [];
                 for(var i=0; i<p.data.length; i++){
-                    if(p.data[i].estado == "En ruta" ){
+                    if(p.data[i].estado == "En ruta" && p.data[i].conductor_id == conductor_id ){
                         vm.listaPasajeros.push(p.data[i]);
-                        vm.Pasajeros = "";
-                        vm.cantidad = p.data.length;
+                        vm.Pasajeros = {};
+                        vm.cantidad = vm.listaPasajeros.length;
                     }else{
                         console.log('algun error');
                     }
@@ -187,17 +189,46 @@
             });
         }
 
+        function getCliente(identificacion){
+            vm.cliente = {};
+            turnosService.getCliente(identificacion).then(succes, error);
+            function succes(p){
+                vm.cliente.id = p.data.id;
+                //pasajeros
+                vm.Pasajeros.nombres = p.data.nombres +' '+ p.data.apellidos;
+                vm.Pasajeros.telefono = p.data.telefono;
+                vm.Pasajeros.direccion = p.data.direccion;
+                //giros
+                vm.Giros.nombres = p.data.nombres +' '+ p.data.apellidos;
+                vm.Giros.telefono = p.data.telefono;
+                vm.Giros.direccion = p.data.direccion;
+                //paquetes
+                vm.Paquetes.nombres = p.data.nombres +' '+ p.data.apellidos;
+                vm.Paquetes.telefono = p.data.telefono;
+                vm.Paquetes.direccion = p.data.direccion;
+            }
+            function error(error){
+             console.log('Error al obtener informacion del cliente', error);
+            }
+        }
+
         function addPasajero(conductor){
+            vm.Pasajeros = {};
             vm.conductor = conductor;
-            refrescarPasajeros(vm.conductor.id);
-            cargarVehiculoConductor(vm.conductor.id);
-            $('#modalAddPasajero').openModal();
-            vm.cupos = vm.vehiculo.cupos - vm.cantidad;
+            $('#modalAddPasajero').openModal({
+                dismissible: false, // Modal can be dismissed by clicking outside of the modal
+                opacity: .5, // Opacity of modal background
+                in_duration: 400, // Transition in duration
+                out_duration: 300, // Transition out duration
+                ready: function() { refrescarPasajeros(vm.conductor.id); cargarVehiculoConductor(vm.conductor.id); vm.cupos = vm.vehiculo.cupos - vm.cantidad;}, // Callback for Modal open
+                //complete: function() { alert('Closed'); } // Callback for Modal close
+            });
         }
 
         function asignarPasajero(){
             vm.Pasajeros.conductor_id = vm.conductor.id;
-            if(vm.cupos == 0){
+            vm.Pasajeros.cliente_id = vm.cliente.id;
+            if(vm.cupos <= 0){
                 Materialize.toast('El conductor no posee cupos disponibles','5000',"rounded");
             }else{
                 turnosService.asignarPasajero(vm.Pasajeros).then(success, error);
@@ -224,8 +255,6 @@
             function  success(p){
                 Materialize.toast(p.data.message,'5000',"rounded");
                 refrescarPasajeros(vm.conductor.id);
-                cargarVehiculoConductor(vm.conductor.id);
-                vm.cupos = vm.vehiculo.cupos - vm.cantidad;
                 document.getElementById("guardar").disabled = false;
                 document.getElementById("actualizar").disabled = true;
             }
@@ -237,8 +266,8 @@
         function eliminarPasajero(pasajero_id){
             turnosService.eliminarPasajero(pasajero_id).then(succes, error);
             function succes(p){
-                refrescarPasajeros(vm.conductor.id);
                 cargarVehiculoConductor(vm.conductor.id);
+                refrescarPasajeros(vm.conductor.id);
                 vm.cupos = vm.vehiculo.cupos - vm.cantidad;
                 Materialize.toast(p.data.message, '5000', 'rounded');
             }
@@ -258,7 +287,7 @@
                 for(var i=0; i<p.data.length; i++){
                     if(p.data[i].estado == "En ruta" ){
                         vm.listaGiros.push(p.data[i]);
-                        vm.Giros = "";
+                        vm.Giros = {};
                     }else{
                         console.log('algun error');
                     }
@@ -270,12 +299,14 @@
         }
 
         function addGiro(conductor){
+            vm.Giros = {};
             vm.conductor = conductor;
             refrescarGiros(vm.conductor.id);
             $('#modalAddGiro').openModal();
         }
 
         function asignarGiro(){
+            vm.Giros.cliente_id = vm.cliente.id;
             vm.Giros.conductor_id = vm.conductor.id;
             turnosService.asignarGiro(vm.Giros).then(success, error);
             function  success(p){
@@ -328,7 +359,7 @@
                 for(var i=0; i<p.data.length; i++){
                     if(p.data[i].estado == "En ruta" ){
                         vm.listaPaquetes.push(p.data[i]);
-                        vm.Paquetes = "";
+                        vm.Paquetes = {};
                     }else{
                         console.log('algun error');
                     }
@@ -340,12 +371,14 @@
         }
 
         function addPaquete(conductor){
+            vm.Paquetes = {};
             vm.conductor = conductor;
             refrescarPaquetes(vm.conductor.id);
             $('#modalAddPaquetes').openModal();
         }
 
         function asignarPaquete(){
+            vm.Paquetes.cliente_id = vm.cliente.id;
             vm.Paquetes.conductor_id = vm.conductor.id;
             turnosService.asignarPaquete(vm.Paquetes).then(success, error);
             function  success(p){
@@ -438,13 +471,16 @@
                     var obj = {
                         ruta_id : datos.ruta_id,
                         turno : datos.turno,
-                        conductor_id : datos.conductor_id
+                        conductor_id : datos.conductor_id,
+                        deducciones : vm.Deducciones
                     }
+                    console.log(obj);
                     turnosService.eliminarTurno(obj).then(succes, error);
                 }
             }
             function succes(p){
                 vm.Planilla = p.data;
+                vm.Planilla.total = p.data.viaje.planilla.total;
                 console.log(vm.Planilla)
                 cargarRutas();
                 if (p.data.message == 'Despachado correctamente'){
@@ -461,8 +497,15 @@
 
         function cargarDeducciones(){
             var promiseGet = planillasService.getDeducciones();
-            promiseGet.then(function (pl) {
-                vm.Deducciones = pl.data;
+            promiseGet.then(function (p) {
+                vm.Deducciones = [];
+                for(var i=0; i<p.data.length; i++){
+                    if(p.data[i].estado == true ){
+                        vm.Deducciones.push(p.data[i]);
+                    }else{
+                        console.log('algun error');
+                    }
+                }
             },function (errorPl) {
                 console.log('Error Al Cargar Datos', errorPl);
             });

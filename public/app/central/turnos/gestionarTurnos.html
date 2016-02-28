@@ -230,7 +230,7 @@
                                     <th>Nombres y apellidos</th>
                                     <th >Telefono</th>
                                     <th >Recoger en</th>
-                                    <th >Dejar en</th>
+                                    <!--<th >Dejar en</th>-->
                                     <!--opciones-->
                                     <th width="10px"></th>
                                     <th width="10px"></th>
@@ -238,11 +238,11 @@
                                     </thead>
                                     <tbody>
                                     <tr style="background-color: transparent;">
-                                        <td><input type="text" ng-model="vm.Pasajeros.identificacion"></td>
-                                        <td><input type="text" ng-model="vm.Pasajeros.nombres"></td>
-                                        <td><input type="text" ng-model="vm.Pasajeros.telefono"></td>
-                                        <td><input type="text" ng-model="vm.Pasajeros.direccion"></td>
-                                        <td><input type="text" ng-model="vm.Pasajeros.direccionD"></td>
+                                        <td><input type="text" ng-model="vm.Pasajeros.identificacion" ng-blur="vm.getCliente(vm.Pasajeros.identificacion)"></td>
+                                        <td><input type="text" ng-model="vm.Pasajeros.nombres" required></td>
+                                        <td><input type="text" ng-model="vm.Pasajeros.telefono" required></td>
+                                        <td><input type="text" ng-model="vm.Pasajeros.direccion" required></td>
+                                        <!--<td><input type="text" ng-model="vm.Pasajeros.direccionD" required></td>-->
                                         <td><button class="btn waves-effect waves-light green " title="Guardar" id="guardar" ng-click="vm.asignarPasajero();" disabled="" ><i class="material-icons">save</i></button></td>
                                         <td><button class="btn waves-effect waves-light blue"  title="Actualizar" id="actualizar" ng-click="vm.modificarPasajero();" disabled="" ><i class="material-icons">reply</i></button></td>
                                         <td><button class="btn waves-effect waves-light red"  title="limpiar" id="limpiar" ng-click="vm.limpiarPasajeros(vm.conductor.id);"><i class="material-icons">clear</i></button></td>
@@ -252,7 +252,7 @@
                                         <td>{{pasajero.nombres}} {{pasajero.cliente.apellidos}}</td>
                                         <td>{{pasajero.telefono}}</td>
                                         <td>{{pasajero.direccion}}</td>
-                                        <td>{{pasajero.direccionD}}</td>
+                                        <!--<td>{{pasajero.direccionD}}</td>-->
                                         <td></td>
                                         <td style="text-align: center;"><a href="javascript:;" title="editar" ng-click="vm.cargarModificarPasajero(pasajero);"><i class="material-icons">create</i></a></td>
                                         <td style="text-align: center;"><a href="javascript:;" title="eliminar" ng-click="vm.eliminarPasajero(pasajero.id)"><i class="material-icons" style="color:#F44336">remove</i></a></td>
@@ -298,7 +298,7 @@
                                     </thead>
                                     <tbody>
                                     <tr style="background-color: transparent;">
-                                        <td><input type="text" ng-model="vm.Giros.ide_remitente"></td>
+                                        <td><input type="text" ng-model="vm.Giros.ide_remitente" ng-blur="vm.getCliente(vm.Giros.ide_remitente)"></td>
                                         <td><input type="text" ng-model="vm.Giros.nombres"></td>
                                         <td><input type="text" ng-model="vm.Giros.telefono"></td>
                                         <td><input type="text" ng-model="vm.Giros.direccion"></td>
@@ -364,7 +364,7 @@
                                     </thead>
                                     <tbody>
                                     <tr style="background-color: transparent;">
-                                        <td><input type="text" ng-model="vm.Paquetes.ide_remitente"></td>
+                                        <td><input type="text" ng-model="vm.Paquetes.ide_remitente" ng-blur="vm.getCliente(vm.Paquetes.ide_remitente)"></td>
                                         <td><input type="text" ng-model="vm.Paquetes.nombres"></td>
                                         <td><input type="text" ng-model="vm.Paquetes.telefono"></td>
                                         <td><input type="text" ng-model="vm.Paquetes.direccion"></td>
@@ -474,9 +474,13 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="deduccion in vm.Deducciones" ng-if="deduccion.estado == true">
+                            <tr ng-repeat="deduccion in vm.Planilla.viaje.planilla.deducciones">
                                 <td class="center">{{deduccion.nombre}}</td>
                                 <td class="center">{{deduccion.valor | currency}}</td>
+                            </tr>
+                            <tr>
+                                <td class="center">VALOR TOTAL</td>
+                                <td class="center">{{vm.Planilla.total | currency}}</td>
                             </tr>
                             </tbody>
                         </table>

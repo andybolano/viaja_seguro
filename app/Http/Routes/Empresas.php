@@ -12,3 +12,5 @@ Route::get('/api/empresas/{empresa_id}/conductores/all', 'SuperAdmin\EmpresaCont
 Route::post('/api/empresas/{empresa_id}/conductores', 'SuperAdmin\EmpresaController@storeConductor');
 
 Route::get('/api/empresas/{empresa_id}/rutas', 'SuperAdmin\EmpresaController@getRutas');
+
+Route::post('/api/empresas/{empresa_id}/centrales/{central_id}/producidos_fecha', 'Empresa\AuditoriaController@getProducidosFecha');

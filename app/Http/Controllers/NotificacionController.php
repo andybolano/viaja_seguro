@@ -19,11 +19,14 @@ class NotificacionController extends Controller
                 'tokens' => array($device_token),
                 'notification' => array(
                     'alert' => $mensaje,
+                    'tipo' => $tipo,
                     'ios'=>array(
+                        'tipo' => $tipo,
                         'badge'=>1,
                         'sound'=>'ping.aiff',
                         'expiry'=> 1423238641,
                         'priority'=> 10,
+                        'tipo' => $tipo,
                         'contentAvailable'=> true,
                         'payload'=> array(
                             'message'=> $mensaje,
@@ -32,9 +35,11 @@ class NotificacionController extends Controller
                         ),
                     ),
                     'android'=> array(
+                        'tipo' => $tipo,
                         'collapseKey'=>'foo',
                         'delayWhileIdle'=> true,
                         'timeToLive'=> 300,
+                        'tipo' => $tipo,
                         'payload'=> array(
                             'message' => $mensaje,
                             'title' => 'Viaja Seguro',
@@ -53,10 +58,10 @@ class NotificacionController extends Controller
             curl_setopt($ch, CURLOPT_URL, $url);
             curl_setopt($ch, CURLOPT_POST, TRUE);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $content);
-            curl_setopt($ch, CURLOPT_USERPWD, "1fc7897dd96591ed26be9a32da7b268345ce312b91f03d81" . ":" );
+            curl_setopt($ch, CURLOPT_USERPWD, "457235565b901aee2242123a43ccbe6f14c3cca2a7181fbf" . ":" );
             curl_setopt($ch, CURLOPT_HTTPHEADER, array(
                 'Content-Type: application/json',
-                'X-Ionic-Application-Id: 364e6de6'
+                'X-Ionic-Application-Id: 759cdf23'
             ));
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             $result = curl_exec($ch);

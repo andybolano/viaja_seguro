@@ -26,16 +26,19 @@ class ViajesController extends Controller
 
     public function deleteTurno(Request $request){
         $data = $request->all();
+//        unset($data['deducciones']);
+        $deducciones = $data['deducciones'];
         if(!DB::table('turnos')->where('ruta_id', $data['ruta_id'])->where('turno', $data['turno'] )->delete()){
             return JsonResponse::create(array('message' => 'Error al eliminar'));
         }else{
-            return JsonResponse::create(array('message' => 'Despachado correctamente', 'viaje' => $this->crearViaje($data['conductor_id'], $data['ruta_id'])));
+            return JsonResponse::create(array('message' => 'Despachado correctamente', 'viaje' => $this->crearViaje($data['conductor_id'], $data['ruta_id'], $deducciones)));
         }
 
     }
 
-    public function crearViaje($conductor_id, $ruta_id){
+    public function crearViaje($conductor_id, $ruta_id, $deducciones){
         $viaje = new Viaje();
+        $totalD = 0;
 
         $viaje->conductor_id = $conductor_id;
         $viaje->ruta_id = $ruta_id;
@@ -58,7 +61,18 @@ class ViajesController extends Controller
                 $viaje->paquetes()->attach($paquete['id']);
             }
 
-            $this->crearPlanilla($viaje->id, $viaje->conductor_id);
+            foreach($deducciones as $deduccion){
+                $viaje->deducciones()->attach($deduccion['id']);
+                if($deduccion['nombre'] == 'PASAJE'){
+                    $valorP = $deduccion['valor'];
+                }
+                if($deduccion['nombre'] != 'PASAJE'){
+                    $totalD += $deduccion['valor'];
+                }
+            }
+            $total = $totalD + ((count($pasajeros) * $valorP));
+
+            $this->crearPlanilla($viaje->id, $viaje->conductor_id, $total);
             $planilla = $this->generarDatosPlanilla($viaje->id);
 
             return array('viaje' => $viaje, 'planilla' => $planilla);
@@ -67,12 +81,13 @@ class ViajesController extends Controller
         }
     }
 
-    public function crearPlanilla($viaje_id, $conductor_id){
+    public function crearPlanilla($viaje_id, $conductor_id, $total){
         $central = Conductor::find($conductor_id)->first();
 
         $planilla = new Planilla();
         $planilla->viaje_id = $viaje_id;
         $planilla->central_id = $central->central_id;
+        $planilla->total = $total;
 
         $planilla->numero_planilla = $this->generarNumeroPlanilla($conductor_id);
         if($planilla->save()){
@@ -91,6 +106,8 @@ class ViajesController extends Controller
             ->where('viajes.id', $viaje)->join('viajes', 'viaje_pasajeros.viaje_id', '=', 'viajes.id')->select('*')->get();
         $consulta['paquetes'] = \DB::table('paquetes')->join('viaje_paquetes', 'paquetes.id', '=', 'viaje_paquetes.paquete_id')
             ->where('viajes.id', $viaje)->join('viajes', 'viaje_paquetes.viaje_id', '=', 'viajes.id')->select('*')->get();
+        $consulta['deducciones'] = \DB::table('deducciones')->join('viaje_deducciones', 'deducciones.id', '=', 'viaje_deducciones.deduccion_id')
+            ->where('viajes.id', $viaje)->join('viajes', 'viaje_deducciones.viaje_id', '=', 'viajes.id')->select('*')->get();
 
         $consulta['conductor'] = Viaje::find($viaje)->conductor;
         return $consulta;

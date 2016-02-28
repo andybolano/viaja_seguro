@@ -33,7 +33,10 @@
         this.updateCuposVehiculo = function(id, cupo){
             return $http.put(API + '/vehiculos/'+id,cupo);
         }
-
+        //cliente
+        this.getCliente = function(ide){
+            return $http.get(API + '/central/clientes/'+ide);
+        }
         //pasajeros
         this.refrescarPasajeros = function (id) {
             return $http.get(API+'/centrales/'+id+'/pasajeros');
