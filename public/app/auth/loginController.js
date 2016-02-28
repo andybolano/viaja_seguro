@@ -25,16 +25,23 @@
 
         function iniciarSesion(){
             vm.mensajeError = '';
+            document.getElementById("loading").style.display="block";
+             document.getElementById("btn-inicio").disabled=true;
             authService.login(vm.usuario).then(success, error);
             function success(p) {
+                 document.getElementById("loading").style.display="none";
+                 document.getElementById("btn-inicio").disabled=false;
                 var usuario = authService.storeUser(p.data.token);
                 if(usuario.estado == -1){
                     $("#modalCambiarContrasena").openModal();
                 }else {
                     redirect(usuario.rol);
                 }
+               
             }
             function error(error) {
+                document.getElementById("loading").style.display="none";
+                 document.getElementById("btn-inicio").disabled=false;
                 console.log('Error en Login', error);
                 vm.mensajeError = error.status == 401 ? error.data.mensajeError : 'A ocurrido un erro inesperado';
             }

@@ -1,34 +1,41 @@
 
 <div ng-controller="loginController as vm" class="red accent-4" style="position: absolute; left: 0px; top: 0px;z-index: 1000;min-height: 100%; width: 100%;">
-    <div class="row" style="margin-top: 10%;">
+    <div class="row" style="margin-top: 5%;">
 
-        <div class="col s12" style="text-align: center;">
-            <img src="../assets/images/logo.png" width="125px;">
-        </div>
-        <div class="offset-s4 col s4 z-depth-1 white" style="padding: 30px;">
+        <div class="offset-s4 col s4 z-depth-1 white animated bounceInLeft" style="padding: 30px;">
             <div class="row">
                 <div class="col s12" style="text-align: center;color:red;">
                     {{vm.mensajeError}}
                 </div>
             </div>
+            <center>
+            <img src="../assets/images/loading.gif" style="width:40px;display:none" id="loading">
+            </center>
+            <br>
+         <center><h2>Inicio de Sesi&oacute;n</h2></center>   
+        <div class="col s12" style="text-align: center;">
+            <img src="../assets/images/logo.jpg" style="width:400px;">
+        </div>
             <form name="formLogin">
+                
+                <br>
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="mdi-action-account-circle prefix"></i>
                         <input type="text" ng-model="vm.usuario.name" id="username" name="username" required>
-                        <label class="{{active}}" for="username">Usuario</label>
+                        
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="mdi-communication-vpn-key prefix"></i>
                         <input type="password" ng-model="vm.usuario.pass" id="pass" name="pass" required>
-                        <label class="{{active}}" for="pass">Contraseña</label>
+                       
                     </div>
                 </div>
                 <div class="row">
                     <div class="col s12" style="text-align: right; padding-right: 0;">
-                        <button class="btn waves-effect waves-light red accent-4" type="submit" ng-click="vm.iniciarSesion()"
+                        <button class="btn waves-effect waves-light red accent-4" id="btn-inicio" type="submit" ng-click="vm.iniciarSesion()"
                                 ng-class="{'disabled': formLogin.$invalid}">
                             Iniciar Sesión
                             <i class="material-icons right">send</i>

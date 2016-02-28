@@ -84,7 +84,7 @@ table tr:nth-child(2n-1) td {
   background: #F5F5F5;
 }
 
-table th,
+
 /*table td {*/
   /*text-align: center;*/
 /*}*/
@@ -94,7 +94,7 @@ table th {
   color: #5D6975;
   border-bottom: 1px solid #C1CED9;
   white-space: nowrap;        
-  font-weight: normal;
+  font-weight: 900;
 }
 
 

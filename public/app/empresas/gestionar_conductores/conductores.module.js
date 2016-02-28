@@ -19,7 +19,7 @@
 
     function run(appMenu){
         appMenu.addTo([
-            {nombre:'Gestion de conductores', link:'app.empresas_gestion_conductores', icon:'directions_car'}
+            {nombre:'Gestion de conductores', link:'app.empresas_gestion_conductores', icon:'person'}
         ], 'EMPRESA');
     }
 })();
