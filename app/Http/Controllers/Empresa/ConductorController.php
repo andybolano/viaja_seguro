@@ -139,7 +139,10 @@ class ConductorController extends Controller
     public function postUbicacion(Request $request, $conductor_id){
         $data = $request->all();
 
-        $busqueda = \DB::table('ubicacion_conductor')->select('conductor_id')->where('conductor_id', $conductor_id)->first();
+        $busqueda = \DB::table('ubicacion_conductor')
+            ->select('conductor_id')
+            ->where('conductor_id', $conductor_id)
+            ->first();
         if($busqueda == null){
             \DB::table('ubicacion_conductor')->insert(
                 array('conductor_id' => $conductor_id, 'latitud' => $data['latitud'], 'longitud' => $data['longitud'])
@@ -148,6 +151,9 @@ class ConductorController extends Controller
             DB::table('ubicacion_conductor')->where('conductor_id', $conductor_id)
                 ->update(['latitud' => $data['latitud'], 'longitud' => $data['longitud']]);
         }
+        \DB::update('UPDATE ubicacion_conductor, turnos
+          SET ubicacion_conductor.ruta_id = turnos.ruta_id
+          WHERE ubicacion_conductor.conductor_id = turnos.conductor_id;');
     }
 
     public function getUbicacion($ruta_id){
