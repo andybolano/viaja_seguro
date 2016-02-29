@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Input;
 
 class CentralesController extends Controller
 {
@@ -20,6 +21,8 @@ class CentralesController extends Controller
      */
     public function index($empresa_id)
     {
+        if ($ciudad = Input::get('ciudad'))
+            return $this->getByCiudad($ciudad);
         try{
             $centrales = Empresa::find($empresa_id)->centrales;
             foreach($centrales as $central) {
@@ -70,6 +73,15 @@ class CentralesController extends Controller
     public function show($codigo)
     {
         //
+    }
+
+    public function getByCiudad($ciudad)
+    {
+        $central = Central::whereHas('ciudad', function($query) use ($ciudad) {
+            return $query->where('nombre', $ciudad);
+        })->first();
+        $central->ciudad->load('departamento');
+        return $central;
     }
 
     /**
