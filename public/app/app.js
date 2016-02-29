@@ -37,7 +37,7 @@
                         sessionStorage.setItem('jwt',response.data.token);
                         return response.data.token;
                     },function(response){
-                        store.remove('jwt');
+                        sessionStorage.removeItem('jwt');
                     });
                 }else{
                     return jwt;
@@ -46,21 +46,6 @@
         };
 
         $httpProvider.interceptors.push('jwtInterceptor');
-
-        //function responseInterceptor(){
-        //    return {
-        //        response: function(response){
-        //            if(response.headers('Authorization')){
-        //                var newToken = response.headers('Authorization').substr(7);
-        //                sessionStorage.setItem('jwt', newToken);
-        //                console.log(sessionStorage.getItem('jwt'));
-        //            }
-        //            return response;
-        //        }
-        //    }
-        //}
-
-        //$httpProvider.interceptors.push(responseInterceptor);
 
         $urlRouterProvider.when('', '/');
         $urlRouterProvider.when('/', '/login');

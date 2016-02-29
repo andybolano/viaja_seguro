@@ -3,6 +3,7 @@
 use App\Model\Central;
 use App\Model\Ciudad;
 use App\Model\Empresa;
+use App\Model\Municipio;
 use App\Model\Rol;
 use App\Model\Usuario;
 use Illuminate\Http\Request;
@@ -21,7 +22,9 @@ class CentralesController extends Controller
     {
         try{
             $centrales = Empresa::find($empresa_id)->centrales;
-            $centrales->load('ciudad');
+            foreach($centrales as $central) {
+                $central->ciudad->load('departamento');
+            }
             $centrales->load('usuario');
             return $centrales;
         }catch(\Exception $e){
@@ -39,7 +42,7 @@ class CentralesController extends Controller
     {
         try{
             $data = $request->json()->all();
-            $ciudad = Ciudad::find($data['ciudad']['id']);
+            $ciudad = Municipio::find($data['ciudad']['codigo']);
             unset($data['ciudad']);
             $data_usuario = $data['usuario'];
             unset($data['usuario']);
@@ -53,6 +56,7 @@ class CentralesController extends Controller
             }
             return response()->json($central, 201);
         } catch (\Exception $exc) {
+            $usuario->delete();
             return response()->json(array("exception"=>$exc->getMessage()), 400);
         }
     }

@@ -158,6 +158,7 @@
                     var firstAddress = results[0];
                     var latitude = firstAddress.geometry.location.lat();
                     var longitude = firstAddress.geometry.location.lng();
+                    console.log(firstAddress);
                     vm.selectedCentral.miDireccionLa = latitude;
                     vm.selectedCentral.miDireccionLo = longitude;
                     vm.map = {
@@ -171,7 +172,7 @@
                     var marcador = new google.maps.Marker({position: coordenada1,map: map, animation: 1, title:direccion});
                     return coordenada1;
                 } else {
-                    alert("Dirección desconocida: " + direccion);
+                    console.log("Dirección desconocida: " + direccion);
                 }
             });
         }

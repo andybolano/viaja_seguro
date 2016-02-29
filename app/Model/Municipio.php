@@ -7,7 +7,7 @@ class Municipio extends Model
 
     protected $table = 'municipios';
 
-    protected $guarded = ['id'];
+    protected $primaryKey = 'codigo';
 
     public $timestamps = false;
 

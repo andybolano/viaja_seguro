@@ -2,6 +2,7 @@
 
 use App\Model\Ciudad;
 use App\Model\Departamento;
+use App\Model\Municipio;
 use Illuminate\Routing\Controller;
 
 class CiudadesController extends Controller
@@ -14,7 +15,7 @@ class CiudadesController extends Controller
      */
     public function index()
     {
-        return Ciudad::all();
+        return Municipio::all()->load('departamento');
     }
 
     public function getDepartamentos()

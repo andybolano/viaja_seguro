@@ -18,7 +18,7 @@ class Central extends Model
 
     public function ciudad()
     {
-        return $this->belongsTo(Ciudad::class);
+        return $this->belongsTo(Municipio::class, 'ciudad_id', 'codigo');
     }
 
     public function rutas()

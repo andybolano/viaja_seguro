@@ -67,7 +67,7 @@
                         <div class="row">
                             <div class="row input-field col s12">
                                 <i class="material-icons prefix">local_taxi</i>
-                                <input id="ciudad" type="text" class="validate" name="ciudad" ng-model="vm.selectedCentral.ciudad.nombre"
+                                <input id="ciudad" type="text" class="validate" name="ciudad" ng-value="vm.selectedCentral.ciudad.nombre +' - '+vm.selectedCentral.ciudad.departamento.nombre"
                                        readonly required ng-click="vm.openCiudades()">
                                 <label for="ciudad" class="{{vm.active}}" ng-class="{'active' : vm.selectedCentral.ciudad.nombre}">Ciudad</label>
                             </div>
@@ -188,7 +188,7 @@
                 </li>
                 <li class="collection-item" ng-repeat="ciudad in vm.ciudades| filter : filtroCiudades">
                     <div style="padding-left: 10px">
-                        {{ciudad.nombre}}
+                        {{ciudad.nombre}} - {{ciudad.departamento.nombre}}
                         <a href="javascript:;" class="secondary-content" ng-click="vm.selecionarCiudad(ciudad)">
                             <i class="material-icons prefix">touch_app</i>
                         </a>
