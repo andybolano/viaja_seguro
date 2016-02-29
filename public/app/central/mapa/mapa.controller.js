@@ -7,12 +7,14 @@
 
     function mapaController(mapaService, turnosService, authService) {
         var vm = this;
+        var intval = "";
 
         vm.verConductores = verConductores;
         initialize();
 
         function initialize(){
             //vm.ubicaciones = [];
+            vm.ruta_id = 0;
             cargarRutas();
         }
 
@@ -28,12 +30,27 @@
 
         function verConductores(ruta_id){
             vm.ruta_id = ruta_id;
-            $('#modalMapaConductores').openModal();
-            ubicacionConductores(vm.ruta_id);
+            $('#modalMapaConductores').openModal({
+                dismissible: false, // Modal can be dismissed by clicking outside of the modal
+                opacity: .5, // Opacity of modal background
+                in_duration: 400, // Transition in duration
+                out_duration: 300, // Transition out duration
+                ready: function() {
+                    ubicacionConductores(vm.ruta_id);
+                    intval=window.setInterval(ubicacionConductores,5000);
+                }, // Callback for Modal open
+                complete: function() {
+                    if(intval!=""){
+                        window.clearInterval(intval);
+                        intval="";
+                    }
+                } // Callback for Modal close
+            });
         }
 
-        function ubicacionConductores(ruta_id) {
-            mapaService.getUbicacionConductores(ruta_id).then(succes, error);
+
+        function ubicacionConductores() {
+            mapaService.getUbicacionConductores(vm.ruta_id).then(succes, error);
             function succes(p) {
                 vm.ubicaciones = p.data;
                 var colombia = new google.maps.LatLng(authService.currentUser().central.miDireccionLa, authService.currentUser().central.miDireccionLo);
