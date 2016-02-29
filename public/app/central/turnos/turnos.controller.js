@@ -175,11 +175,6 @@
                         console.log('algun error');
                     }
                 }
-                //if(vm.listaPasajeros.length <= 0){
-                //    vm.cantidad = 0;
-                //}else{
-                //    vm.cantidad = vm.listaPasajeros.length;
-                //}
             }
             function error(error){
                 console.log('error a traer la lista de pasajeros')
@@ -232,12 +227,6 @@
                 out_duration: 300, // Transition out duration
                 ready: function() {
                     refrescarPasajeros(vm.conductor.id);
-                    //cargarVehiculoConductor(vm.conductor.id);
-                    //if(vm.cantidad == null){
-                    //    vm.cupos = 0;
-                    //}else{
-                    //    vm.cupos = vm.vehiculo.cupos - vm.cantidad;
-                    //}
                 }, // Callback for Modal open
                 //complete: function() { alert('Closed'); } // Callback for Modal close
             });
@@ -253,8 +242,6 @@
             }
             function  success(p){
                 refrescarPasajeros(vm.conductor.id);
-                //cargarVehiculoConductor(vm.conductor.id);
-                //vm.cupos = vm.vehiculo.cupos - vm.cantidad;
                 Materialize.toast(p.data.message, '5000', 'rounded');
             }
             function error(error){
@@ -284,9 +271,7 @@
         function eliminarPasajero(pasajero_id){
             turnosService.eliminarPasajero(pasajero_id).then(succes, error);
             function succes(p){
-                //cargarVehiculoConductor(vm.conductor.id);
                 refrescarPasajeros(vm.conductor.id);
-                //vm.cupos = vm.vehiculo.cupos - vm.cantidad;
                 Materialize.toast(p.data.message, '5000', 'rounded');
             }
             function error(error){
@@ -504,6 +489,49 @@
                 swal({
                     title: 'ESPERA UN MOMENTO!',
                     text: 'El conductor en turno aun tiene cupos disponibles',
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Despachar',
+                    cancelButtonText: 'Cancelar',
+                    closeOnConfirm: false
+                }, function(isConfirm) {
+                    if (isConfirm) {
+                        turnosService.eliminarTurno(obj).then(succes, error);
+                    }
+                    function succes(p){
+                        vm.Planilla = p.data;
+                        vm.Planilla.total = p.data.viaje.planilla.total;
+                        swal.disableButtons();
+                        setTimeout(function() {
+                            swal({
+                                title: 'Exito!',
+                                text: 'El coductor ha sido despachado exitosamete',
+                                type: 'success',
+                                showCancelButton: true,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Mostrar planilla',
+                                cancelButtonText: 'Cerrar',
+                                closeOnConfirm: true
+                            }, function() {
+                                $('#modalPlanilla').openModal();
+                                cargarRutas();
+                            });
+                        }, 2000);
+                    }
+                    function error(error){
+                        swal(
+                            'ERROR!!',
+                            'Ocurrio un error al despachar el conductor)',
+                            'error'     );
+                    }
+                });
+            }else{
+                swal({
+                    title: '',
+                    text: 'ESTA A PUNTO DE DESPACHAR AL CONDUCTOR EN TURNO',
                     type: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',

@@ -179,8 +179,8 @@ class ConductorController extends Controller
 
     public function getCupos($conductor_id){
         list($total) = DB::table('vehiculos')->select(
-            DB::raw('( (cupos) - (select count(conductor_id) from pasajeros where conductor_id =5 and estado = "En ruta") ) as total'))
-            ->where('conductor_id', 5)->get('total');
+            DB::raw('( (cupos) - (select count(conductor_id) from pasajeros where conductor_id ='.$conductor_id.' and estado = "En ruta") ) as total'))
+            ->where('conductor_id', $conductor_id)->get('total');
 
         return $total->total;
     }
