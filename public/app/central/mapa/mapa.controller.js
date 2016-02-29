@@ -53,6 +53,7 @@
                 $.each(vm.ubicaciones, function (i, obj) {
                     vm.obj = {};
                     if(obj.conductor.central_id == authService.currentUser().central.id && obj.conductor.activo == true){
+
                         var marcadores = [{
                             position: {
                                 lat: obj.latitud,
@@ -61,7 +62,7 @@
                             contenido : '<div >\
                             \<div >\<img src="http://' + (obj.conductor.imagen) + '" title="' + obj.conductor.nombres + '" title="" style="width: 150px;height: 120px;" />\
                             \</div>\<div class="contentTxt">\
-                            \<h2>' + obj.conductor.nombres + ' ' + obj.conductor.apellidos + '\</h2>\
+                            \<h2>' + obj.conductor.nombres + '<br>' + obj.conductor.apellidos + '\</h2>\
                             \<p>\TELEFONO: ' + obj.conductor.telefono + '\</p>\
                             \<p>\CODIGO VIAL: ' + obj.vehiculo_conductor.codigo_vial + '\</p>\
                             \</div>\<div class="clear"></div>\</div>',
