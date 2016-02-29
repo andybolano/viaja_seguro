@@ -14,4 +14,6 @@ Route::get('/api/conductores/ruta/{ruta_id}', 'SuperAdmin\EmpresaController@getC
 
 Route::put('/api/conductores/{conductor_id}/reg_id/{reg_id}', 'Empresa\ConductorController@updateRegId');
 
+Route::get('/api/conductores/{conductor_id}/cupos', 'Empresa\ConductorController@getCupos');
+
 

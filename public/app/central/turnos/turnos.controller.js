@@ -145,12 +145,12 @@
         }
 
         function cargarVehiculoConductor(conductor_id){
-            vm.cupos = 0;
+            //vm.cupos = 0;
             vm.vehiculo = {};
             turnosService.cargarVehiculoConductor(conductor_id).then(success, error);
             function success(p) {
                 vm.vehiculo = p.data;
-                vm.cupos = vm.vehiculo.cupos - vm.cantidad;
+                //vm.cupos = vm.vehiculo.cupos - vm.cantidad;
                 vm.vehiculo.fecha_soat = new Date(p.data.fecha_soat);
                 vm.vehiculo.fecha_tecnomecanica = new Date(p.data.fecha_tecnomecanica);
             }
@@ -163,6 +163,7 @@
         function refrescarPasajeros(conductor_id){
             document.getElementById("guardar").disabled = false;
             document.getElementById("actualizar").disabled = true;
+            getCuposDisponibles(conductor_id);
             turnosService.refrescarPasajeros(conductor_id).then(success, error);
             function  success(p){
                 vm.listaPasajeros = [];
@@ -173,11 +174,6 @@
                     }else{
                         console.log('algun error');
                     }
-                }
-                if(vm.listaPasajeros.length <= 0){
-                    vm.cantidad = 0;
-                }else{
-                    vm.cantidad = vm.listaPasajeros.length;
                 }
             }
             function error(error){
@@ -231,12 +227,6 @@
                 out_duration: 300, // Transition out duration
                 ready: function() {
                     refrescarPasajeros(vm.conductor.id);
-                    cargarVehiculoConductor(vm.conductor.id);
-                    if(vm.cantidad == null){
-                        vm.cupos = 0;
-                    }else{
-                        vm.cupos = vm.vehiculo.cupos - vm.cantidad;
-                    }
                 }, // Callback for Modal open
                 //complete: function() { alert('Closed'); } // Callback for Modal close
             });
@@ -252,8 +242,6 @@
             }
             function  success(p){
                 refrescarPasajeros(vm.conductor.id);
-                cargarVehiculoConductor(vm.conductor.id);
-                vm.cupos = vm.vehiculo.cupos - vm.cantidad;
                 Materialize.toast(p.data.message, '5000', 'rounded');
             }
             function error(error){
@@ -283,9 +271,7 @@
         function eliminarPasajero(pasajero_id){
             turnosService.eliminarPasajero(pasajero_id).then(succes, error);
             function succes(p){
-                cargarVehiculoConductor(vm.conductor.id);
                 refrescarPasajeros(vm.conductor.id);
-                vm.cupos = vm.vehiculo.cupos - vm.cantidad;
                 Materialize.toast(p.data.message, '5000', 'rounded');
             }
             function error(error){
@@ -471,7 +457,6 @@
             function succes(p){
                 vm.turnos = p.data;
                 if(vm.turnos.turno == 1){
-                    console.log(vm.turnos)
                     ejecutarDespachoConductor(vm.turnos);
                 }
 
@@ -481,34 +466,111 @@
             }
         }
 
+        function getCuposDisponibles(conductor_id){
+            turnosService.getCupos(conductor_id).then(succes, error);
+            function succes(d){
+                vm.cupos = d.data;
+            }
+            function error(e){
+
+            }
+        }
+
         function ejecutarDespachoConductor(datos){
+            getCuposDisponibles(datos.conductor_id);
             vm.Planilla = {};
+            var obj = {
+                ruta_id : datos.ruta_id,
+                turno : datos.turno,
+                conductor_id : datos.conductor_id,
+                deducciones : vm.Deducciones
+            }
             if(vm.cupos > 0){
-                if(confirm('Este conductor aun tiene cupos disponibles, quieres despacharlo?') == true) {
-                    var obj = {
-                        ruta_id : datos.ruta_id,
-                        turno : datos.turno,
-                        conductor_id : datos.conductor_id,
-                        deducciones : vm.Deducciones
+                swal({
+                    title: 'ESPERA UN MOMENTO!',
+                    text: 'El conductor en turno aun tiene cupos disponibles',
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Despachar',
+                    cancelButtonText: 'Cancelar',
+                    closeOnConfirm: false
+                }, function(isConfirm) {
+                    if (isConfirm) {
+                        turnosService.eliminarTurno(obj).then(succes, error);
                     }
-                    console.log(obj);
-                    turnosService.eliminarTurno(obj).then(succes, error);
-                }
-            }
-            function succes(p){
-                vm.Planilla = p.data;
-                vm.Planilla.total = p.data.viaje.planilla.total;
-                console.log(vm.Planilla)
-                cargarRutas();
-                if (p.data.message == 'Despachado correctamente'){
-                    Materialize.toast(p.data.message, 5000);
-                    $('#modalPlanilla').openModal();
-                }else{
-                    Materialize.toast(vm.Planilla.message, 5000);
-                }
-            }
-            function error(error){
-                Materialize.toast(error.message, 5000);
+                    function succes(p){
+                        vm.Planilla = p.data;
+                        vm.Planilla.total = p.data.viaje.planilla.total;
+                        swal.disableButtons();
+                        setTimeout(function() {
+                            swal({
+                                title: 'Exito!',
+                                text: 'El coductor ha sido despachado exitosamete',
+                                type: 'success',
+                                showCancelButton: true,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Mostrar planilla',
+                                cancelButtonText: 'Cerrar',
+                                closeOnConfirm: true
+                            }, function() {
+                                $('#modalPlanilla').openModal();
+                                cargarRutas();
+                            });
+                        }, 2000);
+                    }
+                    function error(error){
+                        swal(
+                            'ERROR!!',
+                            'Ocurrio un error al despachar el conductor)',
+                            'error'     );
+                    }
+                });
+            }else{
+                swal({
+                    title: '',
+                    text: 'ESTA A PUNTO DE DESPACHAR AL CONDUCTOR EN TURNO',
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Despachar',
+                    cancelButtonText: 'Cancelar',
+                    closeOnConfirm: false
+                }, function(isConfirm) {
+                    if (isConfirm) {
+                        turnosService.eliminarTurno(obj).then(succes, error);
+                    }
+                    function succes(p){
+                        vm.Planilla = p.data;
+                        vm.Planilla.total = p.data.viaje.planilla.total;
+                        swal.disableButtons();
+                        setTimeout(function() {
+                            swal({
+                                title: 'Exito!',
+                                text: 'El coductor ha sido despachado exitosamete',
+                                type: 'success',
+                                showCancelButton: true,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Mostrar planilla',
+                                cancelButtonText: 'Cerrar',
+                                closeOnConfirm: true
+                            }, function() {
+                                $('#modalPlanilla').openModal();
+                                cargarRutas();
+                            });
+                        }, 2000);
+                    }
+                    function error(error){
+                        swal(
+                            'ERROR!!',
+                            'Ocurrio un error al despachar el conductor)',
+                            'error'     );
+                    }
+                });
             }
         }
 

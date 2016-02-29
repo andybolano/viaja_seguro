@@ -5,13 +5,14 @@
             <div class="contenedor simpleDemo col s12">
                 <div class="row">
                     <div class="col s9"><p style="font-size: 20px">{{ruta.destino.ciudad.nombre}}</p></div>
+                    <br>
                     <div class="col s2">
-                        <p><a class="btn waves-effect waves-light" ng-click="vm.despacharConductor(ruta.id)">Despachar<i class="material-icons right">send</i></a></p>
+                        <a class="btn waves-effect waves-light" ng-click="vm.despacharConductor(ruta.id)">Despachar<i class="material-icons right">send</i></a>
                     </div>
                     <div class="col s1">
-                        </p><a class="btn waves-effect waves-light red" ng-click="vm.addNewConductor(ruta)">
+                        <a class="btn waves-effect waves-light red" ng-click="vm.addNewConductor(ruta)">
                         <i class="material-icons">add</i>
-                        </a></p>
+                        </a>
                     </div>
                 </div>
                 <div class="row">
@@ -33,7 +34,7 @@
                                 </div>
                                 <div class="col s8">
                                     <span class="title">{{turno.conductor.nombres}} {{turno.conductor.apellidos}}</span>
-     sp                         </div>
+                              </div>
                                 <div class="col s1" style="padding: 0 0">
                                     <a class="waves-effect waves-teal" style="float: right" ng-click="vm.remove(ruta, $index)">
                                         <i class="material-icons prefix small">delete</i>
