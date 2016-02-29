@@ -38,6 +38,10 @@ class Conductor extends Model
         }
     }
 
+    public function pasajerosEnRuta(){
+        return $this->hasMany(Pasajero::class)->select('*')->where('estado', 'En ruta');
+    }
+
     public function pasajeros()
     {
         return $this->hasMany(Pasajero::class);

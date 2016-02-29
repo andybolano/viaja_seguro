@@ -22,6 +22,10 @@
             return $http.get(API + '/rutas/'+ruta_id+'/turnos');
         }
 
+        this.getCupos = function(conductor_id){
+            return $http.get(API + '/conductores/'+conductor_id+'/cupos');
+        }
+
         this.eliminarTurno = function(obj){
             return $http.post(API +'/rutas/turnos/conductor', obj);
         }
