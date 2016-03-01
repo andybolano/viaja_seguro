@@ -46,6 +46,11 @@ class Central extends Model
         return $this->hasMany(Pasajero::class);
     }
 
+    public function solicitudes()
+    {
+        return $this->hasMany(Solicitud::class);
+    }
+
     public function giros()
     {
         return $this->hasMany(Giro::class);
