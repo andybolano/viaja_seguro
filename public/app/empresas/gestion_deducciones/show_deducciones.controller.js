@@ -24,7 +24,6 @@
             cargarDeducciones();
         }
         function cargarDeducciones() {
-            vm.Deducciones = [];
             var promiseGet = deduccionesService.getAll();
             promiseGet.then(function (pl) {
                 vm.Deducciones = pl.data;
@@ -103,16 +102,42 @@
         }
 
         function eliminar(id){
-            if(confirm('¿Deseas eliminar el registro?') == true) {
-                var promiseDelete = deduccionesService.delete(id);
-                promiseDelete.then(function (pl) {
-                        cargarDeducciones();
-                        Materialize.toast(pl.data.message, 5000, 'rounded');
-                    },
-                    function (errorPl) {
-                        console.log('No se pudo eliminar el registro', errorPl);
+            swal({
+                title: 'ESTAS SEGURO?',
+                text: 'Intentas eliminar este registro!',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Eliminar',
+                cancelButtonText: 'Cancelar',
+                closeOnConfirm: false
+            },function(isConfirm){
+                if(isConfirm){
+                    var promiseDelete = deduccionesService.delete(id);
+                    swal.disableButtons();
+                    promiseDelete.then(function (pl) {
+                        setTimeout(function() {
+                            swal({
+                                title: 'Exito!',
+                                text: 'Deduccion eliminada correctamente',
+                                type: 'success',
+                                showCancelButton: false,
+                            }, function() {
+                                cargarDeducciones();
+                            });
+                        }, 2000);
+                    }, function (errorPl) {
+                        swal({
+                            title: 'Error!',
+                            text: 'No se pudo eliminar la deduccion seleccionada',
+                            type: 'error',
+                            showCancelButton: false,
+                        }, function() {
+                        });
                     });
-            }
+                }
+            });
         }
     }
 })();

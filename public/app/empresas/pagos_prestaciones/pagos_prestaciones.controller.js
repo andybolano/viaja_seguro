@@ -106,5 +106,4 @@
             $("#modalBuscarconductor").closeModal();
         }
     }
-
 })();

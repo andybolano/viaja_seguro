@@ -110,8 +110,32 @@
         }
 
         function remove(ruta, $index){
-            ruta.turnos.splice($index, 1);
-            updateTurnos(ruta);
+            swal({
+                title: 'ESTAS SEGURO!',
+                text: 'Intentas remover este conductor de la ruta',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Remover',
+                cancelButtonText: 'Cancelar',
+                closeOnConfirm: false
+            }, function(isConfirm) {
+                if(isConfirm){
+                    swal.disableButtons();
+                    setTimeout(function() {
+                        swal({
+                            title: 'Exito!',
+                            text: 'Has removido al condcutor de la ruta',
+                            type: 'success',
+                            showCancelButton: false,
+                        }, function() {
+                            ruta.turnos.splice($index, 1);
+                            updateTurnos(ruta);
+                        });
+                    }, 2000);
+                }
+            });
         }
 
         function movedConductor(ruta, $index){

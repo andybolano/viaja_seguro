@@ -57,16 +57,43 @@
         }
 
         function eliminar(id){
-            if(confirm('¿Deseas eliminar el registro?') ==true) {
-                rutasService.delete(id).then(success, error);
-            }
-            function success(p) {
-                Materialize.toast('Registro eliminado', 5000);
-                loadRutas()
-            }
-            function error(error) {
-                console.log('Error al eliminar', error);
-            }
+            swal({
+                title: 'ESTAS SEGURO?',
+                text: 'Intentas eliminar esta ruta!',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Eliminar',
+                cancelButtonText: 'Cancelar',
+                closeOnConfirm: false
+            },function(isConfirm){
+                if(isConfirm){
+                    rutasService.delete(id).then(success, error);
+                    swal.disableButtons();
+                }
+                function success(p) {
+                    setTimeout(function() {
+                        swal({
+                            title: 'Exito!',
+                            text: 'Ruta eliminada correctamente',
+                            type: 'success',
+                            showCancelButton: false,
+                        }, function() {
+                            loadRutas()
+                        })
+                    }, 2000);
+                }
+                function error(error) {
+                    swal({
+                        title: 'Error!',
+                        text: 'No se pudo eliminar la ruta seleccionada',
+                        type: 'error',
+                        showCancelButton: false,
+                    }, function() {
+                    })
+                }
+            });
         }
 
         loadRutas();

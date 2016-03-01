@@ -5,12 +5,14 @@
         .module('app.empresas.auditoria')
         .controller('auditoriaController', auditoriaController);
 
-    function auditoriaController(centralesService, auditoriaService, $filter) {
+    function auditoriaController(centralesService, auditoriaService, $filter, planillasService) {
         var vm = this;
         vm.selectedChanged = selectedChanged;
         vm.producidosFecha = producidosFecha;
         vm.producidosVehiculo = producidosVehiculo;
         vm.producidosTodosVehiculo = producidosTodosVehiculo;
+        vm.verPlanilla = verPlanilla;
+        vm.imprimir = imprimir;
 
         initialize();
         function initialize(){
@@ -72,6 +74,33 @@
         }
 
         function producidosTodosVehiculo(){}
+
+        function verPlanilla(planilla){
+            planillasService.getPlanilla(planilla.id).then(succes, error);
+            function succes(p){
+                vm.planilla = {};
+                vm.planilla = p.data;
+                vm.planilla.total = p.data.total;
+                $('#modalPlanilla').openModal();
+            }
+            function error(e){
+                console.log('Error al cargar la planilla', e);
+            }
+        }
+
+        function imprimir(){
+            var ficha = document.getElementById('planilla');
+            var ventimp = window.open(' ', 'popimpr');
+            ventimp.document.write( ficha.innerHTML );
+            ventimp.document.close();
+            var css = ventimp.document.createElement("link");
+            css.setAttribute("href", "../assets/css/pdf.css");
+            css.setAttribute("rel", "stylesheet");
+            css.setAttribute("type", "text/css");
+            ventimp.document.head.appendChild(css);
+            ventimp.print( );
+            ventimp.close();
+        }
 
     }
 })();

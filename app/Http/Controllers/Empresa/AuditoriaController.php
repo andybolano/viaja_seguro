@@ -17,7 +17,7 @@ class AuditoriaController extends Controller
                 $producido = \DB::table('planilla')
                     ->join('viajes', 'planilla.viaje_id', '=', 'viajes.id')
                     ->join('centrales', 'planilla.central_id', '=', 'centrales.id')
-                    ->select('planilla.total', 'planilla.numero_planilla', 'viajes.fecha')
+                    ->select('planilla.total', 'planilla.numero_planilla', 'viajes.fecha', 'viajes.id')
                     ->where('centrales.id', $central_id)
                     ->where('viajes.fecha', $data['fechaI'])->get();
             }
@@ -25,7 +25,7 @@ class AuditoriaController extends Controller
                 $producido = \DB::table('planilla')
                     ->join('viajes', 'planilla.viaje_id', '=', 'viajes.id')
                     ->join('centrales', 'planilla.central_id', '=', 'centrales.id')
-                    ->select('planilla.total', 'planilla.numero_planilla', 'viajes.fecha')
+                    ->select('planilla.total', 'planilla.numero_planilla', 'viajes.fecha', 'viajes.id')
                     ->where('centrales.id', $central_id)
                     ->where('viajes.fecha', $data['fechaF'])->get();
             }
@@ -33,7 +33,7 @@ class AuditoriaController extends Controller
                 $producido = \DB::table('planilla')
                     ->join('viajes', 'planilla.viaje_id', '=', 'viajes.id')
                     ->join('centrales', 'planilla.central_id', '=', 'centrales.id')
-                    ->select('planilla.total', 'planilla.numero_planilla', 'viajes.fecha')
+                    ->select('planilla.total', 'planilla.numero_planilla', 'viajes.fecha', 'viajes.id')
                     ->where('centrales.id', $central_id)
                     ->whereBetween('viajes.fecha', array($data['fechaI'], $data['fechaF']))->get();
             }
