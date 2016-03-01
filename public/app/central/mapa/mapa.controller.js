@@ -5,7 +5,7 @@
         .module('app.centrales.mapa')
         .controller('mapaController', mapaController);
 
-    function mapaController(mapaService, turnosService, authService, $timeout, uiGmapGoogleMapApi) {
+    function mapaController(mapaService, turnosService, authService, $timeout, uiGmapGoogleMapApi, $interval) {
         var vm = this;
         vm.map;
         vm.markers = [];
@@ -37,12 +37,12 @@
             $('#modalMapaConductores').openModal();
             $timeout(function(){
                 cargarMapa(vm.ruta);
-            },100);
+            },5000);
         }
-        //var api;
-        //uiGmapGoogleMapApi.then(function (googleMaps) {
-        //    api = googleMaps;
-        //});
+
+        uiGmapGoogleMapApi.then(function (maps) {
+
+        });
 
         function cargarMapa(ruta_id){
             vm.ruta = ruta_id;
@@ -79,6 +79,7 @@
                         "options" : {
                             "icon": '../assets/images/marker.png',
                             "title":  c.data[i].conductor.nombres +' '+ c.data[i].conductor.apellidos,
+                            "animation": 1
                         },
                     });
                 }
