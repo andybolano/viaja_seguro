@@ -22,7 +22,7 @@ class NotificacionController extends Controller
             $data = array(
                 'tokens' => $device_token,
                 'notification' => array(
-                    'alert' => $mensaje,
+//                    'alert' => $mensaje,
                     'tipo' => $tipo,
                     'ios'=>array(
                         'tipo' => $tipo,
@@ -30,7 +30,6 @@ class NotificacionController extends Controller
                         'sound'=>'ping.aiff',
                         'expiry'=> 1423238641,
                         'priority'=> 10,
-                        'tipo' => $tipo,
                         'contentAvailable'=> true,
                         'payload'=> array(
                             'message'=> $mensaje,
@@ -43,7 +42,6 @@ class NotificacionController extends Controller
                         'collapseKey'=>'foo',
                         'delayWhileIdle'=> true,
                         'timeToLive'=> 300,
-                        'tipo' => $tipo,
                         'payload'=> array(
                             'message' => $mensaje,
                             'title' => 'Viaja Seguro',
