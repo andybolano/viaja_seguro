@@ -293,14 +293,43 @@
         };
 
         function eliminarPasajero(pasajero_id){
-            turnosService.eliminarPasajero(pasajero_id).then(succes, error);
-            function succes(p){
-                refrescarPasajeros(vm.conductor.id);
-                Materialize.toast(p.data.message, '5000', 'rounded');
-            }
-            function error(error){
-                console.log('error al eliminar', error);
-            }
+            swal({
+                title: 'ESTAS SEGURO?',
+                text: 'Estas intentado eliminar un pasajero, esto lberara un cupo al conductor!',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Eliminar',
+                cancelButtonText: 'Cancelar',
+                closeOnConfirm: false
+            },function(isConfirm){
+                if(isConfirm){
+                    turnosService.eliminarPasajero(pasajero_id).then(succes, error);
+                    swal.disableButtons();
+                }
+                function succes(p) {
+                    setTimeout(function() {
+                        swal({
+                            title: 'Exito!',
+                            text: 'Pasajero retirado correctamente',
+                            type: 'success',
+                            showCancelButton: false,
+                        }, function() {
+                            refrescarPasajeros(vm.conductor.id);
+                        })
+                    }, 2000);
+                }
+                function error(error) {
+                    swal({
+                        title: 'Error!',
+                        text: 'No se pudo retirar al pasajero seleccionado',
+                        type: 'error',
+                        showCancelButton: false,
+                    }, function() {
+                    })
+                }
+            });
         }
         //FIN PASAJEROS
 
@@ -365,14 +394,43 @@
         };
 
         function eliminarGiro(giro_id){
-            turnosService.eliminarGiro(giro_id).then(succes, error);
-            function succes(p){
-                refrescarGiros(vm.conductor.id);
-                Materialize.toast(p.data.message, '5000', 'rounded');
-            }
-            function error(error){
-                console.log('error al eliminar')
-            }
+            swal({
+                title: 'ESTAS SEGURO?',
+                text: 'Estas intentado retirar un giro designado al conductor!',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Eliminar',
+                cancelButtonText: 'Cancelar',
+                closeOnConfirm: false
+            },function(isConfirm){
+                if(isConfirm){
+                    turnosService.eliminarGiro(giro_id).then(succes, error);
+                    swal.disableButtons();
+                }
+                function succes(p) {
+                    setTimeout(function() {
+                        swal({
+                            title: 'Exito!',
+                            text: 'Giro retirado correctamente',
+                            type: 'success',
+                            showCancelButton: false,
+                        }, function() {
+                            refrescarGiros(vm.conductor.id);
+                        })
+                    }, 2000);
+                }
+                function error(error) {
+                    swal({
+                        title: 'Error!',
+                        text: 'No se pudo retirar giro seleccionado',
+                        type: 'error',
+                        showCancelButton: false,
+                    }, function() {
+                    })
+                }
+            });
         }
         //FIN GIROS
 
@@ -442,14 +500,43 @@
         }
 
         function eliminarPaquete(paquete_id){
-            turnosService.eliminarPaquete(paquete_id).then(succes, error);
-            function succes(p){
-                refrescarPaquetes(vm.conductor.id);
-                Materialize.toast(p.data.message, '5000', 'rounded');
-            }
-            function error(error){
-                console.log('error al eliminar')
-            }
+            swal({
+                title: 'ESTAS SEGURO?',
+                text: 'Estas intentado retirar un paquete designado al conductor!',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Eliminar',
+                cancelButtonText: 'Cancelar',
+                closeOnConfirm: false
+            },function(isConfirm){
+                if(isConfirm){
+                    turnosService.eliminarPaquete(paquete_id).then(succes, error);
+                    swal.disableButtons();
+                }
+                function succes(p) {
+                    setTimeout(function() {
+                        swal({
+                            title: 'Exito!',
+                            text: 'Paquete retirado correctamente',
+                            type: 'success',
+                            showCancelButton: false,
+                        }, function() {
+                            refrescarPaquetes(vm.conductor.id);
+                        })
+                    }, 2000);
+                }
+                function error(error) {
+                    swal({
+                        title: 'Error!',
+                        text: 'No se pudo retirar paquete seleccionado',
+                        type: 'error',
+                        showCancelButton: false,
+                    }, function() {
+                    })
+                }
+            });
         }
         //FIN PAQUETES
 
