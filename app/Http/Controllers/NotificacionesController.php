@@ -13,7 +13,7 @@ class NotificacionesController extends Controller
         $data = $user->getUser($username);
         if($data != false){
 
-            $apiKey = 'AIzaSyAZB5qS20uH0-W_btPvbLRx_D2qFHnNCt8';
+            $apiKey = 'AIzaSyBxy1d7BwmTE1Wcy1PyucThSBPVKDhdeow⁠⁠⁠⁠';
 
             $userIdentificador = $data["reg_id"];
 

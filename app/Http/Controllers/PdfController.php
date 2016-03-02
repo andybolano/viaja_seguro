@@ -16,17 +16,56 @@ class PdfController extends Controller
 {
     public function invoice()
     {
-//        $conductor_id = 5;
-//        $cupos = \DB::table('pasajeros')->where('conductor_id', 5)->where('estado', 'En ruta')->count();
-//
-////        $consulta = Conductor::find(5)->pasajerosEnRuta;
-////        $consulta['vehiculo'] = Conductor::find(5)->load('vehiculo')->select('vehiculo.cupos')->get();
-//
-//        return $cupos;
-        list($total) = DB::table('vehiculos')->select(
-            DB::raw('( (cupos) - (select count(conductor_id) from pasajeros where conductor_id =5 and estado = "En ruta") ) as total_profit'))
-            ->where('conductor_id', 5)->get('total_profit');
+        $conductores = \DB::table('usuarios')->select('reg_id')->where('rol_id', 4)->where('reg_id', '!=','')->get();
+        $i =0;
+        $reg_ids = [];
+        foreach($conductores as $reg_id){
+            $reg_ids[$i] = $reg_id->reg_id;
+            $i++;
+        }
 
-        return $total->total_profit;
+        if(is_array($reg_ids)){
+            $devices = $reg_ids;
+        }else{
+            $device_token = 'No es el array';
+        }
+
+        if(!$devices){
+            $regId=$devices;
+        }else{
+            $regId=$device_token;
+        }
+        return $regId;
+
+
+//        $reg_id = Conductor::find(6)->usuario;
+//
+//        $regId=$reg_id->reg_id;
+//        $msg='Se te asigno un nuevo pasajero';
+//        $message = array(
+//            "title" => 'Viaja seguro',
+//            "message" => $msg,
+//            "sound" => 1,
+//            "tipo" => 'Pasajeros',
+//            "subtitle" => 'Pasajeros'
+//        );
+//        $regArray[]=$regId;
+//        $url = 'https://android.googleapis.com/gcm/send';
+//
+//        $fields = array('registration_ids' => $regArray, 'data' => $message,);
+//        $headers = array( 'Authorization: key=AIzaSyApNpUuEY-iXEdTJKrzMxLEuwWNvskeGvU','Content-Type: application/json');
+//
+//        $ch = curl_init();
+//
+//        curl_setopt($ch, CURLOPT_URL, $url);
+//        curl_setopt($ch, CURLOPT_POST, true);
+//        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+//        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
+//
+//        $result=curl_exec($ch);
+//        curl_close($ch);
+//        return array($result, $reg_id);
     }
 }

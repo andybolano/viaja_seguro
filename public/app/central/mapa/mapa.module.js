@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('app.centrales.mapa', ['uiGmapgoogle-maps',])
+        .module('app.centrales.mapa', ['uiGmapgoogle-maps','ngWebSocket', 'firebase'])
         .config(config)
         .run(run);
 

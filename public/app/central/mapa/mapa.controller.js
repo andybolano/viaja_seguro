@@ -5,7 +5,7 @@
         .module('app.centrales.mapa')
         .controller('mapaController', mapaController);
 
-    function mapaController(mapaService, turnosService, authService, $timeout, uiGmapGoogleMapApi, $interval) {
+    function mapaController(mapaService, turnosService, authService, $timeout) {
         var vm = this;
         vm.map;
         vm.markers = [];
@@ -34,15 +34,12 @@
 
         function verConductores(ruta_id){
             vm.ruta = ruta_id;
+            console.log(mapaService.getUbicacion(ruta_id));
             $('#modalMapaConductores').openModal();
             $timeout(function(){
                 cargarMapa(vm.ruta);
             },5000);
         }
-
-        uiGmapGoogleMapApi.then(function (maps) {
-
-        });
 
         function cargarMapa(ruta_id){
             vm.ruta = ruta_id;
