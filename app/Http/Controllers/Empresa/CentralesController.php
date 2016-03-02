@@ -183,4 +183,10 @@ class CentralesController extends Controller
         return Rol::where('nombre', 'CENTRAL_EMPRESA')->first();
     }
 
+    public function getSolicitudesPasajeros($central_id)
+    {
+        return Central::find($central_id)->solicitudes()
+            ->where(['tipo'=> 'vehiculo', 'estado'=> 'p'])->get()->load('datos_pasajeros');
+    }
+
 }

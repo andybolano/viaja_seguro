@@ -9,3 +9,5 @@ Route::get('/api/centrales/{central_id}/vehiculos', 'Empresa\CentralesController
 Route::get('/api/centrales/{central_id}/conductores', 'Empresa\CentralesController@getConductores');
 
 Route::get('/api/centrales/{central_id}/rutas', 'Empresa\CentralesController@getRutas');
+
+Route::get('/api/centrales/{central_id}/solicitudes_pasajeros', 'Empresa\CentralesController@getSolicitudesPasajeros');

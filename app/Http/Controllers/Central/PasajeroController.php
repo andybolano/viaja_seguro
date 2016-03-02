@@ -211,5 +211,10 @@ class PasajeroController extends Controller
         return Rol::where('nombre', $nombre)->first();
     }
 
+    public function getSolicitudes($central_id)
+    {
+
+    }
+
 
 }

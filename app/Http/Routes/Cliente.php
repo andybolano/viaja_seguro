@@ -6,3 +6,6 @@ Route::put('/api/clientes/{cliente_id}', 'Cliente\ClienteController@update');
 Route::delete('/api/clientes/{cleinte_id}', 'Cliente\ClienteController@destroy');
 
 Route::get('/api/central/clientes/{cliente_id}', 'Cliente\ClienteController@show');
+
+Route::post('/api/clientes/{cliente_id}/solicitudes', 'Cliente\ClienteController@newSolicitud');
+Route::put('/api/clientes/{cliente_id}/solicitudes/{id}', 'Cliente\ClienteController@updateSolicitud');

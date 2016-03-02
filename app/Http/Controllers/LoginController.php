@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Model\Central;
+use App\Model\Cliente;
 use App\Model\Empresa;
 use App\Model\Usuario;
 use Illuminate\Http\Request;
@@ -72,6 +73,7 @@ class LoginController extends Controller
                 $data['usuario']['central'] = [
                     'id' => $central->id,
                     'nombre' => $central->nombre,
+                    'nombre' => $central->nombre,
                     'ciudad' => $central->ciudad,
                     'empresa' => [
                         'id' => $central->empresa->id,
@@ -83,6 +85,14 @@ class LoginController extends Controller
                 ];
 
                 $data['usuario']['imagen'] =  $central->empresa->logo;
+                break;
+            case 'CLIENTE':
+                $cliente = Cliente::where('usuario_id', $user->id)->first();
+                $data['usuario']['nombre'] = $cliente->nombres.' '.$cliente->apellidos;
+                $data['usuario']['email'] = $cliente->email;
+                $data['usuario']['identificacion'] = $cliente->identificacion;
+                $data['usuario']['telefono'] = $cliente->telefono;
+                $data['usuario']['imagen'] =  $cliente->imegen;
                 break;
         }
         return $data;

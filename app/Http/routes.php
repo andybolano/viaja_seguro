@@ -27,7 +27,7 @@ Route::group(['middleware' => 'cors'], function () {
     Route::get('/api/departamentos', 'SuperAdmin\CiudadesController@getDepartamentos');
     Route::get('/api/departamentos/{dpto_id}/municipios', 'SuperAdmin\CiudadesController@getMunicipios');
 
-    Route::group(['middleware' => 'jwt.auth'], function () {
+    Route::group(['middleware' => 'jwt.auth'],function () {
 
         include 'Routes/Conductores.php';
         include 'Routes/Vehiculos.php';

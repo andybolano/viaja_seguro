@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Cliente;
 
 use App\Model\Cliente;
+use App\Model\DataSolicitudPasajero;
 use App\Model\Rol;
+use App\Model\Solicitud;
 use App\Model\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -63,7 +65,6 @@ class ClienteController extends Controller
             return response()->json(["exception" => $exc->getMessage()], 400);
         }
     }
-
 
     /**
      * Display the specified resource.
@@ -140,4 +141,37 @@ class ClienteController extends Controller
     {
 
     }
+
+    public function newSolicitud(Request $request, $cliente_id)
+    {
+        $data = $request->json()->all();
+        $cliente = Cliente::find($cliente_id);
+        if($data['tipo'] == 'vehiculo') {
+            $pasajeros = $data['pasajeros'];
+            unset($data['pasajeros']);
+            $solicitud = $cliente->solicitudes()->save(new Solicitud($data));
+            if($solicitud) {
+                foreach($pasajeros as $pasajero) {
+                    $solicitud->datos_pasajeros()->save(new DataSolicitudPasajero($pasajero));
+                }
+                return response()->json($solicitud->id, 200);
+            } else {
+                return response()->json(['menssage' => 'No se ha podido almacenar la solicitud'], 400);
+            }
+        }
+
+    }
+
+    public function updateSolicitud(Request $request, $cliente_id, $id)
+    {
+        if($solicitud = Solicitud::find($id)) {
+            $data = $request->json()->all();
+            $solicitud->estado = $data["estado"];
+            $solicitud->save();
+            return response()->json(['mensaje' => 'Registro actualizado'], 201);
+        } else {
+            return response()->json(['mensaje' => 'El cliente no existe'], 400);
+        }
+    }
+
 }
