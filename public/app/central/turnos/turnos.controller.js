@@ -295,7 +295,7 @@
         function eliminarPasajero(pasajero_id){
             swal({
                 title: 'ESTAS SEGURO?',
-                text: 'Estas intentado eliminar un pasajero, esto lberara un cupo al conductor!',
+                text: 'Estas intentado eliminar un pasajero, esto liberara un cupo al conductor!',
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
