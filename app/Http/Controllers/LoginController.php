@@ -88,10 +88,10 @@ class LoginController extends Controller
                 break;
             case 'CLIENTE':
                 $cliente = Cliente::where('usuario_id', $user->id)->first();
-                $data['usuario']['nombre'] = $user->nombres.' '.$user->apellidos;
-                $data['usuario']['email'] = $user->email;
-                $data['usuario']['identificacion'] = $user->identificacion;
-                $data['usuario']['telefono'] = $user->telefono;
+                $data['usuario']['nombre'] = $cliente->nombres.' '.$cliente->apellidos;
+                $data['usuario']['email'] = $cliente->email;
+                $data['usuario']['identificacion'] = $cliente->identificacion;
+                $data['usuario']['telefono'] = $cliente->telefono;
                 $data['usuario']['imagen'] =  $cliente->imegen;
                 break;
         }
