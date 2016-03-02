@@ -40,27 +40,26 @@ class ActividadesController extends Controller
      */
     public function store(Request $request, $empresa_id)
     {
-        $regs_id = '';
-        $conductores = Conductor::all();
-        $conductores->load('usuario');
-
-        foreach ($conductores as $conductor) {
-            $regs_id = $conductor->reg_id;
-        }
-
         $noty = new NotificacionController();
+        $conductores = \DB::table('usuarios')->select('reg_id')->where('rol_id', 4)->get();
+        $i =0;
+        $reg_ids = [];
+        foreach($conductores as $reg_id){
+            $reg_ids[$i] = $reg_id->reg_id;
+            $i++;
+        }
         $mensaje = 'La empresa ha agendado una nueva actividad';
-        try{
+//        try{
             $data = $request->json()->all();
-            $noty->enviarNotificacion($mensaje,$regs_id,'Acividad');
+            $noty->enviarNotificacion($mensaje,$reg_ids,'Acividad');
             $actividad = new Actividad($data);
             if(!Empresa::find($empresa_id)->agendaActividades()->save($actividad)){
                 return response()->json(['mensajeError' => 'no se ha podido almacenar el registro'], 400);
             }
             return response()->json(['mensaje' => 'se guardo correctamente el registro'], 201);
-        } catch (\Exception $exc) {
-            return response()->json(array("exception"=>$exc->getMessage()), 400);
-        }
+//        } catch (\Exception $exc) {
+//            return response()->json(array("exception"=>$exc->getMessage()), 400);
+//        }
     }
 
     /**

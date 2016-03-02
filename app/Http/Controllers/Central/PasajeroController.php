@@ -169,7 +169,7 @@ class PasajeroController extends Controller
             $pasajero->nombres = $data["nombres"];
             $pasajero->telefono = $data["telefono"];
             $pasajero->direccion = $data["direccion"];
-            $pasajero->direccionD = $data["direccionD"];
+//            $pasajero->direccionD = $data["direccionD"];
 
             if($pasajero->save() == true){
                 return JsonResponse::create(array('message' => "Actualizado Correctamente"), 200);

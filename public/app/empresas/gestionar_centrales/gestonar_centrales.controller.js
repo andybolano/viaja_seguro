@@ -81,16 +81,43 @@
         }
 
         function eliminar(id){
-            if(confirm('¿Deseas eliminar el registro?') ==true) {
-                centralesService.delete(id).then(success, error);
-            }
-            function success(p) {
-                loadCentrales()
-                Materialize.toast('Registro eliminado', 5000);
-            }
-            function error(error) {
-                console.log('Error al eliminar', error);
-            }
+            swal({
+                title: 'ESTAS SEGURO?',
+                text: 'Intentas eliminar esta ruta!',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Eliminar',
+                cancelButtonText: 'Cancelar',
+                closeOnConfirm: false
+            },function(isConfirm){
+                if(isConfirm){
+                    centralesService.delete(id).then(success, error);
+                    swal.disableButtons();
+                }
+                function success(p) {
+                    setTimeout(function() {
+                        swal({
+                            title: 'Exito!',
+                            text: 'Central eliminada correctamente',
+                            type: 'success',
+                            showCancelButton: false,
+                        }, function() {
+                            loadCentrales()
+                        });
+                    }, 2000);
+                }
+                function error(error) {
+                    swal({
+                        title: 'Error!',
+                        text: 'No se pudo eliminar la central seleccionada',
+                        type: 'error',
+                        showCancelButton: false,
+                    }, function() {
+                    });
+                }
+            });
         }
 
         function agregarDireccion() {
@@ -129,7 +156,6 @@
         }
 
         function loadCentrales(){
-            vm.centrales = [];
             centralesService.getAll().then(success, error);
             function success(p) {
                 vm.centrales = p.data;

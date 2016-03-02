@@ -107,16 +107,42 @@
         }
 
         function eliminar(id) {
-            if(confirm('¿Deseas eliminar el registro?') == true) {
-                var promiseDelete = conductoresEmpresaService.delete(id);
-                promiseDelete.then(function (pl) {
-                        Materialize.toast(pl.data.message, 5000, 'rounded');
-                        cargarConductores();
-                    },
-                    function (errorPl) {
-                        console.log('No se pudo eliminar el registro', errorPl);
+            swal({
+                title: 'ESTAS SEGURO?',
+                text: 'Intentas eliminar este conductor!',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Eliminar',
+                cancelButtonText: 'Cancelar',
+                closeOnConfirm: false
+            },function(isConfirm){
+                if(isConfirm){
+                    var promiseDelete = conductoresEmpresaService.delete(id);
+                    swal.disableButtons();
+                    promiseDelete.then(function (pl) {
+                        setTimeout(function() {
+                            swal({
+                                title: 'Exito!',
+                                text: 'Conductor eliminado correctamente',
+                                type: 'success',
+                                showCancelButton: false,
+                            }, function() {
+                                cargarConductores();
+                            });
+                        }, 2000);
+                    }, function (errorPl) {
+                        swal({
+                            title: 'Error!',
+                            text: 'No se pudo eliminar el conductor seleccionada',
+                            type: 'error',
+                            showCancelButton: false,
+                        }, function() {
+                        });
                     });
-            }
+                }
+            });
         }
 
         function modificarImagen(){
@@ -153,8 +179,6 @@
         }
 
         function cargarConductores() {
-            vm.Conductores = [];
-            vm.ConductoresInactivos = [];
             var promiseGet = conductoresEmpresaService.getAll();
             promiseGet.then(function (p) {
                 for(var i=0; i<p.data.length; i++){

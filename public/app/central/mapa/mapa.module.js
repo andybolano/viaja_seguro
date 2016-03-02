@@ -2,11 +2,11 @@
     'use strict';
 
     angular
-        .module('app.centrales.mapa', [])
+        .module('app.centrales.mapa', ['uiGmapgoogle-maps','ngWebSocket', 'firebase'])
         .config(config)
         .run(run);
 
-    function config($stateProvider){
+    function config($stateProvider, uiGmapGoogleMapApiProvider){
         $stateProvider
            .state('app.centrales_mapa', {
                 url: '/centrales/conductores/ubicaciones',
@@ -15,6 +15,11 @@
                     onlyAccess: 'CENTRAL_EMPRESA'
                 }
             })
+        uiGmapGoogleMapApiProvider.configure({
+            //    key: 'your api key',
+            v: '3.20', //defaults to latest 3.X anyhow
+            libraries: 'weather,geometry,visualization'
+        });
     };
 
     function run(appMenu){
