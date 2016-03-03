@@ -45,7 +45,80 @@
     <div id="modalPlanilla" class="modal" style="width: 90%;min-height:85%;">
         <div class="modal-content" id="planilla" >
             <body id="bodyPlanilla">
-            <header class="clearfix" id="headerPlanilla">
+              <!-- <header id="headerplanilla">
+                <h1 id="h1planilla">Planilla</h1>
+                <address>
+                  <div><span>CONDUCTOR:  {{vm.planilla.conductor.nombres}} {{vm.planilla.conductor.apellidos}}</span></div>
+                  <div><span>IDENTIFICACION:  {{vm.planilla.conductor.identificacion}}</span></div>
+                  <div><span>TELEFONO:  {{vm.planilla.conductor.telefono}}</span></div>
+                  <div><span>FECHA:  {{vm.planilla.viaje.fecha | date}}</span></div>
+                </address>
+                <span><img alt="" ng-src="{{vm.userImagen}}"></span>
+              </header>
+              <article id="articlePlanilla">
+          			<h1>Recipient</h1>
+          			<address >
+          				<p>Some Company<br>c/o Some Guy</p>
+          			</address>
+          			<table class="meta" id="meta">
+          				<tr>
+          					<th id="thPlanilla"><span >Panilla #</span></th>
+          					<td id="tdPlanilla"><span >{{vm.planilla.numero_planilla}}</span></td>
+          				</tr>
+          				<tr>
+          					<th id="thPlanilla"><span >Fecha</span></th>
+          					<td id="tdPlanilla"><span >{{vm.planilla.viaje.fecha | date}}</span></td>
+          				</tr>
+          				<tr>
+          					<th id="thPlanilla"><span >Monto a pagar</span></th>
+          					<td id="tdPlanilla"><span>{{vm.planilla.total | currency}}</span></td>
+          				</tr>
+          			</table>
+          			<table class="inventory" id="inventory">
+          				<thead style="float: right">
+          					<tr>
+          						<th id="thPlanilla"><span >Identificacion</span></th>
+          						<th id="thPlanilla"><span >Nombres y apellidos</span></th>
+          						<th id="thPlanilla"><span >Telefono</span></th>
+          					</tr>
+          				</thead>
+          				<tbody style="float: right">
+          					<tr ng-repeat="pasajero in vm.planilla.pasajeros">
+          						<td id="tdPlanilla"><span >{{pasajero.identificacion}}</span></td>
+          						<td id="tdPlanilla"><span > {{pasajero.nombres}}</span></td>
+          						<td id="tdPlanilla"><span >{{pasajero.telefono}}</span></td>
+          					</tr>
+          				</tbody>
+                  <thead style="float: left">
+                    <tr>
+                      <th id="thPlanilla"><span>Deduccion</span><th>
+                      <th id="thPlanilla"><span>Valor</span></th>
+                    </tr>
+                  </thead>
+                  <tbody style="float: left">
+                    <tr ng-repeat="deduccion in vm.planilla.deducciones">
+                      <td id="tdPlanilla"><span >{{deduccion.nombre}}</span></td>
+          						<td id="tdPlanilla"><span > {{deduccion.valor}}</span></td>
+                    </tr>
+                  </tbody>
+          			</table>
+          			<table class="balance" id="balance">
+          				<tr>
+          					<th id="thPlanilla"><span >Total</span></th>
+          					<td id="tdPlanilla"><span>{{vm.planilla.total | currency}}</span></td>
+          				</tr>
+          				<!-- <tr>
+          					<th id="thPlanilla"><span >Amount Paid</span></th>
+          					<td id="tdPlanilla"><span data-prefix>$</span><span >0.00</span></td>
+          				</tr>
+          				<tr>
+          					<th id="thPlanilla"><span >Balance Due</span></th>
+          					<td id="tdPlanilla"><span>600.00</span></td>
+          				</tr> -->
+          			<!-- </table>
+          		</article> -->
+
+             <header class="clearfix" id="headerPlanilla">
                 <div id="logo">
                     <img alt="image"
                          ng-src="http://{{vm.userImagen}}" width="90px;">
@@ -128,4 +201,3 @@
         });
     });
 </script>
-

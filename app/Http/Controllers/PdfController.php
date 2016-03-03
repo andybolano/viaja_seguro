@@ -1,41 +1,40 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Model\Central;
-use App\Model\Pasajero;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Vinkla\Pusher\PusherManager;
+use Illuminate\Routing\Controller;
+use Vinkla\Pusher\Facades\Pusher;
 use DB;
-use App\Model\Conductor;
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
-use Psy\Util\Json;
+use Illuminate\Support\Facades\App;
+
 
 class PdfController extends Controller
 {
+    protected $pusher;
+
+    public function __construct(PusherManager $pusher)
+    {
+        $this->pusher = $pusher;
+    }
+
+    public function bar()
+    {
+        $this->pusher->trigger('solicitudes', 'NuevaSolicitudEvent', ['message' => 'La prueba']);
+    }
     public function invoice()
     {
-        $conductores = \DB::table('usuarios')->select('reg_id')->where('rol_id', 4)->where('reg_id', '!=','')->get();
-        $i =0;
-        $reg_ids = [];
-        foreach($conductores as $reg_id){
-            $reg_ids[$i] = $reg_id->reg_id;
-            $i++;
-        }
+        \App::make('\App\Events\NuevaSolicitudEvent')->enviarNotificacion('Vehiculo', 'Existe una nueva solicitud',2 );
 
-        if(is_array($reg_ids)){
-            $devices = $reg_ids;
-        }else{
-            $device_token = 'No es el array';
-        }
 
-        if(!$devices){
-            $regId=$devices;
-        }else{
-            $regId=$device_token;
-        }
-        return $regId;
+
+//        $pusher = \App::make('pusher');
+//
+//        return array($pusher->trigger( 'solicitudes',
+//            'NuevaSolicitudEvent',
+//            array('message' => 'Preparing the Pusher Laracon.eu workshop!')));
 
 
 //        $reg_id = Conductor::find(6)->usuario;
@@ -68,4 +67,19 @@ class PdfController extends Controller
 //        curl_close($ch);
 //        return array($result, $reg_id);
     }
+
+//    public function __construct($text)
+//    {
+//        $this->text = $text;
+//    }
+//
+//    /**
+//     * Get the channels the event should broadcast on.
+//     *
+//     * @return array
+//     */
+//    public function broadcastOn()
+//    {
+//        return ['ubicaciones'];
+//    }
 }

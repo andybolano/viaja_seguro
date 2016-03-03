@@ -154,6 +154,7 @@ class ClienteController extends Controller
                 foreach($pasajeros as $pasajero) {
                     $solicitud->datos_pasajeros()->save(new DataSolicitudPasajero($pasajero));
                 }
+                \App::make('\App\Events\NuevaSolicitudEvent')->enviarNotificacion($data['tipo'], 'Existe una nueva solicitud, verifica al conductor en turno', $data['central_id']);
                 return response()->json($solicitud->id, 200);
             } else {
                 return response()->json(['menssage' => 'No se ha podido almacenar la solicitud'], 400);

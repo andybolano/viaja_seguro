@@ -15,7 +15,6 @@ Route::get('/', function () {
     echo '<script>location.href="app";</script>';
 });
 Route::get('pdf', 'PdfController@invoice');
-
 Route::group(['middleware' => 'cors'], function () {
     Route::post('/api/login', 'LoginController@autenticarUsuario');
     Route::get('/api/new_token', 'LoginController@refreshToken');

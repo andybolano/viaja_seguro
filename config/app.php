@@ -162,6 +162,8 @@ return [
 
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
         Barryvdh\Cors\ServiceProvider::class,
+//pushe
+        Vinkla\Pusher\PusherServiceProvider::class,
     ],
 
     /*
