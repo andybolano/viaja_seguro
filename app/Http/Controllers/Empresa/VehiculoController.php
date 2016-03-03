@@ -72,9 +72,7 @@ class VehiculoController extends Controller
                 return response()->json(array('message' => "La placa del vehiculo ya se encuentra registrada."), 200);
             }
         }else{
-            $vehiculo = Vehiculo::select("placa")
-                ->where("placa",$data["placa"])
-                ->first();
+            $vehiculo = Vehiculo::find($data['vehiculo'])->first();
             $vehiculo->save($data);
             return JsonResponse::create(array('message' => "Vehiculo actualizado correctametne."), 200);
         }
