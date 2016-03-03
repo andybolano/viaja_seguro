@@ -16,4 +16,4 @@ Route::put('/api/conductores/{conductor_id}/reg_id/{reg_id}', 'Empresa\Conductor
 
 Route::get('/api/conductores/{conductor_id}/cupos', 'Empresa\ConductorController@getCupos');
 
-
+Route::delete('/api/conductor/{conductor_id}/ubicacion', 'Empresa\ConductorController@deleteUbicacion');

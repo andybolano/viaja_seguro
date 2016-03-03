@@ -179,6 +179,7 @@
         }
 
         function cargarConductores() {
+            vm.Conductores = [];
             var promiseGet = conductoresEmpresaService.getAll();
             promiseGet.then(function (p) {
                 for(var i=0; i<p.data.length; i++){
