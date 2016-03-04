@@ -62,44 +62,9 @@
         vm.imprimir = imprimir;
 
         initialize();
-        function initialize(){
+        function initialize() {
             cargarRutas();
             cargarDeducciones();
-
-            Pusher.log = function(message) {
-                if (window.console && window.console.log) {
-                    window.console.log(message);
-                }
-            };
-
-            var pusher = new Pusher('cabd8ffa68f070ee9742', {
-                encrypted: true
-            });
-
-            var itemActionChannel = pusher.subscribe( 'solicitudes' );
-
-            itemActionChannel.bind( "NuevaSolicitudEvent", function( data ) {
-                if(authService.currentUser().central.id == data.central_id){
-                    Lobibox.notify('info', {
-                        size: 'mini',
-                        title: 'Nueva solicitud de: ' +data.tipo,
-                        msg: data.message,
-                        delay: 10000,
-                        icon: true,
-                        sound: true,
-                        soundPath: '../assets/plugins/lobibox/dist/sounds/',
-                        iconSource: "fontAwesome"
-                    });
-                }
-            } );
-
-            itemActionChannel.bind( "ModificarSolicitudEvent", function( data ) {
-
-            } );
-
-            itemActionChannel.bind( "EliminarSolicitudEvent", function( data ) {
-
-            } );
         }
 
         function addNewConductor(ruta){

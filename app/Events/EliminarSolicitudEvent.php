@@ -5,19 +5,20 @@ namespace App\Events;
 use App\Events\Event;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Vinkla\Pusher\PusherManager;
 
 class EliminarSolicitudEvent extends Event
 {
     use SerializesModels;
-
+    protected $pusher;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(PusherManager $pusher)
     {
-        //
+        $this->pusher = $pusher;
     }
 
     /**
@@ -25,8 +26,8 @@ class EliminarSolicitudEvent extends Event
      *
      * @return array
      */
-    public function broadcastOn()
+    public function broadcastOn($tipo, $message, $central_id)
     {
-        return [];
+        $this->pusher->trigger('notificaciones', 'EliminarSolicitudEvent', ['tipo' => $tipo, 'message' => $message, 'central_id' => $central_id]);
     }
 }

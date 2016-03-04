@@ -10,7 +10,7 @@ use Vinkla\Pusher\PusherManager;
 class NuevaSolicitudEvent
 {
     use SerializesModels;
-    public $pusher;
+    protected $pusher;
     /**
      * Create a new event instance.
      *
@@ -28,6 +28,6 @@ class NuevaSolicitudEvent
      */
     public function enviarNotificacion($tipo, $message, $central_id)
     {
-        $this->pusher->trigger('solicitudes', 'NuevaSolicitudEvent', ['tipo' => $tipo, 'message' => $message, 'central_id' => $central_id]);
+        $this->pusher->trigger('notificaciones', 'NuevaSolicitudEvent', ['tipo' => $tipo, 'message' => $message, 'central_id' => $central_id]);
     }
 }

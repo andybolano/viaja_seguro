@@ -168,8 +168,11 @@ class ClienteController extends Controller
         if($solicitud = Solicitud::find($id)) {
             $data = $request->json()->all();
             $solicitud->estado = $data["estado"];
-            $solicitud->save();
-            return response()->json(['mensaje' => 'Registro actualizado'], 201);
+            $data['tipo'] = 'Modificacion';
+            if($solicitud->save()){
+                \App::make('\App\Events\ModificarSolicitudEvent')->enviarNotificacion($data['tipo'], 'Un cliente a actualizado el estado de su solicitud a '.$data['estado'], $solicitud->central_id);
+                return response()->json(['mensaje' => 'Registro actualizado'], 201);
+            }
         } else {
             return response()->json(['mensaje' => 'El cliente no existe'], 400);
         }
