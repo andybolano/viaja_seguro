@@ -51,6 +51,7 @@
             var promiseGet = vehiculosService.getFiltering(selectEmpresa.id);
             promiseGet.then(function (pl) {
                 vm.Vehiculos = pl.data;
+                vm.total_vehiculos = vm.Vehiculos.length;
                 Materialize.toast('Vehiculos cargados correctamente', 5000, 'rounded');
                 cargarCentrales(selectEmpresa.id);
             }, function (errorPl) {
@@ -62,6 +63,7 @@
             var promiseGet = (selectCentral.ciudad.nombre == 'Todas') ? vehiculosService.getFiltering(vm.selectEmpresa.id) : vehiculosService.getFiltering(null, selectCentral.id);
             promiseGet.then(function (pl) {
                 vm.Vehiculos = pl.data;
+                vm.total_vehiculos = vm.Vehiculos.length;
                 Materialize.toast('Vehiculos cargados correctamente', 5000, 'rounded');
                 init();
             }, function (errorPl) {

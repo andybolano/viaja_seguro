@@ -34,10 +34,11 @@
                         </select>
                         <label for="selectCentral" class="active">Central</label>
                     </div>
+                    <div class="col s4" ng-show="vm.selectedCentral || vm.selectedEmpresa"><p>CANTIDAD TOTAL DE VEHICULOS: {{vm.total_vehiculos}}</p></div>
                 </div>
                 <div class="row">
                     <div class="col s12">
-                        <table class="striped bordered">
+                        <table class="striped bordered responsive-table">
                             <thead>
                             <th>Placa</th>
                             <th>Modelo</th>

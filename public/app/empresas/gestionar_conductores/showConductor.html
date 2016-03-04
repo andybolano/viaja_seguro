@@ -1,6 +1,51 @@
 <div ng-controller="ConductorController as vm" class="contenedor">
     <div class="row white">
         <div class="col s12 z-depth-1">
+            <BR>
+                <div class="row center" ng-hide="vm.carga">
+                    <div class="preloader-wrapper big active">
+                        <div class="spinner-layer spinner-blue">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div><div class="gap-patch">
+                            <div class="circle"></div>
+                        </div><div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
+                        </div>
+
+                        <div class="spinner-layer spinner-red">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div><div class="gap-patch">
+                            <div class="circle"></div>
+                        </div><div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
+                        </div>
+
+                        <div class="spinner-layer spinner-yellow">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div><div class="gap-patch">
+                            <div class="circle"></div>
+                        </div><div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
+                        </div>
+
+                        <div class="spinner-layer spinner-green">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div><div class="gap-patch">
+                            <div class="circle"></div>
+                        </div><div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
             <div class="contenedor">
                 <div class="row">
                     <div class="col s8">
@@ -18,7 +63,7 @@
                 </div>
                 <div id="conductores-inactivos" class="row" ng-hide="vm.activos">
                     <div class="col s12">
-                        <table class="striped bordered">
+                        <table class="striped bordered responsive-table">
                             <thead>
                             <th></th>
                             <th>Identificaci&oacute;n</th>
@@ -27,10 +72,10 @@
                             <th>Apellidos</th>
                             <th>Direcci&oacute;n</th>
                             <th>Telefono</th>
-                            <th>Central</th>
+                            <!--<th>Central</th>-->
                             </thead>
                             <tbody>
-                            <tr ng-repeat="conductor in vm.ConductoresInactivos | filter : filtro">
+                            <tr ng-repeat="conductor in vm.ConductoresInactivos | filter : filtro" ng-show="vm.carga">
                                 <td>
                                     <img id="imagen{{conductor.id}}" ng-src="http://{{conductor.imagen}}" class="circle" style="width:32px; height: 32px; border-radius: 50%">
                                 </td>
@@ -41,15 +86,15 @@
                                 <td>{{conductor.direccion}}</td>
                                 <td>{{conductor.telefono}}</td>
                                 <td>
-                                    <a href="javascript:" ng-click="vm.modificar(conductor)">
+                                    <a title="ver" href="javascript:" ng-click="vm.modificar(conductor)">
                                         <i class="material-icons prefix">visibility</i>
                                     </a>
-                                    <a href="javascript:" ng-click="vm.openhabilitar(conductor)">
+                                    <a title="Habilitar" href="javascript:" ng-click="vm.openhabilitar(conductor)">
                                         <i class="material-icons">done_all</i>
                                     </a>
-                                    <a href="javascript:" ng-click="vm.eliminar(conductor.id)">
-                                        <i class="material-icons prefix" style="color:#c62828">delete</i>
-                                    </a>
+                                        <!--<a title="Inhabilitar" href="javascript:" ng-click="vm.eliminar(conductor.id)">-->
+                                            <!--<i class="material-icons prefix" style="color:#c62828">delete</i>-->
+                                        <!--</a>-->
                                 </td>
                             </tr>
                             </tbody>
@@ -58,7 +103,7 @@
                 </div>
                 <div id="conductores-activos" class="row" ng-show="vm.activos">
                     <div class="col s12">
-                        <table class="striped bordered">
+                        <table class="striped bordered responsive-table">
                             <thead>
                             <th></th>
                            <th>Identificaci&oacute;n</th>
@@ -82,10 +127,10 @@
                                     <td>{{conductor.telefono}}</td>
                                     <td>{{conductor.central.ciudad.nombre}}</td>
                                     <td>
-                                        <a href="javascript:" ng-click="vm.modificar(conductor)">
+                                        <a title="Ver" href="javascript:" ng-click="vm.modificar(conductor)">
                                             <i class="material-icons prefix">visibility</i>
                                         </a>
-                                        <a href="javascript:" ng-click="vm.eliminar(conductor.id)">
+                                        <a title="Inhabilitar" href="javascript:" ng-click="vm.eliminar(conductor.id)">
                                             <i class="material-icons prefix" style="color:#c62828">delete</i>
                                         </a>
                                     </td>

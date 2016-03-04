@@ -8,8 +8,9 @@
         .module('app.empresas.conductores')
         .controller('ConductorController', ConductorController);
 
-    function ConductorController(conductoresEmpresaService, centralesService, $filter) {
+    function ConductorController(conductoresEmpresaService, centralesService, $filter, $timeout) {
         var vm = this;
+        vm.carga = false;
         vm.Conductores = [];
         vm.ConductoresInactivos = [];
         vm.activos = true;
@@ -23,7 +24,7 @@
         vm.habilitar = habilitar;
         vm.eliminar = eliminar;
 
-        cargarConductores();
+        //cargarConductores();
 
         function nuevoConductor(){
             vm.mode = 'new';
@@ -109,7 +110,7 @@
         function eliminar(id) {
             swal({
                 title: 'ESTAS SEGURO?',
-                text: 'Intentas eliminar este conductor!',
+                text: 'Intentas inhabilitar este conductor!',
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -125,7 +126,7 @@
                         setTimeout(function() {
                             swal({
                                 title: 'Exito!',
-                                text: 'Conductor eliminado correctamente',
+                                text: 'Conductor inhabilitado correctamente',
                                 type: 'success',
                                 showCancelButton: false,
                             }, function() {
@@ -135,7 +136,7 @@
                     }, function (errorPl) {
                         swal({
                             title: 'Error!',
-                            text: 'No se pudo eliminar el conductor seleccionada',
+                            text: 'No se pudo inhabilitar el conductor seleccionado',
                             type: 'error',
                             showCancelButton: false,
                         }, function() {
@@ -178,8 +179,12 @@
             }
         }
 
+        $timeout(function(){
+            cargarConductores();
+        }, 3000);
         function cargarConductores() {
-            vm.Conductores = [];
+            vm.Conductores = []
+            vm.ConductoresInactivos = []
             var promiseGet = conductoresEmpresaService.getAll();
             promiseGet.then(function (p) {
                 for(var i=0; i<p.data.length; i++){
@@ -189,6 +194,7 @@
                         vm.ConductoresInactivos.push(p.data[i]);
                     }
                 }
+                vm.carga = true;
             },function (errorPl) {
                 console.log('Error Al Cargar Datos', errorPl);
             });
