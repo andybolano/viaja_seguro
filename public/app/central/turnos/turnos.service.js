@@ -34,9 +34,6 @@
             return $http.get(API + '/conductores/'+id+'/vehiculo');
         }
 
-        this.updateCuposVehiculo = function(id, cupo){
-            return $http.put(API + '/vehiculos/'+id,cupo);
-        }
         //cliente
         this.getCliente = function(ide){
             return $http.get(API + '/central/clientes/'+ide);
@@ -91,5 +88,14 @@
         this.eliminarPaquete = function(paquete_id){
             return $http.delete(API + '/paquetes/'+ paquete_id);
         }
+
+        this.getSolicitudesPasajeros = function(){
+            return $http.get(API + '/centrales/'+authService.currentUser().central.id+'/solicitudes_pasajeros');
+        }
+
+        this.getSolicitudPasajero = function(solicitud_id){
+            return $http.get(API + '/centrales/solicitudes_pasajeros/'+ solicitud_id);
+        }
+
     }
 })();

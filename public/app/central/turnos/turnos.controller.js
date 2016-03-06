@@ -58,6 +58,11 @@
         vm.limpiarGiros = limpiarGiros;
         vm.limpiarPaquetes = limpiarPaquetes;
 
+        //solicitudes
+        vm.getSolicitudes = getSolicitudes;
+        vm.getSolicitud = getSolicitud;
+
+
         vm.despacharConductor = despacharConductor;
         vm.imprimir = imprimir;
 
@@ -65,6 +70,7 @@
         function initialize() {
             cargarRutas();
             cargarDeducciones();
+            getSolicitudes();
         }
 
         function addNewConductor(ruta){
@@ -715,6 +721,32 @@
             ventimp.document.head.appendChild(css);
             ventimp.print( );
             ventimp.close();
+        }
+
+        function getSolicitudes(){
+            vm.solicitudes = [];
+            turnosService.getSolicitudesPasajeros().then(success, error);
+            function success(p){
+                for (var i = 0; i < p.data.length; i++){
+                    vm.solicitudes[i] = p.data[i];
+                }
+            }
+            function error(e){
+
+            }
+        }
+
+        function getSolicitud(solicitud_id){
+            vm.solicitud = {};
+            $('#modalSolicitud').openModal();
+            turnosService.getSolicitudPasajero(solicitud_id).then(success, error);
+            function success(p){
+                vm.solicitud = p.data;
+            }
+            function error(e){
+                console.log('Error al cargar la solicitud');
+            }
+
         }
     }
 })();

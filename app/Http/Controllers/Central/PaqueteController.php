@@ -39,7 +39,7 @@ class PaqueteController extends Controller
             if(!Central::find($central_id)->paquetes()->save($paquete)){
                 return response()->json(['mensajeError' => 'No se ha posido registrar al paquete'], 400);
             }
-            return JsonResponse::create(array('message' => "Paquete asignado correctamente", json_decode($noty->enviarNotificacion($mensaje, $data['conductor_id'], 'Paquetes'))), 200);
+            return JsonResponse::create(array('message' => "Paquete asignado correctamente", json_decode($noty->enviarNotificacionConductores($mensaje, $data['conductor_id'], 'Paquetes'))), 200);
         } catch (\Exception $exc) {
             return response()->json(array("exception"=>$exc->getMessage()), 400);
         }
@@ -90,7 +90,7 @@ class PaqueteController extends Controller
             }else{
                 $paquete->delete();
                 $mensaje = 'Se retiro un paquete que se te habia sido asignado';
-                return response()->json(['message' => "Paquete eliminado correctamente", json_decode($noty->enviarNotificacion($mensaje, $conductor->id, 'Paquetes'))], 200);
+                return response()->json(['message' => "Paquete eliminado correctamente", json_decode($noty->enviarNotificacionConductores($mensaje, $conductor->id, 'Paquetes'))], 200);
             }
         }catch (Exception $ex) {
             return JsonResponse::create(array('message' => "No se pudo Eliminar el paquete", "exception"=>$ex->getMessage(), "request" =>json_encode($id)), 401);

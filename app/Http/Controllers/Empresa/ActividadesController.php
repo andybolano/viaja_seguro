@@ -51,7 +51,7 @@ class ActividadesController extends Controller
         $mensaje = 'La empresa ha agendado una nueva actividad';
 //        try{
             $data = $request->json()->all();
-            $noty->enviarNotificacion($mensaje,$reg_ids,'Acividad');
+            $noty->enviarNotificacionConductores($mensaje,$reg_ids,'Acividad');
             $actividad = new Actividad($data);
             if(!Empresa::find($empresa_id)->agendaActividades()->save($actividad)){
                 return response()->json(['mensajeError' => 'no se ha podido almacenar el registro'], 400);

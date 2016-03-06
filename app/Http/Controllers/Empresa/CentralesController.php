@@ -1,13 +1,16 @@
 <?php namespace App\Http\Controllers\Empresa;
 
+use App\Http\Controllers\NotificacionController;
 use App\Model\Central;
-use App\Model\Ciudad;
+use App\Model\Ruta;
 use App\Model\Empresa;
 use App\Model\Municipio;
 use App\Model\Rol;
+use App\Model\Solicitud;
 use App\Model\Usuario;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-
+use DB;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
@@ -187,6 +190,31 @@ class CentralesController extends Controller
     {
         return Central::find($central_id)->solicitudes()
             ->where(['tipo'=> 'vehiculo', 'estado'=> 'p'])->get()->load('datos_pasajeros');
+    }
+
+    public function getSolicitudPasajero($solicitud_id){
+        $solicitud = Solicitud::find($solicitud_id)->load('datos_pasajeros');
+        $solicitud['ruta'] = Ruta::find($solicitud->ruta_id);
+        $solicitud['ruta']['destino'] = Central::find($solicitud['ruta']->id_central_destino)->ciudad;
+        $solicitud['conductores'] = Ruta::find($solicitud->ruta_id)->turnos->load('conductor');
+        $solicitud['conductores']['cupos'] =  DB::table('vehiculos')->select(
+            DB::raw('( (cupos) - (select count(conductor_id) from pasajeros) ) as total'))->get('total');
+        return JsonResponse::create($solicitud);
+    }
+
+
+    public function aceptarSolicitudPasajero($id)
+    {
+        $solicitud = Solicitud::find($id)->load('cliente');
+        $solicitud->estado = 'a';
+        if($solicitud->save()){
+            $noty = new NotificacionController();
+            $mensaje = 'Su solicitud a sido acepta, por favor espere a que el vehiculo la recoja';
+            $noty->enviarNotificacionClientes($mensaje, $solicitud->cliente_id, 'Confirmacion');
+            return JsonResponse::create(array('message' => 'Solicitud aprovada'));
+        }else{
+            return JsonResponse::create(array('message' => 'No se pudo aprovar la solicitud'));
+        }
     }
 
 }

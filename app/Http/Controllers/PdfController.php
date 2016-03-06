@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Model\Central;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Vinkla\Pusher\PusherManager;
 use Illuminate\Routing\Controller;
@@ -9,7 +10,8 @@ use DB;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests;
 use Illuminate\Support\Facades\App;
-
+use App\Model\Solicitud;
+use App\Model\Ruta;
 
 class PdfController extends Controller
 {
@@ -26,10 +28,13 @@ class PdfController extends Controller
     }
     public function invoice()
     {
-        \App::make('\App\Events\EliminarSolicitudEvent')->enviarNotificacion('Eliminar', 'Existe una nueva solicitud',2 );
+//        \App::make('\App\Events\EliminarSolicitudEvent')->enviarNotificacion('Eliminar', 'Existe una nueva solicitud',2 );
+        $solicitud = Solicitud::find(4)->load('datos_pasajeros');
+        $solicitud['ruta'] = Ruta::find($solicitud->ruta_id);
+        $solicitud['ruta']['destino'] = Central::find($solicitud['ruta']->id_central_destino)->ciudad;
+        $solicitud['conductores'] = Ruta::find($solicitud->ruta_id)->turnos->load('conductor');
 
-
-
+        return JsonResponse::create($solicitud);
 //        $pusher = \App::make('pusher');
 //
 //        return array($pusher->trigger( 'solicitudes',

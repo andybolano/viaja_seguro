@@ -39,7 +39,7 @@ class GiroController extends Controller
                 $giro->delete();
                 return response()->json(['mensajeError' => 'No se ha posido registrar al giro'], 400);
             }
-            return JsonResponse::create(array('message' => "Se asigno el giro correctamente", json_decode($noty->enviarNotificacion($mensaje, $data['conductor_id'], 'Giros'))), 200);
+            return JsonResponse::create(array('message' => "Se asigno el giro correctamente", json_decode($noty->enviarNotificacionConductores($mensaje, $data['conductor_id'], 'Giros'))), 200);
         } catch (\Exception $exc) {
             return response()->json(array("exception"=>$exc->getMessage()), 400);
         }
@@ -87,7 +87,7 @@ class GiroController extends Controller
             }else{
                 $giro->delete();
                 $mensaje = 'Se retiro un giro que se te habia sido asignado';
-                return JsonResponse::create(array('message' => "Giro eliminado correctamente", json_decode($noty->enviarNotificacion($mensaje, $conductor->id,'Giros'))), 200);
+                return JsonResponse::create(array('message' => "Giro eliminado correctamente", json_decode($noty->enviarNotificacionConductores($mensaje, $conductor->id,'Giros'))), 200);
             }
         }catch (Exception $ex) {
             return JsonResponse::create(array('message' => "No se pudo eliminar el Giro", "exception"=>$ex->getMessage(), "request" =>json_encode($id)), 401);

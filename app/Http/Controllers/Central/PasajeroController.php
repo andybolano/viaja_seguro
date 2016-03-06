@@ -65,7 +65,7 @@ class PasajeroController extends Controller
             $pasajero->delete();
             return response()->json(['message' => 'no se ha podido almacenar el registro'], 400);
         }
-        return JsonResponse::create(array('message' => "Se asigno el pasajero correctamente", json_decode($noty->enviarNotificacion($mensaje, $data['conductor_id'], 'Pasajeros')), 200));
+        return JsonResponse::create(array('message' => "Se asigno el pasajero correctamente", json_decode($noty->enviarNotificacionConductores($mensaje, $data['conductor_id'], 'Pasajeros')), 200));
     }
 
 //    function enviarNotificacion($mensaje, $conductor_id)
@@ -199,7 +199,7 @@ class PasajeroController extends Controller
             }else{
                 $pasajero->delete();
                 $mensaje = 'Se retiro un pasajero que se te habia sido asignado';
-                return JsonResponse::create(array('message' => "Pasajero eliminado correctamente", json_decode($noty->enviarNotificacion($mensaje, $conductor->id,'Pasajeros')), 200));
+                return JsonResponse::create(array('message' => "Pasajero eliminado correctamente", json_decode($noty->enviarNotificacionConductores($mensaje, $conductor->id,'Pasajeros')), 200));
             }
         }catch (Exception $ex) {
             return JsonResponse::create(array('message' => "No se pudo Eliminar el Pasajero", "exception"=>$ex->getMessage(), "request" =>json_encode($id)), 401);
