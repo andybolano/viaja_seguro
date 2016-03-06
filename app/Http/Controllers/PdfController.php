@@ -26,7 +26,7 @@ class PdfController extends Controller
     }
     public function invoice()
     {
-        \App::make('\App\Events\NuevaSolicitudEvent')->enviarNotificacion('Vehiculo', 'Existe una nueva solicitud',2 );
+        \App::make('\App\Events\EliminarSolicitudEvent')->enviarNotificacion('Eliminar', 'Existe una nueva solicitud',2 );
 
 
 

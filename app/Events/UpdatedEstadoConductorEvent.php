@@ -7,10 +7,11 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Vinkla\Pusher\PusherManager;
 
-class ModificarSolicitudEvent extends Event
+class UpdatedEstadoConductorEvent extends Event
 {
     use SerializesModels;
     protected $pusher;
+
     /**
      * Create a new event instance.
      *
@@ -28,6 +29,6 @@ class ModificarSolicitudEvent extends Event
      */
     public function enviarNotificacion($tipo, $message, $central_id)
     {
-        $this->pusher->trigger('notificaciones', 'ModificarSolicitudEvent', ['tipo' => $tipo, 'message' => $message, 'central_id' => $central_id]);
+        $this->pusher->trigger('notificaciones', 'UpdatedEstadoConductorEvent', ['tipo' => $tipo, 'message' => $message, 'central_id' => $central_id]);
     }
 }

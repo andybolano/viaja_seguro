@@ -26,7 +26,7 @@ class EliminarSolicitudEvent extends Event
      *
      * @return array
      */
-    public function broadcastOn($tipo, $message, $central_id)
+    public function enviarNotificacion($tipo, $message, $central_id)
     {
         $this->pusher->trigger('notificaciones', 'EliminarSolicitudEvent', ['tipo' => $tipo, 'message' => $message, 'central_id' => $central_id]);
     }

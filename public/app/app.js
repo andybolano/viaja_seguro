@@ -60,7 +60,8 @@
             });
     }
 
-    function run($rootScope, $state, jwtHelper) {
+    function run($rootScope, $state, jwtHelper, notificacionService) {
+        notificacionService.pusher();
         $rootScope.$on('$stateChangeStart', function(e, to) {
             if (!to.data || !to.data.noRequiresLogin) {
                 var jwt = sessionStorage.getItem('jwt');
