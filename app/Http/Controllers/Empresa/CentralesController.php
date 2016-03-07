@@ -147,7 +147,9 @@ class CentralesController extends Controller
                 'id' => $ruta->id,
                 //'origen' => $ruta->origen->load('ciudad'),
                 'destino' => $ruta->destino->load('ciudad'),
-                'turnos' => $ruta->turnos->load('conductor')
+                'turnos' => $ruta->turnos->load('conductor'),
+                'solicitudes'=> $ruta->solicitudes()
+                ->where(['tipo'=> 'vehiculo', 'estado'=> 'p'])->get()->load('datos_pasajeros')
             ];
         }
         return $rutas;
@@ -193,12 +195,17 @@ class CentralesController extends Controller
     }
 
     public function getSolicitudPasajero($solicitud_id){
+        $i = 0;
         $solicitud = Solicitud::find($solicitud_id)->load('datos_pasajeros');
         $solicitud['ruta'] = Ruta::find($solicitud->ruta_id);
         $solicitud['ruta']['destino'] = Central::find($solicitud['ruta']->id_central_destino)->ciudad;
         $solicitud['conductores'] = Ruta::find($solicitud->ruta_id)->turnos->load('conductor');
-        $solicitud['conductores']['cupos'] =  DB::table('vehiculos')->select(
-            DB::raw('( (cupos) - (select count(conductor_id) from pasajeros) ) as total'))->get('total');
+        foreach($solicitud['conductores'] as $cupos){
+            $solicitud['conductores'][$i]['cupos'] = DB::table('vehiculos')->select(
+                DB::raw('( (cupos) - (select count(conductor_id) from pasajeros where conductor_id ='.$cupos->conductor_id.' and estado = "En ruta") ) as total'))
+                ->where('conductor_id', $cupos->conductor_id)->get( );
+            $i++;
+        }
         return JsonResponse::create($solicitud);
     }
 

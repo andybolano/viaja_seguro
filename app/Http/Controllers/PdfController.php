@@ -28,12 +28,23 @@ class PdfController extends Controller
     }
     public function invoice()
     {
+        $i=0;
 //        \App::make('\App\Events\EliminarSolicitudEvent')->enviarNotificacion('Eliminar', 'Existe una nueva solicitud',2 );
         $solicitud = Solicitud::find(4)->load('datos_pasajeros');
         $solicitud['ruta'] = Ruta::find($solicitud->ruta_id);
         $solicitud['ruta']['destino'] = Central::find($solicitud['ruta']->id_central_destino)->ciudad;
         $solicitud['conductores'] = Ruta::find($solicitud->ruta_id)->turnos->load('conductor');
+        foreach($solicitud['conductores'] as $cupos){
+            $solicitud['conductores'][$i]['cupo']= DB::table('vehiculos')->select(
+                DB::raw('( (cupos) - (select count(conductor_id) from pasajeros where conductor_id ='.$cupos->conductor_id.' and estado = "En ruta") ) as total'))
+                ->where('conductor_id', $cupos->conductor_id)->first();
+            $i++;
+        }
+        return JsonResponse::create($solicitud);
 
+
+//        $solicitud['conductores']['cupos'] =  DB::table('vehiculos')->select(
+//            DB::raw('( (cupos) - (select count(conductor_id) from pasajeros where estado="En ruta") ) as total'))->get();
         return JsonResponse::create($solicitud);
 //        $pusher = \App::make('pusher');
 //

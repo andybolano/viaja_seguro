@@ -31,4 +31,8 @@ class Ruta extends Model
         return $this->belongsToMany(Conductor::class, 'turnos')->withPivot('turno');
     }
 
+    public function solicitudes()
+    {
+        return $this->hasMany(Solicitud::class);
+    }
 }

@@ -168,6 +168,7 @@
             turnosService.getRutasCentral().then(success, error);
             function success(p) {
                 vm.rutas = p.data;
+                vm.solicitudes = p.data.rutas.solicitudes;
             }
             function error(error) {
                 console.log('Error al cargar conductores', error);
@@ -737,11 +738,18 @@
         }
 
         function getSolicitud(solicitud_id){
-            vm.solicitud = {};
+            vm.solicitud = [];
             $('#modalSolicitud').openModal();
             turnosService.getSolicitudPasajero(solicitud_id).then(success, error);
             function success(p){
+                //for(var i = 0; i < p.data.length; i++){
+                //    vm.solicitud[i] = p.data[i];
+                //}
                 vm.solicitud = p.data;
+                for(var i = 0; i < p.data.conductores.cupos;i++){
+                    vm.solicitud.conductores.conductor.cupo[i] = p.data.conductores.cupos[i].total
+                }
+                console.log(vm.solicitud)
             }
             function error(e){
                 console.log('Error al cargar la solicitud');

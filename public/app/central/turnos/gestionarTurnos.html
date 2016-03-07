@@ -1,32 +1,23 @@
 <div ng-controller="turnosController as vm" class="contenedor" xmlns="http://www.w3.org/1999/html">
     <div class="row">
-
-
         <div class="col s5 ">
-            <div class="z-depth-1 white">
-                <div class="contenedor">
+            <div class="row z-depth-1 white col s12"
+            ng-repeat="ruta in vm.rutas">
+                <div class="contenedor simpleDemo col s12">
                     <div class="row">
-                        <div class="col s9"><p style="font-size: 20px">Nuevas solicitudes</p></div>
-                        <div class="row">
-                            <div class="col s12">
-                                <table  class="striped bordered responsive-table">
-                                    <thead>
-                                    <th > Solicitudes</th>
-                                    <th>Visuarlizar</th>
-                                    </thead>
-                                    <tbody>
-                                    <tr ng-repeat="solicitud in vm.solicitudes">
-                                        <td>{{solicitud.tipo}}</td>
-                                        <td>
-                                            <a href="javascript:;" ng-click="vm.getSolicitud(solicitud.id)">
-                                                <i class="material-icons prefix">visibility</i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                        <div class="col s12"><p style="font-size: 20px">Solicitudes hacia: {{ruta.destino.ciudad.nombre}}</p></div>
+                        <table class="striped bordered responsive-table">
+                            <thbody>
+                                <tr ng-repeat="algo in ruta.solicitudes">
+                                    <td>{{algo.datos_pasajeros.length}} Pasajeros</td>
+                                    <td>
+                                        <a class="waves-effect waves-teal" ng-click="vm.getSolicitud(algo.id)">
+                                            <i class="material-icons prefix small">visibility</i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </thbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -579,7 +570,7 @@
                             <h2>Conductores en esta ruta</h2>
                             <table  class="striped bordered responsive-table">
                                 <thead>
-                                <th>Truno</th>
+                                <th>Turno</th>
                                 <th>Identificacion</th>
                                 <th>Nombre</th>
                                 <th>Cupo disponibles</th>
@@ -589,7 +580,7 @@
                                     <td>{{conductor.turno}}</td>
                                     <td>{{conductor.conductor.identificacion}}</td>
                                     <td>{{conductor.conductor.nombres}} {{conductor.conductor.apellidos}}</td>
-                                    <td>{{conductor.cupos}}</td>
+                                    <td>{{conductor.cupos.total}}</td>
                                     <td>
                                         <a href="javascript:" ng-click="vm.selectCsolicitud(vm.solicitud.id)">
                                             <i class="material-icons prefix">touch_app</i>
@@ -612,4 +603,3 @@
         </div>
     </div>
 </div>
-
