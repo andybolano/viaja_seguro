@@ -751,5 +751,23 @@
             }
 
         }
+
+        itemActionChannel.bind( "NuevaSolicitudEvent", function( data ) {
+            if(authService.currentUser().central.id == data.central_id){
+                getSolicitudes();
+            }
+        });
+
+        itemActionChannel.bind( "ModificarSolicitudEvent", function( data ) {
+            if(authService.currentUser().central.id == data.central_id){
+                getSolicitudes();
+            }
+        } );
+
+        itemActionChannel.bind( "EliminarSolicitudEvent", function( data ) {
+            if(authService.currentUser().central.id == data.central_id){
+                getSolicitudes();
+            }
+        });
     }
 })();

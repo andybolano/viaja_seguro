@@ -1,3 +1,8 @@
+var pusher = new Pusher('cabd8ffa68f070ee9742', {
+    encrypted: true
+});
+
+var itemActionChannel = pusher.subscribe( 'notificaciones' );
 (function(){
     'use strict';
     angular
@@ -12,12 +17,6 @@
             //        window.console.log(message);
             //    }
             //};
-
-            var pusher = new Pusher('cabd8ffa68f070ee9742', {
-                encrypted: true
-            });
-
-            var itemActionChannel = pusher.subscribe( 'notificaciones' );
 
             itemActionChannel.bind( "NuevaSolicitudEvent", function( data ) {
                 if(authService.currentUser().central.id == data.central_id){

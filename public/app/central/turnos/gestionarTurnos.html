@@ -4,82 +4,89 @@
             <div class="row z-depth-1 white col s12"
             ng-repeat="ruta in vm.rutas">
                 <div class="contenedor simpleDemo col s12">
-                    <div class="row">
-                        <div class="col s12"><p style="font-size: 20px">Solicitudes hacia: {{ruta.destino.ciudad.nombre}}</p></div>
-                        <table class="striped bordered responsive-table">
-                            <thbody>
-                                <tr ng-repeat="algo in ruta.solicitudes">
-                                    <td>{{algo.datos_pasajeros.length}} Pasajeros</td>
-                                    <td>
-                                        <a class="waves-effect waves-teal" ng-click="vm.getSolicitud(algo.id)">
-                                            <i class="material-icons prefix small">visibility</i>
-                                        </a>
-                                    </td>
-                                </tr>
-                            </thbody>
-                        </table>
-                    </div>
+
                 </div>
             </div>
         </div>
-        <div class="col s7">
+        <div class="col s12">
             <div class="row z-depth-1 white col s12"
                  ng-repeat="ruta in vm.rutas">
                 <div class="contenedor simpleDemo col s12">
-                    <div class="row">
-                        <div class="col s6"><p style="font-size: 20px">{{ruta.destino.ciudad.nombre}}</p></div>
-                        <br>
-                        <div class="col s4">
-                            <a class="btn waves-effect waves-light" ng-click="vm.despacharConductor(ruta.id)">Despachar<i class="material-icons right">send</i></a>
+                    <div class="col s7">
+                        <div class="row">
+                            <div class="col s7"></div>
+                            <div class="col s6"><p style="font-size: 20px">{{ruta.destino.ciudad.nombre}}</p></div>
+                            <br>
+                            <div class="col s4">
+                                <a class="btn waves-effect waves-light" ng-click="vm.despacharConductor(ruta.id)">Despachar<i class="material-icons right">send</i></a>
+                            </div>
+                            <div class="col s1">
+                                <a class="btn waves-effect waves-light red" ng-click="vm.addNewConductor(ruta)">
+                                    <i class="material-icons">add</i>
+                                </a>
+                            </div>
                         </div>
-                        <div class="col s1">
-                            <a class="btn waves-effect waves-light red" ng-click="vm.addNewConductor(ruta)">
-                                <i class="material-icons">add</i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <ul dnd-list="ruta.turnos" class="col s12 collection"
-                            dnd-inserted="vm.addConductor(ruta)">
-                            <li ng-repeat="turno in ruta.turnos"
-                                dnd-draggable="turno"
-                                dnd-moved="vm.movedConductor(ruta, $index)"
-                                dnd-effect-allowed="move"
-                                dnd-selected="vm.selectedTurno = turno"
-                                dnd-dragend="vm.updateTurnos(ruta)"
-                                class="grey lighten-5 z-depth-1 collection-item">
-                                <div class="row valign-wrapper" style="margin: 0">
-                                    <div class="col s1" style="padding-left: 0">
-                                        <span class="left" style="margin-right: 5px"><h4>{{turno.turno}}</h4></span>
+                        <div class="row">
+                            <ul dnd-list="ruta.turnos" class="col s12 collection"
+                                dnd-inserted="vm.addConductor(ruta)">
+                                <li ng-repeat="turno in ruta.turnos"
+                                    dnd-draggable="turno"
+                                    dnd-moved="vm.movedConductor(ruta, $index)"
+                                    dnd-effect-allowed="move"
+                                    dnd-selected="vm.selectedTurno = turno"
+                                    dnd-dragend="vm.updateTurnos(ruta)"
+                                    class="grey lighten-5 z-depth-1 collection-item">
+                                    <div class="row valign-wrapper" style="margin: 0">
+                                        <div class="col s1" style="padding-left: 0">
+                                            <span class="left" style="margin-right: 5px"><h4>{{turno.turno}}</h4></span>
+                                        </div>
+                                        <div class="col s2">
+                                            <img ng-src="http://{{turno.conductor.imagen}}"  style="width: 60px; height: 60px">
+                                        </div>
+                                        <div class="col s8">
+                                            <span class="title">{{turno.conductor.nombres}} {{turno.conductor.apellidos}}</span>
+                                        </div>
+                                        <div class="col s1" style="padding: 0 0">
+                                            <a class="waves-effect waves-teal" style="float: right" ng-click="vm.remove(ruta, $index)">
+                                                <i class="material-icons prefix small" style="color:#c62828">delete</i>
+                                            </a>
+                                        </div>
                                     </div>
-                                    <div class="col s2">
-                                        <img ng-src="http://{{turno.conductor.imagen}}"  style="width: 60px; height: 60px">
-                                    </div>
-                                    <div class="col s8">
-                                        <span class="title">{{turno.conductor.nombres}} {{turno.conductor.apellidos}}</span>
-                                    </div>
-                                    <div class="col s1" style="padding: 0 0">
-                                        <a class="waves-effect waves-teal" style="float: right" ng-click="vm.remove(ruta, $index)">
-                                            <i class="material-icons prefix small" style="color:#c62828">delete</i>
+                                    <div class="center">
+                                        <a  ng-if="vm.servicios.gestion_pasajeros" title="Asignar pasajeros" class="waves-effect waves-teal" ng-click="vm.addPasajero(turno.conductor)" >
+                                            <i class="material-icons prefix small">person</i>
+                                        </a>
+                                        <a ng-if="vm.servicios.giros" title="Asignar giros" class="waves-effect waves-teal" ng-click="vm.addGiro(turno.conductor)">
+                                            <i class="material-icons prefix small">attach_money</i>
+                                        </a>
+                                        <a ng-if="vm.servicios.encomiendas" title="Asignar paquetes" class="waves-effect waves-teal" ng-click="vm.addPaquete(turno.conductor)" >
+                                            <i class="material-icons prefix small">redeem</i>
+                                        </a>
+                                        <a title="Datos del vehiculo" style="float: right" class="waves-effect waves-teal" ng-click="vm.verVehiculo(turno.conductor)" >
+                                            <i class="material-icons prefix small">local_taxi</i>
                                         </a>
                                     </div>
-                                </div>
-                                <div class="center">
-                                    <a  ng-if="vm.servicios.gestion_pasajeros" title="Asignar pasajeros" class="waves-effect waves-teal" ng-click="vm.addPasajero(turno.conductor)" >
-                                        <i class="material-icons prefix small">person</i>
-                                    </a>
-                                    <a ng-if="vm.servicios.giros" title="Asignar giros" class="waves-effect waves-teal" ng-click="vm.addGiro(turno.conductor)">
-                                        <i class="material-icons prefix small">attach_money</i>
-                                    </a>
-                                    <a ng-if="vm.servicios.encomiendas" title="Asignar paquetes" class="waves-effect waves-teal" ng-click="vm.addPaquete(turno.conductor)" >
-                                        <i class="material-icons prefix small">redeem</i>
-                                    </a>
-                                    <a title="Datos del vehiculo" style="float: right" class="waves-effect waves-teal" ng-click="vm.verVehiculo(turno.conductor)" >
-                                        <i class="material-icons prefix small">local_taxi</i>
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col s5">
+                        <div class="row">
+                            <div class="row col s12"><br><p style="font-size: 20px">Solicitudes</p></div>
+                            <table class="striped bordered responsive-table">
+                                <thbody>
+                                    <tr ng-repeat="algo in ruta.solicitudes">
+                                        <td><strong>{{algo.datos_pasajeros.length}} Pasajeros</strong></td>
+                                        <td>
+                                            <a class="waves-effect waves-teal" ng-click="vm.getSolicitud(algo.id)">
+                                                <i class="material-icons prefix small">visibility</i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </thbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -75,19 +75,20 @@ class ConductorController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $data = $request->all();
         try{
 //            $data = $request->all();
             $conductor = Conductor::find($id);
 
-            $conductor->identificacion = $request->identificacion;
-            $conductor->nombres = $request->nombres;
-            $conductor->apellidos = $request->apellidos;
-            $conductor->direccion = $request->direccion;
-            $conductor->telefono = $request->telefono;
-            $conductor->correo = $request->correo;
-            $conductor->activo = $request->activo;
-            $conductor->central_id = $request->central_id;
-            if($conductor->save() == true){
+//            $conductor->identificacion = $request->identificacion;
+//            $conductor->nombres = $request->nombres;
+//            $conductor->apellidos = $request->apellidos;
+//            $conductor->direccion = $request->direccion;
+//            $conductor->telefono = $request->telefono;
+//            $conductor->correo = $request->correo;
+//            $conductor->activo = $request->activo;
+//            $conductor->central_id = $request->central_id;
+            if($conductor->save($data) == true){
                 return JsonResponse::create(array('message' => "Actualizado Correctamente"), 200);
             }else {
                 return JsonResponse::create(array('message' => "No se pudo actualizar el registro"), 400);

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Events\NuevaSolicitudEvent;
 use App\Model\Central;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Vinkla\Pusher\PusherManager;
@@ -28,11 +29,13 @@ class PdfController extends Controller
     }
     public function invoice()
     {
+//        \App::make('\App\Events\NuevaSolicitudEvent')->enviarNotificacion('algo', 'Un cliente a actualizado el estado de su solicitud a', 2);
         $i = 0;
         $solicitud = Solicitud::find(4)->load('datos_pasajeros');
         $solicitud['ruta'] = Ruta::find($solicitud->ruta_id);
         $solicitud['ruta']['destino'] = Central::find($solicitud['ruta']->id_central_destino)->ciudad;
         $solicitud['conductores'] = Ruta::find($solicitud->ruta_id)->turnos->load('conductor');
+        $solicitud['conductores']->load('vehiculo');
         foreach($solicitud['conductores'] as $cupos){
             list($total) = DB::table('vehiculos')->select(
                 DB::raw('( (cupos) - (select count(conductor_id) from pasajeros where conductor_id ='.$cupos->conductor_id.' and estado = "En ruta") ) as total'))
@@ -41,61 +44,5 @@ class PdfController extends Controller
             $i++;
         }
         return JsonResponse::create($solicitud);
-
-
-//        $solicitud['conductores']['cupos'] =  DB::table('vehiculos')->select(
-//            DB::raw('( (cupos) - (select count(conductor_id) from pasajeros where estado="En ruta") ) as total'))->get();
-
-//        $pusher = \App::make('pusher');
-//
-//        return array($pusher->trigger( 'solicitudes',
-//            'NuevaSolicitudEvent',
-//            array('message' => 'Preparing the Pusher Laracon.eu workshop!')));
-
-
-//        $reg_id = Conductor::find(6)->usuario;
-//
-//        $regId=$reg_id->reg_id;
-//        $msg='Se te asigno un nuevo pasajero';
-//        $message = array(
-//            "title" => 'Viaja seguro',
-//            "message" => $msg,
-//            "sound" => 1,
-//            "tipo" => 'Pasajeros',
-//            "subtitle" => 'Pasajeros'
-//        );
-//        $regArray[]=$regId;
-//        $url = 'https://android.googleapis.com/gcm/send';
-//
-//        $fields = array('registration_ids' => $regArray, 'data' => $message,);
-//        $headers = array( 'Authorization: key=AIzaSyApNpUuEY-iXEdTJKrzMxLEuwWNvskeGvU','Content-Type: application/json');
-//
-//        $ch = curl_init();
-//
-//        curl_setopt($ch, CURLOPT_URL, $url);
-//        curl_setopt($ch, CURLOPT_POST, true);
-//        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-//        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-//        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
-//
-//        $result=curl_exec($ch);
-//        curl_close($ch);
-//        return array($result, $reg_id);
     }
-
-//    public function __construct($text)
-//    {
-//        $this->text = $text;
-//    }
-//
-//    /**
-//     * Get the channels the event should broadcast on.
-//     *
-//     * @return array
-//     */
-//    public function broadcastOn()
-//    {
-//        return ['ubicaciones'];
-//    }
 }
