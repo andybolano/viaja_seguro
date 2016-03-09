@@ -12,40 +12,6 @@
         vm.markers = [];
         vm.markerId = 1;
 
-        Pusher.log = function(message) {
-            if (window.console && window.console.log) {
-                window.console.log(message);
-            }
-        };
-
-        var pusher = new Pusher('cabd8ffa68f070ee9742', {
-            encrypted: true
-        });
-
-        var channel = pusher.subscribe('ubicaciones');
-        channel.bind('regargar_marker', function(data) {
-            if(data.message != null){
-                //swal({
-                //    title: 'Tienes una notificacion pendiente!',
-                //    text: data.message,
-                //    type: 'warning',
-                //    cancelButtonColor: '#d33',
-                //    cancelButtonText: 'Cancelar',
-                //});
-                Lobibox.notify('info', {
-                    size: 'mini',
-                    title: 'Solicitud',
-                    msg: data.message,
-                    delay: 10000,
-                    icon: true,
-                    sound: true,
-                    soundPath: '../assets/plugins/lobibox/dist/sounds/',
-                    iconSource: "fontAwesome"
-                });
-            }
-        });
-
-
         //var intval = "";
         vm.verConductores = verConductores;
         initialize();
@@ -69,9 +35,7 @@
         function verConductores(ruta_id){
             vm.ruta = ruta_id;
             $('#modalMapaConductores').openModal();
-            $timeout(function(){
-                cargarMapa(vm.ruta);
-            },5000);
+            cargarMapa(vm.ruta);
         }
 
         function cargarMapa(ruta_id){

@@ -72,9 +72,25 @@ class VehiculoController extends Controller
                 return response()->json(array('message' => "La placa del vehiculo ya se encuentra registrada."), 200);
             }
         }else{
-            $vehiculo = Vehiculo::find($data['vehiculo'])->first();
+            $vehiculo = Vehiculo::select("*")
+                ->where("placa",$data["placa"])
+                ->first();
+            $vehiculo->modelo = $data['modelo'];
+            $vehiculo->cupos = $data['cupos'];
+            $vehiculo->color = $data['color'];
             $vehiculo->save($data);
             return JsonResponse::create(array('message' => "Vehiculo actualizado correctametne."), 200);
         }
+    }
+
+    public function updateDocumentacion(Request $request, $vehiculo_id){
+        $data = $request->all();
+        $vehiculo = Vehiculo::find($vehiculo_id)->first();
+        $vehiculo->soat = $data['soat'];
+        $vehiculo->fecha_soar = $data['fecha_soat'];
+        $vehiculo->tecnomecanica = $data['tecnomecanica'];
+        $vehiculo->fecha_tecnomecanica = $data['fecha_tecnomecanica'];
+        $vehiculo->tarjeta_propiedad = $data['tarjeta_propiedad'];
+        $vehiculo->save();
     }
 }

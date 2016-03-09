@@ -170,6 +170,15 @@ class ConductorController extends Controller
         }
     }
 
+    public function deleteUbicacion($conductor_id){
+        $busqueda = Ubicacion::select('*')->where('conductor_id', $conductor_id)->first();
+        if($busqueda->delete()){
+            return JsonResponse::create(array('message' => 'Eliminado de la ubicacion'));
+        }{
+            return JsonResponse::create(array('message' => 'Error al eliminar de la ubicacion'));
+        }
+    }
+
     public function updateRegId($conductor_id, $reg_id){
         $conductor = Conductor::find($conductor_id)->usuario;
         $conductor->reg_id = $reg_id;

@@ -13,7 +13,7 @@ class Vehiculo extends Model
     protected $casts = ['soat' => 'boolean', 'tecnomecanica' => 'boolean',
         'tarjeta_propiedad' => 'boolean' ];
 
-    protected $fillable = ['id', 'imagen', 'placa', 'modelo', 'color', 'codigo_vial', 'identificacion_propietario', 'nombre_propietario',
+    protected $fillable = ['imagen', 'placa', 'modelo', 'color', 'codigo_vial', 'identificacion_propietario', 'nombre_propietario',
         'tel_propietario', 'cupos', 'soat', 'fecha_soat', 'tecnomecanica'
     , 'fecha_tecnomecanica', 'tarjeta_propiedad', 'conductor_id'];
 

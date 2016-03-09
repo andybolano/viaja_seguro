@@ -5,3 +5,5 @@ Route::post('/api/vehiculos/{vehiculo_id}/imagen', 'Empresa\VehiculoController@g
 Route::put('/api/vehiculos/{vehiculo_id}', 'Empresa\VehiculoController@update');
 
 Route::post('/api/conductores/{conductor_id}/vehiculo', 'Empresa\VehiculoController@update');
+
+Route::put('/api/vehiculos/{vehiculo_id}/documentacion', 'Empresa\VehiculoController@updateDocumentacion');
