@@ -55,7 +55,7 @@ class VehiculoController extends Controller
     public function update(Request $request)
     {
         $data = $request->all();
-        $vehiculo_conductor = Conductor::find($data['conductor_id']);
+        $vehiculo_conductor = Conductor::find($data['conductor_id'])->first();
 
         if(!$vehiculo_conductor->load('vehiculo')){
             $busqueda = Vehiculo::select("placa")
