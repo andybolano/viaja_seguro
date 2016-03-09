@@ -201,9 +201,10 @@ class CentralesController extends Controller
         $solicitud['ruta']['destino'] = Central::find($solicitud['ruta']->id_central_destino)->ciudad;
         $solicitud['conductores'] = Ruta::find($solicitud->ruta_id)->turnos->load('conductor');
         foreach($solicitud['conductores'] as $cupos){
-            $solicitud['conductores'][$i]['cupos'] = DB::table('vehiculos')->select(
+            list($total) = DB::table('vehiculos')->select(
                 DB::raw('( (cupos) - (select count(conductor_id) from pasajeros where conductor_id ='.$cupos->conductor_id.' and estado = "En ruta") ) as total'))
-                ->where('conductor_id', $cupos->conductor_id)->get( );
+                ->where('conductor_id', $cupos->conductor_id)->get('total');
+            $solicitud['conductores'][$i]['cupos'] = $total->total;
             $i++;
         }
         return JsonResponse::create($solicitud);

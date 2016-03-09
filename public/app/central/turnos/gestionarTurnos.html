@@ -573,14 +573,13 @@
                                 <th>Turno</th>
                                 <th>Identificacion</th>
                                 <th>Nombre</th>
-                                <th>Cupo disponibles</th>
                                 </thead>
                                 <tbody>
                                 <tr ng-repeat="conductor in vm.solicitud.conductores">
                                     <td>{{conductor.turno}}</td>
                                     <td>{{conductor.conductor.identificacion}}</td>
                                     <td>{{conductor.conductor.nombres}} {{conductor.conductor.apellidos}}</td>
-                                    <td>{{conductor.cupos.total}}</td>
+                                    <td><strong>{{conductor.cupos}} cupos disponibles</strong></td>
                                     <td>
                                         <a href="javascript:" ng-click="vm.selectCsolicitud(vm.solicitud.id)">
                                             <i class="material-icons prefix">touch_app</i>
