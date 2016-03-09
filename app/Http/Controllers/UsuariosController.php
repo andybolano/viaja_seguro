@@ -49,15 +49,15 @@ class UsuariosController extends Controller
 
     public function registrarConductor(Request $request)
     {
-        $data = $request->json()->all();
+        $data = $request->all();
         $user = Usuario::nuevo($data['identificacion'], $data['contrasena'], $this->getRol('CONDUCTOR')->id, 1);
         unset($data['contrasena']);
         $data['usuario_id'] = $user->id;
         $empresa_id = $data['empresa_id'];
         unset($data['empresa_id']);
 
-        $vehiculo_conductor = $data['vehiculo'];
-        unset($data['vehiculo']);
+//        $vehiculo_conductor = $data['vehiculo'];
+//        unset($data['vehiculo']);
 
         $conductor = new Conductor($data);
         $conductor->activo = false;
@@ -66,7 +66,7 @@ class UsuariosController extends Controller
             $user->delete();
             return response()->json(['mensajeError' => 'no se ha podido almacenar el registro'], 400);
         }
-        $this->storeVehiculoconductor($conductor, $vehiculo_conductor);
+//        $this->storeVehiculoconductor($conductor, $vehiculo_conductor);
         $token = JWTAuth::fromUser($user);
 
         return response()->json(compact('token'));
