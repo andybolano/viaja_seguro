@@ -87,7 +87,7 @@ class VehiculoController extends Controller
         $data = $request->all();
         $vehiculo = Vehiculo::find($vehiculo_id)->first();
         $vehiculo->soat = $data['soat'];
-        $vehiculo->fecha_soar = $data['fecha_soat'];
+        $vehiculo->fecha_soat = $data['fecha_soat'];
         $vehiculo->tecnomecanica = $data['tecnomecanica'];
         $vehiculo->fecha_tecnomecanica = $data['fecha_tecnomecanica'];
         $vehiculo->tarjeta_propiedad = $data['tarjeta_propiedad'];
