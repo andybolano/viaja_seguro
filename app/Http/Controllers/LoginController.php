@@ -93,6 +93,7 @@ class LoginController extends Controller
                 $data['usuario']['identificacion'] = $cliente->identificacion;
                 $data['usuario']['telefono'] = $cliente->telefono;
                 $data['usuario']['imagen'] =  $cliente->imegen;
+                $data['usuario']['cliente_id'] =  $cliente->id;
                 break;
         }
         return $data;
