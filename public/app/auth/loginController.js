@@ -72,9 +72,10 @@
             var contrasenas = {
                 actual: vm.usuario.pass,
                 nueva: vm.nuevaContrasena
-            }
+            };
             authService.updatePassword(authService.currentUser(), contrasenas).then(success, error);
             function success(p) {
+                $("#modalCambiarContrasena").closeModal();
                 redirect(authService.currentUser().rol);
             }
             function error(error) {
