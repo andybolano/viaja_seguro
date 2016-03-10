@@ -76,7 +76,7 @@
                             <div class="row col s12"><br><p style="font-size: 20px">Solicitudes</p></div>
                             <table class="striped bordered responsive-table">
                                 <thbody>
-                                    <tr ng-repeat="algo in ruta.solicitudes">
+                                    <tr ng-repeat="algo in ruta.solicitudes" ng-show="algo.datos_pasajeros">
                                         <td><strong>{{algo.datos_pasajeros.length}} Pasajeros</strong></td>
                                         <td>
                                             <a class="waves-effect waves-teal" ng-click="vm.getSolicitud(algo.id)">
@@ -605,7 +605,9 @@
             <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
                style="margin-left:10px;">Salir</a>
             <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
-               style="margin-left:10px;">Salir</a>
+               style="margin-left:10px;">Aceptar solicitud</a>
+            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
+               style="margin-left:10px;" ng-click="vm.recharSolicitud(vm.solicitud.id)">Rechazar solicitud</a>
         </div>
     </div>
 </div>
