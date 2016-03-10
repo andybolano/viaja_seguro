@@ -200,7 +200,6 @@ class CentralesController extends Controller
         $solicitud['ruta'] = Ruta::find($solicitud->ruta_id);
         $solicitud['ruta']['destino'] = Central::find($solicitud['ruta']->id_central_destino)->ciudad;
         $solicitud['conductores'] = Ruta::find($solicitud->ruta_id)->turnos->load('conductor');
-        $solicitud['conductores']->load('vehiculo');
         foreach($solicitud['conductores'] as $cupos){
             list($total) = DB::table('vehiculos')->select(
                 DB::raw('( (cupos) - (select count(conductor_id) from pasajeros where conductor_id ='.$cupos->conductor_id.' and estado = "En ruta") ) as total'))
