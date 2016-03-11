@@ -171,7 +171,7 @@ class ConductorController extends Controller
     }
 
     public function deleteUbicacion($conductor_id){
-        $busqueda = Ubicacion::select('*')->where('conductor_id', $conductor_id)->first();
+        $busqueda = Ubicacion::where('conductor_id', $conductor_id);
         if($busqueda->delete()){
             return JsonResponse::create(array('message' => 'Eliminado de la ubicacion'));
         }{
