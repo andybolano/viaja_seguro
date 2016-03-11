@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Cliente;
 
 use App\Model\Cliente;
+use App\Model\DataSolicitudGiroPaquete;
 use App\Model\DataSolicitudPasajero;
 use App\Model\Rol;
 use App\Model\Solicitud;
@@ -154,6 +155,17 @@ class ClienteController extends Controller
                 foreach($pasajeros as $pasajero) {
                     $solicitud->datos_pasajeros()->save(new DataSolicitudPasajero($pasajero));
                 }
+                \App::make('\App\Events\NuevaSolicitudEvent')->enviarNotificacion($data['tipo'], 'Existe una nueva solicitud, verificala en la seccion de despacho', $data['central_id']);
+                return response()->json($solicitud->id, 200);
+            } else {
+                return response()->json(['menssage' => 'No se ha podido almacenar la solicitud'], 400);
+            }
+        } elseif($data['tipo'] == 'giro' || $data['tipo'] == 'paquete'){
+            $detalles = $data['detalles'];
+            unset($data['detalles']);
+            $solicitud = $cliente->solicitudes()->save(new Solicitud($data));
+            if($solicitud) {
+                $solicitud->detalles()->save(new DataSolicitudGiroPaquete($detalles));
                 \App::make('\App\Events\NuevaSolicitudEvent')->enviarNotificacion($data['tipo'], 'Existe una nueva solicitud, verificala en la seccion de despacho', $data['central_id']);
                 return response()->json($solicitud->id, 200);
             } else {
