@@ -6,5 +6,5 @@ Route::get('/api/rutas/{ruta_id}/turnos', 'Empresa\RutasController@getConductore
 Route::put('/api/rutas/{ruta_id}/turnos', 'Empresa\RutasController@updateConductoresEnTurno');
 
 //rutas de despacho
-Route::get('/api/rutas/{ruta_id}/turnos', 'Empresa\ViajesController@getTurno');
+Route::get('/api/rutas/{ruta_id}/turno/primero', 'Empresa\ViajesController@getTurno');
 Route::post('/api/rutas/turnos/conductor', 'Empresa\ViajesController@deleteTurno');
