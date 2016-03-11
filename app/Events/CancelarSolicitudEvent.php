@@ -7,7 +7,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Vinkla\Pusher\PusherManager;
 
-class EliminarSolicitudEvent extends Event
+class CancelarSolicitudEvent extends Event
 {
     use SerializesModels;
     protected $pusher;
@@ -28,6 +28,6 @@ class EliminarSolicitudEvent extends Event
      */
     public function enviarNotificacion($tipo, $message, $central_id)
     {
-        $this->pusher->trigger('notificaciones', 'EliminarSolicitudEvent', ['tipo' => $tipo, 'message' => $message, 'central_id' => $central_id]);
+        $this->pusher->trigger('notificaciones', 'CancelarSolicitudEvent', ['tipo' => $tipo, 'message' => $message, 'central_id' => $central_id]);
     }
 }

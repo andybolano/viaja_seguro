@@ -225,4 +225,16 @@ class CentralesController extends Controller
         }
     }
 
+    public function rechazarSolicitud(Request $request, $solicitud_id){
+        $noty = new NotificacionController();
+        $solicitud = Solicitud::find($solicitud_id)->first();
+        $solicitud->estado = 'r';
+        $message = $request->causa_rechazo;
+        if($solicitud->save()){
+            $noty->enviarNotificacionClientes($message, $solicitud->cliente_id,'Rechazo');
+            return JsonResponse::create(array('message' => 'Se rechazo la solicitud correctamente'));
+        }else{
+            return JsonResponse::create(array('message' => 'Ocurrio un error al rechazar la solicitud '));
+        }
+    }
 }

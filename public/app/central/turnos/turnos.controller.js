@@ -754,17 +754,36 @@
 
         vm.recharSolicitud = function(){
             swal({
-                    title: 'Escriba la causa de rechazo',
-                    html: '<textarea id="textarea1" class="materialize-textarea" ng-model="vm.causa_rechazo"></textarea><label for="textarea1">Causa de rechazo</label>',
-                    showCancelButton: true,
-                    confirmButtonText: 'Rechazar',
-                    cancelButtonText: 'Cancelar rechazo',
-                    closeOnConfirm: false,
-                    allowOutsideClick: false
-                },
-                function() {
-
-                })
+                title: 'Escriba la causa de rechazo',
+                html: '<textarea id="textarea1" class="materialize-textarea" ng-model="vm.causa_rechazo"></textarea><label for="textarea1">Causa de rechazo</label>',
+                showCancelButton: true,
+                confirmButtonText: 'Rechazar',
+                cancelButtonText: 'Cancelar rechazo',
+                closeOnConfirm: false,
+                allowOutsideClick: false
+            },function(isConfirm) {
+                if (isConfirm) {
+                    turnosService.rechazarSolicitud(vm.causa_rechazo, vm.solicitud.id).then(succes, error);
+                }
+                function succes(p){
+                    swal.disableButtons();
+                    setTimeout(function() {
+                        swal({
+                            title: 'Exito!',
+                            text: p.data.message,
+                            type: 'success',
+                        }, function() {
+                            cargarRutas();
+                        });
+                    }, 1000);
+                }
+                function error(error){
+                    swal(
+                        'ERROR!!',
+                        error.data.message,
+                        'error'     );
+                }
+            })
         }
 
         itemActionChannel.bind( "NuevaSolicitudEvent", function( data ) {
@@ -779,7 +798,7 @@
             }
         } );
 
-        itemActionChannel.bind( "EliminarSolicitudEvent", function( data ) {
+        itemActionChannel.bind( "CancelarSolicitudEvent", function( data ) {
             if(authService.currentUser().central.id == data.central_id){
                 cargarRutas();
             }

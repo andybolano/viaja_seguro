@@ -13,3 +13,4 @@ Route::get('/api/centrales/{central_id}/rutas', 'Empresa\CentralesController@get
 Route::get('/api/centrales/{central_id}/solicitudes_pasajeros', 'Empresa\CentralesController@getSolicitudesPasajeros');
 
 Route::get('/api/centrales/solicitudes_pasajeros/{pasajero_id}', 'Empresa\CentralesController@getSolicitudPasajero');
+Route::put('/api/centrales/solicitudes/{solicitud_id}/rechazo', 'Empresa\CentralesController@rechazarSolicitud');
