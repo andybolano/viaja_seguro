@@ -29,20 +29,7 @@ class PdfController extends Controller
     }
     public function invoice()
     {
-//        \App::make('\App\Events\NuevaSolicitudEvent')->enviarNotificacion('algo', 'Un cliente a actualizado el estado de su solicitud a', 2);
-        $i = 0;
-        $solicitud = Solicitud::find(4)->load('datos_pasajeros');
-        $solicitud['ruta'] = Ruta::find($solicitud->ruta_id);
-        $solicitud['ruta']['destino'] = Central::find($solicitud['ruta']->id_central_destino)->ciudad;
-        $solicitud['conductores'] = Ruta::find($solicitud->ruta_id)->turnos->load('conductor');
-        $solicitud['conductores']->load('vehiculo');
-        foreach($solicitud['conductores'] as $cupos){
-            list($total) = DB::table('vehiculos')->select(
-                DB::raw('( (cupos) - (select count(conductor_id) from pasajeros where conductor_id ='.$cupos->conductor_id.' and estado = "En ruta") ) as total'))
-                ->where('conductor_id', $cupos->conductor_id)->get('total');
-            $solicitud['conductores'][$i]['cupos'] = $total->total;
-            $i++;
-        }
-        return JsonResponse::create($solicitud);
+        \App::make('\App\Events\NuevaSolicitudEvent')->enviarNotificacion('algo', 'Un cliente a actualizado el estado de su solicitud a', 2);
+
     }
 }

@@ -70,7 +70,7 @@
         function initialize() {
             cargarRutas();
             cargarDeducciones();
-            getSolicitudes();
+            //getSolicitudes();
         }
 
         function addNewConductor(ruta){
@@ -168,7 +168,6 @@
             turnosService.getRutasCentral().then(success, error);
             function success(p) {
                 vm.rutas = p.data;
-                vm.solicitudes = p.data.rutas.solicitudes;
             }
             function error(error) {
                 console.log('Error al cargar conductores', error);
@@ -725,12 +724,13 @@
         }
 
         function getSolicitudes(){
-            vm.solicitudes = [];
+            vm.solicitudes = {};
             turnosService.getSolicitudesPasajeros().then(success, error);
             function success(p){
-                for (var i = 0; i < p.data.length; i++){
-                    vm.solicitudes[i] = p.data[i];
-                }
+                //for (var i = 0; i < p.data.length; i++){
+                //    vm.solicitudes[i] = p.data[i];
+                //}
+                vm.solicitudes = p.data;
             }
             function error(e){
 
@@ -752,21 +752,36 @@
 
         }
 
+        vm.recharSolicitud = function(){
+            swal({
+                    title: 'Escriba la causa de rechazo',
+                    html: '<textarea id="textarea1" class="materialize-textarea" ng-model="vm.causa_rechazo"></textarea><label for="textarea1">Causa de rechazo</label>',
+                    showCancelButton: true,
+                    confirmButtonText: 'Rechazar',
+                    cancelButtonText: 'Cancelar rechazo',
+                    closeOnConfirm: false,
+                    allowOutsideClick: false
+                },
+                function() {
+
+                })
+        }
+
         itemActionChannel.bind( "NuevaSolicitudEvent", function( data ) {
             if(authService.currentUser().central.id == data.central_id){
-                getSolicitudes();
+                cargarRutas();
             }
         });
 
         itemActionChannel.bind( "ModificarSolicitudEvent", function( data ) {
             if(authService.currentUser().central.id == data.central_id){
-                getSolicitudes();
+                cargarRutas();
             }
         } );
 
         itemActionChannel.bind( "EliminarSolicitudEvent", function( data ) {
             if(authService.currentUser().central.id == data.central_id){
-                getSolicitudes();
+                cargarRutas();
             }
         });
     }
