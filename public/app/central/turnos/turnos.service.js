@@ -97,5 +97,12 @@
             return $http.get(API + '/centrales/solicitudes_pasajeros/'+ solicitud_id);
         }
 
+        this.rechazarSolicitud = function(obj, solicitud_id){
+            return $http.put(API + '/centrales/solicitudes/'+solicitud_id+'/rechazo', obj);
+        }
+
+        this.asignarSolicitud = function(solicitud_id, obj){
+            return $http.put(API + '/centrales/solicitudes/'+solicitud_id+'/aceptar', obj);
+        }
     }
 })();

@@ -48,7 +48,7 @@ var itemActionChannel = pusher.subscribe( 'notificaciones' );
                 }
             } );
 
-            itemActionChannel.bind( "EliminarSolicitudEvent", function( data ) {
+            itemActionChannel.bind( "CancelarSolicitudEvent", function( data ) {
                 if(authService.currentUser().central.id == data.central_id){
                     Lobibox.notify('info', {
                         size: 'mini',

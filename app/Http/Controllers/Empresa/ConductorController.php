@@ -78,23 +78,24 @@ class ConductorController extends Controller
         $data = $request->all();
         try{
 //            $data = $request->all();
-            $conductor = Conductor::find($id);
+            $conductor = Conductor::find($id)->first();
 
-//            $conductor->identificacion = $request->identificacion;
-//            $conductor->nombres = $request->nombres;
-//            $conductor->apellidos = $request->apellidos;
-//            $conductor->direccion = $request->direccion;
-//            $conductor->telefono = $request->telefono;
-//            $conductor->correo = $request->correo;
-//            $conductor->activo = $request->activo;
-//            $conductor->central_id = $request->central_id;
-            if($conductor->save($data) == true){
+            $conductor->identificacion = $request->identificacion;
+            $conductor->nombres = $request->nombres;
+            $conductor->apellidos = $request->apellidos;
+            $conductor->direccion = $request->direccion;
+            $conductor->telefono = $request->telefono;
+            $conductor->correo = $request->correo;
+            $conductor->activo = $request->activo;
+            $conductor->estado = $request->estado;
+            $conductor->central_id = $request->central_id;
+            if($conductor->save()){
                 return JsonResponse::create(array('message' => "Actualizado Correctamente"), 200);
             }else {
                 return JsonResponse::create(array('message' => "No se pudo actualizar el registro"), 400);
             }
         }catch(Exception $e){
-            return JsonResponse::create(array('message' => "No se pudo guardar el registro", "exception"=>$e->getMessage()), 401);
+            return JsonResponse::create(array('message' => "Se produjo una exepcion", "exception"=>$e->getMessage()), 401);
         }
     }
 
@@ -171,7 +172,7 @@ class ConductorController extends Controller
     }
 
     public function deleteUbicacion($conductor_id){
-        $busqueda = Ubicacion::select('*')->where('conductor_id', $conductor_id)->first();
+        $busqueda = Ubicacion::where('conductor_id', $conductor_id);
         if($busqueda->delete()){
             return JsonResponse::create(array('message' => 'Eliminado de la ubicacion'));
         }{

@@ -754,17 +754,84 @@
 
         vm.recharSolicitud = function(){
             swal({
-                    title: 'Escriba la causa de rechazo',
-                    html: '<textarea id="textarea1" class="materialize-textarea" ng-model="vm.causa_rechazo"></textarea><label for="textarea1">Causa de rechazo</label>',
-                    showCancelButton: true,
-                    confirmButtonText: 'Rechazar',
-                    cancelButtonText: 'Cancelar rechazo',
-                    closeOnConfirm: false,
-                    allowOutsideClick: false
-                },
-                function() {
-
-                })
+                title: 'Escriba la causa de rechazo',
+                html: '<textarea id="causa" class="materialize-textarea" ng-model="vm.causa_rechazo"></textarea><label for="textarea1">Causa de rechazo</label>',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Rechazar',
+                cancelButtonText: 'Cancelar rechazo',
+                closeOnConfirm: false,
+                allowOutsideClick: false
+            },function(isConfirm) {
+                var obj = {
+                    causa_rechazo: $('#causa').val()
+                }
+                if (isConfirm) {
+                    turnosService.rechazarSolicitud(obj, vm.solicitud.id).then(succes, error);
+                }
+                function succes(p){
+                    swal.disableButtons();
+                    setTimeout(function() {
+                        swal({
+                            title: 'Exito!',
+                            text: p.data.message,
+                            type: 'success',
+                        }, function() {
+                            cargarRutas();
+                        });
+                    }, 1000);
+                }
+                function error(error){
+                    swal(
+                        'ERROR!!',
+                        error.data.message,
+                        'error'
+                    );
+                }
+            })
+        }
+        
+        vm.selectCsolicitud = function (solicitud_id, conductor_id) {
+            alert(solicitud_id +' conductor'+ conductor_id)
+            swal({
+                title: 'ESPERA UN MOMENTO!',
+                text: 'Seguro quieres asigarle este pedido al conductor?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Asignar',
+                cancelButtonText: 'Cancelar',
+                closeOnConfirm: false
+            }, function(isConfirm){
+                if(isConfirm){
+                    var obj = {
+                        conductor_id : conductor_id
+                    }
+                    turnosService.asignarSolicitud(solicitud_id, obj).then(succes, error);
+                }
+                function succes(p){
+                    swal.disableButtons();
+                    setTimeout(function() {
+                        swal({
+                            title: 'Exito!',
+                            text: p.data.message,
+                            type: 'success',
+                        }, function() {
+                            cargarRutas();
+                        });
+                        $('#modalSolicitud').closeModal();
+                    }, 1000);
+                }
+                function error(error){
+                    swal(
+                        'ERROR!!',
+                        error.data.message,
+                        'error'
+                    );
+                }
+            });
         }
 
         itemActionChannel.bind( "NuevaSolicitudEvent", function( data ) {
@@ -779,7 +846,7 @@
             }
         } );
 
-        itemActionChannel.bind( "EliminarSolicitudEvent", function( data ) {
+        itemActionChannel.bind( "CancelarSolicitudEvent", function( data ) {
             if(authService.currentUser().central.id == data.central_id){
                 cargarRutas();
             }
