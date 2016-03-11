@@ -89,13 +89,13 @@ class ConductorController extends Controller
             $conductor->activo = $request->activo;
             $conductor->estado = $request->estado;
             $conductor->central_id = $request->central_id;
-            if($conductor->save($conductor) == true){
+            if($conductor->save()){
                 return JsonResponse::create(array('message' => "Actualizado Correctamente"), 200);
             }else {
                 return JsonResponse::create(array('message' => "No se pudo actualizar el registro"), 400);
             }
         }catch(Exception $e){
-            return JsonResponse::create(array('message' => "No se pudo guardar el registro", "exception"=>$e->getMessage()), 401);
+            return JsonResponse::create(array('message' => "Se produjo una exepcion", "exception"=>$e->getMessage()), 401);
         }
     }
 

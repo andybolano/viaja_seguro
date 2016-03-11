@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\NotificacionController;
 use App\Model\Central;
+use App\Model\Pasajero;
 use App\Model\Ruta;
 use App\Model\Empresa;
 use App\Model\Municipio;
@@ -211,17 +212,37 @@ class CentralesController extends Controller
     }
 
 
-    public function aceptarSolicitudPasajero($id)
+    public function aceptarSolicitudPasajero(Request $request, $id)
     {
         $solicitud = Solicitud::find($id)->load('cliente');
         $solicitud->estado = 'a';
+        $solicitud->conductor_id = $request->conductor_id;
         if($solicitud->save()){
             $noty = new NotificacionController();
             $mensaje = 'Su solicitud a sido acepta, por favor espere a que el vehiculo la recoja';
             $noty->enviarNotificacionClientes($mensaje, $solicitud->cliente_id, 'Confirmacion');
+            $this->moverPedidoSolicitud($id);
             return JsonResponse::create(array('message' => 'Solicitud aprovada'));
         }else{
             return JsonResponse::create(array('message' => 'No se pudo aprovar la solicitud'));
+        }
+    }
+
+    public function moverPedidoSolicitud($solicitud_id){
+        $solicitud = Solicitud::find($solicitud_id)->first();
+        $solicitud->load('cliente');
+        if($solicitud->tipo == 'vehiculo'){
+            $p = new Pasajero();
+            $solicitud->load('datos_pasajeros');
+            $p->direccion = "$solicitud->ciudad_direccion"." $solicitud->direccion_recogida";
+            $p->conductor_id = $solicitud->conductor_id;
+            $p->central_id = $solicitud->central_id;
+            $p->telefono = $solicitud->cliente->telefono;
+            foreach($solicitud->datos_pasajeros as $pasajero){
+                $p->identificacion = $pasajero->identificacion;
+                $p->nombres = $pasajero->nombre;
+                $p->save();
+            }
         }
     }
 
@@ -230,6 +251,7 @@ class CentralesController extends Controller
         $solicitud = Solicitud::find($solicitud_id)->first();
         $solicitud->estado = 'r';
         $message = $request->causa_rechazo;
+        $solicitud->causa_rechazo = $message;
         if($solicitud->save()){
             $noty->enviarNotificacionClientes($message, $solicitud->cliente_id,'Rechazo');
             return JsonResponse::create(array('message' => 'Se rechazo la solicitud correctamente'));
