@@ -27,7 +27,7 @@ var itemActionChannel = pusher.subscribe( 'notificaciones' );
                         delay: 10000,
                         icon: true,
                         sound: true,
-                        soundPath: '../assets/plugins/lobibox/dist/sounds/',
+                        soundPath: 'http://dev.vajaseguro/public/assets/plugins/lobibox/dist/sounds/',
                         iconSource: "fontAwesome"
                     });
                 }
@@ -42,7 +42,7 @@ var itemActionChannel = pusher.subscribe( 'notificaciones' );
                         delay: 10000,
                         icon: true,
                         sound: true,
-                        soundPath: '../assets/plugins/lobibox/dist/sounds/',
+                        soundPath: 'http://dev.vajaseguro/public/assets/plugins/lobibox/dist/sounds/',
                         iconSource: "fontAwesome"
                     });
                 }
@@ -57,7 +57,7 @@ var itemActionChannel = pusher.subscribe( 'notificaciones' );
                         delay: 10000,
                         icon: true,
                         sound: true,
-                        soundPath: '../assets/plugins/lobibox/dist/sounds/',
+                        soundPath: 'http://dev.vajaseguro/public/assets/plugins/lobibox/dist/sounds/',
                         iconSource: "fontAwesome"
                     });
                 }
@@ -72,7 +72,7 @@ var itemActionChannel = pusher.subscribe( 'notificaciones' );
                         delay: 10000,
                         icon: true,
                         sound: true,
-                        soundPath: '../assets/plugins/lobibox/dist/sounds/',
+                        soundPath: 'http://dev.vajaseguro/public/assets/plugins/lobibox/dist/sounds/',
                         iconSource: "fontAwesome"
                     });
                 }

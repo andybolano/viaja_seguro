@@ -75,10 +75,10 @@ class ConductorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = $request->all();
+//        $data = $request->all();
         try{
 //            $data = $request->all();
-            $conductor = Conductor::find($id)->first();
+            $conductor = Conductor::find($id);
 
             $conductor->identificacion = $request->identificacion;
             $conductor->nombres = $request->nombres;

@@ -19,7 +19,7 @@
         }
 
         this.getTurno = function(ruta_id){
-            return $http.get(API + '/rutas/'+ruta_id+'/turnos');
+            return $http.get(API + '/rutas/'+ruta_id+'/turno/primero');
         }
 
         this.getCupos = function(conductor_id){
