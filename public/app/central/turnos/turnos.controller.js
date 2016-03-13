@@ -793,7 +793,6 @@
         }
         
         vm.selectCsolicitud = function (solicitud_id, conductor_id) {
-            alert(solicitud_id +' conductor'+ conductor_id)
             swal({
                 title: 'ESPERA UN MOMENTO!',
                 text: 'Seguro quieres asigarle este pedido al conductor?',

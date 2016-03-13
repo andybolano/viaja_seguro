@@ -246,13 +246,14 @@ class CentralesController extends Controller
         if($solicitud->tipo == 'vehiculo'){
             $p = new Pasajero();
             $solicitud->load('datos_pasajeros');
-            $p->direccion = "$solicitud->ciudad_direccion"." $solicitud->direccion_recogida";
-            $p->conductor_id = $solicitud->conductor_id;
-            $p->central_id = $solicitud->central_id;
-            $p->telefono = $solicitud->cliente->telefono;
+
             foreach($solicitud->datos_pasajeros as $pasajero){
                 $p->identificacion = $pasajero->identificacion;
                 $p->nombres = $pasajero->nombre;
+                $p->direccion = "$solicitud->ciudad_direccion"." $solicitud->direccion_recogida";
+                $p->conductor_id = $solicitud->conductor_id;
+                $p->central_id = $solicitud->central_id;
+                $p->telefono = $solicitud->cliente->telefono;
                 $p->save();
             }
         }
@@ -260,7 +261,7 @@ class CentralesController extends Controller
 
     public function rechazarSolicitud(Request $request, $solicitud_id){
         $noty = new NotificacionController();
-        $solicitud = Solicitud::find($solicitud_id)->first();
+        $solicitud = Solicitud::find($solicitud_id);
         $solicitud->estado = 'r';
         $message = $request->causa_rechazo;
         $solicitud->causa_rechazo = $message;
