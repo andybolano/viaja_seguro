@@ -195,6 +195,18 @@ class CentralesController extends Controller
             ->where(['tipo'=> 'vehiculo', 'estado'=> 'p'])->get()->load('datos_pasajeros');
     }
 
+    public function getSolicitudesPaquetes($central_id)
+    {
+        return Central::find($central_id)->solicitudes()
+            ->where(['tipo'=> 'paquete', 'estado'=> 'p'])->get()->load('detalles');
+    }
+
+    public function getSolicitudesGiros($central_id)
+    {
+        return Central::find($central_id)->solicitudes()
+            ->where(['tipo'=> 'giro', 'estado'=> 'p'])->get()->load('detalles');
+    }
+
     public function getSolicitudPasajero($solicitud_id){
         $i = 0;
         $solicitud = Solicitud::find($solicitud_id)->load('datos_pasajeros');
