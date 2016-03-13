@@ -1,13 +1,13 @@
 <div ng-controller="turnosController as vm" class="contenedor" xmlns="http://www.w3.org/1999/html">
     <div class="row">
-        <div class="col s5 ">
-            <div class="row z-depth-1 white col s12"
-            ng-repeat="ruta in vm.rutas">
-                <div class="contenedor simpleDemo col s12">
+        <!--<div class="col s5 ">-->
+            <!--<div class="row z-depth-1 white col s12"-->
+            <!--ng-repeat="ruta in vm.rutas">-->
+                <!--<div class="contenedor simpleDemo col s12">-->
 
-                </div>
-            </div>
-        </div>
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
         <div class="col s12">
             <div class="row z-depth-1 white col s12"
                  ng-repeat="ruta in vm.rutas">
@@ -76,7 +76,7 @@
                             <div class="row col s12"><br><p style="font-size: 20px">Solicitudes</p></div>
                             <table class="striped bordered responsive-table">
                                 <thbody>
-                                    <tr ng-repeat="algo in ruta.solicitudes" ng-show="algo.datos_pasajeros">
+                                    <tr ng-repeat="algo in ruta.solicitudes">
                                         <td><strong>{{algo.datos_pasajeros.length}} Pasajeros</strong></td>
                                         <td>
                                             <a class="waves-effect waves-teal" ng-click="vm.getSolicitud(algo.id)">

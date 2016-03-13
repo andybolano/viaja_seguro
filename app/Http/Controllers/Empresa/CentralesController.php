@@ -249,7 +249,7 @@ class CentralesController extends Controller
 
     public function rechazarSolicitud(Request $request, $solicitud_id){
         $noty = new NotificacionController();
-        $solicitud = Solicitud::find($solicitud_id)->first();
+        $solicitud = Solicitud::find($solicitud_id);
         $solicitud->estado = 'r';
         $message = $request->causa_rechazo;
         $solicitud->causa_rechazo = $message;
