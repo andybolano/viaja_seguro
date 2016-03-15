@@ -76,10 +76,26 @@
                             <div class="row col s12"><br><p style="font-size: 20px">Solicitudes</p></div>
                             <table class="striped bordered responsive-table">
                                 <thbody>
-                                    <tr ng-repeat="algo in ruta.solicitudes">
-                                        <td><strong>{{algo.datos_pasajeros.length}} Pasajeros</strong></td>
+                                    <tr ng-repeat="algo in ruta.solicitud_pasajeros">
+                                        <td><strong>{{algo.datos_pasajeros.length}} Pasajero(s)</strong></td>
                                         <td>
-                                            <a class="waves-effect waves-teal" ng-click="vm.getSolicitud(algo.id)">
+                                            <a class="waves-effect waves-teal" ng-click="vm.getSolicitudPasajero(algo.id)">
+                                                <i class="material-icons prefix small">visibility</i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr ng-repeat="algo in ruta.solicitud_paquetes">
+                                        <td><strong>{{algo.detalles.length}} Paquete(s)</strong></td>
+                                        <td>
+                                            <a class="waves-effect waves-teal" ng-click="vm.getSolicitudPaquete(algo.id)">
+                                                <i class="material-icons prefix small">visibility</i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr ng-repeat="algo in ruta.solicitud_giros">
+                                        <td><strong>{{algo.detalles.length}} Giro(s)</strong></td>
+                                        <td>
+                                            <a class="waves-effect waves-teal" ng-click="vm.getSolicitudGiro(algo.id)">
                                                 <i class="material-icons prefix small">visibility</i>
                                             </a>
                                         </td>
@@ -295,24 +311,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="col s12 ">
-                        <div class="row z-depth-1 white">
-                            <div class="contenedor col s12">
-                                <div class="row">
-                                    <div class="col s9"><p style="font-size: 20px">Nuevas solicitudes</p></div>
-                                    <div class="col 12">
-                                        <table>
-                                            <thead>
-                                            <tr></tr>
-                                            </thead>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
             <div class="modal-footer">
@@ -551,7 +549,7 @@
     <!--fin modal planilla-->
 
 
-    <!--modal solicitudes-->
+    <!--modal solicitudes pasajeros-->
     <div id="modalSolicitud" class="modal" style="width: 90%">
         <div class="modal-content" >
             <h2>Solicitud hacia: {{vm.solicitud.ruta.destino.nombre}}</h2>
@@ -608,4 +606,63 @@
                style="margin-left:10px;" ng-click="vm.recharSolicitud(vm.solicitud.id)">Rechazar solicitud</a>
         </div>
     </div>
+
+    <!--modal solicitud paquete giros-->
+    <div id="modalSolicitudPG" class="modal" style="width: 90%">
+        <div class="modal-content" >
+            <h2>Solicitud hacia: {{vm.solicitud.ruta.destino.nombre}}</h2>
+            <div class="col s12 z-depth-1">
+                <div class="contenedor">
+                    <div class="row">
+                        <div class="row col s6">
+                            <h2>Detalles de la solicitud</h2>
+                            <table  class="striped bordered responsive-table">
+                                <thead>
+                                <th>Identificacion</th>
+                                <th>Nombre</th>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="pasajero in vm.solicitud.datos_pasajeros">
+                                    <td>{{pasajero.identificacion}}</td>
+                                    <td>{{pasajero.nombre}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row col s6">
+                            <h2>Selecciona al conductor que queires asignarle este pedido</h2>
+                            <table  class="striped bordered responsive-table">
+                                <thead>
+                                <th>Turno</th>
+                                <th>Identificacion</th>
+                                <th>Nombre</th>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="conductor in vm.solicitud.conductores">
+                                    <td>{{conductor.turno}}</td>
+                                    <td>{{conductor.conductor.identificacion}}</td>
+                                    <td>{{conductor.conductor.nombres}} {{conductor.conductor.apellidos}}</td>
+                                    <td><strong>{{conductor.cupos}} cupos disponibles</strong></td>
+                                    <td>
+                                        <a href="javascript:" ng-click="vm.selectCsolicitud(vm.solicitud.id, conductor.conductor_id)">
+                                            <i class="material-icons prefix">touch_app</i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
+               style="margin-left:10px;">Salir</a>
+            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
+               style="margin-left:10px;" ng-click="vm.recharSolicitud(vm.solicitud.id)">Rechazar solicitud</a>
+        </div>
+    </div>
+    <!--fin modal solicitud paquete giro-->
 </div>

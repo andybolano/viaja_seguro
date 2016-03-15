@@ -149,8 +149,13 @@ class CentralesController extends Controller
                 //'origen' => $ruta->origen->load('ciudad'),
                 'destino' => $ruta->destino->load('ciudad'),
                 'turnos' => $ruta->turnos->load('conductor'),
-                'solicitudes'=> $ruta->solicitudes()
-                ->where(['tipo'=> 'vehiculo', 'estado'=> 'p'])->get()->load('datos_pasajeros')
+                'solicitud_pasajeros'=> $ruta->solicitudes()
+                ->where(['tipo'=> 'vehiculo', 'estado'=> 'p'])->get()->load('datos_pasajeros'),
+                'solicitud_paquetes'=> $ruta->solicitudes()
+                    ->where(['tipo'=> 'paquete', 'estado'=> 'p'])->get()->load('detalles'),
+                'solicitud_giros'=> $ruta->solicitudes()
+                    ->where(['tipo'=> 'giro', 'estado'=> 'p'])->get()->load('detalles')
+
             ];
         }
         return $rutas;
@@ -220,6 +225,22 @@ class CentralesController extends Controller
             $solicitud['conductores'][$i]['cupos'] = $total->total;
             $i++;
         }
+        return JsonResponse::create($solicitud);
+    }
+
+    public function getSolicitudPaquete($solicitud_id){
+        $solicitud = Solicitud::find($solicitud_id)->load('detalles');
+        $solicitud['ruta'] = Ruta::find($solicitud->ruta_id);
+        $solicitud['ruta']['destino'] = Central::find($solicitud['ruta']->id_central_destino)->ciudad;
+        $solicitud['conductores'] = Ruta::find($solicitud->ruta_id)->turnos->load('conductor');
+        return JsonResponse::create($solicitud);
+    }
+
+    public function getSolicitudGiro($solicitud_id){
+        $solicitud = Solicitud::find($solicitud_id)->load('detalles');
+        $solicitud['ruta'] = Ruta::find($solicitud->ruta_id);
+        $solicitud['ruta']['destino'] = Central::find($solicitud['ruta']->id_central_destino)->ciudad;
+        $solicitud['conductores'] = Ruta::find($solicitud->ruta_id)->turnos->load('conductor');
         return JsonResponse::create($solicitud);
     }
 

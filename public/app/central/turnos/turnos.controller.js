@@ -60,7 +60,9 @@
 
         //solicitudes
         vm.getSolicitudes = getSolicitudes;
-        vm.getSolicitud = getSolicitud;
+        vm.getSolicitudPasajero = getSolicitudPasajero;
+        vm.getSolicitudGiro = getSolicitudGiro;
+        vm.getSolicitudPaquete = getSolicitudPaquete;
 
 
         vm.despacharConductor = despacharConductor;
@@ -737,11 +739,38 @@
             }
         }
 
-        function getSolicitud(solicitud_id){
+        function getSolicitudPasajero(solicitud_id){
             vm.solicitud = [];
             vm.conductores = {}
             $('#modalSolicitud').openModal();
             turnosService.getSolicitudPasajero(solicitud_id).then(success, error);
+            function success(p){
+                vm.solicitud = p.data;
+
+            }
+            function error(e){
+                console.log('Error al cargar la solicitud');
+            }
+        }
+        function getSolicitudPaquete(solicitud_id){
+            vm.solicitud = [];
+            vm.conductores = {}
+            $('#modalSolicitudPG').openModal();
+            turnosService.getSolicitudPaquete(solicitud_id).then(success, error);
+            function success(p){
+                vm.solicitud = p.data;
+
+            }
+            function error(e){
+                console.log('Error al cargar la solicitud');
+            }
+        }
+
+        function getSolicitudGiro(solicitud_id){
+            vm.solicitud = [];
+            vm.conductores = {}
+            $('#modalSolicitudPG').openModal();
+            turnosService.getSolicitudGiro(solicitud_id).then(success, error);
             function success(p){
                 vm.solicitud = p.data;
 
