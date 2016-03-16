@@ -285,6 +285,7 @@ class CentralesController extends Controller
 
     public function moverPedidoSolicitud($solicitud_id){
         $solicitud = Solicitud::find($solicitud_id);
+        $noty = new NotificacionController();
         if($solicitud->tipo == 'vehiculo'){
             $solicitud->load('cliente');
             $solicitud->load('datos_pasajeros');
@@ -296,7 +297,9 @@ class CentralesController extends Controller
                 $p->conductor_id = $solicitud->conductor_id;
                 $p->central_id = $solicitud->central_id;
                 $p->telefono = $solicitud->cliente->telefono;
-                $p->save();
+                if($p->save()){
+                    $noty->enviarNotificacionConductores('Se te asigno un nuevo pasajero', $solicitud->conductor_id, 'Pasajeros' );
+                }
             }
         }
         if ($solicitud->tipo == 'paquete'){
@@ -313,7 +316,9 @@ class CentralesController extends Controller
                 $p->telefono_receptor = $detalle->telefono;
                 $p->direccionD = $detalle->direccion;
                 $p->descripcion_paquete = $detalle->descripcion;
-                $p->save();
+                if($p->save()){
+                    $noty->enviarNotificacionConductores('Se te asigno un nuevo paquete', $solicitud->conductor_id, 'Paquete' );
+                }
             }
         }
         if($solicitud->tipo == 'giro'){
@@ -330,7 +335,9 @@ class CentralesController extends Controller
                 $g->telefono_receptor = $detalle->telefono;
                 $g->direccionD = $detalle->direccion;
                 $g->monto = $detalle->descripcion;
-                $g->save();
+                if($g->save()){
+                    $noty->enviarNotificacionConductores('Se te asigno un nuevo giro', $solicitud->conductor_id, 'Giro' );
+                }
             }
         }
     }
