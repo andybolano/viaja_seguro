@@ -14,6 +14,8 @@ Route::get('/api/centrales/{central_id}/solicitudes_pasajeros', 'Empresa\Central
 Route::get('/api/centrales/{central_id}/solicitudes_paquetes', 'Empresa\CentralesController@getSolicitudesPaquetes');
 Route::get('/api/centrales/{central_id}/solicitudes_giros', 'Empresa\CentralesController@getSolicitudesGiros');
 
-Route::get('/api/centrales/solicitudes_pasajeros/{pasajero_id}', 'Empresa\CentralesController@getSolicitudPasajero');
+Route::get('/api/centrales/solicitudes_pasajeros/{solicitud_id}', 'Empresa\CentralesController@getSolicitudPasajero');
+Route::get('/api/centrales/solicitudes_paquetes/{solicitud_id}', 'Empresa\CentralesController@getSolicitudPaquete');
+Route::get('/api/centrales/solicitudes_giros/{solicitud_id}', 'Empresa\CentralesController@getSolicitudGiro');
 Route::put('/api/centrales/solicitudes/{solicitud_id}/rechazo', 'Empresa\CentralesController@rechazarSolicitud');
 Route::put('/api/centrales/solicitudes/{solicitud_id}/aceptar', 'Empresa\CentralesController@aceptarSolicitudPasajero');

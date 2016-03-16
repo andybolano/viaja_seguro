@@ -60,7 +60,9 @@
 
         //solicitudes
         vm.getSolicitudes = getSolicitudes;
-        vm.getSolicitud = getSolicitud;
+        vm.getSolicitudPasajero = getSolicitudPasajero;
+        vm.getSolicitudGiro = getSolicitudGiro;
+        vm.getSolicitudPaquete = getSolicitudPaquete;
 
 
         vm.despacharConductor = despacharConductor;
@@ -737,11 +739,38 @@
             }
         }
 
-        function getSolicitud(solicitud_id){
+        function getSolicitudPasajero(solicitud_id){
             vm.solicitud = [];
             vm.conductores = {}
             $('#modalSolicitud').openModal();
             turnosService.getSolicitudPasajero(solicitud_id).then(success, error);
+            function success(p){
+                vm.solicitud = p.data;
+
+            }
+            function error(e){
+                console.log('Error al cargar la solicitud');
+            }
+        }
+        function getSolicitudPaquete(solicitud_id){
+            vm.solicitud = [];
+            vm.conductores = {}
+            $('#modalSolicitudPG').openModal();
+            turnosService.getSolicitudPaquete(solicitud_id).then(success, error);
+            function success(p){
+                vm.solicitud = p.data;
+
+            }
+            function error(e){
+                console.log('Error al cargar la solicitud',e);
+            }
+        }
+
+        function getSolicitudGiro(solicitud_id){
+            vm.solicitud = [];
+            vm.conductores = {}
+            $('#modalSolicitudPG').openModal();
+            turnosService.getSolicitudGiro(solicitud_id).then(success, error);
             function success(p){
                 vm.solicitud = p.data;
 
@@ -793,43 +822,52 @@
         }
         
         vm.selectCsolicitud = function (solicitud_id, conductor_id) {
-            swal({
-                title: 'ESPERA UN MOMENTO!',
-                text: 'Seguro quieres asigarle este pedido al conductor?',
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Asignar',
-                cancelButtonText: 'Cancelar',
-                closeOnConfirm: false
-            }, function(isConfirm){
-                if(isConfirm){
-                    var obj = {
-                        conductor_id : conductor_id
-                    }
-                    turnosService.asignarSolicitud(solicitud_id, obj).then(succes, error);
+            turnosService.getCupos(conductor_id).then(function(p){
+                if(vm.solicitud.tipo == 'vehiculo' && p.data < vm.solicitud.datos_pasajeros.length){
+                    Materialize.toast('El conductor no tiene cupos disponibles', '5000', 'rounded')
+                }else{
+                    swal({
+                        title: 'ESPERA UN MOMENTO!',
+                        text: 'Seguro quieres asigarle este pedido al conductor?',
+                        type: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Asignar',
+                        cancelButtonText: 'Cancelar',
+                        closeOnConfirm: false
+                    }, function(isConfirm){
+                        if(isConfirm){
+                            var obj = {
+                                conductor_id : conductor_id
+                            }
+                            turnosService.asignarSolicitud(solicitud_id, obj).then(succes, error);
+                        }
+                        function succes(p){
+                            swal.disableButtons();
+                            setTimeout(function() {
+                                swal({
+                                    title: 'Exito!',
+                                    text: p.data.message,
+                                    type: 'success',
+                                }, function() {
+                                    cargarRutas();
+                                });
+                                $('#modalSolicitud').closeModal();
+                                $('#modalSolicitudPG').closeModal();
+                            }, 1000);
+                        }
+                        function error(error){
+                            swal(
+                                'ERROR!!',
+                                error.data.message,
+                                'error'
+                            );
+                        }
+                    });
                 }
-                function succes(p){
-                    swal.disableButtons();
-                    setTimeout(function() {
-                        swal({
-                            title: 'Exito!',
-                            text: p.data.message,
-                            type: 'success',
-                        }, function() {
-                            cargarRutas();
-                        });
-                        $('#modalSolicitud').closeModal();
-                    }, 1000);
-                }
-                function error(error){
-                    swal(
-                        'ERROR!!',
-                        error.data.message,
-                        'error'
-                    );
-                }
+            },function error(e){
+
             });
         }
 

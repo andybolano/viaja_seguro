@@ -97,6 +97,14 @@
             return $http.get(API + '/centrales/solicitudes_pasajeros/'+ solicitud_id);
         }
 
+        this.getSolicitudPaquete = function(solicitud_id){
+            return $http.get(API + '/centrales/solicitudes_paquetes/'+ solicitud_id);
+        }
+
+        this.getSolicitudGiro = function(solicitud_id){
+            return $http.get(API + '/centrales/solicitudes_giros/'+ solicitud_id);
+        }
+
         this.rechazarSolicitud = function(obj, solicitud_id){
             return $http.put(API + '/centrales/solicitudes/'+solicitud_id+'/rechazo', obj);
         }
