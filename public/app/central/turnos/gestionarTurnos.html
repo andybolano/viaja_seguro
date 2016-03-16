@@ -613,18 +613,34 @@
             <h2>Solicitud hacia: {{vm.solicitud.ruta.destino.nombre}}</h2>
             <div class="col s12 z-depth-1">
                 <div class="contenedor">
-                    <div class="row">
+                    <div class="row col s12">
                         <div class="row col s6">
                             <h2>Detalles de la solicitud</h2>
                             <table  class="striped bordered responsive-table">
                                 <thead>
-                                <th>Identificacion</th>
+                                <th>Documento</th>
                                 <th>Nombre</th>
+                                <th>Recoger en</th>
+                                <th>Entrega en</th>
+                                <th>Telefono</th>
                                 </thead>
                                 <tbody>
-                                <tr ng-repeat="pasajero in vm.solicitud.datos_pasajeros">
-                                    <td>{{pasajero.identificacion}}</td>
-                                    <td>{{pasajero.nombre}}</td>
+                                <tr ng-repeat="detalle in vm.solicitud.detalles">
+                                    <td>{{detalle.identificacion}}</td>
+                                    <td>{{detalle.destinatario}}</td>
+                                    <td>{{vm.solicitud.direccion_recogida}}</td>
+                                    <td>{{detalle.direccion}}</td>
+                                    <td>{{detalle.telefono}}</td>
+                                    <tr>
+                                    <div ng-show="vm.solicitud.tipo == 'giro'">
+                                        <h2>Monto</h2>
+                                        {{detalle.descripcion | currency}}
+                                    </div>
+                                    <div ng-show="vm.solicitud.tipo == 'paquete'">
+                                        <h2>Descripcion</h2>
+                                        {{detalle.descripcion}}
+                                    </div>
+                                    </tr>
                                 </tr>
                                 </tbody>
                             </table>
@@ -642,7 +658,7 @@
                                     <td>{{conductor.turno}}</td>
                                     <td>{{conductor.conductor.identificacion}}</td>
                                     <td>{{conductor.conductor.nombres}} {{conductor.conductor.apellidos}}</td>
-                                    <td><strong>{{conductor.cupos}} cupos disponibles</strong></td>
+                                    <td><strong>{{conductor.cupos}} cupo(s) restantes para salir</strong></td>
                                     <td>
                                         <a href="javascript:" ng-click="vm.selectCsolicitud(vm.solicitud.id, conductor.conductor_id)">
                                             <i class="material-icons prefix">touch_app</i>

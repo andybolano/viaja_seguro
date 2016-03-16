@@ -762,7 +762,7 @@
 
             }
             function error(e){
-                console.log('Error al cargar la solicitud');
+                console.log('Error al cargar la solicitud',e);
             }
         }
 
