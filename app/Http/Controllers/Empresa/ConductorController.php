@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Empresa;
 
+use App\Model\Incidencia;
 use DB;
 use App\Model\Ubicacion;
 use App\Model\Conductor;
@@ -197,4 +198,45 @@ class ConductorController extends Controller
 
         return $total->total;
     }
+
+    public function storeIncidencia(Request $request, $conductor_id)
+    {
+        $data = $request->all();
+        $conductor = Conductor::find($conductor_id);
+        if($conductor){
+            $data['fecha'] = date("Y-m-d H:i:s");
+            if(!$conductor->incidencias()->save(new Incidencia($data))){
+                return response()->json(['mensajeError' => 'no se ha podido almacenar el registro'], 400);
+            }
+            $conductor->estado = 'Ausente';
+            $conductor->save();
+            return JsonResponse::create(array('message' => "estado del conductor actualizado"), 200);
+        }else{
+            return JsonResponse::create(array('messageError' => 'no es posible encontrar al conductor'));
+        }
+    }
+
+    public function getIncidencias($conductor_id)
+    {
+        return Conductor::find($conductor_id)->incidencias;
+    }
+
+    public function UltimaIncidencias($conductor_id)
+    {
+        return Conductor::find($conductor_id)->incidencias()->orderBy('fecha', 'desc')->whereNull('fecha_fin')->first();
+    }
+
+    public function finalizarIncidencia($conductor_id, $inc_id)
+    {
+        $conductor = Conductor::find($conductor_id);
+        $conductor->estado = 'Disponible';
+        $inc = Incidencia::find($inc_id);
+        $inc->fecha_fin = date("Y-m-d H:i:s");
+        if($inc->save() && $conductor->save()){
+            return JsonResponse::create(array('message' => "estado del conductor actualizado"), 200);
+        }else{
+            return response()->json(['mensajeError' => 'no se ha podido almacenar el registro'], 400);
+        }
+    }
+
 }

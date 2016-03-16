@@ -17,3 +17,8 @@ Route::put('/api/conductores/{conductor_id}/reg_id/{reg_id}', 'Empresa\Conductor
 Route::get('/api/conductores/{conductor_id}/cupos', 'Empresa\ConductorController@getCupos');
 
 Route::delete('/api/conductores/{conductor_id}/ubicacion', 'Empresa\ConductorController@deleteUbicacion');
+
+Route::get('/api/conductores/{conductor_id}/incidencias', 'Empresa\ConductorController@getIncidencias');
+Route::post('/api/conductores/{conductor_id}/incidencias', 'Empresa\ConductorController@storeIncidencia');
+Route::get('/api/conductores/{conductor_id}/incidencias/ultima', 'Empresa\ConductorController@UltimaIncidencias');
+Route::put('/api/conductores/{conductor_id}/incidencias/{incidencia_id}', 'Empresa\ConductorController@finalizarIncidencia');

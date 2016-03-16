@@ -29,6 +29,11 @@ class Conductor extends Model
         return $this->belongsTo(Central::class)->select('id', 'ciudad_id');
     }
 
+    public function incidencias()
+    {
+        return $this->hasMany(Incidencia::class);
+    }
+
     public function pagosPrestaciones($prestacion_id = null)
     {
         if($prestacion_id){
