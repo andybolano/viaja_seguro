@@ -58,7 +58,7 @@ class PaqueteController extends Controller
     public function update(Request $request, $id){
         try{
             $data = $request->all();
-            $paquete = Paquete::find($id);
+            $paquete = $this->show($id);
             $paquete->nombres = $data['nombres'];
             $paquete->telefono = $data['telefono'];
             $paquete->ide_remitente = $data['ide_remitente'];
@@ -82,7 +82,7 @@ class PaqueteController extends Controller
         $noty = new NotificacionController();
         try{
             $conductor = Paquete::find($id)->conductor;
-            $paquete = Paquete::find($id);
+            $paquete = $this->show($id);
 
             if (is_null ($paquete))
             {
@@ -97,4 +97,11 @@ class PaqueteController extends Controller
         }
     }
 
+    public function moverPaquete(Request $request, $paquete_id){
+        $paquete = $this->show($paquete_id);
+        $paquete->conductor_id = $request->conductor_id;
+        if($paquete->save()){
+            return JsonResponse::create(array('message' => 'Se movio el paquete conrrectamente de conductor.'));
+        }
+    }
 }

@@ -355,4 +355,18 @@ class CentralesController extends Controller
             return JsonResponse::create(array('message' => 'Ocurrio un error al rechazar la solicitud '));
         }
     }
+
+    function getConductoresEnRuta($central){
+        $central = Central::find($central);
+        $rutas = [];
+        foreach ($central->rutas as $ruta) {
+            $rutas[] = [
+                'id' => $ruta->id,
+                //'origen' => $ruta->origen->load('ciudad'),
+                'destino' => $ruta->destino->load('ciudad'),
+                'turnos' => $ruta->turnos->load('conductor'),
+            ];
+        }
+        return $rutas;
+    }
 }

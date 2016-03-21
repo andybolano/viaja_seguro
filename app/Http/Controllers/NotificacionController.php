@@ -69,7 +69,7 @@ class NotificacionController extends Controller
             $reg_id = true;
         }else{
             $reg_id = Cliente::find($cliente_id)->usuario;
-            $device_token = '';
+            $device_token = $reg_id->reg_id;;
         }
 
         if($reg_id != false){

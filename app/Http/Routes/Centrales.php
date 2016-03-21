@@ -7,6 +7,7 @@ Route::delete('/api/centrales/{central_id}', 'Empresa\CentralesController@destro
 
 Route::get('/api/centrales/{central_id}/vehiculos', 'Empresa\CentralesController@getVehiculos');
 Route::get('/api/centrales/{central_id}/conductores', 'Empresa\CentralesController@getConductores');
+Route::get('/api/centrales/{central_id}/rutas/conductorEnTurno', 'Empresa\CentralesController@getConductoresEnRuta');
 
 Route::get('/api/centrales/{central_id}/rutas', 'Empresa\CentralesController@getRutas');
 

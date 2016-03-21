@@ -94,4 +94,12 @@ class GiroController extends Controller
         }
     }
 
+    public function moverGiro(Request $request, $giro_id){
+        $giro = $this->show($giro_id);
+        $giro->conductor_id = $request->conductor_id;
+        if($giro->save()){
+            return JsonResponse::create(array('message' => 'Se movio el giro conrrectamente de conductor.'));
+        }
+    }
+
 }

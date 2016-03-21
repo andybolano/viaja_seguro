@@ -401,6 +401,64 @@
             }
         };
 
+        vm.modalMoveGiro = function(giro){
+            vm.giro = giro;
+            $('#modalMoveGiro').openModal({
+                dismissible: false, // Modal can be dismissed by clicking outside of the modal
+                opacity: .5, // Opacity of modal background
+                in_duration: 400, // Transition in duration
+                out_duration: 300, // Transition out duration
+                ready: function() { turnosService.cargarTurnosC().then(function(p){
+                    vm.crutas = p.data;
+                }); }, // Callback for Modal open
+                //complete: function() { alert('Closed'); } // Callback for Modal close
+            });
+        }
+
+        vm.moverGiro = function(giro_id, conductor_id){
+            var obj = {
+                conductor_id : conductor_id
+            }
+            swal({
+                title: 'ESTAS SEGURO?',
+                text: 'Estas intentado mover un giro hacia otro conductor!',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Mover',
+                cancelButtonText: 'Cancelar',
+                closeOnConfirm: false
+            },function(isConfirm){
+                if(isConfirm){
+                    turnosService.moverGiro(giro_id, obj).then(succes, error);
+                    swal.disableButtons();
+                }
+                function succes(p) {
+                    setTimeout(function() {
+                        swal({
+                            title: 'Exito!',
+                            text: p.data.message,
+                            type: 'success',
+                            showCancelButton: false,
+                        }, function() {
+                            refrescarGiros(vm.conductor.id);
+                            $('#modalMoveGiro').closeModal();
+                        })
+                    }, 1000);
+                }
+                function error(error) {
+                    swal({
+                        title: 'Error!',
+                        text: 'No se pudo mover giro seleccionado',
+                        type: 'error',
+                        showCancelButton: false,
+                    }, function() {
+                    })
+                }
+            });
+        }
+
         function eliminarGiro(giro_id){
             swal({
                 title: 'ESTAS SEGURO?',
@@ -505,6 +563,64 @@
         function verDescripcionPaquete(paquete){
             vm.Paquete = paquete;
             $('#modalDescripcionPaquete').openModal();
+        }
+
+        vm.modalMovePaquete = function(paquete){
+            vm.paquete = paquete;
+            $('#modalMovePaquete').openModal({
+                dismissible: false, // Modal can be dismissed by clicking outside of the modal
+                opacity: .5, // Opacity of modal background
+                in_duration: 400, // Transition in duration
+                out_duration: 300, // Transition out duration
+                ready: function() { turnosService.cargarTurnosC().then(function(p){
+                    vm.crutas = p.data;
+                }); }, // Callback for Modal open
+                //complete: function() { alert('Closed'); } // Callback for Modal close
+            });
+        }
+
+        vm.moverPaquete = function(paquete_id, conductor_id){
+            var obj = {
+                conductor_id : conductor_id
+            }
+            swal({
+                title: 'ESTAS SEGURO?',
+                text: 'Estas intentado mover un paquete hacia otro conductor!',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Mover',
+                cancelButtonText: 'Cancelar',
+                closeOnConfirm: false
+            },function(isConfirm){
+                if(isConfirm){
+                    turnosService.moverPaquete(paquete_id, obj).then(succes, error);
+                    swal.disableButtons();
+                }
+                function succes(p) {
+                    setTimeout(function() {
+                        swal({
+                            title: 'Exito!',
+                            text: p.data.message,
+                            type: 'success',
+                            showCancelButton: false,
+                        }, function() {
+                            refrescarPaquetes(vm.conductor.id);
+                            $('#modalMovePaquete').closeModal();
+                        })
+                    }, 1000);
+                }
+                function error(error) {
+                    swal({
+                        title: 'Error!',
+                        text: 'No se pudo mover paquete seleccionado',
+                        type: 'error',
+                        showCancelButton: false,
+                    }, function() {
+                    })
+                }
+            });
         }
 
         function eliminarPaquete(paquete_id){
@@ -741,7 +857,6 @@
 
         function getSolicitudPasajero(solicitud_id){
             vm.solicitud = [];
-            vm.conductores = {}
             $('#modalSolicitud').openModal();
             turnosService.getSolicitudPasajero(solicitud_id).then(success, error);
             function success(p){

@@ -112,5 +112,17 @@
         this.asignarSolicitud = function(solicitud_id, obj){
             return $http.put(API + '/centrales/solicitudes/'+solicitud_id+'/aceptar', obj);
         }
+
+        this.cargarTurnosC = function(){
+            return $http.get(API + '/centrales/'+authService.currentUser().central.id+'/rutas/conductorEnTurno');
+        }
+
+        this.moverGiro = function(giro_id, obj){
+            return $http.put(API + '/centrales/giros/'+giro_id+'/mover',obj);
+        }
+
+        this.moverPaquete = function(paquete_id, obj){
+            return $http.put(API + '/centrales/paquetes/'+paquete_id+'/mover',obj);
+        }
     }
 })();

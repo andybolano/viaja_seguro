@@ -1,13 +1,5 @@
 <div ng-controller="turnosController as vm" class="contenedor" xmlns="http://www.w3.org/1999/html">
     <div class="row">
-        <!--<div class="col s5 ">-->
-            <!--<div class="row z-depth-1 white col s12"-->
-            <!--ng-repeat="ruta in vm.rutas">-->
-                <!--<div class="contenedor simpleDemo col s12">-->
-
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
         <div class="col s12">
             <div class="row z-depth-1 white col s12"
                  ng-repeat="ruta in vm.rutas">
@@ -368,7 +360,7 @@
                                         <td>{{giro.telefono_receptor}}</td>
                                         <td>{{giro.direccionD}}</td>
                                         <td>{{giro.monto | currency}}</td>
-                                        <td></td>
+                                        <td style="text-align: center;"><a href="javascript:;" title="Mover giro a otro conductor" ng-click="vm.modalMoveGiro(giro);"><i class="material-icons">cached</i></a></td>
                                         <td style="text-align: center;"><a href="javascript:;" title="editar" ng-click="vm.cargarModificarGiro(giro);"><i class="material-icons">create</i></a></td>
                                         <td style="text-align: center;"><a href="javascript:;" title="eliminar" ng-click="vm.eliminarGiro(giro.id)"><i class="material-icons" style="color:#F44336">remove</i></a></td>
                                     </tr>
@@ -438,7 +430,7 @@
                                                 <i class="material-icons prefix small">visibility</i>
                                             </a>
                                         </td>
-                                        <td></td>
+                                        <td style="text-align: center;"><a href="javascript:;" title="Mover giro a otro conductor" ng-click="vm.modalMovePaquete(paquete);"><i class="material-icons">cached</i></a></td>
                                         <td style="text-align: center;"><a href="javascript:;" title="editar" ng-click="vm.cargarModificarPaquete(paquete);"><i class="material-icons">create</i></a></td>
                                         <td style="text-align: center;"><a href="javascript:;" title="eliminar" ng-click="vm.eliminarPaquete(paquete.id)"><i class="material-icons" style="color:#F44336">remove</i></a></td>
                                     </tr>
@@ -681,4 +673,145 @@
         </div>
     </div>
     <!--fin modal solicitud paquete giro-->
+
+
+    <!--modal cambair conductor-->
+    <div id="modalMoveGiro" class="modal" style="width: 90%">
+        <div class="modal-content" >
+            <h2>Solicitud hacia: {{vm.solicitud.ruta.destino.nombre}}</h2>
+            <div class="col s12 z-depth-1">
+                <div class="contenedor">
+                    <div class="row col s12">
+                        <div class="row col s6">
+                            <h2>Detalles del giro</h2>
+                            <table  class="striped bordered responsive-table">
+                                <thead>
+                                <th>Nombre</th>
+                                <th>Telefono</th>
+                                <th>Recoger en</th>
+                                <th>Entrega en</th>
+                                </thead>
+                                <tbody>
+                                <tr >
+                                    <td>{{vm.giro.nombre_receptor}}</td>
+                                    <td>{{vm.giro.telefono_receptor}}</td>
+                                    <td>{{vm.giro.direccion}}</td>
+                                    <td>{{vm.giro.direccionD}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div>
+                                <h2>Monto</h2>
+                                {{vm.giro.monto | currency}}
+                            </div>
+                        </div>
+                        <div class="row col s6">
+                            <h2><p><strong>Selecciona al conductor para cambiar el pedido</strong></p></h2>
+                            <div ng-repeat="ruta in vm.crutas">
+                                <div ng-show="ruta.turnos.length > 0">
+                                    <h2>{{ruta.destino.ciudad.nombre}}</h2>
+                                    <table class="striped bordered responsive-table">
+                                        <thead>
+                                        <th>Turno</th>
+                                        <th>Identificacion</th>
+                                        <th>Nombre</th>
+                                        </thead>
+                                        <tbody>
+                                        <tr ng-repeat="turno in ruta.turnos">
+                                            <td>{{turno.turno}}</td>
+                                            <td>{{turno.conductor.identificacion}}</td>
+                                            <td>{{turno.conductor.nombres}} {{turno.conductor.apellidos}}</td>
+                                            <!--<td><strong>{{conductor.cupos}} cupo(s) restantes para salir</strong></td>-->
+                                            <td>
+                                                <a href="javascript:" ng-click="vm.moverGiro(vm.giro.id, turno.conductor.id)">
+                                                    <i class="material-icons prefix">touch_app</i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
+               style="margin-left:10px;">Salir</a>
+        </div>
+    </div>
+    <!--fin modal cambiar giro conductor-->
+
+    <!--modal cambiar paquete conductor-->
+    <div id="modalMovePaquete" class="modal" style="width: 90%">
+        <div class="modal-content" >
+            <h2>Solicitud hacia: {{vm.solicitud.ruta.destino.nombre}}</h2>
+            <div class="col s12 z-depth-1">
+                <div class="contenedor">
+                    <div class="row col s12">
+                        <div class="row col s6">
+                            <h2>Detalles del paquete</h2>
+                            <table  class="striped bordered responsive-table">
+                                <thead>
+                                <th>Nombre</th>
+                                <th>Telefono</th>
+                                <th>Recoger en</th>
+                                <th>Entrega en</th>
+                                </thead>
+                                <tbody>
+                                <tr >
+                                    <td>{{vm.paquete.nombre_receptor}}</td>
+                                    <td>{{vm.paquete.telefono_receptor}}</td>
+                                    <td>{{vm.paquete.direccion}}</td>
+                                    <td>{{vm.paquete.direccionD}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div>
+                                <h2>Descripcion</h2>
+                                {{vm.paquete.descripcion}}
+                            </div>
+                        </div>
+                        <div class="row col s6">
+                            <h2><p><strong>Selecciona al conductor para cambiar el pedido</strong></p></h2>
+                            <div ng-repeat="ruta in vm.crutas">
+                                <div ng-show="ruta.turnos.length > 0">
+                                    <h2>{{ruta.destino.ciudad.nombre}}</h2>
+                                    <table class="striped bordered responsive-table">
+                                        <thead>
+                                        <th>Turno</th>
+                                        <th>Identificacion</th>
+                                        <th>Nombre</th>
+                                        </thead>
+                                        <tbody>
+                                        <tr ng-repeat="turno in ruta.turnos">
+                                            <td>{{turno.turno}}</td>
+                                            <td>{{turno.conductor.identificacion}}</td>
+                                            <td>{{turno.conductor.nombres}} {{turno.conductor.apellidos}}</td>
+                                            <!--<td><strong>{{conductor.cupos}} cupo(s) restantes para salir</strong></td>-->
+                                            <td>
+                                                <a href="javascript:" ng-click="vm.moverPaquete(vm.paquete.id, turno.conductor.id)">
+                                                    <i class="material-icons prefix">touch_app</i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
+               style="margin-left:10px;">Salir</a>
+        </div>
+    </div>
+    <!--fin modal cambiar paquete conductor-->
 </div>
