@@ -181,7 +181,7 @@
 
         $timeout(function(){
             cargarConductores();
-        }, 3000);
+        }, 2000);
         function cargarConductores() {
             vm.Conductores = []
             vm.ConductoresInactivos = []
