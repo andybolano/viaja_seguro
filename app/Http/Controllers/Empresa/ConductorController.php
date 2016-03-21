@@ -176,9 +176,8 @@ class ConductorController extends Controller
     }
 
     public function getUbicacionConductor($conductor_id){
-        $busqueda = Ubicacion::where('conductor_id', $conductor_id)->fisrt();
+        $busqueda = Ubicacion::where('conductor_id', $conductor_id);
         return $busqueda;
-
     }
 
     public function deleteUbicacion($conductor_id){
