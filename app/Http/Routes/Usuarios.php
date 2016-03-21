@@ -7,3 +7,5 @@
 
 Route::post('/api/usuarios/{id}/change_pass', 'UsuariosController@updatePassword');
 Route::post('/api/usuarios', 'UsuariosController@create');
+
+Route::put('/api/usuarios/{usuario_id}/reg_id/{reg_id}', 'UsuariosController@updateRegId');

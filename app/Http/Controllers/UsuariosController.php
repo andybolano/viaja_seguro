@@ -72,26 +72,19 @@ class UsuariosController extends Controller
         return response()->json(compact('token'));
     }
 
-    private function storeVehiculoconductor(&$conductor, $data){
-        $busqueda = Vehiculo::select("placa")
-            ->where("placa",$data["placa"])
-            ->first();
-        if ($busqueda == null) {
-            if(!$conductor->vehiculo()->save(new Vehiculo($data))){
-                $usuario = $conductor->usuario;
-                $conductor->delete();
-                $usuario->delete();
-                return response()->json(['mensajeError' => 'no se ha podido almacenar el vehiculo del conductor'], 400);
-            }
-            return response()->json($conductor, 200);
-        }else{
-            return response()->json(array('message' => "La placa del vehiculo ya se encuentra registrada."), 200);
-        }
-    }
-
     private function getRol($nombre)
     {
         return Rol::where('nombre', $nombre)->first();
+    }
+
+    public function updateRegId($usuario_id, $reg_id){
+        $usuario = Usuario::find($usuario_id);
+        $usuario->reg_id = $reg_id;
+        if($usuario->save()){
+            return JsonResponse::create(array('reg_id' => $reg_id, 'Actualizado'));
+        }else{
+            return JsonResponse::create(array('reg_id' => $reg_id, 'Error'));
+        }
     }
 
 }
