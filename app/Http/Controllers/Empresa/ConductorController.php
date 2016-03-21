@@ -91,6 +91,9 @@ class ConductorController extends Controller
             $conductor->estado = $request->estado;
             $conductor->central_id = $request->central_id;
             if($conductor->save()){
+                if(!$conductor->estado){
+                    \App::make('\App\Events\UpdatedEstadoConductorEvent')->enviarNotificacion("Notificacion", "El conductor $conductor->nombres"." $conductor->apellidos se ha reportado como $conductor->estado", $conductor->central_id);
+                }
                 return JsonResponse::create(array('message' => "Actualizado Correctamente"), 200);
             }else {
                 return JsonResponse::create(array('message' => "No se pudo actualizar el registro"), 400);
@@ -209,7 +212,9 @@ class ConductorController extends Controller
                 return response()->json(['mensajeError' => 'no se ha podido almacenar el registro'], 400);
             }
             $conductor->estado = 'Ausente';
-            $conductor->save();
+            if($conductor->save()) {
+                \App::make('\App\Events\UpdatedEstadoConductorEvent')->enviarNotificacion("Incidencia", "El conductor $conductor->nombres"." $conductor->apellidos se ha reportado como $conductor->estado", $conductor->central_id);
+            }
             return JsonResponse::create(array('message' => "estado del conductor actualizado"), 200);
         }else{
             return JsonResponse::create(array('messageError' => 'no es posible encontrar al conductor'));
@@ -233,6 +238,7 @@ class ConductorController extends Controller
         $inc = Incidencia::find($inc_id);
         $inc->fecha_fin = date("Y-m-d H:i:s");
         if($inc->save() && $conductor->save()){
+            \App::make('\App\Events\UpdatedEstadoConductorEvent')->enviarNotificacion("Notificacion", "El conductor $conductor->nombres"." $conductor->apellidos se ha reportado como $conductor->estado", $conductor->central_id);
             return JsonResponse::create(array('message' => "estado del conductor actualizado"), 200);
         }else{
             return response()->json(['mensajeError' => 'no se ha podido almacenar el registro'], 400);

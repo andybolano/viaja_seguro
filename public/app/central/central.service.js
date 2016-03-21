@@ -67,7 +67,7 @@ var itemActionChannel = pusher.subscribe( 'notificaciones' );
                 if(authService.currentUser().central.id == data.central_id){
                     Lobibox.notify('info', {
                         size: 'mini',
-                        title: 'Nueva notificación de: ' +data.tipo,
+                        title: 'Nueva: ' +data.tipo,
                         msg: data.message,
                         delay: 10000,
                         icon: true,
