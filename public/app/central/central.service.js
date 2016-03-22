@@ -27,7 +27,7 @@ var itemActionChannel = pusher.subscribe( 'notificaciones' );
                         delay: 10000,
                         icon: true,
                         sound: true,
-                        soundPath: 'http://dev.vajaseguro.co/public/assets/plugins/lobibox/dist/sounds/',
+                        soundPath: 'http://dev.viajaseguro.co/public/assets/plugins/lobibox/dist/sounds/',
                         iconSource: "fontAwesome"
                     });
                 }
@@ -42,7 +42,7 @@ var itemActionChannel = pusher.subscribe( 'notificaciones' );
                         delay: 10000,
                         icon: true,
                         sound: true,
-                        soundPath: 'http://dev.vajaseguro.co/public/assets/plugins/lobibox/dist/sounds/',
+                        soundPath: 'http://dev.viajaseguro.co/public/assets/plugins/lobibox/dist/sounds/',
                         iconSource: "fontAwesome"
                     });
                 }
@@ -57,7 +57,7 @@ var itemActionChannel = pusher.subscribe( 'notificaciones' );
                         delay: 10000,
                         icon: true,
                         sound: true,
-                        soundPath: 'http://dev.vajaseguro.co/public/assets/plugins/lobibox/dist/sounds/',
+                        soundPath: 'http://dev.viajaseguro.co/public/assets/plugins/lobibox/dist/sounds/',
                         iconSource: "fontAwesome"
                     });
                 }

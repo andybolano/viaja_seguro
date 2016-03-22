@@ -19,7 +19,7 @@
             var notificacion = new Notification('Nueva: ' +data.tipo, {
                 icon: data.conductor.imagen,
                 body: data.message,
-                sound: 'http://dev.vajaseguro.co/public/assets/sounds/noty.mp3'
+                sound: 'http://dev.viajaseguro.co/public/assets/sounds/noty.mp3'
             });
 
             // Redireccionamos a un determinado Destino o URL al hacer click en la Notificación
