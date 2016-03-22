@@ -5,6 +5,7 @@ namespace App\Events;
 use App\Events\Event;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Vinkla\Pusher\PusherManager;
 
 class RecargarMarcadorConductorEvent extends Event
 {
