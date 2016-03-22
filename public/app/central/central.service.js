@@ -9,7 +9,7 @@ var itemActionChannel = pusher.subscribe( 'notificaciones' );
         .module('app.centrales')
         .service('notificacionService', notificacionService);
 
-    function notificacionService(authService){
+    function notificacionService(authService, notificacionesDesktopService){
 
         this.pusher = function(){
             //Pusher.log = function(message) {
@@ -27,7 +27,7 @@ var itemActionChannel = pusher.subscribe( 'notificaciones' );
                         delay: 10000,
                         icon: true,
                         sound: true,
-                        soundPath: 'http://dev.vajaseguro/public/assets/plugins/lobibox/dist/sounds/',
+                        soundPath: 'http://dev.vajaseguro.co/public/assets/plugins/lobibox/dist/sounds/',
                         iconSource: "fontAwesome"
                     });
                 }
@@ -42,7 +42,7 @@ var itemActionChannel = pusher.subscribe( 'notificaciones' );
                         delay: 10000,
                         icon: true,
                         sound: true,
-                        soundPath: 'http://dev.vajaseguro/public/assets/plugins/lobibox/dist/sounds/',
+                        soundPath: 'http://dev.vajaseguro.co/public/assets/plugins/lobibox/dist/sounds/',
                         iconSource: "fontAwesome"
                     });
                 }
@@ -57,24 +57,26 @@ var itemActionChannel = pusher.subscribe( 'notificaciones' );
                         delay: 10000,
                         icon: true,
                         sound: true,
-                        soundPath: 'http://dev.vajaseguro/public/assets/plugins/lobibox/dist/sounds/',
+                        soundPath: 'http://dev.vajaseguro.co/public/assets/plugins/lobibox/dist/sounds/',
                         iconSource: "fontAwesome"
                     });
                 }
             });
 
             itemActionChannel.bind('UpdatedEstadoConductorEvent', function(data){
+                console.log(data)
                 if(authService.currentUser().central.id == data.central_id){
-                    Lobibox.notify('info', {
-                        size: 'mini',
-                        title: 'Nueva: ' +data.tipo,
-                        msg: data.message,
-                        delay: 10000,
-                        icon: true,
-                        sound: true,
-                        soundPath: 'http://dev.vajaseguro/public/assets/plugins/lobibox/dist/sounds/',
-                        iconSource: "fontAwesome"
-                    });
+                    notificacionesDesktopService.onNotificationRecived(data);
+                    //Lobibox.notify('info', {
+                    //    size: 'mini',
+                    //    title: 'Nueva: ' +data.tipo,
+                    //    msg: data.message,
+                    //    delay: 10000,
+                    //    icon: true,
+                    //    sound: true,
+                    //    soundPath: 'http://dev.vajaseguro.co/public/assets/plugins/lobibox/dist/sounds/',
+                    //    iconSource: "fontAwesome"
+                    //});
                 }
             });
         }

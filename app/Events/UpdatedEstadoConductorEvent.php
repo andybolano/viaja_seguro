@@ -27,8 +27,14 @@ class UpdatedEstadoConductorEvent extends Event
      *
      * @return array
      */
-    public function enviarNotificacion($tipo, $message, $central_id)
+    public function enviarNotificacion($tipo, $message, $conductor, $central_id)
     {
-        $this->pusher->trigger('notificaciones', 'UpdatedEstadoConductorEvent', ['tipo' => $tipo, 'message' => $message, 'central_id' => $central_id]);
+        $this->pusher->trigger('notificaciones', 'UpdatedEstadoConductorEvent',
+            [
+                'tipo' => $tipo,
+                'message' => $message,
+                'conductor' => $conductor,
+                'central_id' => $central_id
+            ]);
     }
 }

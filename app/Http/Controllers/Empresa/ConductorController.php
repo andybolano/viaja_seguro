@@ -92,9 +92,9 @@ class ConductorController extends Controller
             $conductor->central_id = $request->central_id;
             if($conductor->save()){
                 if($conductor->estado == 'Disponible'){
-                    \App::make('\App\Events\UpdatedEstadoConductorEvent')->enviarNotificacion("Notificacion", "El conductor $conductor->nombres"." $conductor->apellidos se ha reportado como $conductor->estado", $conductor->central_id);
+                    \App::make('\App\Events\UpdatedEstadoConductorEvent')->enviarNotificacion("Notificacion", "El conductor $conductor->nombres"." $conductor->apellidos se ha reportado como $conductor->estado", $conductor, $conductor->central_id);
                 }else{
-                    \App::make('\App\Events\UpdatedEstadoConductorEvent')->enviarNotificacion("Notificacion", "El conductor $conductor->nombres"." $conductor->apellidos se ha reportado como $conductor->estado", $conductor->central_id);
+                    \App::make('\App\Events\UpdatedEstadoConductorEvent')->enviarNotificacion("Notificacion", "El conductor $conductor->nombres"." $conductor->apellidos se ha reportado como $conductor->estado", $conductor, $conductor->central_id);
                 }
                 return JsonResponse::create(array('message' => "Actualizado Correctamente"), 200);
             }else {
@@ -223,7 +223,7 @@ class ConductorController extends Controller
             }
             $conductor->estado = 'Ausente';
             if($conductor->save()) {
-                \App::make('\App\Events\UpdatedEstadoConductorEvent')->enviarNotificacion("Incidencia", "El conductor $conductor->nombres"." $conductor->apellidos se ha reportado como $conductor->estado", $conductor->central_id);
+                \App::make('\App\Events\UpdatedEstadoConductorEvent')->enviarNotificacion("Notificacion", "El conductor $conductor->nombres"." $conductor->apellidos se ha reportado como $conductor->estado", $conductor, $conductor->central_id);
             }
             return JsonResponse::create(array('message' => "estado del conductor actualizado"), 200);
         }else{
@@ -248,7 +248,7 @@ class ConductorController extends Controller
         $inc = Incidencia::find($inc_id);
         $inc->fecha_fin = date("Y-m-d H:i:s");
         if($inc->save() && $conductor->save()){
-            \App::make('\App\Events\UpdatedEstadoConductorEvent')->enviarNotificacion("Notificacion", "El conductor $conductor->nombres"." $conductor->apellidos se ha reportado como $conductor->estado", $conductor->central_id);
+            \App::make('\App\Events\UpdatedEstadoConductorEvent')->enviarNotificacion("Notificacion", "El conductor $conductor->nombres"." $conductor->apellidos se ha reportado como $conductor->estado", $conductor, $conductor->central_id);
             return JsonResponse::create(array('message' => "estado del conductor actualizado"), 200);
         }else{
             return response()->json(['mensajeError' => 'no se ha podido almacenar el registro'], 400);
