@@ -63,7 +63,7 @@ var itemActionChannel = pusher.subscribe( 'notificaciones' );
                 }
             });
 
-            itemActionChannel.bind('UpdatedEstadoConductorEvent', function(){
+            itemActionChannel.bind('UpdatedEstadoConductorEvent', function(data){
                 if(authService.currentUser().central.id == data.central_id){
                     Lobibox.notify('info', {
                         size: 'mini',
