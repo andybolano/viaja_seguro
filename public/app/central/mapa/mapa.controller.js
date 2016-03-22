@@ -14,6 +14,7 @@
         vm.markerId = 1;
         vm.contador = 1;
         vm.Markers = [];
+        var markersIndex=[];
 
         //var intval = "";
         vm.verConductores = verConductores;
@@ -41,6 +42,15 @@
             cargarMapa(vm.ruta);
         }
 
+        ActionChannel.bind( "RecargarMarcadorConductorEvent", function( data ) {
+            updatePos(data);
+        });
+
+        function updatePos(data){
+            vm.markers[markersIndex[data.datos]].latitude = data.latitud;
+            vm.markers[markersIndex[data.datos]].lontitude = data.longitud;
+        }
+
         function cargarMapa(ruta_id){
             vm.ruta = ruta_id;
             vm.map = {
@@ -58,12 +68,10 @@
             function succes(c){
                 //vm.ubicaciones = c.data;
                 for(var i = 0; i < c.data.length; i++){
-                    vm.Markers.push({
+                    vm.markers.push({
                         "id": c.data[i].conductor.id,
-                        "coords": {
-                            latitude: c.data[i].latitud,
-                            longitude: c.data[i].longitud
-                        },
+                        latitude: c.data[i].latitud,
+                        longitude: c.data[i].longitud,
                         "window": {
                             cImagen: c.data[i].conductor.imagen,
                             cNombres: c.data[i].conductor.nombres,
@@ -75,8 +83,9 @@
                             "icon": '../assets/images/marker.png',
                             "title":  c.data[i].conductor.nombres +' '+ c.data[i].conductor.apellidos,
                             "animation": 1
-                        },
+                        }
                     });
+                    markersIndex[c.data[i].conductor.id] = i;
                 }
             }
             function error(e){
@@ -96,11 +105,6 @@
         vm.central = function(){
 
         }
-
-        ActionChannel.bind( "RecargarMarcadorConductorEvent", function( data ) {
-            cargarMapa(vm.ruta);
-
-        });
         //function verConductores(ruta_id){
         //    vm.ruta_id = ruta_id;
         //    $('#modalMapaConductores').openModal({

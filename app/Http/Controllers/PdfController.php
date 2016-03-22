@@ -29,7 +29,7 @@ class PdfController extends Controller
     }
     public function invoice()
     {
-        \App::make('\App\Events\RecargarMarcadorConductorEvent')->enviarNotificacion(5, 10.449391, -73.2592578 );
+        \App::make('\App\Events\RecargarMarcadorConductorEvent')->broadcastOn(5, 10.449391, -73.2592578 );
 
 //        $solicitud = Solicitud::find(18)->first();
 //        $solicitud->load('cliente', 'detalles');
