@@ -91,7 +91,9 @@ class ConductorController extends Controller
             $conductor->estado = $request->estado;
             $conductor->central_id = $request->central_id;
             if($conductor->save()){
-                if(!$conductor->estado){
+                if($conductor->estado == 'Disponible'){
+                    \App::make('\App\Events\UpdatedEstadoConductorEvent')->enviarNotificacion("Notificacion", "El conductor $conductor->nombres"." $conductor->apellidos se ha reportado como $conductor->estado", $conductor->central_id);
+                }else{
                     \App::make('\App\Events\UpdatedEstadoConductorEvent')->enviarNotificacion("Notificacion", "El conductor $conductor->nombres"." $conductor->apellidos se ha reportado como $conductor->estado", $conductor->central_id);
                 }
                 return JsonResponse::create(array('message' => "Actualizado Correctamente"), 200);
