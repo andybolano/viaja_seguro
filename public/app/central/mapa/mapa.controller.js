@@ -1,4 +1,5 @@
 (function() {
+    var ActionChannel = pusher.subscribe( 'marcadores' );
     'use strict';
 
     angular
@@ -11,6 +12,8 @@
         vm.map;
         vm.markers = [];
         vm.markerId = 1;
+        vm.contador = 1;
+        vm.Markers = [];
 
         //var intval = "";
         vm.verConductores = verConductores;
@@ -53,12 +56,10 @@
 
             mapaService.getUbicacionConductores(vm.ruta).then(succes, error);
             function succes(c){
-                vm.ubicaciones = c.data;
-                vm.contador = 1;
-                vm.Markers = [];
+                //vm.ubicaciones = c.data;
                 for(var i = 0; i < c.data.length; i++){
                     vm.Markers.push({
-                        "id": i,
+                        "id": c.data[i].conductor.id,
                         "coords": {
                             latitude: c.data[i].latitud,
                             longitude: c.data[i].longitud
@@ -82,6 +83,24 @@
                 console.log('error', e)
             }
         }
+
+        vm.prueba = function(ruta_id){
+            vm.ruta = ruta_id;
+            vm.mostrar = true;
+            //setTimeout(function(){
+            //
+            //}, 5000)
+            cargarMapa(vm.ruta);
+        }
+
+        vm.central = function(){
+
+        }
+
+        ActionChannel.bind( "RecargarMarcadorConductorEvent", function( data ) {
+            cargarMapa(vm.ruta);
+
+        });
         //function verConductores(ruta_id){
         //    vm.ruta_id = ruta_id;
         //    $('#modalMapaConductores').openModal({

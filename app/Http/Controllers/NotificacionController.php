@@ -28,7 +28,9 @@ class NotificacionController extends Controller
                 $regId=$device_token;
                 $regArray[]=$regId;
             }
+
             $msg=$mensaje;
+
             $message = array(
                 "title" => 'Viaja seguro',
                 "message" => $msg,

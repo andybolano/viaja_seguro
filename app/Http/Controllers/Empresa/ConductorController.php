@@ -162,6 +162,8 @@ class ConductorController extends Controller
         \DB::update('UPDATE ubicacion_conductor, turnos
           SET ubicacion_conductor.ruta_id = turnos.ruta_id
           WHERE ubicacion_conductor.conductor_id = turnos.conductor_id;');
+        //event recargar marker
+        \App::make('\App\Events\RecargarMarcadorConductorEvent')->enviarNotificacion($conductor_id, $data['latitud'], $data['longitud'] );
     }
 
     public function getUbicacion($ruta_id){
