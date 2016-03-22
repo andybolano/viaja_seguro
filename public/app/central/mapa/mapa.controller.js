@@ -66,7 +66,7 @@
 
             mapaService.getUbicacionConductores(vm.ruta).then(succes, error);
             function succes(c){
-                //vm.ubicaciones = c.data;
+                vm.markers =[];
                 for(var i = 0; i < c.data.length; i++){
                     vm.markers.push({
                         "id": c.data[i].conductor.id,
