@@ -163,7 +163,7 @@ class ConductorController extends Controller
           SET ubicacion_conductor.ruta_id = turnos.ruta_id
           WHERE ubicacion_conductor.conductor_id = turnos.conductor_id;');
         //event recargar marker
-        \App::make('\App\Events\RecargarMarcadorConductorEvent')->enviarNotificacion($conductor_id, $data['latitud'], $data['longitud'] );
+        \App::make('\App\Events\RecargarMarcadorConductorEvent')->broadcastOn($conductor_id, $data['latitud'], $data['longitud'] );
     }
 
     public function getUbicacion($ruta_id){
