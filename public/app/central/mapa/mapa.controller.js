@@ -49,6 +49,7 @@
         function updatePos(data){
             vm.markers[markersIndex[data.datos]].latitude = data.latitud;
             vm.markers[markersIndex[data.datos]].longitude = data.longitud;
+            console.log(data)
         }
 
         function cargarMapa(ruta_id){
