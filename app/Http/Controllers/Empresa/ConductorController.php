@@ -64,7 +64,9 @@ class ConductorController extends Controller
                 return response()->json(array("message"=> 'No se encontro el conductor'), 400);
             }
         }
-        return $conductor->load('empresa');
+        $conductor->load('empresa');
+        $conductor->load('vehiculo');
+        return $conductor;
 //        $empresa = Empresa::select('id', 'nombre')->where('id', $conductor->empresa_id)->first();
 //        $conductor->empresa()->associate($empresa);
     }
