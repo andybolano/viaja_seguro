@@ -29,8 +29,8 @@ class PdfController extends Controller
     }
     public function invoice()
     {
-        \App::make('\App\Events\UpdatedEstadoConductorEvent')->enviarNotificacion("Notificacion", "El conductor jose"." soto se ha reportado como ausente", 2);
-
+//        \App::make('\App\Events\UpdatedEstadoConductorEvent')->enviarNotificacion("Notificacion", "El conductor jose"." soto se ha reportado como ausente",'' ,2);
+        \App::make('\App\Events\NuevaSolicitudEvent')->enviarNotificacion('Pasajeros', 'Existe una nueva solicitud, verificala en la seccion de despacho', 2);
 //        $solicitud = Solicitud::find(18)->first();
 //        $solicitud->load('cliente', 'detalles');
 //        return $solicitud;

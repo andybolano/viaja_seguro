@@ -20,51 +20,53 @@ var itemActionChannel = pusher.subscribe( 'notificaciones' );
 
             itemActionChannel.bind( "NuevaSolicitudEvent", function( data ) {
                 if(authService.currentUser().central.id == data.central_id){
-                    Lobibox.notify('info', {
-                        size: 'mini',
-                        title: 'Nueva solicitud de: ' +data.tipo,
-                        msg: data.message,
-                        delay: 10000,
-                        icon: true,
-                        sound: true,
-                        soundPath: 'http://dev.viajaseguro.co/public/assets/plugins/lobibox/dist/sounds/',
-                        iconSource: "fontAwesome"
-                    });
+                    notificacionesDesktopService.onSolicitudRecived(data);
+                    //Lobibox.notify('info', {
+                    //    size: 'mini',
+                    //    title: 'Nueva solicitud de: ' +data.tipo,
+                    //    msg: data.message,
+                    //    delay: 10000,
+                    //    icon: true,
+                    //    sound: true,
+                    //    soundPath: 'http://dev.viajaseguro.co/public/assets/plugins/lobibox/dist/sounds/',
+                    //    iconSource: "fontAwesome"
+                    //});
                 }
             } );
 
             itemActionChannel.bind( "ModificarSolicitudEvent", function( data ) {
                 if(authService.currentUser().central.id == data.central_id){
-                    Lobibox.notify('info', {
-                        size: 'mini',
-                        title: 'Nueva notificación de: ' +data.tipo,
-                        msg: data.message,
-                        delay: 10000,
-                        icon: true,
-                        sound: true,
-                        soundPath: 'http://dev.viajaseguro.co/public/assets/plugins/lobibox/dist/sounds/',
-                        iconSource: "fontAwesome"
-                    });
+                    notificacionesDesktopService.onSolicitudRecived(data);
+                    //Lobibox.notify('info', {
+                    //    size: 'mini',
+                    //    title: 'Nueva notificación de: ' +data.tipo,
+                    //    msg: data.message,
+                    //    delay: 10000,
+                    //    icon: true,
+                    //    sound: true,
+                    //    soundPath: 'http://dev.viajaseguro.co/public/assets/plugins/lobibox/dist/sounds/',
+                    //    iconSource: "fontAwesome"
+                    //});
                 }
             } );
 
             itemActionChannel.bind( "CancelarSolicitudEvent", function( data ) {
                 if(authService.currentUser().central.id == data.central_id){
-                    Lobibox.notify('info', {
-                        size: 'mini',
-                        title: 'Nueva notificación de: ' +data.tipo,
-                        msg: data.message,
-                        delay: 10000,
-                        icon: true,
-                        sound: true,
-                        soundPath: 'http://dev.viajaseguro.co/public/assets/plugins/lobibox/dist/sounds/',
-                        iconSource: "fontAwesome"
-                    });
+                    notificacionesDesktopService.onSolicitudRecived(data);
+                    //Lobibox.notify('info', {
+                    //    size: 'mini',
+                    //    title: 'Nueva notificación de: ' +data.tipo,
+                    //    msg: data.message,
+                    //    delay: 10000,
+                    //    icon: true,
+                    //    sound: true,
+                    //    soundPath: 'http://dev.viajaseguro.co/public/assets/plugins/lobibox/dist/sounds/',
+                    //    iconSource: "fontAwesome"
+                    //});
                 }
             });
 
             itemActionChannel.bind('UpdatedEstadoConductorEvent', function(data){
-                console.log(data)
                 if(authService.currentUser().central.id == data.central_id){
                     notificacionesDesktopService.onNotificationRecived(data);
                     //Lobibox.notify('info', {

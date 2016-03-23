@@ -10,17 +10,41 @@
             Notification.requestPermission();
         }
 
-        this.onNotificationRecived = function(data) {
+        this.onSolicitudRecived = function(data){
+            var sound = Notification.sound;
+            var options = {
+                icon: 'http://dev.viajaseguro.co/public/assets/images/icono.png',
+                body: data.message,
+                sound: 'http://dev.viajaseguro.co/public/assets/sounds/noty.mp3'
+            }
             if (!isNotificationSupported()) {
                 logg("Tu navegador no soporta Notificaciones. Por favor, utiliza una versión Reciente del Navegador Google Chrome o Safari.");
                 return;
             }
             // Si el Navegador soporta las Notificaciones HTML 5, entonces que proceda a Notificar
-            var notificacion = new Notification('Nueva: ' +data.tipo, {
+            var notificacion = new Notification('Nueva notificación de: ' +data.tipo, options);
+            notificacion.sound;
+
+            // Redireccionamos a un determinado Destino o URL al hacer click en la Notificación
+            notificacion.onclick = function() {
+                window.open("http://gmail.com/");
+            };
+        }
+
+        this.onNotificationRecived = function(data) {
+            var sound = Notification.sound;
+            var options = {
                 icon: data.conductor.imagen,
                 body: data.message,
                 sound: 'http://dev.viajaseguro.co/public/assets/sounds/noty.mp3'
-            });
+            }
+            if (!isNotificationSupported()) {
+                logg("Tu navegador no soporta Notificaciones. Por favor, utiliza una versión Reciente del Navegador Google Chrome o Safari.");
+                return;
+            }
+            // Si el Navegador soporta las Notificaciones HTML 5, entonces que proceda a Notificar
+            var notificacion = new Notification('Nueva: ' +data.tipo, options);
+            notificacion.sound;
 
             // Redireccionamos a un determinado Destino o URL al hacer click en la Notificación
             notificacion.onclick = function() {
