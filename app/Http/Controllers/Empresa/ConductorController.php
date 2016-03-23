@@ -26,7 +26,7 @@ class ConductorController extends Controller
 
     public function guardaImagen(Request $request, $id)
     {
-        try{
+//        try{
             $conductor = Conductor::find($id);
             if(!$conductor){
                 return response()->json(array("message"=> 'No se encontro el conductor'), 400);
@@ -41,9 +41,9 @@ class ConductorController extends Controller
             }else {
                 return response()->json([], 400);
             }
-        } catch (\Exception $exc) {
-            return response()->json(array("exception"=>$exc->getMessage()), 400);
-        }
+//        } catch (\Exception $exc) {
+//            return response()->json(array("exception"=>$exc->getMessage()), 400);
+//        }
     }
 
     /**
