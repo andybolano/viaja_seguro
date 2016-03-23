@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers\Empresa;
 
+use App\Http\Controllers\NotificacionController;
 use App\Model\Central;
 use App\Model\Ciudad;
 use App\Model\Empresa;
@@ -56,13 +57,20 @@ class RutasController extends Controller
 
     public function updateConductoresEnTurno(Request $request, $ruta_id)
     {
+        $noty = new NotificacionController();
         $data = $request->json()->all();
         $turnos_actuales = [];
+        $ruta = Ruta::find($ruta_id);
         foreach($data['turnos'] as $turno){
             $turnos_actuales[$turno['conductor_id']] = ['turno' => $turno['turno']];
+            $noty->enviarNotificacionConductores('',$turno['conductor_id'],'Cambio de turno');
         }
-        $ruta = Ruta::find($ruta_id);
         if($ruta->toUpdateTurnos()->sync($turnos_actuales)){
+            $ruta = $ruta->destino->ciudad;
+            foreach($data['turnos'] as $turno){
+                $mensaje = "Estas en el turno ".$turno['turno']." en la ruta hacia $ruta->nombre";
+                $noty->enviarNotificacionConductores($mensaje, $turno['conductor_id'],'Cambio de turno', $ruta_id);
+            }
             return response()->json(['mensaje' => 'turnos modifcados'], 201);
         }else{
             return response()->json(['mensajError' => 'error al actualizar lso turnos'], 400);

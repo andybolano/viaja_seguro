@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Empresa;
 
 use App\Model\Incidencia;
+use App\Model\Turno;
 use DB;
 use App\Model\Ubicacion;
 use App\Model\Conductor;
@@ -184,7 +185,7 @@ class ConductorController extends Controller
     }
 
     public function getUbicacionConductor($conductor_id){
-        $busqueda = Ubicacion::where('conductor_id', $conductor_id)->first();
+        $busqueda = Turno::where('conductor_id', $conductor_id)->first();
         return $busqueda;
 
     }

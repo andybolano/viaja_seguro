@@ -6,7 +6,7 @@ use App\Model\Conductor;
 
 class NotificacionController extends Controller
 {
-    function enviarNotificacionConductores($mensaje, $conductor_id, $tipo)
+    function enviarNotificacionConductores($mensaje, $conductor_id, $tipo, $datos = null)
     {
         $devices = null;
         $device_token = null;
@@ -36,7 +36,8 @@ class NotificacionController extends Controller
                 "message" => $msg,
                 "sound" => 1,
                 "tipo" => $tipo,
-                "subtitle" => $tipo
+                "subtitle" => $tipo,
+                "datos" => $datos
             );
             $url = 'https://android.googleapis.com/gcm/send';
 
