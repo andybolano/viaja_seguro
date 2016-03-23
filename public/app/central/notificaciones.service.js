@@ -27,7 +27,7 @@
 
             // Redireccionamos a un determinado Destino o URL al hacer click en la Notificación
             notificacion.onclick = function() {
-                window.open("http://gmail.com/");
+                window.open("http://dev.viajaseguro.co/public/app/#/centrales/turnos");
             };
         }
 
