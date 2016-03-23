@@ -139,7 +139,7 @@
                             showCancelButton: false,
                         }, function() {
                             ruta.turnos.splice($index, 1);
-                            updateTurnos(ruta);
+                            updateTurnos(ruta, 'quitar');
                         });
                     }, 2000);
                 }
@@ -151,14 +151,15 @@
         }
 
         function addConductor(ruta){
-            updateTurnos(ruta);
+            updateTurnos(ruta, 'agregar');
         }
 
-        function updateTurnos(ruta){
+        function updateTurnos(ruta, accion){
+            accion || (accion = 'defaoult')
             for(var i=0; i<ruta.turnos.length; i++){
                 ruta.turnos[i].turno = i+1;
             }
-            turnosService.updateTurnos(ruta.id, {'turnos' : ruta.turnos}).then(success, error);
+            turnosService.updateTurnos(ruta.id, {'turnos' : ruta.turnos, 'accion': accion}).then(success, error);
             function success(p) {
             }
             function error(error) {
@@ -736,6 +737,7 @@
                             turnosService.eliminarTurno(obj).then(succes, error);
                         }
                         function succes(p){
+                            updateTurnos(datos.ruta_id);
                             vm.Planilla = p.data;
                             vm.Planilla.total = p.data.viaje.planilla.total;
                             swal.disableButtons();
