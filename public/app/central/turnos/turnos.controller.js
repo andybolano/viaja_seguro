@@ -939,7 +939,7 @@
         vm.selectCsolicitud = function (solicitud_id, conductor_id) {
             turnosService.getCupos(conductor_id).then(function(p){
                 if(vm.solicitud.tipo == 'vehiculo' && p.data < vm.solicitud.datos_pasajeros.length){
-                    Materialize.toast('El conductor no tiene cupos disponibles', '5000', 'rounded')
+                    Materialize.toast('El conductor tiene '+ p.data+' cupo(s) disponible(s), ud esta necesitando '+vm.solicitud.datos_pasajeros.length+' cupo(s) disponible(s)', '5000', 'rounded')
                 }else{
                     swal({
                         title: 'ESPERA UN MOMENTO!',

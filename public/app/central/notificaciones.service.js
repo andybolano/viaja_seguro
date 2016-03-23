@@ -12,7 +12,7 @@
 
         this.onSolicitudRecived = function(data){
             var options = {
-                icon: 'http://dev.viajaseguro.co/public/assets/images/icono_viajaseguro.png',
+                icon: '../assets/images/icono.png',
                 body: data.message,
                 sound: '../assets/sounds/noty.mp3'
             }
@@ -34,7 +34,7 @@
 
         this.onNotificationRecived = function(data) {
             var options = {
-                icon: data.conductor.imagen,
+                icon: 'http://'+data.conductor.imagen,
                 body: data.message,
                 sound: '../assets/sounds/noty.mp3'
             }

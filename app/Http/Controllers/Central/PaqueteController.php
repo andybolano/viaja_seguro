@@ -100,6 +100,7 @@ class PaqueteController extends Controller
     public function moverPaquete(Request $request, $paquete_id){
         $noty = new NotificacionController();
         $paquete = $this->show($paquete_id);
+        json_decode($noty->enviarNotificacionConductores('Se te fue retirado un paquete que se te habia asignado', $paquete->conductor_id, 'Paquete' ));
         $paquete->conductor_id = $request->conductor_id;
         if($paquete->save()){
             return JsonResponse::create(array('message' => 'Se movio el paquete conrrectamente de conductor.', json_decode($noty->enviarNotificacionConductores('Se te asigno un nuevo paquete', $request->conductor_id, 'Paquete' ))));

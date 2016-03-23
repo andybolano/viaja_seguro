@@ -97,6 +97,7 @@ class GiroController extends Controller
     public function moverGiro(Request $request, $giro_id){
         $noty = new NotificacionController();
         $giro = $this->show($giro_id);
+        json_decode($noty->enviarNotificacionConductores('Se te fue retirado un giro que se te habia asignado', $giro->conductor_id, 'Giro' ));
         $giro->conductor_id = $request->conductor_id;
         if($giro->save()){
 
