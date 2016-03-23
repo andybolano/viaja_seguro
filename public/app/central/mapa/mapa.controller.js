@@ -95,6 +95,7 @@
 
         function cargarMapa(){
             vm.markers = [];
+            vm.markersIndex=[];
             vm.map = {
                 center: {
                     latitude: authService.currentUser().central.miDireccionLa,
