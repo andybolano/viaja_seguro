@@ -101,7 +101,7 @@ class PaqueteController extends Controller
         $paquete = $this->show($paquete_id);
         $paquete->conductor_id = $request->conductor_id;
         if($paquete->save()){
-            return JsonResponse::create(array('message' => 'Se movio el paquete conrrectamente de conductor.'));
+            return JsonResponse::create(array('message' => 'Se movio el paquete conrrectamente de conductor.', json_decode($noty->enviarNotificacionConductores('Se te asigno un nuevo paquete', $request->conductor_id, 'Paquete' ))));
         }
     }
 }
