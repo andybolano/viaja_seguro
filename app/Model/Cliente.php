@@ -12,6 +12,11 @@ class Cliente extends Model
 
     public $timestamps = false;
 
+    public function usuario()
+    {
+        return $this->belongsTo(Usuario::class);
+    }
+
     public function pasajeros()
     {
         return $this->hasMany(Pasajero::class);
