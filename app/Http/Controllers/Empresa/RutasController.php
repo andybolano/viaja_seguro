@@ -66,7 +66,7 @@ class RutasController extends Controller
             $noty->enviarNotificacionConductores('',$turno['conductor_id'],'Cambio de turno');
         }
         if($ruta->toUpdateTurnos()->sync($turnos_actuales)){
-            $ruta = $ruta->origen->ciudad;
+            $ruta = $ruta->destino->ciudad;
             foreach($data['turnos'] as $turno){
                 $mensaje = "Estas en el turno ".$turno['turno']." en la ruta hacia $ruta->nombre";
                 $noty->enviarNotificacionConductores($mensaje, $turno['conductor_id'],'Cambio de turno', $ruta_id);
