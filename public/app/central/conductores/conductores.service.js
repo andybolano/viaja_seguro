@@ -11,5 +11,8 @@
         this.getAll = function  () {
             return $http.get(myuri);
         }
+        this.get = function  (id) {
+            return $http.get(API+'/conductores/'+id);
+        }
     }
 })();

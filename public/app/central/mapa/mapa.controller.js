@@ -6,7 +6,7 @@
         .module('app.centrales.mapa')
         .controller('mapaController', mapaController);
 
-    function mapaController(mapaService, turnosService, authService, $timeout) {
+    function mapaController($scope, turnosService, authService, socketCh, conductoresService) {
 
         var vm = this;
         vm.map;
@@ -15,10 +15,23 @@
         vm.contador = 1;
         vm.Markers = [];
         var markersIndex=[];
+        socketCh.connect();
+        var sessionid = '';
 
-        //var intval = "";
         vm.verConductores = verConductores;
         initialize();
+
+        socketCh.on('connect', function () {
+            sessionid = socketCh.sessioniId;
+        });
+
+        socketCh.on('updatePos', function (data) {
+            updatePos(data);
+        });
+
+        $scope.$on("$destroy", function(){
+            socketCh.disconnect();
+        });
 
         function initialize(){
             //vm.ubicaciones = [];
@@ -27,6 +40,12 @@
         }
 
         function cargarRutas() {
+            vm.rutas = [
+                {id: 2, destino:{ciudad:{nombre:"Riohacha"}}},
+                {id: 5, destino:{ciudad:{nombre:"Maicao"}}},
+                {id: 10, destino:{ciudad:{nombre:"Fonseca"}}},
+            ];
+            return;
             turnosService.getRutasCentral().then(success, error);
             function success(p) {
                 vm.rutas = p.data;
@@ -42,149 +61,67 @@
             cargarMapa(vm.ruta);
         }
 
-        ActionChannel.bind( "RecargarMarcadorConductorEvent", function( data ) {
-            updatePos(data);
-        });
+        // ActionChannel.bind( "RecargarMarcadorConductorEvent", function( data ) {
+        //     updatePos(data);
+        // });
 
         function updatePos(data){
-            vm.markers[markersIndex[data.datos]].latitude = data.latitud;
-            vm.markers[markersIndex[data.datos]].longitude = data.longitud;
-            console.log(data)
-        }
-
-        function cargarMapa(ruta_id){
-            vm.ruta = ruta_id;
-            vm.map = {
-                center: {
-                    latitude: authService.currentUser().central.miDireccionLa,
-                    longitude: authService.currentUser().central.miDireccionLo
-                },
-                zoom: 16,
-                bounds: {},
-                mapTypeId: google.maps.MapTypeId.ROADMAP
-            };
-            vm.options = {scrollwheel: false, icon: '../assets/images/marker.png'};
-
-            mapaService.getUbicacionConductores(vm.ruta).then(succes, error);
+            if(markersIndex[data.conductor_id] >= 0) {
+                vm.markers[markersIndex[data.conductor_id]].latitude = data.lat;
+                vm.markers[markersIndex[data.conductor_id]].longitude = data.lng;
+            }else{
+                conductoresService.get(data.conductor_id).then(succes, error);
+                vm.markers.push({
+                    "id": data.conductor_id,
+                    latitude: data.lat,
+                    longitude: data.lng,
+                    "window": {
+                    },
+                    "options" : {
+                        "icon": '../assets/images/marker.png',
+                        "title":  ''
+                    }
+                });
+                markersIndex[data.conductor_id] = vm.markers.length - 1;
+            }
             function succes(c){
-                vm.markers =[];
-                for(var i = 0; i < c.data.length; i++){
-                    vm.markers.push({
-                        "id": c.data[i].conductor.id,
-                        latitude: c.data[i].latitud,
-                        longitude: c.data[i].longitud,
-                        "window": {
-                            cImagen: c.data[i].conductor.imagen,
-                            cNombres: c.data[i].conductor.nombres,
-                            cApellidos: c.data[i].conductor.apellidos,
-                            cTelefono: c.data[i].conductor.telefono,
-                            cCvehiculo: c.data[i].vehiculo_conductor.codigo_vial,
-                        },
-                        "options" : {
-                            "icon": '../assets/images/marker.png',
-                            "title":  c.data[i].conductor.nombres +' '+ c.data[i].conductor.apellidos,
-                            "animation": 1
-                        }
-                    });
-                    markersIndex[c.data[i].conductor.id] = i;
-                }
+                vm.markers[markersIndex[data.conductor_id]].options.itle = c.data.nombres +' '+ c.data.apellidos;
+                vm.markers[markersIndex[data.conductor_id]].window = {
+                    cImagen: c.data.imagen,
+                    cNombres: c.data.nombres,
+                    cApellidos: c.data.apellidos,
+                    cTelefono: c.data.telefono,
+                    cCvehiculo: c.data.vehiculo.codigo_vial
+                };
             }
             function error(e){
                 console.log('error', e)
             }
         }
 
+        function cargarMapa(){
+            vm.map = {
+                center: {
+                    latitude: authService.currentUser().central.miDireccionLa,
+                    longitude: authService.currentUser().central.miDireccionLo
+                },
+                zoom: 11,
+                bounds: {},
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                control: {}
+            };
+            vm.options = {scrollwheel: false, icon: '../assets/images/marker.png'};
+        }
+
         vm.prueba = function(ruta_id){
             vm.ruta = ruta_id;
             vm.mostrar = true;
-            //setTimeout(function(){
-            //
-            //}, 5000)
-            cargarMapa(vm.ruta);
+            cargarMapa(ruta_id);
+            socketCh.emit('changeRuta', ruta_id);
         }
 
         vm.central = function(){
 
         }
-        //function verConductores(ruta_id){
-        //    vm.ruta_id = ruta_id;
-        //    $('#modalMapaConductores').openModal({
-        //        dismissible: false, // Modal can be dismissed by clicking outside of the modal
-        //        opacity: .5, // Opacity of modal background
-        //        in_duration: 400, // Transition in duration
-        //        out_duration: 300, // Transition out duration
-        //        ready: function() {
-        //            ubicacionConductores(vm.ruta_id);
-        //            intval=window.setInterval(ubicacionConductores,5000);
-        //        }, // Callback for Modal open
-        //        complete: function() {
-        //            if(intval!=""){
-        //                window.clearInterval(intval);
-        //                intval="";
-        //            }
-        //        } // Callback for Modal close
-        //    });
-        //}
-
-
-        //function ubicacionConductores() {
-        //    mapaService.getUbicacionConductores(vm.ruta_id).then(succes, error);
-        //    function succes(p) {
-        //        vm.ubicaciones = p.data;
-        //        var colombia = new google.maps.LatLng(authService.currentUser().central.miDireccionLa, authService.currentUser().central.miDireccionLo);
-        //
-        //        var opciones = {
-        //            zoom: 8,
-        //            center: colombia,
-        //            mapTypeId: google.maps.MapTypeId.ROADMAP
-        //        };
-        //        var div = document.getElementById('dvMap');
-        //        var map = new google.maps.Map(div, opciones);
-        //
-        //        var infowindow = new google.maps.InfoWindow({
-        //            content: ''
-        //        });
-        //
-        //        $.each(vm.ubicaciones, function (i, obj) {
-        //            vm.obj = {};
-        //            if(obj.conductor.central_id == authService.currentUser().central.id && obj.conductor.activo == true){
-        //
-        //                var marcadores = [{
-        //                    position: {
-        //                        lat: obj.latitud,
-        //                        lng: obj.longitud
-        //                    },
-        //                    contenido : '<div >\
-        //                    \<div >\<img src="http://' + (obj.conductor.imagen) + '" title="' + obj.conductor.nombres + '" title="" style="width: 150px;height: 120px;" />\
-        //                    \</div>\<div class="contentTxt">\
-        //                    \<h2>' + obj.conductor.nombres + '<br>' + obj.conductor.apellidos + '\</h2>\
-        //                    \<p>\TELEFONO: ' + obj.conductor.telefono + '\</p>\
-        //                    \<p>\CODIGO VIAL: ' + obj.vehiculo_conductor.codigo_vial + '\</p>\
-        //                    \</div>\<div class="clear"></div>\</div>',
-                            //title: obj.conductor.nombres + ' ' + obj.conductor.apellidos + ' Movil: ' + obj.vehiculo_conductor.codigo_vial,
-        //                }];
-        //                for (var i = 0, j = marcadores.length; i < j; i++) {
-        //                    var contenido = marcadores[i].contenido;
-        //                    var marker = new google.maps.Marker({
-        //                        position: new google.maps.LatLng(marcadores[i].position.lat, marcadores[i].position.lng),
-        //                        map: map,
-        //                        title: marcadores[i].title,
-        //                        icon: '../assets/images/marker.png'
-        //
-        //                    });
-        //                    (function (marker, contenido) {
-        //                        google.maps.event.addListener(marker, 'click', function () {
-        //                            infowindow.setContent(contenido);
-        //                            infowindow.open(map, marker);
-        //                        });
-        //                    })(marker, contenido);
-        //                }
-        //            }
-        //        });
-        //    }
-        //    function error(error){
-        //        console.log('No hay ubicaciones');
-        //    }
-        //}
     }
 })();

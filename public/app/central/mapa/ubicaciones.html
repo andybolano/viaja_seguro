@@ -31,13 +31,13 @@
         <div class="col s12" id="map_canvas">
             <ui-gmap-google-map
                     center='vm.map.center'
-                    zoom='vm.map.zoom' aria-label="Google map">
-
+                    zoom='vm.map.zoom' aria-label="Google map"
+                    control="vm.map.control">
                 <ui-gmap-markers models="vm.markers"
-                                coords="'self'"
-                                options="'self'"
-                                events="'self'"
-                                dorebuildall="true">
+                                 coords="'self'"
+                                 options="'self'"
+                                 modelsbyref="false"
+                                 dorebuildall="true">
                     <ui-gmap-windows>
                         <div ng-non-bindable>
                             <div ><img src="http://{{window.cImagen}}" title="{{window.cNombres}}" style="width: 150px;height: 120px;" />
