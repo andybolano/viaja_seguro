@@ -98,6 +98,7 @@ class PaqueteController extends Controller
     }
 
     public function moverPaquete(Request $request, $paquete_id){
+        $noty = new NotificacionController();
         $paquete = $this->show($paquete_id);
         $paquete->conductor_id = $request->conductor_id;
         if($paquete->save()){
