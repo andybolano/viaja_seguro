@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Empresa;
 
+use App\Http\Controllers\NotificacionController;
 use App\Model\Conductor;
 use App\Model\Paquete;
 use App\Model\Giro;
@@ -39,6 +40,7 @@ class ViajesController extends Controller
     public function crearViaje($conductor_id, $ruta_id, $deducciones){
         $viaje = new Viaje();
         $totalD = 0;
+        $noty = new NotificacionController();
 
         $viaje->conductor_id = $conductor_id;
         $viaje->ruta_id = $ruta_id;
@@ -49,7 +51,7 @@ class ViajesController extends Controller
         $paquetes = Paquete::select('id')->where('conductor_id', $conductor_id)->where('estado', '=', 'En ruta')->get();
 
         if($viaje->save()){
-
+            $noty->enviarNotificacionConductores('La central a autorizado tu salida, acercate a secretaria para recivir la planilla.', $conductor_id, 'Despacho');
             foreach ($pasajeros as $pasajero) {
                 $viaje->pasajeros()->attach($pasajero['id']);
             }

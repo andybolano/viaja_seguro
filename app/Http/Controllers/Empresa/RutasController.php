@@ -63,13 +63,20 @@ class RutasController extends Controller
         $ruta = Ruta::find($ruta_id);
         foreach($data['turnos'] as $turno){
             $turnos_actuales[$turno['conductor_id']] = ['turno' => $turno['turno']];
-            $noty->enviarNotificacionConductores('',$turno['conductor_id'],'Cambio de turno');
         }
         if($ruta->toUpdateTurnos()->sync($turnos_actuales)){
             $ruta = $ruta->destino->ciudad;
             foreach($data['turnos'] as $turno){
-                $mensaje = "Estas en el turno ".$turno['turno']." en la ruta hacia $ruta->nombre";
-                $noty->enviarNotificacionConductores($mensaje, $turno['conductor_id'],'Cambio de turno', $ruta_id);
+                if($turno['accion'] == 'agregar'){
+                    $mensaje = "Has sido agregado a la ruta hacia $ruta->nombre en el turno ".$turno['turno'];
+                    $noty->enviarNotificacionConductores($mensaje, $turno['conductor_id'],'Actualizacion turno', $ruta_id);
+                }else if($turno['accion'] == 'quitar'){
+                    $mensaje = "Has sido removido de los turnos de la ruta hacia $ruta->nombre";
+                    $noty->enviarNotificacionConductores($mensaje, $turno['conductor_id'],'Actualizacion turno', $ruta_id);
+                }else{
+                    $mensaje = "Estas en el turno ".$turno['turno']." en la ruta hacia $ruta->nombre";
+                    $noty->enviarNotificacionConductores($mensaje, $turno['conductor_id'],'Actualizacion turno', $ruta_id);
+                }
             }
             return response()->json(['mensaje' => 'turnos modifcados'], 201);
         }else{
