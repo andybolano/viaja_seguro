@@ -40,12 +40,6 @@
         }
 
         function cargarRutas() {
-            vm.rutas = [
-                {id: 2, destino:{ciudad:{nombre:"Riohacha"}}},
-                {id: 5, destino:{ciudad:{nombre:"Maicao"}}},
-                {id: 10, destino:{ciudad:{nombre:"Fonseca"}}},
-            ];
-            return;
             turnosService.getRutasCentral().then(success, error);
             function success(p) {
                 vm.rutas = p.data;
@@ -100,6 +94,7 @@
         }
 
         function cargarMapa(){
+            vm.markers = [];
             vm.map = {
                 center: {
                     latitude: authService.currentUser().central.miDireccionLa,
