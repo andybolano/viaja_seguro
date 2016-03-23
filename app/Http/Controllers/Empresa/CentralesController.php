@@ -298,7 +298,7 @@ class CentralesController extends Controller
                 $p->central_id = $solicitud->central_id;
                 $p->telefono = $solicitud->cliente->telefono;
                 if($p->save()){
-                    $noty->enviarNotificacionConductores('Se te asigno un nuevo pasajero', $solicitud->conductor_id, 'Pasajeros' );
+                    json_decode($noty->enviarNotificacionConductores('Se te asigno un nuevo pasajero', $solicitud->conductor_id, 'Pasajeros' ));
                 }
             }
         }
@@ -336,7 +336,7 @@ class CentralesController extends Controller
                 $g->direccionD = $detalle->direccion;
                 $g->monto = $detalle->descripcion;
                 if($g->save()){
-                    $noty->enviarNotificacionConductores('Se te asigno un nuevo giro', $solicitud->conductor_id, 'Giro' );
+                    json_decode($noty->enviarNotificacionConductores('Se te asigno un nuevo giro', $solicitud->conductor_id, 'Giro' ));
                 }
             }
         }

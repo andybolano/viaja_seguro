@@ -549,7 +549,7 @@
                 <div class="contenedor">
                     <div class="row">
                         <div class="row col s6">
-                            <h2>Pasajeros para viajar</h2>
+                            <h2><strong>Cantidad de pasajero(s) a viajar: {{vm.solicitud.datos_pasajeros.length}}</strong></h2>
                             <table  class="striped bordered responsive-table">
                                 <thead>
                                 <th>Identificacion</th>
@@ -605,8 +605,8 @@
             <h2>Solicitud hacia: {{vm.solicitud.ruta.destino.nombre}}</h2>
             <div class="col s12 z-depth-1">
                 <div class="contenedor">
-                    <div class="row col s12">
-                        <div class="row col s6">
+                    <div class="row">
+                        <div class="col s6">
                             <h2>Detalles de la solicitud</h2>
                             <table  class="striped bordered responsive-table">
                                 <thead>
@@ -616,27 +616,23 @@
                                 <th>Entrega en</th>
                                 <th>Telefono</th>
                                 </thead>
-                                <tbody>
-                                <tr ng-repeat="detalle in vm.solicitud.detalles">
-                                    <td>{{detalle.identificacion}}</td>
-                                    <td>{{detalle.destinatario}}</td>
-                                    <td>{{vm.solicitud.direccion_recogida}}</td>
-                                    <td>{{detalle.direccion}}</td>
-                                    <td>{{detalle.telefono}}</td>
-                                    <td>{{detalle.monto | currency}}</td>
-                                    <div ng-show="vm.solicitud.tipo == 'giro'">
-                                        <h2>Monto</h2>
-                                        <p>{{detalle.monto | currency}}</p>
-                                    </div>
-                                    <div ng-show="vm.solicitud.tipo == 'paquete'">
-                                        <h2>Descripcion</h2>
-                                        <p>{{detalle.descripcion}}</p>
-                                    </div>
+                                <tbody >
+                                <tr >
+                                    <td>{{vm.solicitud.detalles[0].identificacion}}</td>
+                                    <td>{{vm.solicitud.detalles[0].destinatario}}</td>
+                                    <td>{{vm.solicitud.detalles[0].direccion_recogida}}</td>
+                                    <td>{{vm.solicitud.detalles[0].direccion}}</td>
+                                    <td>{{vm.solicitud.detalles[0].telefono}}</td>
                                 </tr>
                                 </tbody>
                             </table>
+
+                            <hr>
+                            <div ng-show="vm.solicitud.tipo == 'giro'"><h2><strong>Monto de:</strong> {{vm.solicitud.detalles[0].descripcion | currency}}</h2></div>
+                            <div ng-show="vm.solicitud.tipo == 'paquete'"><h2><strong>Descripcion:</strong> <br>{{vm.solicitud.detalles[0].descripcion}}</h2></div>
+                            <hr>
                         </div>
-                        <div class="row col s6">
+                        <div class="col s6">
                             <h2>Selecciona al conductor que queires asignarle este pedido</h2>
                             <table  class="striped bordered responsive-table">
                                 <thead>

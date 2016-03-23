@@ -158,14 +158,13 @@ class EmpresaController extends Controller
         unset($data['vehiculo']);
 
         $conductor = new Conductor($data);
-        echo print_r($conductor);
         $conductor->activo = true;
         $empresa = Empresa::find($empresa_id);
         if(!$empresa->conductores()->save($conductor)){
             $usuario->delete();
             return response()->json(['mensajeError' => 'no se ha podido almacenar el registro'], 400);
         }
-        $this->storeVehiculoconductor($conductor->id, $vehiculo_conductor);
+        $this->storeVehiculoconductor($conductor, $vehiculo_conductor);
     }
 
     private function storeVehiculoconductor(&$conductor, $data){
