@@ -14,7 +14,7 @@
         vm.markerId = 1;
         vm.contador = 1;
         vm.Markers = [];
-        // var markersIndex=[];
+        var markersIndex=[];
         socketCh.connect();
         var sessionid = '';
 
@@ -91,7 +91,7 @@
 
         function cargarMapa(){
             vm.markers = [];
-            vm.markersIndex=[];
+            // vm.markersIndex=[];
             vm.map = {
                 center: {
                     latitude: authService.currentUser().central.miDireccionLa,
