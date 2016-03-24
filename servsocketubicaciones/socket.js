@@ -17,7 +17,7 @@ module.exports = function (io) {
         socket.on("loginCliente", function (data) {
             // console.log(socket.id+' change ruta to '+ data.ruta_id);
             clientes[data.conductor_id] || (clientes[data.conductor_id] = []);
-            clientes[data.conductor_id].push(data);
+            clientes[data.conductor_id].push({id: socket.id});
         });
 
         socket.on("posConductor", function (data) {
