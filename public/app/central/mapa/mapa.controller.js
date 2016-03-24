@@ -14,7 +14,7 @@
         vm.markerId = 1;
         vm.contador = 1;
         vm.Markers = [];
-        var markersIndex=[];
+        // var markersIndex=[];
         socketCh.connect();
         var sessionid = '';
 
@@ -54,10 +54,6 @@
             $('#modalMapaConductores').openModal();
             cargarMapa(vm.ruta);
         }
-
-        // ActionChannel.bind( "RecargarMarcadorConductorEvent", function( data ) {
-        //     updatePos(data);
-        // });
 
         function updatePos(data){
             if(markersIndex[data.conductor_id] >= 0) {
@@ -112,7 +108,7 @@
         vm.prueba = function(ruta_id){
             vm.ruta = ruta_id;
             vm.mostrar = true;
-            cargarMapa(ruta_id);
+            cargarMapa();
             socketCh.emit('changeRuta', ruta_id);
         }
 
