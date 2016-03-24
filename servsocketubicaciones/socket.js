@@ -10,21 +10,21 @@ module.exports = function (io) {
         console.log('CONNECTED KEY: '+socket.id);
 
         socket.on("changeRuta", function (id) {
-            // console.log(socket.id+' change ruta to '+ id);
+            console.log(socket.id+' change ruta to '+ id);
             monitores[id] = {ruta_id: id, id: socket.id};
         });
 
         socket.on("loginCliente", function (data) {
-            // console.log(socket.id+' change ruta to '+ data.ruta_id);
+            console.log(socket.id+' cliente escuchando '+ data.cliente_id);
             clientes[data.conductor_id] || (clientes[data.conductor_id] = []);
             clientes[data.conductor_id].push({id: socket.id});
         });
 
         socket.on("posConductor", function (data) {
             var monitor = monitores[data.ruta_id];
-            // console.log(socket.id+' send pos to:');
-            // console.log(monitor);
-            // console.log('\ndata :\n', data);
+            console.log(socket.id+' send pos to:');
+            console.log(monitor);
+            console.log('\ndata :\n', data);
             if (monitor) {
                 io.sockets.to(monitor.id).emit('updatePos', data);
                 var clientes = clientes_conductores[data.conductor_id];
@@ -37,7 +37,7 @@ module.exports = function (io) {
         });
 
         socket.on("disconnect", function () {
-            // console.log(socket.id,' disconnected')
+            console.log(socket.id,' disconnected')
         });
     });
 }
