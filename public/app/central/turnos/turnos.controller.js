@@ -155,7 +155,7 @@
         }
 
         function updateTurnos(ruta, accion){
-            accion || (accion = 'defaoult')
+            accion || (accion = 'default')
             for(var i=0; i<ruta.turnos.length; i++){
                 ruta.turnos[i].turno = i+1;
             }
@@ -737,7 +737,7 @@
                             turnosService.eliminarTurno(obj).then(succes, error);
                         }
                         function succes(p){
-                            updateTurnos(datos.ruta_id);
+                            updateTurnos(datos.ruta_id, 'quitar');
                             vm.Planilla = p.data;
                             vm.Planilla.total = p.data.viaje.planilla.total;
                             swal.disableButtons();
