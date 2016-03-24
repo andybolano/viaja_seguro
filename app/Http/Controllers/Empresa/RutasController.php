@@ -68,13 +68,14 @@ class RutasController extends Controller
             $ruta = $ruta->destino->ciudad;
             foreach($data['turnos'] as $turno){
                 if($request['accion'] == 'agregar'){
-
                     $mensaje = "Has sido agregado a la ruta hacia $ruta->nombre en el turno ".$turno['turno'];
                     $noty->enviarNotificacionConductores($mensaje, $turno['conductor_id'],'Actualizacion turno', $ruta_id);
-                }else if($request['accion'] == 'quitar'){
+                }
+                if($request['accion'] == 'quitar'){
                     $mensaje = "Has sido removido de los turnos de la ruta hacia $ruta->nombre";
                     $noty->enviarNotificacionConductores($mensaje, $turno['conductor_id'],'Actualizacion turno', $ruta_id);
-                }else{
+                }
+                if($request['accion'] == 'default'){
                     $mensaje = "Estas en el turno ".$turno['turno']." en la ruta hacia $ruta->nombre";
                     $noty->enviarNotificacionConductores($mensaje, $turno['conductor_id'],'Actualizacion turno', $ruta_id);
                 }
