@@ -265,6 +265,7 @@ class CentralesController extends Controller
 
     public function aceptarSolicitudPasajero(Request $request, $id)
     {
+        $noty = new NotificacionController();
         $solicitud = Solicitud::find($id)->load('cliente');
         $solicitud->estado = 'a';
         $solicitud->conductor_id = $request->conductor_id;
@@ -274,7 +275,6 @@ class CentralesController extends Controller
             }else {
                 $mensaje = 'Su solicitud de vehiculo a sido aceptada, espere a que el vehiculo lo recoja';
             }
-            $noty = new NotificacionController();
             $noty->enviarNotificacionClientes($mensaje, $solicitud->cliente_id, 'Confirmacion');
 
             return JsonResponse::create(array('message' => 'Solicitud aprovada', $this->moverPedidoSolicitud($id)));
