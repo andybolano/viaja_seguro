@@ -55,10 +55,6 @@
             cargarMapa(vm.ruta);
         }
 
-        // ActionChannel.bind( "RecargarMarcadorConductorEvent", function( data ) {
-        //     updatePos(data);
-        // });
-
         function updatePos(data){
             if(markersIndex[data.conductor_id] >= 0) {
                 vm.markers[markersIndex[data.conductor_id]].latitude = data.lat;
@@ -95,7 +91,7 @@
 
         function cargarMapa(){
             vm.markers = [];
-            vm.markersIndex=[];
+            // vm.markersIndex=[];
             vm.map = {
                 center: {
                     latitude: authService.currentUser().central.miDireccionLa,
@@ -112,7 +108,7 @@
         vm.prueba = function(ruta_id){
             vm.ruta = ruta_id;
             vm.mostrar = true;
-            cargarMapa(ruta_id);
+            cargarMapa();
             socketCh.emit('changeRuta', ruta_id);
         }
 
