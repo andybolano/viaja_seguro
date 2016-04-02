@@ -1,35 +1,35 @@
 <div ng-controller="planillaController as vm" class="contenedor">
-    <div class="row white">
-        <div class="col s12 z-depth-1">
+    <div class="row white" style="border-radius: 15px">
+        <div class="col s12 z-depth-1" style="border-radius: 15px">
             <div class="contenedor">
                 <div class="row">
                     <div class="col s8">
                         <h2>Planillas</h2>
                     </div>
                     <div class="col s4">
-                        <div class="input-field col s12">
-                            <i class="material-icons prefix">search</i>
-                            <input id="icon_prefix" type="tel" ng-model="filtro">
-                            <label for="icon_prefix">Filtrar</label>
+                        <div class="input-field col s12" style="padding: .5em">
+                            <i class="material-icons prefix" style="color: red;">search</i>
+                            <input style="border-radius: 15px; " class="grey lighten-3" id="icon_prefix" type="text" ng-model="filtro">
+                            <label for="icon_prefix">Buscar</label>
                         </div>
 
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col s12">
+                    <div class="col s12" >
                         <table class="striped responsive-table">
-                            <thead>
-                            <th>Número de planilla</th>
-                            <th>Valor</th>
-                            <th>Acciones</th>
+                            <thead style="border-bottom: red">
+                            <th style="color: red;text-align: center">Número de planilla</th>
+                            <th style="color: red;text-align: center">Valor</th>
+                            <th style="color: red;text-align: center">Acciones</th>
                             </thead>
-                            <tbody>
+                            <tbody >
                             <tr ng-repeat="planilla in vm.planillas | filter : filtro">
-                                <td>{{planilla.numero_planilla}}</td>
-                                <td>{{planilla.total | currency}}</td>
-                                <td>
+                                <td style="text-align: center">{{planilla.numero_planilla}}</td>
+                                <td style="text-align: center">{{planilla.total | currency}}</td>
+                                <td style="text-align: center">
                                     <a href="javascript:" ng-click="vm.verPlanilla(planilla)">
-                                        <i class="material-icons prefix">visibility</i>
+                                        <i style="color: red" class="material-icons prefix">visibility</i>
                                     </a>
                                 </td>
                             </tr>
@@ -42,88 +42,17 @@
     </div>
 
     <!--modal planilla-->
-    <div id="modalPlanilla" class="modal" style="width: 90%;min-height:85%;">
+    <div id="modalPlanilla" class="modal" style="width: 90%;min-height:85%; border-radius: 15px">
         <div class="modal-content" id="planilla" >
             <body id="bodyPlanilla">
-              <!-- <header id="headerplanilla">
-                <h1 id="h1planilla">Planilla</h1>
-                <address>
-                  <div><span>CONDUCTOR:  {{vm.planilla.conductor.nombres}} {{vm.planilla.conductor.apellidos}}</span></div>
-                  <div><span>IDENTIFICACION:  {{vm.planilla.conductor.identificacion}}</span></div>
-                  <div><span>TELEFONO:  {{vm.planilla.conductor.telefono}}</span></div>
-                  <div><span>FECHA:  {{vm.planilla.viaje.fecha | date}}</span></div>
-                </address>
-                <span><img alt="" ng-src="{{vm.userImagen}}"></span>
-              </header>
-              <article id="articlePlanilla">
-          			<h1>Recipient</h1>
-          			<address >
-          				<p>Some Company<br>c/o Some Guy</p>
-          			</address>
-          			<table class="meta" id="meta">
-          				<tr>
-          					<th id="thPlanilla"><span >Panilla #</span></th>
-          					<td id="tdPlanilla"><span >{{vm.planilla.numero_planilla}}</span></td>
-          				</tr>
-          				<tr>
-          					<th id="thPlanilla"><span >Fecha</span></th>
-          					<td id="tdPlanilla"><span >{{vm.planilla.viaje.fecha | date}}</span></td>
-          				</tr>
-          				<tr>
-          					<th id="thPlanilla"><span >Monto a pagar</span></th>
-          					<td id="tdPlanilla"><span>{{vm.planilla.total | currency}}</span></td>
-          				</tr>
-          			</table>
-          			<table class="inventory" id="inventory">
-          				<thead style="float: right">
-          					<tr>
-          						<th id="thPlanilla"><span >Identificacion</span></th>
-          						<th id="thPlanilla"><span >Nombres y apellidos</span></th>
-          						<th id="thPlanilla"><span >Telefono</span></th>
-          					</tr>
-          				</thead>
-          				<tbody style="float: right">
-          					<tr ng-repeat="pasajero in vm.planilla.pasajeros">
-          						<td id="tdPlanilla"><span >{{pasajero.identificacion}}</span></td>
-          						<td id="tdPlanilla"><span > {{pasajero.nombres}}</span></td>
-          						<td id="tdPlanilla"><span >{{pasajero.telefono}}</span></td>
-          					</tr>
-          				</tbody>
-                  <thead style="float: left">
-                    <tr>
-                      <th id="thPlanilla"><span>Deduccion</span><th>
-                      <th id="thPlanilla"><span>Valor</span></th>
-                    </tr>
-                  </thead>
-                  <tbody style="float: left">
-                    <tr ng-repeat="deduccion in vm.planilla.deducciones">
-                      <td id="tdPlanilla"><span >{{deduccion.nombre}}</span></td>
-          						<td id="tdPlanilla"><span > {{deduccion.valor}}</span></td>
-                    </tr>
-                  </tbody>
-          			</table>
-          			<table class="balance" id="balance">
-          				<tr>
-          					<th id="thPlanilla"><span >Total</span></th>
-          					<td id="tdPlanilla"><span>{{vm.planilla.total | currency}}</span></td>
-          				</tr>
-          				<!-- <tr>
-          					<th id="thPlanilla"><span >Amount Paid</span></th>
-          					<td id="tdPlanilla"><span data-prefix>$</span><span >0.00</span></td>
-          				</tr>
-          				<tr>
-          					<th id="thPlanilla"><span >Balance Due</span></th>
-          					<td id="tdPlanilla"><span>600.00</span></td>
-          				</tr> -->
-          			<!-- </table>
-          		</article> -->
-
              <header class="clearfix" id="headerPlanilla">
-                <div id="logo">
-                    <img alt="image"
-                         ng-src="http://{{vm.userImagen}}" width="90px;">
-                </div>
-                <h1 id="h1Planilla">PLANILLA N° {{vm.planilla.numero_planilla}}</h1>
+                <!--<div id="logo">-->
+                    <!--<img alt="image"-->
+                         <!--ng-src="http://{{vm.userImagen}}" width="90px;">-->
+                <!--</div>-->
+                 <div style="border-radius: 15px; width: 30%;margin: 0 auto;" class="red accent-4">
+                     <h1 id="h1Planilla" class="white-text">PLANILLA N° {{vm.planilla.numero_planilla}}</h1>
+                 </div>
                 <div id="company" class="clearfix">
                     <div>Cootrasan</div>
                     <div>Fonseca - La Guajira,<br /> Call 13 #21-34</div>
@@ -143,9 +72,9 @@
                         <table id="table" class="striped responsive-table">
                             <thead>
                             <tr>
-                                <th class="center">IDENTIFICACION</th>
-                                <th class="center">NOMBRES Y APELLIDOS</th>
-                                <th class="center">TELEFONO</th>
+                                <th style="color: red" class="center">IDENTIFICACION</th>
+                                <th style="color: red" class="center">NOMBRES Y APELLIDOS</th>
+                                <th style="color: red" class="center">TELEFONO</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -162,8 +91,8 @@
                         <table id="tableD" class="striped responsive-table">
                             <thead>
                             <tr>
-                                <th class="center">DEDUCCION</th>
-                                <th class="center">VALOR</th>
+                                <th style="color: red" class="center">DEDUCCION</th>
+                                <th style="color: red" class="center">VALOR</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -185,9 +114,9 @@
 
         <div class="modal-footer">
             <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
-               style="margin-left:10px;">Salir</a>
+               style="margin-left:10px; border-radius: 15px">Salir</a>
             <a href="javascript:;" ng-click="vm.imprimir()" class="waves-effect waves-light btn green"
-               style="margin-left:10px;">Imprimir</a>
+               style="margin-left:10px; border-radius: 15px">Imprimir</a>
         </div>
     </div>
     <!--fin modal planilla-->

@@ -30,15 +30,15 @@
 }
 
 #h1Planilla {
-  border-top: 1px solid  #5D6975;
-  border-bottom: 1px solid  #5D6975;
-  color: #5D6975;
+  /*border-top: 1px solid  #5D6975;*/
+  /*border-bottom: 1px solid  #5D6975;*/
+  /*color: #5D6975;*/
   font-size: 2.4em;
-  line-height: 1.4em;
+  /*line-height: 1.4em;*/
   font-weight: normal;
   text-align: center;
-  margin: 0 0 20px 0;
-  background: url(http://dev.viajaseguro.co/public/assets/images/dimension.png);
+  /*margin: 0 0 20px 0;*/
+  /*background: url(http://dev.viajaseguro.co/public/assets/images/dimension.png);*/
 }
 
 #project {

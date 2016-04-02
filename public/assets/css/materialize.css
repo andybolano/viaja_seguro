@@ -5623,18 +5623,20 @@ small {
       .card .card-action a:hover {
         color: #ffd8a6; }
   .card .card-reveal {
-    padding: 20px;
+    padding: 10px;
     position: absolute;
     background-color: #fff;
-    width: 100%;
+    /*width: 100%;*/
     overflow-y: auto;
     top: 100%;
-    height: 100%;
+    /*height: 100%;*/
     z-index: 1;
-    display: none; }
+    /*display: none; */
+  }
     .card .card-reveal .card-title {
       cursor: pointer;
-      display: block; }
+      /*display: block; */
+    }
 
 #toast-container {
   display: block;

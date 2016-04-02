@@ -1,35 +1,35 @@
 <div ng-controller="conductoresController as vm" class="contenedor">
-    <div class="row white">
-        <div class="col s12 z-depth-1">
+    <div class="row white" style="border-radius: 15px; border:1px solid black;">
+        <div class="col s12 " >
             <div class="contenedor">
                 <div class="row">
                     <div class="col s8">
-                        <h2>Conductores de la central </h2>
+                        <strong style="font-size: medium">Conductores de la central </strong>
                     </div>
                     <div class="col s4">
                         <div class="input-field col s12">
-                            <i class="material-icons prefix">search</i>
-                            <input id="icon_prefix" type="tel" ng-model="filtro">
-                            <label for="icon_prefix">Filtrar</label>
+                            <i style="color: red" class="material-icons prefix">search</i>
+                            <input style="border-radius: 15px" class="grey lighten-3" id="icon_prefix" type="text" ng-model="filtro">
+                            <label for="icon_prefix">Buscar</label>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col s3" ng-repeat="conductor in vm.Conductores | filter : filtro">
-                        <div class="card" style="width: 100%; height: 300px;">
-                            <div class="card-image waves-effect waves-block waves-light">
-                                <img class="activator" ng-src="http://{{conductor.imagen}}" style="width: 100%; height: 200px;">
+                    <div class="col s4 " ng-repeat="conductor in vm.Conductores | filter : filtro">
+                        <div class="card grey lighten-3" style="width: 100%; height: 200px; border-radius: 15px;">
+                            <div class="card-image waves-effect waves-block waves-light center"><br>
+                                <img class="activator" ng-src="http://{{conductor.imagen}}" style="border-radius: 50%; width: 120px; height: 120px">
                             </div>
-                            <div class="card-content">
-                                <span class="card-title activator grey-text text-darken-6">{{conductor.nombres}}<i class="material-icons right" >more_vert</i></span>
+                            <div  class="card-content center red accent-4" style="border-radius: 15px; height: 35px;width: 90%;margin-left: 15px;padding: .1em;">
+                                <span class="card-title activator white-text center" style="font-size: medium; padding: -30px">{{conductor.nombres}} {{conductor.apellidos}}<i class="material-icons right" style="color: white; float: right">more_vert</i></span>
                             </div>
-                            <div class="card-reveal">
-                                <span class="card-title grey-text text-darken-4">Informacion del conductor<i class="material-icons right">close</i></span>
-                                <p> <strong>Identificacion :</strong> {{conductor.identificacion}}<br>
-                                    <strong>Nombre :</strong> {{conductor.nombres}} {{conductor.apellidos}}</p>
-                                <p><strong>Datos de vehiculo:</strong> <br>
-                                    <strong>Placa : </strong> {{conductor.vehiculo.placa}} <br>
-                                    <strong>Codigo vial :</strong> {{conductor.vehiculo.codigo_vial}}
+                            <div class="card-reveal red accent-4" style="border-radius: 15px; height: 90%; width: 90%;margin-bottom:20px;margin-left: 15px;margin-right: 10px;">
+                                <span  style="font-size: small" class="card-title white-text"><strong>Informacion del conductor</strong><i class="material-icons right">close</i></span>
+                                <p style="font-size: small" class="white-text"> Identificacion : {{conductor.identificacion}}<br>
+                                    Nombre : {{conductor.nombres}} {{conductor.apellidos}}</p>
+                                <p style="font-size: small" class="white-text"><strong style="font-size: medium">Datos de vehiculo:</strong> <br>
+                                    Placa :  {{conductor.vehiculo.placa}} <br>
+                                    Codigo vial : {{conductor.vehiculo.codigo_vial}}
                                 </p>
                             </div>
                         </div>
