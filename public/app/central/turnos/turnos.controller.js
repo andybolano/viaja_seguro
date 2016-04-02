@@ -155,7 +155,7 @@
         }
 
         function updateTurnos(ruta, accion){
-            accion || (accion = 'default')
+            // accion || (accion = 'default')
             for(var i=0; i<ruta.turnos.length; i++){
                 ruta.turnos[i].turno = i+1;
             }
@@ -687,9 +687,10 @@
         };
 
         //DESPACHO
-        function despacharConductor(ruta_id){
+        function despacharConductor(ruta){
             vm.turnos = {};
-            turnosService.getTurno(ruta_id).then(succes, error);
+            vm.ruta = ruta;
+            turnosService.getTurno(ruta.id).then(succes, error);
             function succes(p){
                 vm.turnos = p.data;
                 if(vm.turnos.turno == 1){
@@ -737,7 +738,7 @@
                             turnosService.eliminarTurno(obj).then(succes, error);
                         }
                         function succes(p){
-                            updateTurnos(datos.ruta_id, 'quitar');
+                            updateTurnos(vm.ruta, 'quitar');
                             vm.Planilla = p.data;
                             vm.Planilla.total = p.data.viaje.planilla.total;
                             swal.disableButtons();

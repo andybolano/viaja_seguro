@@ -1,18 +1,18 @@
-(function() {
+(function () {
     'use strict';
 
     angular
-        .module('app.auth', [])
-        .config(config);
+            .module('app.auth', [])
+            .config(config);
 
-    function config($stateProvider){
+    function config($stateProvider) {
         $stateProvider
-            .state('login', {
-                url: '/login',
-                templateUrl: 'auth/login.html',
-                data : {
-                    noRequiresLogin: true
-                }
-            })
+                .state('login', {
+                    url: '/login',
+                    templateUrl: 'auth/login.html',
+                    data: {
+                        noRequiresLogin: true
+                    }
+                })
     }
 })();
