@@ -164,7 +164,7 @@ class EmpresaController extends Controller
             $usuario->delete();
             return response()->json(['mensajeError' => 'no se ha podido almacenar el registro'], 400);
         }
-        $this->storeVehiculoconductor($conductor, $vehiculo_conductor);
+        return $this->storeVehiculoconductor($conductor, $vehiculo_conductor);
     }
 
     private function storeVehiculoconductor(&$conductor, $data){
@@ -178,6 +178,7 @@ class EmpresaController extends Controller
                 $usuario->delete();
                 return response()->json(['mensajeError' => 'no se ha podido almacenar el vehiculo dle conductor'], 400);
             }
+            $conductor->load('vehiculo');
             return response()->json($conductor, 200);
         }else{
             return response()->json(array('message' => "La placa del vehiculo ya se encuentra registrada."), 200);
