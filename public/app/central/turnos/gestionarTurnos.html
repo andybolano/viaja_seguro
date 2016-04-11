@@ -1,25 +1,13 @@
 <div ng-controller="turnosController as vm" class="contenedor" xmlns="http://www.w3.org/1999/html">
     <div class="row">
         <div class="col s12">
-            <div class="row z-depth-1 white col s12" style="border-radius: 15px; border:1px solid black;"
+            <div class="row z-depth-2 white col s12" style="border-radius: 15px; width: 100%"
                  ng-repeat="ruta in vm.rutas">
                 <div class="contenedor simpleDemo col s12">
-                    <div class="col s8">
-                        <!--<div class="row">-->
-                            <!--<div class="col s7"></div>-->
-                            <!--&lt;!&ndash;<div class="col s6"><p style="font-size: 20px">{{ruta.destino.ciudad.nombre}}</p></div>&ndash;&gt;-->
-                            <!--<br>-->
-                        <!--</div>-->
+                    <div class="col s8" >
                         <div class="col s6"><p style="font-size: 20px">{{ruta.destino.ciudad.nombre}}</p></div>
-                        <!--<div class="col s6">-->
-                            <!--<a style="border-radius: 15px" class="btn waves-effect waves-light  light-green lighten-1" ng-click="vm.despacharConductor(ruta.id)">Despachar</a>-->
-                        <!--</div>-->
-                        <!--<div class="col s2" >-->
-                            <!--<a style="border-radius: 10px" class="btn waves-effect waves-light  red accent-4" ng-click="vm.addNewConductor(ruta)">-->
-                                <!--<i class="material-icons">add</i>-->
-                            <!--</a>-->
-                        <!--</div>-->
-                        <div class="row">
+
+                        <div class="row" style="overflow-y: scroll; height: 450px; width: 100%">
                             <ul dnd-list="ruta.turnos" class="col s12 collection"
                                 dnd-inserted="vm.addConductor(ruta)">
                                 <li style="border-radius: 15px" ng-repeat="turno in ruta.turnos"
@@ -67,42 +55,41 @@
                         </div>
                     </div>
 
-                    <div class="col s4"><p> </p>
+                    <div class="col s4" ><p> </p>
                         <!--<div class="row">-->
                         <!--<div class="col s3"> <p> </p>-->
                         <div class="row">
                             <!--<div class="col s4">-->
-                                <div class="col s6">
-                                    <a style="border-radius: 15px" class="btn waves-effect waves-light  light-green lighten-1" ng-click="vm.despacharConductor(ruta)">Despachar</a>
-                                </div>
-                                <div class="col s2" >
-                                    <a style="border-radius: 10px" class="btn waves-effect waves-light  red accent-4" ng-click="vm.addNewConductor(ruta)">
-                                        <i class="material-icons">add</i>
-                                    </a>
-                                </div>
+                            <div class="col s6">
+                                <a style="border-radius: 15px" class="btn waves-effect waves-light  light-green lighten-1" ng-click="vm.despacharConductor(ruta)">Despachar</a>
+                            </div>
+                            <div class="col s2" >
+                                <a style="border-radius: 10px" class="btn waves-effect waves-light  red accent-4" ng-click="vm.addNewConductor(ruta)">
+                                    <i class="material-icons">add</i>
+                                </a>
+                            </div>
                             <!--</div>-->
                         </div>
                         <!--</div>-->
 
-                        <div class="">
-                            <!--<div class="row">-->
-                                <strong><p style="font-size: 20px">Solicitudes</p></strong>
-                            <!--</div>-->
-                            <div class="row center" ng-repeat="algo in ruta.solicitud_pasajeros" style="border-radius: 15px; border:1px solid black;height: 35px">
+                        <strong><p style="font-size: 20px">Solicitudes</p></strong>
+                        <div style="overflow-y: scroll; height: 300px">
+
+                            <div class="row center" ng-repeat="algo in ruta.solicitud_pasajeros" style="border-radius: 15px; border:1px solid grey;height: 35px; ">
                                 <i class="material-icons" style="-webkit-transform: scaleX(-1); color: red; float: left; padding: 5px">airline_seat_recline_extra</i>
                                 <strong >{{algo.datos_pasajeros.length}} Pasajero(s)</strong>
                                 <a style="float: right;padding: 5px" class="waves-effect waves-teal" ng-click="vm.getSolicitudPasajero(algo.id)">
                                     <i class="material-icons prefix small" style="color: #64dd17">visibility</i>
                                 </a>
                             </div>
-                            <div class="row center" ng-repeat="algo in ruta.solicitud_paquetes" style="border-radius: 15px; border:1px solid black;height: 35px">
+                            <div class="row center" ng-repeat="algo in ruta.solicitud_paquetes" style="border-radius: 15px; border:1px solid grey;height: 35px;">
                                 <i class="material-icons prefix small" style="color: red;float: left; padding: 5px">redeem</i>
                                 <strong>{{algo.detalles.length}} Paquete(s)</strong>
                                 <a style="float: right;padding: 5px" class="waves-effect waves-teal" ng-click="vm.getSolicitudPaquete(algo.id)">
                                     <i class="material-icons prefix small" style="color: #64dd17">visibility</i>
                                 </a>
                             </div>
-                            <div class="row center" ng-repeat="algo in ruta.solicitud_giros" style="border-radius: 15px; border:1px solid black;height: 35px">
+                            <div class="row center" ng-repeat="algo in ruta.solicitud_giros" style="border-radius: 15px; border:1px solid grey;height: 35px;">
                                 <i class="material-icons prefix small" style="color: red;float: left; padding: 5px">attach_money</i>
                                 <strong>{{algo.detalles.length}} Giro(s)</strong>
                                 <a style="float: right;padding: 5px" class="waves-effect waves-teal" ng-click="vm.getSolicitudGiro(algo.id)">
@@ -209,7 +196,7 @@
         </div>
 
         <div class="modal-footer">
-            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red " style="margin-left:10px;">Salir</a>
+            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red " style="margin-left:10px; border-radius: 25px">Salir</a>
         </div>
 
     </div>
@@ -263,9 +250,9 @@
             </div>
         </div>
 
-        <div class="modal-footer">
-            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
-               style="margin-left:10px;">Salir</a>
+        <div class="modal-footer" >
+            <button href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
+                    style="margin-left:10px;border-radius: 25px">Salir</button>
         </div>
     </div>
 
@@ -294,9 +281,9 @@
                                 </thead>
                                 <tbody>
                                     <tr style="background-color: transparent;">
-                                        <td><input type="text" ng-model="vm.Pasajeros.identificacion" ng-blur="vm.getCliente(vm.Pasajeros.identificacion)"></td>
+                                        <td><input type="number" ng-model="vm.Pasajeros.identificacion" ng-blur="vm.getCliente(vm.Pasajeros.identificacion)"></td>
                                         <td><input type="text" ng-model="vm.Pasajeros.nombres" required></td>
-                                        <td><input type="text" ng-model="vm.Pasajeros.telefono" required></td>
+                                        <td><input type="number" ng-model="vm.Pasajeros.telefono" required></td>
                                         <td><input type="text" ng-model="vm.Pasajeros.direccion" required></td>
                                         <!--<td><input type="text" ng-model="vm.Pasajeros.direccionD" required></td>-->
                                         <td><button class="btn waves-effect waves-light green " title="Guardar" id="guardar" ng-click="vm.asignarPasajero();" disabled="" ><i class="material-icons">save</i></button></td>
@@ -322,7 +309,7 @@
         </div>
         <div class="modal-footer">
             <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
-               style="margin-left:10px;">Salir</a>
+               style="margin-left:10px;border-radius: 25px;">Salir</a>
         </div>
         <!--</form>-->
     </div>
@@ -354,14 +341,14 @@
                                 </thead>
                                 <tbody>
                                     <tr style="background-color: transparent;">
-                                        <td><input type="text" ng-model="vm.Giros.ide_remitente" ng-blur="vm.getCliente(vm.Giros.ide_remitente)"></td>
+                                        <td><input type="number" ng-model="vm.Giros.ide_remitente" ng-blur="vm.getCliente(vm.Giros.ide_remitente)"></td>
                                         <td><input type="text" ng-model="vm.Giros.nombres"></td>
-                                        <td><input type="text" ng-model="vm.Giros.telefono"></td>
+                                        <td><input type="number" ng-model="vm.Giros.telefono"></td>
                                         <td><input type="text" ng-model="vm.Giros.direccion"></td>
                                         <td><input type="text" ng-model="vm.Giros.nombre_receptor"></td>
-                                        <td><input type="text" ng-model="vm.Giros.telefono_receptor"></td>
+                                        <td><input type="number" ng-model="vm.Giros.telefono_receptor"></td>
                                         <td><input type="text" ng-model="vm.Giros.direccionD"></td>
-                                        <td><input type="text" ng-model="vm.Giros.monto"></td>
+                                        <td><input type="number" ng-model="vm.Giros.monto"></td>
                                         <td><button class="btn waves-effect waves-light green " title="Guardar" id="guardarG" ng-click="vm.asignarGiro();" disabled="" ><i class="material-icons">save</i></button></td>
                                         <td><button class="btn waves-effect waves-light blue"  title="Actualizar" id="actualizarG" ng-click="vm.modificarGiro();" disabled="" ><i class="material-icons">reply</i></button></td>
                                         <td><button class="btn waves-effect waves-light red"  title="limpiar" id="limpiar" ng-click="vm.limpiarGiros(vm.conductor.id);"><i class="material-icons">clear</i></button></td>
@@ -388,7 +375,7 @@
         </div>
         <div class="modal-footer">
             <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
-               style="margin-left:10px;">Salir</a>
+               style="margin-left:10px;border-radius: 25px;">Salir</a>
         </div>
         <!--</form>-->
     </div>
@@ -420,12 +407,12 @@
                                 </thead>
                                 <tbody>
                                     <tr style="background-color: transparent;">
-                                        <td><input type="text" ng-model="vm.Paquetes.ide_remitente" ng-blur="vm.getCliente(vm.Paquetes.ide_remitente)"></td>
+                                        <td><input type="number" ng-model="vm.Paquetes.ide_remitente" ng-blur="vm.getCliente(vm.Paquetes.ide_remitente)"></td>
                                         <td><input type="text" ng-model="vm.Paquetes.nombres"></td>
-                                        <td><input type="text" ng-model="vm.Paquetes.telefono"></td>
+                                        <td><input type="number" ng-model="vm.Paquetes.telefono"></td>
                                         <td><input type="text" ng-model="vm.Paquetes.direccion"></td>
                                         <td><input type="text" ng-model="vm.Paquetes.nombre_receptor"></td>
-                                        <td><input type="text" ng-model="vm.Paquetes.telefono_receptor"></td>
+                                        <td><input type="number" ng-model="vm.Paquetes.telefono_receptor"></td>
                                         <td><input type="text" ng-model="vm.Paquetes.direccionD"></td>
                                         <td><input type="text" ng-model="vm.Paquetes.descripcion_paquete"></td>
                                         <td><button class="btn waves-effect waves-light green " title="Guardar" id="guardarP" ng-click="vm.asignarPaquete();" disabled="" ><i class="material-icons">save</i></button></td>
@@ -458,7 +445,7 @@
         </div>
         <div class="modal-footer">
             <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
-               style="margin-left:10px;">Salir</a>
+               style="margin-left:10px;border-radius: 25px;">Salir</a>
         </div>
         <!--</form>-->
     </div>
@@ -472,7 +459,7 @@
         </div>
         <div class="modal-footer">
             <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
-               style="margin-left:10px;">Salir</a>
+               style="margin-left:10px;border-radius: 25px;">Salir</a>
         </div>
     </div>
     <!--fin modal descripcion-->
@@ -548,9 +535,9 @@
 
         <div class="modal-footer">
             <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
-               style="margin-left:10px;">Salir</a>
+               style="margin-left:10px;border-radius: 25px; color: red">Salir</a>
             <a href="javascript:;" ng-click="vm.imprimir()" class="waves-effect waves-light btn green"
-               style="margin-left:10px;">Imprimir</a>
+               style="margin-left:10px;border-radius: 25px; color: lawngreen">Imprimir</a>
         </div>
     </div>
     <!--fin modal planilla-->
@@ -608,9 +595,9 @@
 
         <div class="modal-footer">
             <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
-               style="margin-left:10px;">Salir</a>
+               style="margin-left:10px;border-radius: 25px;">Salir</a>
             <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
-               style="margin-left:10px;" ng-click="vm.recharSolicitud(vm.solicitud.id)">Rechazar solicitud</a>
+               style="margin-left:10px; border-radius: 25px;" ng-click="vm.recharSolicitud(vm.solicitud.id)">Rechazar solicitud</a>
         </div>
     </div>
 
@@ -750,7 +737,7 @@
 
                                         <div class="modal-footer">
                                             <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
-                                               style="margin-left:10px;">Salir</a>
+                                               style="margin-left:10px;border-radius: 25px;">Salir</a>
                                         </div>
                                     </div>
                                     <!--fin modal cambiar giro conductor-->
@@ -820,7 +807,7 @@
 
                                         <div class="modal-footer">
                                             <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
-                                               style="margin-left:10px;">Salir</a>
+                                               style="margin-left:10px;border-radius: 25px;">Salir</a>
                                         </div>
                                     </div>
                                     <!--fin modal cambiar paquete conductor-->

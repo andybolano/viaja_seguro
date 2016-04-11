@@ -6,12 +6,13 @@
   top: 0;
   bottom: 0;
   display: none;
-  z-index: 1000; }
+  z-index: 1000;
+}
 
 .sweet-alert {
   background-color: #fff;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  border-radius: 5px;
+  border-radius: 25px;
   box-sizing: border-box;
   text-align: center;
   position: fixed;
@@ -53,7 +54,7 @@
     box-shadow: none;
     font-size: 17px;
     font-weight: 500;
-    border-radius: 5px;
+    border-radius: 25px;
     padding: 10px 32px;
     margin: 0 5px;
     cursor: pointer; }
@@ -87,7 +88,7 @@
     margin: 20px auto;
     padding: 0;
     position: relative;
-    box-sizing: content-box; }
+    box-sizing: content-box;}
     .sweet-alert .icon.error {
       border-color: #f27474; }
       .sweet-alert .icon.error .x-mark {
