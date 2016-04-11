@@ -1,6 +1,6 @@
 <div ng-controller="ConductorController as vm" class="contenedor">
     <div class="row white">
-        <div class="col s12 z-depth-1">
+        <div class="col s12 z-depth-2" style="border-radius: 25px">
             <BR>
                 <div class="row center" ng-hide="vm.carga">
                     <div class="preloader-wrapper big active">
@@ -60,10 +60,10 @@
                         </div>
                     </div>
                     <div class="col s4">
-                        <div class="input-field col s12">
-                            <i class="material-icons prefix">search</i>
-                            <input id="icon_prefix" type="tel" ng-model="filtro">
-                            <label for="icon_prefix">Filtrar</label>
+                        <div class="input-field col s12 grey lighten-3" style="padding: .5em; border-radius: 15px; height: 37px">
+                            <i class="material-icons prefix" style="color: #D50000;">search</i>
+                            <input  id="icon_prefix" type="text" ng-model="filtro">
+                            <label for="icon_prefix">Buscar</label>
                         </div>
                     </div>
                 </div>
@@ -71,14 +71,14 @@
                     <div class="col s12">
                         <table class="striped bordered responsive-table">
                             <thead>
-                            <th></th>
-                            <th>Identificaci&oacute;n</th>
+                            <th style="color: red; text-aling:center"></th>
+                            <th style="color: red; text-aling:center">Identificaci&oacute;n</th>
 
-                            <th>Nombres</th>
-                            <th>Apellidos</th>
-                            <th>Direcci&oacute;n</th>
-                            <th>Telefono</th>
-                            <!--<th>Central</th>-->
+                            <th style="color: red; text-aling:center">Nombres</th>
+                            <th style="color: red; text-aling:center">Apellidos</th>
+                            <th style="color: red; text-aling:center">Direcci&oacute;n</th>
+                            <th style="color: red; text-aling:center">Telefono</th>
+                            <!--<th style="color: red; text-aling:center">Central</th>-->
                             </thead>
                             <tbody>
                             <tr ng-repeat="conductor in vm.ConductoresInactivos | filter : filtro" ng-show="vm.carga">
@@ -93,7 +93,7 @@
                                 <td>{{conductor.telefono}}</td>
                                 <td>
                                     <a title="ver" href="javascript:" ng-click="vm.modificar(conductor)">
-                                        <i class="material-icons prefix">visibility</i>
+                                        <i style="color: #64dd17" class="material-icons prefix">visibility</i>
                                     </a>
                                     <a title="Habilitar" href="javascript:" ng-click="vm.openhabilitar(conductor)">
                                         <i class="material-icons">done_all</i>
@@ -111,30 +111,30 @@
                     <div class="col s12">
                         <table class="striped bordered responsive-table">
                             <thead>
-                            <th></th>
-                           <th>Identificaci&oacute;n</th>
+                            <th style="color: red; text-align: center"></th>
+                            <th style="color: red; text-align: center">Identificaci&oacute;n</th>
 
-                            <th>Nombres</th>
-                            <th>Apellidos</th>
-                            <th>Direcci&oacute;n</th>
-                            <th>Telefono</th>
-                            <th>Central</th>
+                            <th style="color: red; text-align: center">Nombres</th>
+                            <th style="color: red; text-align: center">Apellidos</th>
+                            <th style="color: red; text-align: center">Direcci&oacute;n</th>
+                            <th style="color: red; text-align: center">Telefono</th>
+                            <th style="color: red; text-align: center">Central</th>
                          
                             </thead>
                             <tbody>
                                 <tr ng-repeat="conductor in vm.Conductores | filter : filtro">
-                                    <td>
+                                    <td style="text-align: center">
                                         <img id="imagena{{conductor.id}}" ng-src="http://{{conductor.imagen}}" class="circle profile animated" style="width:32px; height: 32px; border-radius: 50%">
                                     </td>
-                                    <td>{{conductor.identificacion}}</td>
-                                    <td>{{conductor.nombres}}</td>
-                                    <td>{{conductor.apellidos}}</td>
-                                    <td>{{conductor.direccion}}</td>
-                                    <td>{{conductor.telefono}}</td>
-                                    <td>{{conductor.central.ciudad.nombre}}</td>
-                                    <td>
+                                    <td style="text-align: center">{{conductor.identificacion}}</td>
+                                    <td style="text-align: center">{{conductor.nombres}}</td>
+                                    <td style="text-align: center">{{conductor.apellidos}}</td>
+                                    <td style="text-align: center">{{conductor.direccion}}</td>
+                                    <td style="text-align: center">{{conductor.telefono}}</td>
+                                    <td style="text-align: center">{{conductor.central.ciudad.nombre}}</td>
+                                    <td style="text-align: center">
                                         <a title="Ver" href="javascript:" ng-click="vm.modificar(conductor)">
-                                            <i class="material-icons prefix">visibility</i>
+                                            <i class="material-icons prefix" style="color: #64dd17">visibility</i>
                                         </a>
                                         <a title="Inhabilitar" href="javascript:" ng-click="vm.eliminar(conductor.id)">
                                             <i class="material-icons prefix" style="color:#c62828">delete</i>
@@ -156,49 +156,51 @@
     </div>
 
     <!--Modal nuevo conductor-->
-    <div id="modalNuevoConductor" class="modal modal-fixed-footer" style="width: 90%;min-height:85%;">
+    <div id="modalNuevoConductor" class="modal modal-fixed-footer" style="width: 80%;min-height:85%;">
         <div class="modal-content">
             <h2>{{vm.titulo}}</h2>
             <div class="row">
                 <div class="col s8">
                     <form class="col s12" name="formConductor" id="formConductor">
                         <div class="row">
-                            <div class="input-field col s4">
-                                <i class="material-icons prefix">payment</i>
-                                    <input id="icon_payment" type="text" class="validate" name="identificacion" ng-model="vm.Conductor.identificacion" ng-readonly="!vm.activos">
+                            <div class="input-field col s5" style="border: 1px solid grey; border-radius: 15px; margin-right: 30px">
+                                <i class="material-icons prefix" style="color: #D50000">payment</i>
+                                    <input style="border-radius: 15px" id="icon_payment" type="text" class="validate" name="identificacion" ng-model="vm.Conductor.identificacion" ng-readonly="!vm.activos">
                                 <label for="icon_payment" class="{{vm.active}}">Identificación</label>
                             </div>
-                            <div class="input-field col s4">
-                                <i class="material-icons prefix">account_circle</i>
-                                <input id="icon_person" type="text" class="validate" name="nombres"ng-model="vm.Conductor.nombres" ng-readonly="!vm.activos">
+                            <div class="input-field col s5" style="border: 1px solid grey; border-radius: 15px;">
+                                <i class="material-icons prefix" style="color: #D50000">account_circle</i>
+                                <input style="border-radius: 15px" id="icon_person" type="text" class="validate" name="nombres"ng-model="vm.Conductor.nombres" ng-readonly="!vm.activos">
                                 <label for="icon_person" class="{{vm.active}}">Nombres</label>
-                            </div>
-                            <div class="input-field col s4">
-                                <i class="material-icons prefix">account_circle</i>
-                                <input id="icon_person2" type="text" class="validate" name="apellidos" ng-model="vm.Conductor.apellidos" ng-readonly="!vm.activos">
-                                <label for="icon_person2" class="{{vm.active}}">Apellidos</label>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="input-field col s4">
-                                <i class="material-icons prefix">person_pin_circle</i>
-                                <input id="icon_pain" type="text" class="validate" name="direccion" ng-model="vm.Conductor.direccion" ng-readonly="!vm.activos">
+                            <div class="input-field col s5" style="border: 1px solid grey; border-radius: 15px; margin-right: 30px">
+                                <i class="material-icons prefix" style="color: #D50000">account_circle</i>
+                                <input style="border-radius: 15px" id="icon_person2" type="text" class="validate" name="apellidos" ng-model="vm.Conductor.apellidos" ng-readonly="!vm.activos">
+                                <label for="icon_person2" class="{{vm.active}}">Apellidos</label>
+                            </div>
+                            <div class="input-field col s5" style="border: 1px solid grey; border-radius: 15px">
+                                <i class="material-icons prefix" style="color: #D50000">person_pin_circle</i>
+                                <input style="border-radius: 15px" id="icon_pain" type="text" class="validate" name="direccion" ng-model="vm.Conductor.direccion" ng-readonly="!vm.activos">
                                 <label for="icon_pain" class="{{vm.active}}">Dirección</label>
                             </div>
-                            <div class="input-field col s4">
-                                <i class="material-icons prefix">phone</i>
-                                <input id="icon_phone" type="text" class="validate" name="telefono" ng-model="vm.Conductor.telefono" ng-readonly="!vm.activos">
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s5" style="border: 1px solid grey; border-radius: 15px; margin-right: 30px">
+                                <i class="material-icons prefix" style="color: #D50000">phone</i>
+                                <input style="border-radius: 15px" id="icon_phone" type="text" class="validate" name="telefono" ng-model="vm.Conductor.telefono" ng-readonly="!vm.activos">
                                 <label for="icon_phone" class="{{vm.active}}">Teléfono</label>
                             </div>
-                            <div class="input-field col s4">
-                                <i class="material-icons prefix">contact_mail</i>
-                                <input id="icon_mail2" type="text" class="validate" name="correo" ng-model="vm.Conductor.correo" ng-readonly="!vm.activos">
+                            <div class="input-field col s5" style="border: 1px solid grey; border-radius: 15px">
+                                <i class="material-icons prefix" style="color: #D50000">contact_mail</i>
+                                <input style="border-radius: 15px" id="icon_mail2" type="text" class="validate" name="correo" ng-model="vm.Conductor.correo" ng-readonly="!vm.activos">
                                 <label for="icon_mail2" class="{{vm.active}}">Correo</label>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="input-field col s8" ng-hide="vm.mode == 'edit' && !vm.activos">
-                                <i class="material-icons prefix">flag</i>
+                            <div class="input-field col s10" ng-hide="vm.mode == 'edit' && !vm.activos">
+                                <i class="material-icons prefix" style="color: #D50000">flag</i>
                                 <select class="browser-default validate" name="central" id="central"
                                         ng-options="central.ciudad.nombre for central in vm.centrales"
                                         ng-model="vm.Conductor.central" required  style="margin-left: 42px;">
@@ -210,15 +212,15 @@
                     </form>
                 </div>
                 <div class="col s4">
-                    <div class="col s12" id="image" >
+                    <div class="col s12 center" id="image" style="position: relative; width: 300px;height: 300px; border-radius: 50%;background: grey">
                         <center>
-                        <img  src="http://{{vm.Conductor.imagen}}" title="imagen" alt="seleccione foto" style="width:250px; height:250px; border-radius:50%;"/>
+                        <img  ng-show="false"src="http://{{vm.Conductor.imagen}}" title="imagen" class="circle" style="width:300px; height: 300px; border-radius: 50%"/>
                         </center>
                     </div>
                     <div class="file-field input-field col s12" ng-show="vm.activos">
-                        <div class="btn col s12">
-                            <span><i class="mdi-image-photo-camera"></i></span>
-                            <input id="files" uploader-model="vm.fileimage" type="file">
+                        <div class="btn col s12 red accent-4" style="border-radius: 25px">
+                            <span><i class="mdi-image-photo-camera" style="color: white"></i></span>
+                            <input style="color: red;" id="files" uploader-model="vm.fileimage" type="file">
                         </div>
                         <div class="file-path-wrapper">
                         </div>
@@ -237,91 +239,92 @@
                             <div class="col s8">
                                 <form class="col s12" name="formDatosVechivulo" id="formDatosVechivulo" ng-hide="!vm.Vehiculo && !vm.activos">
                                     <div class="row">
-                                        <div class="input-field col s4">
-                                            <i class="material-icons prefix">payment</i>
-                                            <input id="icon_payment2" type="text" class="validate" name="propietario" ng-model="vm.Vehiculo.identificacion_propietario">
+                                        <div class="input-field col s5" style="border: 1px solid grey; border-radius: 15px; margin-right: 30px">
+                                            <i style="color: #D50000" class="material-icons prefix">payment</i>
+                                            <input style="border-radius: 15px" id="icon_payment2" type="text" class="validate" name="propietario" ng-model="vm.Vehiculo.identificacion_propietario">
                                             <label for="icon_payment2" class="{{vm.active}}">Identificacion propietario</label>
                                         </div>
-                                        <div class="input-field col s4">
-                                            <i class="material-icons prefix">person</i>
-                                            <input id="icon_person3" type="text" class="validate" name="nombreP" ng-model="vm.Vehiculo.nombre_propietario">
+                                        <div class="input-field col s5" style="border: 1px solid grey; border-radius: 15px">
+                                            <i style="color: #D50000" class="material-icons prefix">person</i>
+                                            <input style="border-radius: 15px" id="icon_person3" type="text" class="validate" name="nombreP" ng-model="vm.Vehiculo.nombre_propietario">
                                             <label for="icon_person3" class="{{vm.active}}">Nombres propietario</label>
-                                        </div>
-                                        <div class="input-field col s4">
-                                            <i class="material-icons prefix" >phone</i>
-                                            <input id="icon_phone1" type="text" class="validate" name="phone" ng-model="vm.Vehiculo.tel_propietario">
-                                            <label for="icon_phone1" class="{{vm.active}}">Telefono</label>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="input-field col s4">
-                                            <i class="material-icons prefix">payment</i>
-                                            <input id="icon_payment3" type="text" class="validate" name="placa" ng-model="vm.Vehiculo.placa">
+                                        <div class="input-field col s5" style="border: 1px solid grey; border-radius: 15px; margin-right: 30px">
+                                            <i style="color: #D50000" class="material-icons prefix" >phone</i>
+                                            <input style="border-radius: 15px" id="icon_phone1" type="text" class="validate" name="phone" ng-model="vm.Vehiculo.tel_propietario">
+                                            <label for="icon_phone1" class="{{vm.active}}">Telefono</label>
+                                        </div>
+                                        <div class="input-field col s5" style="border: 1px solid grey; border-radius: 15px">
+                                            <i style="color: #D50000" class="material-icons prefix">payment</i>
+                                            <input style="border-radius: 15px" id="icon_payment3" type="text" class="validate" name="placa" ng-model="vm.Vehiculo.placa">
                                             <label for="icon_payment3" class="{{vm.active}}">Placa</label>
                                         </div>
-
-                                        <div class="input-field col s4">
-                                            <i class="material-icons prefix">local_taxi</i>
-                                            <input id="icon_person31" type="text" class="validate" name="modelo" ng-model="vm.Vehiculo.modelo">
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s5" style="border: 1px solid grey; border-radius: 15px; margin-right: 30px">
+                                            <i style="color: #D50000" class="material-icons prefix">local_taxi</i>
+                                            <input style="border-radius: 15px" id="icon_person31" type="text" class="validate" name="modelo" ng-model="vm.Vehiculo.modelo">
                                             <label for="icon_person31" class="{{vm.active}}">Modelo</label>
                                         </div>
-                                        <div class="input-field col s2">
-                                            <i class="material-icons prefix">invert_colors_off</i>
-                                            <input id="icon_person23" type="text" class="validate" name="color"  ng-model="vm.Vehiculo.color">
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s4" style="border: 1px solid grey; border-radius: 15px; margin-right: 30px">
+                                            <i style="color: #D50000" class="material-icons prefix" >event_seat</i>
+                                            <input style="border-radius: 15px" id="icon_cupo" type="text" class="validate" name="cupos" ng-model="vm.Vehiculo.cupos">
+                                            <label for="icon_cupo" class="{{vm.active}}">Cupos</label>
+                                        </div>
+                                        <div class="input-field col s3" style="border: 1px solid grey; border-radius: 15px; margin-right: 30px">
+                                            <i style="color: #D50000" class="material-icons prefix">invert_colors_off</i>
+                                            <input style="border-radius: 15px" id="icon_person23" type="text" class="validate" name="color"  ng-model="vm.Vehiculo.color">
                                             <label for="icon_person23" class="{{vm.active}}">Color</label>
                                         </div>
-                                        <div class="input-field col s2">
-                                            <i class="material-icons prefix">airport_shuttle</i>
-                                            <input id="icon_person4" type="text" class="validate" name="vial"  ng-model="vm.Vehiculo.codigo_vial">
+                                        <div class="input-field col s3" style="border: 1px solid grey; border-radius: 15px; margin-right: 30px">
+                                            <i style="color: #D50000" class="material-icons prefix">airport_shuttle</i>
+                                            <input style="border-radius: 15px" id="icon_person4" type="text" class="validate" name="vial"  ng-model="vm.Vehiculo.codigo_vial">
                                             <label for="icon_person4" class="{{vm.active}}">C. vial</label>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="input-field col s4">
-                                            <i class="material-icons prefix" >event_seat</i>
-                                            <input id="icon_cupo" type="text" class="validate" name="cupos" ng-model="vm.Vehiculo.cupos">
-                                            <label for="icon_cupo" class="{{vm.active}}">Cupos</label>
-                                        </div>
-                                    </div>
-                                    <div class="row">
                                         <div class="col s12">
-                                            <i class="material-icons prefix">payment</i>
+                                            <i  class="material-icons prefix">payment</i>
                                             Documentación del vehículo
                                         </div>
 
                                         <div class="row col s6">
-                                            <fieldset>
+                                            <fieldset style="border-radius: 25px">
                                                 <div class="col s12">
                                                     <p style="margin-bottom: 0; margin-top: 0; margin-left: 10px">
-                                                        <input type="checkbox" ng-model="vm.Vehiculo.soat" id="soat"/>
+                                                        <input style="border-radius: 15px;" type="checkbox" ng-model="vm.Vehiculo.soat" id="soat"/>
                                                         <label for="soat">SOAT</label>
                                                     </p>
                                                 </div>
                                                 <div class="col s12">
                                                     <p>Fecha de vencimiento</p>
-                                                    <input type="date" class="datepicker" name="fecha_soat" ng-model="vm.Vehiculo.fecha_soat" id="fecha_soat"  ui-date="{ dateFormat: 'yy-MM-DD' }" min-date="minDate">
+                                                    <input style="border-radius: 15px" type="date" class="datepicker" name="fecha_soat" ng-model="vm.Vehiculo.fecha_soat" id="fecha_soat"  ui-date="{ dateFormat: 'yy-MM-DD' }" min-date="minDate">
                                                 </div>
                                             </fieldset>
                                         </div>
                                         <div class="row col s6">
-                                            <fieldset>
+                                            <fieldset style="border-radius: 25px">
                                                 <div class="col s12">
                                                     <p style="margin-bottom: 0; margin-top: 0; margin-left: 10px">
-                                                        <input type="checkbox" ng-model="vm.Vehiculo.tecnomecanica" id="tecnomecanica"/>
+                                                        <input style="border-radius: 15px" type="checkbox" ng-model="vm.Vehiculo.tecnomecanica" id="tecnomecanica"/>
                                                         <label for="tecnomecanica">TECNOMECANICA</label>
                                                     </p>
                                                 </div>
                                                 <div class="col s12">
                                                     <p>Fecha de vencimiento</p>
-                                                    <input type="date" class="datepicker" name="fecha_tecnomecanica" ng-model="vm.Vehiculo.fecha_tecnomecanica" id="fecha_tecnomecanica"  ui-date="{ dateFormat: 'yy-MM-DD' }" min-date="minDate">
+                                                    <input style="border-radius: 15px" type="date" class="datepicker" name="fecha_tecnomecanica" ng-model="vm.Vehiculo.fecha_tecnomecanica" id="fecha_tecnomecanica"  ui-date="{ dateFormat: 'yy-MM-DD' }" min-date="minDate">
                                                 </div>
                                             </fieldset>
                                         </div>
                                         <div class="row col s6">
-                                            <fieldset>
+                                            <fieldset style="border-radius: 25px">
                                                 <div class="col s12">
                                                     <p style="margin-bottom: 0; margin-top: 0; margin-left: 10px">
-                                                        <input type="checkbox" ng-model="vm.Vehiculo.tarjeta_propiedad" id="tpropiedad"/>
+                                                        <input style="border-radius: 15px" type="checkbox" ng-model="vm.Vehiculo.tarjeta_propiedad" id="tpropiedad"/>
                                                         <label for="tpropiedad">TARJETA DE PROPIEDAD</label>
                                                     </p>
                                                 </div>
@@ -332,12 +335,13 @@
                                 <p ng-show="!vm.Vehiculo && !vm.activos">No se an  reistrado datos del veiihculo</p>
                             </div>
 
-                            <div class="col s4">
-                                <div class="col s12" id="imagev" style="max-height: 300px;">
-                                    <img class="thumb center" id="imagen" style="width:100%" ng-src="http://{{Vehiculo.imagen}}" title="imagen" alt="seleccione foto"  style="width:100px;height: 100px;border-radius: 50%;"/>
+                            <div class="col s4" >
+                                <div align="center" class="col s12" id="imagev" style="position: relative; width: 300px;height: 300px; border-radius: 50%;background: grey">
+                                    <!--<h2 style="color: white; position: absolute;width: 300px; height: 300px ;left: 0; top: 0">SELECCIONAR FOTO</h2>-->
+                                    <!--<img class="center" id="imagen" style="width:300px; height: 300px; border-radius: 50%" ng-src="http://{{Vehiculo.imagen}}" title="imagen"/>-->
                                 </div>
                                 <div class="file-field input-field col s12">
-                                    <div class="btn col s12">
+                                    <div class="btn col s12 red accent-4" style="border-radius: 25px">
                                         <span><i class="mdi-image-photo-camera"></i></span>
                                         <input id="filesv" uploader-model="vm.fileimageV" type="file" name="filesv">
                                     </div>
@@ -354,14 +358,14 @@
         <!--{{formConductor | json}}-->
 
         <div class="modal-footer">
-            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red " style="margin-left:10px;">Salir</a>
-            <a class="waves-effect waves-light btn green" ng-show="vm.mode == 'new'" ng-click="vm.guardar()" ng-class="{'disabled': formConductor.$invalid}" style="margin-left:10px;">
+            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red " style="margin-left:10px;border-radius: 25px">Salir</a>
+            <a class="waves-effect waves-light btn light-green accent-4" ng-show="vm.mode == 'new'" ng-click="vm.guardar()" ng-class="{'disabled': formConductor.$invalid}" style="margin-left:10px; border-radius: 25px">
                 Guardar</a>
-            <a class="waves-effect waves-light btn green" ng-show="vm.mode == 'edit' && vm.activos" ng-click="vm.update()" ng-class="{'disabled': formConductor.$invalid}" style="margin-left:10px;">
+            <a class="waves-effect waves-light btn light-green accent-4" ng-show="vm.mode == 'edit' && vm.activos" ng-click="vm.update()" ng-class="{'disabled': formConductor.$invalid}" style="margin-left:10px;border-radius: 25px">
                 Modificar</a>
-            <a class="waves-effect waves-light btn green" ng-show="vm.mode == 'hbltr'" ng-click="vm.habilitar()" ng-class="{'disabled': formConductor.$invalid}" style="margin-left:10px;">
+            <a class="waves-effect waves-light btn light-green accent-4" ng-show="vm.mode == 'hbltr'" ng-click="vm.habilitar()" ng-class="{'disabled': formConductor.$invalid}" style="margin-left:10px;border-radius: 25px">
                 Habilitar</a>
-            <a class="waves-effect waves-light btn yellow " ng-hide="!vm.activos && vm.mode != 'new'" ng-click="vm.Conductor = {}" style="margin-left:10px;">
+            <a class="waves-effect waves-light btn light-blue lighten-2 " ng-hide="!vm.activos && vm.mode != 'new'" ng-click="vm.Conductor = {}; vm.Vehiculo ={}; " style="margin-left:10px;border-radius: 25px">
                 Limpiar </a>
         </div>
 
@@ -369,13 +373,6 @@
 </div>
 <script>
     $(document).ready(function () {
-//        $(function() {
-//            $("#fecha_soat").datepicker();
-//            $("#fecha_soat").datepicker({dateFormat: 'yy/mm/dd'});
-//            $("#fecha_tecnomecanica").datepicker();
-//            $("#fecha_tecnomecanica").datepicker({dateFormat: 'yy/mm/dd'});
-//        });
-
         function archivo(evt) {
             var files = evt.target.files;
 
@@ -391,7 +388,7 @@
                 reader.onload = (function (theFile) {
                     return function (e) {
                         // se crea la imagen
-                        document.getElementById("image").innerHTML = ['<img class="thumb" style="width:100%;" src="', e.target.result, '" title="', escape(theFile.name), '"/>'].join('');
+                        document.getElementById("image").innerHTML = ['<img class="center" style="width:300px; height: 300px; border-radius: 50%; position: absolute; left: 0; top: 0" src="', e.target.result, '" title="', escape(theFile.name), '"/>'].join('');
                     };
                 })(f);
                 reader.readAsDataURL(f);
@@ -413,7 +410,7 @@
                 reader.onload = (function (theFile) {
                     return function (e) {
                         // se crea la imagen
-                        document.getElementById("imagev").innerHTML = ['<img class="thumb" style="width:100%;" src="', e.target.result, '" title="', escape(theFile.name), '"/>'].join('');
+                        document.getElementById("imagev").innerHTML = ['<img class="center" style="width:300px; height: 300px; border-radius: 50%; position: absolute; left: 0; top: 0" src="', e.target.result, '" title="', escape(theFile.name), '"/>'].join('');
                     };
                 })(f);
                 reader.readAsDataURL(f);
@@ -459,12 +456,3 @@
 
     });
 </script>
-
-<!--<script>-->
-    <!--$(document).ready(function(){-->
-        <!--$('.datepicker').pickadate({-->
-            <!--selectMonths: true, // Creates a dropdown to control month-->
-            <!--selectYears: 15 // Creates a dropdown of 15 years to control year-->
-        <!--});-->
-    <!--});-->
-<!--</script>-->

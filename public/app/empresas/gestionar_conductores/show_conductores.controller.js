@@ -113,8 +113,8 @@
                 text: 'Intentas inhabilitar este conductor!',
                 type: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
+                confirmButtonColor: '#64dd17',
+                cancelButtonColor: 'red',
                 confirmButtonText: 'Eliminar',
                 cancelButtonText: 'Cancelar',
                 closeOnConfirm: false
