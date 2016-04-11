@@ -9,7 +9,7 @@
         .module('app.empresas.actividades')
         .controller('GestionarEmpresasController', GestionarEmpresasController);
 
-    function GestionarEmpresasController(empresasService, serviciosEmpresaService) {
+    function GestionarEmpresasController($scope, empresasService, serviciosEmpresaService) {
         var vm = this;
 
         vm.selectedEmpresa = {};
@@ -99,7 +99,7 @@
             vm.nombreForm = "Nueva Empresa";
             vm.active = "";
             vm.editMode = false;
-            vm.fileimage = null;
+            $scope.fileimage = null;
             document.getElementById("image").innerHTML = ['<img class="thumb center" id="imagenlogo" style="width:100%" ng-src="http://',vm.selectedEmpresa.logo,'" title="logo" alt="seleccione imagen"/>'].join('');
             loadServicios();
             $("#modalNuevaEmpresa").openModal();
@@ -134,9 +134,10 @@
         }
 
         function modificarImagen() {
-            if (vm.fileimage) {
+            console.log($scope.fileimage)
+            if ($scope.fileimage) {
                 var data = new FormData();
-                data.append('logo', vm.fileimage);
+                data.append('logo', $scope.fileimage);
                 empresasService.postLogo(vm.selectedEmpresa.id, data).then(success, error);
             }
             function success(p) {
