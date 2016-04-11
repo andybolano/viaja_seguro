@@ -123,8 +123,8 @@
                 text: 'Intentas remover este conductor de la ruta',
                 type: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
+                confirmButtonColor: '#64dd17',
+                cancelButtonColor: 'red',
                 confirmButtonText: 'Remover',
                 cancelButtonText: 'Cancelar',
                 closeOnConfirm: false
@@ -307,8 +307,8 @@
                 text: 'Estas intentado eliminar un pasajero, esto liberara un cupo al conductor!',
                 type: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
+                confirmButtonColor: '#64dd17',
+                cancelButtonColor: 'red',
                 confirmButtonText: 'Eliminar',
                 cancelButtonText: 'Cancelar',
                 closeOnConfirm: false
@@ -425,8 +425,8 @@
                 text: 'Estas intentado mover un giro hacia otro conductor!',
                 type: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
+                confirmButtonColor: '#64dd17',
+                cancelButtonColor: 'red',
                 confirmButtonText: 'Mover',
                 cancelButtonText: 'Cancelar',
                 closeOnConfirm: false
@@ -466,8 +466,8 @@
                 text: 'Estas intentado retirar un giro designado al conductor!',
                 type: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
+                confirmButtonColor: '#64dd17',
+                cancelButtonColor: 'red',
                 confirmButtonText: 'Eliminar',
                 cancelButtonText: 'Cancelar',
                 closeOnConfirm: false
@@ -589,8 +589,8 @@
                 text: 'Estas intentado mover un paquete hacia otro conductor!',
                 type: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
+                confirmButtonColor: '#64dd17',
+                cancelButtonColor: 'red',
                 confirmButtonText: 'Mover',
                 cancelButtonText: 'Cancelar',
                 closeOnConfirm: false
@@ -630,8 +630,8 @@
                 text: 'Estas intentado retirar un paquete designado al conductor!',
                 type: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
+                confirmButtonColor: '#64dd17',
+                cancelButtonColor: 'red',
                 confirmButtonText: 'Eliminar',
                 cancelButtonText: 'Cancelar',
                 closeOnConfirm: false
@@ -690,15 +690,14 @@
         function despacharConductor(ruta){
             vm.turnos = {};
             vm.ruta = ruta;
-            ejecutarDespachoConductor();
-            // turnosService.getTurno(ruta.id).then(succes, error);
-            // function succes(p){
-            //     vm.turnos = p.data;
-            //     if(vm.turnos.turno == 1){
-            //         ejecutarDespachoConductor(vm.turnos);
-            //     }
-            //
-            // }
+            turnosService.getTurno(ruta.id).then(succes, error);
+            function succes(p){
+                vm.turnos = p.data;
+                if(vm.turnos.turno == 1){
+                    ejecutarDespachoConductor(vm.turnos);
+                }
+
+            }
             function error(error){
                 Materialize.toast(error.message, 5000);
             }
@@ -714,23 +713,23 @@
             }
         }
 
-        function ejecutarDespachoConductor(){
+        function ejecutarDespachoConductor(datos){
             vm.Planilla = {};
-            var conductor_id = vm.ruta.turnos[0].conductor_id;
             var obj = {
-                ruta_id : vm.ruta.id,
-                conductor_id : conductor_id,
+                ruta_id : datos.ruta_id,
+                turno : datos.turno,
+                conductor_id : datos.conductor_id,
                 deducciones : vm.Deducciones
             }
-            turnosService.getCupos(conductor_id).then(function(p){
+            turnosService.getCupos(datos.conductor_id).then(function(p){
                 if(p.data != 0){
                     swal({
                         title: 'ESPERA UN MOMENTO!',
                         text: 'El conductor en turno aun tiene cupos disponibles',
                         type: 'warning',
                         showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
+                        confirmButtonColor: '#64dd17',
+                        cancelButtonColor: 'red',
                         confirmButtonText: 'Despachar',
                         cancelButtonText: 'Cancelar',
                         closeOnConfirm: false
@@ -764,8 +763,8 @@
                                 text: 'El coductor ha sido despachado exitosamete',
                                 type: 'success',
                                 showCancelButton: true,
-                                confirmButtonColor: '#3085d6',
-                                cancelButtonColor: '#d33',
+                                confirmButtonColor: '#64dd17',
+                                cancelButtonColor: 'red',
                                 confirmButtonText: 'Mostrar planilla',
                                 cancelButtonText: 'Cerrar',
                                 closeOnConfirm: true
@@ -876,8 +875,8 @@
                 title: 'Escriba la causa de rechazo',
                 html: '<textarea id="causa" class="materialize-textarea" ng-model="vm.causa_rechazo"></textarea><label for="textarea1">Causa de rechazo</label>',
                 showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
+                confirmButtonColor: '#64dd17',
+                cancelButtonColor: 'red',
                 confirmButtonText: 'Rechazar',
                 cancelButtonText: 'Cancelar rechazo',
                 closeOnConfirm: false,
@@ -921,8 +920,8 @@
                         text: 'Seguro quieres asigarle este pedido al conductor?',
                         type: 'warning',
                         showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
+                        confirmButtonColor: '#64dd17',
+                        cancelButtonColor: 'red',
                         confirmButtonText: 'Asignar',
                         cancelButtonText: 'Cancelar',
                         closeOnConfirm: false
