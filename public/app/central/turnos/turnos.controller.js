@@ -690,14 +690,15 @@
         function despacharConductor(ruta){
             vm.turnos = {};
             vm.ruta = ruta;
-            turnosService.getTurno(ruta.id).then(succes, error);
-            function succes(p){
-                vm.turnos = p.data;
-                if(vm.turnos.turno == 1){
-                    ejecutarDespachoConductor(vm.turnos);
-                }
-
-            }
+            ejecutarDespachoConductor();
+            // turnosService.getTurno(ruta.id).then(succes, error);
+            // function succes(p){
+            //     vm.turnos = p.data;
+            //     if(vm.turnos.turno == 1){
+            //         ejecutarDespachoConductor(vm.turnos);
+            //     }
+            //
+            // }
             function error(error){
                 Materialize.toast(error.message, 5000);
             }
@@ -713,15 +714,15 @@
             }
         }
 
-        function ejecutarDespachoConductor(datos){
+        function ejecutarDespachoConductor(){
             vm.Planilla = {};
+            var conductor_id = vm.ruta.turnos[0].conductor_id;
             var obj = {
-                ruta_id : datos.ruta_id,
-                turno : datos.turno,
-                conductor_id : datos.conductor_id,
+                ruta_id : vm.ruta.id,
+                conductor_id : conductor_id,
                 deducciones : vm.Deducciones
             }
-            turnosService.getCupos(datos.conductor_id).then(function(p){
+            turnosService.getCupos(conductor_id).then(function(p){
                 if(p.data != 0){
                     swal({
                         title: 'ESPERA UN MOMENTO!',
@@ -733,40 +734,7 @@
                         confirmButtonText: 'Despachar',
                         cancelButtonText: 'Cancelar',
                         closeOnConfirm: false
-                    }, function(isConfirm) {
-                        if (isConfirm) {
-                            turnosService.eliminarTurno(obj).then(succes, error);
-                        }
-                        function succes(p){
-                            updateTurnos(vm.ruta, 'quitar');
-                            vm.Planilla = p.data;
-                            vm.Planilla.total = p.data.viaje.planilla.total;
-                            swal.disableButtons();
-                            setTimeout(function() {
-                                swal({
-                                    title: 'Exito!',
-                                    text: 'El coductor ha sido despachado exitosamete',
-                                    type: 'success',
-                                    showCancelButton: true,
-                                    confirmButtonColor: '#3085d6',
-                                    cancelButtonColor: '#d33',
-                                    confirmButtonText: 'Mostrar planilla',
-                                    cancelButtonText: 'Cerrar',
-                                    closeOnConfirm: true
-                                }, function() {
-                                    $('#modalPlanilla').openModal();
-                                    cargarRutas();
-                                });
-                            }, 3000);
-                        }
-                        function error(error){
-                            swal(
-                                'ERROR!!',
-                                'Ocurrio un error al despachar el conductor)',
-                                'error'
-                            );
-                        }
-                    });
+                    }, despachar);
                 }else{
                     swal({
                         title: '',
@@ -778,39 +746,43 @@
                         confirmButtonText: 'Despachar',
                         cancelButtonText: 'Cancelar',
                         closeOnConfirm: false
-                    }, function(isConfirm) {
-                        if (isConfirm) {
-                            turnosService.eliminarTurno(obj).then(succes, error);
-                        }
-                        function succes(p){
-                            vm.Planilla = p.data;
-                            vm.Planilla.total = p.data.viaje.planilla.total;
-                            swal.disableButtons();
-                            setTimeout(function() {
-                                swal({
-                                    title: 'Exito!',
-                                    text: 'El coductor ha sido despachado exitosamete',
-                                    type: 'success',
-                                    showCancelButton: true,
-                                    confirmButtonColor: '#3085d6',
-                                    cancelButtonColor: '#d33',
-                                    confirmButtonText: 'Mostrar planilla',
-                                    cancelButtonText: 'Cerrar',
-                                    closeOnConfirm: true
-                                }, function() {
-                                    $('#modalPlanilla').openModal();
-                                    cargarRutas();
-                                });
-                            }, 2000);
-                        }
-                        function error(error){
-                            swal(
-                                'ERROR!!',
-                                'Ocurrio un error al despachar el conductor)',
-                                'error'     );
-                        }
-                    });
+                    }, despachar);
                 }
+                function despachar (isConfirm) {
+                    if (isConfirm) {
+                        turnosService.eliminarTurno(obj).then(succes, error);
+                    }
+                    function succes(p){
+                        vm.ruta.turnos.splice(0, 1);
+                        updateTurnos(vm.ruta, 'quitar');
+                        vm.Planilla = p.data;
+                        vm.Planilla.total = p.data.viaje.planilla.total;
+                        swal.disableButtons();
+                        setTimeout(function() {
+                            swal({
+                                title: 'Exito!',
+                                text: 'El coductor ha sido despachado exitosamete',
+                                type: 'success',
+                                showCancelButton: true,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Mostrar planilla',
+                                cancelButtonText: 'Cerrar',
+                                closeOnConfirm: true
+                            }, function() {
+                                $('#modalPlanilla').openModal();
+                                cargarRutas();
+                            });
+                        }, 3000);
+                    }
+                    function error(error){
+                        swal(
+                            'ERROR!!',
+                            'Ocurrio un error al despachar el conductor)',
+                            'error'
+                        );
+                    }
+                };
             });
         }
 

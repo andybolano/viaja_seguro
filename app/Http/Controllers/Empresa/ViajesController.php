@@ -29,11 +29,11 @@ class ViajesController extends Controller
         $data = $request->all();
 //        unset($data['deducciones']);
         $deducciones = $data['deducciones'];
-        if(!DB::table('turnos')->where('ruta_id', $data['ruta_id'])->where('turno', $data['turno'] )->delete()){
-            return JsonResponse::create(array('message' => 'Error al eliminar'));
-        }else{
+//        if(!DB::table('turnos')->where('ruta_id', $data['ruta_id'])->where('turno', $data['turno'] )->delete()){
+//            return JsonResponse::create(array('message' => 'Error al eliminar'));
+//        }else{
             return JsonResponse::create(array('message' => 'Despachado correctamente', 'viaje' => $this->crearViaje($data['conductor_id'], $data['ruta_id'], $deducciones)));
-        }
+//        }
 
     }
 
