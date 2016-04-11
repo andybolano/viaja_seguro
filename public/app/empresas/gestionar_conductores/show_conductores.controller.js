@@ -15,30 +15,6 @@
         vm.ConductoresInactivos = [];
         vm.activos = true;
         vm.mode = 'new';
-        vm.Conductor = {
-            apellidos: "White",
-            central_id: 2,
-            correo: "heisenberg@correo.com",
-            direccion: "asdf",
-            identificacion: "23456789",
-            nombres: "Walter",
-            telefono: "67584392"
-        }
-        vm.Vehiculo= {
-            codigo_vial: "188",
-            color: "Gris",
-            cupos: "5",
-            identificacion_propietario: "23456789",
-            modelo: "xyz",
-            nombre_propietario: "Walter",
-            placa: "MET-A98",
-            soat: true,
-            fecha_soat: new Date(),
-            fecha_tecnomecanica: new Date(),
-            tarjeta_propiedad: true,
-            tecnomecanica: true,
-            tel_propietario: "White"
-        }
 
         vm.nuevoConductor = nuevoConductor;
         vm.modificar = modificar;
@@ -54,8 +30,8 @@
             vm.mode = 'new';
             vm.active = "";
             vm.titulo = "Registrar Conductor";
-            // vm.Conductor = {};
-            // vm.Vehiculo = {};
+            vm.Conductor = {};
+            vm.Vehiculo = {};
             loadCentrales();
             document.getElementById("image").innerHTML = ['<img class="thumb center" id="imagenlogo" style="width:100%" ng-src="http://', vm.Conductor.imagen, '" title="imagen" alt="seleccione foto"/>'].join('');
             $("#modalNuevoConductor").openModal();
