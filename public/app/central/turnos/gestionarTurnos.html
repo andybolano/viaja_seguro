@@ -76,24 +76,24 @@
                         <div style="overflow-y: scroll; height: 300px">
 
                             <div class="row center" ng-repeat="algo in ruta.solicitud_pasajeros" style="border-radius: 15px; border:1px solid grey;height: 35px; ">
-                                <i class="material-icons" style="-webkit-transform: scaleX(-1); color: red; float: left; padding: 5px">airline_seat_recline_extra</i>
+                                <i class="material-icons" style="-webkit-transform: scaleX(-1); color: #D50000; float: left; padding: 5px">airline_seat_recline_extra</i>
                                 <strong >{{algo.datos_pasajeros.length}} Pasajero(s)</strong>
                                 <a style="float: right;padding: 5px" class="waves-effect waves-teal" ng-click="vm.getSolicitudPasajero(algo.id)">
-                                    <i class="material-icons prefix small" style="color: #64dd17">visibility</i>
+                                    <i class="material-icons prefix small" style="color: #9ccc65">visibility</i>
                                 </a>
                             </div>
                             <div class="row center" ng-repeat="algo in ruta.solicitud_paquetes" style="border-radius: 15px; border:1px solid grey;height: 35px;">
-                                <i class="material-icons prefix small" style="color: red;float: left; padding: 5px">redeem</i>
+                                <i class="material-icons prefix small" style="color: #D50000;float: left; padding: 5px">redeem</i>
                                 <strong>{{algo.detalles.length}} Paquete(s)</strong>
                                 <a style="float: right;padding: 5px" class="waves-effect waves-teal" ng-click="vm.getSolicitudPaquete(algo.id)">
-                                    <i class="material-icons prefix small" style="color: #64dd17">visibility</i>
+                                    <i class="material-icons prefix small" style="color: #9ccc65">visibility</i>
                                 </a>
                             </div>
                             <div class="row center" ng-repeat="algo in ruta.solicitud_giros" style="border-radius: 15px; border:1px solid grey;height: 35px;">
-                                <i class="material-icons prefix small" style="color: red;float: left; padding: 5px">attach_money</i>
+                                <i class="material-icons prefix small" style="color: #D50000;float: left; padding: 5px">attach_money</i>
                                 <strong>{{algo.detalles.length}} Giro(s)</strong>
                                 <a style="float: right;padding: 5px" class="waves-effect waves-teal" ng-click="vm.getSolicitudGiro(algo.id)">
-                                    <i class="material-icons prefix small" style="color: #64dd17">visibility</i>
+                                    <i class="material-icons prefix small" style="color: #9ccc65">visibility</i>
                                 </a>
                             </div>
                         </div>
@@ -222,25 +222,25 @@
                 <div class="col s12">
                     <table class="striped responsive-table">
                         <thead>
-                            <th style="color: red;text-align: center">Identificacion</th>
-                            <th style="color: red;text-align: center">Foto</th>
-                            <th style="color: red;text-align: center">Nombres</th>
-                            <th style="color: red;text-align: center">Apellidos</th>
-                            <th style="color: red;text-align: center">Teléfono</th>
-                            <th style="color: red;text-align: center">Seleccionar</th>
+                            <th style="color: #D50000;text-align: center">Identificacion</th>
+                            <th style="color: #D50000;text-align: center">Foto</th>
+                            <th style="color: #D50000;text-align: center">Nombres</th>
+                            <th style="color: #D50000;text-align: center">Apellidos</th>
+                            <th style="color: #D50000;text-align: center">Teléfono</th>
+                            <th style="color: #D50000;text-align: center">Seleccionar</th>
                         </thead>
                         <tbody>
                             <tr ng-repeat="conductor in vm.Conductores| filter : filtro">
                                 <td style="text-align: center">{{conductor.identificacion}}</td>
                                 <td style="text-align: center">
-                                    <img ng-src="http://{{conductor.imagen}}" class="circle" style="width: 35px;">
+                                    <img ng-src="http://{{conductor.imagen}}" class="circle" style="width:32px; height: 32px; border-radius: 50%">
                                 </td>
                                 <td style="text-align: center">{{conductor.nombres}}</td>
                                 <td style="text-align: center">{{conductor.apellidos}}</td>
                                 <td style="text-align: center">{{conductor.telefono}}</td>
                                 <td style="text-align: center">
                                     <a href="javascript:" ng-click="vm.selectConductor(conductor)">
-                                        <i class="material-icons prefix" style="color: red">touch_app</i>
+                                        <i class="material-icons prefix" style="color: #D50000">touch_app</i>
                                     </a>
                                 </td>
                             </tr>
@@ -251,7 +251,7 @@
         </div>
 
         <div class="modal-footer" >
-            <button href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
+            <button href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red accent-4"
                     style="margin-left:10px;border-radius: 25px">Salir</button>
         </div>
     </div>
@@ -269,15 +269,15 @@
                         <div class="col s12">
                             <table  class="striped responsive-table">
                                 <thead>
-                                    <th style="color: red;text-align: center" >identificacion</th>
-                                    <th style="color: red;text-align: center">Nombres y apellidos</th>
-                                    <th style="color: red;text-align: center" >Telefono</th>
-                                    <th style="color: red;text-align: center" >Recoger en</th>
-                                    <!--<th style="color: red;text-align: center" >Dejar en</th>-->
+                                    <th style="color: #D50000;text-align: center" >identificacion</th>
+                                    <th style="color: #D50000;text-align: center">Nombres y apellidos</th>
+                                    <th style="color: #D50000;text-align: center" >Telefono</th>
+                                    <th style="color: #D50000;text-align: center" >Recoger en</th>
+                                    <!--<th style="color: #D50000;text-align: center" >Dejar en</th>-->
                                     <!--opciones-->
-                                    <th style="color: red;text-align: center" width="10px"></th>
-                                    <th style="color: red;text-align: center" width="10px"></th>
-                                    <th style="color: red;text-align: center" width="10px"></th>
+                                    <th style="color: #D50000;text-align: center" width="10px"></th>
+                                    <th style="color: #D50000;text-align: center" width="10px"></th>
+                                    <th style="color: #D50000;text-align: center" width="10px"></th>
                                 </thead>
                                 <tbody>
                                     <tr style="background-color: transparent;">
@@ -308,7 +308,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
+            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red accent-4"
                style="margin-left:10px;border-radius: 25px;">Salir</a>
         </div>
         <!--</form>-->
@@ -326,18 +326,18 @@
                         <div class="col s12">
                             <table  class="striped bordered responsive-table">
                                 <thead>
-                                    <th style="color: red;text-align: center" >id remitente</th>
-                                    <th style="color: red;text-align: center">Nombres y apellidos</th>
-                                    <th style="color: red;text-align: center" >Telefono</th>
-                                    <th style="color: red;text-align: center" >Recoger en</th>
-                                    <th style="color: red;text-align: center" >Entregar a</th>
-                                    <th style="color: red;text-align: center">Telefono</th>
-                                    <th style="color: red;text-align: center">Entregar en</th>
-                                    <th style="color: red;text-align: center">Monto</th>
+                                    <th style="color: #D50000;text-align: center" >id remitente</th>
+                                    <th style="color: #D50000;text-align: center">Nombres y apellidos</th>
+                                    <th style="color: #D50000;text-align: center" >Telefono</th>
+                                    <th style="color: #D50000;text-align: center" >Recoger en</th>
+                                    <th style="color: #D50000;text-align: center" >Entregar a</th>
+                                    <th style="color: #D50000;text-align: center">Telefono</th>
+                                    <th style="color: #D50000;text-align: center">Entregar en</th>
+                                    <th style="color: #D50000;text-align: center">Monto</th>
                                     <!--opciones-->
-                                    <th style="color: red;text-align: center" width="10px"></th>
-                                    <th style="color: red;text-align: center" width="10px"></th>
-                                    <th style="color: red;text-align: center" width="10px"></th>
+                                    <th style="color: #D50000;text-align: center" width="10px"></th>
+                                    <th style="color: #D50000;text-align: center" width="10px"></th>
+                                    <th style="color: #D50000;text-align: center" width="10px"></th>
                                 </thead>
                                 <tbody>
                                     <tr style="background-color: transparent;">
@@ -374,7 +374,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
+            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red accent-4"
                style="margin-left:10px;border-radius: 25px;">Salir</a>
         </div>
         <!--</form>-->
@@ -392,18 +392,18 @@
                         <div class="col s12">
                             <table  class="striped bordered responsive-table">
                                 <thead>
-                                    <th style="color: red;text-align: center" >id remitente</th>
-                                    <th style="color: red;text-align: center">Nombres y apellidos</th>
-                                    <th style="color: red;text-align: center" >Telefono</th>
-                                    <th style="color: red;text-align: center" >Recoger en</th>
-                                    <th style="color: red;text-align: center" >Entregar a</th>
-                                    <th style="color: red;text-align: center">Telefono</th>
-                                    <th style="color: red;text-align: center">Entregar en</th>
-                                    <th style="color: red;text-align: center">Descripcion</th>
+                                    <th style="color: #D50000;text-align: center" >id remitente</th>
+                                    <th style="color: #D50000;text-align: center">Nombres y apellidos</th>
+                                    <th style="color: #D50000;text-align: center" >Telefono</th>
+                                    <th style="color: #D50000;text-align: center" >Recoger en</th>
+                                    <th style="color: #D50000;text-align: center" >Entregar a</th>
+                                    <th style="color: #D50000;text-align: center">Telefono</th>
+                                    <th style="color: #D50000;text-align: center">Entregar en</th>
+                                    <th style="color: #D50000;text-align: center">Descripcion</th>
                                     <!--opciones-->
-                                    <th style="color: red;text-align: center" width="10px"></th>
-                                    <th style="color: red;text-align: center" width="10px"></th>
-                                    <th style="color: red;text-align: center" width="10px"></th>
+                                    <th style="color: #D50000;text-align: center" width="10px"></th>
+                                    <th style="color: #D50000;text-align: center" width="10px"></th>
+                                    <th style="color: #D50000;text-align: center" width="10px"></th>
                                 </thead>
                                 <tbody>
                                     <tr style="background-color: transparent;">
@@ -429,7 +429,7 @@
                                         <td style="text-align: center">{{paquete.direccionD}}</td>
                                         <td style="text-align: center">
                                             <a class="waves-effect waves-teal" ng-click="vm.verDescripcionPaquete(paquete)">
-                                                <i class="material-icons prefix small" style="color: #64dd17">visibility</i>
+                                                <i class="material-icons prefix small" style="color: #9ccc65">visibility</i>
                                             </a>
                                         </td>
                                         <td style="text-align: center" style="text-align: center;"><a href="javascript:;" title="Mover giro a otro conductor" ng-click="vm.modalMovePaquete(paquete);"><i class="material-icons">cached</i></a></td>
@@ -444,7 +444,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
+            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red accent-4"
                style="margin-left:10px;border-radius: 25px;">Salir</a>
         </div>
         <!--</form>-->
@@ -458,7 +458,7 @@
             <h2>{{vm.Paquete.descripcion_paquete}}</h2>
         </div>
         <div class="modal-footer">
-            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
+            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red accent-4"
                style="margin-left:10px;border-radius: 25px;">Salir</a>
         </div>
     </div>
@@ -493,9 +493,9 @@
                             <table id="table" class="striped bordered responsive-table">
                                 <thead>
                                     <tr>
-                                        <th style="color: red;text-align: center" class="center">IDENTIFICACION</th>
-                                        <th style="color: red;text-align: center" class="center">NOMBRES Y APELLIDOS</th>
-                                        <th style="color: red;text-align: center" class="center">TELEFONO</th>
+                                        <th style="color: #D50000;text-align: center" class="center">IDENTIFICACION</th>
+                                        <th style="color: #D50000;text-align: center" class="center">NOMBRES Y APELLIDOS</th>
+                                        <th style="color: #D50000;text-align: center" class="center">TELEFONO</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -512,8 +512,8 @@
                             <table id="tableD" class="striped bordered responsive-table">
                                 <thead>
                                     <tr>
-                                        <th style="color: red;text-align: center" class="center">DEDUCCION</th>
-                                        <th style="color: red;text-align: center" class="center">VALOR</th>
+                                        <th style="color: #D50000;text-align: center" class="center">DEDUCCION</th>
+                                        <th style="color: #D50000;text-align: center" class="center">VALOR</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -534,9 +534,9 @@
         </div>
 
         <div class="modal-footer">
-            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
-               style="margin-left:10px;border-radius: 25px; color: red">Salir</a>
-            <a href="javascript:;" ng-click="vm.imprimir()" class="waves-effect waves-light btn green"
+            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red accent-4"
+               style="margin-left:10px;border-radius: 25px; color: #D50000">Salir</a>
+            <a href="javascript:;" ng-click="vm.imprimir()" class="waves-effect waves-light btn light-green"
                style="margin-left:10px;border-radius: 25px; color: lawngreen">Imprimir</a>
         </div>
     </div>
@@ -554,8 +554,8 @@
                             <h2><strong>Cantidad de pasajero(s) a viajar: {{vm.solicitud.datos_pasajeros.length}}</strong></h2>
                             <table  class="striped bordered responsive-table">
                                 <thead>
-                                    <th style="color: red;text-align: center">Identificacion</th>
-                                    <th style="color: red;text-align: center">Nombre</th>
+                                    <th style="color: #D50000;text-align: center">Identificacion</th>
+                                    <th style="color: #D50000;text-align: center">Nombre</th>
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="pasajero in vm.solicitud.datos_pasajeros">
@@ -569,9 +569,9 @@
                             <h2>Selecciona al conductor que queires asignarle este pedido</h2>
                             <table  class="striped bordered responsive-table">
                                 <thead>
-                                    <th style="color: red;text-align: center">Turno</th>
-                                    <th style="color: red;text-align: center">Identificacion</th>
-                                    <th style="color: red;text-align: center">Nombre</th>
+                                    <th style="color: #D50000;text-align: center">Turno</th>
+                                    <th style="color: #D50000;text-align: center">Identificacion</th>
+                                    <th style="color: #D50000;text-align: center">Nombre</th>
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="conductor in vm.solicitud.conductores">
@@ -594,9 +594,9 @@
         </div>
 
         <div class="modal-footer">
-            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
+            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red accent-4"
                style="margin-left:10px;border-radius: 25px;">Salir</a>
-            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
+            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn light-green"
                style="margin-left:10px; border-radius: 25px;" ng-click="vm.recharSolicitud(vm.solicitud.id)">Rechazar solicitud</a>
         </div>
     </div>
@@ -612,11 +612,11 @@
                             <h2>Detalles de la solicitud</h2>
                             <table  class="striped bordered responsive-table">
                                 <thead>
-                                    <th style="color: red;text-align: center">Documento</th>
-                                    <th style="color: red;text-align: center">Nombre</th>
-                                    <th style="color: red;text-align: center">Recoger en</th>
-                                    <th style="color: red;text-align: center">Entrega en</th>
-                                    <th style="color: red;text-align: center">Telefono</th>
+                                    <th style="color: #D50000;text-align: center">Documento</th>
+                                    <th style="color: #D50000;text-align: center">Nombre</th>
+                                    <th style="color: #D50000;text-align: center">Recoger en</th>
+                                    <th style="color: #D50000;text-align: center">Entrega en</th>
+                                    <th style="color: #D50000;text-align: center">Telefono</th>
                                 </thead>
                                 <tbody >
                                     <tr >
@@ -638,9 +638,9 @@
                                         <h2>Selecciona al conductor que queires asignarle este pedido</h2>
                                         <table  class="striped bordered responsive-table">
                                             <thead>
-                                                <th style="color: red;text-align: center">Turno</th>
-                                                <th style="color: red;text-align: center">Identificacion</th>
-                                                <th style="color: red;text-align: center">Nombre</th>
+                                                <th style="color: #D50000;text-align: center">Turno</th>
+                                                <th style="color: #D50000;text-align: center">Identificacion</th>
+                                                <th style="color: #D50000;text-align: center">Nombre</th>
                                             </thead>
                                             <tbody>
                                                 <tr ng-repeat="conductor in vm.solicitud.conductores">
@@ -663,9 +663,9 @@
                                     </div>
 
                                     <div class="modal-footer">
-                                        <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
+                                        <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red accent-4"
                                            style="margin-left:10px;">Salir</a>
-                                        <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
+                                        <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn light-green"
                                            style="margin-left:10px;" ng-click="vm.recharSolicitud(vm.solicitud.id)">Rechazar solicitud</a>
                                     </div>
                                     </div>
@@ -683,10 +683,10 @@
                                                             <h2>Detalles del giro</h2>
                                                             <table  class="striped bordered responsive-table">
                                                                 <thead>
-                                                                    <th style="color: red;text-align: center">Nombre</th>
-                                                                    <th style="color: red;text-align: center">Telefono</th>
-                                                                    <th style="color: red;text-align: center">Recoger en</th>
-                                                                    <th style="color: red;text-align: center">Entrega en</th>
+                                                                    <th style="color: #D50000;text-align: center">Nombre</th>
+                                                                    <th style="color: #D50000;text-align: center">Telefono</th>
+                                                                    <th style="color: #D50000;text-align: center">Recoger en</th>
+                                                                    <th style="color: #D50000;text-align: center">Entrega en</th>
                                                                 </thead>
                                                                 <tbody>
                                                                     <tr >
@@ -709,9 +709,9 @@
                                                                     <h2>{{ruta.destino.ciudad.nombre}}</h2>
                                                                     <table class="striped bordered responsive-table">
                                                                         <thead>
-                                                                            <th style="color: red;text-align: center">Turno</th>
-                                                                            <th style="color: red;text-align: center">Identificacion</th>
-                                                                            <th style="color: red;text-align: center">Nombre</th>
+                                                                            <th style="color: #D50000;text-align: center">Turno</th>
+                                                                            <th style="color: #D50000;text-align: center">Identificacion</th>
+                                                                            <th style="color: #D50000;text-align: center">Nombre</th>
                                                                         </thead>
                                                                         <tbody>
                                                                             <tr ng-repeat="turno in ruta.turnos">
@@ -736,7 +736,7 @@
                                         </div>
 
                                         <div class="modal-footer">
-                                            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
+                                            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red accent-4"
                                                style="margin-left:10px;border-radius: 25px;">Salir</a>
                                         </div>
                                     </div>
@@ -753,10 +753,10 @@
                                                             <h2>Detalles del paquete</h2>
                                                             <table  class="striped bordered responsive-table">
                                                                 <thead>
-                                                                    <th style="color: red;text-align: center">Nombre</th>
-                                                                    <th style="color: red;text-align: center">Telefono</th>
-                                                                    <th style="color: red;text-align: center">Recoger en</th>
-                                                                    <th style="color: red;text-align: center">Entrega en</th>
+                                                                    <th style="color: #D50000;text-align: center">Nombre</th>
+                                                                    <th style="color: #D50000;text-align: center">Telefono</th>
+                                                                    <th style="color: #D50000;text-align: center">Recoger en</th>
+                                                                    <th style="color: #D50000;text-align: center">Entrega en</th>
                                                                 </thead>
                                                                 <tbody>
                                                                     <tr >
@@ -779,9 +779,9 @@
                                                                     <h2>{{ruta.destino.ciudad.nombre}}</h2>
                                                                     <table class="striped bordered responsive-table">
                                                                         <thead>
-                                                                            <th style="color: red;text-align: center">Turno</th>
-                                                                            <th style="color: red;text-align: center">Identificacion</th>
-                                                                            <th style="color: red;text-align: center">Nombre</th>
+                                                                            <th style="color: #D50000;text-align: center">Turno</th>
+                                                                            <th style="color: #D50000;text-align: center">Identificacion</th>
+                                                                            <th style="color: #D50000;text-align: center">Nombre</th>
                                                                         </thead>
                                                                         <tbody>
                                                                             <tr ng-repeat="turno in ruta.turnos">
@@ -806,7 +806,7 @@
                                         </div>
 
                                         <div class="modal-footer">
-                                            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
+                                            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red accent-4"
                                                style="margin-left:10px;border-radius: 25px;">Salir</a>
                                         </div>
                                     </div>

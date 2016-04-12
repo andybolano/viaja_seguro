@@ -60,7 +60,7 @@
                         </div>
                     </div>
                     <div class="col s4">
-                        <div class="input-field col s12 grey lighten-3" style="padding: .5em; border-radius: 15px; height: 37px">
+                        <div class="input-field col s12 grey lighten-3" style="padding: .5em; border-radius: 15px; height: 37px; border: none">
                             <i class="material-icons prefix" style="color: #D50000;">search</i>
                             <input  id="icon_prefix" type="text" ng-model="filtro">
                             <label for="icon_prefix">Buscar</label>
@@ -71,14 +71,14 @@
                     <div class="col s12">
                         <table class="striped bordered responsive-table">
                             <thead>
-                            <th style="color: red; text-aling:center"></th>
-                            <th style="color: red; text-aling:center">Identificaci&oacute;n</th>
+                            <th style="color: #D50000; text-aling:center"></th>
+                            <th style="color: #D50000; text-aling:center">Identificaci&oacute;n</th>
 
-                            <th style="color: red; text-aling:center">Nombres</th>
-                            <th style="color: red; text-aling:center">Apellidos</th>
-                            <th style="color: red; text-aling:center">Direcci&oacute;n</th>
-                            <th style="color: red; text-aling:center">Telefono</th>
-                            <!--<th style="color: red; text-aling:center">Central</th>-->
+                            <th style="color: #D50000; text-aling:center">Nombres</th>
+                            <th style="color: #D50000; text-aling:center">Apellidos</th>
+                            <th style="color: #D50000; text-aling:center">Direcci&oacute;n</th>
+                            <th style="color: #D50000; text-aling:center">Telefono</th>
+                            <!--<th style="color: #D50000; text-aling:center">Central</th>-->
                             </thead>
                             <tbody>
                             <tr ng-repeat="conductor in vm.ConductoresInactivos | filter : filtro" ng-show="vm.carga">
@@ -93,7 +93,7 @@
                                 <td>{{conductor.telefono}}</td>
                                 <td>
                                     <a title="ver" href="javascript:" ng-click="vm.modificar(conductor)">
-                                        <i style="color: #64dd17" class="material-icons prefix">visibility</i>
+                                        <i style="color: #9ccc65" class="material-icons prefix">visibility</i>
                                     </a>
                                     <a title="Habilitar" href="javascript:" ng-click="vm.openhabilitar(conductor)">
                                         <i class="material-icons">done_all</i>
@@ -111,14 +111,14 @@
                     <div class="col s12">
                         <table class="striped bordered responsive-table">
                             <thead>
-                            <th style="color: red; text-align: center"></th>
-                            <th style="color: red; text-align: center">Identificaci&oacute;n</th>
+                            <th style="color: #D50000; text-align: center"></th>
+                            <th style="color: #D50000; text-align: center">Identificaci&oacute;n</th>
 
-                            <th style="color: red; text-align: center">Nombres</th>
-                            <th style="color: red; text-align: center">Apellidos</th>
-                            <th style="color: red; text-align: center">Direcci&oacute;n</th>
-                            <th style="color: red; text-align: center">Telefono</th>
-                            <th style="color: red; text-align: center">Central</th>
+                            <th style="color: #D50000; text-align: center">Nombres</th>
+                            <th style="color: #D50000; text-align: center">Apellidos</th>
+                            <th style="color: #D50000; text-align: center">Direcci&oacute;n</th>
+                            <th style="color: #D50000; text-align: center">Telefono</th>
+                            <th style="color: #D50000; text-align: center">Central</th>
                          
                             </thead>
                             <tbody>
@@ -134,7 +134,7 @@
                                     <td style="text-align: center">{{conductor.central.ciudad.nombre}}</td>
                                     <td style="text-align: center">
                                         <a title="Ver" href="javascript:" ng-click="vm.modificar(conductor)">
-                                            <i class="material-icons prefix" style="color: #64dd17">visibility</i>
+                                            <i class="material-icons prefix" style="color: #9ccc65">visibility</i>
                                         </a>
                                         <a title="Inhabilitar" href="javascript:" ng-click="vm.eliminar(conductor.id)">
                                             <i class="material-icons prefix" style="color:#c62828">delete</i>
@@ -199,11 +199,11 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="input-field col s10" ng-hide="vm.mode == 'edit' && !vm.activos">
-                                <i class="material-icons prefix" style="color: #D50000">flag</i>
-                                <select class="browser-default validate" name="central" id="central"
+                            <div class="input-field col s10"  ng-hide="vm.mode == 'edit' && !vm.activos">
+                                <i class="material-icons prefix" style="color: #D50000;">flag</i>
+                                <select  class="browser-default validate" name="central" id="central"
                                         ng-options="central.ciudad.nombre for central in vm.centrales"
-                                        ng-model="vm.Conductor.central" required  style="margin-left: 42px;">
+                                        ng-model="vm.Conductor.central" required  style="margin-left: 42px; width: 450px">
                                     <option value="" disabled selected>Seleccione Central</option>
                                 </select>
                                 <label for="central" class="active">Central</label>
@@ -217,10 +217,10 @@
                         <img  ng-show="false"src="http://{{vm.Conductor.imagen}}" title="imagen" class="circle" style="width:300px; height: 300px; border-radius: 50%"/>
                         </center>
                     </div>
-                    <div class="file-field input-field col s12" ng-show="vm.activos">
+                    <div class="file-field input-field col s12" style="border: none" ng-show="vm.activos">
                         <div class="btn col s12 red accent-4" style="border-radius: 25px">
                             <span><i class="mdi-image-photo-camera" style="color: white"></i></span>
-                            <input style="color: red;" id="files" uploader-model="vm.fileimage" type="file">
+                            <input style="color: #D50000;" id="files" uploader-model="vm.fileimage" type="file">
                         </div>
                         <div class="file-path-wrapper">
                         </div>
@@ -229,7 +229,7 @@
                 <br><br>
                 <div class="row"  ng-hide="vm.mode == 'edit' && vm.activos">
                     <div class="col s12">
-                        <div class="input-field">
+                        <div class="input-field" style="border: none">
                             <i class="material-icons prefix" style="padding-left: 3px;">local_taxi</i>
 
                             <h2 style="padding-left: 45px; padding-top: 3px">Datos del vehiculo</h2>
@@ -340,8 +340,8 @@
                                     <!--<h2 style="color: white; position: absolute;width: 300px; height: 300px ;left: 0; top: 0">SELECCIONAR FOTO</h2>-->
                                     <!--<img class="center" id="imagen" style="width:300px; height: 300px; border-radius: 50%" ng-src="http://{{Vehiculo.imagen}}" title="imagen"/>-->
                                 </div>
-                                <div class="file-field input-field col s12">
-                                    <div class="btn col s12 red accent-4" style="border-radius: 25px">
+                                <div class="file-field input-field col s12" style="border: none">
+                                    <div class="btn col s12 red accent-4" style="border-radius: 25px;">
                                         <span><i class="mdi-image-photo-camera"></i></span>
                                         <input id="filesv" uploader-model="vm.fileimageV" type="file" name="filesv">
                                     </div>
@@ -358,12 +358,12 @@
         <!--{{formConductor | json}}-->
 
         <div class="modal-footer">
-            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red " style="margin-left:10px;border-radius: 25px">Salir</a>
-            <a class="waves-effect waves-light btn light-green accent-4" ng-show="vm.mode == 'new'" ng-click="vm.guardar()" ng-class="{'disabled': formConductor.$invalid}" style="margin-left:10px; border-radius: 25px">
+            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red accent-4" style="margin-left:10px;border-radius: 25px">Salir</a>
+            <a class="waves-effect waves-light btn light-green " ng-show="vm.mode == 'new'" ng-click="vm.guardar()" ng-class="{'disabled': formConductor.$invalid}" style="margin-left:10px; border-radius: 25px">
                 Guardar</a>
-            <a class="waves-effect waves-light btn light-green accent-4" ng-show="vm.mode == 'edit' && vm.activos" ng-click="vm.update()" ng-class="{'disabled': formConductor.$invalid}" style="margin-left:10px;border-radius: 25px">
+            <a class="waves-effect waves-light btn light-green " ng-show="vm.mode == 'edit' && vm.activos" ng-click="vm.update()" ng-class="{'disabled': formConductor.$invalid}" style="margin-left:10px;border-radius: 25px">
                 Modificar</a>
-            <a class="waves-effect waves-light btn light-green accent-4" ng-show="vm.mode == 'hbltr'" ng-click="vm.habilitar()" ng-class="{'disabled': formConductor.$invalid}" style="margin-left:10px;border-radius: 25px">
+            <a class="waves-effect waves-light btn light-green " ng-show="vm.mode == 'hbltr'" ng-click="vm.habilitar()" ng-class="{'disabled': formConductor.$invalid}" style="margin-left:10px;border-radius: 25px">
                 Habilitar</a>
             <a class="waves-effect waves-light btn light-blue lighten-2 " ng-hide="!vm.activos && vm.mode != 'new'" ng-click="vm.Conductor = {}; vm.Vehiculo ={}; " style="margin-left:10px;border-radius: 25px">
                 Limpiar </a>

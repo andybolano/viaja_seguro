@@ -20850,7 +20850,7 @@ function classDirective(name, selector) {
            font-weight: bold;
        }
        .red {
-           color: red;
+           color: #D50000;
        }
      </file>
      <file name="protractor.js" type="protractor">
@@ -20903,7 +20903,7 @@ function classDirective(name, selector) {
        }
 
        .base-class.my-class {
-         color: red;
+         color: #D50000;
          font-size:3em;
        }
      </file>
@@ -20965,7 +20965,7 @@ var ngClassDirective = classDirective('', true);
      </file>
      <file name="style.css">
        .odd {
-         color: red;
+         color: #D50000;
        }
        .even {
          color: blue;
@@ -21013,7 +21013,7 @@ var ngClassOddDirective = classDirective('Odd', 0);
      </file>
      <file name="style.css">
        .odd {
-         color: red;
+         color: #D50000;
        }
        .even {
          color: blue;

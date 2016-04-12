@@ -1,6 +1,6 @@
 <div class="contenedor" ng-controller="auditoriaController as vm">
     <div class="row white">
-        <div class="col s12 z-depth-1">
+        <div class="col s12 z-depth-2" style="border-radius: 25px">
             <div class="contenedor">
                 <div class="row">
                     <div class="col s8">
@@ -25,22 +25,22 @@
                     <div class="row">
                         <div class="col s12">
                             <ul class="tabs">
-                                <li class="tab col s3" class="active"><a href="#producidos">Producidos {{vm.central.ciudad.nombre}}</a></li>
-                                <!--<li class="tab col s3"><a href="#vehiculos">Vehiculos {{vm.central.ciudad.nombre}}</a></li>-->
+                                <li style="color: #D50000" class="tab col s3" class="active"><a href="#producidos">Producidos {{vm.central.ciudad.nombre}}</a></li>
+                                <li class="tab col s3"><a href="#vehiculos">Vehiculos {{vm.central.ciudad.nombre}}</a></li>
                             </ul>
                         </div>
                         <div id="producidos" class="col s12"><br>
-                            <div class="input-field col s3">
+                            <div class="input-field col s3" style="border: 1px solid grey;border-radius: 15px;margin-right: 20px">
                                 <input type="date" class="datepicker" ng-model="vm.fechaI">
                                 <label >Fecha inicial</label>
                             </div>
-                            <div class="input-field col s3">
+                            <div class="input-field col s3" style="border: 1px solid grey;border-radius: 15px">
                                 <input type="date" class="datepicker" ng-model="vm.fechaF">
                                 <label >Fecha final</label>
                             </div>
                             <div class="input-field col s1" title="Consultar">
                                 <a href="javascript:;" ng-click="vm.producidosFecha(vm.fechaI, vm.fechaF)">
-                                    <i class="material-icons prefix">search</i>
+                                    <i style="color: #D50000" class="material-icons prefix">search</i>
                                 </a>
                             </div>
                             <br><br><br>
@@ -57,22 +57,22 @@
                             </div>
 
                             <div class="row" ng-show="vm.todo">
-                                <hr style="width: 100%">
+                                <hr style="width: 100%; color: #D50000">
                                 <div class="col s12">
                                     <table class="striped bordered responsive-table">
                                         <thead class="center">
-                                            <th>Numero de planilla</th>
-                                            <th>Fecha</th>
-                                            <th>Valor</th>
+                                            <th style="color: #D50000; text-align: center">Numero de planilla</th>
+                                            <th style="color: #D50000; text-align: center">Fecha</th>
+                                            <th style="color: #D50000; text-align: center">Valor</th>
                                         </thead>
                                         <tbody>
                                             <tr ng-repeat="producido in vm.producidos_fecha | filter : filtro">
-                                                <td>{{producido.numero_planilla}}</td>
-                                                <td>{{producido.fecha}}</td>
-                                                <td>{{producido.total | currency}}</td>
-                                                <td>
+                                                <td style="text-align: center">{{producido.numero_planilla}}</td>
+                                                <td style="text-align: center">{{producido.fecha}}</td>
+                                                <td style="text-align: center">{{producido.total | currency}}</td>
+                                                <td style="text-align: center">
                                                     <a href="javascript:" ng-click="vm.verPlanilla(producido)">
-                                                        <i class="material-icons prefix">visibility</i>
+                                                        <i style="color: #9ccc65" class="material-icons prefix">visibility</i>
                                                     </a>
                                                 </td>
                                             </tr>
@@ -83,24 +83,22 @@
                         </div>
 
 
-                        <!--<div id="vehiculos" class="col s12"><br>-->
-                            <!--<div class="input-field col s2">-->
-                                <!--<input type="text" ng-model="vm.codigo_vial">-->
-                                <!--<label >CODIGO VIAL</label>-->
-                            <!--</div>-->
-                            <!--<div class="input-field col s1" title="Consultar vehiculo">-->
-                                <!--<a href="javascript:;" ng-click="vm.producidosVehiculo(vm.codigo_vial)">-->
-                                    <!--<i class="material-icons prefix">search</i>-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--&lt;!&ndash;<div class="input-field col s1" title="Consultar todos" style="margin-left: -45px;">&ndash;&gt;-->
-                                <!--&lt;!&ndash;<a href="javascript:;" ng-click="vm.producidosTodosVehiculo()">&ndash;&gt;-->
-                                    <!--&lt;!&ndash;<i class="material-icons prefix">autorenew</i>&ndash;&gt;-->
-                                <!--&lt;!&ndash;</a>&ndash;&gt;-->
-                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                        <!--</div>-->
-
-
+                        <div id="vehiculos" class="col s12"><br>
+                            <div class="input-field col s2">
+                                <input type="text" ng-model="vm.codigo_vial">
+                                <label >CODIGO VIAL</label>
+                            </div>
+                            <div class="input-field col s1" title="Consultar vehiculo">
+                                <a href="javascript:;" ng-click="vm.producidosVehiculo(vm.codigo_vial)">
+                                    <i class="material-icons prefix">search</i>
+                                </a>
+                            </div>
+                            <div class="input-field col s1" title="Consultar todos" style="margin-left: -45px;">
+                                <a href="javascript:;" ng-click="vm.producidosTodosVehiculo()">
+                                    <i class="material-icons prefix">autorenew</i>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -177,9 +175,9 @@
         </div>
 
         <div class="modal-footer">
-            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
+            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red accent-4"
                style="margin-left:10px;">Salir</a>
-            <a href="javascript:;" ng-click="vm.imprimir()" class="waves-effect waves-light btn green"
+            <a href="javascript:;" ng-click="vm.imprimir()" class="waves-effect waves-light btn light-green"
                style="margin-left:10px;">Imprimir</a>
         </div>
     </div>

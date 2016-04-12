@@ -73,10 +73,16 @@ table tbody tr td{
 }
 
 .browser-default{
-    border:1px solid #1AB394;
+    border: transparent;
     font-size: 14px;
     height:32px;
+    border-radius: 25px;
 }
+
+hr{
+    color: #D50000;
+}
+
 
 
 input[type="date"] {
