@@ -10,10 +10,10 @@
                 <div class="row">
                     <div class="row col s8">
                         <div class="input-field col s11">
-                            <i class="material-icons prefix"style="margin-left: -10px;">flag</i>
+                            <i class="material-icons prefix"style="margin-left: -10px; color: #D50000">flag</i>
                             <select class="browser-default" name="central" id="central"
                                     ng-options="central.ciudad.nombre for central in vm.centrales"
-                                    ng-model="vm.central" required  style="margin-left: 20px;" ng-change="vm.selectedChanged(vm.central)">
+                                    ng-model="vm.central" required  style="margin-left: 20px; width: 530px" ng-change="vm.selectedChanged(vm.central)">
                                 <option value="" disabled selected>Seleccione Central</option>
                             </select>
                             <label for="central" class="active" style="margin-left: 20px;">Central</label>
@@ -38,7 +38,7 @@
                                 <input type="date" class="datepicker" ng-model="vm.fechaF">
                                 <label >Fecha final</label>
                             </div>
-                            <div class="input-field col s1" title="Consultar">
+                            <div class="input-field col s1" title="Consultar" style="border: none">
                                 <a href="javascript:;" ng-click="vm.producidosFecha(vm.fechaI, vm.fechaF)">
                                     <i style="color: #D50000" class="material-icons prefix">search</i>
                                 </a>
@@ -88,14 +88,14 @@
                                 <input type="text" ng-model="vm.codigo_vial">
                                 <label >CODIGO VIAL</label>
                             </div>
-                            <div class="input-field col s1" title="Consultar vehiculo">
+                            <div class="input-field col s1" title="Consultar vehiculo" style="border: none">
                                 <a href="javascript:;" ng-click="vm.producidosVehiculo(vm.codigo_vial)">
-                                    <i class="material-icons prefix">search</i>
+                                    <i style="color: #D50000" class="material-icons prefix">search</i>
                                 </a>
                             </div>
-                            <div class="input-field col s1" title="Consultar todos" style="margin-left: -45px;">
+                            <div class="input-field col s1" title="Consultar todos" style="margin-left: -45px; border: none">
                                 <a href="javascript:;" ng-click="vm.producidosTodosVehiculo()">
-                                    <i class="material-icons prefix">autorenew</i>
+                                    <i style="color: #D50000" class="material-icons prefix">autorenew</i>
                                 </a>
                             </div>
                         </div>

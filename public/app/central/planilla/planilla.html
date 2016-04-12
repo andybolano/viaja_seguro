@@ -7,12 +7,11 @@
                         <h2>Planillas</h2>
                     </div>
                     <div class="col s4">
-                        <div class="input-field col s12" style="padding: .5em">
+                        <div class="input-field col s12 grey lighten-3" style="padding: .5em; border-radius: 15px; height: 37px; border: none">
                             <i class="material-icons prefix" style="color: #D50000;">search</i>
-                            <input style="border-radius: 15px; " class="grey lighten-3" id="icon_prefix" type="text" ng-model="filtro">
+                            <input  id="icon_prefix" type="text" ng-model="filtro">
                             <label for="icon_prefix">Buscar</label>
                         </div>
-
                     </div>
                 </div>
                 <div class="row">
@@ -42,7 +41,7 @@
     </div>
 
     <!--modal planilla-->
-    <div id="modalPlanilla" class="modal" style="width: 90%;min-height:85%; border-radius: 15px">
+    <div id="modalPlanilla" class="modal modal-fixed-footer" style="width: 90%;min-height:85%; border-radius: 15px">
         <div class="modal-content" id="planilla" >
             <body id="bodyPlanilla">
              <header class="clearfix" id="headerPlanilla">
