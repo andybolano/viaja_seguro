@@ -1,55 +1,54 @@
 <div ng-controller="GestionarEmpresasController as vm" class="contenedor">
     <div class="row white">
-        <div class="col s12 z-depth-1">
+        <div class="col s12 z-depth-2" style="border-radius: 25px">
             <div class="contenedor">
                 <div class="row">
                     <div class="col s8">
                         <h2>Gestion de Empresas</h2>
                     </div>
                     <div class="col s4">
-                        <div class="input-field col s12">
-                            <i class="material-icons prefix">search</i>
-                            <input id="icon_prefix" type="text" ng-model="filtro">
-                            <label for="icon_prefix">Filtrar</label>
+                        <div class="input-field col s12 grey lighten-3" style="padding: .5em; border-radius: 15px; height: 37px; border: none">
+                            <i class="material-icons prefix" style="color: #D50000;">search</i>
+                            <input  id="icon_prefix" type="text" ng-model="filtro">
+                            <label for="icon_prefix">Buscar</label>
                         </div>
-
                     </div>
                 </div>
                 <div class="row">
                     <div class="col s12">
                         <table class="striped bordered responsive-table">
                             <thead>
-                            <th></th>
-                            <th>NIT</th>
-                            <th>Nombre</th>
-                            <th>Dirección</th>
-                            <th>Teléfono</th>
-                            <th>Servicios contratados</th>
-                            <th>Estado</th>
+                            <th style="color: #D50000; text-align: center"></th>
+                            <th style="color: #D50000; text-align: center">NIT</th>
+                            <th style="color: #D50000; text-align: center">Nombre</th>
+                            <th style="color: #D50000; text-align: center">Dirección</th>
+                            <th style="color: #D50000; text-align: center">Teléfono</th>
+                            <th style="color: #D50000; text-align: center">Servicios contratados</th>
+                            <th style="color: #D50000; text-align: center">Estado</th>
                             <th colspan="2"></th>
                             </thead>
                             <tbody>
                             <tr ng-repeat="empresa in vm.empresas | filter : filtro">
-                                <td>
+                                <td style="text-align: center">
                                     <img ng-src="http://{{empresa.logo}}" class="circle" style="width: 30px; height: 30px; margin-top: 4px">
                                 </td>
-                                <td>{{empresa.nit}}</td>
-                                <td>{{empresa.nombre}}</td>
-                                <td>{{empresa.direccion}}</td>
-                                <td>{{empresa.telefono}}</td>
-                                <td>{{empresa.servicios.length}}</td>
-                                <td><p ng-show="empresa.estado">Activa</p><p ng-show="!empresa.estado">Inactiva</p></td>
-                                <td>
+                                <td style="text-align: center">{{empresa.nit}}</td>
+                                <td style="text-align: center">{{empresa.nombre}}</td>
+                                <td style="text-align: center">{{empresa.direccion}}</td>
+                                <td style="text-align: center">{{empresa.telefono}}</td>
+                                <td style="text-align: center">{{empresa.servicios.length}}</td>
+                                <td style="text-align: center"><p ng-show="empresa.estado">Activa</p><p ng-show="!empresa.estado">Inactiva</p></td>
+                                <td style="text-align: center">
                                     <a href="#/gestionar_empresas/{{empresa.id}}/centrales">
                                         Centrales
                                     </a>
                                 </td>
-                                <td>
+                                <td style="text-align: center">
                                     <a href="javascript:" ng-click="vm.actualizar(empresa)">
-                                        <i class="material-icons prefix">visibility</i>
+                                        <i style="color: #9ccc65" class="material-icons prefix">visibility</i>
                                     </a>
                                     <a href="javascript:" ng-click="vm.eliminar(empresa.id)">
-                                        <i class="material-icons prefix">delete</i>
+                                        <i style="color: #D50000" class="material-icons prefix">delete</i>
                                     </a>
                                 </td>
                             </tr>
@@ -67,7 +66,7 @@
         </a>
     </div>
 
-    <div id="modalNuevaEmpresa" class="modal modal-fixed-footer" style="width: 70%;min-height:85%;">
+    <div id="modalNuevaEmpresa" class="modal modal-fixed-footer" style="width: 75%;min-height:85%;">
         <div class="modal-content">
             <h2>{{vm.nombreForm}}</h2>
 
@@ -77,7 +76,7 @@
                         <div class="row">
                             <div class="col s6">
                                 <div class="input-field">
-                                    <i class="material-icons prefix">payment</i>
+                                    <i style="color: #D50000"class="material-icons prefix">payment</i>
                                     <input id="codigo" name="codigo" type="text" ng-model="vm.selectedEmpresa.nit"
                                            ng-disabled="vm.editMode" required>
                                     <label for="codigo" class="{{vm.active}}">NIT</label>
@@ -100,7 +99,7 @@
                         <div class="row">
                             <div class="col s12">
                                 <div class="input-field">
-                                    <i class="material-icons prefix">book</i>
+                                    <i style="color: #D50000"class="material-icons prefix">book</i>
                                     <input id="pjuridica" name="pjuridica" type="text" ng-model="vm.selectedEmpresa.pjuridica"
                                            required>
                                     <label for="pjuridica" class="{{vm.active}}">Personeria Juridica nº</label>
@@ -110,7 +109,7 @@
                         <div class="row">
                             <div class="col s12">
                                 <div class="input-field">
-                                    <i class="material-icons prefix">account_circle</i>
+                                    <i style="color: #D50000"class="material-icons prefix">account_circle</i>
                                     <input id="nombre" name="nombre" type="text" ng-model="vm.selectedEmpresa.nombre"
                                            required>
                                     <label for="nombre" class="{{vm.active}}">Nombre</label>
@@ -120,7 +119,7 @@
                         <div class="row">
                             <div class="col s7">
                                 <div class="input-field">
-                                    <i class="material-icons prefix">location_on</i>
+                                    <i style="color: #D50000"class="material-icons prefix">location_on</i>
                                     <input id="direccion" name="direccion" type="text"
                                            ng-model="vm.selectedEmpresa.direccion" required class="active">
                                     <label for="direccion" class="{{vm.active}}">Dirección</label>
@@ -128,7 +127,7 @@
                             </div>
                             <div class="col s5">
                                 <div class="input-field">
-                                    <i class="material-icons prefix">call</i>
+                                    <i style="color: #D50000"class="material-icons prefix">call</i>
                                     <input id="telefono" name="telefono" type="text" ng-model="vm.selectedEmpresa.telefono"
                                            required>
                                     <label for="telefono" class="{{vm.active}}">Teléfono</label>
@@ -137,7 +136,7 @@
                         </div>
                         <div class="row">
                             <div class="col s12">
-                                <div class="input-field">
+                                <div class="input-field" style="border: none">
                                     <i class="material-icons prefix" style="padding-left: 3px;">playlist_add_check</i>
 
                                     <p style="padding-left: 45px; padding-top: 3px">Servicios</p>
@@ -155,18 +154,16 @@
                         </div>
                 </div>
                 <div class="col s5">
-                    <div class="col s12" id="image" style="max-height: 300px;">
-                        <img class="thumb center" id="imagenlogo" style="width:100%" ng-src="http://{{vm.selectedEmpresa.logo}}" title="logo" alt="seleccione el logo"/>
+                    <div class="col s12 center" id="image" style="position: relative; width: 300px;height: 300px; border-radius: 50%;background: grey;border: none">
+                        <center>
+                            <img  src="http://{{vm.Conductor.imagen}}" title="imagen" class="circle" style="width:300px; height: 300px; border-radius: 50%; position: absolute; left: 0; top: 0; border: none"/>
+                        </center>
                     </div>
 
-                    <!--div class="file-field input-field col s12">
-                        <a id="cambiar" ng-click="modificarImagen()" ng-hide="!vm.selectedEmpresa.logo" style="display: none" href="javascript:;"
-                           class="btn col s12 red">Cambiar</a>
-                    </div -->
 
-                    <div class="file-field input-field col s12">
-                        <div class="btn col s12">
-                            <span><i class="mdi-image-photo-camera"></i></span>
+                    <div class="file-field input-field col s12" style="border: none">
+                        <div class="btn col s12 red accent-4" style="border-radius: 25px">
+                            <span><i style="color: white"class="mdi-image-photo-camera"></i></span>
                             <input id="files" uploader-model="fileimage" type="file">
                         </div>
                         <div class="file-path-wrapper">
@@ -179,7 +176,7 @@
                 <div class="col s12">
                     <div class="row">
                         <div class="col s12">
-                            <div class="input-field">
+                            <div class="input-field" style="border: none">
                                 <i class="material-icons prefix" style="padding-left: 3px;">lock</i>
 
                                 <p style="padding-left: 45px; padding-top: 3px">Datos de acceso</p>
@@ -189,9 +186,9 @@
                     </div>
 
                     <div class="row">
-                        <div class="col s12">
+                        <div class="col s7">
                             <div class="input-field">
-                                <i class="material-icons prefix">account_circle</i>
+                                <i style="color: #D50000"class="material-icons prefix">account_circle</i>
                                 <input id="username" name="username" type="text" ng-model="vm.selectedEmpresa.usuario.nombre"
                                        ng-required="!vm.editMode">
                                 <label for="username" class="{{vm.active}}" ng-class="{'active': vm.selectedEmpresa.usuario.contrasena}">Nombre de usuario</label>
@@ -200,9 +197,9 @@
                     </div>
 
                     <div class="row">
-                        <div class="col s12">
+                        <div class="col s7">
                             <div class="input-field">
-                                <i class="material-icons prefix">vpn_key</i>
+                                <i style="color: #D50000"class="material-icons prefix">vpn_key</i>
                                 <input id="contrasena" name="contrasena" type="text" ng-model="vm.selectedEmpresa.usuario.contrasena"
                                        ng-required="!vm.editMode">
                                 <label for="contrasena" class="{{vm.active}}" ng-class="{'active': vm.selectedEmpresa.usuario.contrasena}">Contraseña</label>
@@ -211,7 +208,7 @@
                     </div>
 
                     <div class="row">
-                        <input type="button" class="waves-effect waves-light btn col s4 offset-s8" value="Generar Datos"
+                        <input type="button" class="waves-effect waves-light btn col s4 offset-m1 light-green" value="Generar Datos"
                                ng-click="vm.generarDatosAcceso()" ng-class="{'disabled': formEmpresa.nombre.$invalid}">
                             </input>
                     </div>
@@ -221,13 +218,13 @@
         </div>
 
         <div class="modal-footer">
-            <a href="#/gestionar_empresas/{{vm.selectedEmpresa.id}}/centrales" class="modal-action modal-close waves-effect waves-light btn left"
-               style="margin-left:10px;" ng-show="vm.editMode">Ver Centrales</a>
-            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
-               style="margin-left:10px;">Salir</a>
-            <input type="button" class="waves-effect waves-light btn orange" ng-click="vm.guardar()" ng-hide="vm.editMode"
+            <a  href="#/gestionar_empresas/{{vm.selectedEmpresa.id}}/centrales" class="modal-action modal-close waves-effect waves-light btn left"
+               style="margin-left:10px; border-radius: 25px" ng-show="vm.editMode">Ver Centrales</a>
+            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red accent-4"
+               style="margin-left:10px; border-radius: 25px">Salir</a>
+            <input style="border-radius: 25px" type="button" class="waves-effect waves-light btn light-green" ng-click="vm.guardar()" ng-hide="vm.editMode"
                    ng-class="{'disabled': formEmpresa.$invalid}"value="Guardar">
-            <input type="button" class="waves-effect waves-light btn orange" ng-click="vm.update()" ng-show="vm.editMode"
+            <input style="border-radius: 25px"  type="button" class="waves-effect waves-light btn light-green" ng-click="vm.update()" ng-show="vm.editMode"
                    ng-class="{'disabled': formEmpresa.$invalid}" value="Modificar">
         </div>
 
@@ -255,6 +252,7 @@
                         // Creamos la imagen.
                         //document.getElementById("image").innerHTML = ['<img class="thumb" style="width:100%" src="', e.target.result, '" title="', escape(theFile.name), '"/>'].join('');
                         document.getElementById('imagenlogo').src = e.target.result;
+//                        document.getElementById("imagenlogo").innerHTML = ['<img class="center" style="width:300px; height: 300px; border-radius: 50%; position: absolute; left: 0; top: 0" src="', e.target.result, '" title="', escape(theFile.name), '"/>'].join('');
                     };
                 })(f);
                 reader.readAsDataURL(f);

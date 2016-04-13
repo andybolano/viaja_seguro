@@ -124,7 +124,7 @@
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#9ccc65',
-                cancelButtonColor: 'red',
+                cancelButtonColor: '#D50000',
                 confirmButtonText: 'Remover',
                 cancelButtonText: 'Cancelar',
                 closeOnConfirm: false
@@ -163,7 +163,7 @@
             function success(p) {
             }
             function error(error) {
-                console.log('Error al cargar conductores', error);
+                console.log('Error al cargar conductores');
             }
         }
 
@@ -173,7 +173,7 @@
                 vm.rutas = p.data;
             }
             function error(error) {
-                console.log('Error al cargar conductores', error);
+                console.log('Error al cargar conductores');
             }
         }
 
@@ -188,7 +188,7 @@
                 vm.vehiculo.fecha_tecnomecanica = new Date(p.data.fecha_tecnomecanica);
             }
             function error(error) {
-                console.log('Error los datos del vehiculo', error);
+                console.log('Error los datos del vehiculo');
             }
         }
 
@@ -246,7 +246,7 @@
                 vm.Paquetes.direccion = p.data.direccion;
             }
             function error(error){
-             console.log('Error al obtener informacion del cliente', error);
+             console.log('Error al obtener informacion del cliente');
             }
         }
 
@@ -278,7 +278,7 @@
                 Materialize.toast(p.data.message, '5000', 'rounded');
             }
             function error(error){
-                console.log('Error al guardar', error)
+                console.log('Error al guardar')
             }
         }
 
@@ -308,7 +308,7 @@
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#9ccc65',
-                cancelButtonColor: 'red',
+                cancelButtonColor: '#D50000',
                 confirmButtonText: 'Eliminar',
                 cancelButtonText: 'Cancelar',
                 closeOnConfirm: false
@@ -426,7 +426,7 @@
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#9ccc65',
-                cancelButtonColor: 'red',
+                cancelButtonColor: '#D50000',
                 confirmButtonText: 'Mover',
                 cancelButtonText: 'Cancelar',
                 closeOnConfirm: false
@@ -467,7 +467,7 @@
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#9ccc65',
-                cancelButtonColor: 'red',
+                cancelButtonColor: '#D50000',
                 confirmButtonText: 'Eliminar',
                 cancelButtonText: 'Cancelar',
                 closeOnConfirm: false
@@ -590,7 +590,7 @@
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#9ccc65',
-                cancelButtonColor: 'red',
+                cancelButtonColor: '#D50000',
                 confirmButtonText: 'Mover',
                 cancelButtonText: 'Cancelar',
                 closeOnConfirm: false
@@ -631,7 +631,7 @@
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#9ccc65',
-                cancelButtonColor: 'red',
+                cancelButtonColor: '#D50000',
                 confirmButtonText: 'Eliminar',
                 cancelButtonText: 'Cancelar',
                 closeOnConfirm: false
@@ -729,7 +729,7 @@
                         type: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#9ccc65',
-                        cancelButtonColor: 'red',
+                        cancelButtonColor: '#D50000',
                         confirmButtonText: 'Despachar',
                         cancelButtonText: 'Cancelar',
                         closeOnConfirm: false
@@ -764,7 +764,7 @@
                                 type: 'success',
                                 showCancelButton: true,
                                 confirmButtonColor: '#9ccc65',
-                                cancelButtonColor: 'red',
+                                cancelButtonColor: '#D50000',
                                 confirmButtonText: 'Mostrar planilla',
                                 cancelButtonText: 'Cerrar',
                                 closeOnConfirm: true
@@ -876,7 +876,7 @@
                 html: '<textarea id="causa" class="materialize-textarea" ng-model="vm.causa_rechazo"></textarea><label for="textarea1">Causa de rechazo</label>',
                 showCancelButton: true,
                 confirmButtonColor: '#9ccc65',
-                cancelButtonColor: 'red',
+                cancelButtonColor: '#D50000',
                 confirmButtonText: 'Rechazar',
                 cancelButtonText: 'Cancelar rechazo',
                 closeOnConfirm: false,
@@ -921,7 +921,7 @@
                         type: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#9ccc65',
-                        cancelButtonColor: 'red',
+                        cancelButtonColor: '#D50000',
                         confirmButtonText: 'Asignar',
                         cancelButtonText: 'Cancelar',
                         closeOnConfirm: false

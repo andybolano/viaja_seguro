@@ -33,7 +33,7 @@
             vm.Conductor = {};
             vm.Vehiculo = {};
             loadCentrales();
-            document.getElementById("image").innerHTML = ['<img class="thumb center" id="imagenlogo" style="width:100%" ng-src="http://', vm.Conductor.imagen, '" title="imagen" alt="seleccione foto"/>'].join('');
+            document.getElementById("image").innerHTML = ['<img class="center" id="imagenlogo" style="width:300px; height: 300px; border-radius: 50%; position: absolute; left: 0; top: 0" ng-src="http://', vm.Conductor.imagen, '" />'].join('');
             $("#modalNuevoConductor").openModal();
         }
 
@@ -43,7 +43,7 @@
             vm.active = "active";
             vm.Conductor = conductor;
             cargarVehiculo();
-            document.getElementById("image").innerHTML = ['<img class="thumb center" id="imagenlogo" style="width:100%" src="http://', vm.Conductor.imagen, '" title="imagen" alt="seleccione foto"/>'].join('');
+            document.getElementById("image").innerHTML = ['<img class="center" id="imagenlogo" style="width:300px; height: 300px; border-radius: 50%; position: absolute; left: 0; top: 0" src="http://', vm.Conductor.imagen, '" />'].join('');
             loadCentrales();
             $("#modalNuevoConductor").openModal();
         }
@@ -53,7 +53,7 @@
             vm.titulo = "Habilitar conductor"
             vm.active = "active";
             vm.Conductor = conductor;
-            document.getElementById("image").innerHTML = ['<img class="thumb center" id="imagenlogo" style="width:100%" src="http://', vm.Conductor.imagen, '" title="imagen" alt="seleccione foto"/>'].join('');
+            document.getElementById("image").innerHTML = ['<img class="center" id="imagenlogo" style="width:300px; height: 300px; border-radius: 50%; position: absolute; left: 0; top: 0" src="http://', vm.Conductor.imagen, '"  />'].join('');
             cargarVehiculo();
             loadCentrales();
             $("#modalNuevoConductor").openModal();
@@ -74,6 +74,7 @@
                 modificarImagen();
                 modificarImagenVehiculo();
                 cargarConductores();
+                window.location.reload();
             }, function (errorPl) {
                 console.log('Error al guardar conductor', errorPl);
             });
@@ -116,7 +117,7 @@
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#64dd17',
-                cancelButtonColor: 'red',
+                cancelButtonColor: '#D50000',
                 confirmButtonText: 'Eliminar',
                 cancelButtonText: 'Cancelar',
                 closeOnConfirm: false
@@ -161,7 +162,7 @@
 
             function error(error) {
                 Materialize.toast('No se pudo guardar el archivo, error inesperado', 5000);
-                console.log('Error al guardar', error);
+                console.log('Error al guardar');
             }
         }
 
@@ -178,7 +179,7 @@
 
             function error(error) {
                 Materialize.toast('No se pudo guardar el archivo, error inesperado', 5000);
-                console.log('Error al guardar', error);
+                console.log('Error al guardar');
             }
         }
 
@@ -223,7 +224,7 @@
             }
 
             function error(error) {
-                console.log('Error al cargar centrales', error);
+                console.log('Error al cargar centrales');
             }
         }
     }

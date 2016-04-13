@@ -28,7 +28,7 @@
             }
 
             function error(error) {
-                console.log('Error al cargar datos', error);
+                console.log('Error al cargar datos');
             }
         }
 
@@ -42,7 +42,7 @@
             }
 
             function error(error) {
-                console.log('Error al cargar centales', error);
+                console.log('Error al cargar centales');
             }
         }
 

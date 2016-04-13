@@ -32,12 +32,12 @@
                 }
 
                 function error(error) {
-                    console.log('Error al cargar centrales', error);
+                    console.log('Error al cargar centrales');
                 }
             }
 
             function error(error) {
-                console.log('Error al cargar empresa', error);
+                console.log('Error al cargar empresa');
             }
         }
 
@@ -56,7 +56,7 @@
                 crearDireccion(direccion, function (marker) {
                     vm.selectedCentral.miDireccionLa = marker.latitude;
                     vm.selectedCentral.miDireccionLo = marker.longitude;
-                    console.log(vm.selectedCentral.miDireccionLo)
+                    // console.log(vm.selectedCentral.miDireccionLo)
                 });
             }
         }

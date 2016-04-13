@@ -42,7 +42,7 @@
             }
 
             function error(error) {
-                console.log('Error al cargar datos', error);
+                console.log('Error al cargar datos');
             }
         }
 
@@ -54,7 +54,7 @@
             }
 
             function error(error) {
-                console.log('Error al cargar Servicios', error);
+                console.log('Error al cargar Servicios');
             }
         }
 
@@ -100,7 +100,7 @@
             vm.active = "";
             vm.editMode = false;
             $scope.fileimage = null;
-            document.getElementById("image").innerHTML = ['<img class="thumb center" id="imagenlogo" style="width:100%" ng-src="http://',vm.selectedEmpresa.logo,'" title="logo" alt="seleccione imagen"/>'].join('');
+            document.getElementById("image").innerHTML = ['<img class="center" id="imagenlogo" style="width:300px; height: 300px; border-radius: 50%; position: absolute; left: 0; top: 0; border: none" ng-src="http://',vm.selectedEmpresa.logo,'"  />'].join('');
             loadServicios();
             $("#modalNuevaEmpresa").openModal();
         }
@@ -119,7 +119,7 @@
             }
 
             function error(error) {
-                console.log('Error al guardar', error);
+                console.log('Error al guardar');
             }
         }
 
@@ -129,12 +129,12 @@
             vm.editMode = true;
             vm.nombreForm = "Modificar Empresa";
             vm.active = "active";
-            document.getElementById("image").innerHTML = ['<img class="thumb center" id="imagenlogo" style="width:100%" src="http://',vm.selectedEmpresa.logo,'" title="logo" alt="seleccione imagen"/>'].join('');
+            document.getElementById("image").innerHTML = ['<img class="center" id="imagenlogo" style="width:300px; height: 300px; border-radius: 50%; position: absolute; left: 0; top: 0; border: none" src="http://',vm.selectedEmpresa.logo,'" />'].join('');
             $("#modalNuevaEmpresa").openModal();
         }
 
         function modificarImagen() {
-            console.log($scope.fileimage)
+            // console.log($scope.fileimage)
             if ($scope.fileimage) {
                 var data = new FormData();
                 data.append('logo', $scope.fileimage);
@@ -148,7 +148,7 @@
 
             function error(error) {
                 Materialize.toast('No se pudo guardar el archivo, error inesperado', 5000);
-                console.log('Error al guardar', error);
+                console.log('Error al guardar');
             }
         }
 
@@ -164,22 +164,48 @@
             }
 
             function error(error) {
-                console.log('Error al actualizar', error);
+                console.log('Error al actualizar');
             }
         }
 
         function eliminar(codigo) {
-            if (confirm('¿Deseas eliminar el registro? \n no es recomendable') == true) {
-                empresasService.delete(codigo).then(success, error);
-            }
-            function success(p) {
-                init();
-                Materialize.toast('Registro eliminado', 5000);
-            }
-
-            function error(error) {
-                console.log('Error al eliminar', error);
-            }
+            swal({
+                title: 'ESTAS SEGURO?',
+                text: 'Intentas inhabilitar este conductor!',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#9ccc65',
+                cancelButtonColor: '#D50000',
+                confirmButtonText: 'Eliminar',
+                cancelButtonText: 'Cancelar',
+                closeOnConfirm: false
+            }, function (isConfirm) {
+                if (isConfirm) {
+                    empresasService.delete(codigo).then(success, error);
+                    swal.disableButtons();
+                }
+                function success(p) {
+                    setTimeout(function () {
+                        swal({
+                            title: 'Exito!',
+                            text: 'Empresa eliminada correctamente',
+                            type: 'success',
+                            showCancelButton: false,
+                        }, function () {
+                            init();
+                        });
+                    }, 2000);
+                }
+                function error(error) {
+                    swal({
+                        title: 'Error!',
+                        text: 'No se pudo eliminar la empresa',
+                        type: 'error',
+                        showCancelButton: false,
+                    }, function () {
+                    });
+                };
+            });
         }
 
         function generarDatosAcceso() {

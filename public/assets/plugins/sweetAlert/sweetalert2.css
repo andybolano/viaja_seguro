@@ -474,15 +474,15 @@
 
 @-webkit-keyframes pulse-warning {
   0% {
-    border-color: #f8d486; }
+    border-color: #D50000; }
   100% {
-    border-color: #f8bb86; } }
+    border-color: #D50000; } }
 
 @keyframes pulse-warning {
   0% {
-    border-color: #f8d486; }
+    border-color: #D50000; }
   100% {
-    border-color: #f8bb86; } }
+    border-color: #D50000; } }
 
 .pulse-warning {
   -webkit-animation: pulse-warning 0.75s infinite alternate;
@@ -490,15 +490,15 @@
 
 @-webkit-keyframes pulse-warning-ins {
   0% {
-    background-color: #f8d486; }
+    background-color: #D50000; }
   100% {
-    background-color: #f8bb86; } }
+    background-color: #D50000; } }
 
 @keyframes pulse-warning-ins {
   0% {
-    background-color: #f8d486; }
+    background-color: #D50000; }
   100% {
-    background-color: #f8bb86; } }
+    background-color: #D50000; } }
 
 .pulse-warning-ins {
   -webkit-animation: pulse-warning-ins 0.75s infinite alternate;

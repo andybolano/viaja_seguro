@@ -46,7 +46,7 @@
                 Materialize.toast('Registro guardado correctamente', 5000);
             }
             function error(error) {
-                console.log('Error al guardar', error);
+                console.log('Error al guardar');
             }
         }
 
@@ -74,7 +74,7 @@
                 Materialize.toast('Registro modificado correctamente', 5000);
             }
             function error(error) {
-                console.log('Error al actualizar', error);
+                console.log('Error al actualizar');
             }
         }
 
@@ -93,7 +93,7 @@
                 }
             }
             function error(error) {
-                console.log('Error al cargar datos', error);
+                console.log('Error al cargar datos');
             }
         }
     }

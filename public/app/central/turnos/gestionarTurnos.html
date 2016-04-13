@@ -466,79 +466,81 @@
     <!--fin modal descripcion-->
 
     <!--modal planilla-->
-    <div id="modalPlanilla" class="modal modal-fixed-footer" style="width: 90%;min-height:85%;">
-        <div id="printDiv"></div>
+    <div id="modalPlanilla" class="modal modal-fixed-footer" style="width: 90%;min-height:85%; border-radius: 15px">
         <div class="modal-content" id="planilla" >
             <body id="bodyPlanilla">
-                <header class="clearfix" id="headerPlanilla">
-                    <div id="logo">
-                        <img ng-src="http://{{vm.userImagen}}">
+            <header class="clearfix" id="headerPlanilla">
+                <!--<div id="logo">-->
+                <!--<img alt="image"-->
+                <!--ng-src="http://{{vm.userImagen}}" width="90px;">-->
+                <!--</div>-->
+                <div style="border-radius: 15px; width: 30%;margin: 0 auto;" class="red accent-4">
+                    <h1 id="h1Planilla" class="white-text">PLANILLA N° {{vm.Planilla.viaje.planilla.numero_planilla}}</h1>
+                </div>
+                <div id="company" class="clearfix">
+                    <div>Cootrasan</div>
+                    <div>Fonseca - La Guajira,<br /> Call 13 #21-34</div>
+                    <div> 7755813</div>
+                </div>
+                <div id="project">
+                    <div><span>CONDUCTOR: </span> {{vm.Planilla.viaje.planilla.conductor.nombres}} {{vm.Planilla.viaje.planilla.conductor.apellidos}}</div>
+                    <div><span>IDENTIFICACION: </span> {{vm.Planilla.viaje.planilla.conductor.identificacion}}</div>
+                    <div><span>TELEFONO: </span> {{vm.Planilla.viaje.planilla.conductor.telefono}}</div>
+                    <div><span>FECHA: </span> {{vm.Planilla.viaje.viaje.fecha| date}}</div>
+                </div>
+            </header>
+            <main id="mainPlanilla">
+                <div class="row">
+                    <div class="row"></div>
+                    <div class="col s8">
+                        <table id="table" class="striped responsive-table">
+                            <thead>
+                            <tr>
+                                <th style="color: #D50000;text-align: center" class="center">IDENTIFICACION</th>
+                                <th style="color: #D50000;text-align: center" class="center">NOMBRES Y APELLIDOS</th>
+                                <th style="color: #D50000;text-align: center" class="center">TELEFONO</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="pasajero in vm.Planilla.viaje.planilla.pasajeros" >
+                                <td style="text-align: center" class="center">{{pasajero.identificacion}}</td>
+                                <td style="text-align: center" class="center">{{pasajero.nombres}}</td>
+                                <td style="text-align: center" class="center">{{pasajero.telefono}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <h1 id="h1Planilla">PLANILLA N° {{vm.Planilla.viaje.planilla.numero_planilla}}</h1>
-                    <div id="company" class="clearfix">
-                        <div>Cootrasan</div>
-                        <div>Fonseca - La Guajira,<br /> Call 13 #21-34</div>
-                        <div> 7755813</div>
+                    <div class="col s1"><br></div>
+                    <div class="col s3">
+                        <table id="tableD" class="striped responsive-table">
+                            <thead>
+                            <tr>
+                                <th style="color: #D50000;text-align: center" class="center">DEDUCCION</th>
+                                <th style="color: #D50000;text-align: center" class="center">VALOR</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="deduccion in vm.Planilla.viaje.planilla.deducciones">
+                                <td style="text-align: center" class="center">{{deduccion.nombre}}</td>
+                                <td style="text-align: center" class="center">{{deduccion.valor| currency}}</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center" class="center">VALOR TOTAL</td>
+                                <td style="text-align: center" class="center">{{vm.Planilla.total| currency}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <div id="project">
-                        <div><span>CONDUCTOR: </span> {{vm.Planilla.viaje.planilla.conductor.nombres}} {{vm.Planilla.viaje.planilla.conductor.apellidos}}</div>
-                        <div><span>IDENTIFICACION: </span> {{vm.Planilla.viaje.planilla.conductor.identificacion}}</div>
-                        <div><span>TELEFONO: </span> {{vm.Planilla.viaje.planilla.conductor.telefono}}</div>
-                        <div><span>FECHA: </span> {{vm.Planilla.viaje.viaje.fecha| date}}</div>
-                    </div>
-                </header>
-                <main id="mainPlanilla">
-                    <div class="row">
-                        <div class="row"></div>
-                        <div class="col s8">
-                            <table id="table" class="striped bordered responsive-table">
-                                <thead>
-                                    <tr>
-                                        <th style="color: #D50000;text-align: center" class="center">IDENTIFICACION</th>
-                                        <th style="color: #D50000;text-align: center" class="center">NOMBRES Y APELLIDOS</th>
-                                        <th style="color: #D50000;text-align: center" class="center">TELEFONO</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr ng-repeat="pasajero in vm.Planilla.viaje.planilla.pasajeros" >
-                                        <td style="text-align: center" class="center">{{pasajero.identificacion}}</td>
-                                        <td style="text-align: center" class="center">{{pasajero.nombres}}</td>
-                                        <td style="text-align: center" class="center">{{pasajero.telefono}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="col s1"><br></div>
-                        <div class="col s3">
-                            <table id="tableD" class="striped bordered responsive-table">
-                                <thead>
-                                    <tr>
-                                        <th style="color: #D50000;text-align: center" class="center">DEDUCCION</th>
-                                        <th style="color: #D50000;text-align: center" class="center">VALOR</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr ng-repeat="deduccion in vm.Planilla.viaje.planilla.deducciones">
-                                        <td style="text-align: center" class="center">{{deduccion.nombre}}</td>
-                                        <td style="text-align: center" class="center">{{deduccion.valor| currency}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="text-align: center" class="center">VALOR TOTAL</td>
-                                        <td style="text-align: center" class="center">{{vm.Planilla.total| currency}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </main>
+                </div>
+            </main>
             </body>
         </div>
 
         <div class="modal-footer">
-            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red accent-4"
-               style="margin-left:10px;border-radius: 25px; color: #D50000">Salir</a>
-            <a href="javascript:;" ng-click="vm.imprimir()" class="waves-effect waves-light btn light-green"
-               style="margin-left:10px;border-radius: 25px; color: lawngreen">Imprimir</a>
+            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
+               style="margin-left:10px; border-radius: 15px">Salir</a>
+            <a href="javascript:;" ng-click="vm.imprimir()" class="waves-effect waves-light btn green"
+               style="margin-left:10px; border-radius: 15px">Imprimir</a>
         </div>
     </div>
     <!--fin modal planilla-->

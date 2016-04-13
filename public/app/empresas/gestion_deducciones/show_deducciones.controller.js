@@ -49,7 +49,7 @@
         }
 
         function updateEstado(deduccion){
-            console.log(deduccion.estado)
+            // console.log(deduccion.estado)
             //alert(JSON.stringify(object));
             var promisePut = deduccionesService.updateEstado(deduccion.id, deduccion.estado);
             promisePut.then(function (pl) {
@@ -77,7 +77,7 @@
                 function (err) {
                     $('#modalNuevaDeduccion').closeModal();
                     Materialize.toast("Error al procesar la solicitud",3000,'rounded');
-                    console.log(err);
+                    // console.log(err);
                 });
         }
 
@@ -97,7 +97,7 @@
                 function (err) {
                     $('#modalNuevaDeduccion').closeModal();
                     Materialize.toast("Error al procesar la solicitud",3000,'rounded');
-                    console.log(err);
+                    // console.log(err);
                 });
         }
 
@@ -107,8 +107,8 @@
                 text: 'Intentas eliminar este registro!',
                 type: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#64dd17',
-                cancelButtonColor: 'red',
+                confirmButtonColor: '#9ccc65',
+                cancelButtonColor: '#D50000',
                 confirmButtonText: 'Eliminar',
                 cancelButtonText: 'Cancelar',
                 closeOnConfirm: false
