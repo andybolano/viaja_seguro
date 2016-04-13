@@ -24,7 +24,7 @@
                 vm.planillas = response.data;
             }
             function error(error){
-                console.log('Error al cargar las planillas', error)
+                console.log('Error al cargar las planillas')
             }
         }
 

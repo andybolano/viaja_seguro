@@ -29,7 +29,7 @@
                 vm.centrales = p.data;
             }
             function error(error) {
-                console.log('Error al cargar centrales', error);
+                console.log('Error al cargar centrales');
             }
         }
 
@@ -47,7 +47,7 @@
                 fechaI : vm.fechaI,
                 fechaF :vm.fechaF
             };
-            console.log(obj);
+            // console.log(obj);
 
             auditoriaService.getProducidosFecha(vm.central.id, obj).then(success, error);
             function success(p){
@@ -65,7 +65,7 @@
                 }
             }
             function error(error){
-                console.log('Error al obtener los datos', error);
+                console.log('Error al obtener los datos');
             }
         }
 

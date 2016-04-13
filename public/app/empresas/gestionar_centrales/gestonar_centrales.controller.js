@@ -46,7 +46,7 @@
                 Materialize.toast('Registro guardado correctamente', 5000);
             }
             function error(error) {
-                console.log('Error al guardar', error);
+                console.log('Error al guardar');
             }
         }
 
@@ -76,7 +76,7 @@
                 Materialize.toast('Registro modificado correctamente', 5000);
             }
             function error(error) {
-                console.log('Error al actualizar', error);
+                console.log('Error al actualizar');
             }
         }
 
@@ -86,8 +86,8 @@
                 text: 'Intentas eliminar esta ruta!',
                 type: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
+                confirmButtonColor: '#9ccc65',
+                cancelButtonColor: '#D50000',
                 confirmButtonText: 'Eliminar',
                 cancelButtonText: 'Cancelar',
                 closeOnConfirm: false
@@ -129,7 +129,7 @@
                     crearDireccion(direccion, function(marker) {
                         vm.selectedCentral.miDireccionLa = marker.latitude;
                         vm.selectedCentral.miDireccionLo = marker.longitude;
-                        console.log(vm.selectedCentral.miDireccionLo)
+                        // console.log(vm.selectedCentral.miDireccionLo)
                     });
                 }
             }
@@ -152,7 +152,7 @@
                 centralesService.getCiudades().then(success, error);
             }
             function success(p) {vm.ciudades = p.data;}
-            function error(error) {console.log('Error al cargar la ciudades', error);}
+            function error(error) {console.log('Error al cargar la ciudades');}
         }
 
         function loadCentrales(){
@@ -161,7 +161,7 @@
                 vm.centrales = p.data;
             }
             function error(error) {
-                console.log('Error al cargar datos', error);
+                console.log('Error al cargar datos');
             }
         }
 
@@ -184,7 +184,7 @@
                     var firstAddress = results[0];
                     var latitude = firstAddress.geometry.location.lat();
                     var longitude = firstAddress.geometry.location.lng();
-                    console.log(firstAddress);
+                    // console.log(firstAddress);
                     vm.selectedCentral.miDireccionLa = latitude;
                     vm.selectedCentral.miDireccionLo = longitude;
                     vm.map = {

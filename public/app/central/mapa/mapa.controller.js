@@ -45,7 +45,7 @@
                 vm.rutas = p.data;
             }
             function error(error) {
-                console.log('Error al cargar conductores', error);
+                console.log('Error al cargar conductores');
             }
         }
 

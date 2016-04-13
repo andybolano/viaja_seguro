@@ -52,7 +52,7 @@
                 Materialize.toast('Registro guardado correctamente', 5000);
             }
             function error(error) {
-                console.log('Error al guardar', error);
+                console.log('Error al guardar');
             }
         }
 
@@ -62,8 +62,8 @@
                 text: 'Intentas eliminar esta ruta!',
                 type: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#64dd17',
-                cancelButtonColor: 'red',
+                confirmButtonColor: '#9ccc65',
+                cancelButtonColor: '#D50000',
                 confirmButtonText: 'Eliminar',
                 cancelButtonText: 'Cancelar',
                 closeOnConfirm: false
@@ -103,7 +103,7 @@
                 vm.rutas = p.data;
             }
             function error(error) {
-                console.log('Error al cargar datos', error);
+                console.log('Error al cargar datos');
             }
         }
 
@@ -113,7 +113,7 @@
                 vm.centrales = p.data;
             }
             function error(error) {
-                console.log('Error al cargar datos', error);
+                console.log('Error al cargar datos');
             }
         }
 

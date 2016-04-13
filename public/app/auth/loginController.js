@@ -42,7 +42,7 @@
             function error(error) {
                 document.getElementById("loading").style.display="none";
                  document.getElementById("btn-inicio").disabled=false;
-                console.log('Error en Login', error);
+                console.log('Error en Login');
                 vm.mensajeError = error.status == 401 ? error.data.mensajeError : 'A ocurrido un erro inesperado';
             }
         }
@@ -79,7 +79,7 @@
                 redirect(authService.currentUser().rol);
             }
             function error(error) {
-                console.log('Error en Login', error);
+                console.log('Error en Login');
                 vm.mensajeError = 'A ocurrido un erro inesperado';
             }
         }
