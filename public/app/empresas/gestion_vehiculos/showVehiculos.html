@@ -7,7 +7,7 @@
                         <h2>Gestion de vehículos</h2>
                     </div>
                     <div class="col s4">
-                        <div class="input-field col s12 grey lighten-3" style="padding: .5em; border-radius: 15px; height: 37px">
+                        <div class="input-field col s12 grey lighten-3" style="padding: .5em; border-radius: 15px; height: 37px; border: none">
                             <i class="material-icons prefix" style="color: #D50000;">search</i>
                             <input  id="icon_prefix" type="text" ng-model="filtro">
                             <label for="icon_prefix">Buscar</label>
@@ -38,7 +38,7 @@
                                 <td style="text-align: center">{{vehiculo.cupos}}</td>
                                 <td style="text-align: center">
                                     <a href="javascript:" ng-click="vm.modificar(vehiculo)">
-                                        <i style="color: #64dd17" class="material-icons prefix">visibility</i>
+                                        <i style="color: #9ccc65" class="material-icons prefix">visibility</i>
                                     </a>
                                 </td>
                             </tr>
@@ -122,6 +122,7 @@
                                 <i class="material-icons prefix">payment</i>
                                 Documentación del vehículo
                             </div>
+                            <hr>
                             <div class="row col s6">
                                 <fieldset style="border-radius: 25px">
                                     <div class="col s12">
@@ -167,7 +168,7 @@
 
                 <div class="col s4">
                     <div align="center" class="col s12" id="imagev" style="position: relative; width: 300px;height: 300px; border-radius: 50%;background: grey">
-                        <img class="thumb center" id="imagen" style="width:100%" ng-src="http://{{vm.Vehiculo.imagen}}" title="imagen" alt="seleccione foto"/>
+                        <img class="thumb center" id="imagen" style="width:300px; height: 300px; border-radius: 50%; position: absolute; left: 0; top: 0" ng-src="http://{{vm.Vehiculo.imagen}}" title="imagen" alt="seleccione foto"/>
                     </div>
                     <div class="file-field input-field col s12" ng-hide="true">
                         <div class="btn col s12">
