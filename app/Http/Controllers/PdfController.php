@@ -13,6 +13,7 @@ use App\Http\Requests;
 use Illuminate\Support\Facades\App;
 use App\Model\Solicitud;
 use App\Model\Ruta;
+use App\Model\Cliente;
 
 class PdfController extends Controller
 {
@@ -29,10 +30,63 @@ class PdfController extends Controller
     }
     public function invoice()
     {
-//        \App::make('\App\Events\UpdatedEstadoConductorEvent')->enviarNotificacion("Notificacion", "El conductor jose"." soto se ha reportado como ausente",'' ,2);
-        \App::make('\App\Events\NuevaSolicitudEvent')->enviarNotificacion('Pasajeros', 'Existe una nueva solicitud, verificala en la seccion de despacho', 2);
-//        $solicitud = Solicitud::find(18)->first();
-//        $solicitud->load('cliente', 'detalles');
-//        return $solicitud;
+        $cliente_id = 7;
+        $mensaje = 'Marica';
+        $tipo = 'Una vaina';
+
+        $devices = null;
+        $device_token = null;
+        $reg_id = '';
+        //llamar al usuario
+        if(is_array($cliente_id)){
+            $devices = $cliente_id;
+            $reg_id = true;
+        }else{
+            $reg_id = Cliente::find($cliente_id);
+            if($reg_id){
+                $reg_id->load('usuario');
+                $device_token = $reg_id->usuario->reg_id;;
+            }else{
+                $reg_id = Cliente::where('identificacion', $cliente_id)->first()->usuario;
+                $device_token = $reg_id->reg_id;;
+            }
+        }
+
+        if($reg_id != false){
+            if($devices){
+                $regId=$devices;
+                $regArray=$regId;
+            }else{
+                $regId=$device_token;
+                $regArray[]=$regId;
+            }
+            $msg=$mensaje;
+            $message = array(
+                "title" => 'Viaja seguro',
+                "message" => $msg,
+                "sound" => 1,
+                "tipo" => $tipo,
+                "subtitle" => $tipo
+            );
+            $url = 'https://android.googleapis.com/gcm/send';
+
+            $fields = array('registration_ids' => $regArray, 'data' => $message,);
+            $headers = array( 'Authorization: key=AIzaSyApNpUuEY-iXEdTJKrzMxLEuwWNvskeGvU','Content-Type: application/json');
+
+            $ch = curl_init();
+
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
+
+            $result=curl_exec($ch);
+            curl_close($ch);
+            return $result;
+        } else {
+            return 'No existe el conductor';
+        }
     }
 }
