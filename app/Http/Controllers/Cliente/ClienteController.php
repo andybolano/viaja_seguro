@@ -190,4 +190,15 @@ class ClienteController extends Controller
         }
     }
 
+    public function showUltimaSolicitud($id)
+    {
+        $cliente = Cliente::find($id);
+
+        if(!$cliente) {
+            return JsonResponse::create(["message" => 'No se encontro el cliente puede registrarlo si continua'], 400);
+        }
+        $solicitud = $cliente->solicitudes()->latest()->first();
+        return $solicitud;
+    }
+
 }

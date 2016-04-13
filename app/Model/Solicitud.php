@@ -13,8 +13,6 @@ class Solicitud extends Model
 
     protected $guarded = ['id'];
 
-    public $timestamps = false;
-
     public function cliente()
     {
         return $this->belongsTo(Cliente::class);
