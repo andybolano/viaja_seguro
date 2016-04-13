@@ -81,9 +81,9 @@ class UsuariosController extends Controller
         $usuario = Usuario::find($usuario_id);
         $usuario->reg_id = $reg_id;
         if($usuario->save()){
-            return JsonResponse::create(array('reg_id' => $reg_id, 'Actualizado'));
+            return response()->json(array('reg_id' => $reg_id, 'Actualizado'));
         }else{
-            return JsonResponse::create(array('reg_id' => $reg_id, 'Error'));
+            return response()->json(array('reg_id' => $reg_id, 'Error'));
         }
     }
 
