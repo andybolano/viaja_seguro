@@ -71,8 +71,17 @@ class NotificacionController extends Controller
             $devices = $cliente_id;
             $reg_id = true;
         }else{
-            $reg_id = Cliente::find($cliente_id)->usuario;
-            $device_token = $reg_id->reg_id;;
+            $reg_id = Cliente::find($cliente_id);
+            if($reg_id){
+                $reg_id->load('usuario');
+                $device_token = $reg_id->usuario->reg_id;;
+            }else{
+                $reg_id = Cliente::where('identificacion', $cliente_id)->first();
+                if($reg_id){
+                    $reg_id->load('usuario');
+                    $device_token = $reg_id->usuario->reg_id;;
+                }
+            }
         }
 
         if($reg_id != false){

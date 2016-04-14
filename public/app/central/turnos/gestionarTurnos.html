@@ -1,7 +1,7 @@
 <div ng-controller="turnosController as vm" class="contenedor" xmlns="http://www.w3.org/1999/html">
     <div class="row">
         <div class="col s12">
-            <div class="row z-depth-2 white col s12" style="border-radius: 15px; width: 100%"
+            <div class="row white col s12" style="border-radius: 15px;border:2px solid #ff0000; width: 100%"
                  ng-repeat="ruta in vm.rutas">
                 <div class=" contenedor simpleDemo col s12">
                     <div class="col s8">
@@ -16,7 +16,7 @@
                                     dnd-effect-allowed="move"
                                     dnd-selected="vm.selectedTurno = turno"
                                     dnd-dragend="vm.updateTurnos(ruta)"
-                                    class=" grey lighten-3 z-depth-1 collection-item">
+                                    class=" grey lighten-3  collection-item">
                                     <div class="row valign-wrapper" style="margin: 0">
                                         <div class="col s1" style="padding-left: 0">
                                             <span class="left" style="margin-right: 5px"><h4>{{turno.turno}}</h4></span>
@@ -264,7 +264,7 @@
         <div class="modal-content">
             <h2>Asignar pasajeros a: {{vm.conductor.nombres}} {{vm.conductor.apellidos}}</h2>
             <h2>Cupos disponibles: {{vm.cupos}}</h2>
-            <div class="col s12 z-depth-2" style="border-radius: 25px">
+            <div class="col s12" style="border-radius: 25px">
                 <div class="contenedor">
                     <div class="row">
                         <div class="col s12">
@@ -387,7 +387,7 @@
         <!--<form action="" name="formPaquete">-->
         <div class="modal-content">
             <h2>Asignar paquetes a: {{vm.conductor.nombres}} {{vm.conductor.apellidos}}</h2>
-            <div class="col s12 z-depth-2" style="border-radius: 25px">
+            <div class="col s12 " style="border-radius: 25px">
                 <div class="contenedor">
                     <div class="row">
                         <div class="col s12">
@@ -550,7 +550,7 @@
     <div id="modalSolicitud" class="modal modal-fixed-footer" style="width: 90%">
         <div class="modal-content" >
             <h2>Solicitud hacia: {{vm.solicitud.ruta.destino.nombre}}</h2>
-            <div class="col s12 z-depth-2" style="border-radius: 25px">
+            <div class="col s12 " style="border-radius: 25px">
                 <div class="contenedor">
                     <div class="row">
                         <div class="row col s6">

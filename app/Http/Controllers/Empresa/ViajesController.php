@@ -46,14 +46,16 @@ class ViajesController extends Controller
         $viaje->ruta_id = $ruta_id;
         $viaje->fecha = date("Y-m-d");
 
-        $pasajeros = Pasajero::select('id')->where('conductor_id', $conductor_id)->where('estado', '=', 'En ruta')->get();
+        $pasajeros = Pasajero::select('*')->where('conductor_id', $conductor_id)->where('estado', '=', 'En ruta')->get();
         $giros = Giro::select('id')->where('conductor_id', $conductor_id)->where('estado', '=', 'En ruta')->get();
         $paquetes = Paquete::select('id')->where('conductor_id', $conductor_id)->where('estado', '=', 'En ruta')->get();
 
         if($viaje->save()){
             $noty->enviarNotificacionConductores('La central a autorizado tu salida, acercate a secretaria para recivir la planilla.', $conductor_id, 'Despacho');
+            
             foreach ($pasajeros as $pasajero) {
                 $viaje->pasajeros()->attach($pasajero['id']);
+                $noty->enviarNotificacionClientes('El conductor a salido a recogerlo, pronto pasara por usted, sea paciente', $pasajero['identificacion'],'Busqueda');
             }
 
             foreach ($giros as $giro) {

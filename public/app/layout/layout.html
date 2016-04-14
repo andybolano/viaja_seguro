@@ -37,7 +37,7 @@
             <section id="sidebar" class="center grey darken-2">
                 <ul id="dock">
                     <!--<li class="launcher"></li>-->
-                    <li ng-repeat="op in vm.menu" class="launcher">
+                    <li ng-repeat="op in vm.menu" class="launcher" style="border-bottom:1px solid #fff;">
                         <i style="color: white" class="large material-icons">{{op.icon}}</i>
                         <a style="color: white" ui-sref="{{op.link}}" id="{{op.id}}">{{op.nombre}}</a>
                     </li>
