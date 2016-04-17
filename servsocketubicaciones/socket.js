@@ -26,7 +26,7 @@ module.exports = function (io) {
             console.log(monitor);
             console.log('\ndata :\n', data);
             if (monitor) {
-                io.sockets.to(monitor.id).emit('updatePos', data);
+                io.sockets.soket(monitor.id).emit('updatePos', data);
                 var clientes = clientes_conductores[data.conductor_id];
                 if (clientes) {
                     for (var i = 0; i < clientes.length; i++) {

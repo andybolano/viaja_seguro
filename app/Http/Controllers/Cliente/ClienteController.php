@@ -177,7 +177,8 @@ class ClienteController extends Controller
 
     public function updateSolicitud(Request $request, $cliente_id, $id)
     {
-        if($solicitud = Solicitud::find($id)) {
+        $solicitud = Solicitud::find($id);
+        if($solicitud && !in_array($solicitud->estado, ['c', 'r', 'f'])) {
             $data = $request->json()->all();
             $solicitud->estado = $data["estado"];
             $data['tipo'] = 'Modificacion';
@@ -186,7 +187,7 @@ class ClienteController extends Controller
                 return response()->json(['mensaje' => 'Registro actualizado'], 201);
             }
         } else {
-            return response()->json(['mensaje' => 'El cliente no existe'], 400);
+            return response()->json(['mensaje' => 'solicitud no valida'], 400);
         }
     }
 
