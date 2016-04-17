@@ -12,7 +12,7 @@ module.exports = function (io) {
         socket.on("changeRuta", function (rutas) {
             console.log(socket.id+' change ruta to '+ rutas.n);
             delete monitores[rutas.o];
-            monitores[rutas.n] = {ruta_id: id, id: socket.id};
+            monitores[rutas.n] = {ruta_id: rutas.n, id: socket.id};
         });
 
         socket.on("loginCliente", function (data) {
