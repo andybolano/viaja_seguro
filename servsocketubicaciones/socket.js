@@ -12,7 +12,7 @@ module.exports = function (io) {
         socket.on("changeRuta", function (rutas) {
             console.log(socket.id+' change ruta to '+ rutas.n);
             delete monitores[rutas.o];
-            monitores[rutas.n] = {ruta_id: id, id: socket.id};
+            monitores[rutas.n] = {ruta_id: rutas.n, id: socket.id};
         });
 
         socket.on("loginCliente", function (data) {
@@ -27,11 +27,11 @@ module.exports = function (io) {
             console.log(monitor);
             console.log('\ndata :\n', data);
             if (monitor) {
-                io.sockets.soket(monitor.id).emit('updatePos', data);
+                io.sockets.to(monitor.id).emit('updatePos', data);
                 var clientes = clientes_conductores[data.conductor_id];
                 if (clientes) {
                     for (var i = 0; i < clientes.length; i++) {
-                        io.sockets.soket(clientes[i].id).emit('updatePos', data);
+                        io.sockets.to(clientes[i].id).emit('updatePos', data);
                     }
                 }
             }
