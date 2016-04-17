@@ -27,11 +27,11 @@ module.exports = function (io) {
             console.log(monitor);
             console.log('\ndata :\n', data);
             if (monitor) {
-                io.sockets.soket(monitor.id).emit('updatePos', data);
+                io.sockets.to(monitor.id).emit('updatePos', data);
                 var clientes = clientes_conductores[data.conductor_id];
                 if (clientes) {
                     for (var i = 0; i < clientes.length; i++) {
-                        io.sockets.soket(clientes[i].id).emit('updatePos', data);
+                        io.sockets.to(clientes[i].id).emit('updatePos', data);
                     }
                 }
             }
