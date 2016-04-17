@@ -6,7 +6,7 @@
         .module('app.centrales.mapa')
         .controller('mapaController', mapaController);
 
-    function mapaController($scope, turnosService, authService, socketCh, conductoresService, mapaService) {
+    function mapaController($scope, turnosService, authService, socketCh, conductoresService, mapaService, $timeout) {
 
         var vm = this;
         vm.map;
@@ -14,11 +14,14 @@
         vm.markerId = 1;
         vm.contador = 1;
         vm.Markers = [];
+
         vm.voc = 0;
         vm.ato = 0;
         vm.aus = 0;
         vm.etu = 0;
+
         var markersIndex=[];
+
         socketCh.connect();
         var sessionid = '';
 
@@ -61,6 +64,9 @@
 
         function updatePos(data){
             vm.voc = vm.markers.length;
+            cdicponibles();
+            cantidadenturno();
+            causentes();
             if(markersIndex[data.conductor_id] >= 0) {
                 vm.markers[markersIndex[data.conductor_id]].latitude = data.lat;
                 vm.markers[markersIndex[data.conductor_id]].longitude = data.lng;
@@ -95,6 +101,7 @@
         }
 
         function cargarMapa(){
+            vm.voc = 0;
             vm.markers = [];
             markersIndex=[];
             vm.map = {
@@ -114,14 +121,30 @@
             var old_ruta = vm.ruta || null;
             vm.ruta = ruta_id;
             vm.mostrar = true;
-            cargarMapa();
+            setTimeout(cargarMapa(), 900);
+
             socketCh.emit('changeRuta', {n: ruta_id, o: old_ruta});
         }
 
-        cdicponibles();
         function cdicponibles() {
             mapaService.activostotal().then(function (c) {
                 vm.ato = c.data;
+            }, function (e) {
+                console.log('error')
+            })
+        }
+
+        function causentes() {
+            mapaService.cantidadausente().then(function (c) {
+                vm.aus = c.data;
+            }, function (e) {
+                console.log('error')
+            })
+        }
+
+        function cantidadenturno() {
+            mapaService.cantidadenturno().then(function (c) {
+                vm.etu = c.data;
             }, function (e) {
                 console.log('error')
             })

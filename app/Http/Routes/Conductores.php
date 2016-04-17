@@ -1,4 +1,6 @@
 <?php
+Route::get('/api/conductores/disponibles', 'Empresa\ConductorController@cdisponibles');
+Route::get('/api/conductores/ausentes', 'Empresa\ConductorController@causentes');
 //Route::post('/api/empresas/{empresa_id}/conductores','Empresa\ConductorController@store');
 Route::get('/api/conductores/rutas/{ruta_id}/ubicacion', 'Empresa\ConductorController@getUbicacion');
 Route::get('/api/conductores/{conductor_id}', 'Empresa\ConductorController@show');
@@ -24,4 +26,4 @@ Route::post('/api/conductores/{conductor_id}/incidencias', 'Empresa\ConductorCon
 Route::get('/api/conductores/{conductor_id}/incidencias/ultima', 'Empresa\ConductorController@UltimaIncidencias');
 Route::put('/api/conductores/{conductor_id}/incidencias/{incidencia_id}', 'Empresa\ConductorController@finalizarIncidencia');
 
-Route::get('/api/conductores/disponibles', 'Empresa\ConductorController@cdisponibles');
+Route::get('/api/conductores/turnos/cantidad', 'Empresa\ConductorController@cantidadturnos');

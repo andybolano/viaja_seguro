@@ -260,7 +260,15 @@ class ConductorController extends Controller
     }
 
     public function cdisponibles(){
-        return Conductor::where('estado', 'Disponible')->count();
+        return JsonResponse::create(Conductor::where('estado', 'Disponible')->count());
+    }
+
+    public function cantidadturnos(){
+        return JsonResponse::create(Turno::count());
+    }
+
+    public function causentes(){
+        return JsonResponse::create(Conductor::where('estado', 'Ausente')->count());
     }
 
 }

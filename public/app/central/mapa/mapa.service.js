@@ -13,5 +13,13 @@
         this.activostotal = function(){
             return $http.get(API + '/conductores/disponibles');
         }
+
+        this.cantidadenturno= function () {
+            return $http.get(API + '/conductores/turnos/cantidad');
+        }
+
+        this.cantidadausente = function () {
+            return $http.get(API + '/conductores/ausentes');
+        }
     }
 })();

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Events\NuevaSolicitudEvent;
 use App\Model\Central;
 use App\Model\Conductor;
+use App\Model\Turno;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Vinkla\Pusher\PusherManager;
 use Illuminate\Routing\Controller;
@@ -31,6 +32,6 @@ class PdfController extends Controller
     }
     public function invoice()
     {
-        return Conductor::where('estado', 'Disponible')->count();
+        return Turno::count();
     }
 }
