@@ -6,9 +6,10 @@
         .module('app.centrales.mapa')
         .controller('mapaController', mapaController);
 
-    function mapaController($scope, turnosService, authService, socketCh, conductoresService, mapaService, $timeout) {
+    function mapaController($scope, turnosService, authService, socketCh, conductoresService, mapaService, $interval) {
 
         var vm = this;
+        var stop;
         vm.map;
         vm.markers = [];
         vm.markerId = 1;
@@ -19,6 +20,7 @@
         vm.ato = 0;
         vm.aus = 0;
         vm.etu = 0;
+        vm.bpa = 0;
 
         var markersIndex=[];
 
@@ -38,12 +40,30 @@
 
         $scope.$on("$destroy", function(){
             socketCh.disconnect();
+            if (angular.isDefined(stop)) {
+                $interval.cancel(stop);
+                stop = undefined;
+            }
         });
 
         function initialize(){
             //vm.ubicaciones = [];
             vm.ruta_id = 0;
             cargarRutas();
+
+            cdicponibles();
+            cantidadenturno();
+            causentes();
+            bpasajeros();
+
+            if ( angular.isDefined(stop) ) return;
+
+            stop = $interval(function() {
+                cdicponibles();
+                cantidadenturno();
+                causentes();
+                bpasajeros();
+            }, 10000);
         }
 
         function cargarRutas() {
@@ -64,9 +84,6 @@
 
         function updatePos(data){
             vm.voc = vm.markers.length;
-            cdicponibles();
-            cantidadenturno();
-            causentes();
             if(markersIndex[data.conductor_id] >= 0) {
                 vm.markers[markersIndex[data.conductor_id]].latitude = data.lat;
                 vm.markers[markersIndex[data.conductor_id]].longitude = data.lng;
@@ -142,6 +159,14 @@
             })
         }
 
+        function bpasajeros() {
+            mapaService.bpasajeros().then(function (c) {
+                vm.bpa = c.data;
+            }, function (e) {
+                console.log('error')
+            })
+        }
+
         function cantidadenturno() {
             mapaService.cantidadenturno().then(function (c) {
                 vm.etu = c.data;
@@ -149,5 +174,23 @@
                 console.log('error')
             })
         }
+
+
+        $scope.fight = function() {
+            // Don't start a new fight if we are already fighting
+
+        };
+
+        $scope.stopFight = function() {
+
+        };
+
+        function cargarTodas() {
+            cdicponibles();
+            cantidadenturno();
+            causentes();
+            bpasajeros();
+        }
+
     }
 })();

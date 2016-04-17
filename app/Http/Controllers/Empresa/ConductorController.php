@@ -271,4 +271,8 @@ class ConductorController extends Controller
         return JsonResponse::create(Conductor::where('estado', 'Ausente')->count());
     }
 
+    public function bpasajeros(){
+        return JsonResponse::create(Conductor::where('estado', 'En ruta')->count());
+    }
+
 }

@@ -21,5 +21,9 @@
         this.cantidadausente = function () {
             return $http.get(API + '/conductores/ausentes');
         }
+
+        this.bpasajeros = function () {
+            return $http.get(API + '/conductores/buscandopasajeros');
+        }
     }
 })();

@@ -1,6 +1,7 @@
 <?php
 Route::get('/api/conductores/disponibles', 'Empresa\ConductorController@cdisponibles');
 Route::get('/api/conductores/ausentes', 'Empresa\ConductorController@causentes');
+Route::get('/api/conductores/buscandopasajeros', 'Empresa\ConductorController@bpasajeros');
 //Route::post('/api/empresas/{empresa_id}/conductores','Empresa\ConductorController@store');
 Route::get('/api/conductores/rutas/{ruta_id}/ubicacion', 'Empresa\ConductorController@getUbicacion');
 Route::get('/api/conductores/{conductor_id}', 'Empresa\ConductorController@show');
