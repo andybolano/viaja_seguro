@@ -6,7 +6,7 @@
         .module('app.centrales.mapa')
         .controller('mapaController', mapaController);
 
-    function mapaController($scope, turnosService, authService, socketCh, conductoresService) {
+    function mapaController($scope, turnosService, authService, socketCh, conductoresService, mapaService) {
 
         var vm = this;
         vm.map;
@@ -14,6 +14,10 @@
         vm.markerId = 1;
         vm.contador = 1;
         vm.Markers = [];
+        vm.voc = 0;
+        vm.ato = 0;
+        vm.aus = 0;
+        vm.etu = 0;
         var markersIndex=[];
         socketCh.connect();
         var sessionid = '';
@@ -56,6 +60,7 @@
         }
 
         function updatePos(data){
+            vm.voc = vm.markers.length;
             if(markersIndex[data.conductor_id] >= 0) {
                 vm.markers[markersIndex[data.conductor_id]].latitude = data.lat;
                 vm.markers[markersIndex[data.conductor_id]].longitude = data.lng;
@@ -91,7 +96,7 @@
 
         function cargarMapa(){
             vm.markers = [];
-            // vm.markersIndex=[];
+            markersIndex=[];
             vm.map = {
                 center: {
                     latitude: authService.currentUser().central.miDireccionLa,
@@ -112,8 +117,13 @@
             socketCh.emit('changeRuta', ruta_id);
         }
 
-        vm.central = function(){
-
+        cdicponibles();
+        function cdicponibles() {
+            mapaService.activostotal().then(function (c) {
+                vm.ato = c.data;
+            }, function (e) {
+                console.log('error')
+            })
         }
     }
 })();

@@ -271,9 +271,9 @@ class CentralesController extends Controller
         $solicitud->conductor_id = $request->conductor_id;
         if($solicitud->save()){
             if($solicitud->tipo != 'vehiculo'){
-                $mensaje = 'Su solicitud a sido acepta, por favor espere a que el vehiculo la recoja';
-            }else {
                 $mensaje = 'Su solicitud de vehiculo a sido aceptada, espere a que el vehiculo lo recoja';
+            }else {
+                $mensaje = 'Su solicitud a sido acepta, por favor espere a que el vehiculo recoja su pedido';
             }
             $noty->enviarNotificacionClientes($mensaje, $solicitud->cliente_id, 'Confirmacion');
 

@@ -259,4 +259,8 @@ class ConductorController extends Controller
         }
     }
 
+    public function cdisponibles(){
+        return Conductor::where('estado', 'Disponible')->count();
+    }
+
 }

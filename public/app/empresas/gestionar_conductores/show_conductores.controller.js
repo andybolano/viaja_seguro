@@ -8,7 +8,7 @@
         .module('app.empresas.conductores')
         .controller('ConductorController', ConductorController);
 
-    function ConductorController(conductoresEmpresaService, centralesService, $filter, $timeout) {
+    function ConductorController(conductoresEmpresaService, centralesService, $filter) {
         var vm = this;
         vm.carga = false;
         vm.Conductores = [];
@@ -24,7 +24,7 @@
         vm.habilitar = habilitar;
         vm.eliminar = eliminar;
 
-        //cargarConductores();
+        cargarConductores();
 
         function nuevoConductor() {
             vm.mode = 'new';
@@ -135,7 +135,7 @@
                             }, function () {
                                 cargarConductores();
                             });
-                        }, 2000);
+                        }, 1000);
                     }, function (errorPl) {
                         swal({
                             title: 'Error!',
@@ -183,9 +183,6 @@
             }
         }
 
-        $timeout(function () {
-            cargarConductores();
-        }, 2000);
         function cargarConductores() {
             vm.Conductores = []
             vm.ConductoresInactivos = []
@@ -198,7 +195,6 @@
                         vm.ConductoresInactivos.push(p.data[i]);
                     }
                 }
-                vm.carga = true;
             }, function (errorPl) {
                 console.log('Error Al Cargar Datos', errorPl);
             });

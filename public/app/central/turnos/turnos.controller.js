@@ -155,7 +155,7 @@
         }
 
         function updateTurnos(ruta, accion){
-            // accion || (accion = 'default')
+            accion || (accion = 'default')
             for(var i=0; i<ruta.turnos.length; i++){
                 ruta.turnos[i].turno = i+1;
             }

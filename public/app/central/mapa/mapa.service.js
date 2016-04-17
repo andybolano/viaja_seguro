@@ -10,7 +10,8 @@
             return $http.get(API + '/conductores/rutas/'+ruta_id+'/ubicacion');
         }
 
-        this.getUbicacion = function(ruta_id){
+        this.activostotal = function(){
+            return $http.get(API + '/conductores/disponibles');
         }
     }
 })();

@@ -23,3 +23,5 @@ Route::get('/api/conductores/{conductor_id}/incidencias', 'Empresa\ConductorCont
 Route::post('/api/conductores/{conductor_id}/incidencias', 'Empresa\ConductorController@storeIncidencia');
 Route::get('/api/conductores/{conductor_id}/incidencias/ultima', 'Empresa\ConductorController@UltimaIncidencias');
 Route::put('/api/conductores/{conductor_id}/incidencias/{incidencia_id}', 'Empresa\ConductorController@finalizarIncidencia');
+
+Route::get('/api/conductores/disponibles', 'Empresa\ConductorController@cdisponibles');
