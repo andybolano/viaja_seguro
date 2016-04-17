@@ -106,10 +106,11 @@
         }
 
         vm.prueba = function(ruta_id){
+            var old_ruta = vm.ruta || null;
             vm.ruta = ruta_id;
             vm.mostrar = true;
             cargarMapa();
-            socketCh.emit('changeRuta', ruta_id);
+            socketCh.emit('changeRuta', {n: ruta_id, o: old_ruta});
         }
 
         vm.central = function(){

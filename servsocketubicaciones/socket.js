@@ -9,9 +9,10 @@ module.exports = function (io) {
     io.on('connection', function (socket) {
         console.log('CONNECTED KEY: '+socket.id);
 
-        socket.on("changeRuta", function (id) {
-            console.log(socket.id+' change ruta to '+ id);
-            monitores[id] = {ruta_id: id, id: socket.id};
+        socket.on("changeRuta", function (rutas) {
+            console.log(socket.id+' change ruta to '+ rutas.n);
+            delete monitores[rutas.o];
+            monitores[rutas.n] = {ruta_id: id, id: socket.id};
         });
 
         socket.on("loginCliente", function (data) {
