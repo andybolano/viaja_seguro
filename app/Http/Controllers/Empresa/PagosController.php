@@ -7,6 +7,7 @@ use App\Model\Conductor;
 use App\Model\Empresa;
 use App\Model\PagoPrestacion;
 use App\Model\Prestacion;
+use App\Model\Vehiculo;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -26,7 +27,7 @@ class PagosController extends Controller
     }
 
     public function getPlanilla($viaje){
-        $consulta = Planilla::select('*')->where('viaje_id', $viaje)->first()->load('viaje');
+        $consulta = Planilla::select('*')->where('viaje_id', $viaje)->first()->load('viaje', 'central');
         $consulta['giros'] = \DB::table('giros')->join('viaje_giros', 'giros.id', '=', 'viaje_giros.giro_id')
             ->join('viajes', 'viaje_giros.viaje_id', '=', 'viajes.id')
             ->where('viajes.id', $viaje)->select('*')->get();
@@ -37,8 +38,8 @@ class PagosController extends Controller
         $consulta['deducciones'] = \DB::table('deducciones')->join('viaje_deducciones', 'deducciones.id', '=', 'viaje_deducciones.deduccion_id')
             ->where('viajes.id', $viaje)->join('viajes', 'viaje_deducciones.viaje_id', '=', 'viajes.id')->select('*')->get();
 
-
         $consulta['conductor'] = Viaje::find($viaje)->conductor;
+        
         return JsonResponse::create($consulta);
 
     }

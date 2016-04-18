@@ -24,11 +24,11 @@
             var notificacion = new Notification('Nueva notificación de: ' +data.tipo, options);
             var audio = new Audio('http://dev.viajaseguro.co/public/assets/sounds/noty.mp3');
             audio.play();
-            setTimeout(notificacion.close.bind(notificacion), 5000);
+            setTimeout(notificacion.close.bind(notificacion), 10000);
 
             // Redireccionamos a un determinado Destino o URL al hacer click en la Notificación
             notificacion.onclick = function() {
-                window.open.bind("http://dev.viajaseguro.co/public/app/#/centrales/turnos", "http://dev.viajaseguro.co/");
+                window.open("http://dev.viajaseguro.co/public/app/#/centrales/turnos");
             };
         }
 
@@ -46,10 +46,10 @@
             var notificacion = new Notification('Nueva: ' +data.tipo, options);
             var audio = new Audio('http://dev.viajaseguro.co/public/assets/sounds/noty.mp3');
             audio.play();
-            setTimeout(notificacion.close.bind(notificacion), 5000);
+            setTimeout(notificacion.close.bind(notificacion), 10000);
             // Redireccionamos a un determinado Destino o URL al hacer click en la Notificación
             notificacion.onclick = function() {
-                window.open.bind("http://dev.viajaseguro.co/public/app/#/centrales/turnos", "http://dev.viajaseguro.co/");
+                window.open("http://dev.viajaseguro.co/public/app/#/centrales/turnos");
             };
         }
 

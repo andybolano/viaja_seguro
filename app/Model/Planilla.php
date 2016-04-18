@@ -24,6 +24,6 @@ class Planilla extends Model
 
     public function central()
     {
-        return $this->belongsTo(Central::class);
+        return $this->belongsTo(Central::class)->with('empresa', 'ciudaddepa');
     }
 }

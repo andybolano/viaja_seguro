@@ -11,10 +11,10 @@ class Viaje extends Model
     public $fillable = ['id', 'conductor_id', 'ruta_id', 'fecha', 'estado'];
 
     public $timestamps = false;
-
+    
     public function conductor()
     {
-        return $this->belongsTo(Conductor::class);
+        return $this->belongsTo(Conductor::class)->with('vehiculo');
     }
 
     public function pasajeros()
