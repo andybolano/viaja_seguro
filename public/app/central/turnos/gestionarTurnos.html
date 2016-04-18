@@ -74,28 +74,62 @@
 
                         <strong><p style="font-size: 20px">Solicitudes</p></strong>
                         <div style="overflow-y: scroll; height: 300px">
-
-                            <div class="row center" ng-repeat="algo in ruta.solicitud_pasajeros" style="border-radius: 15px; border:1px solid grey;height: 35px; ">
-                                <i class="material-icons" style="-webkit-transform: scaleX(-1); color: #D50000; float: left; padding: 5px">airline_seat_recline_extra</i>
-                                <strong >{{algo.datos_pasajeros.length}} Pasajero(s)</strong>
-                                <a style="float: right;padding: 5px" class="waves-effect waves-teal" ng-click="vm.getSolicitudPasajero(algo.id)">
-                                    <i class="material-icons prefix small" style="color: #9ccc65">visibility</i>
-                                </a>
+                            <div class="row center">
+                                <ul ng-repeat="algo in ruta.solicitud_pasajeros" class="collection" style="border-radius: 25px;" ng-show="ruta.solicitud_pasajeros.length > 0">
+                                    <li class="collection-item">
+                                        <div>
+                                            <strong >{{algo.datos_pasajeros.length}} Pasajero(s)</strong>
+                                            <a href="javascript:;" class="secondary-content">
+                                                <i class="material-icons">visibility</i>
+                                                <!--<div style="width: 24px; height: 24px; border-radius: 50%">-->
+                                                    <!--<img src="../../../assets/images/90786.gif" alt="">-->
+                                                <!--</div>-->
+                                            </a>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <ul class="collection" style="border-radius: 25px;" ng-show="ruta.solicitud_paquetes.length > 0">
+                                    <li ng-repeat="algo in ruta.solicitud_paquetes" class="collection-item">
+                                        <div>
+                                            <strong>{{algo.detalles.length}} Paquete(s)</strong>
+                                            <a href="javascript:;" class="secondary-content">
+                                                <i class="material-icons">visibility</i>
+                                            </a>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <ul class="collection" style="border-radius: 25px;" ng-show="ruta.solicitud_giros.length > 0">
+                                    <li ng-repeat="algo in ruta.solicitud_giros" class="collection-item">
+                                        <div>
+                                            <strong>{{algo.detalles.length}} Giro(s)</strong>
+                                            <a href="javascript:;" class="secondary-content">
+                                                <i class="material-icons">visibility</i>
+                                            </a>
+                                        </div>
+                                    </li>
+                                </ul>
                             </div>
-                            <div class="row center" ng-repeat="algo in ruta.solicitud_paquetes" style="border-radius: 15px; border:1px solid grey;height: 35px;">
-                                <i class="material-icons prefix small" style="color: #D50000;float: left; padding: 5px">redeem</i>
-                                <strong>{{algo.detalles.length}} Paquete(s)</strong>
-                                <a style="float: right;padding: 5px" class="waves-effect waves-teal" ng-click="vm.getSolicitudPaquete(algo.id)">
-                                    <i class="material-icons prefix small" style="color: #9ccc65">visibility</i>
-                                </a>
-                            </div>
-                            <div class="row center" ng-repeat="algo in ruta.solicitud_giros" style="border-radius: 15px; border:1px solid grey;height: 35px;">
-                                <i class="material-icons prefix small" style="color: #D50000;float: left; padding: 5px">attach_money</i>
-                                <strong>{{algo.detalles.length}} Giro(s)</strong>
-                                <a style="float: right;padding: 5px" class="waves-effect waves-teal" ng-click="vm.getSolicitudGiro(algo.id)">
-                                    <i class="material-icons prefix small" style="color: #9ccc65">visibility</i>
-                                </a>
-                            </div>
+                            <!--<div class="row center" ng-repeat="algo in ruta.solicitud_pasajeros" style="border-radius: 15px; border:1px solid grey;height: 35px; ">-->
+                                <!--<i class="material-icons" style="-webkit-transform: scaleX(-1); color: #D50000; float: left; padding: 5px">airline_seat_recline_extra</i>-->
+                                <!--<strong >{{algo.datos_pasajeros.length}} Pasajero(s)</strong>-->
+                                <!--<a style="float: right;padding: 5px" class="waves-effect waves-teal" ng-click="vm.getSolicitudPasajero(algo.id)">-->
+                                    <!--<i class="material-icons prefix small" style="color: #9ccc65">visibility</i>-->
+                                <!--</a>-->
+                            <!--</div>-->
+                            <!--<div class="row center" ng-repeat="algo in ruta.solicitud_paquetes" style="border-radius: 15px; border:1px solid grey;height: 35px;">-->
+                                <!--<i class="material-icons prefix small" style="color: #D50000;float: left; padding: 5px">redeem</i>-->
+                                <!--<strong>{{algo.detalles.length}} Paquete(s)</strong>-->
+                                <!--<a style="float: right;padding: 5px" class="waves-effect waves-teal" ng-click="vm.getSolicitudPaquete(algo.id)">-->
+                                    <!--<i class="material-icons prefix small" style="color: #9ccc65">visibility</i>-->
+                                <!--</a>-->
+                            <!--</div>-->
+                            <!--<div class="row center" ng-repeat="algo in ruta.solicitud_giros" style="border-radius: 15px; border:1px solid grey;height: 35px;">-->
+                                <!--<i class="material-icons prefix small" style="color: #D50000;float: left; padding: 5px">attach_money</i>-->
+                                <!--<strong>{{algo.detalles.length}} Giro(s)</strong>-->
+                                <!--<a style="float: right;padding: 5px" class="waves-effect waves-teal" ng-click="vm.getSolicitudGiro(algo.id)">-->
+                                    <!--<i class="material-icons prefix small" style="color: #9ccc65">visibility</i>-->
+                                <!--</a>-->
+                            <!--</div>-->
                         </div>
                     </div>
                 </div>
