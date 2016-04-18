@@ -79,31 +79,37 @@
                                     <li class="collection-item">
                                         <div>
                                             <strong >{{algo.datos_pasajeros.length}} Pasajero(s)</strong>
-                                            <a href="javascript:;" class="secondary-content">
-                                                <i class="material-icons">visibility</i>
-                                                <!--<div style="width: 24px; height: 24px; border-radius: 50%">-->
-                                                    <!--<img src="../../../assets/images/90786.gif" alt="">-->
-                                                <!--</div>-->
+                                            <a href="javascript:;" class="secondary-content" ng-click="vm.getSolicitudPasajero(algo.id)">
+                                                <!--<i class="material-icons">visibility</i>-->
+                                                <div >
+                                                    <img  class="circle" style="height: 30px; width: 30px" src="http://dev.viajaseguro.co/public/assets/images/90786.gif" alt="">
+                                                </div>
                                             </a>
                                         </div>
                                     </li>
                                 </ul>
-                                <ul class="collection" style="border-radius: 25px;" ng-show="ruta.solicitud_paquetes.length > 0">
-                                    <li ng-repeat="algo in ruta.solicitud_paquetes" class="collection-item">
+                                <ul ng-repeat="algo in ruta.solicitud_paquetes" class="collection" style="border-radius: 25px;" ng-show="ruta.solicitud_paquetes.length > 0">
+                                    <li class="collection-item">
                                         <div>
                                             <strong>{{algo.detalles.length}} Paquete(s)</strong>
-                                            <a href="javascript:;" class="secondary-content">
-                                                <i class="material-icons">visibility</i>
+                                            <a href="javascript:;" class="secondary-content" ng-click="vm.getSolicitudPaquete(algo.id)">
+                                                <!--<i class="material-icons">visibility</i>-->
+                                                <div >
+                                                    <img  class="circle" style="height: 30px; width: 30px" src="http://dev.viajaseguro.co/public/assets/images/90786.gif" alt="">
+                                                </div>
                                             </a>
                                         </div>
                                     </li>
                                 </ul>
-                                <ul class="collection" style="border-radius: 25px;" ng-show="ruta.solicitud_giros.length > 0">
-                                    <li ng-repeat="algo in ruta.solicitud_giros" class="collection-item">
+                                <ul ng-repeat="algo in ruta.solicitud_giros" class="collection" style="border-radius: 25px;" ng-show="ruta.solicitud_giros.length > 0">
+                                    <li class="collection-item">
                                         <div>
                                             <strong>{{algo.detalles.length}} Giro(s)</strong>
-                                            <a href="javascript:;" class="secondary-content">
-                                                <i class="material-icons">visibility</i>
+                                            <a href="javascript:;" class="secondary-content" ng-click="vm.getSolicitudGiro(algo.id)">
+                                                <!--<i class="material-icons">visibility</i>-->
+                                                <div >
+                                                    <img  class="circle" style="height: 30px; width: 30px" src="http://dev.viajaseguro.co/public/assets/images/90786.gif" alt="">
+                                                </div>
                                             </a>
                                         </div>
                                     </li>
