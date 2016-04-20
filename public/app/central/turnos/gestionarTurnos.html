@@ -510,7 +510,7 @@
         <div class="modal-content" id="planilla" >
             <div class="blended_grid">
                 <div class="pageHeader">
-                    <div style="border-radius: 15px; width: 30%;margin: 0 auto;" class="red accent-4">
+                    <div style="border-radius: 15px; width: 35%;margin: 0 auto;" class="red accent-4">
                         <h1 id="h1Planilla" class="white-text">PLANILLA N° {{vm.Planilla.viaje.planilla.numero_planilla}}</h1>
                     </div>
                 </div>
@@ -611,7 +611,7 @@
             <div class="col s12 " style="border-radius: 25px">
                 <div class="contenedor">
                     <div class="row">
-                        <div class="row col s6">
+                        <div class="col s6">
                             <h2><strong>Cantidad de pasajero(s) a viajar: {{vm.solicitud.datos_pasajeros.length}}</strong></h2>
                             <table  class="striped bordered responsive-table">
                                 <thead>
@@ -626,26 +626,26 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="row col s6">
-                            <h2>Selecciona al conductor que queires asignarle este pedido</h2>
+                        <div class="col s6">
+                            <h2>Asigna este pedido a un conductor</h2>
                             <table  class="striped bordered responsive-table">
                                 <thead>
-                                    <th style="color: #D50000;text-align: center">Turno</th>
-                                    <th style="color: #D50000;text-align: center">Identificacion</th>
-                                    <th style="color: #D50000;text-align: center">Nombre</th>
+                                <th style="color: #D50000;text-align: center">Turno</th>
+                                <th style="color: #D50000;text-align: center">Identificacion</th>
+                                <th style="color: #D50000;text-align: center">Nombre</th>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="conductor in vm.solicitud.conductores">
-                                        <td style="text-align: center">{{conductor.turno}}</td>
-                                        <td style="text-align: center">{{conductor.conductor.identificacion}}</td>
-                                        <td style="text-align: center">{{conductor.conductor.nombres}} {{conductor.conductor.apellidos}}</td>
-                                        <td style="text-align: center"><strong>{{conductor.cupos}} cupos disponibles</strong></td>
-                                        <td style="text-align: center">
-                                            <a href="javascript:" ng-click="vm.selectCsolicitud(vm.solicitud.id, conductor.conductor_id)">
-                                                <i class="material-icons prefix">touch_app</i>
-                                            </a>
-                                        </td>
-                                    </tr>
+                                <tr ng-repeat="conductor in vm.solicitud.conductores">
+                                    <td style="text-align: center">{{conductor.turno}}</td>
+                                    <td style="text-align: center">{{conductor.conductor.identificacion}}</td>
+                                    <td style="text-align: center">{{conductor.conductor.nombres}} {{conductor.conductor.apellidos}}</td>
+                                    <td style="text-align: center"><strong>{{conductor.cupos}} cupos disponibles</strong></td>
+                                    <td style="text-align: center">
+                                        <a href="javascript:" ng-click="vm.selectCsolicitud(vm.solicitud.id, conductor.conductor_id)">
+                                            <i class="material-icons prefix">touch_app</i>
+                                        </a>
+                                    </td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -695,7 +695,7 @@
                             <hr>
                         </div>
                         <div class="col s6">
-                            <h2>Selecciona al conductor que queires asignarle este pedido</h2>
+                            <h2>Asigna este pedido a un conductor</h2>
                             <table  class="striped bordered responsive-table">
                                 <thead>
                                 <th style="color: #D50000;text-align: center">Turno</th>

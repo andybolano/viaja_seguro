@@ -56,8 +56,9 @@
             ventimp.document.write( ficha.innerHTML );
             ventimp.document.close();
             var css = ventimp.document.createElement("link");
-            css.setAttribute("href", "http://dev.viajaseguro.co/public/assets/css/pdf.css");
+            css.setAttribute("href", "http://localhost/viaja_seguro/public/assets/css/pdf.css");
             css.setAttribute("rel", "stylesheet");
+            css.setAttribute("media", "print");
             css.setAttribute("type", "text/css");
             ventimp.document.head.appendChild(css);
             ventimp.print( );

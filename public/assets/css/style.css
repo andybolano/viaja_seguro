@@ -181,8 +181,3 @@ label {
 ::-webkit-scrollbar-thumb:window-inactive {
     background: white;
 }
-
-.collection-item{
-    /*margin-bottom: 10px !important;*/
-    height: 30px;
-}

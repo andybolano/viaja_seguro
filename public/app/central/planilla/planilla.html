@@ -42,52 +42,57 @@
     </div>
 
     <!--modal planilla-->
-    <div id="modalPlanilla" class="modal modal-fixed-footer" style="width: 70%;min-height:75%; border-radius: 15px">
+    <div id="modalPlanilla" class="modal modal-fixed-footer" style="width: 85%;min-height:90%; border-radius: 15px">
         <div class="modal-content padding" id="planilla">
             <div class="blended_grid">
                 <div class="pageHeader">
-                    <div style="border-radius: 15px; width: 30%;margin: 0 auto;" class="red accent-4">
+                    <div id="divH1" >
                         <h1 id="h1Planilla" class="white-text">PLANILLA N° {{vm.planilla.numero_planilla}}</h1>
                     </div>
                 </div>
-                <div class="pageBarLeft">
-                    <div class="pageLeftTop">
-                        <div class="row">
-                            <div class="col s7">
-                                <span><br> </span>
-                            </div>
-                            <div class="col s5">
-                                <div>{{vm.planilla.central.empresa.nombre}}</div>
-                                <div>{{vm.planilla.central.ciudaddepa.nombre}} -
-                                    {{vm.planilla.central.ciudaddepa.departamento.nombre}},<br/> {{vm.planilla.central.direccion}}
-                                </div>
-                                <div> {{vm.planilla.central.telefono}}</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="pageContent">
+                    <div class="row col s12" id="empresa">
+                        <div class="col s7">
+                            <span><br> </span>
+                        </div>
+                        <div class="col s5" >
+                            <div>{{vm.planilla.central.empresa.nombre}}</div>
+                            <div>{{vm.planilla.central.ciudaddepa.nombre}} -
+                                {{vm.planilla.central.ciudaddepa.departamento.nombre}},<br/> {{vm.planilla.central.direccion}}
+                            </div>
+                            <div> {{vm.planilla.central.telefono}}</div>
+                        </div>
+                    </div>
                     <br>
-                    <div class="row">
-                        <div class="col s6">
-                            <span><strong>CONDUCTOR: </strong></span> {{vm.planilla.conductor.nombres}} {{vm.planilla.conductor.apellidos}}
+                    <div id="datos">
+                        <div class="row" id="propietario">
+                            <div class="col s6">
+                                <span><strong>PROPIETARIO: </strong></span> {{vm.planilla.conductor.vehiculo.nombre_propietario}}
+                            </div>
+                            <div class="col s6">
+                                <span><strong>IDENTIFICACION: </strong></span> {{vm.planilla.conductor.vehiculo.identificacion_propietario}}
+                            </div>
                         </div>
-                        <div class="col s6">
-                            <span><strong>IDENTIFICACION: </strong></span> {{vm.planilla.conductor.identificacion}}
+                        <div class="row" id="conductor">
+                            <div class="col s6">
+                                <span><strong>CONDUCTOR: </strong></span> {{vm.planilla.conductor.nombres}} {{vm.planilla.conductor.apellidos}}
+                            </div>
+                            <div class="col s6">
+                                <span><strong>IDENTIFICACION: </strong></span> {{vm.planilla.conductor.identificacion}}
+                            </div>
+                        </div>
+                        <div class="row" id="otro">
+                            <div class="col s6">
+                                <span><strong>TELEFONO: </strong></span> {{vm.planilla.conductor.telefono}}
+                            </div>
+                            <div class="col s6">
+                                <span><strong>FECHA: </strong></span> {{vm.planilla.viaje.fecha | date}}
+                            </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col s6">
-                            <span><strong>TELEFONO: </strong></span> {{vm.planilla.conductor.telefono}}
-                        </div>
-                        <div class="col s6">
-                            <span><strong>FECHA: </strong></span> {{vm.planilla.viaje.fecha | date}}
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col s8">
-                            <table id="table" class="striped responsive-table">
+                        <div class="col s8" id="table">
+                            <table class="striped responsive-table">
                                 <thead>
                                 <tr>
                                     <th style="color: #D50000" class="center">IDENTIFICACION</th>
@@ -105,8 +110,8 @@
                             </table>
                         </div>
 
-                        <div class="col s4">
-                            <table id="tableD" class="striped responsive-table">
+                        <div class="col s4" id="tableD">
+                            <table class="striped responsive-table">
                                 <thead>
                                 <tr>
                                     <th style="color: #D50000" class="center">DEDUCCION</th>

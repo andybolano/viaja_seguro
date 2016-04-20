@@ -15,16 +15,34 @@
 .pageContent{
   float : left;
   clear : none;
-  height : 270px;
+  height : 500px;
   width : 100%;
 }
-
 
 .clearfix:after {
   display: table;
   clear: both;
 }
 
+#empresa{
+  width: 100%;
+  text-align: right;
+}
+
+div {
+  display: block;
+}
+
+.row {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+}
+
+#datos{
+  text-align: center;
+  display: block;
+}
 #bodyPlanilla {
   position: relative;
   width: 21cm;  
@@ -51,55 +69,37 @@
   width: 90px;
 }
 
+#divH1{
+  border-radius: 15px;
+  width: 35%;
+  margin: 0 auto;
+  background-color: #D50000 !important;
+}
+
+
 #h1Planilla {
-  /*border-top: 1px solid  #5D6975;*/
-  /*border-bottom: 1px solid  #5D6975;*/
-  /*color: #5D6975;*/
   font-size: 2.4em;
-  /*line-height: 1.4em;*/
   font-weight: normal;
   text-align: center;
-  /*margin: 0 0 20px 0;*/
-  /*background: url(http://dev.viajaseguro.co/public/assets/images/dimension.png);*/
-}
-
-#project {
-  float: left;
-}
-
-#project span {
-  color: #5D6975;
-  /*text-align: right;*/
-  width: 52px;
-  /*margin-right: 10px;*/
-  /*display: inline-block;*/
-  font-size: 0.8em;
-}
-
-#company {
-  float: right;
-  text-align: right;
-}
-
-#project div,
-#company div {
-  white-space: nowrap;        
+  font-family: Roboto, sans-serif;
 }
 
 #table {
   float: left;
-  /*width: 60%;*/
-  border-collapse: collapse;
-  border-spacing: 0;
-  margin-bottom: 20px;
+  font-size: 14px;
+  font-weight: normal;
+  font-family: Roboto, sans-serif;
+  display: block;
+  transform: none;
 }
 
 #tableD{
   float: right;
-  /*width: 40%;*/
-  border-collapse: collapse;
-  border-spacing: 0;
-  margin-bottom: 20px;
+  font-size: 14px;
+  font-weight: normal;
+  font-family: Roboto, sans-serif;
+  display: block;
+  transform: none;
 }
 
 table tr:nth-child(2n-1) td {
@@ -119,13 +119,6 @@ table th {
   font-weight: 900;
 }
 
-
-
-
-#notices .notice {
-  color: #5D6975;
-  font-size: 1.2em;
-}
 
 #footerPlanilla {
   color: #5D6975;
