@@ -24,8 +24,14 @@
             <ul>
                 <li id="user">
                     <div style="text-align:center;padding-top: 30px;padding-left: 10px;" class="center">
-                        <img alt="image" style="border:2px solid red; border-radius: 50%;"
-                             ng-src="http://{{vm.userImagen}}" width="90px;" height="90px">
+                        <div ng-if="vm.userRol == 'SUPER_ADM'">
+                            <img alt="image" style="border:2px solid red; border-radius: 50%;"
+                                 ng-src="http://dev.viajaseguro.co/public/assets/images/profile.jpg" width="90px;" height="90px">
+                        </div>
+                        <div ng-if="vm.userRol != 'SUPER_ADM'">
+                            <img alt="image" style="border:2px solid red; border-radius: 50%;"
+                                 ng-src="http://{{vm.userImagen}}" width="90px;" height="90px">
+                        </div>
                         <div style="color:red;font-weight:900;margin-top:-20px;">{{vm.userNombre}}</div>
                         <div style="color:black;margin-top:-25px;font-size:12px;">{{vm.userRol}}</div>
                     </div>
