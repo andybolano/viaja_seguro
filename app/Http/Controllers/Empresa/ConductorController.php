@@ -117,20 +117,16 @@ class ConductorController extends Controller
      */
     public function destroy($id)
     {
-        try{
-            $conductor = Conductor::find($id);
-            if($conductor){
-                $usuario = $conductor->usuario;
-                $conductor->activo = 0;
-                $usuario->estado = -1;
-                $conductor->save();
-                $usuario->save();
-                return response()->json(['message' => 'Registro eliminado'], 201);
-            }else{
-                return response()->json(['message' => 'El conductor no existe'], 400);
-            }
-        } catch (\Exception $exc) {
-            return response()->json(array("exception"=>$exc->getMessage(), ''=>$exc->getLine()), 400);
+        $conductor = Conductor::find($id);
+        if($conductor){
+            $usuario = $conductor->usuario;
+            $conductor->activo = 0;
+            $usuario->estado = -1;
+            $conductor->save();
+            $usuario->save();
+            return response()->json(['message' => 'Conductor inhabilitado'], 201);
+        }else{
+            return response()->json(['message' => 'El conductor no existe'], 400);
         }
     }
 

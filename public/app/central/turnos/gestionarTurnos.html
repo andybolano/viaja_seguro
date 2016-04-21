@@ -733,7 +733,14 @@
     <!--modal cambair conductor-->
     <div id="modalMoveGiro" class="modal modal-fixed-footer" style="width: 90%">
         <div class="modal-content" >
-            <h2>Solicitud hacia: {{vm.solicitud.ruta.destino.nombre}}</h2>
+            <div class="row">
+                <div class="col s6">
+                    <h2>Solicitud hacia: {{vm.solicitud.ruta.destino.nombre}}</h2>
+                </div>
+                <div class="col s6">
+                    <h2><p>Selecciona al conductor para cambiar el pedido</p></h2>
+                </div>
+            </div>
             <div class="col s12 " style="border-radius: 25px">
                 <div class="contenedor">
                     <div class="row col s12">
@@ -761,7 +768,6 @@
                             </div>
                         </div>
                         <div class="row col s6">
-                            <h2><p><strong>Selecciona al conductor para cambiar el pedido</strong></p></h2>
                             <div ng-repeat="ruta in vm.crutas">
                                 <div ng-show="ruta.turnos.length > 0">
                                     <h2>{{ruta.destino.ciudad.nombre}}</h2>
@@ -803,11 +809,18 @@
     <!--modal cambiar paquete conductor-->
     <div id="modalMovePaquete" class="modal modal-fixed-footer" style="width: 90%">
         <div class="modal-content" >
-            <h2>Solicitud hacia: {{vm.solicitud.ruta.destino.nombre}}</h2>
+            <div class="row">
+                <div class="col s6">
+                    <h2>Solicitud hacia: {{vm.solicitud.ruta.destino.nombre}}</h2>
+                </div>
+                <div class="col s6">
+                    <h2><p>Selecciona al conductor para cambiar el pedido</p></h2>
+                </div>
+            </div>
             <div class="col s12 " style="border-radius: 25px">
                 <div class="contenedor">
-                    <div class="row col s12">
-                        <div class="row col s6">
+                    <div class="row">
+                        <div class="col s6">
                             <h2>Detalles del paquete</h2>
                             <table  class="striped bordered responsive-table">
                                 <thead>
@@ -827,11 +840,10 @@
                             </table>
                             <div>
                                 <h2>Descripcion</h2>
-                                {{vm.paquete.descripcion}}
+                                {{vm.paquete.descripcion_paquete}}
                             </div>
                         </div>
-                        <div class="row col s6">
-                            <h2><p><strong>Selecciona al conductor para cambiar el pedido</strong></p></h2>
+                        <div class="col s6">
                             <div ng-repeat="ruta in vm.crutas">
                                 <div ng-show="ruta.turnos.length > 0">
                                     <h2>{{ruta.destino.ciudad.nombre}}</h2>

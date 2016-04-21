@@ -37,7 +37,7 @@
                                 <!--<th style="color: #D50000; text-aling:center">Central</th>-->
                                 </thead>
                                 <tbody>
-                                <tr ng-repeat="conductor in vm.ConductoresInactivos | filter : filtro" ng-show="vm.carga">
+                                <tr ng-repeat="conductor in vm.ConductoresInactivos | filter : filtro" >
                                     <td>
                                         <img id="imagen{{conductor.id}}" ng-src="http://{{conductor.imagen}}" class="circle" style="width:32px; height: 32px; border-radius: 50%">
                                     </td>

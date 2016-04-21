@@ -11,8 +11,8 @@
     function ConductorController(conductoresEmpresaService, centralesService, $filter) {
         var vm = this;
         vm.carga = false;
-        vm.Conductores = [];
-        vm.ConductoresInactivos = [];
+        vm.Conductores = []
+        vm.ConductoresInactivos = []
         vm.activos = true;
         vm.mode = 'new';
 
@@ -116,9 +116,9 @@
                 text: 'Intentas inhabilitar este conductor!',
                 type: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#64dd17',
+                confirmButtonColor: '#9ccc65',
                 cancelButtonColor: '#D50000',
-                confirmButtonText: 'Eliminar',
+                confirmButtonText: 'Inhabilitar',
                 cancelButtonText: 'Cancelar',
                 closeOnConfirm: false
             }, function (isConfirm) {

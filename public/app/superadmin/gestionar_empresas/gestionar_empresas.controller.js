@@ -171,7 +171,7 @@
         function eliminar(codigo) {
             swal({
                 title: 'ESTAS SEGURO?',
-                text: 'Intentas inhabilitar este conductor!',
+                text: 'Intentas eliminar esta empresa!',
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#9ccc65',
