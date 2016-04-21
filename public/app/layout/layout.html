@@ -18,14 +18,14 @@
         </div>
     </nav>
 </div>
-<div class="nav-bar">
-    <ul id="slide-out" class="side-nav fixed" style="width: 220px;margin-top: 60px;box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);">
-        <li class="no-padding">
+<div class="nav-bar" >
+    <ul id="slide-out" class="side-nav fixed" style="width: 220px;margin-top: 60px;">
+        <li class="no-padding" style="background-color: white; width: 220px; position: fixed">
             <ul>
-                <li style="color:white;">
+                <li id="user">
                     <div style="text-align:center;padding-top: 30px;padding-left: 10px;" class="center">
                         <img alt="image" style="border:2px solid red; border-radius: 50%;"
-                             ng-src="http://{{vm.userImagen}}" width="60px;" height="60px">
+                             ng-src="http://{{vm.userImagen}}" width="90px;" height="90px">
                         <div style="color:red;font-weight:900;margin-top:-20px;">{{vm.userNombre}}</div>
                         <div style="color:black;margin-top:-25px;font-size:12px;">{{vm.userRol}}</div>
                     </div>
@@ -33,13 +33,13 @@
             </ul>
         </li>
 
-        <div class="nav-collapse collapse center" ng-controller="MenuCtrl as vm" style="word-wrap: break-word">
-            <section id="sidebar" class="center grey darken-2">
+        <div class="nav-collapse collapse center" ng-controller="MenuCtrl as vm" style="word-wrap: break-word; margin-top: 210px">
+            <section id="sidebar">
                 <ul id="dock">
                     <!--<li class="launcher"></li>-->
-                    <li ng-repeat="op in vm.menu" class="launcher" style="border-bottom:1px solid #fff;">
+                    <li ng-repeat="op in vm.menu" class="launcher" style="border-bottom:1px solid #fff;" ui-sref="{{op.link}}" id="{{op.id}}">
                         <i style="color: white" class="large material-icons">{{op.icon}}</i>
-                        <a style="color: white" ui-sref="{{op.link}}" id="{{op.id}}">{{op.nombre}}</a>
+                        <span style="color: white">{{op.nombre}}</span>
                     </li>
                 </ul>
             </section>
@@ -71,6 +71,14 @@
 </script>
 
 <style type="text/css">
+    #slide-out{
+        background-color: #616161 !important;
+    }
+
+    #user{
+        color: white !important;
+    }
+
     #sidebar {
         /*background-color: #2c3e50;*/
         width: 100%;
@@ -79,20 +87,19 @@
     }
     #sidebar ul#dock {
         margin: -15px 0 0 0;
-        padding: 0;
         width: 100%;
         text-align: center;
         /*color: #ecf0f1;*/
-        border-right: 1px solid #1a242f;
+        background-color: #616161;
     }
     #sidebar ul#dock li.launcher {
         list-style: none;
-        margin-top: 25px;
         cursor: pointer;
+        background-color: #616161;
     }
     #sidebar ul#dock li.launcher>i {
         display: block;
         font-size: 2.5em;
-        margin-bottom: -2px;
+        background-color: #616161;
     }
 </style>

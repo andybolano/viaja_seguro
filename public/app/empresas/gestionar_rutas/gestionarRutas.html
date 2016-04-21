@@ -1,37 +1,39 @@
 <div ng-controller="RutasController as vm" class="contenedor">
-    <div class="row white">
-        <div class="col s12 z-depth-2" style="border-radius: 25px">
-            <div class="contenedor">
-                <div class="row">
-                    <div class="col s8">
-                        <h2>Gestion de Rutas</h2>
+    <div class="row">
+        <div class="col s12" >
+            <div class="row white col s12" style="border-radius: 15px; border:2px solid #D50000; width: 100%">
+                <div class="contenedor">
+                    <div class="row">
+                        <div class="col s8">
+                            <h2>Gestion de Rutas</h2>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col s12">
-                        <table class="striped bordered responsive-table">
-                            <thead>
-                            <!--<th style="text-align: center; color: #D50000">Id</th>-->
-                            <th style="text-align: center; color: #D50000">Ciudad Origen</th>
-                            <th style="text-align: center; color: #D50000">Ciudad Destino</th>
-                            <th style="text-align: center; color: #D50000"></th>
-                            </thead>
-                            <tbody>
-                            <tr ng-repeat="ruta in vm.rutas ">
-                                <!--<td style="text-align: center">{{ruta.id}}</td>-->
-                                <td style="text-align: center">{{ruta.origen.ciudad.nombre}}</td>
-                                <td style="text-align: center">{{ruta.destino.ciudad.nombre}}</td>
-                                <td style="text-align: center">
-                                    <a href="javascript:" ng-click="vm.verRuta(ruta)">
-                                        <i style="color: #9ccc65" class="material-icons prefix">visibility</i>
-                                    </a>
-                                    <a href="javascript:" ng-click="vm.eliminar(ruta.id)">
-                                        <i class="material-icons prefix" style="color:#c62828">delete</i>
-                                    </a>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+                    <div class="row">
+                        <div class="col s12">
+                            <table class="striped bordered responsive-table">
+                                <thead>
+                                <!--<th style="text-align: center; color: #D50000">Id</th>-->
+                                <th style="text-align: center; color: #D50000">Ciudad Origen</th>
+                                <th style="text-align: center; color: #D50000">Ciudad Destino</th>
+                                <th style="text-align: center; color: #D50000"></th>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="ruta in vm.rutas ">
+                                    <!--<td style="text-align: center">{{ruta.id}}</td>-->
+                                    <td style="text-align: center">{{ruta.origen.ciudad.nombre}}</td>
+                                    <td style="text-align: center">{{ruta.destino.ciudad.nombre}}</td>
+                                    <td style="text-align: center">
+                                        <a href="javascript:" ng-click="vm.verRuta(ruta)">
+                                            <i style="color: #9ccc65" class="material-icons prefix">visibility</i>
+                                        </a>
+                                        <a href="javascript:" ng-click="vm.eliminar(ruta.id)">
+                                            <i class="material-icons prefix" style="color:#c62828">delete</i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

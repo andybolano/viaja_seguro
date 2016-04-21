@@ -1,7 +1,7 @@
 <div ng-controller="turnosController as vm" class="contenedor" xmlns="http://www.w3.org/1999/html">
     <div class="row">
         <div class="col s12">
-            <div class="row white col s12" style="border-radius: 15px;border:2px solid #ff0000; width: 100%"
+            <div class="row white col s12" style="border-radius: 15px;border:2px solid #D50000; width: 100%"
                  ng-repeat="ruta in vm.rutas">
                 <div class=" contenedor simpleDemo col s12">
                     <div class="col s8">
@@ -361,7 +361,7 @@
         <!--<form action="" name="formPasajero">-->
         <div class="modal-content">
             <h2>Asignar giros a: {{vm.conductor.nombres}} {{vm.conductor.apellidos}}</h2>
-            <div class="col s12 z-depth-2" style="border-radius: 25px">
+            <div class="col s12 " style="border-radius: 25px">
                 <div class="contenedor">
                     <div class="row">
                         <div class="col s12">
@@ -596,9 +596,9 @@
 
         <div class="modal-footer">
             <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
-               style="margin-left:10px; border-radius: 15px">Salir</a>
+               style="margin-left:10px; border-radius: 25px">Salir</a>
             <a href="javascript:;" ng-click="vm.imprimir()" class="waves-effect waves-light btn green"
-               style="margin-left:10px; border-radius: 15px">Imprimir</a>
+               style="margin-left:10px; border-radius: 25px">Imprimir</a>
         </div>
     </div>
     <!--fin modal planilla-->
@@ -666,7 +666,7 @@
     <div id="modalSolicitudPG" class="modal modal-fixed-footer" style="width: 90%">
         <div class="modal-content" >
             <h2>Solicitud hacia: {{vm.solicitud.ruta.destino.nombre}}</h2>
-            <div class="col s12 z-depth-2" style="border-radius: 25px">
+            <div class="col s12 " style="border-radius: 25px">
                 <div class="contenedor">
                     <div class="row">
                         <div class="col s6">
@@ -723,9 +723,9 @@
         </div>
         <div class="modal-footer">
             <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red accent-4"
-               style="margin-left:10px;">Salir</a>
+               style="margin-left:10px; border-radius: 25px">Salir</a>
             <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn light-green"
-               style="margin-left:10px;" ng-click="vm.recharSolicitud(vm.solicitud.id)">Rechazar solicitud</a>
+               style="margin-left:10px; border-radius: 25px" ng-click="vm.recharSolicitud(vm.solicitud.id)">Rechazar solicitud</a>
         </div>
     </div>
     <!--fin modal solicitud paquete giro-->
@@ -734,7 +734,7 @@
     <div id="modalMoveGiro" class="modal modal-fixed-footer" style="width: 90%">
         <div class="modal-content" >
             <h2>Solicitud hacia: {{vm.solicitud.ruta.destino.nombre}}</h2>
-            <div class="col s12 z-depth-2" style="border-radius: 25px">
+            <div class="col s12 " style="border-radius: 25px">
                 <div class="contenedor">
                     <div class="row col s12">
                         <div class="row col s6">
@@ -804,7 +804,7 @@
     <div id="modalMovePaquete" class="modal modal-fixed-footer" style="width: 90%">
         <div class="modal-content" >
             <h2>Solicitud hacia: {{vm.solicitud.ruta.destino.nombre}}</h2>
-            <div class="col s12 z-depth-2" style="border-radius: 25px">
+            <div class="col s12 " style="border-radius: 25px">
                 <div class="contenedor">
                     <div class="row col s12">
                         <div class="row col s6">

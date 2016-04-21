@@ -1,103 +1,105 @@
 <div ng-controller="ConductorController as vm" class="contenedor">
-    <div class="row white">
-        <div class="col s12 z-depth-2" style="border-radius: 25px">
-            <div class="contenedor">
-                <div class="row">
-                    <div class="col s8">
-                        <h2>Gestion de Conductores</h2>
-                        <div class="chip" ng-show="vm.activos && (vm.ConductoresInactivos.length > 0)">
-                            <img src="../assets/images/cnd.png" alt="Conductores">
-                            <a style="color: black" href="javascript:;" ng-click="vm.activos = false" >Mostrar coductores sin habilitar</a>
+    <div class="row">
+        <div class="col s12" >
+            <div class="row white col s12" style="border-radius: 15px; border:2px solid #D50000; width: 100%">
+                <div class="contenedor">
+                    <div class="row">
+                        <div class="col s8">
+                            <h2>Gestion de Conductores</h2>
+                            <div class="chip" ng-show="vm.activos && (vm.ConductoresInactivos.length > 0)">
+                                <img src="../assets/images/cnd.png" alt="Conductores">
+                                <a style="color: black" href="javascript:;" ng-click="vm.activos = false" >Mostrar coductores sin habilitar</a>
+                            </div>
+                            <div class="chip" ng-hide="vm.activos">
+                                <img src="../assets/images/cnd.png" alt="Conductores">
+                                <a style="color: black" href="javascript:;" ng-click="vm.activos = true" >Mostrar coductores Activos</a>
+                            </div>
                         </div>
-                        <div class="chip" ng-hide="vm.activos">
-                            <img src="../assets/images/cnd.png" alt="Conductores">
-                            <a style="color: black" href="javascript:;" ng-click="vm.activos = true" >Mostrar coductores Activos</a>
+                        <div class="col s4">
+                            <div class="input-field col s12 grey lighten-3" style="padding: .5em; border-radius: 15px; height: 37px; border: none">
+                                <i class="material-icons prefix" style="color: #D50000;">search</i>
+                                <input  id="icon_prefix" type="text" ng-model="filtro">
+                                <label for="icon_prefix">Buscar</label>
+                            </div>
                         </div>
                     </div>
-                    <div class="col s4">
-                        <div class="input-field col s12 grey lighten-3" style="padding: .5em; border-radius: 15px; height: 37px; border: none">
-                            <i class="material-icons prefix" style="color: #D50000;">search</i>
-                            <input  id="icon_prefix" type="text" ng-model="filtro">
-                            <label for="icon_prefix">Buscar</label>
-                        </div>
-                    </div>
-                </div>
-                <div id="conductores-inactivos" class="row" ng-hide="vm.activos">
-                    <div class="col s12">
-                        <table class="striped bordered responsive-table">
-                            <thead>
-                            <th style="color: #D50000; text-aling:center"></th>
-                            <th style="color: #D50000; text-aling:center">Identificaci&oacute;n</th>
+                    <div id="conductores-inactivos" class="row" ng-hide="vm.activos">
+                        <div class="col s12">
+                            <table class="striped bordered responsive-table">
+                                <thead>
+                                <th style="color: #D50000; text-aling:center"></th>
+                                <th style="color: #D50000; text-aling:center">Identificaci&oacute;n</th>
 
-                            <th style="color: #D50000; text-aling:center">Nombres</th>
-                            <th style="color: #D50000; text-aling:center">Apellidos</th>
-                            <th style="color: #D50000; text-aling:center">Direcci&oacute;n</th>
-                            <th style="color: #D50000; text-aling:center">Telefono</th>
-                            <!--<th style="color: #D50000; text-aling:center">Central</th>-->
-                            </thead>
-                            <tbody>
-                            <tr ng-repeat="conductor in vm.ConductoresInactivos | filter : filtro" ng-show="vm.carga">
-                                <td>
-                                    <img id="imagen{{conductor.id}}" ng-src="http://{{conductor.imagen}}" class="circle" style="width:32px; height: 32px; border-radius: 50%">
-                                </td>
-                                <td>{{conductor.identificacion}}</td>
-
-                                <td>{{conductor.nombres}}</td>
-                                <td>{{conductor.apellidos}}</td>
-                                <td>{{conductor.direccion}}</td>
-                                <td>{{conductor.telefono}}</td>
-                                <td>
-                                    <a title="ver" href="javascript:" ng-click="vm.modificar(conductor)">
-                                        <i style="color: #9ccc65" class="material-icons prefix">visibility</i>
-                                    </a>
-                                    <a title="Habilitar" href="javascript:" ng-click="vm.openhabilitar(conductor)">
-                                        <i class="material-icons">done_all</i>
-                                    </a>
-                                        <!--<a title="Inhabilitar" href="javascript:" ng-click="vm.eliminar(conductor.id)">-->
-                                            <!--<i class="material-icons prefix" style="color:#c62828">delete</i>-->
-                                        <!--</a>-->
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div id="conductores-activos" class="row" ng-show="vm.activos">
-                    <div class="col s12">
-                        <table class="striped bordered responsive-table">
-                            <thead>
-                            <th style="color: #D50000; text-align: center"></th>
-                            <th style="color: #D50000; text-align: center">Identificaci&oacute;n</th>
-
-                            <th style="color: #D50000; text-align: center">Nombres</th>
-                            <th style="color: #D50000; text-align: center">Apellidos</th>
-                            <th style="color: #D50000; text-align: center">Direcci&oacute;n</th>
-                            <th style="color: #D50000; text-align: center">Telefono</th>
-                            <th style="color: #D50000; text-align: center">Central</th>
-                         
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="conductor in vm.Conductores | filter : filtro">
-                                    <td style="text-align: center">
-                                        <img id="imagena{{conductor.id}}" ng-src="http://{{conductor.imagen}}" class="circle profile animated" style="width:32px; height: 32px; border-radius: 50%">
+                                <th style="color: #D50000; text-aling:center">Nombres</th>
+                                <th style="color: #D50000; text-aling:center">Apellidos</th>
+                                <th style="color: #D50000; text-aling:center">Direcci&oacute;n</th>
+                                <th style="color: #D50000; text-aling:center">Telefono</th>
+                                <!--<th style="color: #D50000; text-aling:center">Central</th>-->
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="conductor in vm.ConductoresInactivos | filter : filtro" ng-show="vm.carga">
+                                    <td>
+                                        <img id="imagen{{conductor.id}}" ng-src="http://{{conductor.imagen}}" class="circle" style="width:32px; height: 32px; border-radius: 50%">
                                     </td>
-                                    <td style="text-align: center">{{conductor.identificacion}}</td>
-                                    <td style="text-align: center">{{conductor.nombres}}</td>
-                                    <td style="text-align: center">{{conductor.apellidos}}</td>
-                                    <td style="text-align: center">{{conductor.direccion}}</td>
-                                    <td style="text-align: center">{{conductor.telefono}}</td>
-                                    <td style="text-align: center">{{conductor.central.ciudad.nombre}}</td>
-                                    <td style="text-align: center">
-                                        <a title="Ver" href="javascript:" ng-click="vm.modificar(conductor)">
-                                            <i class="material-icons prefix" style="color: #9ccc65">visibility</i>
+                                    <td>{{conductor.identificacion}}</td>
+
+                                    <td>{{conductor.nombres}}</td>
+                                    <td>{{conductor.apellidos}}</td>
+                                    <td>{{conductor.direccion}}</td>
+                                    <td>{{conductor.telefono}}</td>
+                                    <td>
+                                        <a title="ver" href="javascript:" ng-click="vm.modificar(conductor)">
+                                            <i style="color: #9ccc65" class="material-icons prefix">visibility</i>
                                         </a>
-                                        <a title="Inhabilitar" href="javascript:" ng-click="vm.eliminar(conductor.id)">
-                                            <i class="material-icons prefix" style="color:#c62828">delete</i>
+                                        <a title="Habilitar" href="javascript:" ng-click="vm.openhabilitar(conductor)">
+                                            <i class="material-icons">done_all</i>
                                         </a>
+                                            <!--<a title="Inhabilitar" href="javascript:" ng-click="vm.eliminar(conductor.id)">-->
+                                                <!--<i class="material-icons prefix" style="color:#c62828">delete</i>-->
+                                            <!--</a>-->
                                     </td>
                                 </tr>
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="conductores-activos" class="row" ng-show="vm.activos">
+                        <div class="col s12">
+                            <table class="striped bordered responsive-table">
+                                <thead>
+                                <th style="color: #D50000; text-align: center"></th>
+                                <th style="color: #D50000; text-align: center">Identificaci&oacute;n</th>
+
+                                <th style="color: #D50000; text-align: center">Nombres</th>
+                                <th style="color: #D50000; text-align: center">Apellidos</th>
+                                <th style="color: #D50000; text-align: center">Direcci&oacute;n</th>
+                                <th style="color: #D50000; text-align: center">Telefono</th>
+                                <th style="color: #D50000; text-align: center">Central</th>
+
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="conductor in vm.Conductores | filter : filtro">
+                                        <td style="text-align: center">
+                                            <img id="imagena{{conductor.id}}" ng-src="http://{{conductor.imagen}}" class="circle profile animated" style="width:32px; height: 32px; border-radius: 50%">
+                                        </td>
+                                        <td style="text-align: center">{{conductor.identificacion}}</td>
+                                        <td style="text-align: center">{{conductor.nombres}}</td>
+                                        <td style="text-align: center">{{conductor.apellidos}}</td>
+                                        <td style="text-align: center">{{conductor.direccion}}</td>
+                                        <td style="text-align: center">{{conductor.telefono}}</td>
+                                        <td style="text-align: center">{{conductor.central.ciudad.nombre}}</td>
+                                        <td style="text-align: center">
+                                            <a title="Ver" href="javascript:" ng-click="vm.modificar(conductor)">
+                                                <i class="material-icons prefix" style="color: #9ccc65">visibility</i>
+                                            </a>
+                                            <a title="Inhabilitar" href="javascript:" ng-click="vm.eliminar(conductor.id)">
+                                                <i class="material-icons prefix" style="color:#c62828">delete</i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

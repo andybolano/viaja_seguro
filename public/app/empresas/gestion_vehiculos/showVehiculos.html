@@ -1,49 +1,51 @@
 <div ng-controller="vehiculosController as vm" class="contenedor">
-    <div class="row white">
-        <div class="col s12 z-depth-1">
-            <div class="contenedor">
-                <div class="row">
-                    <div class="col s8">
-                        <h2>Gestion de vehículos</h2>
-                    </div>
-                    <div class="col s4">
-                        <div class="input-field col s12 grey lighten-3" style="padding: .5em; border-radius: 15px; height: 37px; border: none">
-                            <i class="material-icons prefix" style="color: #D50000;">search</i>
-                            <input  id="icon_prefix" type="text" ng-model="filtro">
-                            <label for="icon_prefix">Buscar</label>
+    <div class="row">
+        <div class="col s12" >
+            <div class="row white col s12" style="border-radius: 15px; border:2px solid #D50000; width: 100%">
+                <div class="contenedor">
+                    <div class="row">
+                        <div class="col s8">
+                            <h2>Gestion de vehículos</h2>
+                        </div>
+                        <div class="col s4">
+                            <div class="input-field col s12 grey lighten-3" style="padding: .5em; border-radius: 15px; height: 37px; border: none">
+                                <i class="material-icons prefix" style="color: #D50000;">search</i>
+                                <input  id="icon_prefix" type="text" ng-model="filtro">
+                                <label for="icon_prefix">Buscar</label>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col s12">
-                        <table class="striped bordered responsive-table">
-                            <thead>
-                            <th style="color: #D50000; text-align: center"></th>
-                            <th style="color: #D50000; text-align: center">Placa</th>
-                            <th style="color: #D50000; text-align: center">Modelo</th>
-                            <th style="color: #D50000; text-align: center">Color</th>
-                            <th style="color: #D50000; text-align: center">Conductor</th>
-                            <th style="color: #D50000; text-align: center">Cupos</th>
-                            <th style="color: #D50000; text-align: center">Acciones</th>
-                            </thead>
-                            <tbody>
-                            <tr ng-repeat="vehiculo in vm.Vehiculos | filter : filtro">
-                                <td style="text-align: center">
-                                    <img ng-src="http://{{vehiculo.imagen}}" class="circle" style="width: 40px; height: 32px">
-                                </td>
-                                <td style="text-align: center">{{vehiculo.placa}}</td>
-                                <td style="text-align: center">{{vehiculo.modelo}}</td>
-                                <td style="text-align: center">{{vehiculo.color}}</td>
-                                <td style="text-align: center">{{vehiculo.conductor.nombres}} {{vehiculo.conductor.apellidos}}</td>
-                                <td style="text-align: center">{{vehiculo.cupos}}</td>
-                                <td style="text-align: center">
-                                    <a href="javascript:" ng-click="vm.modificar(vehiculo)">
-                                        <i style="color: #9ccc65" class="material-icons prefix">visibility</i>
-                                    </a>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+                    <div class="row">
+                        <div class="col s12">
+                            <table class="striped bordered responsive-table">
+                                <thead>
+                                <th style="color: #D50000; text-align: center"></th>
+                                <th style="color: #D50000; text-align: center">Placa</th>
+                                <th style="color: #D50000; text-align: center">Modelo</th>
+                                <th style="color: #D50000; text-align: center">Color</th>
+                                <th style="color: #D50000; text-align: center">Conductor</th>
+                                <th style="color: #D50000; text-align: center">Cupos</th>
+                                <th style="color: #D50000; text-align: center">Acciones</th>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="vehiculo in vm.Vehiculos | filter : filtro">
+                                    <td style="text-align: center">
+                                        <img ng-src="http://{{vehiculo.imagen}}" class="circle" style="width: 40px; height: 32px">
+                                    </td>
+                                    <td style="text-align: center">{{vehiculo.placa}}</td>
+                                    <td style="text-align: center">{{vehiculo.modelo}}</td>
+                                    <td style="text-align: center">{{vehiculo.color}}</td>
+                                    <td style="text-align: center">{{vehiculo.conductor.nombres}} {{vehiculo.conductor.apellidos}}</td>
+                                    <td style="text-align: center">{{vehiculo.cupos}}</td>
+                                    <td style="text-align: center">
+                                        <a href="javascript:" ng-click="vm.modificar(vehiculo)">
+                                            <i style="color: #9ccc65" class="material-icons prefix">visibility</i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

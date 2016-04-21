@@ -1,42 +1,44 @@
 <div ng-controller="PagosPrestacionesController as vm" class="contenedor">
-    <div class="row white">
-        <div class="col s12 z-depth-2" style="border-radius: 25px">
-            <div class="contenedor">
-                <div class="row">
-                    <div class="col s7">
-                        <h2>Pagos</h2>
-                    </div>
-                    <div class="col s5">
-                        <div class="input-field col s12 grey lighten-3" style="padding: .5em; border-radius: 15px; height: 37px; border: none">
-                            <i class="material-icons prefix" style="color: #D50000;">search</i>
-                            <input  id="icon_prefi" type="text" ng-model="filtro">
-                            <label for="icon_prefi">Buscar</label>
+    <div class="row">
+        <div class="col s12" >
+            <div class="row white col s12" style="border-radius: 15px; border:2px solid #D50000; width: 100%">
+                <div class="contenedor">
+                    <div class="row">
+                        <div class="col s7">
+                            <h2>Pagos</h2>
+                        </div>
+                        <div class="col s5">
+                            <div class="input-field col s12 grey lighten-3" style="padding: .5em; border-radius: 15px; height: 37px; border: none">
+                                <i class="material-icons prefix" style="color: #D50000;">search</i>
+                                <input  id="icon_prefi" type="text" ng-model="filtro">
+                                <label for="icon_prefi">Buscar</label>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col s12">
-                        <ul class="tabs">
-                            <li class="tab" ng-repeat="prestacion in vm.prestaciones">
-                                <a style="color: #D50000" ng-click="vm.loadPagos(prestacion)">{{prestacion.nombre}}</a>
-                            </li>
-                        </ul>
-                        <table class="striped bordered responsive-table">
-                            <thead>
-                            <th style="color: black;text-align: center">Conductor</th>
-                            <th style="color: black;text-align: center">Cedula</th>
-                            <th style="color:black;text-align: center">Valor</th>
-                            <th style="color: black;text-align: center">Fecha</th>
-                            </thead>
-                            <tbody>
-                            <tr ng-repeat="pago in vm.pagosPrestacion | filter : filtro">
-                                <td style="text-align: center">{{pago.conductor.nombre}}</td>
-                                <td style="text-align: center">{{pago.conductor.identificacion}}</td>
-                                <td style="text-align: center">{{pago.valor}}</td>
-                                <td style="text-align: center">{{pago.fecha}}</td>
-                            </tr>
-                            </tbody>
-                        </table>
+                    <div class="row">
+                        <div class="col s12">
+                            <ul class="tabs" style="border: 2px solid #D50000; border-radius: 25px">
+                                <li class="tab" ng-repeat="prestacion in vm.prestaciones">
+                                    <a style="color: #D50000" ng-click="vm.loadPagos(prestacion)">{{prestacion.nombre}}</a>
+                                </li>
+                            </ul>
+                            <table class="striped bordered responsive-table">
+                                <thead>
+                                <th style="color: black;text-align: center">Conductor</th>
+                                <th style="color: black;text-align: center">Cedula</th>
+                                <th style="color:black;text-align: center">Valor</th>
+                                <th style="color: black;text-align: center">Fecha</th>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="pago in vm.pagosPrestacion | filter : filtro">
+                                    <td style="text-align: center">{{pago.conductor.nombre}}</td>
+                                    <td style="text-align: center">{{pago.conductor.identificacion}}</td>
+                                    <td style="text-align: center">{{pago.valor}}</td>
+                                    <td style="text-align: center">{{pago.fecha}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

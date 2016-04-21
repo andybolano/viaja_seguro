@@ -1,66 +1,68 @@
 <div ng-controller="VehiculosController as vm" class="contenedor">
-    <div class="row white">
-        <div class="col s12 z-depth-2" style="border-radius: 25px">
-            <div class="contenedor">
-                <div class="row">
-                    <div class="col s8">
-                        <h2>Flota de vehículos</h2>
-                    </div>
-                    <div class="col s4">
-                        <div class="input-field col s12 grey lighten-3" style="padding: .5em; border-radius: 15px; height: 37px; border: none">
-                            <i class="material-icons prefix" style="color: #D50000;">search</i>
-                            <input  id="icon_prefix" type="text" ng-model="filtro">
-                            <label for="icon_prefix">Buscar</label>
+    <div class="row">
+        <div class="col s12" >
+            <div class="row white col s12" style="border-radius: 15px; border:2px solid #D50000; width: 100%">
+                <div class="contenedor">
+                    <div class="row">
+                        <div class="col s8">
+                            <h2>Flota de vehículos</h2>
+                        </div>
+                        <div class="col s4">
+                            <div class="input-field col s12 grey lighten-3" style="padding: .5em; border-radius: 15px; height: 37px; border: none">
+                                <i class="material-icons prefix" style="color: #D50000;">search</i>
+                                <input  id="icon_prefix" type="text" ng-model="filtro">
+                                <label for="icon_prefix">Buscar</label>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s4" style="margin-right: 20px">
-                        <!--<a href="javascript:;" class="btn btn-default" ng-click="agregarDireccionO()"></a>-->
-                        <select class="browser-default" name="selectEmpresa" id="selectEmpresa"
-                                ng-options="empresa.nombre for empresa in vm.empresas"
-                                ng-model="vm.selectedEmpresa" ng-change="vm.cargarVehiculos(vm.selectedEmpresa)">
-                            <option value="" disabled selected>Seleccione una empresa</option>
-                        </select>
-                        <label for="selectEmpresa" class="active">Empresa</label>
+                    <div class="row">
+                        <div class="input-field col s4" style="margin-right: 20px">
+                            <!--<a href="javascript:;" class="btn btn-default" ng-click="agregarDireccionO()"></a>-->
+                            <select class="browser-default" name="selectEmpresa" id="selectEmpresa"
+                                    ng-options="empresa.nombre for empresa in vm.empresas"
+                                    ng-model="vm.selectedEmpresa" ng-change="vm.cargarVehiculos(vm.selectedEmpresa)">
+                                <option value="" disabled selected>Seleccione una empresa</option>
+                            </select>
+                            <label for="selectEmpresa" class="active">Empresa</label>
+                        </div>
+                        <div class="input-field col s4" ng-show="vm.selectedCentral">
+                            <!--<a href="javascript:;" class="btn btn-default" ng-click="agregarDireccionO()"></a>-->
+                            <select class="browser-default" name="selectCentral" id="selectCentral"
+                                    ng-options="central.ciudad.nombre for central in vm.centrales"
+                                    ng-model="vm.selectedCentral" ng-change="vm.cargarVehiculosDeNuevo(vm.selectedCentral)">
+                                <option value="todas" ></option>
+                            </select>
+                            <label for="selectCentral" class="active">Central</label>
+                        </div>
+                        <div class="col s4" ng-show="vm.selectedCentral || vm.selectedEmpresa"><p>CANTIDAD TOTAL DE VEHICULOS: {{vm.total_vehiculos}}</p></div>
                     </div>
-                    <div class="input-field col s4" ng-show="vm.selectedCentral">
-                        <!--<a href="javascript:;" class="btn btn-default" ng-click="agregarDireccionO()"></a>-->
-                        <select class="browser-default" name="selectCentral" id="selectCentral"
-                                ng-options="central.ciudad.nombre for central in vm.centrales"
-                                ng-model="vm.selectedCentral" ng-change="vm.cargarVehiculosDeNuevo(vm.selectedCentral)">
-                            <option value="todas" ></option>
-                        </select>
-                        <label for="selectCentral" class="active">Central</label>
-                    </div>
-                    <div class="col s4" ng-show="vm.selectedCentral || vm.selectedEmpresa"><p>CANTIDAD TOTAL DE VEHICULOS: {{vm.total_vehiculos}}</p></div>
-                </div>
-                <div class="row">
-                    <div class="col s12">
-                        <table class="striped bordered responsive-table">
-                            <thead>
-                            <th style="color: #D50000; text-align: center">Placa</th>
-                            <th style="color: #D50000; text-align: center">Modelo</th>
-                            <th style="color: #D50000; text-align: center">Color</th>
-                            <th style="color: #D50000; text-align: center">Conductor</th>
-                            <th style="color: #D50000; text-align: center">Cupos</th>
-                            <th style="color: #D50000; text-align: center">Acciones</th>
-                            </thead>
-                            <tbody>
-                            <tr ng-repeat="vehiculo in vm.Vehiculos | filter : filtro">
-                                <td style="text-align: center">{{vehiculo.placa}}</td>
-                                <td style="text-align: center">{{vehiculo.modelo}}</td>
-                                <td style="text-align: center">{{vehiculo.color}}</td>
-                                <td style="text-align: center">{{vehiculo.conductor.nombres}} {{vehiculo.conductor.apellidos}}</td>
-                                <td style="text-align: center">{{vehiculo.cupos}}</td>
-                                <td style="text-align: center">
-                                    <a href="javascript:" ng-click="vm.modificar(vehiculo)">
-                                        <i style="color: #9ccc65" class="material-icons prefix">visibility</i>
-                                    </a>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+                    <div class="row">
+                        <div class="col s12">
+                            <table class="striped bordered responsive-table">
+                                <thead>
+                                <th style="color: #D50000; text-align: center">Placa</th>
+                                <th style="color: #D50000; text-align: center">Modelo</th>
+                                <th style="color: #D50000; text-align: center">Color</th>
+                                <th style="color: #D50000; text-align: center">Conductor</th>
+                                <th style="color: #D50000; text-align: center">Cupos</th>
+                                <th style="color: #D50000; text-align: center">Acciones</th>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="vehiculo in vm.Vehiculos | filter : filtro">
+                                    <td style="text-align: center">{{vehiculo.placa}}</td>
+                                    <td style="text-align: center">{{vehiculo.modelo}}</td>
+                                    <td style="text-align: center">{{vehiculo.color}}</td>
+                                    <td style="text-align: center">{{vehiculo.conductor.nombres}} {{vehiculo.conductor.apellidos}}</td>
+                                    <td style="text-align: center">{{vehiculo.cupos}}</td>
+                                    <td style="text-align: center">
+                                        <a href="javascript:" ng-click="vm.modificar(vehiculo)">
+                                            <i style="color: #9ccc65" class="material-icons prefix">visibility</i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

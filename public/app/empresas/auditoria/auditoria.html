@@ -1,71 +1,72 @@
 <div class="contenedor" ng-controller="auditoriaController as vm">
-    <div class="row white">
-        <div class="col s12 z-depth-2" style="border-radius: 25px">
-            <div class="contenedor">
-                <div class="row">
-                    <div class="col s8">
-                        <h2>Auditoria</h2>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="row col s8">
-                        <div class="input-field col s11">
-                            <i class="material-icons prefix"style="margin-left: -10px; color: #D50000">flag</i>
-                            <select class="browser-default" name="central" id="central"
-                                    ng-options="central.ciudad.nombre for central in vm.centrales"
-                                    ng-model="vm.central" required  style="margin-left: 20px; width: 470px" ng-change="vm.selectedChanged(vm.central)">
-                                <option value="" disabled selected>Seleccione Central</option>
-                            </select>
-                            <label for="central" class="active" style="margin-left: 20px;">Central</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div ng-show="vm.mostra">
+    <div class="row">
+        <div class="col s12" >
+            <div class="row white col s12" style="border-radius: 15px; border:2px solid #D50000; width: 100%">
+                <div class="contenedor">
                     <div class="row">
-                        <div class="col s12">
-                            <ul class="tabs">
-                                <li style="color: #D50000" class="tab col s3" class="active"><a href="#producidos">Producidos {{vm.central.ciudad.nombre}}</a></li>
-                                <!--<li class="tab col s3"><a href="#vehiculos">Vehiculos {{vm.central.ciudad.nombre}}</a></li>-->
-                            </ul>
+                        <div class="col s8">
+                            <h2>Auditoria</h2>
                         </div>
-                        <div id="producidos" class="col s12"><br>
-                            <div class="input-field col s3" style="border: 1px solid grey;border-radius: 15px;margin-right: 20px">
-                                <input type="date" class="datepicker" ng-model="vm.fechaI">
-                                <label >Fecha inicial</label>
+                    </div>
+                    <div class="row">
+                        <div class="row col s8">
+                            <div class="input-field col s6">
+                                <i class="material-icons prefix"style="margin-left: -10px; color: #D50000">flag</i>
+                                <select class="browser-default" name="central" id="central"
+                                        ng-options="central.ciudad.nombre for central in vm.centrales"
+                                        ng-model="vm.central" required  style="margin-left: 20px; width: 300px" ng-change="vm.selectedChanged(vm.central)">
+                                    <option value="" disabled selected>Seleccione Central</option>
+                                </select>
+                                <label for="central" class="active" style="margin-left: 20px;">Central</label>
                             </div>
-                            <div class="input-field col s3" style="border: 1px solid grey;border-radius: 15px">
-                                <input type="date" class="datepicker" ng-model="vm.fechaF">
-                                <label >Fecha final</label>
-                            </div>
-                            <div class="input-field col s1" title="Consultar" style="border: none">
-                                <a href="javascript:;" ng-click="vm.producidosFecha(vm.fechaI, vm.fechaF)">
-                                    <i style="color: #D50000" class="material-icons prefix">search</i>
-                                </a>
-                            </div>
-                            <br><br><br>
-                            <div ng-hide="vm.todo" class="center">
-                                {{vm.mensaje}}
-                            </div>
-                            <div class="row" ng-show="vm.todo">
-                                <div style="float: left">
-                                    <p><strong>CANTIDAD DE REGISTROS EN LA(S) FECHA(S) ESCOGIDA: {{vm.cantidad}}</strong></p>
-                                </div>
-                                <div style="float: right">
-                                    <p><strong>TOTAL PRODUCDIDO EN LA(S) FECHA(S) ESCOGIDA: {{vm.total | currency}}</strong></p>
-                                </div>
-                            </div>
+                        </div>
+                    </div>
 
-                            <div class="row" ng-show="vm.todo">
-                                <hr style="width: 100%; color: #D50000">
-                                <div class="col s12">
-                                    <table class="striped bordered responsive-table">
-                                        <thead class="center">
+                    <div ng-show="vm.mostra">
+                        <div class="row">
+                            <div class="col s12">
+                                <ul class="tabs">
+                                    <li style="color: #D50000" class="tab col s3" class="active"><a href="#producidos">Producidos {{vm.central.ciudad.nombre}}</a></li>
+                                    <!--<li class="tab col s3"><a href="#vehiculos">Vehiculos {{vm.central.ciudad.nombre}}</a></li>-->
+                                </ul>
+                            </div>
+                            <div id="producidos" class="col s12"><br>
+                                <div class="input-field col s3" style="border: 1px solid grey;border-radius: 15px;margin-right: 20px">
+                                    <input type="date" class="datepicker" ng-model="vm.fechaI">
+                                    <label >Fecha inicial</label>
+                                </div>
+                                <div class="input-field col s3" style="border: 1px solid grey;border-radius: 15px">
+                                    <input type="date" class="datepicker" ng-model="vm.fechaF">
+                                    <label >Fecha final</label>
+                                </div>
+                                <div class="input-field col s1" title="Consultar" style="border: none">
+                                    <a href="javascript:;" ng-click="vm.producidosFecha(vm.fechaI, vm.fechaF)">
+                                        <i style="color: #D50000" class="material-icons prefix">search</i>
+                                    </a>
+                                </div>
+                                <br><br><br>
+                                <div ng-hide="vm.todo" class="center">
+                                    {{vm.mensaje}}
+                                </div>
+                                <div class="row" ng-show="vm.todo">
+                                    <div style="float: left">
+                                        <p><strong>CANTIDAD DE REGISTROS EN LA(S) FECHA(S) ESCOGIDA: {{vm.cantidad}}</strong></p>
+                                    </div>
+                                    <div style="float: right">
+                                        <p><strong>TOTAL PRODUCDIDO EN LA(S) FECHA(S) ESCOGIDA: {{vm.total | currency}}</strong></p>
+                                    </div>
+                                </div>
+
+                                <div class="row" ng-show="vm.todo">
+                                    <hr style="width: 100%; color: #D50000">
+                                    <div class="col s12">
+                                        <table class="striped bordered responsive-table">
+                                            <thead class="center">
                                             <th style="color: #D50000; text-align: center">Numero de planilla</th>
                                             <th style="color: #D50000; text-align: center">Fecha</th>
                                             <th style="color: #D50000; text-align: center">Valor</th>
-                                        </thead>
-                                        <tbody>
+                                            </thead>
+                                            <tbody>
                                             <tr ng-repeat="producido in vm.producidos_fecha | filter : filtro">
                                                 <td style="text-align: center">{{producido.numero_planilla}}</td>
                                                 <td style="text-align: center">{{producido.fecha}}</td>
@@ -76,29 +77,30 @@
                                                     </a>
                                                 </td>
                                             </tr>
-                                        </tbody>
-                                    </table>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
 
-                        <!--<div id="vehiculos" class="col s12"><br>-->
+                            <!--<div id="vehiculos" class="col s12"><br>-->
                             <!--<div class="input-field col s2">-->
-                                <!--<input type="text" ng-model="vm.codigo_vial">-->
-                                <!--<label >CODIGO VIAL</label>-->
+                            <!--<input type="text" ng-model="vm.codigo_vial">-->
+                            <!--<label >CODIGO VIAL</label>-->
                             <!--</div>-->
                             <!--<div class="input-field col s1" title="Consultar vehiculo" style="border: none">-->
-                                <!--<a href="javascript:;" ng-click="vm.producidosVehiculo(vm.codigo_vial)">-->
-                                    <!--<i style="color: #D50000" class="material-icons prefix">search</i>-->
-                                <!--</a>-->
+                            <!--<a href="javascript:;" ng-click="vm.producidosVehiculo(vm.codigo_vial)">-->
+                            <!--<i style="color: #D50000" class="material-icons prefix">search</i>-->
+                            <!--</a>-->
                             <!--</div>-->
                             <!--<div class="input-field col s1" title="Consultar todos" style="margin-left: -45px; border: none">-->
-                                <!--<a href="javascript:;" ng-click="vm.producidosTodosVehiculo()">-->
-                                    <!--<i style="color: #D50000" class="material-icons prefix">autorenew</i>-->
-                                <!--</a>-->
+                            <!--<a href="javascript:;" ng-click="vm.producidosTodosVehiculo()">-->
+                            <!--<i style="color: #D50000" class="material-icons prefix">autorenew</i>-->
+                            <!--</a>-->
                             <!--</div>-->
-                        <!--</div>-->
+                            <!--</div>-->
+                        </div>
                     </div>
                 </div>
             </div>
