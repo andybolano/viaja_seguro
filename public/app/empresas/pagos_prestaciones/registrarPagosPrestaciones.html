@@ -5,7 +5,7 @@
                 <div class="contenedor">
                     <div class="row">
                         <div class="col s7">
-                            <h2>Pagos</h2>
+                            <h2><b style="color: black">Pagos</b></h2>
                         </div>
                         <div class="col s5">
                             <div class="input-field col s12 grey lighten-3" style="padding: .5em; border-radius: 15px; height: 37px; border: none">
@@ -22,12 +22,13 @@
                                     <a style="color: #D50000" ng-click="vm.loadPagos(prestacion)">{{prestacion.nombre}}</a>
                                 </li>
                             </ul>
+                            <br>
                             <table class="striped bordered responsive-table">
                                 <thead>
-                                <th style="color: black;text-align: center">Conductor</th>
-                                <th style="color: black;text-align: center">Cedula</th>
-                                <th style="color:black;text-align: center">Valor</th>
-                                <th style="color: black;text-align: center">Fecha</th>
+                                <th style="color: #D50000;text-align: center">Conductor</th>
+                                <th style="color: #D50000;text-align: center">Cedula</th>
+                                <th style="color:#D50000;text-align: center">Valor</th>
+                                <th style="color: #D50000;text-align: center">Fecha</th>
                                 </thead>
                                 <tbody>
                                 <tr ng-repeat="pago in vm.pagosPrestacion | filter : filtro">
@@ -57,47 +58,49 @@
             <div class="contenedor">
                 <div class="row">
                     <div class="col s7">
-                        <h2>Registrar Nuevo Pago {{vm.selectedPrestacion.nombre}}</h2>
+                        <h2> <b style="color: black">Registrar nuevo pago {{vm.selectedPrestacion.nombre}}</b></h2>
                     </div>
                 </div>
                 <div class="row">
                     <form class="col s4" name="formNuevoPago">
-                        <div class="col s12">
-                        <div class="row">
-                            <div class="row input-field col s12">
-                                <i style="color: #D50000"  class="material-icons prefix">local_taxi</i>
-                                <input id="nombre_conductor" type="text" class="validate" name="nombre_conductor" ng-model="vm.selectedConductorNombre" readonly required>
-                                <label for="nombre_conductor" class="{{vm.active}}" ng-class="{'active' : vm.selectedConductorNombre}">Conductor</label>
+                        <div class="col s12" style="margin-bottom: 50px">
+                            <div class="row"> <p><br></p></div>
+                            <div class="row"><p> </p></div>
+                            <div class="row">
+                                <div class="row input-field col s12">
+                                    <i style="color: #D50000"  class="material-icons prefix">local_taxi</i>
+                                    <input id="nombre_conductor" type="text" class="validate" name="nombre_conductor" ng-model="vm.selectedConductorNombre" readonly required>
+                                    <label for="nombre_conductor" class="{{vm.active}}" ng-class="{'active' : vm.selectedConductorNombre}">Conductor</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="row input-field col s12">
+                                    <i style="color: #D50000"  class="material-icons prefix">local_taxi</i>
+                                    <input id="cedula_conductor" type="text" class="validate" name="cedula_conductor" ng-model="vm.selectedConductorCedula" readonly required>
+                                    <label for="cedula_conductor" class="{{vm.active}}" ng-class="{'active' : vm.selectedConductorNombre}">Cedula</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="row input-field col s12">
+                                    <i style="color: #D50000" class="material-icons prefix">attach_money</i>
+                                    <input id="valor" type="text" class="validate" name="valor"  ng-model="vm.nuevaPrestacion.valor" required>
+                                    <label for="valor" class="{{vm.active}}">Valor</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="row input-field col s12">
+                                    <i style="color: #D50000" class="material-icons prefix">date_range</i>
+                                    <input style="border: none" id="fecha" type="date" class="validate" name="fecha" ng-model="vm.nuevaPrestacion.fecha" required>
+                                    <label for="fecha" class="active">Fecha</label>
+                                </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="row input-field col s12">
-                                <i style="color: #D50000"  class="material-icons prefix">local_taxi</i>
-                                <input id="cedula_conductor" type="text" class="validate" name="cedula_conductor" ng-model="vm.selectedConductorCedula" readonly required>
-                                <label for="cedula_conductor" class="{{vm.active}}" ng-class="{'active' : vm.selectedConductorNombre}">Cedula</label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="row input-field col s12">
-                                <i style="color: #D50000" class="material-icons prefix">attach_money</i>
-                                <input id="valor" type="text" class="validate" name="valor"  ng-model="vm.nuevaPrestacion.valor" required>
-                                <label for="valor" class="{{vm.active}}">Valor</label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="row input-field col s12">
-                                <i style="color: #D50000" class="material-icons prefix">date_range</i>
-                                <input style="border: none" id="fecha" type="date" class="validate" name="fecha" ng-model="vm.nuevaPrestacion.fecha" required>
-                                <label for="fecha" class="active">Fecha</label>
-                            </div>
-                        </div>
-                    </div>
                     </form>
                     <div class="nav-divider"></div>
                     <div class="col s8">
                         <div class="row">
                             <div class="col s7">
-                                <h2>Seleccionar conductor</h2>
+                                <h2><b>Seleccionar conductor</b></h2>
                             </div>
 
                             <div class="col s5">

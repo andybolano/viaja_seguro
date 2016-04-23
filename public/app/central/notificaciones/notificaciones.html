@@ -5,7 +5,7 @@
                 <div class="contenedor">
                     <div class="row">
                         <div class="col s8">
-                            <h2>Agendar Actividades</h2>
+                            <h2><b style="color: black">Agendar Actividades</b></h2>
                         </div>
                         <div class="col s4">
                             <div class="input-field col s12 grey lighten-3" style="padding: .5em; border-radius: 15px; height: 37px; border: none">
@@ -70,7 +70,7 @@
     <!--modal nuevo central-->
     <div id="modalNuevaActividad" class="modal modal-fixed-footer" style="height: 460px">
         <div class="modal-content">
-            <h2>{{vm.nombreForm}}</h2>
+            <h2><b style="color: black">{{vm.nombreForm}}</b></h2>
             <div class="row">
                 <form class="col s12" name="formNuevaActividad">
                     <div class="row col s12">
@@ -78,11 +78,11 @@
                             <div class="input-field col s5" style="margin-right: 30px">
                                 <i class="material-icons prefix" style="color: #D50000">fiber_new</i>
                                 <input style="border-radius: 15px" id="nombre" type="text" class="validate" name="nombre" ng-model="vm.selectedActividad.nombre">
-                                <label for="nombre" class="{{vm.active}}">Nombre</label>
+                                <label for="nombre" class="{{vm.active}}" style="font-size: 15px">Nombre</label>
                             </div>
                             <div class="input-field col s5" ng-hide="vm.editMode">
                                 <input style="border-radius: 15px" id="estado" type="text" class="validate" name="estado" ng-model="vm.selectedActividad.estado" required readonly>
-                                <label for="estado" class="active">Estado</label>
+                                <label for="estado" class="active" style="font-size: 15px">Estado</label>
                             </div>
                             <div class="input-field col s5" ng-show="vm.editMode">
                                 <select style="border-radius: 15px" class="browser-default" name="selectestado" id="selectestado" ng-show="vm.editMode"
@@ -91,20 +91,20 @@
                                     <option value="Finalizada"> Finalizada</option>
                                     <option value="Cancelada"> Cancelada</option>
                                 </select>
-                                <label for="selectestado" class="active">Estado</label>
+                                <label for="selectestado" class="active" style="font-size: 15px">Estado</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s5" style="margin-right: 30px">
                                 <i class="material-icons prefix" style="color: #D50000">date_range</i>
                                 <input style="border-radius: 15px; border: none" id="fecha" type="date" class="datepicker validate" name="fecha"  ng-model="vm.selectedActividad.fecha" required>
-                                <label for="fecha" class="active">Fecha</label>
+                                <label for="fecha" class="active" style="font-size: 15px">Fecha</label>
                             </div>
 
                             <div class="input-field col s5" style="height: 35px">
                                 <i class="material-icons prefix" style="color: #D50000">alarm</i>
                                 <input  id="hora" type="time" name="hora"  ng-model="vm.selectedActividad.hora" required>
-                                <label for="hora" class="active">Hora</label>
+                                <label for="hora" class="active" style="font-size: 15px">Hora</label>
                             </div>
                         </div>
                         <div class="row">

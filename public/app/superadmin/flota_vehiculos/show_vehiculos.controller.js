@@ -65,7 +65,6 @@
                 vm.Vehiculos = pl.data;
                 vm.total_vehiculos = vm.Vehiculos.length;
                 Materialize.toast('Vehiculos cargados correctamente', 5000, 'rounded');
-                init();
             }, function (errorPl) {
                 Materialize.toast('Ocurrio un error al cargar los vehiculos', 5000, 'rounded');
             });

@@ -5,7 +5,7 @@
                 <div class="contenedor">
                     <div class="row">
                         <div class="col s8">
-                            <h2>Gestion de Centrales</h2>
+                            <h2><b style="color: black">Gestion de Centrales</b></h2>
                         </div>
                         <div class="col s4">
                             <div class="input-field col s12 grey lighten-3" style="padding: .5em; border-radius: 15px; height: 37px; border: none">
@@ -61,7 +61,7 @@
     <!--modal nuevo central-->
     <div id="modalNuevaCentral" class="modal modal-fixed-footer" style="width: 90%;min-height:85%;">
         <div class="modal-content">
-            <h2>{{vm.nombreForm}}</h2>
+            <h2><b style="color: black">{{vm.nombreForm}}</b></h2>
             <div class="row">
                 <form class="col s12" name="formNuevaCentral">
                     <div class="row col s4">
@@ -74,16 +74,18 @@
                             </div>
                         </div>
                         <div class="row" >
-                            <div class="input-field col s11" style="border: 1px solid grey; border-radius: 15px;">
-                                <i style="color: #D50000" class="material-icons prefix">location_on</i>
-                                <input id="direccion" type="text" class="validate" name="direccion"  ng-model="vm.selectedCentral.direccion"
-                                       required ng-blur="vm.agregarDireccion()">
-                                <label for="direccion" class="{{vm.active}}">Direccion</label>
-                            </div>
-                            <div class="input-field col s1" style="border: none">
-                                <a href="javascript:;" ng-click="vm.agregarDireccion()">
-                                    <i style="float:right; color: #D50000" class="material-icons prefix">location_searching</i>
-                                </a>
+                            <div class="input-field col s12" style="border: 1px solid grey; border-radius: 15px;">
+                                <div style="float: left">
+                                    <i style="color: #D50000" class="material-icons prefix">location_on</i>
+                                    <input id="direccion" type="text" class="validate" name="direccion"  ng-model="vm.selectedCentral.direccion"
+                                           required ng-blur="vm.agregarDireccion()">
+                                    <label for="direccion" class="{{vm.active}}">Direccion</label>
+                                </div>
+                                <div style="float: right; padding-right: 30px">
+                                    <a href="javascript:;" ng-click="vm.agregarDireccion()">
+                                        <i style="float:right; color: #D50000" class="material-icons prefix">location_searching</i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                         <div class="row">
@@ -98,7 +100,7 @@
                                 <div class="input-field" style="border: none">
                                     <i class="material-icons prefix" style="padding-left: 3px; color: #D50000">lock</i>
 
-                                    <p style="padding-left: 45px; padding-top: 3px">Datos de acceso</p>
+                                    <p style="padding-left: 45px; padding-top: 0px; font-size: 15px"><b style="color: black">Datos de acceso</b></p>
                                 </div>
                                 <div style="color: #D50000" class="divider"></div>
                             </div>

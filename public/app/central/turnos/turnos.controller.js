@@ -873,7 +873,7 @@
         vm.recharSolicitud = function(){
             swal({
                 title: 'Escriba la causa de rechazo',
-                html: '<textarea id="causa" class="materialize-textarea" ng-model="vm.causa_rechazo"></textarea><label for="textarea1">Causa de rechazo</label>',
+                html: '<textarea style="padding-left: 30px" id="causa" class="materialize-textarea" placeholder="Escriba aqui la causa de rechazo para esta solicitud." ng-model="vm.causa_rechazo"></textarea><label for="textarea1">Causa de rechazo</label>',
                 showCancelButton: true,
                 confirmButtonColor: '#9ccc65',
                 cancelButtonColor: '#D50000',

@@ -104,9 +104,12 @@
 </div>
 
 <script>
+    var posX = 15;
+    var direccion = 0;
+
     var canvas;
     var ctx;
-    var shapes = []; //array para almacenar los objetos rectangulo, circulo y figura
+    var shapes = []; //array para almacenar los objetos, circulo
 
     function Circle(x, y, radius) {
         this.name = 'Circle';
@@ -137,12 +140,9 @@
     {
         var width = canvas.width;
         var height = canvas.height;
-        //crea los objetos
         for (var i = 0; i < 69; i++) {
-            var x = Math.random() * width;
-            var y = Math.random() * height;
-            var w = Math.random() * 100;
-            var h = Math.random() * 100;
+            var x = (Math.random() * width);
+            var y = (Math.random() * height);
             var r = Math.random() * 40;
             //numero aleatorio
             var value = Math.random() * 100;
@@ -158,5 +158,6 @@
         init();
         //pinta  las figuras
         paint();
+
     });
 </script>

@@ -5,7 +5,7 @@
                 <div class="contenedor">
                     <div class="row">
                         <div class="col s8">
-                            <h2>Auditoria</h2>
+                            <h2><b style="color: black">Auditoria</b></h2>
                         </div>
                     </div>
                     <div class="row">
@@ -33,11 +33,11 @@
                             <div id="producidos" class="col s12"><br>
                                 <div class="input-field col s3" style="border: 1px solid grey;border-radius: 15px;margin-right: 20px">
                                     <input type="date" class="datepicker" ng-model="vm.fechaI">
-                                    <label >Fecha inicial</label>
+                                    <label ><b style="color: black">Fecha inicial</b></label>
                                 </div>
                                 <div class="input-field col s3" style="border: 1px solid grey;border-radius: 15px">
                                     <input type="date" class="datepicker" ng-model="vm.fechaF">
-                                    <label >Fecha final</label>
+                                    <label ><b style="color: black">Fecha final</b></label>
                                 </div>
                                 <div class="input-field col s1" title="Consultar" style="border: none">
                                     <a href="javascript:;" ng-click="vm.producidosFecha(vm.fechaI, vm.fechaF)">
@@ -50,10 +50,10 @@
                                 </div>
                                 <div class="row" ng-show="vm.todo">
                                     <div style="float: left">
-                                        <p><strong>CANTIDAD DE REGISTROS EN LA(S) FECHA(S) ESCOGIDA: {{vm.cantidad}}</strong></p>
+                                        <p><b>CANTIDAD DE REGISTROS EN LA(S) FECHA(S) ESCOGIDA: {{vm.cantidad}}</b></p>
                                     </div>
                                     <div style="float: right">
-                                        <p><strong>TOTAL PRODUCDIDO EN LA(S) FECHA(S) ESCOGIDA: {{vm.total | currency}}</strong></p>
+                                        <p><b>TOTAL PRODUCDIDO EN LA(S) FECHA(S) ESCOGIDA: <b style="color: black">{{vm.total | currency}}</b></b></p>
                                     </div>
                                 </div>
 

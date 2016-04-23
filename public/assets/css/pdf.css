@@ -1,3 +1,118 @@
+@media print{
+  .blended_grid{
+    /*display : block;*/
+    width : 100%;
+    overflow : auto;
+    margin : 0 auto;
+  }
+  .pageHeader{
+    /*background-color : rgba(0, 0, 0, 0.5);*/
+    float : left;
+    clear : none;
+    height : 40px;
+    width : 100%;
+  }
+
+  .pageContent{
+    float : left;
+    clear : none;
+    height : 500px;
+    width : 100%;
+  }
+
+  .clearfix:after {
+    display: table;
+    clear: both;
+  }
+
+  #empresa{
+    width: 100%;
+    text-align: right;
+  }
+
+  div {
+    display: block;
+  }
+
+  .row {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+  }
+
+  #datos{
+    text-align: center;
+    display: block;
+  }
+
+  #divH1{
+    border-radius: 15px;
+    width: 35%;
+    margin: 0 auto;
+    background-color: #D50000 !important;
+  }
+
+
+  #h1Planilla {
+    font-size: 2.4em;
+    font-weight: normal;
+    text-align: center;
+    font-family: Roboto, sans-serif;
+  }
+
+  #table {
+    float: left;
+    font-size: 14px;
+    font-weight: normal;
+    font-family: Roboto, sans-serif;
+    display: block;
+    transform: none;
+  }
+
+  #tableD{
+    float: right;
+    font-size: 14px;
+    font-weight: normal;
+    font-family: Roboto, sans-serif;
+    display: block;
+    transform: none;
+  }
+
+  table tr:nth-child(2n-1) td {
+    background: #F5F5F5;
+  }
+
+
+  /*table td {*/
+  /*text-align: center;*/
+  /*}*/
+
+  table th {
+    padding: 5px 20px;
+    color: #5D6975;
+    border-bottom: 1px solid #C1CED9;
+    white-space: nowrap;
+    font-weight: 900;
+  }
+
+
+  #footerPlanilla {
+    color: #5D6975;
+    width: 100%;
+    height: 30px;
+    position: absolute;
+    bottom: 0;
+    border-top: 1px solid #C1CED9;
+    padding: 8px 0;
+    text-align: center;
+  }
+
+  #mainPlanilla {
+    padding: 10px 20px;
+    margin-bottom: 30px;
+  }
+}
+
 .blended_grid{
   /*display : block;*/
   width : 100%;
@@ -43,31 +158,6 @@ div {
   text-align: center;
   display: block;
 }
-#bodyPlanilla {
-  position: relative;
-  width: 21cm;  
-  height: 29.7cm; 
-  margin: 0 auto; 
-  color: #001028;
-  background: #FFFFFF; 
-  font-family: Arial, sans-serif; 
-  font-size: 12px; 
-  font-family: Arial;
-}
-
-#headerPlanilla {
-  padding: 10px 20px;
-  margin-bottom: 30px;
-}
-
-#logo {
-  text-align: center;
-  margin-bottom: 10px;
-}
-
-#logo img {
-  width: 90px;
-}
 
 #divH1{
   border-radius: 15px;
@@ -108,14 +198,14 @@ table tr:nth-child(2n-1) td {
 
 
 /*table td {*/
-  /*text-align: center;*/
+/*text-align: center;*/
 /*}*/
 
 table th {
   padding: 5px 20px;
   color: #5D6975;
   border-bottom: 1px solid #C1CED9;
-  white-space: nowrap;        
+  white-space: nowrap;
   font-weight: 900;
 }
 
@@ -135,3 +225,30 @@ table th {
   padding: 10px 20px;
   margin-bottom: 30px;
 }
+
+#bodyPlanilla {
+  position: relative;
+  width: 21cm;  
+  height: 29.7cm; 
+  margin: 0 auto; 
+  color: #001028;
+  background: #FFFFFF; 
+  font-family: Arial, sans-serif; 
+  font-size: 12px; 
+  font-family: Arial;
+}
+
+#headerPlanilla {
+  padding: 10px 20px;
+  margin-bottom: 30px;
+}
+
+#logo {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+#logo img {
+  width: 90px;
+}
+

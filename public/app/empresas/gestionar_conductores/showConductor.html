@@ -3,9 +3,10 @@
         <div class="col s12" >
             <div class="row white col s12" style="border-radius: 15px; border:2px solid #D50000; width: 100%">
                 <div class="contenedor">
+                    <h2><b style="color: black">Gestion de Conductores</b></h2>
                     <div class="row">
                         <div class="col s8">
-                            <h2>Gestion de Conductores</h2>
+                            <br>
                             <div class="chip" ng-show="vm.activos && (vm.ConductoresInactivos.length > 0)">
                                 <img src="../assets/images/cnd.png" alt="Conductores">
                                 <a style="color: black" href="javascript:;" ng-click="vm.activos = false" >Mostrar coductores sin habilitar</a>
@@ -39,7 +40,7 @@
                                 <tbody>
                                 <tr ng-repeat="conductor in vm.ConductoresInactivos | filter : filtro" >
                                     <td>
-                                        <img id="imagen{{conductor.id}}" ng-src="http://{{conductor.imagen}}" class="circle" style="width:32px; height: 32px; border-radius: 50%">
+                                        <img id="imagen{{conductor.id}}" ng-src="http://{{conductor.imagen}}" style="width:50px; height: 50px; border-radius: 50%">
                                     </td>
                                     <td>{{conductor.identificacion}}</td>
 
@@ -80,7 +81,7 @@
                                 <tbody>
                                     <tr ng-repeat="conductor in vm.Conductores | filter : filtro">
                                         <td style="text-align: center">
-                                            <img id="imagena{{conductor.id}}" ng-src="http://{{conductor.imagen}}" class="circle profile animated" style="width:32px; height: 32px; border-radius: 50%">
+                                            <img id="imagena{{conductor.id}}" ng-src="http://{{conductor.imagen}}"  style="width:50px; height: 50px; border-radius: 50%">
                                         </td>
                                         <td style="text-align: center">{{conductor.identificacion}}</td>
                                         <td style="text-align: center">{{conductor.nombres}}</td>
@@ -115,7 +116,7 @@
     <!--Modal nuevo conductor-->
     <div id="modalNuevoConductor" class="modal modal-fixed-footer" style="width: 80%;min-height:85%;">
         <div class="modal-content">
-            <h2>{{vm.titulo}}</h2>
+            <h2><b style="color: black">{{vm.titulo}}</b></h2>
             <div class="row">
                 <div class="col s8">
                     <form class="col s12" name="formConductor" id="formConductor">
@@ -188,8 +189,7 @@
                     <div class="col s12">
                         <div class="input-field" style="border: none">
                             <i class="material-icons prefix" style="padding-left: 3px;">local_taxi</i>
-
-                            <h2 style="padding-left: 45px; padding-top: 3px">Datos del vehiculo</h2>
+                            <b style="font-size: 25px;padding-left: 45px; padding-top: 3px">Datos del vehiculo</b>
                         </div>
                         <div class="divider"></div>
                         <div class="row">
@@ -246,7 +246,7 @@
                                     <div class="row">
                                         <div class="col s12">
                                             <i  class="material-icons prefix">payment</i>
-                                            Documentación del vehículo
+                                            <b style="font-size: 20px; padding-left: 15px; padding-top: 3px">Documentación del vehículo</b>
                                         </div>
 
                                         <div class="row col s6">
@@ -258,7 +258,7 @@
                                                     </p>
                                                 </div>
                                                 <div class="col s12">
-                                                    <p>Fecha de vencimiento</p>
+                                                    <p><b>Fecha de vencimiento</b></p>
                                                     <input style="border-radius: 15px" type="date" class="datepicker" name="fecha_soat" ng-model="vm.Vehiculo.fecha_soat" id="fecha_soat"  ui-date="{ dateFormat: 'yy-MM-DD' }" min-date="minDate">
                                                 </div>
                                             </fieldset>
@@ -272,7 +272,7 @@
                                                     </p>
                                                 </div>
                                                 <div class="col s12">
-                                                    <p>Fecha de vencimiento</p>
+                                                    <p><b>Fecha de vencimiento</b></p>
                                                     <input style="border-radius: 15px" type="date" class="datepicker" name="fecha_tecnomecanica" ng-model="vm.Vehiculo.fecha_tecnomecanica" id="fecha_tecnomecanica"  ui-date="{ dateFormat: 'yy-MM-DD' }" min-date="minDate">
                                                 </div>
                                             </fieldset>
@@ -282,7 +282,7 @@
                                                 <div class="col s12">
                                                     <p style="margin-bottom: 0; margin-top: 0; margin-left: 10px">
                                                         <input style="border-radius: 15px" type="checkbox" ng-model="vm.Vehiculo.tarjeta_propiedad" id="tpropiedad"/>
-                                                        <label for="tpropiedad">TARJETA DE PROPIEDAD</label>
+                                                        <label for="tpropiedad"><b>TARJETA DE PROPIEDAD</b></label>
                                                     </p>
                                                 </div>
                                             </fieldset>
