@@ -25,7 +25,7 @@ class EmpresaController extends Controller
         $input = \Request::all();
         if(isset($input['include'])){
             if(isset($input['ciudad'])){
-                $empresas = Empresa::with('servicios', $input['include'].'.ciudad')
+                $empresas = Empresa::with('servicios')
                     ->whereHas('centrales', function ($query, $input) {
                         $query->where('ciudad.nombre', '=', $input['ciudad']);
                     })->get();
