@@ -10,6 +10,7 @@ class NotificacionController extends Controller
     {
         $devices = null;
         $device_token = null;
+        $key = env('KEY_CONDUCTORES');
         $reg_id = '';
         //llamar al usuario
         if(is_array($conductor_id)){
@@ -42,7 +43,7 @@ class NotificacionController extends Controller
             $url = 'https://android.googleapis.com/gcm/send';
 
             $fields = array('registration_ids' => $regArray, 'data' => $message,);
-            $headers = array( 'Authorization: key=AIzaSyApNpUuEY-iXEdTJKrzMxLEuwWNvskeGvU','Content-Type: application/json');
+            $headers = array( 'Authorization: key='.$key,'Content-Type: application/json');
 
             $ch = curl_init();
 
@@ -65,6 +66,7 @@ class NotificacionController extends Controller
     {
         $devices = null;
         $device_token = null;
+        $key = env('KEY_CLIENTES');
         $reg_id = '';
         //llamar al usuario
         if(is_array($cliente_id)){
@@ -103,7 +105,7 @@ class NotificacionController extends Controller
             $url = 'https://android.googleapis.com/gcm/send';
 
             $fields = array('registration_ids' => $regArray, 'data' => $message,);
-            $headers = array( 'Authorization: key=AIzaSyApNpUuEY-iXEdTJKrzMxLEuwWNvskeGvU','Content-Type: application/json');
+            $headers = array( 'Authorization: key='.$key,'Content-Type: application/json');
 
             $ch = curl_init();
 

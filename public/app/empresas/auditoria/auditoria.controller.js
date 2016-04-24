@@ -42,7 +42,6 @@
         function producidosFecha(fechaI, fechaF){
             vm.fechaI = fechaI;
             vm.fechaF = fechaF;
-            vm.total = 0;
             var obj = {
                 fechaI : vm.fechaI,
                 fechaF :vm.fechaF
@@ -51,6 +50,7 @@
 
             auditoriaService.getProducidosFecha(vm.central.id, obj).then(success, error);
             function success(p){
+                vm.total = 0;
                 vm.producidos_fecha = [];
                 vm.cantidad = p.data.length;
                 if(p.data.length <= 0){

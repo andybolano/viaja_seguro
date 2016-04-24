@@ -6,15 +6,24 @@
         .module('app.centrales.mapa')
         .controller('mapaController', mapaController);
 
-    function mapaController($scope, turnosService, authService, socketCh, conductoresService) {
+    function mapaController($scope, turnosService, authService, socketCh, conductoresService, mapaService, $interval) {
 
         var vm = this;
+        var stop;
         vm.map;
         vm.markers = [];
         vm.markerId = 1;
         vm.contador = 1;
         vm.Markers = [];
+
+        vm.voc = 0;
+        vm.ato = 0;
+        vm.aus = 0;
+        vm.etu = 0;
+        vm.bpa = 0;
+
         var markersIndex=[];
+
         socketCh.connect();
         var sessionid = '';
 
@@ -31,12 +40,30 @@
 
         $scope.$on("$destroy", function(){
             socketCh.disconnect();
+            if (angular.isDefined(stop)) {
+                $interval.cancel(stop);
+                stop = undefined;
+            }
         });
 
         function initialize(){
             //vm.ubicaciones = [];
             vm.ruta_id = 0;
             cargarRutas();
+
+            cdicponibles();
+            cantidadenturno();
+            causentes();
+            bpasajeros();
+
+            if ( angular.isDefined(stop) ) return;
+
+            stop = $interval(function() {
+                cdicponibles();
+                cantidadenturno();
+                causentes();
+                bpasajeros();
+            }, 10000);
         }
 
         function cargarRutas() {
@@ -56,6 +83,7 @@
         }
 
         function updatePos(data){
+            vm.voc = vm.markers.length;
             if(markersIndex[data.conductor_id] >= 0) {
                 vm.markers[markersIndex[data.conductor_id]].latitude = data.lat;
                 vm.markers[markersIndex[data.conductor_id]].longitude = data.lng;
@@ -90,8 +118,9 @@
         }
 
         function cargarMapa(){
+            vm.voc = 0;
             vm.markers = [];
-            // vm.markersIndex=[];
+            markersIndex=[];
             vm.map = {
                 center: {
                     latitude: authService.currentUser().central.miDireccionLa,
@@ -109,12 +138,59 @@
             var old_ruta = vm.ruta || null;
             vm.ruta = ruta_id;
             vm.mostrar = true;
-            cargarMapa();
+            setTimeout(cargarMapa(), 900);
+
             socketCh.emit('changeRuta', {n: ruta_id, o: old_ruta});
         }
 
-        vm.central = function(){
-
+        function cdicponibles() {
+            mapaService.activostotal().then(function (c) {
+                vm.ato = c.data;
+            }, function (e) {
+                console.log('error')
+            })
         }
+
+        function causentes() {
+            mapaService.cantidadausente().then(function (c) {
+                vm.aus = c.data;
+            }, function (e) {
+                console.log('error')
+            })
+        }
+
+        function bpasajeros() {
+            mapaService.bpasajeros().then(function (c) {
+                vm.bpa = c.data;
+            }, function (e) {
+                console.log('error')
+            })
+        }
+
+        function cantidadenturno() {
+            mapaService.cantidadenturno().then(function (c) {
+                vm.etu = c.data;
+            }, function (e) {
+                console.log('error')
+            })
+        }
+
+
+        $scope.fight = function() {
+            // Don't start a new fight if we are already fighting
+
+        };
+
+        $scope.stopFight = function() {
+
+        };
+
+        function cargarTodas() {
+            cdicponibles();
+            cantidadenturno();
+            causentes();
+            bpasajeros();
+        }
+
     }
 })();

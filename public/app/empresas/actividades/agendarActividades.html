@@ -1,57 +1,59 @@
 <div ng-controller="ActividadesController as vm" class="contenedor">
-    <div class="row white">
-        <div class="col s12 z-depth-2" style="border-radius: 15px">
-            <div class="contenedor">
-                <div class="row">
-                    <div class="col s8">
-                        <h2>Agendar Actividades</h2>
-                    </div>
-                    <div class="col s4">
-                        <div class="input-field col s12 grey lighten-3" style="padding: .5em; border-radius: 15px; height: 37px; border: none">
-                            <i class="material-icons prefix" style="color: #D50000;">search</i>
-                            <input  id="icon_prefix" type="text" ng-model="filtro">
-                            <label for="icon_prefix">Buscar</label>
+    <div class="row">
+        <div class="col s12" >
+            <div class="row white col s12" style="border-radius: 15px; border:2px solid #D50000; width: 100%">
+                <div class="contenedor">
+                    <div class="row">
+                        <div class="col s8">
+                            <h2><b style="color: black">Agendar Actividades</b></h2>
+                        </div>
+                        <div class="col s4">
+                            <div class="input-field col s12 grey lighten-3" style="padding: .5em; border-radius: 15px; height: 37px; border: none">
+                                <i class="material-icons prefix" style="color: #D50000;">search</i>
+                                <input  id="icon_prefix" type="text" ng-model="filtro">
+                                <label for="icon_prefix">Buscar</label>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col s12">
-                        <table class="striped bordered responsive-table">
-                            <thead>
-                            <th style="color: #D50000;text-align: center" >Fecha</th>
-                            <th style="color: #D50000;text-align: center">Hora</th>
-                            <th style="color: #D50000;text-align: center">Actividad</th>
-                            <th style="color: #D50000;text-align: center"></th>
-                            <th style="color: #D50000;text-align: center"></th>
-                            </thead>
-                            <tbody>
-                            <tr ng-repeat="actividad in vm.actividades| filter : filtro | orderBy : 'fecha'">
-                                <td style="text-align: center">{{actividad.fecha | esdate: 'short'}}</td>
-                                <td style="text-align: center">{{actividad.fecha | date: 'hh:mm a'}}</td>
-                                <td style="text-align: center">{{actividad.nombre}}</td>
-                                <td style="text-align: center">{{actividad.estado}}</td>
-                                <td style="text-align: center">
-                                    <a href="javascript:" ng-click="vm.actualizar(actividad)">
-                                        <i class="material-icons prefix">visibility</i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr ng-show="vm.actividadesFinalizadas.length > 0 && vm.actividades.length > 0">
-                                <td style="text-align: center" colspan="5"></td>
-                            </tr>
-                            <tr ng-repeat="actividad in vm.actividadesFinalizadas| filter : filtro | orderBy : 'fecha' : reverse">
-                                <td style="text-align: center">{{actividad.fecha | date: 'MMMM d'}}</td>
-                                <td style="text-align: center">{{actividad.fecha | date: 'hh:mm a'}}</td>
-                                <td style="text-align: center">{{actividad.nombre}}</td>
-                                <td style="text-align: center">{{actividad.estado}}</td>
-                                <td style="text-align: center">
-                                    <a href="javascript:" ng-click="vm.actualizar(actividad)">
-                                        <i class="material-icons prefix" style="color: #9ccc65">visibility</i>
-                                    </a>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+                    <div class="row">
+                        <div class="col s12">
+                            <table class="striped bordered responsive-table">
+                                <thead>
+                                <th style="color: #D50000;text-align: center" >Fecha</th>
+                                <th style="color: #D50000;text-align: center">Hora</th>
+                                <th style="color: #D50000;text-align: center">Actividad</th>
+                                <th style="color: #D50000;text-align: center"></th>
+                                <th style="color: #D50000;text-align: center"></th>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="actividad in vm.actividades| filter : filtro | orderBy : 'fecha'">
+                                    <td style="text-align: center">{{actividad.fecha | esdate: 'short'}}</td>
+                                    <td style="text-align: center">{{actividad.fecha | date: 'hh:mm a'}}</td>
+                                    <td style="text-align: center">{{actividad.nombre}}</td>
+                                    <td style="text-align: center">{{actividad.estado}}</td>
+                                    <td style="text-align: center">
+                                        <a href="javascript:" ng-click="vm.actualizar(actividad)">
+                                            <i class="material-icons prefix">visibility</i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr ng-show="vm.actividadesFinalizadas.length > 0 && vm.actividades.length > 0">
+                                    <td style="text-align: center" colspan="5"></td>
+                                </tr>
+                                <tr ng-repeat="actividad in vm.actividadesFinalizadas| filter : filtro | orderBy : 'fecha' : reverse">
+                                    <td style="text-align: center">{{actividad.fecha | date: 'MMMM d'}}</td>
+                                    <td style="text-align: center">{{actividad.fecha | date: 'hh:mm a'}}</td>
+                                    <td style="text-align: center">{{actividad.nombre}}</td>
+                                    <td style="text-align: center">{{actividad.estado}}</td>
+                                    <td style="text-align: center">
+                                        <a href="javascript:" ng-click="vm.actualizar(actividad)">
+                                            <i class="material-icons prefix" style="color: #9ccc65">visibility</i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -68,7 +70,7 @@
     <!--modal nuevo central-->
     <div id="modalNuevaActividad" class="modal modal-fixed-footer" style="height: 460px">
         <div class="modal-content">
-            <h2>{{vm.nombreForm}}</h2>
+            <h2><b style="color: black">{{vm.nombreForm}}</b></h2>
             <div class="row">
                 <form class="col s12" name="formNuevaActividad">
                     <div class="row col s12">

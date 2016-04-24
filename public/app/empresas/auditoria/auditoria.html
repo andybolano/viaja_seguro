@@ -1,71 +1,72 @@
 <div class="contenedor" ng-controller="auditoriaController as vm">
-    <div class="row white">
-        <div class="col s12 z-depth-2" style="border-radius: 25px">
-            <div class="contenedor">
-                <div class="row">
-                    <div class="col s8">
-                        <h2>Auditoria</h2>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="row col s8">
-                        <div class="input-field col s11">
-                            <i class="material-icons prefix"style="margin-left: -10px; color: #D50000">flag</i>
-                            <select class="browser-default" name="central" id="central"
-                                    ng-options="central.ciudad.nombre for central in vm.centrales"
-                                    ng-model="vm.central" required  style="margin-left: 20px; width: 530px" ng-change="vm.selectedChanged(vm.central)">
-                                <option value="" disabled selected>Seleccione Central</option>
-                            </select>
-                            <label for="central" class="active" style="margin-left: 20px;">Central</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div ng-show="vm.mostra">
+    <div class="row">
+        <div class="col s12" >
+            <div class="row white col s12" style="border-radius: 15px; border:2px solid #D50000; width: 100%">
+                <div class="contenedor">
                     <div class="row">
-                        <div class="col s12">
-                            <ul class="tabs">
-                                <li style="color: #D50000" class="tab col s3" class="active"><a href="#producidos">Producidos {{vm.central.ciudad.nombre}}</a></li>
-                                <!--<li class="tab col s3"><a href="#vehiculos">Vehiculos {{vm.central.ciudad.nombre}}</a></li>-->
-                            </ul>
+                        <div class="col s8">
+                            <h2><b style="color: black">Auditoria</b></h2>
                         </div>
-                        <div id="producidos" class="col s12"><br>
-                            <div class="input-field col s3" style="border: 1px solid grey;border-radius: 15px;margin-right: 20px">
-                                <input type="date" class="datepicker" ng-model="vm.fechaI">
-                                <label >Fecha inicial</label>
+                    </div>
+                    <div class="row">
+                        <div class="row col s8">
+                            <div class="input-field col s6">
+                                <i class="material-icons prefix"style="margin-left: -10px; color: #D50000">flag</i>
+                                <select class="browser-default" name="central" id="central"
+                                        ng-options="central.ciudad.nombre for central in vm.centrales"
+                                        ng-model="vm.central" required  style="margin-left: 20px; width: 300px" ng-change="vm.selectedChanged(vm.central)">
+                                    <option value="" disabled selected>Seleccione Central</option>
+                                </select>
+                                <label for="central" class="active" style="margin-left: 20px;">Central</label>
                             </div>
-                            <div class="input-field col s3" style="border: 1px solid grey;border-radius: 15px">
-                                <input type="date" class="datepicker" ng-model="vm.fechaF">
-                                <label >Fecha final</label>
-                            </div>
-                            <div class="input-field col s1" title="Consultar" style="border: none">
-                                <a href="javascript:;" ng-click="vm.producidosFecha(vm.fechaI, vm.fechaF)">
-                                    <i style="color: #D50000" class="material-icons prefix">search</i>
-                                </a>
-                            </div>
-                            <br><br><br>
-                            <div ng-hide="vm.todo" class="center">
-                                {{vm.mensaje}}
-                            </div>
-                            <div class="row" ng-show="vm.todo">
-                                <div style="float: left">
-                                    <p><strong>CANTIDAD DE REGISTROS EN LA(S) FECHA(S) ESCOGIDA: {{vm.cantidad}}</strong></p>
-                                </div>
-                                <div style="float: right">
-                                    <p><strong>TOTAL PRODUCDIDO EN LA(S) FECHA(S) ESCOGIDA: {{vm.total | currency}}</strong></p>
-                                </div>
-                            </div>
+                        </div>
+                    </div>
 
-                            <div class="row" ng-show="vm.todo">
-                                <hr style="width: 100%; color: #D50000">
-                                <div class="col s12">
-                                    <table class="striped bordered responsive-table">
-                                        <thead class="center">
+                    <div ng-show="vm.mostra">
+                        <div class="row">
+                            <div class="col s12">
+                                <ul class="tabs">
+                                    <li style="color: #D50000" class="tab col s3" class="active"><a href="#producidos">Producidos {{vm.central.ciudad.nombre}}</a></li>
+                                    <!--<li class="tab col s3"><a href="#vehiculos">Vehiculos {{vm.central.ciudad.nombre}}</a></li>-->
+                                </ul>
+                            </div>
+                            <div id="producidos" class="col s12"><br>
+                                <div class="input-field col s3" style="border: 1px solid grey;border-radius: 15px;margin-right: 20px">
+                                    <input type="date" class="datepicker" ng-model="vm.fechaI">
+                                    <label ><b style="color: black">Fecha inicial</b></label>
+                                </div>
+                                <div class="input-field col s3" style="border: 1px solid grey;border-radius: 15px">
+                                    <input type="date" class="datepicker" ng-model="vm.fechaF">
+                                    <label ><b style="color: black">Fecha final</b></label>
+                                </div>
+                                <div class="input-field col s1" title="Consultar" style="border: none">
+                                    <a href="javascript:;" ng-click="vm.producidosFecha(vm.fechaI, vm.fechaF)">
+                                        <i style="color: #D50000" class="material-icons prefix">search</i>
+                                    </a>
+                                </div>
+                                <br><br><br>
+                                <div ng-hide="vm.todo" class="center">
+                                    {{vm.mensaje}}
+                                </div>
+                                <div class="row" ng-show="vm.todo">
+                                    <div style="float: left">
+                                        <p><b>CANTIDAD DE REGISTROS EN LA(S) FECHA(S) ESCOGIDA: {{vm.cantidad}}</b></p>
+                                    </div>
+                                    <div style="float: right">
+                                        <p><b>TOTAL PRODUCDIDO EN LA(S) FECHA(S) ESCOGIDA: <b style="color: black">{{vm.total | currency}}</b></b></p>
+                                    </div>
+                                </div>
+
+                                <div class="row" ng-show="vm.todo">
+                                    <hr style="width: 100%; color: #D50000">
+                                    <div class="col s12">
+                                        <table class="striped bordered responsive-table">
+                                            <thead class="center">
                                             <th style="color: #D50000; text-align: center">Numero de planilla</th>
                                             <th style="color: #D50000; text-align: center">Fecha</th>
                                             <th style="color: #D50000; text-align: center">Valor</th>
-                                        </thead>
-                                        <tbody>
+                                            </thead>
+                                            <tbody>
                                             <tr ng-repeat="producido in vm.producidos_fecha | filter : filtro">
                                                 <td style="text-align: center">{{producido.numero_planilla}}</td>
                                                 <td style="text-align: center">{{producido.fecha}}</td>
@@ -76,29 +77,30 @@
                                                     </a>
                                                 </td>
                                             </tr>
-                                        </tbody>
-                                    </table>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
 
-                        <!--<div id="vehiculos" class="col s12"><br>-->
+                            <!--<div id="vehiculos" class="col s12"><br>-->
                             <!--<div class="input-field col s2">-->
-                                <!--<input type="text" ng-model="vm.codigo_vial">-->
-                                <!--<label >CODIGO VIAL</label>-->
+                            <!--<input type="text" ng-model="vm.codigo_vial">-->
+                            <!--<label >CODIGO VIAL</label>-->
                             <!--</div>-->
                             <!--<div class="input-field col s1" title="Consultar vehiculo" style="border: none">-->
-                                <!--<a href="javascript:;" ng-click="vm.producidosVehiculo(vm.codigo_vial)">-->
-                                    <!--<i style="color: #D50000" class="material-icons prefix">search</i>-->
-                                <!--</a>-->
+                            <!--<a href="javascript:;" ng-click="vm.producidosVehiculo(vm.codigo_vial)">-->
+                            <!--<i style="color: #D50000" class="material-icons prefix">search</i>-->
+                            <!--</a>-->
                             <!--</div>-->
                             <!--<div class="input-field col s1" title="Consultar todos" style="margin-left: -45px; border: none">-->
-                                <!--<a href="javascript:;" ng-click="vm.producidosTodosVehiculo()">-->
-                                    <!--<i style="color: #D50000" class="material-icons prefix">autorenew</i>-->
-                                <!--</a>-->
+                            <!--<a href="javascript:;" ng-click="vm.producidosTodosVehiculo()">-->
+                            <!--<i style="color: #D50000" class="material-icons prefix">autorenew</i>-->
+                            <!--</a>-->
                             <!--</div>-->
-                        <!--</div>-->
+                            <!--</div>-->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -106,76 +108,93 @@
     </div>
 
     <!--modal planilla-->
-    <div id="modalPlanilla" class="modal modal-fixed-footer" style="width: 90%;min-height:85%; border-radius: 15px">
-        <div class="modal-content" id="planilla" >
-            <body id="bodyPlanilla">
-            <header class="clearfix" id="headerPlanilla">
-                <!--<div id="logo">-->
-                <!--<img alt="image"-->
-                <!--ng-src="http://{{vm.userImagen}}" width="90px;">-->
-                <!--</div>-->
-                <div style="border-radius: 15px; width: 30%;margin: 0 auto;" class="red accent-4">
-                    <h1 id="h1Planilla" class="white-text">PLANILLA N° {{vm.planilla.numero_planilla}}</h1>
-                </div>
-                <div id="company" class="clearfix">
-                    <div>Cootrasan</div>
-                    <div>Fonseca - La Guajira,<br /> Call 13 #21-34</div>
-                    <div> 7755813</div>
-                </div>
-                <div id="project">
-                    <div><span>CONDUCTOR: </span> {{vm.planilla.conductor.nombres}} {{vm.planilla.conductor.apellidos}}</div>
-                    <div><span>IDENTIFICACION: </span> {{vm.planilla.conductor.identificacion}}</div>
-                    <div><span>TELEFONO: </span> {{vm.planilla.conductor.telefono}}</div>
-                    <div><span>FECHA: </span> {{vm.planilla.viaje.fecha | date}}</div>
-                </div>
-            </header>
-            <main id="mainPlanilla">
-                <div class="row">
-                    <div class="row"></div>
-                    <div class="col s8">
-                        <table id="table" class="striped responsive-table">
-                            <thead>
-                            <tr>
-                                <th style="color: #D50000" class="center">IDENTIFICACION</th>
-                                <th style="color: #D50000" class="center">NOMBRES Y APELLIDOS</th>
-                                <th style="color: #D50000" class="center">TELEFONO</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr ng-repeat="pasajero in vm.planilla.pasajeros" >
-                                <td class="center">{{pasajero.identificacion}}</td>
-                                <td class="center">{{pasajero.nombres}}</td>
-                                <td class="center">{{pasajero.telefono}}</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col s1"><br></div>
-                    <div class="col s3">
-                        <table id="tableD" class="striped responsive-table">
-                            <thead>
-                            <tr>
-                                <th style="color: #D50000" class="center">DEDUCCION</th>
-                                <th style="color: #D50000" class="center">VALOR</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr ng-repeat="deduccion in vm.planilla.deducciones">
-                                <td class="center">{{deduccion.nombre}}</td>
-                                <td class="center">{{deduccion.valor | currency}}</td>
-                            </tr>
-                            <tr>
-                                <td class="center">VALOR TOTAL</td>
-                                <td class="center">{{vm.planilla.total | currency}}</td>
-                            </tr>
-                            </tbody>
-                        </table>
+    <div id="modalPlanilla" class="modal modal-fixed-footer" style="width: 70%;min-height:75%; border-radius: 15px">
+        <div class="modal-content padding" id="planilla">
+            <div class="blended_grid">
+                <div class="pageHeader">
+                    <div style="border-radius: 15px; width: 35%;margin: 0 auto;" class="red accent-4">
+                        <h1 id="h1Planilla" class="white-text">PLANILLA N° {{vm.planilla.numero_planilla}}</h1>
                     </div>
                 </div>
-            </main>
-            </body>
-        </div>
+                <div class="pageBarLeft">
+                    <div class="pageLeftTop">
+                        <div class="row">
+                            <div class="col s7">
+                                <span><br> </span>
+                            </div>
+                            <div class="col s5">
+                                <div>{{vm.planilla.central.empresa.nombre}}</div>
+                                <div>{{vm.planilla.central.ciudaddepa.nombre}} -
+                                    {{vm.planilla.central.ciudaddepa.departamento.nombre}},<br/> {{vm.planilla.central.direccion}}
+                                </div>
+                                <div> {{vm.planilla.central.telefono}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pageContent">
+                    <br>
+                    <div class="row">
+                        <div class="col s6">
+                            <span><strong>CONDUCTOR: </strong></span> {{vm.planilla.conductor.nombres}} {{vm.planilla.conductor.apellidos}}
+                        </div>
+                        <div class="col s6">
+                            <span><strong>IDENTIFICACION: </strong></span> {{vm.planilla.conductor.identificacion}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s6">
+                            <span><strong>TELEFONO: </strong></span> {{vm.planilla.conductor.telefono}}
+                        </div>
+                        <div class="col s6">
+                            <span><strong>FECHA: </strong></span> {{vm.planilla.viaje.fecha | date}}
+                        </div>
+                    </div>
 
+                    <div class="row">
+                        <div class="col s8">
+                            <table id="table" class="striped responsive-table">
+                                <thead>
+                                <tr>
+                                    <th style="color: #D50000" class="center">IDENTIFICACION</th>
+                                    <th style="color: #D50000" class="center">NOMBRES Y APELLIDOS</th>
+                                    <th style="color: #D50000" class="center">TELEFONO</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="pasajero in vm.planilla.pasajeros">
+                                    <td class="center">{{pasajero.identificacion}}</td>
+                                    <td class="center">{{pasajero.nombres}}</td>
+                                    <td class="center">{{pasajero.telefono}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="col s4">
+                            <table id="tableD" class="striped responsive-table">
+                                <thead>
+                                <tr>
+                                    <th style="color: #D50000" class="center">DEDUCCION</th>
+                                    <th style="color: #D50000" class="center">VALOR</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="deduccion in vm.planilla.deducciones">
+                                    <td class="center">{{deduccion.nombre}}</td>
+                                    <td class="center">{{deduccion.valor | currency}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="center">VALOR TOTAL</td>
+                                    <td class="center">{{vm.planilla.total | currency}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="modal-footer">
             <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
                style="margin-left:10px; border-radius: 15px">Salir</a>

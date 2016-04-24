@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers\Empresa;
 
+use App\Http\Controllers\NotificacionController;
+use App\Model\Giro;
 use App\Model\Incidencia;
+use App\Model\Cliente;
+use App\Model\Paquete;
+use App\Model\Pasajero;
 use App\Model\Turno;
 use DB;
 use App\Model\Ubicacion;
@@ -117,20 +122,16 @@ class ConductorController extends Controller
      */
     public function destroy($id)
     {
-        try{
-            $conductor = Conductor::find($id);
-            if($conductor){
-                $usuario = $conductor->usuario;
-                $conductor->activo = 0;
-                $usuario->estado = -1;
-                $conductor->save();
-                $usuario->save();
-                return response()->json(['message' => 'Registro eliminado'], 201);
-            }else{
-                return response()->json(['message' => 'El conductor no existe'], 400);
-            }
-        } catch (\Exception $exc) {
-            return response()->json(array("exception"=>$exc->getMessage(), ''=>$exc->getLine()), 400);
+        $conductor = Conductor::find($id);
+        if($conductor){
+            $usuario = $conductor->usuario;
+            $conductor->activo = 0;
+            $usuario->estado = -1;
+            $conductor->save();
+            $usuario->save();
+            return response()->json(['message' => 'Conductor inhabilitado'], 201);
+        }else{
+            return response()->json(['message' => 'El conductor no existe'], 400);
         }
     }
 
@@ -258,5 +259,106 @@ class ConductorController extends Controller
             return response()->json(['mensajeError' => 'no se ha podido almacenar el registro'], 400);
         }
     }
+
+    public function cdisponibles(){
+        return JsonResponse::create(Conductor::where('estado', 'Disponible')->count());
+    }
+
+    public function cantidadturnos(){
+        return JsonResponse::create(Turno::count());
+    }
+
+    public function causentes(){
+        return JsonResponse::create(Conductor::where('estado', 'Ausente')->count());
+    }
+
+    public function bpasajeros(){
+        return JsonResponse::create(Conductor::where('estado', 'En ruta')->count());
+    }
+
+    public function enviarNotificacionBusquedaClientes(Request $request){
+        $noty = new NotificacionController();
+
+        $pasajero = Pasajero::where('identificacion', $request['identificacion'])->where('estado', 'En espera')->first();
+        $mensaje = 'En conductor a marcado que ira a recogerte, llegara en cualquier momento.';
+            if($noty->enviarNotificacionClientes($mensaje, $request['identificacion'], 'Busqueda')){
+            $pasajero->estado = 'En busqueda';
+            if($pasajero->save())
+                return 'true';
+            else
+                return 'false';
+        }else{
+            return 'No es posible notificar a este cliente';
+        }
+    }
+
+    public function enviarNotificacionBusquedaGirosPaquetes(Request $request){
+        $noty = new NotificacionController();
+
+        $mensaje = 'En conductor a marcado que ira a recoger tu pedido, llegara en cualquier momento.';
+        if($request['tipo'] == 'giro'){
+            $giro = Giro::where('ide_remitente', $request['identificacion'])->where('estado', 'En espera')->first();
+            if($noty->enviarNotificacionClientes($mensaje, $request['identificacion'], 'Busqueda')){
+                $giro->estado = 'En busqueda';
+                if($giro->save())
+                    return 'true';
+                else
+                    return 'false';
+            }else{
+                return JsonResponse::create('No es posible notificar a este cliente');
+            }
+        }else{
+            $paquete = Paquete::where('ide_remitente', $request['identificacion'])->where('estado', 'En espera')->first();
+            if($noty->enviarNotificacionClientes($mensaje, $request['identificacion'], 'Busqueda')){
+                $paquete->estado = 'En busqueda';
+                if($paquete->save())
+                    return 'true';
+                else
+                    return 'false';
+            }else{
+                return JsonResponse::create('No es posible notificar a este cliente');
+            }
+        }
+    }
+
+    public function finalizarBusquedaPGP(Request $request){
+        if($request['tipo'] == 'giro'){
+            $giro = Giro::find($request['id']);
+            if($giro){
+                $giro->estado = 'En ruta';
+                if($giro->save())
+                    return JsonResponse::create('Giro correcto');
+                else
+                    return JsonResponse::create('Giro falso');
+            }else{
+                return JsonResponse::create('No se encontro el id para este '.$request['tipo']);
+            }
+        }else if($request['tipo'] == 'paquete'){
+            $paquete = Paquete::find($request['id']);
+            if($paquete){
+                $paquete->estado = 'En ruta';
+                if($paquete->save())
+                    return JsonResponse::create('Paquete correcto');
+                else
+                    return JsonResponse::create('Paquete falso');
+            }else{
+                return JsonResponse::create('No se encontro el id para este '.$request['tipo']);
+            }
+        }else if($request['tipo'] == 'pasajero'){
+            $pasajero = Pasajero::find($request['id']);
+            if ($pasajero){
+                $pasajero->estado = 'En ruta';
+                if($pasajero->save())
+                    return JsonResponse::create('Pasajero correcto');
+                else
+                    return JsonResponse::create('Pasajero falso');
+            }else{
+                return JsonResponse::create('No se encontro el id para este '.$request['tipo']);
+            }
+        }
+    }
+
+    
+
 
 }

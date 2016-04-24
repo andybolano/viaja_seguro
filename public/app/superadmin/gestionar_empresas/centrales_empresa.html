@@ -1,32 +1,33 @@
 <div ng-controller="CentralesEmpresaController as vm" class="contenedor">
-    <div class="row white">
-        <div class="col s12 z-depth-2" style="border-radius: 25px">
-            <div class="contenedor">
-                <div class="row">
-                    <div class="col s8">
-                        <a href="#/gestionar_empresas" class="waves-effect waves-teal waves-light btn-flat" style="float: left; padding: 0 0">
-                            <i class="material-icons red-text text-accent-4" style="font-size: 26px;">arrow_back</i></a>
-                        <h2 style="padding-left: 20px; margin: 0 0; padding-top: 3px">Centrales {{vm.empresa.nombre}}</h2>
-                    </div>
-                    <div class="col s4">
-                        <div class="input-field col s12 grey lighten-3" style="padding: .5em; border-radius: 15px; height: 37px; border: none">
-                            <i class="material-icons prefix" style="color: #D50000;">search</i>
-                            <input  id="icon_prefix" type="text" ng-model="filtro">
-                            <label for="icon_prefix">Buscar</label>
+    <div class="row">
+        <div class="col s12" >
+            <div class="row white col s12" style="border-radius: 15px; border:2px solid #D50000; width: 100%">
+                <div class="contenedor">
+                    <div class="row">
+                        <div class="col s8">
+                            <a href="#/gestionar_empresas" class="waves-effect waves-teal waves-light btn-flat" style="float: left; padding: 0 0">
+                                <i class="material-icons red-text text-accent-4" style="font-size: 26px;">arrow_back</i></a>
+                            <h2 style="padding-left: 20px; margin: 0 0; padding-top: 3px"><b>Centrales {{vm.empresa.nombre}}</b></h2>
+                        </div>
+                        <div class="col s4">
+                            <div class="input-field col s12 grey lighten-3" style="padding: .5em; border-radius: 15px; height: 37px; border: none">
+                                <i class="material-icons prefix" style="color: #D50000;">search</i>
+                                <input  id="icon_prefix" type="text" ng-model="filtro">
+                                <label for="icon_prefix">Buscar</label>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col s12">
-                        <table class="striped bordered responsive-table">
-                            <thead>
-                            <th style="color: #D50000; text-align: center">Id</th>
-                            <th style="color: #D50000; text-align: center">Ciudad</th>
-                            <th style="color: #D50000; text-align: center">Direccion</th>
-                            <th style="color: #D50000; text-align: center">Telefono</th>
-                            <th style="color: #D50000; text-align: center"></th>
-                            </thead>
-                            <tbody>
+                    <div class="row">
+                        <div class="col s12">
+                            <table class="striped bordered responsive-table">
+                                <thead>
+                                <th style="color: #D50000; text-align: center">Id</th>
+                                <th style="color: #D50000; text-align: center">Ciudad</th>
+                                <th style="color: #D50000; text-align: center">Direccion</th>
+                                <th style="color: #D50000; text-align: center">Telefono</th>
+                                <th style="color: #D50000; text-align: center"></th>
+                                </thead>
+                                <tbody>
                                 <tr ng-repeat="central in vm.centrales| filter : filtro">
                                     <td style="text-align: center">{{central.id}}</td>
                                     <td style="text-align: center">{{central.ciudad.nombre}}</td>
@@ -38,8 +39,9 @@
                                         </a>
                                     </td>
                                 </tr>
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -48,7 +50,7 @@
 
 
     <!--modal nuevo central-->
-    <div id="modalNuevaCentral" class="modal modal-fixed-footer" style="width: 80%;min-height:80%;">
+    <div id="modalNuevaCentral" class="modal modal-fixed-footer" style="width: 80%;min-height:70%;">
         <div class="modal-content">
             <div class="row">
                 <form class="col s12" name="formNuevaCentral">
@@ -79,7 +81,7 @@
                     <!--mapa-->
                     <div class="col s8" >
 
-                        <div id="dvMap" style="height: 400px; width: 600px;border-radius: 25px"></div>
+                        <div id="dvMap" style="height: 400px; width: 100%;border-radius: 25px"></div>
 
                     </div>
                     <!--fin mapa-->

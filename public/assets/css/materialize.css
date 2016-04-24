@@ -7884,7 +7884,7 @@ select {
 
 .picker__day--infocus:hover {
   cursor: pointer;
-  color: #000;
+  color: black;
   font-weight: 500; }
 
 .picker__day--outfocus {
@@ -7894,7 +7894,7 @@ select {
 
 .picker__day--outfocus:hover {
   cursor: pointer;
-  color: #dddddd;
+  color: black;
   font-weight: 500; }
 
 .picker__day--highlighted:hover, .picker--focused .picker__day--highlighted {
