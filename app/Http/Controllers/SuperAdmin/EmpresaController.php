@@ -23,7 +23,7 @@ class EmpresaController extends Controller
     public function index()
     {
         $input = \Request::all();
-        if($input['include']){
+        if(isset($input['include'])){
             $empresas = Empresa::with('servicios', $input['include'])->get();
         }else {
             $empresas = Empresa::with('servicios')->get();
