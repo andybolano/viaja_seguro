@@ -22,7 +22,24 @@ class EmpresaController extends Controller
      */
     public function index()
     {
-        $empresas = Empresa::with('servicios')->get();
+        $input = \Request::all();
+        if(isset($input['include'])){
+            $empresas = Empresa::with('servicios', $input['include'] . '.ciudad')->get();
+            if (isset($input['ciudad'])) {
+                $arr = [];
+                foreach ($empresas as $empresa) {
+                    foreach ($empresa->centrales as $central) {
+                        if($central->ciudad->nombre == $input['ciudad']){
+                            $arr[] = $empresa;
+                            break;
+                        }
+                    }
+                }
+                $empresas = $arr;
+            }
+        }else {
+            $empresas = Empresa::with('servicios')->get();
+        }
         return $empresas;
     }
 
