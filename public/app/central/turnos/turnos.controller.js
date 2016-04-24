@@ -201,7 +201,7 @@
             function  success(p){
                 vm.listaPasajeros = [];
                 for(var i=0; i<p.data.length; i++){
-                    if(p.data[i].estado == "En ruta" && p.data[i].conductor_id == conductor_id ){
+                    if(p.data[i].estado == "En espera" && p.data[i].conductor_id == conductor_id ){
                         vm.listaPasajeros.push(p.data[i]);
                         vm.Pasajeros = {};
                     }else{
@@ -350,7 +350,7 @@
             function  success(p){
                 vm.listaGiros = [];
                 for(var i=0; i<p.data.length; i++){
-                    if(p.data[i].estado == "En ruta" ){
+                    if(p.data[i].estado == "En espera" ){
                         vm.listaGiros.push(p.data[i]);
                         vm.Giros = {};
                     }else{
@@ -509,7 +509,7 @@
             function  success(p){
                 vm.listaPaquetes = [];
                 for(var i=0; i<p.data.length; i++){
-                    if(p.data[i].estado == "En ruta" ){
+                    if(p.data[i].estado == "En espera" ){
                         vm.listaPaquetes.push(p.data[i]);
                         vm.Paquetes = {};
                     }else{

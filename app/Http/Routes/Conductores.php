@@ -28,3 +28,7 @@ Route::get('/api/conductores/{conductor_id}/incidencias/ultima', 'Empresa\Conduc
 Route::put('/api/conductores/{conductor_id}/incidencias/{incidencia_id}', 'Empresa\ConductorController@finalizarIncidencia');
 
 Route::get('/api/conductores/turnos/cantidad', 'Empresa\ConductorController@cantidadturnos');
+
+Route::post('/api/conductores/notificar/busqueda/cliente', 'Empresa\ConductorController@enviarNotificacionBusquedaClientes');
+Route::post('/api/conductores/notificar/busqueda/encomienda/cliente', 'Empresa\ConductorController@enviarNotificacionBusquedaGirosPaquetes');
+Route::post('/api/conductores/finalizar/busqueda/pgp', 'Empresa\ConductorController@finalizarBusquedaPGP');
