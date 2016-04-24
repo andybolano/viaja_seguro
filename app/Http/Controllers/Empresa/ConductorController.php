@@ -9,6 +9,7 @@ use App\Model\Cliente;
 use App\Model\Paquete;
 use App\Model\Pasajero;
 use App\Model\Turno;
+use App\Model\Viaje;
 use DB;
 use App\Model\Ubicacion;
 use App\Model\Conductor;
@@ -211,7 +212,7 @@ class ConductorController extends Controller
 
     public function getCupos($conductor_id){
         list($total) = DB::table('vehiculos')->select(
-            DB::raw('( (cupos) - (select count(conductor_id) from pasajeros where conductor_id ='.$conductor_id.' and estado = "En ruta") ) as total'))
+            DB::raw('( (cupos) - (select count(conductor_id) from pasajeros where conductor_id ='.$conductor_id.' and estado = "En espera") ) as total'))
             ->where('conductor_id', $conductor_id)->get('total');
 
         return $total->total;
@@ -358,7 +359,76 @@ class ConductorController extends Controller
         }
     }
 
-    
+    public function finalizarViaje(Request $request){
+        $noty = new NotificacionController();
+        $conductor = DB::table('viajes')->where('conductor_id', $request['id'])->where('estado', 'En ruta')->first();
+        if ($conductor){
+            $viaje = Viaje::find($conductor->id);
+            if($viaje){
+                if($viaje->update(['estado' => 'Finalizado'])){
+                    foreach ($viaje->pasajeros as $pasajero){
+                        $pasajero->estado = 'Finalizado';
+                        if ($pasajero->save()){
+                            $viaje['datos']  = DB::table('datos_solicitudes_pasajeros')->where('identificacion', $pasajero->identificacion)
+                                ->join('solicitudes_cliente', 'datos_solicitudes_pasajeros.solicitud_id', '=', 'solicitudes_cliente.id')
+                                ->select('solicitudes_cliente.estado', 'solicitudes_cliente.id', 'solicitudes_cliente.cliente_id')
+                                ->where('solicitudes_cliente.estado', '<>', 'f')->get();
+                            foreach ($viaje['datos'] as $dato){
+                                DB::table('solicitudes_cliente')
+                                    ->where('id', $dato->id)
+                                    ->update(['estado' => 'f']);
+                                $noty->enviarNotificacionClientes('Finalizo su solicitud, gracias por haber echo uso de nuestro servicio', $dato->cliente_id, 'Finalizado');
+                            }
+                        }
+                    }
+                    foreach ($viaje->giros as $giro){
+                        $giro->estado = 'Finalizado';
+                        if ($giro->save()){
+                            $viaje['datos']  = DB::table('datos_solicitudes_girospaquetes')
+                                ->join('solicitudes_cliente', 'datos_solicitudes_girospaquetes.solicitud_id', '=', 'solicitudes_cliente.id')
+                                ->join('clientes', 'solicitudes_cliente.cliente_id', '=', 'clientes.id')
+                                ->join('giros', 'datos_solicitudes_girospaquetes.destinatario', '=', 'giros.nombre_receptor')
+                                ->select('solicitudes_cliente.id', 'solicitudes_cliente.estado', 'solicitudes_cliente.cliente_id', 'clientes.identificacion')
+                                ->where('clientes.identificacion', $giro->ide_remitente)
+                                ->where('solicitudes_cliente.tipo', 'giro')
+                                ->where('solicitudes_cliente.estado', '<>', 'f')
+                                ->get();
+                            foreach ($viaje['datos'] as $dato){
+                                DB::table('solicitudes_cliente')
+                                    ->where('id', $dato->id)
+                                    ->update(['estado' => 'f']);
+                                $noty->enviarNotificacionClientes('Finalizo su solicitud, gracias por haber echo uso de nuestro servicio', $dato->cliente_id, 'Finalizado');
+                            }
+                        }
+                    }
+                    foreach ($viaje->paquetes as $paquete){
+                        $paquete->estado = 'Finalizado';
+                        if ($paquete->save()){
+                            $viaje['datos']  = DB::table('datos_solicitudes_girospaquetes')
+                                ->join('solicitudes_cliente', 'datos_solicitudes_girospaquetes.solicitud_id', '=', 'solicitudes_cliente.id')
+                                ->join('clientes', 'solicitudes_cliente.cliente_id', '=', 'clientes.id')
+                                ->join('paquetes', 'datos_solicitudes_girospaquetes.destinatario', '=', 'paquetes.nombre_receptor')
+                                ->select('solicitudes_cliente.id', 'solicitudes_cliente.estado', 'solicitudes_cliente.cliente_id', 'clientes.identificacion')
+                                ->where('clientes.identificacion', $paquete->ide_remitente)
+                                ->where('solicitudes_cliente.tipo', 'paquete')
+                                ->where('solicitudes_cliente.estado', '<>', 'f')
+                                ->get();
+                            foreach ($viaje['datos'] as $dato){
+                                DB::table('solicitudes_cliente')
+                                    ->where('id', $dato->id)
+                                    ->update(['estado' => 'f']);
+                                $noty->enviarNotificacionClientes('Finalizo su solicitud, gracias por haber echo uso de nuestro servicio', $dato->cliente_id, 'Finalizado');
+                            }
+                        }
+                    }
 
-
+                }
+            }else{
+                return JsonResponse::create('No existe un viaje para esta id');
+            }
+        }else{
+            return JsonResponse::create('No se encontro el viaje asociado al conductor');
+        }
+        return JsonResponse::create($viaje);
+    }
 }

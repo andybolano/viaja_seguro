@@ -46,9 +46,9 @@ class ViajesController extends Controller
         $viaje->ruta_id = $ruta_id;
         $viaje->fecha = date("Y-m-d");
 
-        $pasajeros = Pasajero::select('*')->where('conductor_id', $conductor_id)->where('estado', '=', 'En ruta')->get();
-        $giros = Giro::select('id')->where('conductor_id', $conductor_id)->where('estado', '=', 'En ruta')->get();
-        $paquetes = Paquete::select('id')->where('conductor_id', $conductor_id)->where('estado', '=', 'En ruta')->get();
+        $pasajeros = Pasajero::select('*')->where('conductor_id', $conductor_id)->where('estado', '=', 'En espera')->get();
+        $giros = Giro::select('*')->where('conductor_id', $conductor_id)->where('estado', '=', 'En espera')->get();
+        $paquetes = Paquete::select('*')->where('conductor_id', $conductor_id)->where('estado', '=', 'En espera')->get();
 
         if($viaje->save()){
             $noty->enviarNotificacionConductores('La central a autorizado tu salida, acercate a secretaria para recivir la planilla.', $conductor_id, 'Despacho');
@@ -56,14 +56,54 @@ class ViajesController extends Controller
             foreach ($pasajeros as $pasajero) {
                 $viaje->pasajeros()->attach($pasajero['id']);
                 $noty->enviarNotificacionClientes('El conductor a salido a recogerlo, pronto pasara por usted, sea paciente', $pasajero['identificacion'],'Busqueda');
+                $viaje['datos']  = DB::table('datos_solicitudes_pasajeros')->where('identificacion', $pasajero->identificacion)
+                    ->join('solicitudes_cliente', 'datos_solicitudes_pasajeros.solicitud_id', '=', 'solicitudes_cliente.id')
+                    ->select('solicitudes_cliente.estado', 'solicitudes_cliente.id', 'solicitudes_cliente.cliente_id')
+                    ->where('solicitudes_cliente.estado', '<>', 'f')->get();
+                foreach ($viaje['datos'] as $dato){
+                    DB::table('solicitudes_cliente')
+                        ->where('id', $dato->id)
+                        ->update(['estado' => 'v']);
+                    $noty->enviarNotificacionClientes('El vehiculo a salido de la central, por favor se paciente', $dato->cliente_id, 'Vehiculo en camino');
+                }
             }
 
             foreach ($giros as $giro) {
                 $viaje->giros()->attach($giro['id']);
+                $viaje['datos']  = DB::table('datos_solicitudes_girospaquetes')
+                    ->join('solicitudes_cliente', 'datos_solicitudes_girospaquetes.solicitud_id', '=', 'solicitudes_cliente.id')
+                    ->join('clientes', 'solicitudes_cliente.cliente_id', '=', 'clientes.id')
+                    ->join('giros', 'datos_solicitudes_girospaquetes.destinatario', '=', 'giros.nombre_receptor')
+                    ->select('solicitudes_cliente.id', 'solicitudes_cliente.estado', 'solicitudes_cliente.cliente_id', 'clientes.identificacion')
+                    ->where('clientes.identificacion', $giro->ide_remitente)
+                    ->where('solicitudes_cliente.tipo', 'giro')
+                    ->where('solicitudes_cliente.estado', '<>', 'f')
+                    ->get();
+                foreach ($viaje['datos'] as $dato){
+                    DB::table('solicitudes_cliente')
+                        ->where('id', $dato->id)
+                        ->update(['estado' => 'v']);
+                    $noty->enviarNotificacionClientes('El vehiculo a salido de la central, por favor se paciente', $dato->cliente_id, 'Vehiculo en camino');
+                }
             }
 
             foreach ($paquetes as $paquete) {
                 $viaje->paquetes()->attach($paquete['id']);
+                $viaje['datos']  = DB::table('datos_solicitudes_girospaquetes')
+                    ->join('solicitudes_cliente', 'datos_solicitudes_girospaquetes.solicitud_id', '=', 'solicitudes_cliente.id')
+                    ->join('clientes', 'solicitudes_cliente.cliente_id', '=', 'clientes.id')
+                    ->join('paquetes', 'datos_solicitudes_girospaquetes.destinatario', '=', 'paquetes.nombre_receptor')
+                    ->select('solicitudes_cliente.id', 'solicitudes_cliente.estado', 'solicitudes_cliente.cliente_id', 'clientes.identificacion')
+                    ->where('clientes.identificacion', $paquete->ide_remitente)
+                    ->where('solicitudes_cliente.tipo', 'paquete')
+                    ->where('solicitudes_cliente.estado', '<>', 'f')
+                    ->get();
+                foreach ($viaje['datos'] as $dato){
+                    DB::table('solicitudes_cliente')
+                        ->where('id', $dato->id)
+                        ->update(['estado' => 'v']);
+                    $noty->enviarNotificacionClientes('El vehiculo a salido de la central, por favor se paciente', $dato->cliente_id, 'Vehiculo en camino');
+                }
             }
 
             foreach($deducciones as $deduccion){

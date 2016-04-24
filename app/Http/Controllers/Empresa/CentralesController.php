@@ -222,7 +222,7 @@ class CentralesController extends Controller
         $solicitud['conductores'] = Ruta::find($solicitud->ruta_id)->turnos->load('conductor');
         foreach($solicitud['conductores'] as $cupos){
             list($total) = DB::table('vehiculos')->select(
-                DB::raw('( (cupos) - (select count(conductor_id) from pasajeros where conductor_id ='.$cupos->conductor_id.' and estado = "En ruta") ) as total'))
+                DB::raw('( (cupos) - (select count(conductor_id) from pasajeros where conductor_id ='.$cupos->conductor_id.' and estado = "En espera") ) as total'))
                 ->where('conductor_id', $cupos->conductor_id)->get('total');
             $solicitud['conductores'][$i]['cupos'] = $total->total;
             $i++;
@@ -238,7 +238,7 @@ class CentralesController extends Controller
         $solicitud['conductores'] = Ruta::find($solicitud->ruta_id)->turnos->load('conductor');
         foreach($solicitud['conductores'] as $cupos){
             list($total) = DB::table('vehiculos')->select(
-                DB::raw('( (cupos) - (select count(conductor_id) from pasajeros where conductor_id ='.$cupos->conductor_id.' and estado = "En ruta") ) as total'))
+                DB::raw('( (cupos) - (select count(conductor_id) from pasajeros where conductor_id ='.$cupos->conductor_id.' and estado = "En espera") ) as total'))
                 ->where('conductor_id', $cupos->conductor_id)->get('total');
             $solicitud['conductores'][$i]['cupos'] = $total->total;
             $i++;
@@ -254,7 +254,7 @@ class CentralesController extends Controller
         $solicitud['conductores'] = Ruta::find($solicitud->ruta_id)->turnos->load('conductor');
         foreach($solicitud['conductores'] as $cupos){
             list($total) = DB::table('vehiculos')->select(
-                DB::raw('( (cupos) - (select count(conductor_id) from pasajeros where conductor_id ='.$cupos->conductor_id.' and estado = "En ruta") ) as total'))
+                DB::raw('( (cupos) - (select count(conductor_id) from pasajeros where conductor_id ='.$cupos->conductor_id.' and estado = "En espera") ) as total'))
                 ->where('conductor_id', $cupos->conductor_id)->get('total');
             $solicitud['conductores'][$i]['cupos'] = $total->total;
             $i++;

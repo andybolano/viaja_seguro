@@ -24,12 +24,12 @@ class Viaje extends Model
 
     public function giros()
     {
-        return $this->belongsToMany(Pasajero::class, 'viaje_giros', 'viaje_id', 'giro_id');
+        return $this->belongsToMany(Giro::class, 'viaje_giros', 'viaje_id', 'giro_id');
     }
 
     public function paquetes()
     {
-        return $this->belongsToMany(Pasajero::class, 'viaje_paquetes', 'viaje_id', 'paquete_id');
+        return $this->belongsToMany(Paquete::class, 'viaje_paquetes', 'viaje_id', 'paquete_id');
     }
 
     public function deducciones()

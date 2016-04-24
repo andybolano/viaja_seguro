@@ -66,4 +66,9 @@ class Conductor extends Model
     {
         return $this->belongsTo(Usuario::class);
     }
+
+    public function viaje()
+    {
+        return $this->belongsTo(Viaje::class)->where('estado', 'En ruta');
+    }
 }
