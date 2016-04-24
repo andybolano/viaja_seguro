@@ -24,7 +24,7 @@ class EmpresaController extends Controller
     {
         $input = \Request::all();
         if(isset($input['include'])){
-            $empresas = Empresa::with('servicios', $input['include'].'ciudad')->get();
+            $empresas = Empresa::with('servicios', $input['include'].'.ciudad')->get();
         }else {
             $empresas = Empresa::with('servicios')->get();
         }
