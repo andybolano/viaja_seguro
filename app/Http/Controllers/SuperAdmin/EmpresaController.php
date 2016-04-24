@@ -29,7 +29,7 @@ class EmpresaController extends Controller
                 $arr = [];
                 foreach ($empresas as $empresa) {
                     foreach ($empresa->centrales as $central) {
-                        if($central->ciudad->nombre = $input['ciudad']){
+                        if($central->ciudad->nombre == $input['ciudad']){
                             $arr[] = $empresa;
                             break;
                         }
