@@ -40,9 +40,10 @@
             function success(p) {
 
                 $("#modalNuevaCentral").closeModal();
-                vm.selectedCentral = p.data;
+                /*vm.selectedCentral = p.data;
                 vm.centrales.push(vm.selectedCentral);
-                init();
+                init();*/
+                loadCentrales();
                 Materialize.toast('Registro guardado correctamente', 5000);
             }
             function error(error) {
@@ -156,6 +157,7 @@
         }
 
         function loadCentrales(){
+            vm.centrales = [];
             centralesService.getAll().then(success, error);
             function success(p) {
                 vm.centrales = p.data;

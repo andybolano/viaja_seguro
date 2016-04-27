@@ -10,6 +10,7 @@ Route::get('/api/empresas/{empresa_id}/vehiculos', 'SuperAdmin\EmpresaController
 Route::get('/api/empresas/{empresa_id}/conductores', 'SuperAdmin\EmpresaController@getConductores');
 Route::get('/api/empresas/{empresa_id}/conductores/all', 'SuperAdmin\EmpresaController@getAllConductores');
 Route::post('/api/empresas/{empresa_id}/conductores', 'SuperAdmin\EmpresaController@storeConductor');
+Route::get('/api/empresas/{empresa_id}/conductores/disponibles', 'SuperAdmin\EmpresaController@getConductoresDisponibles');
 
 Route::get('/api/empresas/{empresa_id}/rutas', 'SuperAdmin\EmpresaController@getRutas');
 

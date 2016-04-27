@@ -73,8 +73,6 @@
                 vm.Vehiculo.id =  pl.data.vehiculo.id;
                 modificarImagen();
                 modificarImagenVehiculo();
-                cargarConductores();
-                window.location.reload();
             }, function (errorPl) {
                 console.log('Error al guardar conductor', errorPl);
             });
@@ -158,6 +156,7 @@
             function success(p) {
                 vm.Conductor.imagen = p.data.nombrefile;
                 Materialize.toast('Imagen guardado correctamente', 5000);
+                cargarConductores();
             }
 
             function error(error) {

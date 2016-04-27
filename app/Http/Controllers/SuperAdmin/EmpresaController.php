@@ -256,7 +256,7 @@ class EmpresaController extends Controller
         return $rutas;
     }
 
-    public function getConductoresEnRuta($ruta_id)
+    public function getConductoresDisponibles($empresa_id)
     {
         $con = \DB::table('conductores')
             ->join('vehiculos', 'conductores.id', '=', 'vehiculos.conductor_id')
@@ -267,7 +267,7 @@ class EmpresaController extends Controller
                 $query->select(\DB::raw(1))
                     ->from('turnos')
                     ->whereRaw('turnos.conductor_id = conductores.id');
-            })->get();
+            })->where('conductores.empresa_id', $empresa_id)->get();
         return JsonResponse::create($con);
     }
 

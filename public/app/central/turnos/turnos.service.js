@@ -7,7 +7,7 @@
 
     function turnosService($http, authService, API){
         this.getConductoresEnRuta = function(ruta_id){
-            return $http.get(API + '/conductores/ruta/'+ruta_id);
+            return $http.get(API+'/empresas/'+authService.currentUser().central.empresa.id+ '/conductores/disponibles');
         }
 
         this.getRutasCentral = function () {
