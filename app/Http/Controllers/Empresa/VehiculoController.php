@@ -31,8 +31,8 @@ class VehiculoController extends Controller
         try{
             $vehiculo = Vehiculo::find($id);
 
-            if ($request->hasFile('imagenv')) {
-                $request->file('imagenv')->move('images/vehiculos/', "vehiculo$id.png");
+            if ($request->hasFile('imagen')) {
+                $request->file('imagen')->move('images/vehiculos/', "vehiculo$id.png");
                 $nombrefile = $_SERVER['SERVER_NAME'].'/public/images/vehiculos/'."vehiculo$id.png";
                 $vehiculo->imagen = $nombrefile;
                 $vehiculo->save();
