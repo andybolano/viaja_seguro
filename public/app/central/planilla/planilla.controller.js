@@ -5,7 +5,7 @@
         .module('app.centrales.planillas')
         .controller('planillaController', planillaController);
 
-    function planillaController(planillasService) {
+    function planillaController(planillasService, $scope, $compile, $timeout) {
         var vm = this;
 
         vm.imprimir = imprimir;
@@ -51,18 +51,11 @@
         }
 
         function imprimir(){
-            var ficha = document.getElementById('planilla');
-            var ventimp = window.open(' ', 'popimpr');
-            ventimp.document.write( ficha.innerHTML );
-            ventimp.document.close();
-            var css = ventimp.document.createElement("link");
-            css.setAttribute("href", "http://localhost/viaja_seguro/public/assets/css/pdf.css");
-            css.setAttribute("rel", "stylesheet");
-            css.setAttribute("media", "print");
-            css.setAttribute("type", "text/css");
-            ventimp.document.head.appendChild(css);
-            ventimp.print( );
-            ventimp.close();
+            var printContents = document.getElementById('page-wrap').innerHTML;
+            var popupWin = window.open('', '_blank', '');
+            popupWin.document.open();
+            popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" media="print" href="../../../assets/css/pdf.css" /></head><body onload="window.print()">' + printContents + '</body></html>');
+            popupWin.document.close();
         }
     }
 })();

@@ -43,92 +43,104 @@
         </div>
 
         <!--modal planilla-->
-        <div id="modalPlanilla" class="modal modal-fixed-footer" style="width: 85%;min-height:90%; border-radius: 15px">
+        <div id="modalPlanilla" class="modal modal-fixed-footer" style="width: 75%;min-height:70%; border-radius: 15px">
             <div class="modal-content padding" id="planilla">
-                <div class="blended_grid">
-                    <div class="pageHeader">
-                        <div id="divH1" >
-                            <h1 id="h1Planilla" class="white-text">PLANILLA N° {{vm.planilla.numero_planilla}}</h1>
-                        </div>
-                    </div>
-                    <div class="pageContent">
-                        <div class="row col s12" id="empresa">
-                            <div class="col s7">
-                                <span><br> </span>
-                            </div>
-                            <div class="col s5" >
-                                <div>{{vm.planilla.central.empresa.nombre}}</div>
-                                <div>{{vm.planilla.central.ciudaddepa.nombre}} -
-                                    {{vm.planilla.central.ciudaddepa.departamento.nombre}},<br/> {{vm.planilla.central.direccion}}
-                                </div>
-                                <div> {{vm.planilla.central.telefono}}</div>
-                            </div>
-                        </div>
-                        <br>
-                        <div id="datos">
-                            <div class="row" id="propietario">
-                                <div class="col s6">
-                                    <span><strong>PROPIETARIO: </strong></span> {{vm.planilla.conductor.vehiculo.nombre_propietario}}
-                                </div>
-                                <div class="col s6">
-                                    <span><strong>IDENTIFICACION: </strong></span> {{vm.planilla.conductor.vehiculo.identificacion_propietario}}
-                                </div>
-                            </div>
-                            <div class="row" id="conductor">
-                                <div class="col s6">
-                                    <span><strong>CONDUCTOR: </strong></span> {{vm.planilla.conductor.nombres}} {{vm.planilla.conductor.apellidos}}
-                                </div>
-                                <div class="col s6">
-                                    <span><strong>IDENTIFICACION: </strong></span> {{vm.planilla.conductor.identificacion}}
-                                </div>
-                            </div>
-                            <div class="row" id="otro">
-                                <div class="col s6">
-                                    <span><strong>TELEFONO: </strong></span> {{vm.planilla.conductor.telefono}}
-                                </div>
-                                <div class="col s6">
-                                    <span><strong>FECHA: </strong></span> {{vm.planilla.viaje.fecha | date}}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col s8" id="table">
-                                <table class="striped responsive-table">
-                                    <thead>
-                                    <tr>
-                                        <th style="color: #D50000" class="center">IDENTIFICACION</th>
-                                        <th style="color: #D50000" class="center">NOMBRES Y APELLIDOS</th>
-                                        <th style="color: #D50000" class="center">TELEFONO</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr ng-repeat="pasajero in vm.planilla.pasajeros">
-                                        <td class="center">{{pasajero.identificacion}}</td>
-                                        <td class="center">{{pasajero.nombres}}</td>
-                                        <td class="center">{{pasajero.telefono}}</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                <div id="page-wrap">
+                    <table class="tg">
+                        <tr>
+                            <th class="tg-yw4l" rowspan="6" style="margin-left: 30px">
+                                <img ng-src="http://{{vm.planilla.central.empresa.logo}}" alt="" style="border-radius: 50%; width: 150px; height: 150px">
+                            </th>
+                            <th class="tg-yw4l"></th>
+                        </tr>
+                        <tr>
+                            <td class="tg-g145" colspan="3">{{vm.planilla.central.empresa.nombre | uppercase}}</td>
+                            <td class="tg-smzr"></td>
+                        </tr>
+                        <tr>
+                            <td class="tg-smzr" colspan="3">PERSONERIA JURIDICA No. 1057 NIT: 824002169-4</td>
+                            <td class="tg-smzr"></td>
+                        </tr>
+                        <tr>
+                            <td class="tg-smzr" colspan="3">RESOLUCION No. 0041 06/06/2003 - MINISTERIO DE TRANSPORTE</td>
+                            <td class="tg-smzr"></td>
+                        </tr>
+                        <tr>
+                            <td class="tg-smzr"></td>
+                        </tr>
+                        <tr>
+                            <td class="tg-smzr" colspan="3">{{vm.planilla.central.direccion | uppercase}} {{vm.planilla.central.ciudaddepa.nombre | uppercase  }}   -
+                                  {{  vm.planilla.central.ciudaddepa.departamento.nombre | uppercase}} TEL: {{vm.planilla.central.telefono}}</td>
+                            <td class="tg-smzr"></td>
+                        </tr>
+                        <tr>
+                            <td class="tg-yw4l"></td>
+                            <td class="tg-gh1y" colspan="2">PLANILLA DE DESPACHO</td>
+                            <td class="tg-smzr"></td>
+                            <td class="tg-smzr"></td>
+                        </tr>
+                        <tr>
+                            <td class="tg-123c">PLANILLA No. {{vm.planilla.numero_planilla | uppercase}}</td>
+                            <td class="tg-123c">FECHA: {{vm.planilla.viaje.fecha | date}}</td>
+                            <td class="tg-123c">HORA: 2:58:37</td>
+                            <td class="tg-smzr">CIUDAD ORIGEN</td>
+                            <td class="tg-smzr">CIUDAD DESTINO</td>
+                        </tr>
+                        <tr>
+                            <td class="tg-smzr">PROPIETARIO:</td>
+                            <td class="tg-smzr">{{vm.planilla.conductor.vehiculo.nombre_propietario | uppercase}}</td>
+                            <td class="tg-smzr">C.C: {{vm.planilla.conductor.vehiculo.identificacion_propietario | uppercase}}</td>
+                            <td class="tg-123c">VALLEDUPAR</td>
+                            <td class="tg-123c">LA JAGUA</td>
+                        </tr>
+                        <tr>
+                            <td class="tg-smzr">CONDUCTOR:</td>
+                            <td class="tg-smzr">{{vm.planilla.conductor.nombres | uppercase}} {{vm.planilla.conductor.apellidos | uppercase}}</td>
+                            <td class="tg-smzr">C.C: {{vm.planilla.conductor.identificacion}}</td>
+                            <td class="tg-smzr"></td>
+                            <td class="tg-smzr"></td>
+                        </tr>
+                        <tr>
+                            <td class="tg-smzr">VEHICULO:</td>
+                            <td class="tg-smzr">{{vm.planilla.conductor.vehiculo.modelo | uppercase}}</td>
+                            <td class="tg-smzr">PLACA: {{vm.planilla.conductor.vehiculo.placa | uppercase}}</td>
+                            <td class="tg-smzr"></td>
+                            <td class="tg-123c"></td>
+                        </tr>
+                    </table>
 
-                            <div class="col s4" id="tableD">
-                                <table class="striped responsive-table">
-                                    <thead>
-                                    <tr>
-                                        <th style="color: #D50000" class="center">DEDUCCION</th>
-                                        <th style="color: #D50000" class="center">VALOR</th>
+                    <!DOCTYPE html>
+                    <div class="blended_grid">
+                        <div class="pageColumnLeft">
+                            <table class="tg">
+                                <tr>
+                                    <th class="tg-yw4l">CEDULA</th>
+                                    <th class="tg-yw4l">NOMBRE Y APELLIDOS</th>
+                                </tr>
+                                <tr ng-repeat="pasajero in vm.planilla.pasajeros">
+                                    <td>{{pasajero.identificacion}}</td>
+                                    <td>{{pasajero.nombres}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="pageColumnMid">
+                        </div>
+                        <div class="pageColumnRight">
+                            <table class="tg">
+                                <tr>
+                                    <th class="tg-g145" colspan="2">DEDUCCIONES</th>
+                                </tr>
+                                <tr ng-repeat="deduccion in vm.planilla.deducciones">
+                                    <td>{{deduccion.nombre}}</td>
+                                    <td>{{deduccion.valor | currency}}</td>
+                                </tr>
+                            </table>
+                            <div style="border: solid 1px black; border-radius: 15px">
+                                <table class="tg">
+                                    <tr >
+                                        <td>TOTAL: </td>
+                                        <td>{{vm.planilla.total | currency}}</td>
                                     </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr ng-repeat="deduccion in vm.planilla.deducciones">
-                                        <td class="center">{{deduccion.nombre}}</td>
-                                        <td class="center">{{deduccion.valor | currency}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="center">VALOR TOTAL</td>
-                                        <td class="center">{{vm.planilla.total | currency}}</td>
-                                    </tr>
-                                    </tbody>
                                 </table>
                             </div>
                         </div>
