@@ -67,7 +67,7 @@
             doc.setFont("times");
             doc.setFontType("italic");
 
-            var html=$(".page-wrap").html();
+            var html=$("#page-wrap").html();
             doc.fromHTML(html,100,100, {
                 'width': 500,
             }, function () {
