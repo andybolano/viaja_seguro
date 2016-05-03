@@ -38,7 +38,10 @@
         function loadEmpresas() {
             empresasService.getAll().then(success, error);
             function success(p) {
-                vm.empresas = p.data;
+                for(var i=0; i<p.data.length; i++) {
+                    p.data[i].fecha_resolucion = new Date(p.data[i].fecha_resolucion);
+                    vm.empresas.push(p.data[i]);
+                }
             }
 
             function error(error) {
