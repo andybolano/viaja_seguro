@@ -168,7 +168,7 @@
         function modificarImagenVehiculo() {
             if (vm.fileimageV) {
                 var data = new FormData();
-                data.append('imagenv', vm.fileimageV);
+                data.append('imagen', vm.fileimageV);
                 conductoresEmpresaService.postImagenVehiculo(vm.Vehiculo.id, data).then(success, error);
             }
             function success(p) {
