@@ -67,17 +67,55 @@
             doc.setFont("times");
             doc.setFontType("italic");
 
-            var html=$("#page-wrap").html();
-            doc.fromHTML(html,100,100, {
-                'width': 500,
-            }, function () {
-                doc.output("dataurlnewwindow");
+
+            doc.addHTML($('#page-wrap')[0], 15, 15, {
+                'background': '#fff',
+                'heigth': 200
+            }, function() {
+                var string = doc.output("dataurlnewwindow");
+                $('.preview-pane').attr('src', string);
+
             });
+
 
 
             // doc.addHTML($('#page-wrap').first(), function () {
             //
             // });
+        }
+
+        vm.otrai = function () {
+            var getImageFromUrl = function(url, callback) {
+                var img = new Image();
+
+                img.onError = function() {
+                    alert('Cannot load image: "'+url+'"');
+                };
+                img.onload = function() {
+                    callback(img);
+                };
+                img.setAttribute('crossOrigin', 'anonymous');
+                img.src = url;
+            }
+
+            var createPDF = function(imgData) {
+                var doc = new jsPDF('landscape','pt', 'letter');
+
+
+                doc.addImage(imgData, 'JPEG', 10, 10, 50, 50, 'monkey'); // Cache the image using the alias 'monkey'
+
+                doc.addHTML($('#page-wrap')[0], 15, 15, {
+                    'background': '#fff',
+                    'heigth': 200
+                }, function() {
+                    var string = doc.output("dataurlnewwindow");
+                    $('.preview-pane').attr('src', string);
+
+                });
+                doc.output('dataurlnewwindow');
+            }
+
+            getImageFromUrl('http://'+vm.planilla.central.empresa.logo, createPDF);
         }
     }
 })();
