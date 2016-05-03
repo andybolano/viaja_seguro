@@ -43,7 +43,7 @@
         </div>
 
         <!--modal planilla-->
-        <div id="modalPlanilla" class="modal modal-fixed-footer" style="width: 75%;min-height:70%; border-radius: 15px">
+        <div id="modalPlanilla" class="modal modal-fixed-footer" style="width: 75%;min-height:80%; border-radius: 15px">
             <div class="modal-content padding" id="planilla">
                 <div id="page-wrap" class="page-wrap">
                     <table class="tg">
@@ -58,11 +58,11 @@
                             <td class="tg-smzr"></td>
                         </tr>
                         <tr>
-                            <td class="tg-smzr" colspan="3">PERSONERIA JURIDICA No. 1057 NIT: 824002169-4</td>
+                            <td class="tg-smzr" colspan="3">PERSONERIA JURIDICA No. {{vm.planilla.central.empresa.pjuridica | uppercase}} NIT: {{vm.planilla.central.empresa.nit | uppercase}}</td>
                             <td class="tg-smzr"></td>
                         </tr>
                         <tr>
-                            <td class="tg-smzr" colspan="3">RESOLUCION No. 0041 06/06/2003 - MINISTERIO DE TRANSPORTE</td>
+                            <td class="tg-smzr" colspan="3">RESOLUCION No. {{vm.planilla.central.empresa.nresolucion | uppercase}} {{vm.planilla.central.empresa.fecha_resolucion | date: 'longDate'}} - MINISTERIO DE TRANSPORTE</td>
                             <td class="tg-smzr"></td>
                         </tr>
                         <tr>
@@ -90,14 +90,14 @@
                             <td class="tg-smzr">PROPIETARIO:</td>
                             <td class="tg-smzr">{{vm.planilla.conductor.vehiculo.nombre_propietario | uppercase}}</td>
                             <td class="tg-smzr">C.C: {{vm.planilla.conductor.vehiculo.identificacion_propietario | uppercase}}</td>
-                            <td class="tg-123c">VALLEDUPAR</td>
+                            <td class="tg-123c">{{vm.planilla.central.ciudaddepa.nombre | uppercase  }}</td>
                             <td class="tg-123c">LA JAGUA</td>
                         </tr>
                         <tr>
                             <td class="tg-smzr">CONDUCTOR:</td>
                             <td class="tg-smzr">{{vm.planilla.conductor.nombres | uppercase}} {{vm.planilla.conductor.apellidos | uppercase}}</td>
-                            <td class="tg-smzr">C.C: {{vm.planilla.conductor.identificacion}}</td>
-                            <td class="tg-smzr"></td>
+                            <td class="tg-smzr">LIC No: {{vm.planilla.conductor.nlicencia}}</td>
+                            <td class="tg-smzr">TARJETA OPE: {{vm.planilla.conductor.toperacion}}</td>
                             <td class="tg-smzr"></td>
                         </tr>
                         <tr>
@@ -145,11 +145,266 @@
                         </div>
                     </div>
                 </div>
+                <hr>
+                <div id="enco" class="enco">
+                    <br>
+                    <h2>ENCOMIENDAS</h2>
+                    <div ng-if="vm.planilla.giros.length > 0" ng-repeat="giro in vm.planilla.giros" id="giros">
+                        <table class="tb">
+                            <tr>
+                                <th class="tb-031e" colspan="3" rowspan="3">
+                                    <img ng-src="http://{{vm.planilla.central.empresa.logo}}" alt="" style="border-radius: 50%; width: 150px; height: 150px">
+                                </th>
+                                <th class="tb-yw4l"><br></th>
+                                <th class="tb-9hbo">{{vm.planilla.central.ciudaddepa.nombre | uppercase  }}</th>
+                                <th class="tb-yw4l" colspan="3" rowspan="2"></th>
+                                <th class="tb-yw4l"></th>
+                                <th class="tb-9hbo" colspan="3">CODAZZI - CESAR</th>
+                                <th class="tb-yw4l" rowspan="5"></th>
+                                <th class="tb-yw4l" style="text-align: right">SERVICIO:</th>
+                            </tr>
+                            <tr>
+                                <td class="tb-yw4l">Telefono : </td>
+                                <td class="tb-fs7x">{{vm.planilla.central.telefono | uppercase}}</td>
+                                <td class="tb-yw4l">Telefono : </td>
+                                <td class="tb-fs7x" colspan="3">559955</td>
+                                <td class="tb-lqy6">GIRO: <i class="material-icons" style="border: solid 1px black">done</i></td>
+                            </tr>
+                            <tr>
+                                <td class="tb-yw4l" colspan="2">{{vm.planilla.central.direccion | uppercase}}</td>
+                                <td class="tb-yw4l" colspan="2"></td>
+                                <td class="tb-yw4l" colspan="5">CARRERA 18D N° 22 B - 14</td>
+                                <td class="tb-lqy6">ENCOMIENDA: </td>
+                            </tr>
+                            <tr>
+                                <td class="tb-rk67" colspan="3">{{vm.planilla.central.empresa.nombre | uppercase}}</td>
+                                <td class="tb-yw4l"></td>
+                                <td class="tb-yw4l" colspan="5">OFIDINA DE:</td>
+                                <td class="tb-yw4l">DIA</td>
+                                <td class="tb-yw4l">MES</td>
+                                <td class="tb-yw4l">AÑO</td>
+                                <td class="tb-9hbo">REMESA</td>
+                            </tr>
+                            <tr>
+                                <td class="tb-yw4l" colspan="4">NIT: {{vm.planilla.central.empresa.nit | uppercase}}</td>
+                                <td class="tb-yw4l" colspan="5"></td>
+                                <td class="tb-yw4l"></td>
+                                <td class="tb-yw4l"></td>
+                                <td class="tb-yw4l"></td>
+                                <td class="tb-yw4l">N° {{vm.planilla.numero_planilla | uppercase}}</td>
+                            </tr>
+                            <tr>
+                                <td class="tb-yw4l" colspan="14"></td>
+                            </tr>
+                            <tr>
+                                <td class="tb-yw4l" colspan="3">Remitente:</td>
+                                <td class="tb-yw4l" colspan="7">{{giro.nombres}}</td>
+                                <td class="tb-yw4l"></td>
+                                <td class="tb-yw4l">C.C: </td>
+                                <td class="tb-yw4l" colspan="2">{{giro.ide_remitente}}</td>
+                            </tr>
+                            <tr>
+                                <td class="tb-yw4l" colspan="3">Dirección:</td>
+                                <td class="tb-yw4l" colspan="7">{{giro.direccion}}</td>
+                                <td class="tb-yw4l"></td>
+                                <td class="tb-yw4l">Telefono : </td>
+                                <td class="tb-yw4l" colspan="2">{{giro.telefono}}</td>
+                            </tr>
+                            <tr>
+                                <td class="tb-yw4l" colspan="3">Destinatario:</td>
+                                <td class="tb-yw4l" colspan="7">{{giro.nombre_receptor}}</td>
+                                <td class="tb-yw4l"></td>
+                                <td class="tb-yw4l">C.C:</td>
+                                <td class="tb-yw4l" colspan="2">{{giro.ide_receptor}}</td>
+                            </tr>
+                            <tr>
+                                <td class="tb-yw4l" colspan="3">Dirección:</td>
+                                <td class="tb-yw4l" colspan="7">{{giro.direccionD}}</td>
+                                <td class="tb-yw4l"></td>
+                                <td class="tb-yw4l">Telefono : </td>
+                                <td class="tb-yw4l" colspan="2">{{giro.telefono_receptor}}</td>
+                            </tr>
+                            <tr>
+                                <td class="tb-yw4l" colspan="3">Conductor:</td>
+                                <td class="tb-yw4l" colspan="6">{{vm.planilla.conductor.nombres | uppercase}} {{vm.planilla.conductor.apellidos | uppercase}}</td>
+                                <td class="tb-yw4l">Movil:</td>
+                                <td class="tb-yw4l">{{vm.planilla.conductor.vehiculo.codigo_vial | uppercase}}</td>
+                                <td class="tb-yw4l">Placa:</td>
+                                <td class="tb-yw4l" colspan="2">{{vm.planilla.conductor.vehiculo.placa | uppercase}}</td>
+                            </tr>
+                            <tr>
+                                <td class="tb-yw4l" colspan="14"></td>
+                            </tr>
+                            <tr>
+                                <td class="tb-yw4l" colspan="10">Contenido:</td>
+                                <td class="tb-yw4l" rowspan="3"></td>
+                                <td class="tb-l2oz">ENVIO $</td>
+                                <td class="tb-baqh" colspan="2"></td>
+                            </tr>
+                            <tr>
+                                <td class="tb-yw4l" colspan="10" rowspan="2">LA SUMA DE {{giro.monto | currency}} PESOS</td>
+                                <td class="tb-l2oz">COMISION $</td>
+                                <td class="tb-baqh" colspan="2"></td>
+                            </tr>
+                            <tr>
+                                <td class="tb-l2oz">TOTAL $</td>
+                                <td class="tb-baqh" colspan="2"></td>
+                            </tr>
+                            <tr>
+                                <td class="tb-yw4l" colspan="14"></td>
+                            </tr>
+                            <tr>
+                                <td class="tb-baqh" colspan="4">FIRMA DEL REMITENTE</td>
+                                <td class="tb-baqh" colspan="4">ELABORADO POR:</td>
+                                <td class="tb-yw4l" colspan="6" rowspan="2">Recibí a entera satisfacción los bienes y/o giros enviados y enumerados<br>en este comprobante.<br>Firma recibido:</td>
+                            </tr>
+                            <tr>
+                                <td class="tb-yw4l" colspan="4" rowspan="2"></td>
+                                <td class="tb-yw4l" colspan="4" rowspan="2"></td>
+                            </tr>
+                            <tr>
+                                <td class="tb-yw4l" colspan="6">C . C / NIT:</td>
+                            </tr>
+                            <tr>
+                                <td class="tb-yw4l" colspan="14"></td>
+                            </tr>
+                        </table>
+                        <br>
+                    </div>
+
+                    <!--//PAQUETES-->
+                    <div ng-if="vm.planilla.paquetes.length > 0" ng-repeat="paquete in vm.planilla.paquetes" id="paquetes">
+                        <table class="tb">
+                            <tr>
+                                <th class="tb-031e" colspan="3" rowspan="3">
+                                    <img ng-src="http://{{vm.planilla.central.empresa.logo}}" alt="" style="border-radius: 50%; width: 150px; height: 150px">
+                                </th>
+                                <th class="tb-yw4l"><br></th>
+                                <th class="tb-9hbo">{{vm.planilla.central.ciudaddepa.nombre | uppercase  }}</th>
+                                <th class="tb-yw4l" colspan="3" rowspan="2"></th>
+                                <th class="tb-yw4l"></th>
+                                <th class="tb-9hbo" colspan="3">CODAZZI - CESAR</th>
+                                <th class="tb-yw4l" rowspan="5"></th>
+                                <th class="tb-yw4l" style="text-align: right">SERVICIO:</th>
+                            </tr>
+                            <tr>
+                                <td class="tb-yw4l">Telefono : </td>
+                                <td class="tb-fs7x">{{vm.planilla.central.telefono | uppercase}}</td>
+                                <td class="tb-yw4l">Telefono : </td>
+                                <td class="tb-fs7x" colspan="3">559955</td>
+                                <td class="tb-lqy6">GIRO: </td>
+                            </tr>
+                            <tr>
+                                <td class="tb-yw4l" colspan="2">{{vm.planilla.central.direccion | uppercase}}</td>
+                                <td class="tb-yw4l" colspan="2"></td>
+                                <td class="tb-yw4l" colspan="5">CARRERA 18D N° 22 B - 14</td>
+                                <td class="tb-lqy6">ENCOMIENDA: <i class="material-icons" style="border: solid 1px black">done</i></td>
+                            </tr>
+                            <tr>
+                                <td class="tb-rk67" colspan="3">{{vm.planilla.central.empresa.nombre | uppercase}}</td>
+                                <td class="tb-yw4l"></td>
+                                <td class="tb-yw4l" colspan="5">OFIDINA DE:</td>
+                                <td class="tb-yw4l">DIA</td>
+                                <td class="tb-yw4l">MES</td>
+                                <td class="tb-yw4l">AÑO</td>
+                                <td class="tb-9hbo">REMESA</td>
+                            </tr>
+                            <tr>
+                                <td class="tb-yw4l" colspan="4">NIT: {{vm.planilla.central.empresa.nit | uppercase}}</td>
+                                <td class="tb-yw4l" colspan="5"></td>
+                                <td class="tb-yw4l"></td>
+                                <td class="tb-yw4l"></td>
+                                <td class="tb-yw4l"></td>
+                                <td class="tb-yw4l">N° {{vm.planilla.numero_planilla | uppercase}}</td>
+                            </tr>
+                            <tr>
+                                <td class="tb-yw4l" colspan="14"></td>
+                            </tr>
+                            <tr>
+                                <td class="tb-yw4l" colspan="3">Remitente:</td>
+                                <td class="tb-yw4l" colspan="7">{{paquete.nombres}}</td>
+                                <td class="tb-yw4l"></td>
+                                <td class="tb-yw4l">C.C: </td>
+                                <td class="tb-yw4l" colspan="2">{{paquete.ide_remitente}}</td>
+                            </tr>
+                            <tr>
+                                <td class="tb-yw4l" colspan="3">Dirección:</td>
+                                <td class="tb-yw4l" colspan="7">{{paquete.direccion}}</td>
+                                <td class="tb-yw4l"></td>
+                                <td class="tb-yw4l">Telefono : </td>
+                                <td class="tb-yw4l" colspan="2">{{paquete.telefono}}</td>
+                            </tr>
+                            <tr>
+                                <td class="tb-yw4l" colspan="3">Destinatario:</td>
+                                <td class="tb-yw4l" colspan="7">{{paquete.nombre_receptor}}</td>
+                                <td class="tb-yw4l"></td>
+                                <td class="tb-yw4l">C.C:</td>
+                                <td class="tb-yw4l" colspan="2">{{paquete.ide_receptor}}</td>
+                            </tr>
+                            <tr>
+                                <td class="tb-yw4l" colspan="3">Dirección:</td>
+                                <td class="tb-yw4l" colspan="7">{{paquete.direccionD}}</td>
+                                <td class="tb-yw4l"></td>
+                                <td class="tb-yw4l">Telefono : </td>
+                                <td class="tb-yw4l" colspan="2">{{paquete.telefono_receptor}}</td>
+                            </tr>
+                            <tr>
+                                <td class="tb-yw4l" colspan="3">Conductor:</td>
+                                <td class="tb-yw4l" colspan="6">{{vm.planilla.conductor.nombres | uppercase}} {{vm.planilla.conductor.apellidos | uppercase}}</td>
+                                <td class="tb-yw4l">Movil:</td>
+                                <td class="tb-yw4l">{{vm.planilla.conductor.vehiculo.codigo_vial | uppercase}}</td>
+                                <td class="tb-yw4l">Placa:</td>
+                                <td class="tb-yw4l" colspan="2">{{vm.planilla.conductor.vehiculo.placa | uppercase}}</td>
+                            </tr>
+                            <tr>
+                                <td class="tb-yw4l" colspan="14"></td>
+                            </tr>
+                            <tr>
+                                <td class="tb-yw4l" colspan="10">Contenido:</td>
+                                <td class="tb-yw4l" rowspan="3"></td>
+                                <td class="tb-l2oz">ENVIO $</td>
+                                <td class="tb-baqh" colspan="2"></td>
+                            </tr>
+                            <tr>
+                                <td class="tb-yw4l" colspan="10" rowspan="2">{{paquete.descripcion | uppercase}}</td>
+                                <td class="tb-l2oz">COMISION $</td>
+                                <td class="tb-baqh" colspan="2"></td>
+                            </tr>
+                            <tr>
+                                <td class="tb-l2oz">TOTAL $</td>
+                                <td class="tb-baqh" colspan="2"></td>
+                            </tr>
+                            <tr>
+                                <td class="tb-yw4l" colspan="14"></td>
+                            </tr>
+                            <tr>
+                                <td class="tb-baqh" colspan="4">FIRMA DEL REMITENTE</td>
+                                <td class="tb-baqh" colspan="4">ELABORADO POR:</td>
+                                <td class="tb-yw4l" colspan="6" rowspan="2">Recibí a entera satisfacción los bienes y/o giros enviados y enumerados<br>en este comprobante.<br>Firma recibido:</td>
+                            </tr>
+                            <tr>
+                                <td class="tb-yw4l" colspan="4" rowspan="2"></td>
+                                <td class="tb-yw4l" colspan="4" rowspan="2"></td>
+                            </tr>
+                            <tr>
+                                <td class="tb-yw4l" colspan="6">C . C / NIT:</td>
+                            </tr>
+                            <tr>
+                                <td class="tb-yw4l" colspan="14"></td>
+                            </tr>
+                        </table>
+                        <br>
+                    </div>
+
+
+
+
+                </div>
             </div>
             <div class="modal-footer">
                 <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
                    style="margin-left:10px; border-radius: 15px">Salir</a>
-                <a href="javascript:;" ng-click="vm.otrai()" class="waves-effect waves-light btn green"
+                <a href="javascript:;" ng-click="vm.irimpresion()" class="waves-effect waves-light btn green"
                    style="margin-left:10px; border-radius: 15px">Imprimir</a>
             </div>
         </div>

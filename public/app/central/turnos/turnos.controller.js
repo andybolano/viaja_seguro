@@ -977,5 +977,29 @@
                 cargarRutas();
             }
         });
+
+        vm.irimpresion = function () {
+            // var imgData = "http://"+vm.planilla.central.empresa.logo;
+            var doc = new jsPDF('landscape','pt', 'letter');
+
+            doc.setFont("times");
+            doc.setFontType("italic");
+
+
+            doc.addHTML($('#page-wrap')[0], 15, 15, {
+                'background': '#fff',
+                'heigth': 200
+            }, function() {
+                doc.addPage('landscape','pt', 'letter');
+                doc.addHTML($('#giros')[1], 15, 15, {
+                    'background': '#fff',
+                    'heigth': 200
+                }, function() {
+                    var string = doc.output("dataurlnewwindow");
+                    $('.preview-pane').attr('src', string);
+
+                });
+            });
+        }
     }
 })();

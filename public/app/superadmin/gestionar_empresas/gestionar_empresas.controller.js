@@ -9,7 +9,7 @@
         .module('app.empresas.actividades')
         .controller('GestionarEmpresasController', GestionarEmpresasController);
 
-    function GestionarEmpresasController($scope, empresasService, serviciosEmpresaService) {
+    function GestionarEmpresasController($scope, empresasService, serviciosEmpresaService, $filter) {
         var vm = this;
 
         vm.selectedEmpresa = {};
@@ -106,6 +106,7 @@
         }
 
         function guardar() {
+            vm.selectedEmpresa.fecha_resolucion  = $filter('date')(vm.selectedEmpresa.fecha_resolucion,'yyyy-MM-dd')
             updateServicios(vm.selectedEmpresa);
             empresasService.post(vm.selectedEmpresa).then(success, error);
             function success(p) {
@@ -153,6 +154,7 @@
         }
 
         function update() {
+            vm.selectedEmpresa.fecha_resolucion  = $filter('date')(vm.selectedEmpresa.fecha_resolucion,'yyyy-MM-dd')
             updateServicios(vm.selectedEmpresa);
             empresasService.put(vm.selectedEmpresa, vm.selectedEmpresa.id).then(success, error);
             function success(p) {
