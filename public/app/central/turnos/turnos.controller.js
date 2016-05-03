@@ -985,19 +985,20 @@
             doc.setFont("times");
             doc.setFontType("italic");
 
+            doc.internal.scaleFactor = 1.25;
 
-            doc.addHTML($('#page-wrap')[0], 15, 15, {
+            doc.addHTML(document.getElementById('page-wrap'), 15, 15, {
+                pagesplit: true,
                 'background': '#fff',
                 'heigth': 200
             }, function() {
-                doc.addPage('landscape','pt', 'letter');
-                doc.addHTML($('#giros')[1], 15, 15, {
+                doc.addPage();
+                doc.addHTML(document.getElementById('giros'), 15, 15, {
+                    pagesplit: true,
                     'background': '#fff',
                     'heigth': 200
-                }, function() {
-                    var string = doc.output("dataurlnewwindow");
-                    $('.preview-pane').attr('src', string);
-
+                }, function () {
+                    doc.output("dataurlnewwindow");
                 });
             });
         }
