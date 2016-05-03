@@ -5,7 +5,7 @@
         .module('app.centrales.planillas')
         .controller('planillaController', planillaController);
 
-    function planillaController(planillasService) {
+    function planillaController(planillasService, $scope, $compile, $timeout) {
         var vm = this;
 
         vm.imprimir = imprimir;
@@ -39,6 +39,7 @@
 
         function verPlanilla(planilla){
             planillasService.getPlanilla(planilla.viaje_id).then(succes, error);
+            vm.id = planilla.viaje_id;
             function succes(p){
                 vm.planilla = {};
                 vm.planilla = p.data;
@@ -51,18 +52,86 @@
         }
 
         function imprimir(){
-            var ficha = document.getElementById('planilla');
-            var ventimp = window.open(' ', 'popimpr');
-            ventimp.document.write( ficha.innerHTML );
-            ventimp.document.close();
-            var css = ventimp.document.createElement("link");
-            css.setAttribute("href", "http://localhost/viaja_seguro/public/assets/css/pdf.css");
-            css.setAttribute("rel", "stylesheet");
-            css.setAttribute("media", "print");
-            css.setAttribute("type", "text/css");
-            ventimp.document.head.appendChild(css);
-            ventimp.print( );
-            ventimp.close();
+            var printContents = document.getElementById('page-wrap').innerHTML;
+            var popupWin = window.open('', '_blank', '');
+            popupWin.document.open();
+            popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" media="print" href="../../../assets/css/pdf.css" /></head><body onload="window.print()">' + printContents + '</body></html>');
+            popupWin.document.close();
+        }
+
+        vm.irimpresion = function () {
+            // var imgData = "http://"+vm.planilla.central.empresa.logo;
+            var doc = new jsPDF('landscape','pt', 'letter');
+
+            doc.setFont("times");
+            doc.setFontType("italic");
+
+            doc.internal.scaleFactor = 1.25;
+
+            // doc.addHTML($('#page-wrap')[0], 15, 15, {
+            //     'background': '#fff',
+            // }, function() {
+            //     doc.output("dataurlnewwindow");
+            // });
+
+            doc.addHTML(document.getElementById('page-wrap'), 15, 15, {
+                'background': '#fff',
+                'heigth': 200
+            }, function() {
+                doc.addPage();
+                doc.addHTML($('#giros')[0], 15, 15, {
+                    'background': '#fff',
+                    'heigth': 200
+                }, function () {
+                    doc.output("dataurlnewwindow");
+                });
+            });
+
+            // doc.addHTML($('#giros')[0], 15, 15, {
+            //     'background': '#fff',
+            //     'heigth': 500
+            // }, function() {
+            //     doc.output("dataurlnewwindow");
+            //
+            // });
+
+
+
+            // doc.addHTML($('#page-wrap').first(), function () {
+            //
+            // });
+        }
+
+        vm.otrai = function () {
+            // var getImageFromUrl = function(url, callback) {
+            //     var img = new Image();
+            //
+            //     img.onError = function() {
+            //         alert('Cannot load image: "'+url+'"');
+            //     };
+            //     img.onload = function() {
+            //         callback(img);
+            //     };
+            //     img.setAttribute('crossOrigin', 'anonymous');
+            //     img.src = url;
+            // }
+
+            var createPDF = function(imgData) {
+                var doc = new jsPDF('landscape','pt', 'letter');
+
+                doc.addHTML($('#page-wrap')[0], 15, 15, {
+                    'background': '#fff',
+                    'heigth': 200
+                }, function() {
+                    // doc.addImage(imgData, 'PNG', 10, 10, 50, 50, 'monkey'); // Cache the image using the alias 'monkey'
+                    var string = doc.output("dataurlnewwindow");
+                    $('.preview-pane').attr('src', string);
+
+                });
+                doc.output('dataurlnewwindow');
+            }
+
+            // getImageFromUrl('http://'+vm.planilla.central.empresa.logo, createPDF);
         }
     }
 })();

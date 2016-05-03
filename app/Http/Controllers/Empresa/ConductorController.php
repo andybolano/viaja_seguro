@@ -86,30 +86,29 @@ class ConductorController extends Controller
      */
     public function update(Request $request, $id)
     {
-//        $data = $request->all();
         try{
-//            $data = $request->all();
-            $conductor = Conductor::find($id);
+            $data = $request->json()->all();
+            $conductor = $this->show($id);
 
-            $conductor->identificacion = $request->identificacion;
-            $conductor->nombres = $request->nombres;
-            $conductor->apellidos = $request->apellidos;
-            $conductor->direccion = $request->direccion;
-            $conductor->telefono = $request->telefono;
-            $conductor->correo = $request->correo;
-            $conductor->activo = $request->activo;
-            $conductor->estado = $request->estado;
-            $conductor->central_id = $request->central_id;
-            if($conductor->save()){
-                if($request->estado == 'Disponible'){
-                    \App::make('\App\Events\UpdatedEstadoConductorEvent')->enviarNotificacion("Notificacion", "El conductor $conductor->nombres"." $conductor->apellidos se ha reportado como $conductor->estado", $conductor, $conductor->central_id);
-                }else{
-                    \App::make('\App\Events\UpdatedEstadoConductorEvent')->enviarNotificacion("Notificacion", "El conductor $conductor->nombres"." $conductor->apellidos se ha reportado como $conductor->estado", $conductor, $conductor->central_id);
+            if($conductor){
+//                actualizo los campos del conductor
+                foreach($data as $campo=>$valor){
+                    $conductor->$campo = $valor;
                 }
-                return JsonResponse::create(array('message' => "Actualizado Correctamente"), 200);
-            }else {
-                return JsonResponse::create(array('message' => "No se pudo actualizar el registro"), 400);
+                if($conductor->save()){
+                    if($request->estado == 'Disponible'){
+                        \App::make('\App\Events\UpdatedEstadoConductorEvent')->enviarNotificacion("Notificacion", "El conductor $conductor->nombres"." $conductor->apellidos se ha reportado como $conductor->estado", $conductor, $conductor->central_id);
+                    }else{
+                        \App::make('\App\Events\UpdatedEstadoConductorEvent')->enviarNotificacion("Notificacion", "El conductor $conductor->nombres"." $conductor->apellidos se ha reportado como $conductor->estado", $conductor, $conductor->central_id);
+                    }
+                    return JsonResponse::create(array('message' => "Actualizado Correctamente"), 200);
+                }else {
+                    return JsonResponse::create(array('message' => "No se pudo actualizar el registro"), 400);
+                }
+            }else{
+                return response()->json(['mensaje' => 'El conductor no existe'], 400);
             }
+
         }catch(Exception $e){
             return JsonResponse::create(array('message' => "Se produjo una exepcion", "exception"=>$e->getMessage()), 401);
         }

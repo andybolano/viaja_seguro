@@ -10505,11 +10505,11 @@ function $LocaleProvider() {
 
       DATETIME_FORMATS: {
         MONTH:
-            'January,February,March,April,May,June,July,August,September,October,November,December'
+            'Enero,Febrero,Marzo,Abril,Mayo,Junio,Julio,Agosto,Septiembre,Octubre,Noviembre,Diciembre'
             .split(','),
-        SHORTMONTH:  'Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec'.split(','),
-        DAY: 'Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday'.split(','),
-        SHORTDAY: 'Sun,Mon,Tue,Wed,Thu,Fri,Sat'.split(','),
+        SHORTMONTH:  'Ene,Feb,Mar,Abr,May,Jun,Jul,Ago,Sep,Oct,Nov,Dic'.split(','),
+        DAY: 'Domingo,Lunes,Martes,Miercoles,Jueves,Viernes,Sabado'.split(','),
+        SHORTDAY: 'Dom,Lun,Mar,Mie,Jue,Vir,Sab'.split(','),
         AMPMS: ['AM','PM'],
         medium: 'MMM d, y h:mm:ss a',
         'short': 'M/d/yy h:mm a',
@@ -10520,12 +10520,12 @@ function $LocaleProvider() {
         mediumTime: 'h:mm:ss a',
         shortTime: 'h:mm a',
         ERANAMES: [
-          "Before Christ",
-          "Anno Domini"
+          "Antes de Cristo",
+          "Año nuevo"
         ],
         ERAS: [
-          "BC",
-          "AD"
+          "AC",
+          "AN"
         ]
       },
 

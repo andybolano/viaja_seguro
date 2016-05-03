@@ -9,7 +9,7 @@
         .module('app.empresas.actividades')
         .controller('GestionarEmpresasController', GestionarEmpresasController);
 
-    function GestionarEmpresasController($scope, empresasService, serviciosEmpresaService) {
+    function GestionarEmpresasController($scope, empresasService, serviciosEmpresaService, $filter) {
         var vm = this;
 
         vm.selectedEmpresa = {};
@@ -38,7 +38,10 @@
         function loadEmpresas() {
             empresasService.getAll().then(success, error);
             function success(p) {
-                vm.empresas = p.data;
+                for(var i=0; i<p.data.length; i++) {
+                    p.data[i].fecha_resolucion = new Date(p.data[i].fecha_resolucion);
+                    vm.empresas.push(p.data[i]);
+                }
             }
 
             function error(error) {
@@ -106,6 +109,7 @@
         }
 
         function guardar() {
+            vm.selectedEmpresa.fecha_resolucion  = $filter('date')(vm.selectedEmpresa.fecha_resolucion,'yyyy-MM-dd')
             updateServicios(vm.selectedEmpresa);
             empresasService.post(vm.selectedEmpresa).then(success, error);
             function success(p) {
@@ -153,6 +157,7 @@
         }
 
         function update() {
+            vm.selectedEmpresa.fecha_resolucion  = $filter('date')(vm.selectedEmpresa.fecha_resolucion,'yyyy-MM-dd')
             updateServicios(vm.selectedEmpresa);
             empresasService.put(vm.selectedEmpresa, vm.selectedEmpresa.id).then(success, error);
             function success(p) {

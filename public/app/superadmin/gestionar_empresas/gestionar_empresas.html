@@ -120,6 +120,23 @@
                                     </div>
                                 </div>
                             </div>
+                        <div class="row">
+                            <div class="col s7">
+                                <div class="input-field">
+                                    <i style="color: #D50000"class="material-icons prefix">book</i>
+                                    <input id="nresolucion" name="nresolucion" type="text"
+                                           ng-model="vm.selectedEmpresa.nresolucion" required class="active">
+                                    <label for="direccion" class="{{vm.active}}">Nº resolucion de transporte</label>
+                                </div>
+                            </div>
+                            <div class="col s5">
+                                <div class="input-field">
+                                    <i class="material-icons prefix" style="color: #D50000">date_range</i>
+                                    <input style="border-radius: 15px; border: none" id="fecha" type="date" class="datepicker validate" name="fecha"  ng-model="vm.selectedEmpresa.fecha_resolucion" required>
+                                    <label for="fecha" class="active">Fecha de resolución</label>
+                                </div>
+                            </div>
+                        </div>
                             <div class="row">
                                 <div class="col s7">
                                     <div class="input-field">
