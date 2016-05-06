@@ -43,7 +43,7 @@
         </div>
 
         <!--modal planilla-->
-        <div id="modalPlanilla" class="modal modal-fixed-footer" style="width: 75%;min-height:90%; border-radius: 15px">
+        <div id="modalPlanilla" class="modal modal-fixed-footer" style="width: 75%;border-radius: 15px">
             <div class="modal-content padding" id="planilla">
                 <div id="page-wrap" class="page-wrap">
                     <table class="tg">
@@ -95,7 +95,7 @@
                         </tr>
                         <tr>
                             <td class="tg-smzr">CONDUCTOR:</td>
-                            <td class="tg-smzr">{{vm.planilla.conductor.nombres | uppercase}} {{vm.planilla.conductor.apellidos | uppercase}}</td>
+                            <td class="tg-smzr">{{vm.planilla.conductor.nombres | uppercase}}  {{ vm.planilla.conductor.apellidos | uppercase}}</td>
                             <td class="tg-smzr">LIC No: {{vm.planilla.conductor.nlicencia}}</td>
                             <td class="tg-smzr">TARJETA OPE: {{vm.planilla.conductor.toperacion}}</td>
                             <td class="tg-smzr"></td>

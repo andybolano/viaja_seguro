@@ -50,7 +50,7 @@
 
             auditoriaService.getProducidosFecha(vm.central.id, obj).then(success, error);
             function success(p){
-                vm.total = 0;
+                vm.total = 0.0;
                 vm.producidos_fecha = [];
                 vm.cantidad = p.data.length;
                 if(p.data.length <= 0){
@@ -60,7 +60,7 @@
                     vm.todo = true;
                     for(var i = 0; i<p.data.length; i++){
                         vm.producidos_fecha.push(p.data[i]);
-                        vm.total += p.data[i].total;
+                        vm.total += parseFloat(p.data[i].total);
                     }
                 }
             }
