@@ -986,19 +986,25 @@
             doc.setFontType("italic");
 
             doc.internal.scaleFactor = 1.25;
-
-            doc.addHTML(document.getElementById('page-wrap'), 15, 15, {
+            doc.addHTML($('#page-wrap')[0], 15, 15, {
                 pagesplit: true,
                 'background': '#fff',
-                'heigth': 200
+                'heigth': 500
             }, function() {
                 doc.addPage();
-                doc.addHTML(document.getElementById('giros'), 15, 15, {
+                doc.addHTML($('#giros')[0], 15, 15, {
                     pagesplit: true,
                     'background': '#fff',
-                    'heigth': 200
+                    'heigth': 500
                 }, function () {
-                    doc.output("dataurlnewwindow");
+                    doc.addPage();
+                    doc.addHTML($('#paquetes')[0], 15, 15, {
+                        pagesplit: true,
+                        'background': '#fff',
+                        'heigth': 500
+                    }, function () {
+                        doc.output("dataurlnewwindow");
+                    });
                 });
             });
         }
