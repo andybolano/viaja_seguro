@@ -88,6 +88,8 @@ class ConductorController extends Controller
     {
         try{
             $data = $request->json()->all();
+            unset($data['empresa']);
+            unset($data['vehiculo']);
             $conductor = Conductor::find($id);
 
             if($conductor){
