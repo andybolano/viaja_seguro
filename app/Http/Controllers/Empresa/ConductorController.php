@@ -88,7 +88,7 @@ class ConductorController extends Controller
     {
         try{
             $data = $request->json()->all();
-            $conductor = $this->show($id);
+            $conductor = Conductor::find($id);
 
             if($conductor){
 //                actualizo los campos del conductor
