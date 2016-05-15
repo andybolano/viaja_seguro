@@ -9,7 +9,7 @@ class Conductor extends Model
     protected $table = 'conductores';
 
     protected $fillable = ['vehiculo_id', 'identificacion', 'nombres', 'apellidos', 'activo', 'imagen',
-        'telefono', 'direccion', 'correo', 'usuario_id', 'central_id', 'estado'];
+        'telefono', 'direccion', 'correo', 'usuario_id', 'central_id', 'estado', 'nlicencia', 'toperacion'];
 
     protected $casts = ['activo' => 'boolean'];
 
