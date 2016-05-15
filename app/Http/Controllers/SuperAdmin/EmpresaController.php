@@ -166,22 +166,38 @@ class EmpresaController extends Controller
         }
     }
 
+    public function verificarConductor($identificacion){
+        return Conductor::where('identificacion', $identificacion)->first();
+    }
+
+    function getUsuario($identificacion){
+        return Usuario::where('email', $identificacion)->first();
+    }
+
     public function storeConductor(Request $request, $empresa_id)
     {
         $data = $request->json()->all();
-        $usuario = Usuario::nuevo($data['identificacion'], $data['identificacion'], $this->getRol('CONDUCTOR')->id, '');
-        $data['usuario_id'] = $usuario->id;
-        $vehiculo_conductor = $data['vehiculo'];
-        unset($data['vehiculo']);
+        if($this->verificarConductor($data['identificacion'])){
+            return JsonResponse::create(array('mensajeError' => 'Ya existe un conductor con esta identificación'));
+        }else{
+            if($this->getUsuario($data['identificacion'])){
+                return JsonResponse::create(array('mensajeError' => 'Ya se encuentra registrado un usuario para este conductor'));
+            }else{
+                $usuario = Usuario::nuevo($data['identificacion'], $data['identificacion'], $this->getRol('CONDUCTOR')->id, '');
+                $data['usuario_id'] = $usuario->id;
+                $vehiculo_conductor = $data['vehiculo'];
+                unset($data['vehiculo']);
 
-        $conductor = new Conductor($data);
-        $conductor->activo = true;
-        $empresa = Empresa::find($empresa_id);
-        if(!$empresa->conductores()->save($conductor)){
-            $usuario->delete();
-            return response()->json(['mensajeError' => 'no se ha podido almacenar el registro'], 400);
+                $conductor = new Conductor($data);
+                $conductor->activo = true;
+                $empresa = Empresa::find($empresa_id);
+                if(!$empresa->conductores()->save($conductor)){
+                    $usuario->delete();
+                    return response()->json(['mensajeError' => 'no se ha podido almacenar el registro'], 400);
+                }
+                return $this->storeVehiculoconductor($conductor, $vehiculo_conductor);
+            }
         }
-        return $this->storeVehiculoconductor($conductor, $vehiculo_conductor);
     }
 
     private function storeVehiculoconductor(&$conductor, $data){

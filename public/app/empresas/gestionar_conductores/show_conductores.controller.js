@@ -67,14 +67,20 @@
             vm.Conductor.vehiculo = vm.Vehiculo;
             var promisePost = conductoresEmpresaService.post(vm.Conductor);
             promisePost.then(function (pl) {
-                $("#modalNuevoConductor").closeModal();
-                Materialize.toast('Conductor Guardado', 5000, 'rounded');
-                vm.Conductor.id =  pl.data.id;
-                vm.Vehiculo.id =  pl.data.vehiculo.id;
-                modificarImagen();
-                modificarImagenVehiculo();
-            }, function (errorPl) {
-                console.log('Error al guardar conductor', errorPl);
+                if(pl.data.mensajeError){
+                    Materialize.toast(pl.data.mensajeError, 5000, 'rounded');
+                }else{
+                    $("#modalNuevoConductor").closeModal();
+                    Materialize.toast('Conductor Guardado', 5000, 'rounded');
+                    vm.Conductor.id =  pl.data.id;
+                    vm.Vehiculo.id =  pl.data.vehiculo.id;
+                    modificarImagen();
+                    modificarImagenVehiculo();
+                }
+            }, function (error) {
+                var mensajeError = error.status == 401 ? error.data.mensajeError : 'A ocurrido un error inesperado';
+                Materialize.toast(mensajeError, 5000, 'rounded');
+                console.log('Error al guardar conductor', error);
             });
         }
 
