@@ -12,9 +12,9 @@
 
         this.onSolicitudRecived = function(data){
             var options = {
-                icon: 'http://dev.viajaseguro.co/public/assets/images/icono.png',
+                icon: '../public/assets/images/icono.png',
                 body: data.message,
-                sound: 'http://dev.viajaseguro.co/public/assets/sounds/noty.mp3'
+                sound: '../public/assets/sounds/noty.mp3'
             }
             if (!isNotificationSupported()) {
                 logg("Tu navegador no soporta Notificaciones. Por favor, utiliza una versión Reciente del Navegador Google Chrome o Safari.");
@@ -22,13 +22,13 @@
             }
             // Si el Navegador soporta las Notificaciones HTML 5, entonces que proceda a Notificar
             var notificacion = new Notification('Nueva notificación de: ' +data.tipo, options);
-            var audio = new Audio('http://dev.viajaseguro.co/public/assets/sounds/noty.mp3');
+            var audio = new Audio('../public/assets/sounds/noty.mp3');
             audio.play();
             setTimeout(notificacion.close.bind(notificacion), 10000);
 
             // Redireccionamos a un determinado Destino o URL al hacer click en la Notificación
             notificacion.onclick = function() {
-                window.open("http://dev.viajaseguro.co/public/app/#/centrales/turnos");
+                window.open("../public/app/#/centrales/turnos");
             };
         }
 
@@ -36,7 +36,7 @@
             var options = {
                 icon: 'http://'+data.conductor.imagen,
                 body: data.message,
-                sound: 'http://dev.viajaseguro.co/public/assets/sounds/noty.mp3'
+                sound: '../public/assets/sounds/noty.mp3'
             }
             if (!isNotificationSupported()) {
                 logg("Tu navegador no soporta Notificaciones. Por favor, utiliza una versión Reciente del Navegador Google Chrome o Safari.");
@@ -49,7 +49,7 @@
             setTimeout(notificacion.close.bind(notificacion), 10000);
             // Redireccionamos a un determinado Destino o URL al hacer click en la Notificación
             notificacion.onclick = function() {
-                window.open("http://dev.viajaseguro.co/public/app/#/centrales/turnos");
+                window.open("../public/app/#/centrales/turnos");
             };
         }
 
