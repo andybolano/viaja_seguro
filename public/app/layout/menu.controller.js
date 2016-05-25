@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -8,7 +8,7 @@
     function MenuCtrl(appMenu, authService) {
         var vm = this;
         var user = authService.currentUser();
-        if(user) {
+        if (user) {
             vm.menu = appMenu.getOf(user.rol);
         }
     }

@@ -1,6 +1,6 @@
 <div ng-controller="CentralesController as vm" class="contenedor">
     <div class="row">
-        <div class="col s12" >
+        <div class="col s12">
             <div class="row white col s12" style="border-radius: 15px; border:2px solid #D50000; width: 100%">
                 <div class="contenedor">
                     <div class="row">
@@ -8,9 +8,10 @@
                             <h2><b style="color: black">Gestion de Centrales</b></h2>
                         </div>
                         <div class="col s4">
-                            <div class="input-field col s12 grey lighten-3" style="padding: .5em; border-radius: 15px; height: 37px; border: none">
+                            <div class="input-field col s12 grey lighten-3"
+                                 style="padding: .5em; border-radius: 15px; height: 37px; border: none">
                                 <i class="material-icons prefix" style="color: #D50000;">search</i>
-                                <input  id="icon_prefix" type="text" ng-model="filtro">
+                                <input id="icon_prefix" type="text" ng-model="filtro">
                                 <label for="icon_prefix">Buscar</label>
                             </div>
                         </div>
@@ -66,18 +67,22 @@
                 <form class="col s12" name="formNuevaCentral">
                     <div class="row col s4">
                         <div class="row">
-                            <div class=" input-field col s12" style="border: 1px solid grey; border-radius: 15px; margin-right: 30px">
+                            <div class=" input-field col s12"
+                                 style="border: 1px solid grey; border-radius: 15px; margin-right: 30px">
                                 <i style="color: #D50000" class="material-icons prefix">local_taxi</i>
-                                <input id="ciudad" type="text" class="validate" name="ciudad" ng-value="vm.selectedCentral.ciudad.nombre +' - '+vm.selectedCentral.ciudad.departamento.nombre"
+                                <input id="ciudad" type="text" class="validate" name="ciudad"
+                                       ng-value="vm.selectedCentral.ciudad.nombre +' - '+vm.selectedCentral.ciudad.departamento.nombre"
                                        readonly required ng-click="vm.openCiudades()">
-                                <label for="ciudad" class="{{vm.active}}" ng-class="{'active' : vm.selectedCentral.ciudad.nombre}">Ciudad</label>
+                                <label for="ciudad" class="{{vm.active}}"
+                                       ng-class="{'active' : vm.selectedCentral.ciudad.nombre}">Ciudad</label>
                             </div>
                         </div>
-                        <div class="row" >
+                        <div class="row">
                             <div class="input-field col s12" style="border: 1px solid grey; border-radius: 15px;">
                                 <div style="float: left">
                                     <i style="color: #D50000" class="material-icons prefix">location_on</i>
-                                    <input id="direccion" type="text" class="validate" name="direccion"  ng-model="vm.selectedCentral.direccion"
+                                    <input id="direccion" type="text" class="validate" name="direccion"
+                                           ng-model="vm.selectedCentral.direccion"
                                            required ng-blur="vm.agregarDireccion()">
                                     <label for="direccion" class="{{vm.active}}">Direccion</label>
                                 </div>
@@ -89,9 +94,11 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="input-field col s12" style="border: 1px solid grey; border-radius: 15px; margin-right: 30px">
+                            <div class="input-field col s12"
+                                 style="border: 1px solid grey; border-radius: 15px; margin-right: 30px">
                                 <i style="color: #D50000" class="material-icons prefix">airline_seat_recline_normal</i>
-                                <input id="telefono" type="text" class="validate" name="telefono" ng-model="vm.selectedCentral.telefono" required>
+                                <input id="telefono" type="text" class="validate" name="telefono"
+                                       ng-model="vm.selectedCentral.telefono" required>
                                 <label for="telefono" class="{{vm.active}}">Telefono</label>
                             </div>
                         </div>
@@ -100,7 +107,8 @@
                                 <div class="input-field" style="border: none">
                                     <i class="material-icons prefix" style="padding-left: 3px; color: #D50000">lock</i>
 
-                                    <p style="padding-left: 45px; padding-top: 0px; font-size: 15px"><b style="color: black">Datos de acceso</b></p>
+                                    <p style="padding-left: 45px; padding-top: 0px; font-size: 15px"><b
+                                            style="color: black">Datos de acceso</b></p>
                                 </div>
                                 <div style="color: #D50000" class="divider"></div>
                             </div>
@@ -109,8 +117,11 @@
                             <div class="col s12">
                                 <div class="input-field">
                                     <i style="color: #D50000" class="material-icons prefix">account_circle</i>
-                                    <input id="name" name="username" type="text" ng-model="vm.selectedCentral.usuario.email" readonly>
-                                    <label for="username" class="active" ng-class="{'active': vm.selectedCentral.usuario.email}">Nombre de usuario</label>
+                                    <input id="name" name="username" type="text"
+                                           ng-model="vm.selectedCentral.usuario.email" readonly>
+                                    <label for="username" class="active"
+                                           ng-class="{'active': vm.selectedCentral.usuario.email}">Nombre de
+                                        usuario</label>
                                 </div>
                             </div>
                         </div>
@@ -118,27 +129,36 @@
                             <div class="col s12">
                                 <div class="row">
                                     <div class="col s12">
-                                        <div class="input-field" style="border: 1px solid grey; border-radius: 15px; margin-right: 30px">
+                                        <div class="input-field"
+                                             style="border: 1px solid grey; border-radius: 15px; margin-right: 30px">
                                             <i style="color: #D50000" class="material-icons prefix">account_circle</i>
-                                            <input id="username" name="username" type="text" ng-model="vm.selectedCentral.usuario.nombre"
+                                            <input id="username" name="username" type="text"
+                                                   ng-model="vm.selectedCentral.usuario.nombre"
                                                    ng-required="!vm.editMode">
-                                            <label for="username" ng-class="{'active': vm.selectedCentral.usuario.nombre}">Nombre de usuario</label>
+                                            <label for="username"
+                                                   ng-class="{'active': vm.selectedCentral.usuario.nombre}">Nombre de
+                                                usuario</label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col s12">
-                                        <div class="input-field" style="border: 1px solid grey; border-radius: 15px; margin-right: 30px">
+                                        <div class="input-field"
+                                             style="border: 1px solid grey; border-radius: 15px; margin-right: 30px">
                                             <i style="color: #D50000" class="material-icons prefix">vpn_key</i>
-                                            <input id="contrasena" name="contrasena" type="text" ng-model="vm.selectedCentral.usuario.contrasena"
+                                            <input id="contrasena" name="contrasena" type="text"
+                                                   ng-model="vm.selectedCentral.usuario.contrasena"
                                                    ng-required="!vm.editMode">
-                                            <label for="contrasena" ng-class="{'active': vm.selectedCentral.usuario.contrasena}">Contraseña</label>
+                                            <label for="contrasena"
+                                                   ng-class="{'active': vm.selectedCentral.usuario.contrasena}">Contraseña</label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <input type="button" class="waves-effect waves-light btn offset-s8 light-green" value="Generar Datos"
-                                           ng-click="vm.generarDatosAcceso()" ng-class="{'disabled': formEmpresa.nombre.$invalid}">
+                                    <input type="button" class="waves-effect waves-light btn offset-s8 light-green"
+                                           value="Generar Datos"
+                                           ng-click="vm.generarDatosAcceso()"
+                                           ng-class="{'disabled': formEmpresa.nombre.$invalid}">
                                     </input>
                                 </div>
                             </div>
@@ -146,7 +166,7 @@
                     </div>
 
                     <!--mapa-->
-                    <div class="row col s8" >
+                    <div class="row col s8">
                         <div id="dvMap" style="height: 380px; width: 100%;"></div>
 
                     </div>
@@ -157,7 +177,8 @@
         </div>
 
         <div class="modal-footer">
-            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red accent-4" style="margin-left:10px; border-radius: 25px">Salir</a>
+            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red accent-4"
+               style="margin-left:10px; border-radius: 25px">Salir</a>
             <a style="border-radius: 25px; " class="waves-effect waves-light btn light-green " ng-hide="vm.editMode"
                ng-click="vm.guardar()" ng-class="{'disabled': formNuevaCentral.$invalid}">Guardar</a>
             <a style="border-radius: 25px;" class="waves-effect waves-light btn light-green " ng-show="vm.editMode"
@@ -171,7 +192,7 @@
         <div class="modal-content no-padding">
             <ul class="collection with-header" style="margin: 0">
                 <li class="collection-header"><h4>Seleccionar Ciudad</h4></li>
-                <li class="collection-item row" >
+                <li class="collection-item row">
                     <div class="input-field col s11 no-padding" style="border: 1px solid grey; border-radius: 15px">
                         <input id="icon_filtr_ciud" type="text" ng-model="filtroCiudades">
                         <label for="icon_prefix" style="margin: 0; padding: 0   ">Filtrar</label>
@@ -191,7 +212,8 @@
             </ul>
         </div>
         <div class="modal-footer">
-            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red accent-4" style="margin-left:10px; border-radius: 25px">Cancelar</a>
+            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red accent-4"
+               style="margin-left:10px; border-radius: 25px">Cancelar</a>
         </div>
     </div>
 </div>

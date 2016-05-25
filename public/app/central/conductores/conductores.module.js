@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -6,9 +6,9 @@
         .config(config)
         .run(run);
 
-    function config($stateProvider){
+    function config($stateProvider) {
         $stateProvider
-           .state('app.centrales_conductores', {
+            .state('app.centrales_conductores', {
                 url: '/centrales/conductores',
                 templateUrl: 'central/conductores/showConductores.html',
                 data: {
@@ -17,9 +17,9 @@
             })
     };
 
-    function run(appMenu){
+    function run(appMenu) {
         appMenu.addTo([
-            {nombre:'Conductores', link:'app.centrales_conductores', icon:'airline_seat_recline_normal'},
+            {nombre: 'Conductores', link: 'app.centrales_conductores', icon: 'airline_seat_recline_normal'},
         ], 'CENTRAL_EMPRESA');
     }
 })();

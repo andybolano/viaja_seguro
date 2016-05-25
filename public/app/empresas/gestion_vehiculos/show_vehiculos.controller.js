@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -10,7 +10,7 @@
         vm.vehiculo = {};
         vm.modificar = modificar;
         init();
-        function init(){
+        function init() {
             vm.Vehiculo = {}
             cargarVehiculos();
         }
@@ -21,7 +21,7 @@
             promiseGet.then(function (pl) {
                 vm.Vehiculos = pl.data;
                 Materialize.toast('Vehiculos cargados correctamente', 5000, 'rounded');
-            },function (errorPl) {
+            }, function (errorPl) {
                 Materialize.toast('Ocurrio un error al cargar los vehiculos', 5000, 'rounded');
             });
         }

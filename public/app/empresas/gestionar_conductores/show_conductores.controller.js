@@ -59,7 +59,7 @@
             $("#modalNuevoConductor").openModal();
         };
 
-        function guardar(){
+        function guardar() {
             vm.Conductor.central_id = vm.Conductor.central.id;
             delete vm.Conductor.central;
             vm.Vehiculo.fecha_soat = $filter('date')(vm.Vehiculo.fecha_soat, 'yyyy-MM-dd');
@@ -67,13 +67,13 @@
             vm.Conductor.vehiculo = vm.Vehiculo;
             var promisePost = conductoresEmpresaService.post(vm.Conductor);
             promisePost.then(function (pl) {
-                if(pl.data.mensajeError){
+                if (pl.data.mensajeError) {
                     Materialize.toast(pl.data.mensajeError, 5000, 'rounded');
-                }else{
+                } else {
                     $("#modalNuevoConductor").closeModal();
                     Materialize.toast('Conductor Guardado', 5000, 'rounded');
-                    vm.Conductor.id =  pl.data.id;
-                    vm.Vehiculo.id =  pl.data.vehiculo.id;
+                    vm.Conductor.id = pl.data.id;
+                    vm.Vehiculo.id = pl.data.vehiculo.id;
                     modificarImagen();
                     modificarImagenVehiculo();
                 }

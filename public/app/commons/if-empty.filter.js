@@ -2,7 +2,7 @@
  * Created by tav0 on 13/02/16.
  */
 
-(function() {
+(function () {
     'use strict';
 
     angular

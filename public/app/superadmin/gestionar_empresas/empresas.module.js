@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -6,7 +6,7 @@
         .config(config)
         .run(run);
 
-    function config($stateProvider){
+    function config($stateProvider) {
         $stateProvider
             .state('app.superadmin_empresas', {
                 url: '/gestionar_empresas',
@@ -24,9 +24,9 @@
             });
     };
 
-    function run(appMenu){
+    function run(appMenu) {
         appMenu.addTo([
-            {nombre:'Gestionar Empresas', link:'app.superadmin_empresas', icon:'perm_identity'}
+            {nombre: 'Gestionar Empresas', link: 'app.superadmin_empresas', icon: 'perm_identity'}
         ], 'SUPER_ADM');
     }
 })();

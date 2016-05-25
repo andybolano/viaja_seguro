@@ -1,16 +1,16 @@
-(function(){
+(function () {
     'use strict';
 
     angular
         .module('app.centrales')
-        .service('notificacionesDesktopService', notificacionesDesktopService );
+        .service('notificacionesDesktopService', notificacionesDesktopService);
 
-    function notificacionesDesktopService(){
-        if(Notification.permission!=="granted") {
+    function notificacionesDesktopService() {
+        if (Notification.permission !== "granted") {
             Notification.requestPermission();
         }
 
-        this.onSolicitudRecived = function(data){
+        this.onSolicitudRecived = function (data) {
             var options = {
                 icon: '../public/assets/images/icono.png',
                 body: data.message,
@@ -21,20 +21,20 @@
                 return;
             }
             // Si el Navegador soporta las Notificaciones HTML 5, entonces que proceda a Notificar
-            var notificacion = new Notification('Nueva notificación de: ' +data.tipo, options);
+            var notificacion = new Notification('Nueva notificación de: ' + data.tipo, options);
             var audio = new Audio('../public/assets/sounds/noty.mp3');
             audio.play();
             setTimeout(notificacion.close.bind(notificacion), 10000);
 
             // Redireccionamos a un determinado Destino o URL al hacer click en la Notificación
-            notificacion.onclick = function() {
+            notificacion.onclick = function () {
                 window.open("../public/app/#/centrales/turnos");
             };
         }
 
-        this.onNotificationRecived = function(data) {
+        this.onNotificationRecived = function (data) {
             var options = {
-                icon: 'http://'+data.conductor.imagen,
+                icon: 'http://' + data.conductor.imagen,
                 body: data.message,
                 sound: '../public/assets/sounds/noty.mp3'
             }
@@ -43,12 +43,12 @@
                 return;
             }
             // Si el Navegador soporta las Notificaciones HTML 5, entonces que proceda a Notificar
-            var notificacion = new Notification('Nueva: ' +data.tipo, options);
+            var notificacion = new Notification('Nueva: ' + data.tipo, options);
             var audio = new Audio('http://dev.viajaseguro.co/public/assets/sounds/noty.mp3');
             audio.play();
             setTimeout(notificacion.close.bind(notificacion), 10000);
             // Redireccionamos a un determinado Destino o URL al hacer click en la Notificación
-            notificacion.onclick = function() {
+            notificacion.onclick = function () {
                 window.open("../public/app/#/centrales/turnos");
             };
         }
@@ -65,7 +65,7 @@
 
 // Mostramos el Mensaje de la Notificación
         function logg(mensaje) {
-            notificador.innerHTML += "<p>"+mensaje+"</p>";
+            notificador.innerHTML += "<p>" + mensaje + "</p>";
         }
     }
 })();

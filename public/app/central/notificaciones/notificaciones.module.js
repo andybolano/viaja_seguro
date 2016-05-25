@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -6,7 +6,7 @@
         .config(config)
         .run(run);
 
-    function config($stateProvider){
+    function config($stateProvider) {
         $stateProvider
             .state('app.centrales_notificaciones', {
                 url: '/central/notificaciones',
@@ -17,9 +17,9 @@
             });
     };
 
-    function run(appMenu){
+    function run(appMenu) {
         appMenu.addTo([
-            {nombre:'Notificaciones', link:'app.centrales_notificaciones', icon:'event'}
+            {nombre: 'Notificaciones', link: 'app.centrales_notificaciones', icon: 'event'}
         ], 'CENTRAL_EMPRESA');
     }
 })();

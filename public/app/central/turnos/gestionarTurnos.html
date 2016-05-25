@@ -5,7 +5,8 @@
                  ng-repeat="ruta in vm.rutas">
                 <div class=" contenedor simpleDemo col s12">
                     <div class="col s8"><br>
-                        <div class="col s6"><b style="color: black;font-size: 20px">{{ruta.destino.ciudad.nombre}}</b></div>
+                        <div class="col s6"><b style="color: black;font-size: 20px">{{ruta.destino.ciudad.nombre}}</b>
+                        </div>
 
                         <div class="row" style="overflow-y: scroll; height: 450px; width: 100%">
                             <ul dnd-list="ruta.turnos" class="col s12 collection"
@@ -21,32 +22,43 @@
                                         <div class="col s1" style="padding-left: 0">
                                             <span class="left" style="margin-right: 5px"><h4>{{turno.turno}}</h4></span>
                                         </div>
-                                        <div class="col s2 center" >
+                                        <div class="col s2 center">
                                         </div>
                                         <br>
-                                            <div class="col s8" style="text-align:left;">
-                                                <img style="border-radius: 50%;" width="100px;" height="100px" ng-src="http://{{turno.conductor.imagen}}"  style="width: 60px; height: 60px">
-                                            </div>
-                                            <div class="col s1" style="padding: 0 0">
-                                                <a class="waves-effect waves-teal" style="float: right" ng-click="vm.remove(ruta, $index)">
-                                                    <i class="material-icons prefix small" style="color:#c62828">delete</i>
-                                                </a>
-                                                <a title="Datos del vehiculo" style="float: right" class="waves-effect waves-teal" ng-click="vm.verVehiculo(turno.conductor)" >
-                                                    <i style="color: black" class="material-icons prefix small">local_taxi</i>
-                                                </a>
-                                            </div>
+                                        <div class="col s8" style="text-align:left;">
+                                            <img style="border-radius: 50%;" width="100px;" height="100px"
+                                                 ng-src="http://{{turno.conductor.imagen}}"
+                                                 style="width: 60px; height: 60px">
+                                        </div>
+                                        <div class="col s1" style="padding: 0 0">
+                                            <a class="waves-effect waves-teal" style="float: right"
+                                               ng-click="vm.remove(ruta, $index)">
+                                                <i class="material-icons prefix small" style="color:#c62828">delete</i>
+                                            </a>
+                                            <a title="Datos del vehiculo" style="float: right"
+                                               class="waves-effect waves-teal"
+                                               ng-click="vm.verVehiculo(turno.conductor)">
+                                                <i style="color: black"
+                                                   class="material-icons prefix small">local_taxi</i>
+                                            </a>
+                                        </div>
                                     </div>
                                     <div class="center">
                                         <strong><span class="title">{{turno.conductor.nombres}} {{turno.conductor.apellidos}}</span></strong>
                                     </div>
                                     <div class="center red accent-4" style="border-radius: 15px;">
-                                        <a style="color:white;"ng-if="vm.servicios.giros" title="Asignar giros" class="waves-effect waves-teal" ng-click="vm.addGiro(turno.conductor)">
+                                        <a style="color:white;" ng-if="vm.servicios.giros" title="Asignar giros"
+                                           class="waves-effect waves-teal" ng-click="vm.addGiro(turno.conductor)">
                                             <i class="material-icons prefix small">attach_money</i>
                                         </a>
-                                        <a style="color:white;"ng-if="vm.servicios.encomiendas" title="Asignar paquetes" class="waves-effect waves-teal" ng-click="vm.addPaquete(turno.conductor)" >
+                                        <a style="color:white;" ng-if="vm.servicios.encomiendas"
+                                           title="Asignar paquetes" class="waves-effect waves-teal"
+                                           ng-click="vm.addPaquete(turno.conductor)">
                                             <i class="material-icons prefix small">redeem</i>
                                         </a>
-                                        <a style="color:white;" ng-if="vm.servicios.gestion_pasajeros" title="Asignar pasajeros" class="waves-effect waves-teal" ng-click="vm.addPasajero(turno.conductor)" >
+                                        <a style="color:white;" ng-if="vm.servicios.gestion_pasajeros"
+                                           title="Asignar pasajeros" class="waves-effect waves-teal"
+                                           ng-click="vm.addPasajero(turno.conductor)">
                                             <i class="material-icons prefix small">person</i>
                                         </a>
                                     </div>
@@ -55,16 +67,19 @@
                         </div>
                     </div>
 
-                    <div class="col s4" ><p> </p>
+                    <div class="col s4"><p></p>
                         <!--<div class="row">-->
                         <!--<div class="col s3"> <p> </p>-->
                         <div class="row">
                             <!--<div class="col s4">-->
                             <div class="col s6">
-                                <a style="border-radius: 15px" class="btn waves-effect waves-light  light-green lighten-1" ng-click="vm.despacharConductor(ruta)">Despachar</a>
+                                <a style="border-radius: 15px"
+                                   class="btn waves-effect waves-light  light-green lighten-1"
+                                   ng-click="vm.despacharConductor(ruta)">Despachar</a>
                             </div>
-                            <div class="col s2" >
-                                <a style="border-radius: 10px" class="btn waves-effect waves-light  red accent-4" ng-click="vm.addNewConductor(ruta)">
+                            <div class="col s2">
+                                <a style="border-radius: 10px" class="btn waves-effect waves-light  red accent-4"
+                                   ng-click="vm.addNewConductor(ruta)">
                                     <i class="material-icons">add</i>
                                 </a>
                             </div>
@@ -75,40 +90,52 @@
                         <strong><b style="font-size: 20px">Solicitudes</b></strong>
                         <div style="overflow-y: scroll; height: 300px">
                             <div class="row center">
-                                <ul ng-repeat="algo in ruta.solicitud_pasajeros" class="collection" style="border-radius: 25px;" ng-show="ruta.solicitud_pasajeros.length > 0">
+                                <ul ng-repeat="algo in ruta.solicitud_pasajeros" class="collection"
+                                    style="border-radius: 25px;" ng-show="ruta.solicitud_pasajeros.length > 0">
                                     <li class="collection-item">
                                         <div>
-                                            <strong >{{algo.datos_pasajeros.length}} Pasajero(s)</strong>
-                                            <a href="javascript:;" class="secondary-content" ng-click="vm.getSolicitudPasajero(algo.id)">
+                                            <strong>{{algo.datos_pasajeros.length}} Pasajero(s)</strong>
+                                            <a href="javascript:;" class="secondary-content"
+                                               ng-click="vm.getSolicitudPasajero(algo.id)">
                                                 <!--<i class="material-icons">visibility</i>-->
-                                                <div >
-                                                    <img  class="circle" style="height: 30px; width: 30px" src="http://dev.viajaseguro.co/public/assets/images/90786.gif" alt="">
+                                                <div>
+                                                    <img class="circle" style="height: 30px; width: 30px"
+                                                         src="http://dev.viajaseguro.co/public/assets/images/90786.gif"
+                                                         alt="">
                                                 </div>
                                             </a>
                                         </div>
                                     </li>
                                 </ul>
-                                <ul ng-repeat="algo in ruta.solicitud_paquetes" class="collection" style="border-radius: 25px;" ng-show="ruta.solicitud_paquetes.length > 0">
+                                <ul ng-repeat="algo in ruta.solicitud_paquetes" class="collection"
+                                    style="border-radius: 25px;" ng-show="ruta.solicitud_paquetes.length > 0">
                                     <li class="collection-item">
                                         <div>
                                             <strong>{{algo.detalles.length}} Paquete(s)</strong>
-                                            <a href="javascript:;" class="secondary-content" ng-click="vm.getSolicitudPaquete(algo.id)">
+                                            <a href="javascript:;" class="secondary-content"
+                                               ng-click="vm.getSolicitudPaquete(algo.id)">
                                                 <!--<i class="material-icons">visibility</i>-->
-                                                <div >
-                                                    <img  class="circle" style="height: 30px; width: 30px" src="http://dev.viajaseguro.co/public/assets/images/90786.gif" alt="">
+                                                <div>
+                                                    <img class="circle" style="height: 30px; width: 30px"
+                                                         src="http://dev.viajaseguro.co/public/assets/images/90786.gif"
+                                                         alt="">
                                                 </div>
                                             </a>
                                         </div>
                                     </li>
                                 </ul>
-                                <ul ng-repeat="algo in ruta.solicitud_giros" class="collection" style="border-radius: 25px;" ng-show="ruta.solicitud_giros.length > 0">
+                                <ul ng-repeat="algo in ruta.solicitud_giros" class="collection"
+                                    style="border-radius: 25px;" ng-show="ruta.solicitud_giros.length > 0">
                                     <li class="collection-item">
                                         <div>
                                             <strong>{{algo.detalles.length}} Giro(s)</strong>
-                                            <a href="javascript:;" class="secondary-content" ng-click="vm.getSolicitudGiro(algo.id)">
+                                            <a href="javascript:;" class="secondary-content"
+                                               ng-click="vm.getSolicitudGiro(algo.id)">
                                                 <!--<i class="material-icons">visibility</i>-->
-                                                <div >
-                                                    <img  class="circle" style="height: 30px; width: 30px" src="http://dev.viajaseguro.co/public/assets/images/90786.gif" alt="">
+                                                <div>
+                                                    <img class="circle" style="height: 30px; width: 30px"
+                                                         src="http://dev.viajaseguro.co/public/assets/images/90786.gif"
+                                                         alt="">
                                                 </div>
                                             </a>
                                         </div>
@@ -116,25 +143,25 @@
                                 </ul>
                             </div>
                             <!--<div class="row center" ng-repeat="algo in ruta.solicitud_pasajeros" style="border-radius: 15px; border:1px solid grey;height: 35px; ">-->
-                                <!--<i class="material-icons" style="-webkit-transform: scaleX(-1); color: #D50000; float: left; padding: 5px">airline_seat_recline_extra</i>-->
-                                <!--<strong >{{algo.datos_pasajeros.length}} Pasajero(s)</strong>-->
-                                <!--<a style="float: right;padding: 5px" class="waves-effect waves-teal" ng-click="vm.getSolicitudPasajero(algo.id)">-->
-                                    <!--<i class="material-icons prefix small" style="color: #9ccc65">visibility</i>-->
-                                <!--</a>-->
+                            <!--<i class="material-icons" style="-webkit-transform: scaleX(-1); color: #D50000; float: left; padding: 5px">airline_seat_recline_extra</i>-->
+                            <!--<strong >{{algo.datos_pasajeros.length}} Pasajero(s)</strong>-->
+                            <!--<a style="float: right;padding: 5px" class="waves-effect waves-teal" ng-click="vm.getSolicitudPasajero(algo.id)">-->
+                            <!--<i class="material-icons prefix small" style="color: #9ccc65">visibility</i>-->
+                            <!--</a>-->
                             <!--</div>-->
                             <!--<div class="row center" ng-repeat="algo in ruta.solicitud_paquetes" style="border-radius: 15px; border:1px solid grey;height: 35px;">-->
-                                <!--<i class="material-icons prefix small" style="color: #D50000;float: left; padding: 5px">redeem</i>-->
-                                <!--<strong>{{algo.detalles.length}} Paquete(s)</strong>-->
-                                <!--<a style="float: right;padding: 5px" class="waves-effect waves-teal" ng-click="vm.getSolicitudPaquete(algo.id)">-->
-                                    <!--<i class="material-icons prefix small" style="color: #9ccc65">visibility</i>-->
-                                <!--</a>-->
+                            <!--<i class="material-icons prefix small" style="color: #D50000;float: left; padding: 5px">redeem</i>-->
+                            <!--<strong>{{algo.detalles.length}} Paquete(s)</strong>-->
+                            <!--<a style="float: right;padding: 5px" class="waves-effect waves-teal" ng-click="vm.getSolicitudPaquete(algo.id)">-->
+                            <!--<i class="material-icons prefix small" style="color: #9ccc65">visibility</i>-->
+                            <!--</a>-->
                             <!--</div>-->
                             <!--<div class="row center" ng-repeat="algo in ruta.solicitud_giros" style="border-radius: 15px; border:1px solid grey;height: 35px;">-->
-                                <!--<i class="material-icons prefix small" style="color: #D50000;float: left; padding: 5px">attach_money</i>-->
-                                <!--<strong>{{algo.detalles.length}} Giro(s)</strong>-->
-                                <!--<a style="float: right;padding: 5px" class="waves-effect waves-teal" ng-click="vm.getSolicitudGiro(algo.id)">-->
-                                    <!--<i class="material-icons prefix small" style="color: #9ccc65">visibility</i>-->
-                                <!--</a>-->
+                            <!--<i class="material-icons prefix small" style="color: #D50000;float: left; padding: 5px">attach_money</i>-->
+                            <!--<strong>{{algo.detalles.length}} Giro(s)</strong>-->
+                            <!--<a style="float: right;padding: 5px" class="waves-effect waves-teal" ng-click="vm.getSolicitudGiro(algo.id)">-->
+                            <!--<i class="material-icons prefix small" style="color: #9ccc65">visibility</i>-->
+                            <!--</a>-->
                             <!--</div>-->
                         </div>
                     </div>
@@ -147,26 +174,30 @@
     <!--modal informacion vehiculo-->
     <div id="modalVehiculo" class="modal modal-fixed-footer" style="width: 79%;min-height:60%;">
         <div class="modal-content">
-            <h2><b style="color: black">Informacion del vehiculo de: {{vm.conductor.nombres}} {{vm.conductor.apellidos}}</b></h2>
+            <h2><b style="color: black">Informacion del vehiculo de: {{vm.conductor.nombres}}
+                {{vm.conductor.apellidos}}</b></h2>
             <div class="row">
                 <div class="col s8">
                     <form class="col s12">
                         <div class="row">
                             <div class="input-field col s3" style="margin-right: 30px">
                                 <i style="color: #D50000" class="material-icons prefix">payment</i>
-                                <input id="icon_payment" type="text" class="validate" name="placa" ng-model="vm.vehiculo.placa" readonly>
-                                    <label for="icon_payment" class="{{vm.active}}" style="font-size: 15px">Placa</label>
+                                <input id="icon_payment" type="text" class="validate" name="placa"
+                                       ng-model="vm.vehiculo.placa" readonly>
+                                <label for="icon_payment" class="{{vm.active}}" style="font-size: 15px">Placa</label>
                             </div>
 
                             <div class="input-field col s4" style="margin-right: 30px">
                                 <i style="color: #D50000" class="material-icons prefix">local_taxi</i>
-                                <input id="icon_person" type="text" class="validate" name="modelo" ng-model="vm.vehiculo.modelo" readonly>
-                                    <label for="icon_person" class="{{vm.active}}" style="font-size: 15px">Modelo</label>
+                                <input id="icon_person" type="text" class="validate" name="modelo"
+                                       ng-model="vm.vehiculo.modelo" readonly>
+                                <label for="icon_person" class="{{vm.active}}" style="font-size: 15px">Modelo</label>
                             </div>
                             <div class="input-field col s3">
                                 <i style="color: #D50000" class="material-icons prefix">airport_shuttle</i>
-                                <input id="icon_person4" type="text" class="validate" name="vial"  ng-model="vm.vehiculo.codigo_vial" readonly>
-                                    <label for="icon_person4" class="{{vm.active}}" style="font-size: 15px">C. vial</label>
+                                <input id="icon_person4" type="text" class="validate" name="vial"
+                                       ng-model="vm.vehiculo.codigo_vial" readonly>
+                                <label for="icon_person4" class="{{vm.active}}" style="font-size: 15px">C. vial</label>
                             </div>
                         </div>
                         <div class="row">
@@ -179,13 +210,17 @@
                                 <fieldset style="border-radius: 25px">
                                     <div class="col s12">
                                         <p style="margin-bottom: 0; margin-top: 0; margin-left: 10px">
-                                            <input style="border-radius: 25px" type="checkbox" ng-model="vm.vehiculo.soat" id="soat" ng-checked="{{vm.vehiculo.soat}}" disabled/>
+                                            <input style="border-radius: 25px" type="checkbox"
+                                                   ng-model="vm.vehiculo.soat" id="soat"
+                                                   ng-checked="{{vm.vehiculo.soat}}" disabled/>
                                             <label for="soat">SOAT</label>
                                         </p>
                                     </div>
                                     <div class="col s12">
                                         <p>Fecha de vencimiento</p>
-                                        <input style="border-radius: 25px" type="date" class="datepicker" name="fecha_soat" ng-model="vm.vehiculo.fecha_soat" id="fecha_soat" disabled>
+                                        <input style="border-radius: 25px" type="date" class="datepicker"
+                                               name="fecha_soat" ng-model="vm.vehiculo.fecha_soat" id="fecha_soat"
+                                               disabled>
                                     </div>
                                 </fieldset>
                             </div>
@@ -193,13 +228,17 @@
                                 <fieldset style="border-radius: 25px">
                                     <div class="col s12">
                                         <p style="margin-bottom: 0; margin-top: 0; margin-left: 10px">
-                                            <input style="border-radius: 25px" type="checkbox" ng-model="vm.vehiculo.tecnomecanica" id="tecnomecanica" ng-checked="{{vm.vehiculo.tecnomecanica}}" disabled/>
+                                            <input style="border-radius: 25px" type="checkbox"
+                                                   ng-model="vm.vehiculo.tecnomecanica" id="tecnomecanica"
+                                                   ng-checked="{{vm.vehiculo.tecnomecanica}}" disabled/>
                                             <label for="tecnomecanica">TECNOMECANICA</label>
                                         </p>
                                     </div>
                                     <div class="col s12">
                                         <p>Fecha de vencimiento</p>
-                                        <input style="border-radius: 25px" type="date" class="datepicker" name="fecha_tecnomecanica" ng-model="vm.vehiculo.fecha_tecnomecanica" id="fecha_tecnomecanica" disabled>
+                                        <input style="border-radius: 25px" type="date" class="datepicker"
+                                               name="fecha_tecnomecanica" ng-model="vm.vehiculo.fecha_tecnomecanica"
+                                               id="fecha_tecnomecanica" disabled>
                                     </div>
                                 </fieldset>
                             </div>
@@ -207,7 +246,9 @@
                                 <fieldset style="border-radius: 25px">
                                     <div class="col s12">
                                         <p style="margin-bottom: 0; margin-top: 0; margin-left: 10px">
-                                            <input style="border-radius: 25px" type="checkbox" ng-model="vm.vehiculo.tarjeta_propiedad" id="tpropiedad" ng-checked="{{vm.vehiculo.tarjeta_propiedad}}" disabled/>
+                                            <input style="border-radius: 25px" type="checkbox"
+                                                   ng-model="vm.vehiculo.tarjeta_propiedad" id="tpropiedad"
+                                                   ng-checked="{{vm.vehiculo.tarjeta_propiedad}}" disabled/>
                                             <label for="tpropiedad">TARJETA DE PROPIEDAD</label>
                                         </p>
                                     </div>
@@ -219,8 +260,12 @@
                 </div>
 
                 <div class="col s4">
-                    <div class="col s12" id="imagev" style="position: relative; width: 350px;height: 350px; border-radius: 50%;background: grey">
-                        <img class="center" id="imagen" style="width:350px; height: 350px; border-radius: 50%; position: absolute; left: 0; top: 0" ng-src="http://{{vm.vehiculo.imagen}}" title="imagen" alt="No posee una foto del vehiculo"/>
+                    <div class="col s12" id="imagev"
+                         style="position: relative; width: 350px;height: 350px; border-radius: 50%;background: grey">
+                        <img class="center" id="imagen"
+                             style="width:350px; height: 350px; border-radius: 50%; position: absolute; left: 0; top: 0"
+                             ng-src="http://{{vm.vehiculo.imagen}}" title="imagen"
+                             alt="No posee una foto del vehiculo"/>
                     </div>
                     <div class="file-field input-field col s12" style="border: none ">
                         <div class="btn col s12" ng-hide="true">
@@ -237,7 +282,8 @@
         </div>
 
         <div class="modal-footer">
-            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red " style="margin-left:10px; border-radius: 25px">Salir</a>
+            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red "
+               style="margin-left:10px; border-radius: 25px">Salir</a>
         </div>
 
     </div>
@@ -245,16 +291,17 @@
 
 
     <!--modal buscar conductor-->
-    <div id="modalBuscarconductor" class="modal modal-fixed-footer row white" >
+    <div id="modalBuscarconductor" class="modal modal-fixed-footer row white">
         <div class="contenedor modal-content">
             <div class="row">
                 <div class="col s7">
                     <h2>Seleccionar conductor</h2>
                 </div>
                 <div class="col s5">
-                    <div class="input-field col s12 grey lighten-3" style="padding: .5em; border-radius: 15px; height: 37px; border: none">
+                    <div class="input-field col s12 grey lighten-3"
+                         style="padding: .5em; border-radius: 15px; height: 37px; border: none">
                         <i class="material-icons prefix" style="color: #D50000;">search</i>
-                        <input  id="icon_prefix" type="text" ng-model="filtro">
+                        <input id="icon_prefix" type="text" ng-model="filtro">
                         <label for="icon_prefix">Buscar</label>
                     </div>
                 </div>
@@ -263,84 +310,115 @@
                 <div class="col s12">
                     <table class="striped responsive-table">
                         <thead>
-                            <th style="color: #D50000;text-align: center">Identificacion</th>
-                            <th style="color: #D50000;text-align: center">Foto</th>
-                            <th style="color: #D50000;text-align: center">Nombres</th>
-                            <th style="color: #D50000;text-align: center">Apellidos</th>
-                            <th style="color: #D50000;text-align: center">Teléfono</th>
-                            <th style="color: #D50000;text-align: center">Seleccionar</th>
+                        <th style="color: #D50000;text-align: center">Identificacion</th>
+                        <th style="color: #D50000;text-align: center">Foto</th>
+                        <th style="color: #D50000;text-align: center">Nombres</th>
+                        <th style="color: #D50000;text-align: center">Apellidos</th>
+                        <th style="color: #D50000;text-align: center">Teléfono</th>
+                        <th style="color: #D50000;text-align: center">Seleccionar</th>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="conductor in vm.Conductores| filter : filtro">
-                                <td style="text-align: center">{{conductor.identificacion}}</td>
-                                <td style="text-align: center">
-                                    <img ng-src="http://{{conductor.imagen}}" class="circle" style="width:32px; height: 32px; border-radius: 50%">
-                                </td>
-                                <td style="text-align: center">{{conductor.nombres}}</td>
-                                <td style="text-align: center">{{conductor.apellidos}}</td>
-                                <td style="text-align: center">{{conductor.telefono}}</td>
-                                <td style="text-align: center">
-                                    <a href="javascript:" ng-click="vm.selectConductor(conductor)">
-                                        <i class="material-icons prefix" style="color: #D50000">touch_app</i>
-                                    </a>
-                                </td>
-                            </tr>
+                        <tr ng-repeat="conductor in vm.Conductores| filter : filtro">
+                            <td style="text-align: center">{{conductor.identificacion}}</td>
+                            <td style="text-align: center">
+                                <img ng-src="http://{{conductor.imagen}}" class="circle"
+                                     style="width:32px; height: 32px; border-radius: 50%">
+                            </td>
+                            <td style="text-align: center">{{conductor.nombres}}</td>
+                            <td style="text-align: center">{{conductor.apellidos}}</td>
+                            <td style="text-align: center">{{conductor.telefono}}</td>
+                            <td style="text-align: center">
+                                <a href="javascript:" ng-click="vm.selectConductor(conductor)">
+                                    <i class="material-icons prefix" style="color: #D50000">touch_app</i>
+                                </a>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
 
-        <div class="modal-footer" >
+        <div class="modal-footer">
             <button href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red accent-4"
-                    style="margin-left:10px;border-radius: 25px">Salir</button>
+                    style="margin-left:10px;border-radius: 25px">Salir
+            </button>
         </div>
     </div>
 
 
     <!--modal add pasajeros-->
-    <div ng-if="vm.servicios.gestion_pasajeros" id="modalAddPasajero" class="modal modal-fixed-footer" style="width: 90%;min-height:85%;" >
+    <div ng-if="vm.servicios.gestion_pasajeros" id="modalAddPasajero" class="modal modal-fixed-footer"
+         style="width: 90%;min-height:85%;">
         <!--<form action="" name="formPasajero">-->
         <div class="modal-content">
-            <h2><b style="color: black">Asignar pasajeros a: {{vm.conductor.nombres}} {{vm.conductor.apellidos}}</b></h2>
+            <h2><b style="color: black">Asignar pasajeros a: {{vm.conductor.nombres}} {{vm.conductor.apellidos}}</b>
+            </h2>
             <h2><b style="color: black">Cupos disponibles: {{vm.cupos}}</b></h2>
             <div class="col s12" style="border-radius: 25px">
                 <div class="contenedor">
                     <div class="row">
                         <div class="col s12">
-                            <table  class="striped responsive-table">
+                            <table class="striped responsive-table">
                                 <thead>
-                                    <th style="color: #D50000;text-align: center" >identificacion</th>
-                                    <th style="color: #D50000;text-align: center">Nombres y apellidos</th>
-                                    <th style="color: #D50000;text-align: center" >Telefono</th>
-                                    <th style="color: #D50000;text-align: center" >Recoger en</th>
-                                    <!--<th style="color: #D50000;text-align: center" >Dejar en</th>-->
-                                    <!--opciones-->
-                                    <th style="color: #D50000;text-align: center" width="10px"></th>
-                                    <th style="color: #D50000;text-align: center" width="10px"></th>
-                                    <th style="color: #D50000;text-align: center" width="10px"></th>
+                                <th style="color: #D50000;text-align: center">identificacion</th>
+                                <th style="color: #D50000;text-align: center">Nombres y apellidos</th>
+                                <th style="color: #D50000;text-align: center">Telefono</th>
+                                <th style="color: #D50000;text-align: center">Recoger en</th>
+                                <!--<th style="color: #D50000;text-align: center" >Dejar en</th>-->
+                                <!--opciones-->
+                                <th style="color: #D50000;text-align: center" width="10px"></th>
+                                <th style="color: #D50000;text-align: center" width="10px"></th>
+                                <th style="color: #D50000;text-align: center" width="10px"></th>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td style="text-align: center"><input style="border: 1px solid black" type="text" ng-model="vm.Pasajeros.identificacion" ng-blur="vm.getCliente(vm.Pasajeros.identificacion)"></td>
-                                        <td style="text-align: center"><input style="border: 1px solid black" type="text" ng-model="vm.Pasajeros.nombres" required></td>
-                                        <td style="text-align: center"><input style="border: 1px solid black" type="text" ng-model="vm.Pasajeros.telefono" required></td>
-                                        <td style="text-align: center"><input style="border: 1px solid black" type="text" ng-model="vm.Pasajeros.direccion" required></td>
-                                        <!--<td style="text-align: center"><input type="text" ng-model="vm.Pasajeros.direccionD" required></td>-->
-                                        <td style="text-align: center"><button class="btn waves-effect waves-light green " title="Guardar" id="guardar" ng-click="vm.asignarPasajero();" disabled="" ><i class="material-icons">save</i></button></td>
-                                        <td style="text-align: center"><button class="btn waves-effect waves-light blue"  title="Actualizar" id="actualizar" ng-click="vm.modificarPasajero();" disabled="" ><i class="material-icons">reply</i></button></td>
-                                        <td style="text-align: center"><button class="btn waves-effect waves-light red"  title="limpiar" id="limpiar" ng-click="vm.limpiarPasajeros(vm.conductor.id);"><i class="material-icons">clear</i></button></td>
-                                    </tr>
-                                    <tr ng-repeat ="pasajero in vm.listaPasajeros">
-                                        <td style="text-align: center">{{pasajero.identificacion}}</td>
-                                        <td style="text-align: center">{{pasajero.nombres}} {{pasajero.cliente.apellidos}}</td>
-                                        <td style="text-align: center">{{pasajero.telefono}}</td>
-                                        <td style="text-align: center">{{pasajero.direccion}}</td>
-                                        <!--<td style="text-align: center">{{pasajero.direccionD}}</td>-->
-                                        <td style="text-align: center"></td>
-                                        <td style="text-align: center" style="text-align: center;"><a href="javascript:;" title="editar" ng-click="vm.cargarModificarPasajero(pasajero);"><i class="material-icons">create</i></a></td>
-                                        <td style="text-align: center" style="text-align: center;"><a href="javascript:;" title="eliminar" ng-click="vm.eliminarPasajero(pasajero.id)"><i class="material-icons" style="color:#F44336">remove</i></a></td>
-                                    </tr>
+                                <tr>
+                                    <td style="text-align: center"><input style="border: 1px solid black" type="text"
+                                                                          ng-model="vm.Pasajeros.identificacion"
+                                                                          ng-blur="vm.getCliente(vm.Pasajeros.identificacion)">
+                                    </td>
+                                    <td style="text-align: center"><input style="border: 1px solid black" type="text"
+                                                                          ng-model="vm.Pasajeros.nombres" required></td>
+                                    <td style="text-align: center"><input style="border: 1px solid black" type="text"
+                                                                          ng-model="vm.Pasajeros.telefono" required>
+                                    </td>
+                                    <td style="text-align: center"><input style="border: 1px solid black" type="text"
+                                                                          ng-model="vm.Pasajeros.direccion" required>
+                                    </td>
+                                    <!--<td style="text-align: center"><input type="text" ng-model="vm.Pasajeros.direccionD" required></td>-->
+                                    <td style="text-align: center">
+                                        <button class="btn waves-effect waves-light green " title="Guardar" id="guardar"
+                                                ng-click="vm.asignarPasajero();" disabled=""><i class="material-icons">save</i>
+                                        </button>
+                                    </td>
+                                    <td style="text-align: center">
+                                        <button class="btn waves-effect waves-light blue" title="Actualizar"
+                                                id="actualizar" ng-click="vm.modificarPasajero();" disabled=""><i
+                                                class="material-icons">reply</i></button>
+                                    </td>
+                                    <td style="text-align: center">
+                                        <button class="btn waves-effect waves-light red" title="limpiar" id="limpiar"
+                                                ng-click="vm.limpiarPasajeros(vm.conductor.id);"><i
+                                                class="material-icons">clear</i></button>
+                                    </td>
+                                </tr>
+                                <tr ng-repeat="pasajero in vm.listaPasajeros">
+                                    <td style="text-align: center">{{pasajero.identificacion}}</td>
+                                    <td style="text-align: center">{{pasajero.nombres}} {{pasajero.cliente.apellidos}}
+                                    </td>
+                                    <td style="text-align: center">{{pasajero.telefono}}</td>
+                                    <td style="text-align: center">{{pasajero.direccion}}</td>
+                                    <!--<td style="text-align: center">{{pasajero.direccionD}}</td>-->
+                                    <td style="text-align: center"></td>
+                                    <td style="text-align: center" style="text-align: center;"><a href="javascript:;"
+                                                                                                  title="editar"
+                                                                                                  ng-click="vm.cargarModificarPasajero(pasajero);"><i
+                                            class="material-icons">create</i></a></td>
+                                    <td style="text-align: center" style="text-align: center;"><a href="javascript:;"
+                                                                                                  title="eliminar"
+                                                                                                  ng-click="vm.eliminarPasajero(pasajero.id)"><i
+                                            class="material-icons" style="color:#F44336">remove</i></a></td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -357,7 +435,8 @@
     <!--fin modal add pasajeros-->
 
     <!--modal asignar giros-->
-    <div ng-if="vm.servicios.giros" id="modalAddGiro" class="modal modal-fixed-footer" style="width: 97%;min-height:85%;">
+    <div ng-if="vm.servicios.giros" id="modalAddGiro" class="modal modal-fixed-footer"
+         style="width: 97%;min-height:85%;">
         <!--<form action="" name="formPasajero">-->
         <div class="modal-content">
             <h2><b style="color: black;">Asignar giros a: {{vm.conductor.nombres}} {{vm.conductor.apellidos}}</b></h2>
@@ -365,48 +444,79 @@
                 <div class="contenedor">
                     <div class="row">
                         <div class="col s12">
-                            <table  class="striped bordered responsive-table">
+                            <table class="striped bordered responsive-table">
                                 <thead>
-                                    <th style="color: #D50000;text-align: center" >id remitente</th>
-                                    <th style="color: #D50000;text-align: center">Nombres y apellidos</th>
-                                    <th style="color: #D50000;text-align: center" >Telefono</th>
-                                    <th style="color: #D50000;text-align: center" >Recoger en</th>
-                                    <th style="color: #D50000;text-align: center" >Entregar a</th>
-                                    <th style="color: #D50000;text-align: center">Telefono</th>
-                                    <th style="color: #D50000;text-align: center">Entregar en</th>
-                                    <th style="color: #D50000;text-align: center">Monto</th>
-                                    <!--opciones-->
-                                    <th style="color: #D50000;text-align: center" width="10px"></th>
-                                    <th style="color: #D50000;text-align: center" width="10px"></th>
-                                    <th style="color: #D50000;text-align: center" width="10px"></th>
+                                <th style="color: #D50000;text-align: center">id remitente</th>
+                                <th style="color: #D50000;text-align: center">Nombres y apellidos</th>
+                                <th style="color: #D50000;text-align: center">Telefono</th>
+                                <th style="color: #D50000;text-align: center">Recoger en</th>
+                                <th style="color: #D50000;text-align: center">Entregar a</th>
+                                <th style="color: #D50000;text-align: center">Telefono</th>
+                                <th style="color: #D50000;text-align: center">Entregar en</th>
+                                <th style="color: #D50000;text-align: center">Monto</th>
+                                <!--opciones-->
+                                <th style="color: #D50000;text-align: center" width="10px"></th>
+                                <th style="color: #D50000;text-align: center" width="10px"></th>
+                                <th style="color: #D50000;text-align: center" width="10px"></th>
                                 </thead>
                                 <tbody>
-                                    <tr style="background-color: transparent;">
-                                        <td style="text-align: center"><input style="border: 1px solid black" type="text" ng-model="vm.Giros.ide_remitente" ng-blur="vm.getCliente(vm.Giros.ide_remitente)"></td>
-                                        <td style="text-align: center"><input style="border: 1px solid black" type="text" ng-model="vm.Giros.nombres"></td>
-                                        <td style="text-align: center"><input style="border: 1px solid black" type="text" ng-model="vm.Giros.telefono"></td>
-                                        <td style="text-align: center"><input style="border: 1px solid black" type="text" ng-model="vm.Giros.direccion"></td>
-                                        <td style="text-align: center"><input style="border: 1px solid black" type="text" ng-model="vm.Giros.nombre_receptor"></td>
-                                        <td style="text-align: center"><input style="border: 1px solid black" type="text" ng-model="vm.Giros.telefono_receptor"></td>
-                                        <td style="text-align: center"><input style="border: 1px solid black" type="text" ng-model="vm.Giros.direccionD"></td>
-                                        <td style="text-align: center"><input style="border: 1px solid black" type="text" ng-model="vm.Giros.monto"></td>
-                                        <td style="text-align: center"><button class="btn waves-effect waves-light green " title="Guardar" id="guardarG" ng-click="vm.asignarGiro();" disabled="" ><i class="material-icons">save</i></button></td>
-                                        <td style="text-align: center"><button class="btn waves-effect waves-light blue"  title="Actualizar" id="actualizarG" ng-click="vm.modificarGiro();" disabled="" ><i class="material-icons">reply</i></button></td>
-                                        <td style="text-align: center"><button class="btn waves-effect waves-light red"  title="limpiar" id="limpiar" ng-click="vm.limpiarGiros(vm.conductor.id);"><i class="material-icons">clear</i></button></td>
-                                    </tr>
-                                    <tr ng-repeat ="giro in vm.listaGiros">
-                                        <td style="text-align: center">{{giro.ide_remitente}}</td>
-                                        <td style="text-align: center">{{giro.nombres}}</td>
-                                        <td style="text-align: center">{{giro.telefono}}</td>
-                                        <td style="text-align: center">{{giro.direccion}}</td>
-                                        <td style="text-align: center">{{giro.nombre_receptor}}</td>
-                                        <td style="text-align: center">{{giro.telefono_receptor}}</td>
-                                        <td style="text-align: center">{{giro.direccionD}}</td>
-                                        <td style="text-align: center">{{giro.monto| currency}}</td>
-                                        <td style="text-align: center" style="text-align: center;"><a href="javascript:;" title="Mover giro a otro conductor" ng-click="vm.modalMoveGiro(giro);"><i class="material-icons">cached</i></a></td>
-                                        <td style="text-align: center" style="text-align: center;"><a href="javascript:;" title="editar" ng-click="vm.cargarModificarGiro(giro);"><i class="material-icons">create</i></a></td>
-                                        <td style="text-align: center" style="text-align: center;"><a href="javascript:;" title="eliminar" ng-click="vm.eliminarGiro(giro.id)"><i class="material-icons" style="color:#F44336">remove</i></a></td>
-                                    </tr>
+                                <tr style="background-color: transparent;">
+                                    <td style="text-align: center"><input style="border: 1px solid black" type="text"
+                                                                          ng-model="vm.Giros.ide_remitente"
+                                                                          ng-blur="vm.getCliente(vm.Giros.ide_remitente)">
+                                    </td>
+                                    <td style="text-align: center"><input style="border: 1px solid black" type="text"
+                                                                          ng-model="vm.Giros.nombres"></td>
+                                    <td style="text-align: center"><input style="border: 1px solid black" type="text"
+                                                                          ng-model="vm.Giros.telefono"></td>
+                                    <td style="text-align: center"><input style="border: 1px solid black" type="text"
+                                                                          ng-model="vm.Giros.direccion"></td>
+                                    <td style="text-align: center"><input style="border: 1px solid black" type="text"
+                                                                          ng-model="vm.Giros.nombre_receptor"></td>
+                                    <td style="text-align: center"><input style="border: 1px solid black" type="text"
+                                                                          ng-model="vm.Giros.telefono_receptor"></td>
+                                    <td style="text-align: center"><input style="border: 1px solid black" type="text"
+                                                                          ng-model="vm.Giros.direccionD"></td>
+                                    <td style="text-align: center"><input style="border: 1px solid black" type="text"
+                                                                          ng-model="vm.Giros.monto"></td>
+                                    <td style="text-align: center">
+                                        <button class="btn waves-effect waves-light green " title="Guardar"
+                                                id="guardarG" ng-click="vm.asignarGiro();" disabled=""><i
+                                                class="material-icons">save</i></button>
+                                    </td>
+                                    <td style="text-align: center">
+                                        <button class="btn waves-effect waves-light blue" title="Actualizar"
+                                                id="actualizarG" ng-click="vm.modificarGiro();" disabled=""><i
+                                                class="material-icons">reply</i></button>
+                                    </td>
+                                    <td style="text-align: center">
+                                        <button class="btn waves-effect waves-light red" title="limpiar" id="limpiar"
+                                                ng-click="vm.limpiarGiros(vm.conductor.id);"><i class="material-icons">clear</i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr ng-repeat="giro in vm.listaGiros">
+                                    <td style="text-align: center">{{giro.ide_remitente}}</td>
+                                    <td style="text-align: center">{{giro.nombres}}</td>
+                                    <td style="text-align: center">{{giro.telefono}}</td>
+                                    <td style="text-align: center">{{giro.direccion}}</td>
+                                    <td style="text-align: center">{{giro.nombre_receptor}}</td>
+                                    <td style="text-align: center">{{giro.telefono_receptor}}</td>
+                                    <td style="text-align: center">{{giro.direccionD}}</td>
+                                    <td style="text-align: center">{{giro.monto| currency}}</td>
+                                    <td style="text-align: center" style="text-align: center;"><a href="javascript:;"
+                                                                                                  title="Mover giro a otro conductor"
+                                                                                                  ng-click="vm.modalMoveGiro(giro);"><i
+                                            class="material-icons">cached</i></a></td>
+                                    <td style="text-align: center" style="text-align: center;"><a href="javascript:;"
+                                                                                                  title="editar"
+                                                                                                  ng-click="vm.cargarModificarGiro(giro);"><i
+                                            class="material-icons">create</i></a></td>
+                                    <td style="text-align: center" style="text-align: center;"><a href="javascript:;"
+                                                                                                  title="eliminar"
+                                                                                                  ng-click="vm.eliminarGiro(giro.id)"><i
+                                            class="material-icons" style="color:#F44336">remove</i></a></td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -423,7 +533,8 @@
     <!--fin modal asignar giros-->
 
     <!--modal asignar paquetes-->
-    <div ng-if="vm.servicios.encomiendas" id="modalAddPaquetes" class="modal modal-fixed-footer" style="width: 97%;min-height:85%;">
+    <div ng-if="vm.servicios.encomiendas" id="modalAddPaquetes" class="modal modal-fixed-footer"
+         style="width: 97%;min-height:85%;">
         <!--<form action="" name="formPaquete">-->
         <div class="modal-content">
             <h2><b style="color: black">Asignar paquetes a: {{vm.conductor.nombres}} {{vm.conductor.apellidos}}</b></h2>
@@ -431,52 +542,84 @@
                 <div class="contenedor">
                     <div class="row">
                         <div class="col s12">
-                            <table  class="striped bordered responsive-table">
+                            <table class="striped bordered responsive-table">
                                 <thead>
-                                    <th style="color: #D50000;text-align: center" >id remitente</th>
-                                    <th style="color: #D50000;text-align: center">Nombres y apellidos</th>
-                                    <th style="color: #D50000;text-align: center" >Telefono</th>
-                                    <th style="color: #D50000;text-align: center" >Recoger en</th>
-                                    <th style="color: #D50000;text-align: center" >Entregar a</th>
-                                    <th style="color: #D50000;text-align: center">Telefono</th>
-                                    <th style="color: #D50000;text-align: center">Entregar en</th>
-                                    <th style="color: #D50000;text-align: center">Descripcion</th>
-                                    <!--opciones-->
-                                    <th style="color: #D50000;text-align: center" width="10px"></th>
-                                    <th style="color: #D50000;text-align: center" width="10px"></th>
-                                    <th style="color: #D50000;text-align: center" width="10px"></th>
+                                <th style="color: #D50000;text-align: center">id remitente</th>
+                                <th style="color: #D50000;text-align: center">Nombres y apellidos</th>
+                                <th style="color: #D50000;text-align: center">Telefono</th>
+                                <th style="color: #D50000;text-align: center">Recoger en</th>
+                                <th style="color: #D50000;text-align: center">Entregar a</th>
+                                <th style="color: #D50000;text-align: center">Telefono</th>
+                                <th style="color: #D50000;text-align: center">Entregar en</th>
+                                <th style="color: #D50000;text-align: center">Descripcion</th>
+                                <!--opciones-->
+                                <th style="color: #D50000;text-align: center" width="10px"></th>
+                                <th style="color: #D50000;text-align: center" width="10px"></th>
+                                <th style="color: #D50000;text-align: center" width="10px"></th>
                                 </thead>
                                 <tbody>
-                                    <tr style="background-color: transparent;">
-                                        <td style="text-align: center"><input style="border: 1px solid black" type="text" ng-model="vm.Paquetes.ide_remitente" ng-blur="vm.getCliente(vm.Paquetes.ide_remitente)"></td>
-                                        <td style="text-align: center"><input style="border: 1px solid black" type="text" ng-model="vm.Paquetes.nombres"></td>
-                                        <td style="text-align: center"><input style="border: 1px solid black" type="text" ng-model="vm.Paquetes.telefono"></td>
-                                        <td style="text-align: center"><input style="border: 1px solid black" type="text" ng-model="vm.Paquetes.direccion"></td>
-                                        <td style="text-align: center"><input style="border: 1px solid black" type="text" ng-model="vm.Paquetes.nombre_receptor"></td>
-                                        <td style="text-align: center"><input style="border: 1px solid black" type="text" ng-model="vm.Paquetes.telefono_receptor"></td>
-                                        <td style="text-align: center"><input style="border: 1px solid black" type="text" ng-model="vm.Paquetes.direccionD"></td>
-                                        <td style="text-align: center"><input style="border: 1px solid black" type="text" ng-model="vm.Paquetes.descripcion_paquete"></td>
-                                        <td style="text-align: center"><button class="btn waves-effect waves-light green " title="Guardar" id="guardarP" ng-click="vm.asignarPaquete();" disabled="" ><i class="material-icons">save</i></button></td>
-                                        <td style="text-align: center"><button class="btn waves-effect waves-light blue"  title="Actualizar" id="actualizarP" ng-click="vm.modificarPaquete();" disabled="" ><i class="material-icons">reply</i></button></td>
-                                        <td style="text-align: center"><button class="btn waves-effect waves-light red"  title="limpiar" id="limpiar" ng-click="vm.limpiarPaquetes(vm.conductor.id);"><i class="material-icons">clear</i></button></td>
-                                    </tr>
-                                    <tr ng-repeat ="paquete in vm.listaPaquetes">
-                                        <td style="text-align: center">{{paquete.ide_remitente}}</td>
-                                        <td style="text-align: center">{{paquete.nombres}}</td>
-                                        <td style="text-align: center">{{paquete.telefono}}</td>
-                                        <td style="text-align: center">{{paquete.direccion}}</td>
-                                        <td style="text-align: center">{{paquete.nombre_receptor}}</td>
-                                        <td style="text-align: center">{{paquete.telefono_receptor}}</td>
-                                        <td style="text-align: center">{{paquete.direccionD}}</td>
-                                        <td style="text-align: center">
-                                            <a class="waves-effect waves-teal" ng-click="vm.verDescripcionPaquete(paquete)">
-                                                <i class="material-icons prefix small" style="color: #9ccc65">visibility</i>
-                                            </a>
-                                        </td>
-                                        <td style="text-align: center" style="text-align: center;"><a href="javascript:;" title="Mover giro a otro conductor" ng-click="vm.modalMovePaquete(paquete);"><i class="material-icons">cached</i></a></td>
-                                        <td style="text-align: center" style="text-align: center;"><a href="javascript:;" title="editar" ng-click="vm.cargarModificarPaquete(paquete);"><i class="material-icons">create</i></a></td>
-                                        <td style="text-align: center" style="text-align: center;"><a href="javascript:;" title="eliminar" ng-click="vm.eliminarPaquete(paquete.id)"><i class="material-icons" style="color:#F44336">remove</i></a></td>
-                                    </tr>
+                                <tr style="background-color: transparent;">
+                                    <td style="text-align: center"><input style="border: 1px solid black" type="text"
+                                                                          ng-model="vm.Paquetes.ide_remitente"
+                                                                          ng-blur="vm.getCliente(vm.Paquetes.ide_remitente)">
+                                    </td>
+                                    <td style="text-align: center"><input style="border: 1px solid black" type="text"
+                                                                          ng-model="vm.Paquetes.nombres"></td>
+                                    <td style="text-align: center"><input style="border: 1px solid black" type="text"
+                                                                          ng-model="vm.Paquetes.telefono"></td>
+                                    <td style="text-align: center"><input style="border: 1px solid black" type="text"
+                                                                          ng-model="vm.Paquetes.direccion"></td>
+                                    <td style="text-align: center"><input style="border: 1px solid black" type="text"
+                                                                          ng-model="vm.Paquetes.nombre_receptor"></td>
+                                    <td style="text-align: center"><input style="border: 1px solid black" type="text"
+                                                                          ng-model="vm.Paquetes.telefono_receptor"></td>
+                                    <td style="text-align: center"><input style="border: 1px solid black" type="text"
+                                                                          ng-model="vm.Paquetes.direccionD"></td>
+                                    <td style="text-align: center"><input style="border: 1px solid black" type="text"
+                                                                          ng-model="vm.Paquetes.descripcion_paquete">
+                                    </td>
+                                    <td style="text-align: center">
+                                        <button class="btn waves-effect waves-light green " title="Guardar"
+                                                id="guardarP" ng-click="vm.asignarPaquete();" disabled=""><i
+                                                class="material-icons">save</i></button>
+                                    </td>
+                                    <td style="text-align: center">
+                                        <button class="btn waves-effect waves-light blue" title="Actualizar"
+                                                id="actualizarP" ng-click="vm.modificarPaquete();" disabled=""><i
+                                                class="material-icons">reply</i></button>
+                                    </td>
+                                    <td style="text-align: center">
+                                        <button class="btn waves-effect waves-light red" title="limpiar" id="limpiar"
+                                                ng-click="vm.limpiarPaquetes(vm.conductor.id);"><i
+                                                class="material-icons">clear</i></button>
+                                    </td>
+                                </tr>
+                                <tr ng-repeat="paquete in vm.listaPaquetes">
+                                    <td style="text-align: center">{{paquete.ide_remitente}}</td>
+                                    <td style="text-align: center">{{paquete.nombres}}</td>
+                                    <td style="text-align: center">{{paquete.telefono}}</td>
+                                    <td style="text-align: center">{{paquete.direccion}}</td>
+                                    <td style="text-align: center">{{paquete.nombre_receptor}}</td>
+                                    <td style="text-align: center">{{paquete.telefono_receptor}}</td>
+                                    <td style="text-align: center">{{paquete.direccionD}}</td>
+                                    <td style="text-align: center">
+                                        <a class="waves-effect waves-teal" ng-click="vm.verDescripcionPaquete(paquete)">
+                                            <i class="material-icons prefix small" style="color: #9ccc65">visibility</i>
+                                        </a>
+                                    </td>
+                                    <td style="text-align: center" style="text-align: center;"><a href="javascript:;"
+                                                                                                  title="Mover giro a otro conductor"
+                                                                                                  ng-click="vm.modalMovePaquete(paquete);"><i
+                                            class="material-icons">cached</i></a></td>
+                                    <td style="text-align: center" style="text-align: center;"><a href="javascript:;"
+                                                                                                  title="editar"
+                                                                                                  ng-click="vm.cargarModificarPaquete(paquete);"><i
+                                            class="material-icons">create</i></a></td>
+                                    <td style="text-align: center" style="text-align: center;"><a href="javascript:;"
+                                                                                                  title="eliminar"
+                                                                                                  ng-click="vm.eliminarPaquete(paquete.id)"><i
+                                            class="material-icons" style="color:#F44336">remove</i></a></td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -507,33 +650,46 @@
 
     <!--modal planilla-->
     <div id="modalPlanilla" class="modal modal-fixed-footer" style="width: 75%;min-height:90%; border-radius: 15px">
-        <div class="modal-content" id="planilla" >
+        <div class="modal-content" id="planilla">
             <div id="page-wrap" class="page-wrap">
                 <table class="tg">
                     <tr>
                         <th class="tg-yw4l" rowspan="6" style="margin-left: 30px">
-                            <img ng-src="http://{{vm.Planilla.viaje.planilla.central.empresa.logo}}" alt="" style="border-radius: 50%; width: 150px; height: 150px">
+                            <img ng-src="http://{{vm.Planilla.viaje.planilla.central.empresa.logo}}" alt=""
+                                 style="border-radius: 50%; width: 150px; height: 150px">
                         </th>
                         <th class="tg-yw4l"></th>
                     </tr>
                     <tr>
-                        <td class="tg-g145" colspan="3">{{vm.Planilla.viaje.planilla.central.empresa.nombre | uppercase}}</td>
+                        <td class="tg-g145" colspan="3">{{vm.Planilla.viaje.planilla.central.empresa.nombre |
+                            uppercase}}
+                        </td>
                         <td class="tg-smzr"></td>
                     </tr>
                     <tr>
-                        <td class="tg-smzr" colspan="3">PERSONERIA JURIDICA No. {{vm.Planilla.viaje.planilla.central.empresa.pjuridica | uppercase}} NIT: {{vm.Planilla.viaje.planilla.central.empresa.nit | uppercase}}</td>
+                        <td class="tg-smzr" colspan="3">PERSONERIA JURIDICA No.
+                            {{vm.Planilla.viaje.planilla.central.empresa.pjuridica | uppercase}} NIT:
+                            {{vm.Planilla.viaje.planilla.central.empresa.nit | uppercase}}
+                        </td>
                         <td class="tg-smzr"></td>
                     </tr>
                     <tr>
-                        <td class="tg-smzr" colspan="3">RESOLUCION No. {{vm.Planilla.viaje.planilla.central.empresa.nresolucion | uppercase}} {{vm.Planilla.viaje.planilla.central.empresa.fecha_resolucion | date: 'longDate'}} - MINISTERIO DE TRANSPORTE</td>
+                        <td class="tg-smzr" colspan="3">RESOLUCION No.
+                            {{vm.Planilla.viaje.planilla.central.empresa.nresolucion | uppercase}}
+                            {{vm.Planilla.viaje.planilla.central.empresa.fecha_resolucion | date: 'longDate'}} -
+                            MINISTERIO DE TRANSPORTE
+                        </td>
                         <td class="tg-smzr"></td>
                     </tr>
                     <tr>
                         <td class="tg-smzr"></td>
                     </tr>
                     <tr>
-                        <td class="tg-smzr" colspan="3">{{vm.Planilla.viaje.planilla.central.direccion | uppercase}} {{vm.Planilla.viaje.planilla.central.ciudaddepa.nombre | uppercase  }}   -
-                            {{  vm.Planilla.viaje.planilla.central.ciudaddepa.departamento.nombre | uppercase}} TEL: {{vm.Planilla.viaje.planilla.central.telefono}}</td>
+                        <td class="tg-smzr" colspan="3">{{vm.Planilla.viaje.planilla.central.direccion | uppercase}}
+                            {{vm.Planilla.viaje.planilla.central.ciudaddepa.nombre | uppercase }} -
+                            {{ vm.Planilla.viaje.planilla.central.ciudaddepa.departamento.nombre | uppercase}} TEL:
+                            {{vm.Planilla.viaje.planilla.central.telefono}}
+                        </td>
                         <td class="tg-smzr"></td>
                     </tr>
                     <tr>
@@ -551,14 +707,20 @@
                     </tr>
                     <tr>
                         <td class="tg-smzr">PROPIETARIO:</td>
-                        <td class="tg-smzr">{{vm.Planilla.viaje.planilla.conductor.vehiculo.nombre_propietario | uppercase}}</td>
-                        <td class="tg-smzr">C.C: {{vm.Planilla.viaje.planilla.conductor.vehiculo.identificacion_propietario | uppercase}}</td>
-                        <td class="tg-123c">{{vm.Planilla.viaje.planilla.central.ciudaddepa.nombre | uppercase  }}</td>
+                        <td class="tg-smzr">{{vm.Planilla.viaje.planilla.conductor.vehiculo.nombre_propietario |
+                            uppercase}}
+                        </td>
+                        <td class="tg-smzr">C.C:
+                            {{vm.Planilla.viaje.planilla.conductor.vehiculo.identificacion_propietario | uppercase}}
+                        </td>
+                        <td class="tg-123c">{{vm.Planilla.viaje.planilla.central.ciudaddepa.nombre | uppercase }}</td>
                         <td class="tg-123c">LA JAGUA</td>
                     </tr>
                     <tr>
                         <td class="tg-smzr">CONDUCTOR:</td>
-                        <td class="tg-smzr">{{vm.Planilla.viaje.planilla.conductor.nombres | uppercase}} {{vm.Planilla.viaje.planilla.conductor.apellidos | uppercase}}</td>
+                        <td class="tg-smzr">{{vm.Planilla.viaje.planilla.conductor.nombres | uppercase}}
+                            {{vm.Planilla.viaje.planilla.conductor.apellidos | uppercase}}
+                        </td>
                         <td class="tg-smzr">LIC No: {{vm.Planilla.viaje.planilla.conductor.nlicencia}}</td>
                         <td class="tg-smzr">TARJETA OPE: {{vm.Planilla.viaje.planilla.conductor.toperacion}}</td>
                         <td class="tg-smzr"></td>
@@ -566,7 +728,8 @@
                     <tr>
                         <td class="tg-smzr">VEHICULO:</td>
                         <td class="tg-smzr">{{vm.Planilla.viaje.planilla.conductor.vehiculo.modelo | uppercase}}</td>
-                        <td class="tg-smzr">PLACA: {{vm.Planilla.viaje.planilla.conductor.vehiculo.placa | uppercase}}</td>
+                        <td class="tg-smzr">PLACA: {{vm.Planilla.viaje.planilla.conductor.vehiculo.placa | uppercase}}
+                        </td>
                         <td class="tg-smzr"></td>
                         <td class="tg-123c"></td>
                     </tr>
@@ -599,8 +762,8 @@
                         </table>
                         <div style="border: solid 1px black; border-radius: 15px">
                             <table class="tg">
-                                <tr >
-                                    <td>TOTAL: </td>
+                                <tr>
+                                    <td>TOTAL:</td>
                                     <td>{{vm.Planilla.viaje.planilla.total | currency}}</td>
                                 </tr>
                             </table>
@@ -612,14 +775,17 @@
             <div id="enco" class="enco">
                 <br>
                 <h2>ENCOMIENDAS</h2>
-                <div ng-if="vm.Planilla.viaje.planilla.giros.length > 0" ng-repeat="giro in vm.Planilla.viaje.planilla.giros" id="giros">
+                <div ng-if="vm.Planilla.viaje.planilla.giros.length > 0"
+                     ng-repeat="giro in vm.Planilla.viaje.planilla.giros" id="giros">
                     <table class="tb">
                         <tr>
                             <th class="tb-031e" colspan="3" rowspan="3">
-                                <img ng-src="http://{{vm.Planilla.viaje.planilla.central.empresa.logo}}" alt="" style="border-radius: 50%; width: 150px; height: 150px">
+                                <img ng-src="http://{{vm.Planilla.viaje.planilla.central.empresa.logo}}" alt=""
+                                     style="border-radius: 50%; width: 150px; height: 150px">
                             </th>
                             <th class="tb-yw4l"><br></th>
-                            <th class="tb-9hbo">{{vm.Planilla.viaje.planilla.central.ciudaddepa.nombre | uppercase  }}</th>
+                            <th class="tb-9hbo">{{vm.Planilla.viaje.planilla.central.ciudaddepa.nombre | uppercase }}
+                            </th>
                             <th class="tb-yw4l" colspan="3" rowspan="2"></th>
                             <th class="tb-yw4l"></th>
                             <th class="tb-9hbo" colspan="3">CODAZZI - CESAR</th>
@@ -627,20 +793,25 @@
                             <th class="tb-yw4l" style="text-align: right">SERVICIO:</th>
                         </tr>
                         <tr>
-                            <td class="tb-yw4l">Telefono : </td>
+                            <td class="tb-yw4l">Telefono :</td>
                             <td class="tb-fs7x">{{vm.Planilla.viaje.planilla.central.telefono | uppercase}}</td>
-                            <td class="tb-yw4l">Telefono : </td>
+                            <td class="tb-yw4l">Telefono :</td>
                             <td class="tb-fs7x" colspan="3">559955</td>
-                            <td class="tb-lqy6">GIRO: <i class="material-icons" style="border: solid 1px black">done</i></td>
+                            <td class="tb-lqy6">GIRO: <i class="material-icons" style="border: solid 1px black">done</i>
+                            </td>
                         </tr>
                         <tr>
-                            <td class="tb-yw4l" colspan="2">{{vm.Planilla.viaje.planilla.central.direccion | uppercase}}</td>
+                            <td class="tb-yw4l" colspan="2">{{vm.Planilla.viaje.planilla.central.direccion |
+                                uppercase}}
+                            </td>
                             <td class="tb-yw4l" colspan="2"></td>
                             <td class="tb-yw4l" colspan="5">CARRERA 18D N° 22 B - 14</td>
-                            <td class="tb-lqy6">ENCOMIENDA: </td>
+                            <td class="tb-lqy6">ENCOMIENDA:</td>
                         </tr>
                         <tr>
-                            <td class="tb-rk67" colspan="3">{{vm.Planilla.viaje.planilla.central.empresa.nombre | uppercase}}</td>
+                            <td class="tb-rk67" colspan="3">{{vm.Planilla.viaje.planilla.central.empresa.nombre |
+                                uppercase}}
+                            </td>
                             <td class="tb-yw4l"></td>
                             <td class="tb-yw4l" colspan="5">OFIDINA DE:</td>
                             <td class="tb-yw4l">DIA</td>
@@ -649,7 +820,9 @@
                             <td class="tb-9hbo">REMESA</td>
                         </tr>
                         <tr>
-                            <td class="tb-yw4l" colspan="4">NIT: {{vm.Planilla.viaje.planilla.central.empresa.nit | uppercase}}</td>
+                            <td class="tb-yw4l" colspan="4">NIT: {{vm.Planilla.viaje.planilla.central.empresa.nit |
+                                uppercase}}
+                            </td>
                             <td class="tb-yw4l" colspan="5"></td>
                             <td class="tb-yw4l"></td>
                             <td class="tb-yw4l"></td>
@@ -663,14 +836,14 @@
                             <td class="tb-yw4l" colspan="3">Remitente:</td>
                             <td class="tb-yw4l" colspan="7">{{giro.nombres}}</td>
                             <td class="tb-yw4l"></td>
-                            <td class="tb-yw4l">C.C: </td>
+                            <td class="tb-yw4l">C.C:</td>
                             <td class="tb-yw4l" colspan="2">{{giro.ide_remitente}}</td>
                         </tr>
                         <tr>
                             <td class="tb-yw4l" colspan="3">Dirección:</td>
                             <td class="tb-yw4l" colspan="7">{{giro.direccion}}</td>
                             <td class="tb-yw4l"></td>
-                            <td class="tb-yw4l">Telefono : </td>
+                            <td class="tb-yw4l">Telefono :</td>
                             <td class="tb-yw4l" colspan="2">{{giro.telefono}}</td>
                         </tr>
                         <tr>
@@ -684,16 +857,22 @@
                             <td class="tb-yw4l" colspan="3">Dirección:</td>
                             <td class="tb-yw4l" colspan="7">{{giro.direccionD}}</td>
                             <td class="tb-yw4l"></td>
-                            <td class="tb-yw4l">Telefono : </td>
+                            <td class="tb-yw4l">Telefono :</td>
                             <td class="tb-yw4l" colspan="2">{{giro.telefono_receptor}}</td>
                         </tr>
                         <tr>
                             <td class="tb-yw4l" colspan="3">Conductor:</td>
-                            <td class="tb-yw4l" colspan="6">{{vm.Planilla.viaje.planilla.conductor.nombres | uppercase}} {{vm.Planilla.viaje.planilla.conductor.apellidos | uppercase}}</td>
+                            <td class="tb-yw4l" colspan="6">{{vm.Planilla.viaje.planilla.conductor.nombres | uppercase}}
+                                {{vm.Planilla.viaje.planilla.conductor.apellidos | uppercase}}
+                            </td>
                             <td class="tb-yw4l">Movil:</td>
-                            <td class="tb-yw4l">{{vm.Planilla.viaje.planilla.conductor.vehiculo.codigo_vial | uppercase}}</td>
+                            <td class="tb-yw4l">{{vm.Planilla.viaje.planilla.conductor.vehiculo.codigo_vial |
+                                uppercase}}
+                            </td>
                             <td class="tb-yw4l">Placa:</td>
-                            <td class="tb-yw4l" colspan="2">{{vm.Planilla.viaje.planilla.conductor.vehiculo.placa | uppercase}}</td>
+                            <td class="tb-yw4l" colspan="2">{{vm.Planilla.viaje.planilla.conductor.vehiculo.placa |
+                                uppercase}}
+                            </td>
                         </tr>
                         <tr>
                             <td class="tb-yw4l" colspan="14"></td>
@@ -719,7 +898,9 @@
                         <tr>
                             <td class="tb-baqh" colspan="4">FIRMA DEL REMITENTE</td>
                             <td class="tb-baqh" colspan="4">ELABORADO POR:</td>
-                            <td class="tb-yw4l" colspan="6" rowspan="2">Recibí a entera satisfacción los bienes y/o giros enviados y enumerados<br>en este comprobante.<br>Firma recibido:</td>
+                            <td class="tb-yw4l" colspan="6" rowspan="2">Recibí a entera satisfacción los bienes y/o
+                                giros enviados y enumerados<br>en este comprobante.<br>Firma recibido:
+                            </td>
                         </tr>
                         <tr>
                             <td class="tb-yw4l" colspan="4" rowspan="2"></td>
@@ -736,14 +917,17 @@
                 </div>
 
                 <!--//PAQUETES-->
-                <div ng-if="vm.Planilla.viaje.planilla.paquetes.length > 0" ng-repeat="paquete in vm.Planilla.viaje.planilla.viaje.planilla.paquetes" id="paquetes">
+                <div ng-if="vm.Planilla.viaje.planilla.paquetes.length > 0"
+                     ng-repeat="paquete in vm.Planilla.viaje.planilla.viaje.planilla.paquetes" id="paquetes">
                     <table class="tb">
                         <tr>
                             <th class="tb-031e" colspan="3" rowspan="3">
-                                <img ng-src="http://{{vm.Planilla.viaje.planilla.viaje.planilla.central.empresa.logo}}" alt="" style="border-radius: 50%; width: 150px; height: 150px">
+                                <img ng-src="http://{{vm.Planilla.viaje.planilla.viaje.planilla.central.empresa.logo}}"
+                                     alt="" style="border-radius: 50%; width: 150px; height: 150px">
                             </th>
                             <th class="tb-yw4l"><br></th>
-                            <th class="tb-9hbo">{{vm.Planilla.viaje.planilla.central.ciudaddepa.nombre | uppercase  }}</th>
+                            <th class="tb-9hbo">{{vm.Planilla.viaje.planilla.central.ciudaddepa.nombre | uppercase }}
+                            </th>
                             <th class="tb-yw4l" colspan="3" rowspan="2"></th>
                             <th class="tb-yw4l"></th>
                             <th class="tb-9hbo" colspan="3">CODAZZI - CESAR</th>
@@ -751,20 +935,25 @@
                             <th class="tb-yw4l" style="text-align: right">SERVICIO:</th>
                         </tr>
                         <tr>
-                            <td class="tb-yw4l">Telefono : </td>
+                            <td class="tb-yw4l">Telefono :</td>
                             <td class="tb-fs7x">{{vm.Planilla.viaje.planilla.central.telefono | uppercase}}</td>
-                            <td class="tb-yw4l">Telefono : </td>
+                            <td class="tb-yw4l">Telefono :</td>
                             <td class="tb-fs7x" colspan="3">559955</td>
-                            <td class="tb-lqy6">GIRO: </td>
+                            <td class="tb-lqy6">GIRO:</td>
                         </tr>
                         <tr>
-                            <td class="tb-yw4l" colspan="2">{{vm.Planilla.viaje.planilla.central.direccion | uppercase}}</td>
+                            <td class="tb-yw4l" colspan="2">{{vm.Planilla.viaje.planilla.central.direccion |
+                                uppercase}}
+                            </td>
                             <td class="tb-yw4l" colspan="2"></td>
                             <td class="tb-yw4l" colspan="5">CARRERA 18D N° 22 B - 14</td>
-                            <td class="tb-lqy6">ENCOMIENDA: <i class="material-icons" style="border: solid 1px black">done</i></td>
+                            <td class="tb-lqy6">ENCOMIENDA: <i class="material-icons" style="border: solid 1px black">done</i>
+                            </td>
                         </tr>
                         <tr>
-                            <td class="tb-rk67" colspan="3">{{vm.Planilla.viaje.planilla.central.empresa.nombre | uppercase}}</td>
+                            <td class="tb-rk67" colspan="3">{{vm.Planilla.viaje.planilla.central.empresa.nombre |
+                                uppercase}}
+                            </td>
                             <td class="tb-yw4l"></td>
                             <td class="tb-yw4l" colspan="5">OFIDINA DE:</td>
                             <td class="tb-yw4l">DIA</td>
@@ -773,7 +962,9 @@
                             <td class="tb-9hbo">REMESA</td>
                         </tr>
                         <tr>
-                            <td class="tb-yw4l" colspan="4">NIT: {{vm.Planilla.viaje.planilla.central.empresa.nit | uppercase}}</td>
+                            <td class="tb-yw4l" colspan="4">NIT: {{vm.Planilla.viaje.planilla.central.empresa.nit |
+                                uppercase}}
+                            </td>
                             <td class="tb-yw4l" colspan="5"></td>
                             <td class="tb-yw4l"></td>
                             <td class="tb-yw4l"></td>
@@ -787,14 +978,14 @@
                             <td class="tb-yw4l" colspan="3">Remitente:</td>
                             <td class="tb-yw4l" colspan="7">{{paquete.nombres}}</td>
                             <td class="tb-yw4l"></td>
-                            <td class="tb-yw4l">C.C: </td>
+                            <td class="tb-yw4l">C.C:</td>
                             <td class="tb-yw4l" colspan="2">{{paquete.ide_remitente}}</td>
                         </tr>
                         <tr>
                             <td class="tb-yw4l" colspan="3">Dirección:</td>
                             <td class="tb-yw4l" colspan="7">{{paquete.direccion}}</td>
                             <td class="tb-yw4l"></td>
-                            <td class="tb-yw4l">Telefono : </td>
+                            <td class="tb-yw4l">Telefono :</td>
                             <td class="tb-yw4l" colspan="2">{{paquete.telefono}}</td>
                         </tr>
                         <tr>
@@ -808,16 +999,22 @@
                             <td class="tb-yw4l" colspan="3">Dirección:</td>
                             <td class="tb-yw4l" colspan="7">{{paquete.direccionD}}</td>
                             <td class="tb-yw4l"></td>
-                            <td class="tb-yw4l">Telefono : </td>
+                            <td class="tb-yw4l">Telefono :</td>
                             <td class="tb-yw4l" colspan="2">{{paquete.telefono_receptor}}</td>
                         </tr>
                         <tr>
                             <td class="tb-yw4l" colspan="3">Conductor:</td>
-                            <td class="tb-yw4l" colspan="6">{{vm.Planilla.viaje.planilla.conductor.nombres | uppercase}} {{vm.Planilla.viaje.planilla.conductor.apellidos | uppercase}}</td>
+                            <td class="tb-yw4l" colspan="6">{{vm.Planilla.viaje.planilla.conductor.nombres | uppercase}}
+                                {{vm.Planilla.viaje.planilla.conductor.apellidos | uppercase}}
+                            </td>
                             <td class="tb-yw4l">Movil:</td>
-                            <td class="tb-yw4l">{{vm.Planilla.viaje.planilla.conductor.vehiculo.codigo_vial | uppercase}}</td>
+                            <td class="tb-yw4l">{{vm.Planilla.viaje.planilla.conductor.vehiculo.codigo_vial |
+                                uppercase}}
+                            </td>
                             <td class="tb-yw4l">Placa:</td>
-                            <td class="tb-yw4l" colspan="2">{{vm.Planilla.viaje.planilla.conductor.vehiculo.placa | uppercase}}</td>
+                            <td class="tb-yw4l" colspan="2">{{vm.Planilla.viaje.planilla.conductor.vehiculo.placa |
+                                uppercase}}
+                            </td>
                         </tr>
                         <tr>
                             <td class="tb-yw4l" colspan="14"></td>
@@ -843,7 +1040,9 @@
                         <tr>
                             <td class="tb-baqh" colspan="4">FIRMA DEL REMITENTE</td>
                             <td class="tb-baqh" colspan="4">ELABORADO POR:</td>
-                            <td class="tb-yw4l" colspan="6" rowspan="2">Recibí a entera satisfacción los bienes y/o giros enviados y enumerados<br>en este comprobante.<br>Firma recibido:</td>
+                            <td class="tb-yw4l" colspan="6" rowspan="2">Recibí a entera satisfacción los bienes y/o
+                                giros enviados y enumerados<br>en este comprobante.<br>Firma recibido:
+                            </td>
                         </tr>
                         <tr>
                             <td class="tb-yw4l" colspan="4" rowspan="2"></td>
@@ -872,29 +1071,30 @@
 
     <!--modal solicitudes pasajeros-->
     <div id="modalSolicitud" class="modal modal-fixed-footer" style="width: 90%">
-        <div class="modal-content" >
+        <div class="modal-content">
             <h2><b style="color: black">Solicitud hacia: {{vm.solicitud.ruta.destino.nombre}}</b></h2>
             <div class="col s12 " style="border-radius: 25px">
                 <div class="contenedor">
                     <div class="row">
                         <div class="col s6">
-                            <h2><strong style="color: black">Cantidad de pasajero(s) a viajar: {{vm.solicitud.datos_pasajeros.length}}</strong></h2>
-                            <table  class="striped bordered responsive-table">
+                            <h2><strong style="color: black">Cantidad de pasajero(s) a viajar:
+                                {{vm.solicitud.datos_pasajeros.length}}</strong></h2>
+                            <table class="striped bordered responsive-table">
                                 <thead>
-                                    <th style="color: #D50000;text-align: center">Identificacion</th>
-                                    <th style="color: #D50000;text-align: center">Nombre</th>
+                                <th style="color: #D50000;text-align: center">Identificacion</th>
+                                <th style="color: #D50000;text-align: center">Nombre</th>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="pasajero in vm.solicitud.datos_pasajeros" style="height: 35.5px">
-                                        <td style="text-align: center">{{pasajero.identificacion}}</td>
-                                        <td style="text-align: center">{{pasajero.nombre}}</td>
-                                    </tr>
+                                <tr ng-repeat="pasajero in vm.solicitud.datos_pasajeros" style="height: 35.5px">
+                                    <td style="text-align: center">{{pasajero.identificacion}}</td>
+                                    <td style="text-align: center">{{pasajero.nombre}}</td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
                         <div class="col s6">
                             <h2><b style="color: black">Asigna este pedido a un conductor</b></h2>
-                            <table  class="striped bordered responsive-table">
+                            <table class="striped bordered responsive-table">
                                 <thead>
                                 <th style="color: #D50000;text-align: center">Turno</th>
                                 <th style="color: #D50000;text-align: center">Identificacion</th>
@@ -904,10 +1104,14 @@
                                 <tr ng-repeat="conductor in vm.solicitud.conductores">
                                     <td style="text-align: center">{{conductor.turno}}</td>
                                     <td style="text-align: center">{{conductor.conductor.identificacion}}</td>
-                                    <td style="text-align: center">{{conductor.conductor.nombres}} {{conductor.conductor.apellidos}}</td>
-                                    <td style="text-align: center"><strong>{{conductor.cupos}} cupos disponibles</strong></td>
+                                    <td style="text-align: center">{{conductor.conductor.nombres}}
+                                        {{conductor.conductor.apellidos}}
+                                    </td>
+                                    <td style="text-align: center"><strong>{{conductor.cupos}} cupos
+                                        disponibles</strong></td>
                                     <td style="text-align: center">
-                                        <a href="javascript:" ng-click="vm.selectCsolicitud(vm.solicitud.id, conductor.conductor_id)">
+                                        <a href="javascript:"
+                                           ng-click="vm.selectCsolicitud(vm.solicitud.id, conductor.conductor_id)">
                                             <i class="material-icons prefix">touch_app</i>
                                         </a>
                                     </td>
@@ -924,20 +1128,21 @@
             <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red accent-4"
                style="margin-left:10px;border-radius: 25px;">Salir</a>
             <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn light-green"
-               style="margin-left:10px; border-radius: 25px;" ng-click="vm.recharSolicitud(vm.solicitud.id)">Rechazar solicitud</a>
+               style="margin-left:10px; border-radius: 25px;" ng-click="vm.recharSolicitud(vm.solicitud.id)">Rechazar
+                solicitud</a>
         </div>
     </div>
 
     <!--modal solicitud paquete giros-->
     <div id="modalSolicitudPG" class="modal modal-fixed-footer" style="width: 90%">
-        <div class="modal-content" >
+        <div class="modal-content">
             <h2><b style="color: black">Solicitud hacia: {{vm.solicitud.ruta.destino.nombre}}</b></h2>
             <div class="col s12 " style="border-radius: 25px">
                 <div class="contenedor">
                     <div class="row">
                         <div class="col s6">
                             <h2><b style="color: black">Detalles de la solicitud</b></h2>
-                            <table  class="striped bordered responsive-table">
+                            <table class="striped bordered responsive-table">
                                 <thead>
                                 <th style="color: #D50000;text-align: center">Documento</th>
                                 <th style="color: #D50000;text-align: center">Nombre</th>
@@ -945,24 +1150,26 @@
                                 <th style="color: #D50000;text-align: center">Entrega en</th>
                                 <th style="color: #D50000;text-align: center">Telefono</th>
                                 </thead>
-                                <tbody >
+                                <tbody>
                                 <tr style="height: 35.5px">
-                                    <td >{{vm.solicitud.detalles[0].identificacion}}</td>
-                                    <td >{{vm.solicitud.detalles[0].destinatario}}</td>
-                                    <td >{{vm.solicitud.detalles[0].direccion_recogida}}</td>
-                                    <td >{{vm.solicitud.detalles[0].direccion}}</td>
-                                    <td >{{vm.solicitud.detalles[0].telefono}}</td>
+                                    <td>{{vm.solicitud.detalles[0].identificacion}}</td>
+                                    <td>{{vm.solicitud.detalles[0].destinatario}}</td>
+                                    <td>{{vm.solicitud.detalles[0].direccion_recogida}}</td>
+                                    <td>{{vm.solicitud.detalles[0].direccion}}</td>
+                                    <td>{{vm.solicitud.detalles[0].telefono}}</td>
                                 </tr>
                                 </tbody>
                             </table>
                             <hr>
-                            <div ng-show="vm.solicitud.tipo == 'giro'"><h2><strong>Monto de:</strong> {{vm.solicitud.detalles[0].descripcion| currency}}</h2></div>
-                            <div ng-show="vm.solicitud.tipo == 'paquete'"><h2><strong>Descripcion:</strong> <br>{{vm.solicitud.detalles[0].descripcion}}</h2></div>
+                            <div ng-show="vm.solicitud.tipo == 'giro'"><h2><strong>Monto de:</strong>
+                                {{vm.solicitud.detalles[0].descripcion| currency}}</h2></div>
+                            <div ng-show="vm.solicitud.tipo == 'paquete'"><h2><strong>Descripcion:</strong> <br>{{vm.solicitud.detalles[0].descripcion}}
+                            </h2></div>
                             <hr>
                         </div>
                         <div class="col s6">
                             <h2>Asigna este pedido a un conductor</h2>
-                            <table  class="striped bordered responsive-table">
+                            <table class="striped bordered responsive-table">
                                 <thead>
                                 <th style="color: #D50000;text-align: center">Turno</th>
                                 <th style="color: #D50000;text-align: center">Identificacion</th>
@@ -972,10 +1179,14 @@
                                 <tr ng-repeat="conductor in vm.solicitud.conductores" style="height: 35.5px">
                                     <td style="text-align: center">{{conductor.turno}}</td>
                                     <td style="text-align: center">{{conductor.conductor.identificacion}}</td>
-                                    <td style="text-align: center">{{conductor.conductor.nombres}} {{conductor.conductor.apellidos}}</td>
-                                    <td style="text-align: center"><strong>{{conductor.cupos}} cupo(s) restantes para salir</strong></td>
+                                    <td style="text-align: center">{{conductor.conductor.nombres}}
+                                        {{conductor.conductor.apellidos}}
+                                    </td>
+                                    <td style="text-align: center"><strong>{{conductor.cupos}} cupo(s) restantes para
+                                        salir</strong></td>
                                     <td style="text-align: center">
-                                        <a href="javascript:" ng-click="vm.selectCsolicitud(vm.solicitud.id, conductor.conductor_id)">
+                                        <a href="javascript:"
+                                           ng-click="vm.selectCsolicitud(vm.solicitud.id, conductor.conductor_id)">
                                             <i class="material-icons prefix">touch_app</i>
                                         </a>
                                     </td>
@@ -991,14 +1202,15 @@
             <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red accent-4"
                style="margin-left:10px; border-radius: 25px">Salir</a>
             <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn light-green"
-               style="margin-left:10px; border-radius: 25px" ng-click="vm.recharSolicitud(vm.solicitud.id)">Rechazar solicitud</a>
+               style="margin-left:10px; border-radius: 25px" ng-click="vm.recharSolicitud(vm.solicitud.id)">Rechazar
+                solicitud</a>
         </div>
     </div>
     <!--fin modal solicitud paquete giro-->
 
     <!--modal cambair conductor-->
     <div id="modalMoveGiro" class="modal modal-fixed-footer" style="width: 90%">
-        <div class="modal-content" >
+        <div class="modal-content">
             <div class="row">
                 <div class="col s6">
                     <span> <br></span>
@@ -1012,7 +1224,7 @@
                     <div class="row col s12">
                         <div class="row col s6">
                             <h2><b style="color: black">Detalles del giro</b></h2>
-                            <table  class="striped bordered responsive-table">
+                            <table class="striped bordered responsive-table">
                                 <thead>
                                 <th style="color: #D50000;text-align: center">Nombre</th>
                                 <th style="color: #D50000;text-align: center">Telefono</th>
@@ -1029,7 +1241,7 @@
                                 </tbody>
                             </table>
                             <div>
-                                <h2> <b style="color: black">Monto</b></h2>
+                                <h2><b style="color: black">Monto</b></h2>
                                 <h2><em>{{vm.giro.monto| currency}}</em></h2>
                             </div>
                         </div>
@@ -1047,11 +1259,15 @@
                                         <tr ng-repeat="turno in ruta.turnos">
                                             <td style="text-align: center">{{turno.turno}}</td>
                                             <td style="text-align: center">{{turno.conductor.identificacion}}</td>
-                                            <td style="text-align: center">{{turno.conductor.nombres}} {{turno.conductor.apellidos}}</td>
+                                            <td style="text-align: center">{{turno.conductor.nombres}}
+                                                {{turno.conductor.apellidos}}
+                                            </td>
                                             <!--<td style="text-align: center"><strong>{{conductor.cupos}} cupo(s) restantes para salir</strong></td>-->
                                             <td style="text-align: center">
-                                                <a href="javascript:" ng-click="vm.moverGiro(vm.giro.id, turno.conductor.id)">
-                                                    <i style="color: #D50000" class="material-icons prefix">touch_app</i>
+                                                <a href="javascript:"
+                                                   ng-click="vm.moverGiro(vm.giro.id, turno.conductor.id)">
+                                                    <i style="color: #D50000"
+                                                       class="material-icons prefix">touch_app</i>
                                                 </a>
                                             </td>
                                         </tr>
@@ -1074,7 +1290,7 @@
 
     <!--modal cambiar paquete conductor-->
     <div id="modalMovePaquete" class="modal modal-fixed-footer" style="width: 90%">
-        <div class="modal-content" >
+        <div class="modal-content">
             <div class="row">
                 <div class="col s6">
                     <span> <br></span>
@@ -1088,7 +1304,7 @@
                     <div class="row">
                         <div class="col s6">
                             <h2><b style="color: black">Detalles del paquete</b></h2>
-                            <table  class="striped bordered responsive-table">
+                            <table class="striped bordered responsive-table">
                                 <thead>
                                 <th style="color: #D50000;text-align: center">Nombre</th>
                                 <th style="color: #D50000;text-align: center">Telefono</th>
@@ -1123,11 +1339,15 @@
                                         <tr ng-repeat="turno in ruta.turnos">
                                             <td style="text-align: center">{{turno.turno}}</td>
                                             <td style="text-align: center">{{turno.conductor.identificacion}}</td>
-                                            <td style="text-align: center">{{turno.conductor.nombres}} {{turno.conductor.apellidos}}</td>
+                                            <td style="text-align: center">{{turno.conductor.nombres}}
+                                                {{turno.conductor.apellidos}}
+                                            </td>
                                             <!--<td style="text-align: center"><strong>{{conductor.cupos}} cupo(s) restantes para salir</strong></td>-->
                                             <td style="text-align: center">
-                                                <a href="javascript:" ng-click="vm.moverPaquete(vm.paquete.id, turno.conductor.id)">
-                                                    <i style="color: #D50000" class="material-icons prefix">touch_app</i>
+                                                <a href="javascript:"
+                                                   ng-click="vm.moverPaquete(vm.paquete.id, turno.conductor.id)">
+                                                    <i style="color: #D50000"
+                                                       class="material-icons prefix">touch_app</i>
                                                 </a>
                                             </td>
                                         </tr>

@@ -1,20 +1,20 @@
-(function() {
+(function () {
     'use strict';
 
     angular
         .module('app.centrales.mapa')
         .service('mapaService', mapaService);
 
-    function mapaService($http, API){
-        this.getUbicacionConductores = function(ruta_id){
-            return $http.get(API + '/conductores/rutas/'+ruta_id+'/ubicacion');
+    function mapaService($http, API) {
+        this.getUbicacionConductores = function (ruta_id) {
+            return $http.get(API + '/conductores/rutas/' + ruta_id + '/ubicacion');
         }
 
-        this.activostotal = function(){
+        this.activostotal = function () {
             return $http.get(API + '/conductores/disponibles');
         }
 
-        this.cantidadenturno= function () {
+        this.cantidadenturno = function () {
             return $http.get(API + '/conductores/turnos/cantidad');
         }
 

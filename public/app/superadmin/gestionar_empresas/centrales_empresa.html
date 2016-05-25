@@ -1,18 +1,21 @@
 <div ng-controller="CentralesEmpresaController as vm" class="contenedor">
     <div class="row">
-        <div class="col s12" >
+        <div class="col s12">
             <div class="row white col s12" style="border-radius: 15px; border:2px solid #D50000; width: 100%">
                 <div class="contenedor">
                     <div class="row">
                         <div class="col s8">
-                            <a href="#/gestionar_empresas" class="waves-effect waves-teal waves-light btn-flat" style="float: left; padding: 0 0">
+                            <a href="#/gestionar_empresas" class="waves-effect waves-teal waves-light btn-flat"
+                               style="float: left; padding: 0 0">
                                 <i class="material-icons red-text text-accent-4" style="font-size: 26px;">arrow_back</i></a>
-                            <h2 style="padding-left: 20px; margin: 0 0; padding-top: 3px"><b>Centrales {{vm.empresa.nombre}}</b></h2>
+                            <h2 style="padding-left: 20px; margin: 0 0; padding-top: 3px"><b>Centrales
+                                {{vm.empresa.nombre}}</b></h2>
                         </div>
                         <div class="col s4">
-                            <div class="input-field col s12 grey lighten-3" style="padding: .5em; border-radius: 15px; height: 37px; border: none">
+                            <div class="input-field col s12 grey lighten-3"
+                                 style="padding: .5em; border-radius: 15px; height: 37px; border: none">
                                 <i class="material-icons prefix" style="color: #D50000;">search</i>
-                                <input  id="icon_prefix" type="text" ng-model="filtro">
+                                <input id="icon_prefix" type="text" ng-model="filtro">
                                 <label for="icon_prefix">Buscar</label>
                             </div>
                         </div>
@@ -58,28 +61,31 @@
                         <div class="row">
                             <div class="row input-field col s12">
                                 <i style="color: #D50000" class="material-icons prefix">local_taxi</i>
-                                <input id="ciudad" type="text" class="validate" name="ciudad" ng-model="vm.selectedCentral.ciudad.nombre" readonly required>
+                                <input id="ciudad" type="text" class="validate" name="ciudad"
+                                       ng-model="vm.selectedCentral.ciudad.nombre" readonly required>
                                 <label for="ciudad" class="active">Ciudad</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="row input-field col s12">
                                 <i style="color: #D50000" class="material-icons prefix">invert_colors_off</i>
-                                <input id="direccion" type="text" class="validate" name="direccion"  ng-model="vm.selectedCentral.direccion" readonly required>
+                                <input id="direccion" type="text" class="validate" name="direccion"
+                                       ng-model="vm.selectedCentral.direccion" readonly required>
                                 <label for="direccion" class="active">Direccion</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s12">
                                 <i style="color: #D50000" class="material-icons prefix">airline_seat_recline_normal</i>
-                                <input id="telefono" type="text" class="validate" name="telefono" ng-model="vm.selectedCentral.telefono" readonly required>
+                                <input id="telefono" type="text" class="validate" name="telefono"
+                                       ng-model="vm.selectedCentral.telefono" readonly required>
                                 <label for="telefono" class="active">Telefono</label>
                             </div>
                         </div>
                     </div>
 
                     <!--mapa-->
-                    <div class="col s8" >
+                    <div class="col s8">
 
                         <div id="dvMap" style="height: 400px; width: 100%;border-radius: 25px"></div>
 
@@ -91,7 +97,8 @@
         </div>
 
         <div class="modal-footer">
-            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red accent-4" style="border-radius: 25px; margin-left:10px;">Salir</a>
+            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red accent-4"
+               style="border-radius: 25px; margin-left:10px;">Salir</a>
         </div>
 
     </div>

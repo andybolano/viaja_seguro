@@ -6,7 +6,7 @@
         .config(config)
         .run(run);
 
-    function config($stateProvider){
+    function config($stateProvider) {
         $stateProvider
             .state('app.empresas_auditoria', {
                 url: '/empresa/auditoria',
@@ -17,9 +17,9 @@
             });
     }
 
-    function run(appMenu){
+    function run(appMenu) {
         appMenu.addTo([
-            {nombre:'Auditoria', link:'app.empresas_auditoria', icon:'domain'}
+            {nombre: 'Auditoria', link: 'app.empresas_auditoria', icon: 'domain'}
         ], 'EMPRESA');
     }
 })();

@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -12,46 +12,48 @@
         vm.verPlanilla = verPlanilla;
 
         initialize();
-        function initialize(){
+        function initialize() {
             cargarPlanillas();
             cargarDeducciones();
         }
 
-        function cargarPlanillas(){
+        function cargarPlanillas() {
             planillasService.getPlanillas().then(succes, error);
-            function succes(response){
+            function succes(response) {
                 vm.planillas = {};
                 vm.planillas = response.data;
             }
-            function error(error){
+
+            function error(error) {
                 console.log('Error al cargar las planillas')
             }
         }
 
-        function cargarDeducciones(){
+        function cargarDeducciones() {
             var promiseGet = planillasService.getDeducciones();
             promiseGet.then(function (pl) {
                 vm.Deducciones = pl.data;
-            },function (errorPl) {
+            }, function (errorPl) {
                 console.log('Error Al Cargar Datos', errorPl);
             });
         }
 
-        function verPlanilla(planilla){
+        function verPlanilla(planilla) {
             planillasService.getPlanilla(planilla.viaje_id).then(succes, error);
             vm.id = planilla.viaje_id;
-            function succes(p){
+            function succes(p) {
                 vm.planilla = {};
                 vm.planilla = p.data;
                 vm.planilla.total = p.data.total;
                 $('#modalPlanilla').openModal();
             }
-            function error(e){
+
+            function error(e) {
                 console.log('Error al cargar la planilla', e);
             }
         }
 
-        function imprimir(){
+        function imprimir() {
             var printContents = document.getElementById('page-wrap').innerHTML;
             var popupWin = window.open('', '_blank', '');
             popupWin.document.open();
@@ -61,7 +63,7 @@
 
         vm.irimpresion = function () {
             // var imgData = "http://"+vm.planilla.central.empresa.logo;
-            var doc = new jsPDF('landscape','pt', 'letter');
+            var doc = new jsPDF('landscape', 'pt', 'letter');
 
             doc.setFont("times");
             doc.setFontType("italic");
@@ -71,15 +73,15 @@
                 pagesplit: true,
                 'background': '#fff',
                 'heigth': 500
-            }, function() {
-                if(document.getElementById('giros')){
+            }, function () {
+                if (document.getElementById('giros')) {
                     doc.addPage();
                     doc.addHTML(document.getElementById('giros'), 15, 15, {
                         pagesplit: true,
                         'background': '#fff',
                         'heigth': 500
                     }, function () {
-                        if(document.getElementById('paquetes')){
+                        if (document.getElementById('paquetes')) {
                             doc.addPage();
                             doc.addHTML(document.getElementById('paquetes'), 15, 15, {
                                 pagesplit: true,
@@ -88,11 +90,11 @@
                             }, function () {
                                 doc.output("dataurlnewwindow");
                             });
-                        }else{
+                        } else {
                             doc.output("dataurlnewwindow");
                         }
                     });
-                }else{
+                } else {
                     doc.output("dataurlnewwindow");
                 }
             });
@@ -112,13 +114,13 @@
             //     img.src = url;
             // }
 
-            var createPDF = function(imgData) {
-                var doc = new jsPDF('landscape','pt', 'letter');
+            var createPDF = function (imgData) {
+                var doc = new jsPDF('landscape', 'pt', 'letter');
 
                 doc.addHTML($('#page-wrap')[0], 15, 15, {
                     'background': '#fff',
                     'heigth': 200
-                }, function() {
+                }, function () {
                     // doc.addImage(imgData, 'PNG', 10, 10, 50, 50, 'monkey'); // Cache the image using the alias 'monkey'
                     var string = doc.output("dataurlnewwindow");
                     $('.preview-pane').attr('src', string);

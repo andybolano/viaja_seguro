@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -6,7 +6,7 @@
         .config(config)
         .run(run);
 
-    function config($stateProvider){
+    function config($stateProvider) {
         $stateProvider
             .state('app.empresas_agendar_actividades', {
                 url: '/empresa/actividades',
@@ -17,9 +17,9 @@
             });
     };
 
-    function run(appMenu){
+    function run(appMenu) {
         appMenu.addTo([
-            {nombre:'Agendar Actividades', link:'app.empresas_agendar_actividades', icon:'event'}
+            {nombre: 'Agendar Actividades', link: 'app.empresas_agendar_actividades', icon: 'event'}
         ], 'EMPRESA');
     }
 })();

@@ -2,7 +2,7 @@
  * Created by tav0 on 23/03/16.
  */
 
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -32,7 +32,7 @@
 
         function on(event, callback) {
             if (socket) {
-                socket.on(event, function(data) {
+                socket.on(event, function (data) {
                     $rootScope.$apply(function () {
                         callback(data);
                     });

@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -6,7 +6,7 @@
         .config(config)
         .run(run);
 
-    function config($stateProvider){
+    function config($stateProvider) {
         $stateProvider
             .state('app.superadmin_flota_vehiculos', {
                 url: '/flota_vehiculos',
@@ -17,9 +17,9 @@
             });
     };
 
-    function run(appMenu){
+    function run(appMenu) {
         appMenu.addTo([
-            {nombre:'Flota Vehiculos', link:'app.superadmin_flota_vehiculos', icon:'directions_car'}
+            {nombre: 'Flota Vehiculos', link: 'app.superadmin_flota_vehiculos', icon: 'directions_car'}
         ], 'SUPER_ADM');
     }
 })();

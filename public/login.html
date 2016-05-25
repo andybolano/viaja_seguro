@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="autenticaionModule" class="red accent-4" >
+<html ng-app="autenticaionModule" class="red accent-4">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -43,7 +43,8 @@
                 </div>
                 <div class="row">
                     <div class="col s12" style="text-align: right; padding-right: 0;">
-                        <button class="btn waves-effect waves-light red accent-4" type="submit" ng-click="iniciarSesion()"
+                        <button class="btn waves-effect waves-light red accent-4" type="submit"
+                                ng-click="iniciarSesion()"
                                 ng-class="{'disabled': formLogin.$invalid}">
                             Iniciar Sesión
                             <i class="material-icons right">send</i>
@@ -72,7 +73,8 @@
                                 <div class="input-field">
                                     <i class="material-icons prefix">vpn_key</i>
                                     <input id="contrasena" name="contrasena" type="password" ng-model="nuevaContrasena"
-                                           required ng-change="comfirmarContrasenas()" ng-class="{'invalid' : contrasenasDiferentes}">
+                                           required ng-change="comfirmarContrasenas()"
+                                           ng-class="{'invalid' : contrasenasDiferentes}">
                                     <label for="contrasena">Contraseña</label>
                                 </div>
                             </div>
@@ -82,14 +84,17 @@
                             <div class="col s12">
                                 <div class="input-field">
                                     <i class="material-icons prefix">vpn_key</i>
-                                    <input id="confircontrasena" name="confircontrasena" type="password" ng-model="nuevaContrasenaConfirmacion"
-                                           required ng-change="comfirmarContrasenas()" ng-class="{'invalid' : contrasenasDiferentes}">
+                                    <input id="confircontrasena" name="confircontrasena" type="password"
+                                           ng-model="nuevaContrasenaConfirmacion"
+                                           required ng-change="comfirmarContrasenas()"
+                                           ng-class="{'invalid' : contrasenasDiferentes}">
                                     <label for="confircontrasena">Confirmar Contraseña</label>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="row" ng-show="contrasenasDiferentes && formCambiarContrasena.confircontrasena.$dirty">
+                        <div class="row"
+                             ng-show="contrasenasDiferentes && formCambiarContrasena.confircontrasena.$dirty">
                             <div class="col s12" style="text-align: center;color:red;">
                                 Error al confirmar la contraseña
                             </div>
@@ -101,7 +106,7 @@
 
         <div class="modal-footer">
             <button class="waves-effect waves-light btn orange" ng-click="cambiarContrasena()" ng-hide="editMode"
-                   ng-disabled="!formCambiarContrasena.$valid">
+                    ng-disabled="!formCambiarContrasena.$valid">
                 Aceptar
             </button>
         </div>

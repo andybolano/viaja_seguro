@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -13,8 +13,8 @@
         vm.cerrarSesion = cerrarSesion;
         loadUser();
 
-        function loadUser(){
-            if(authService.currentUser()) {
+        function loadUser() {
+            if (authService.currentUser()) {
                 vm.userImagen = authService.currentUser().imagen;
                 if (authService.currentUser().empresa) {
                     vm.userNombre = authService.currentUser().empresa.nombre;
@@ -25,7 +25,7 @@
             }
         };
 
-        function cerrarSesion(){
+        function cerrarSesion() {
             sessionStorage.clear();
             $state.go('login');
         };

@@ -2,12 +2,12 @@
  * Created by tav0 on 13/02/16.
  */
 
-(function() {
+(function () {
     'use strict';
 
     angular
         .module('commons')
-        .filter('cut',function(){
+        .filter('cut', function () {
             return function (value, wordwise, max, tail) {
                 if (!value) return '';
 

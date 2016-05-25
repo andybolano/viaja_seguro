@@ -1,6 +1,6 @@
 <div ng-controller="deduccionesController as vm" class="contenedor">
     <div class="row">
-        <div class="col s12" >
+        <div class="col s12">
             <div class="row white col s12" style="border-radius: 15px; border:2px solid #D50000; width: 100%">
                 <div class="contenedor">
                     <div class="row">
@@ -8,9 +8,10 @@
                             <h2><b style="color: black">Deducciones</b></h2>
                         </div>
                         <div class="col s4">
-                            <div class="input-field col s12 grey lighten-3" style="padding: .5em; border-radius: 15px; height: 37px; border: none">
+                            <div class="input-field col s12 grey lighten-3"
+                                 style="padding: .5em; border-radius: 15px; height: 37px; border: none">
                                 <i class="material-icons prefix" style="color: #D50000;">search</i>
-                                <input  id="icon_prefix" type="text" ng-model="filtro">
+                                <input id="icon_prefix" type="text" ng-model="filtro">
                                 <label for="icon_prefix">Buscar</label>
                             </div>
                         </div>
@@ -18,7 +19,7 @@
                     <div class="row">
                         <div class="col s12">
                             <table class="striped bordered responsive-table">
-                                <thead >
+                                <thead>
                                 <th style="text-align: center; color: #D50000;">Nombre</th>
                                 <th style="text-align: center; color: #D50000;">Valor</th>
                                 <th style="text-align: center; color: #D50000;">Estado</th>
@@ -31,7 +32,9 @@
                                     <td style="text-align: center">
                                         <div class="switch center">
                                             <label>
-                                                <input ng-model="vm.deduccion.estado" type="checkbox" ng-checked="{{deduccion.estado}}" ng-click="vm.updateEstado(deduccion)">
+                                                <input ng-model="vm.deduccion.estado" type="checkbox"
+                                                       ng-checked="{{deduccion.estado}}"
+                                                       ng-click="vm.updateEstado(deduccion)">
                                                 <span class="lever"></span>
                                             </label>
                                         </div>
@@ -65,17 +68,20 @@
             <div class="modal-content" style="padding-left: 50px">
                 <h2><b style="color: black">{{vm.titulo}}</b></h2>
                 <div class="row">
-                    <div class="row" >
-                        <div class="input-field col s5" style="border: 1px solid grey; border-radius: 15px; margin-right: 30px">
+                    <div class="row">
+                        <div class="input-field col s5"
+                             style="border: 1px solid grey; border-radius: 15px; margin-right: 30px">
                             <i style="color: #D50000" class="material-icons prefix">label</i>
-                            <input id="icon_person2" type="text" class="validate" name="nombre"ng-model="vm.Deduccion.nombre">
+                            <input id="icon_person2" type="text" class="validate" name="nombre"
+                                   ng-model="vm.Deduccion.nombre">
                             <label for="icon_person2" class="{{vm.active}}">Nombre</label>
                         </div>
                         <div class="input-field col s5" style="border: none">
                             <div class="switch">
                                 <label>
                                     Desactivado
-                                    <input name="estado" type="checkbox" ng-model="vm.Deduccion.estado" ng-checked="{{vm.Deduccion.estado}}">
+                                    <input name="estado" type="checkbox" ng-model="vm.Deduccion.estado"
+                                           ng-checked="{{vm.Deduccion.estado}}">
                                     <span class="lever"></span>
                                     Activado
                                 </label>
@@ -84,14 +90,18 @@
                     </div>
 
                     <div class="row">
-                        <div class="input-field col s5" style="border: 1px solid grey; border-radius: 15px; margin-right: 30px">
+                        <div class="input-field col s5"
+                             style="border: 1px solid grey; border-radius: 15px; margin-right: 30px">
                             <i style="color: #D50000" class="material-icons prefix">receipt</i>
-                            <input id="icon_person1" type="text" class="validate" name="descripcion"ng-model="vm.Deduccion.descripcion">
+                            <input id="icon_person1" type="text" class="validate" name="descripcion"
+                                   ng-model="vm.Deduccion.descripcion">
                             <label for="icon_person1" class="{{vm.active}}">Descipción</label>
                         </div>
-                        <div class="input-field col s5" style="border: 1px solid grey; border-radius: 15px; margin-right: 30px">
+                        <div class="input-field col s5"
+                             style="border: 1px solid grey; border-radius: 15px; margin-right: 30px">
                             <i style="color: #D50000" class="material-icons prefix">attach_money</i>
-                            <input id="icon_person3" type="text" class="validate" name="valor" ng-model="vm.Deduccion.valor">
+                            <input id="icon_person3" type="text" class="validate" name="valor"
+                                   ng-model="vm.Deduccion.valor">
                             <label for="icon_person3" class="{{vm.active}}">Valor</label>
                         </div>
                     </div>
@@ -100,9 +110,11 @@
             <div class="modal-footer">
                 <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red accent-4"
                    style="margin-left:10px; border-radius: 25px">Salir</a>
-                <input style="border-radius: 25px" type="button" class="waves-effect waves-light btn light-green " ng-click="vm.guardar()" ng-hide="vm.editMode"
+                <input style="border-radius: 25px" type="button" class="waves-effect waves-light btn light-green "
+                       ng-click="vm.guardar()" ng-hide="vm.editMode"
                        ng-disabled="!formDeduccion.$valid" value="Guardar">
-                <input style="border-radius: 25px" type="button" class="waves-effect waves-light btn light-green " ng-click="vm.update()" ng-show="vm.editMode"
+                <input style="border-radius: 25px" type="button" class="waves-effect waves-light btn light-green "
+                       ng-click="vm.update()" ng-show="vm.editMode"
                        ng-disabled="!formDeduccion.$valid" value="Modificar">
             </div>
         </form>
