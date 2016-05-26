@@ -1,17 +1,18 @@
-
 <div ng-controller="loginController as vm">
-    <div class="white accent-4" style="position: absolute; left: 0px; top: 0px;z-index: 1000;min-height: 100%; width: 100%;">
+    <div class="white accent-4"
+         style="position: absolute; left: 0px; top: 0px;z-index: 1000;min-height: 100%; width: 100%;">
         <canvas id="canvas" width="1280" height="700"></canvas>
         <div class="row" style="margin-top: 5%;">
 
-            <div class="offset-s4 col s4 z-depth-1 white animated bounceInLeft" style=" border-style: solid; border-color: #ff0000;padding: 30px; border-radius: 30px; position: absolute;top: 50%;left: 50%;margin-top: -200px;margin-left: -200px;">
+            <div class="offset-s4 col s4 z-depth-1 white animated bounceInLeft"
+                 style=" border-style: solid; border-color: #ff0000;padding: 30px; border-radius: 30px; position: absolute;top: 50%;left: 50%;margin-top: -200px;margin-left: -200px;">
                 <div class="row">
                     <div class="col s12" style="text-align: center;color:red;">
                         {{vm.mensajeError}}
                     </div>
                 </div>
                 <center>
-                    <img  src="../assets/images/loading.gif" style="width:40px;display:none" id="loading">
+                    <img src="../assets/images/loading.gif" style="width:40px;display:none" id="loading">
                 </center>
                 <br>
                 <!--<center><h2>Inicio de Sesi&oacute;n</h2></center>   -->
@@ -24,19 +25,23 @@
                     <div class="row">
                         <div class="input-field col s12" style="border: 1px solid grey; border-radius: 15px">
                             <i class="material-icons prefix" style="color: grey">perm_identity</i>
-                            <input style="border-radius: 15px;" type="text" ng-model="vm.usuario.name" id="username" name="username" placeholder="Nombre de usuario" required>
+                            <input style="border-radius: 15px;" type="text" ng-model="vm.usuario.name" id="username"
+                                   name="username" placeholder="Nombre de usuario" required>
 
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12" style="border: 1px solid grey; border-radius: 15px">
                             <i class="material-icons prefix" style="color: grey">lock</i>
-                            <input type="password" ng-model="vm.usuario.pass" id="pass" name="pass" placeholder="Contrase&ntilde;a" required>
+                            <input type="password" ng-model="vm.usuario.pass" id="pass" name="pass"
+                                   placeholder="Contrase&ntilde;a" required>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col s12" style="text-align: center;">
-                            <button style="border-radius: 10px;" class="btn btn-block waves-effect waves-light red accent-4" id="btn-inicio" type="submit" ng-click="vm.iniciarSesion()"
+                            <button style="border-radius: 10px;"
+                                    class="btn btn-block waves-effect waves-light red accent-4" id="btn-inicio"
+                                    type="submit" ng-click="vm.iniciarSesion()"
                                     ng-class="{'disabled': formLogin.$invalid}">
                                 Iniciar Sesión
                                 <!--<i class="material-icons right">send</i>-->
@@ -65,8 +70,10 @@
                             <div class="col s12">
                                 <div class="input-field">
                                     <i class="material-icons prefix">vpn_key</i>
-                                    <input id="contrasena" name="contrasena" type="password" ng-model="vm.nuevaContrasena"
-                                           required ng-change="vm.comfirmarContrasenas()" ng-class="{'invalid' : vm.contrasenasDiferentes}">
+                                    <input id="contrasena" name="contrasena" type="password"
+                                           ng-model="vm.nuevaContrasena"
+                                           required ng-change="vm.comfirmarContrasenas()"
+                                           ng-class="{'invalid' : vm.contrasenasDiferentes}">
                                     <label for="contrasena">Contraseña</label>
                                 </div>
                             </div>
@@ -76,14 +83,17 @@
                             <div class="col s12">
                                 <div class="input-field">
                                     <i class="material-icons prefix">vpn_key</i>
-                                    <input id="confircontrasena" name="confircontrasena" type="password" ng-model="vm.nuevaContrasenaConfirmacion"
-                                           required ng-change="vm.comfirmarContrasenas()" ng-class="{'invalid' : vm.contrasenasDiferentes}">
+                                    <input id="confircontrasena" name="confircontrasena" type="password"
+                                           ng-model="vm.nuevaContrasenaConfirmacion"
+                                           required ng-change="vm.comfirmarContrasenas()"
+                                           ng-class="{'invalid' : vm.contrasenasDiferentes}">
                                     <label for="confircontrasena">Confirmar Contraseña</label>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="row" ng-show="vm.contrasenasDiferentes && formCambiarContrasena.confircontrasena.$dirty">
+                        <div class="row"
+                             ng-show="vm.contrasenasDiferentes && formCambiarContrasena.confircontrasena.$dirty">
                             <div class="col s12" style="text-align: center;color:red;">
                                 Error al confirmar la contraseña
                             </div>
@@ -126,18 +136,15 @@
         ctx.fill();
     }
     function paint() {
-        for (var i = 0; i < shapes.length; i++)
-        {
-            switch (shapes[i].name)
-            {
+        for (var i = 0; i < shapes.length; i++) {
+            switch (shapes[i].name) {
                 case 'Circle':
                     drawCircle(ctx, shapes[i].x, shapes[i].y, shapes[i].radius);
                     break;
             }
         }
     }
-    function init()
-    {
+    function init() {
         var width = canvas.width;
         var height = canvas.height;
         for (var i = 0; i < 69; i++) {

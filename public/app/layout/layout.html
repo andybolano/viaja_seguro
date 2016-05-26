@@ -10,7 +10,8 @@
             </a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li><a href="javascript:;" class="waves-effect waves-light"><i class="material-icons left"
-                                                                               style="font-size:18px;">today</i>{{vm.hoy | esdate: 'full'}}</a>
+                                                                               style="font-size:18px;">today</i>{{vm.hoy
+                    | esdate: 'full'}}</a>
                 </li>
                 <li><a href="javascript:;" class="waves-effect waves-light" ng-click="vm.cerrarSesion();"><i
                         class="material-icons left" style="font-size:18px;">input</i>Salir</a></li>
@@ -18,7 +19,7 @@
         </div>
     </nav>
 </div>
-<div class="nav-bar" >
+<div class="nav-bar">
     <ul id="slide-out" class="side-nav fixed" style="width: 220px;margin-top: 60px;">
         <li class="no-padding" style="background-color: white; width: 220px; position: fixed">
             <ul>
@@ -26,7 +27,8 @@
                     <div style="text-align:center;padding-top: 30px;padding-left: 10px;" class="center">
                         <div ng-if="vm.userRol == 'SUPER_ADM'">
                             <img alt="image" style="border:2px solid red; border-radius: 50%;"
-                                 ng-src="http://dev.viajaseguro.co/public/assets/images/profile.jpg" width="110px;" height="110px">
+                                 ng-src="http://dev.viajaseguro.co/public/assets/images/profile.jpg" width="110px;"
+                                 height="110px">
                         </div>
                         <div ng-if="vm.userRol != 'SUPER_ADM'">
                             <img alt="image" style="border:2px solid red; border-radius: 50%;"
@@ -40,11 +42,13 @@
             </ul>
         </li>
 
-        <div class="nav-collapse collapse center" ng-controller="MenuCtrl as vm" style="word-wrap: break-word; margin-top: 235px">
+        <div class="nav-collapse collapse center" ng-controller="MenuCtrl as vm"
+             style="word-wrap: break-word; margin-top: 235px">
             <section id="sidebar">
                 <ul id="dock">
                     <!--<li class="launcher"></li>-->
-                    <li ng-repeat="op in vm.menu" class="launcher" style="border-bottom:1px solid #fff;" ui-sref="{{op.link}}" id="{{op.id}}">
+                    <li ng-repeat="op in vm.menu" class="launcher" style="border-bottom:1px solid #fff;"
+                        ui-sref="{{op.link}}" id="{{op.id}}">
                         <i style="color: white" class="large material-icons">{{op.icon}}</i>
                         <span style="color: white">{{op.nombre}}</span>
                     </li>
@@ -78,11 +82,11 @@
 </script>
 
 <style type="text/css">
-    #slide-out{
+    #slide-out {
         background-color: #616161 !important;
     }
 
-    #user{
+    #user {
         color: white !important;
     }
 
@@ -92,6 +96,7 @@
         z-index: 1;
         text-align: center;
     }
+
     #sidebar ul#dock {
         margin: -15px 0 0 0;
         width: 100%;
@@ -99,12 +104,14 @@
         /*color: #ecf0f1;*/
         background-color: #616161;
     }
+
     #sidebar ul#dock li.launcher {
         list-style: none;
         cursor: pointer;
         background-color: #616161;
     }
-    #sidebar ul#dock li.launcher>i {
+
+    #sidebar ul#dock li.launcher > i {
         display: block;
         font-size: 2.5em;
         background-color: #616161;

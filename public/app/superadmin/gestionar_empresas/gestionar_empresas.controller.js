@@ -2,7 +2,7 @@
  * Created by tav0 on 4/01/16.
  */
 
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -38,7 +38,7 @@
         function loadEmpresas() {
             empresasService.getAll().then(success, error);
             function success(p) {
-                for(var i=0; i<p.data.length; i++) {
+                for (var i = 0; i < p.data.length; i++) {
                     p.data[i].fecha_resolucion = new Date(p.data[i].fecha_resolucion);
                     vm.empresas.push(p.data[i]);
                 }
@@ -50,7 +50,7 @@
         }
 
         function loadServicios() {
-            if(vm.servicios) return;
+            if (vm.servicios) return;
             serviciosEmpresaService.getAll().then(success, error);
             function success(p) {
                 vm.servicios = p.data;
@@ -103,13 +103,13 @@
             vm.active = "";
             vm.editMode = false;
             $scope.fileimage = null;
-            document.getElementById("image").innerHTML = ['<img class="center" id="imagenlogo" style="width:300px; height: 300px; border-radius: 50%; position: absolute; left: 0; top: 0; border: none" ng-src="http://',vm.selectedEmpresa.logo,'"  />'].join('');
+            document.getElementById("image").innerHTML = ['<img class="center" id="imagenlogo" style="width:300px; height: 300px; border-radius: 50%; position: absolute; left: 0; top: 0; border: none" ng-src="http://', vm.selectedEmpresa.logo, '"  />'].join('');
             loadServicios();
             $("#modalNuevaEmpresa").openModal();
         }
 
         function guardar() {
-            vm.selectedEmpresa.fecha_resolucion  = $filter('date')(vm.selectedEmpresa.fecha_resolucion,'yyyy-MM-dd')
+            vm.selectedEmpresa.fecha_resolucion = $filter('date')(vm.selectedEmpresa.fecha_resolucion, 'yyyy-MM-dd')
             updateServicios(vm.selectedEmpresa);
             empresasService.post(vm.selectedEmpresa).then(success, error);
             function success(p) {
@@ -133,7 +133,7 @@
             vm.editMode = true;
             vm.nombreForm = "Modificar Empresa";
             vm.active = "active";
-            document.getElementById("image").innerHTML = ['<img class="center" id="imagenlogo" style="width:300px; height: 300px; border-radius: 50%; position: absolute; left: 0; top: 0; border: none" src="http://',vm.selectedEmpresa.logo,'" />'].join('');
+            document.getElementById("image").innerHTML = ['<img class="center" id="imagenlogo" style="width:300px; height: 300px; border-radius: 50%; position: absolute; left: 0; top: 0; border: none" src="http://', vm.selectedEmpresa.logo, '" />'].join('');
             $("#modalNuevaEmpresa").openModal();
         }
 
@@ -157,7 +157,7 @@
         }
 
         function update() {
-            vm.selectedEmpresa.fecha_resolucion  = $filter('date')(vm.selectedEmpresa.fecha_resolucion,'yyyy-MM-dd')
+            vm.selectedEmpresa.fecha_resolucion = $filter('date')(vm.selectedEmpresa.fecha_resolucion, 'yyyy-MM-dd')
             updateServicios(vm.selectedEmpresa);
             empresasService.put(vm.selectedEmpresa, vm.selectedEmpresa.id).then(success, error);
             function success(p) {
@@ -201,6 +201,7 @@
                         });
                     }, 2000);
                 }
+
                 function error(error) {
                     swal({
                         title: 'Error!',

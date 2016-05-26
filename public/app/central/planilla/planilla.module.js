@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -6,9 +6,9 @@
         .config(config)
         .run(run);
 
-    function config($stateProvider){
+    function config($stateProvider) {
         $stateProvider
-           .state('app.centrales_planillas', {
+            .state('app.centrales_planillas', {
                 url: '/centrales/planillas',
                 templateUrl: 'central/planilla/planilla.html',
                 data: {
@@ -17,9 +17,9 @@
             })
     };
 
-    function run(appMenu){
+    function run(appMenu) {
         appMenu.addTo([
-            {nombre:'Planillas', link:'app.centrales_planillas', icon:'rate_review'},
+            {nombre: 'Planillas', link: 'app.centrales_planillas', icon: 'rate_review'},
         ], 'CENTRAL_EMPRESA');
     }
 })();

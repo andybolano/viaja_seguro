@@ -1,18 +1,19 @@
 <style>
     #footer {
-        position:fixed;
-        left:220px;
-        bottom:0px;
-        height:80px;
-        width:100%;
+        position: fixed;
+        left: 220px;
+        bottom: 0px;
+        height: 80px;
+        width: 100%;
         background: #676a6c;
     }
 
     /* IE 6 */
     * html #footer {
-        position:absolute;
-        top:expression((0-(footer.offsetHeight)+(document.documentElement.clientHeight ? document.documentElement.clientHeight : document.body.clientHeight)+(ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop))+'px');
+        position: absolute;
+        top: expression((0-(footer.offsetHeight)+(document.documentElement.clientHeight ? document.documentElement.clientHeight : document.body.clientHeight)+(ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop))+'px');
     }
+
     .angular-google-map-container {
         /*position: absolute;*/
         top: 40px;
@@ -26,13 +27,13 @@
 </style>
 <div class="contenedor" ng-controller="mapaController as vm">
     <div class="row">
-        <div class="col s12" >
+        <div class="col s12">
             <div class="row white col s12" style="width: 100%">
                 <section>
-                    <div class="section-body contain-lg" >
-                        <div  class="center">
-                            <div class="" ng-show="vm.mostrar"   id="map_canvas">
-                                <div >
+                    <div class="section-body contain-lg">
+                        <div class="center">
+                            <div class="" ng-show="vm.mostrar" id="map_canvas">
+                                <div>
                                     <ui-gmap-google-map
                                             center='vm.map.center'
                                             zoom='vm.map.zoom' aria-label="Google map"
@@ -44,25 +45,36 @@
                                                          dorebuildall="true">
                                             <ui-gmap-windows style="border-radius: 25px">
                                                 <div ng-non-bindable>
-                                                    <div ><img src="http://{{window.cImagen}}" title="{{window.cNombres}}" style="width: 150px;height: 120px;" />
-                                                    </div><div class="contentTxt">
-                                                    <h2 class="center"><strong >Movil: {{window.cCvehiculo}}</strong></h2>
-                                                    <p class="center"><strong> {{window.cNombres}} <br>  {{window.cApellidos}}</strong></p>
-                                                    <p class="center"><strong>Telefono: {{window.cTelefono}}</strong> </p>
-                                                </div><div class="clear"></div></div>
+                                                    <div><img src="http://{{window.cImagen}}"
+                                                              title="{{window.cNombres}}"
+                                                              style="width: 150px;height: 120px;"/>
+                                                    </div>
+                                                    <div class="contentTxt">
+                                                        <h2 class="center"><strong>Movil: {{window.cCvehiculo}}</strong>
+                                                        </h2>
+                                                        <p class="center"><strong> {{window.cNombres}} <br>
+                                                            {{window.cApellidos}}</strong></p>
+                                                        <p class="center"><strong>Telefono:
+                                                            {{window.cTelefono}}</strong></p>
+                                                    </div>
+                                                    <div class="clear"></div>
+                                                </div>
                                             </ui-gmap-windows>
                                         </ui-gmap-markers>
 
                                     </ui-gmap-google-map>
                                 </div>
                             </div>
-                            <div class="row" >
-                                <div class="col s12" >
+                            <div class="row">
+                                <div class="col s12">
                                     <ul>
-                                        <li class="tab col s12 active"><a href="javascript:;" ng-click="vm.central()">{{ruta.destino.ciudad.nombre}}</a></li>
+                                        <li class="tab col s12 active"><a href="javascript:;" ng-click="vm.central()">{{ruta.destino.ciudad.nombre}}</a>
+                                        </li>
                                     </ul>
-                                    <ul class="tabs valign-wrapper z-depth-3" >
-                                        <li  class="tab col s12 active" ng-repeat="ruta in vm.rutas"><a href="javascript:;" ng-click="vm.prueba(ruta.id)">{{ruta.destino.ciudad.nombre}}</a></li>
+                                    <ul class="tabs valign-wrapper z-depth-3">
+                                        <li class="tab col s12 active" ng-repeat="ruta in vm.rutas"><a
+                                                href="javascript:;" ng-click="vm.prueba(ruta.id)">{{ruta.destino.ciudad.nombre}}</a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -77,19 +89,57 @@
                                     <div class="row">
                                         <div class="col s3">
                                             <ul class="collection" style="border: none">
-                                                <li class="collection-item" style="background-color: #676a6c; height: 30px; color: white; border: none"><div>Conductores activos en total <a href="javascript:;" class="secondary-content"><div style="width: 22px; height: 22px; border-radius: 50%; background-color: #D50000; color: white; text-align: center">{{vm.ato}}</div></a></div></li>
-                                                <li class="collection-item" style="background-color: #676a6c; height: 30px; color: white; border: none"><div>En turno<a href="javascript:;" class="secondary-content"><div style="width: 22px; height: 22px; border-radius: 50%; background-color: #D50000; color: white; text-align: center">{{vm.etu}}</div></a></div></li>
+                                                <li class="collection-item"
+                                                    style="background-color: #676a6c; height: 30px; color: white; border: none">
+                                                    <div>Conductores activos en total <a href="javascript:;"
+                                                                                         class="secondary-content">
+                                                        <div style="width: 22px; height: 22px; border-radius: 50%; background-color: #D50000; color: white; text-align: center">
+                                                            {{vm.ato}}
+                                                        </div>
+                                                    </a></div>
+                                                </li>
+                                                <li class="collection-item"
+                                                    style="background-color: #676a6c; height: 30px; color: white; border: none">
+                                                    <div>En turno<a href="javascript:;" class="secondary-content">
+                                                        <div style="width: 22px; height: 22px; border-radius: 50%; background-color: #D50000; color: white; text-align: center">
+                                                            {{vm.etu}}
+                                                        </div>
+                                                    </a></div>
+                                                </li>
                                             </ul>
                                         </div>
                                         <div class="col s3">
                                             <ul class="collection" style="border: none">
-                                                <li class="collection-item" style="background-color: #676a6c; height: 30px; color: white; border: none"><div>Viajando o en carretera <a href="javascript:;" class="secondary-content"><div style="width: 22px; height: 22px; border-radius: 50%; background-color: #D50000; color: white; text-align: center">{{vm.voc}}</div></a></div></li>
-                                                <li class="collection-item" style="background-color: #676a6c; height: 30px; color: white; border: none"><div>Ausentes<a href="javascript:;" class="secondary-content"><div style="width: 22px; height: 22px; border-radius: 50%; background-color: #D50000; color: white; text-align: center">{{vm.aus}}</div></a></div></li>
+                                                <li class="collection-item"
+                                                    style="background-color: #676a6c; height: 30px; color: white; border: none">
+                                                    <div>Viajando o en carretera <a href="javascript:;"
+                                                                                    class="secondary-content">
+                                                        <div style="width: 22px; height: 22px; border-radius: 50%; background-color: #D50000; color: white; text-align: center">
+                                                            {{vm.voc}}
+                                                        </div>
+                                                    </a></div>
+                                                </li>
+                                                <li class="collection-item"
+                                                    style="background-color: #676a6c; height: 30px; color: white; border: none">
+                                                    <div>Ausentes<a href="javascript:;" class="secondary-content">
+                                                        <div style="width: 22px; height: 22px; border-radius: 50%; background-color: #D50000; color: white; text-align: center">
+                                                            {{vm.aus}}
+                                                        </div>
+                                                    </a></div>
+                                                </li>
                                             </ul>
                                         </div>
                                         <div class="col s3">
                                             <ul class="collection" style="border: none">
-                                                <li class="collection-item" style="background-color: #676a6c; height: 30px; color: white; border: none"><div>Buscando pasajeros <a href="javascript:;" class="secondary-content"><div style="width: 22px; height: 22px; border-radius: 50%; background-color: #D50000; color: white; text-align: center">{{vm.bpa}}</div></a></div></li>
+                                                <li class="collection-item"
+                                                    style="background-color: #676a6c; height: 30px; color: white; border: none">
+                                                    <div>Buscando pasajeros <a href="javascript:;"
+                                                                               class="secondary-content">
+                                                        <div style="width: 22px; height: 22px; border-radius: 50%; background-color: #D50000; color: white; text-align: center">
+                                                            {{vm.bpa}}
+                                                        </div>
+                                                    </a></div>
+                                                </li>
                                             </ul>
                                         </div>
                                     </div>
@@ -103,7 +153,7 @@
     </div>
 </div>
 <script type="application/javascript">
-    $(document).ready(function(){
+    $(document).ready(function () {
         $('ul.tabs').tabs();
     });
 </script>

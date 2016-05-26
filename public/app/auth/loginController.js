@@ -1,7 +1,7 @@
 /**
  * Created by tav0 on 6/01/16.
  */
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -21,33 +21,34 @@
         vm.comfirmarContrasenas = comfirmarContrasenas;
         vm.cambiarContrasena = cambiarContrasena;
 
-        if(authService.currentUser()) redirect(authService.currentUser().rol);
+        if (authService.currentUser()) redirect(authService.currentUser().rol);
 
-        function iniciarSesion(){
+        function iniciarSesion() {
             vm.mensajeError = '';
-            document.getElementById("loading").style.display="block";
-             document.getElementById("btn-inicio").disabled=true;
+            document.getElementById("loading").style.display = "block";
+            document.getElementById("btn-inicio").disabled = true;
             authService.login(vm.usuario).then(success, error);
             function success(p) {
-                 document.getElementById("loading").style.display="none";
-                 document.getElementById("btn-inicio").disabled=false;
+                document.getElementById("loading").style.display = "none";
+                document.getElementById("btn-inicio").disabled = false;
                 var usuario = authService.storeUser(p.data.token);
-                if(usuario.estado == -1){
+                if (usuario.estado == -1) {
                     $("#modalCambiarContrasena").openModal();
-                }else {
+                } else {
                     redirect(usuario.rol);
                 }
-               
+
             }
+
             function error(error) {
-                document.getElementById("loading").style.display="none";
-                 document.getElementById("btn-inicio").disabled=false;
+                document.getElementById("loading").style.display = "none";
+                document.getElementById("btn-inicio").disabled = false;
                 console.log('Error en Login');
                 vm.mensajeError = error.status == 401 ? error.data.mensajeError : 'A ocurrido un erro inesperado';
             }
         }
 
-        function redirect(rol){
+        function redirect(rol) {
             if (rol == 'SUPER_ADM') {
                 $state.go('app.superadmin_empresas');
             } else if (rol == 'EMPRESA') {
@@ -57,18 +58,18 @@
             }
         }
 
-        function comfirmarContrasenas(){
+        function comfirmarContrasenas() {
             vm.mensajeError = '';
-            if(vm.nuevaContrasena != vm.nuevaContrasenaConfirmacion){
+            if (vm.nuevaContrasena != vm.nuevaContrasenaConfirmacion) {
                 vm.contrasenasDiferentes = true;
                 vm.formCambiarContrasena.$valid = false;
-            }else{
+            } else {
                 vm.contrasenasDiferentes = false;
                 vm.formCambiarContrasena.$valid = true;
             }
         }
 
-        function cambiarContrasena(){
+        function cambiarContrasena() {
             var contrasenas = {
                 actual: vm.usuario.pass,
                 nueva: vm.nuevaContrasena
@@ -78,6 +79,7 @@
                 $("#modalCambiarContrasena").closeModal();
                 redirect(authService.currentUser().rol);
             }
+
             function error(error) {
                 console.log('Error en Login');
                 vm.mensajeError = 'A ocurrido un erro inesperado';

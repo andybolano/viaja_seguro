@@ -1,6 +1,6 @@
 <div ng-controller="GestionarEmpresasController as vm" class="contenedor">
     <div class="row">
-        <div class="col s12" >
+        <div class="col s12">
             <div class="row white col s12" style="border-radius: 15px; border:2px solid #D50000; width: 100%">
                 <div class="contenedor">
                     <div class="row">
@@ -8,9 +8,10 @@
                             <h2><b>Gestion de Empresas</b></h2>
                         </div>
                         <div class="col s4">
-                            <div class="input-field col s12 grey lighten-3" style="padding: .5em; border-radius: 15px; height: 37px; border: none">
+                            <div class="input-field col s12 grey lighten-3"
+                                 style="padding: .5em; border-radius: 15px; height: 37px; border: none">
                                 <i class="material-icons prefix" style="color: #D50000;">search</i>
-                                <input  id="icon_prefix" type="text" ng-model="filtro">
+                                <input id="icon_prefix" type="text" ng-model="filtro">
                                 <label for="icon_prefix">Buscar</label>
                             </div>
                         </div>
@@ -31,14 +32,16 @@
                                 <tbody>
                                 <tr ng-repeat="empresa in vm.empresas | filter : filtro">
                                     <td style="text-align: center">
-                                        <img ng-src="http://{{empresa.logo}}"  style="width: 60px; height: 60px; margin-top: 4px; border-radius: 50%">
+                                        <img ng-src="http://{{empresa.logo}}"
+                                             style="width: 60px; height: 60px; margin-top: 4px; border-radius: 50%">
                                     </td>
                                     <td style="text-align: center">{{empresa.nit}}</td>
                                     <td style="text-align: center">{{empresa.nombre}}</td>
                                     <td style="text-align: center">{{empresa.direccion}}</td>
                                     <td style="text-align: center">{{empresa.telefono}}</td>
                                     <td style="text-align: center">{{empresa.servicios.length}}</td>
-                                    <td style="text-align: center"><p ng-show="empresa.estado">Activa</p><p ng-show="!empresa.estado">Inactiva</p></td>
+                                    <td style="text-align: center"><p ng-show="empresa.estado">Activa</p>
+                                        <p ng-show="!empresa.estado">Inactiva</p></td>
                                     <td style="text-align: center">
                                         <a href="#/gestionar_empresas/{{empresa.id}}/centrales">
                                             Centrales
@@ -75,114 +78,121 @@
             <form class="col s12" name="formEmpresa">
                 <div class="row">
                     <div class="col s8">
-                            <div class="row">
-                                <div class="col s6">
-                                    <div class="input-field">
-                                        <i style="color: #D50000"class="material-icons prefix">payment</i>
-                                        <input id="codigo" name="codigo" type="text" ng-model="vm.selectedEmpresa.nit"
-                                               ng-disabled="vm.editMode" required>
-                                        <label for="codigo" class="{{vm.active}}">NIT</label>
-                                    </div>
+                        <div class="row">
+                            <div class="col s6">
+                                <div class="input-field">
+                                    <i style="color: #D50000" class="material-icons prefix">payment</i>
+                                    <input id="codigo" name="codigo" type="text" ng-model="vm.selectedEmpresa.nit"
+                                           ng-disabled="vm.editMode" required>
+                                    <label for="codigo" class="{{vm.active}}">NIT</label>
                                 </div>
-                                <div class="col s6">
-                                    <div class="input-field" style="border: none">
-                                        <label class="active">Estado</label>
+                            </div>
+                            <div class="col s6">
+                                <div class="input-field" style="border: none">
+                                    <label class="active">Estado</label>
 
-                                        <div class="switch center">
-                                            <label>
-                                                Activa
-                                                <input type="checkbox" ng-model="vm.selectedEmpresa.estado"
-                                                       id="vm.selectedEmpresa.id">
-                                                <span class="lever"></span>
-                                                Inactiva
-                                            </label>
-                                        </div>
+                                    <div class="switch center">
+                                        <label>
+                                            Activa
+                                            <input type="checkbox" ng-model="vm.selectedEmpresa.estado"
+                                                   id="vm.selectedEmpresa.id">
+                                            <span class="lever"></span>
+                                            Inactiva
+                                        </label>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col s12">
-                                    <div class="input-field">
-                                        <i style="color: #D50000"class="material-icons prefix">book</i>
-                                        <input id="pjuridica" name="pjuridica" type="text" ng-model="vm.selectedEmpresa.pjuridica"
-                                               required>
-                                        <label for="pjuridica" class="{{vm.active}}">Personeria Juridica nº</label>
-                                    </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <div class="input-field">
+                                    <i style="color: #D50000" class="material-icons prefix">book</i>
+                                    <input id="pjuridica" name="pjuridica" type="text"
+                                           ng-model="vm.selectedEmpresa.pjuridica"
+                                           required>
+                                    <label for="pjuridica" class="{{vm.active}}">Personeria Juridica nº</label>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col s12">
-                                    <div class="input-field">
-                                        <i style="color: #D50000"class="material-icons prefix">account_circle</i>
-                                        <input id="nombre" name="nombre" type="text" ng-model="vm.selectedEmpresa.nombre"
-                                               required>
-                                        <label for="nombre" class="{{vm.active}}">Nombre</label>
-                                    </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <div class="input-field">
+                                    <i style="color: #D50000" class="material-icons prefix">account_circle</i>
+                                    <input id="nombre" name="nombre" type="text" ng-model="vm.selectedEmpresa.nombre"
+                                           required>
+                                    <label for="nombre" class="{{vm.active}}">Nombre</label>
                                 </div>
                             </div>
+                        </div>
                         <div class="row">
                             <div class="col s7">
                                 <div class="input-field">
-                                    <i style="color: #D50000"class="material-icons prefix">book</i>
+                                    <i style="color: #D50000" class="material-icons prefix">book</i>
                                     <input id="nresolucion" name="nresolucion" type="text"
                                            ng-model="vm.selectedEmpresa.nresolucion" required class="active">
-                                    <label for="direccion" class="{{vm.active}}">Nº resolucion de transporte</label>
+                                    <label for="nresolucion" class="{{vm.active}}">Nº resolucion de transporte</label>
                                 </div>
                             </div>
                             <div class="col s5">
                                 <div class="input-field">
                                     <i class="material-icons prefix" style="color: #D50000">date_range</i>
-                                    <input style="border-radius: 15px; border: none" id="fecha" type="date" class="datepicker validate" name="fecha"  ng-model="vm.selectedEmpresa.fecha_resolucion" required>
+                                    <input style="border-radius: 15px; border: none" id="fecha" type="date"
+                                           class="datepicker validate" name="fecha"
+                                           ng-model="vm.selectedEmpresa.fecha_resolucion" required>
                                     <label for="fecha" class="active">Fecha de resolución</label>
                                 </div>
                             </div>
                         </div>
-                            <div class="row">
-                                <div class="col s7">
-                                    <div class="input-field">
-                                        <i style="color: #D50000"class="material-icons prefix">location_on</i>
-                                        <input id="direccion" name="direccion" type="text"
-                                               ng-model="vm.selectedEmpresa.direccion" required class="active">
-                                        <label for="direccion" class="{{vm.active}}">Dirección</label>
-                                    </div>
-                                </div>
-                                <div class="col s5">
-                                    <div class="input-field">
-                                        <i style="color: #D50000"class="material-icons prefix">call</i>
-                                        <input id="telefono" name="telefono" type="text" ng-model="vm.selectedEmpresa.telefono"
-                                               required>
-                                        <label for="telefono" class="{{vm.active}}">Teléfono</label>
-                                    </div>
+                        <div class="row">
+                            <div class="col s7">
+                                <div class="input-field">
+                                    <i style="color: #D50000" class="material-icons prefix">location_on</i>
+                                    <input id="direccion" name="direccion" type="text"
+                                           ng-model="vm.selectedEmpresa.direccion" required class="active">
+                                    <label for="direccion" class="{{vm.active}}">Dirección</label>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col s12">
-                                    <div class="input-field" style="border: none">
-                                        <i class="material-icons prefix" style="padding-left: 3px;">playlist_add_check</i>
+                            <div class="col s5">
+                                <div class="input-field">
+                                    <i style="color: #D50000" class="material-icons prefix">call</i>
+                                    <input id="telefono" name="telefono" type="text"
+                                           ng-model="vm.selectedEmpresa.telefono"
+                                           required>
+                                    <label for="telefono" class="{{vm.active}}">Teléfono</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <div class="input-field" style="border: none">
+                                    <i class="material-icons prefix" style="padding-left: 3px;">playlist_add_check</i>
 
-                                        <p style="padding-left: 45px; padding-top: 3px">Servicios</p>
-                                    </div>
-                                    <div class="divider"></div>
+                                    <p style="padding-left: 45px; padding-top: 3px">Servicios</p>
                                 </div>
+                                <div class="divider"></div>
                             </div>
-                            <div class="row">
-                                <div class="col s12">
-                                    <p ng-repeat="servicio in vm.servicios" style="margin-bottom: 0; margin-top: 0; margin-left: 10px">
-                                        <input type="checkbox" ng-model="servicio.selected" id="servicio{{servicio.id}}"/>
-                                        <label for="servicio{{servicio.id}}">{{servicio.concepto}}</label>
-                                    </p>
-                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <p ng-repeat="servicio in vm.servicios"
+                                   style="margin-bottom: 0; margin-top: 0; margin-left: 10px">
+                                    <input type="checkbox" ng-model="servicio.selected" id="servicio{{servicio.id}}"/>
+                                    <label for="servicio{{servicio.id}}">{{servicio.concepto}}</label>
+                                </p>
                             </div>
+                        </div>
                     </div>
                     <div class="col s4" style="text-align: center">
-                        <div class="col s12" id="image" style="position: relative; width: 300px;height: 300px; border-radius: 50%;background: grey;border: none">
-                            <img  src="http://{{vm.Conductor.imagen}}" title="imagen" style="width:300px; height: 300px; border-radius: 50%; position: absolute; left: 0; top: 0; border: none; margin-right: 30px"/>
+                        <div class="col s12" id="image"
+                             style="position: relative; width: 300px;height: 300px; border-radius: 50%;background: grey;border: none">
+                            <img src="http://{{vm.Conductor.imagen}}" title="imagen"
+                                 style="width:300px; height: 300px; border-radius: 50%; position: absolute; left: 0; top: 0; border: none; margin-right: 30px"/>
                         </div>
 
 
                         <div class="file-field input-field col s12" style="border: none">
                             <div class="btn col s12 red accent-4" style="border-radius: 25px">
-                                <span><i style="color: white"class="mdi-image-photo-camera"></i></span>
+                                <span><i style="color: white" class="mdi-image-photo-camera"></i></span>
                                 <input id="files" uploader-model="fileimage" type="file">
                             </div>
                             <div class="file-path-wrapper">
@@ -207,10 +217,13 @@
                         <div class="row">
                             <div class="col s7">
                                 <div class="input-field">
-                                    <i style="color: #D50000"class="material-icons prefix">account_circle</i>
-                                    <input id="username" name="username" type="text" ng-model="vm.selectedEmpresa.usuario.nombre"
+                                    <i style="color: #D50000" class="material-icons prefix">account_circle</i>
+                                    <input id="username" name="username" type="text"
+                                           ng-model="vm.selectedEmpresa.usuario.nombre"
                                            ng-required="!vm.editMode">
-                                    <label for="username" class="{{vm.active}}" ng-class="{'active': vm.selectedEmpresa.usuario.contrasena}">Nombre de usuario</label>
+                                    <label for="username" class="{{vm.active}}"
+                                           ng-class="{'active': vm.selectedEmpresa.usuario.contrasena}">Nombre de
+                                        usuario</label>
                                 </div>
                             </div>
                         </div>
@@ -218,18 +231,22 @@
                         <div class="row">
                             <div class="col s7">
                                 <div class="input-field">
-                                    <i style="color: #D50000"class="material-icons prefix">vpn_key</i>
-                                    <input id="contrasena" name="contrasena" type="text" ng-model="vm.selectedEmpresa.usuario.contrasena"
+                                    <i style="color: #D50000" class="material-icons prefix">vpn_key</i>
+                                    <input id="contrasena" name="contrasena" type="text"
+                                           ng-model="vm.selectedEmpresa.usuario.contrasena"
                                            ng-required="!vm.editMode">
-                                    <label for="contrasena" class="{{vm.active}}" ng-class="{'active': vm.selectedEmpresa.usuario.contrasena}">Contraseña</label>
+                                    <label for="contrasena" class="{{vm.active}}"
+                                           ng-class="{'active': vm.selectedEmpresa.usuario.contrasena}">Contraseña</label>
                                 </div>
                             </div>
                         </div>
 
                         <div class="row">
-                            <input type="button" class="waves-effect waves-light btn col s4 offset-m1 light-green" value="Generar Datos"
-                                   ng-click="vm.generarDatosAcceso()" ng-class="{'disabled': formEmpresa.nombre.$invalid}">
-                                </input>
+                            <input type="button" class="waves-effect waves-light btn col s4 offset-m1 light-green"
+                                   value="Generar Datos"
+                                   ng-click="vm.generarDatosAcceso()"
+                                   ng-class="{'disabled': formEmpresa.nombre.$invalid}">
+                            </input>
                         </div>
                     </div>
                 </div>
@@ -237,13 +254,16 @@
         </div>
 
         <div class="modal-footer">
-            <a  href="#/gestionar_empresas/{{vm.selectedEmpresa.id}}/centrales" class="modal-action modal-close waves-effect waves-light btn left"
+            <a href="#/gestionar_empresas/{{vm.selectedEmpresa.id}}/centrales"
+               class="modal-action modal-close waves-effect waves-light btn left"
                style="margin-left:10px; border-radius: 25px" ng-show="vm.editMode">Ver Centrales</a>
             <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red accent-4"
                style="margin-left:10px; border-radius: 25px">Salir</a>
-            <input style="border-radius: 25px" type="button" class="waves-effect waves-light btn light-green" ng-click="vm.guardar()" ng-hide="vm.editMode"
-                   ng-class="{'disabled': formEmpresa.$invalid}"value="Guardar">
-            <input style="border-radius: 25px"  type="button" class="waves-effect waves-light btn light-green" ng-click="vm.update()" ng-show="vm.editMode"
+            <input style="border-radius: 25px" type="button" class="waves-effect waves-light btn light-green"
+                   ng-click="vm.guardar()" ng-hide="vm.editMode"
+                   ng-class="{'disabled': formEmpresa.$invalid}" value="Guardar">
+            <input style="border-radius: 25px" type="button" class="waves-effect waves-light btn light-green"
+                   ng-click="vm.update()" ng-show="vm.editMode"
                    ng-class="{'disabled': formEmpresa.$invalid}" value="Modificar">
         </div>
 
@@ -253,7 +273,7 @@
 </div>
 
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
         function archivo(evt) {
             var files = evt.target.files; // FileList object
 
@@ -266,8 +286,8 @@
 
                 var reader = new FileReader();
 
-                reader.onload = (function(theFile) {
-                    return function(e) {
+                reader.onload = (function (theFile) {
+                    return function (e) {
                         // Creamos la imagen.
                         //document.getElementById("image").innerHTML = ['<img class="thumb" style="width:100%" src="', e.target.result, '" title="', escape(theFile.name), '"/>'].join('');
                         document.getElementById('imagenlogo').src = e.target.result;
@@ -280,7 +300,7 @@
 
         document.getElementById('files').addEventListener('change', archivo, false);
 
-        $(':file').change(function(){
+        $(':file').change(function () {
             //obtenemos un array con los datos del archivo
             var file = $("#files")[0].files[0];
             //obtenemos el nombre del archivo

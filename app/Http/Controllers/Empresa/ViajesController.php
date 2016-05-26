@@ -147,7 +147,7 @@ class ViajesController extends Controller
     }
 
     public function generarDatosPlanilla($viaje){
-        $consulta = Planilla::select('*')->where('viaje_id', $viaje)->first()->load('viaje');
+        $consulta = Planilla::select('*')->where('viaje_id', $viaje)->first()->load('viaje', 'central');
         $consulta['giros'] = \DB::table('giros')->join('viaje_giros', 'giros.id', '=', 'viaje_giros.giro_id')
             ->join('viajes', 'viaje_giros.viaje_id', '=', 'viajes.id')
             ->where('viajes.id', $viaje)->select('*')->get();
@@ -160,6 +160,7 @@ class ViajesController extends Controller
 
         $consulta['conductor'] = Viaje::find($viaje)->conductor;
         return $consulta;
+        
     }
 
     public function generarNumeroPlanilla($conductor_id){

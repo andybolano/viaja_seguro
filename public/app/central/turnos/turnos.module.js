@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -6,7 +6,7 @@
         .config(config)
         .run(run);
 
-    function config($stateProvider){
+    function config($stateProvider) {
         $stateProvider
             .state('app.centrales_turnos', {
                 url: '/centrales/turnos',
@@ -17,9 +17,9 @@
             })
     };
 
-    function run(appMenu){
+    function run(appMenu) {
         appMenu.addTo([
-            {nombre:'Despacho conductores', link:'app.centrales_turnos', icon:'supervisor_account'}
+            {nombre: 'Despacho conductores', link: 'app.centrales_turnos', icon: 'supervisor_account'}
         ], 'CENTRAL_EMPRESA');
     }
 })();

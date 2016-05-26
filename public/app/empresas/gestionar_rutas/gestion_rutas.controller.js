@@ -1,7 +1,7 @@
 /**
  * Created by tav0 on 6/01/16.
  */
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -23,7 +23,7 @@
         vm.verRuta = verRuta;
         vm.trazarRuta = trazarRuta;
 
-        function nuevo(){
+        function nuevo() {
             vm.ruta = {};
             vm.editMode = false;
             loadCentrales();
@@ -32,7 +32,7 @@
             //$('#panel_ruta').hide();
         }
 
-        function verRuta(ruta){
+        function verRuta(ruta) {
             vm.ruta = ruta;
             vm.editMode = true;
             $("#modalRutas").openModal();
@@ -44,19 +44,20 @@
             vm.trazarRuta();
         }
 
-        function guardar(){
+        function guardar() {
             rutasService.post(vm.ruta).then(success, error);
             function success(p) {
                 $("#modalRutas").closeModal();
                 loadRutas();
                 Materialize.toast('Registro guardado correctamente', 5000);
             }
+
             function error(error) {
                 console.log('Error al guardar');
             }
         }
 
-        function eliminar(id){
+        function eliminar(id) {
             swal({
                 title: 'ESTAS SEGURO?',
                 text: 'Intentas eliminar esta ruta!',
@@ -67,51 +68,54 @@
                 confirmButtonText: 'Eliminar',
                 cancelButtonText: 'Cancelar',
                 closeOnConfirm: false
-            },function(isConfirm){
-                if(isConfirm){
+            }, function (isConfirm) {
+                if (isConfirm) {
                     rutasService.delete(id).then(success, error);
                     swal.disableButtons();
                 }
                 function success(p) {
-                    setTimeout(function() {
+                    setTimeout(function () {
                         swal({
                             title: 'Exito!',
                             text: 'Ruta eliminada correctamente',
                             type: 'success',
                             showCancelButton: false,
-                        }, function() {
+                        }, function () {
                             loadRutas()
                         })
                     }, 2000);
                 }
+
                 function error(error) {
                     swal({
                         title: 'Error!',
                         text: 'No se pudo eliminar la ruta seleccionada',
                         type: 'error',
                         showCancelButton: false,
-                    }, function() {
+                    }, function () {
                     })
                 }
             });
         }
 
         loadRutas();
-        function loadRutas(){
+        function loadRutas() {
             rutasService.getAll().then(success, error);
             function success(p) {
                 vm.rutas = p.data;
             }
+
             function error(error) {
                 console.log('Error al cargar datos');
             }
         }
 
-        function loadCentrales(){
+        function loadCentrales() {
             centralesService.getAll().then(success, error);
             function success(p) {
                 vm.centrales = p.data;
             }
+
             function error(error) {
                 console.log('Error al cargar datos');
             }
@@ -139,8 +143,8 @@
             }
         }
 
-        function trazarRuta(){
-            if(!vm.ruta.origen || !vm.ruta.destino) return;
+        function trazarRuta() {
+            if (!vm.ruta.origen || !vm.ruta.destino) return;
             var directionsDisplay = new google.maps.DirectionsRenderer();
             var directionsService = new google.maps.DirectionsService();
             $('#panel_ruta').show();
@@ -153,13 +157,13 @@
                 provideRouteAlternatives: true
             };
 
-            directionsService.route(request, function(response, status) {
+            directionsService.route(request, function (response, status) {
                 if (status == google.maps.DirectionsStatus.OK) {
                     var map = new google.maps.Map($("#map_canvas")[0], request);
                     directionsDisplay.setMap(map);
                     var marker = new google.maps.Marker({
                         map: map,
-                        title:"Esto es un marcador",
+                        title: "Esto es un marcador",
                         animation: 1,
                         icon: '../../public/images/marker.png'
                     });

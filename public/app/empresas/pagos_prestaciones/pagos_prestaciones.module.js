@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -6,7 +6,7 @@
         .config(config)
         .run(run);
 
-    function config($stateProvider){
+    function config($stateProvider) {
         $stateProvider
             .state('app.empresas_pagos_prestaciones', {
                 url: '/empresa/pagos_prestaciones',
@@ -17,9 +17,9 @@
             });
     };
 
-    function run(appMenu){
+    function run(appMenu) {
         appMenu.addTo([
-            {nombre:'Pagos prestaciones', link:'app.empresas_pagos_prestaciones', icon:'speaker_notes'}
+            {nombre: 'Pagos prestaciones', link: 'app.empresas_pagos_prestaciones', icon: 'speaker_notes'}
         ], 'EMPRESA');
     }
 })();

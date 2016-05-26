@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -16,18 +16,19 @@
         vm.updateEstado = updateEstado;
         vm.update = update;
         vm.modificar = modificar;
-        vm.guardar =guardar;
+        vm.guardar = guardar;
         vm.eliminar = eliminar;
 
-        function initialize(){
+        function initialize() {
             vm.Deduccion = {}
             cargarDeducciones();
         }
+
         function cargarDeducciones() {
             var promiseGet = deduccionesService.getAll();
             promiseGet.then(function (pl) {
                 vm.Deducciones = pl.data;
-            },function (errorPl) {
+            }, function (errorPl) {
                 console.log('Error Al Cargar Datos', errorPl);
             });
         }
@@ -40,7 +41,7 @@
             $("#modalNuevaDeduccion").openModal();
         }
 
-        function modificar(deduccion){
+        function modificar(deduccion) {
             vm.editMode = true;
             vm.Deduccion = deduccion;
             vm.active = "active";
@@ -48,7 +49,7 @@
             $("#modalNuevaDeduccion").openModal();
         }
 
-        function updateEstado(deduccion){
+        function updateEstado(deduccion) {
             // console.log(deduccion.estado)
             //alert(JSON.stringify(object));
             var promisePut = deduccionesService.updateEstado(deduccion.id, deduccion.estado);
@@ -76,12 +77,12 @@
                 },
                 function (err) {
                     $('#modalNuevaDeduccion').closeModal();
-                    Materialize.toast("Error al procesar la solicitud",3000,'rounded');
+                    Materialize.toast("Error al procesar la solicitud", 3000, 'rounded');
                     // console.log(err);
                 });
         }
 
-        function update(){
+        function update() {
             var object = {
                 nombre: vm.Deduccion.nombre,
                 descripcion: vm.Deduccion.descripcion,
@@ -96,12 +97,12 @@
                 },
                 function (err) {
                     $('#modalNuevaDeduccion').closeModal();
-                    Materialize.toast("Error al procesar la solicitud",3000,'rounded');
+                    Materialize.toast("Error al procesar la solicitud", 3000, 'rounded');
                     // console.log(err);
                 });
         }
 
-        function eliminar(id){
+        function eliminar(id) {
             swal({
                 title: 'ESTAS SEGURO?',
                 text: 'Intentas eliminar este registro!',
@@ -112,18 +113,18 @@
                 confirmButtonText: 'Eliminar',
                 cancelButtonText: 'Cancelar',
                 closeOnConfirm: false
-            },function(isConfirm){
-                if(isConfirm){
+            }, function (isConfirm) {
+                if (isConfirm) {
                     var promiseDelete = deduccionesService.delete(id);
                     swal.disableButtons();
                     promiseDelete.then(function (pl) {
-                        setTimeout(function() {
+                        setTimeout(function () {
                             swal({
                                 title: 'Exito!',
                                 text: 'Deduccion eliminada correctamente',
                                 type: 'success',
                                 showCancelButton: false,
-                            }, function() {
+                            }, function () {
                                 cargarDeducciones();
                             });
                         }, 2000);
@@ -133,7 +134,7 @@
                             text: 'No se pudo eliminar la deduccion seleccionada',
                             type: 'error',
                             showCancelButton: false,
-                        }, function() {
+                        }, function () {
                         });
                     });
                 }

@@ -13,13 +13,13 @@
         var items = [];
         var itemsAll = [];
 
-        function addTo(item, owner){
-            if(item instanceof Array){
+        function addTo(item, owner) {
+            if (item instanceof Array) {
                 for (var i = 0; i < item.length; i++) {
                     addTo(item[i], owner)
                 }
             } else {
-                if(owner == 'all' || !owner){
+                if (owner == 'all' || !owner) {
                     itemsAll.push(item);
                 }
                 if (!angular.isDefined(items[owner])) items[owner] = [];
@@ -27,7 +27,7 @@
             }
         }
 
-        function getOf(owner){
+        function getOf(owner) {
             return items[owner] ? items[owner].concat(itemsAll) : itemsAll;
         }
 

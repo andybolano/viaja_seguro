@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -6,7 +6,7 @@
         .config(config)
         .run(run);
 
-    function config($stateProvider){
+    function config($stateProvider) {
         $stateProvider
             .state('app.empresas_gestion_conductores', {
                 url: '/empresa/conductores',
@@ -17,9 +17,9 @@
             });
     }
 
-    function run(appMenu){
+    function run(appMenu) {
         appMenu.addTo([
-            {nombre:'Gestion de conductores', link:'app.empresas_gestion_conductores', icon:'person'}
+            {nombre: 'Gestion de conductores', link: 'app.empresas_gestion_conductores', icon: 'person'}
         ], 'EMPRESA');
     }
 })();

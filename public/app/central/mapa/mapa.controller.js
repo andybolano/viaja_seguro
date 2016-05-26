@@ -1,5 +1,5 @@
-(function() {
-    var ActionChannel = pusher.subscribe( 'marcadores' );
+(function () {
+    var ActionChannel = pusher.subscribe('marcadores');
     'use strict';
 
     angular
@@ -22,7 +22,7 @@
         vm.etu = 0;
         vm.bpa = 0;
 
-        var markersIndex=[];
+        var markersIndex = [];
 
         socketCh.connect();
         var sessionid = '';
@@ -38,7 +38,7 @@
             updatePos(data);
         });
 
-        $scope.$on("$destroy", function(){
+        $scope.$on("$destroy", function () {
             socketCh.disconnect();
             if (angular.isDefined(stop)) {
                 $interval.cancel(stop);
@@ -46,7 +46,7 @@
             }
         });
 
-        function initialize(){
+        function initialize() {
             //vm.ubicaciones = [];
             vm.ruta_id = 0;
             cargarRutas();
@@ -56,9 +56,9 @@
             causentes();
             bpasajeros();
 
-            if ( angular.isDefined(stop) ) return;
+            if (angular.isDefined(stop)) return;
 
-            stop = $interval(function() {
+            stop = $interval(function () {
                 cdicponibles();
                 cantidadenturno();
                 causentes();
@@ -71,39 +71,39 @@
             function success(p) {
                 vm.rutas = p.data;
             }
+
             function error(error) {
                 console.log('Error al cargar conductores');
             }
         }
 
-        function verConductores(ruta_id){
+        function verConductores(ruta_id) {
             vm.ruta = ruta_id;
             $('#modalMapaConductores').openModal();
             cargarMapa(vm.ruta);
         }
 
-        function updatePos(data){
+        function updatePos(data) {
             vm.voc = vm.markers.length;
-            if(markersIndex[data.conductor_id] >= 0) {
+            if (markersIndex[data.conductor_id] >= 0) {
                 vm.markers[markersIndex[data.conductor_id]].latitude = data.lat;
                 vm.markers[markersIndex[data.conductor_id]].longitude = data.lng;
-            }else{
+            } else {
                 conductoresService.get(data.conductor_id).then(succes, error);
                 vm.markers.push({
                     "id": data.conductor_id,
                     latitude: data.lat,
                     longitude: data.lng,
-                    "window": {
-                    },
-                    "options" : {
+                    "window": {},
+                    "options": {
                         "icon": '../assets/images/marker.png',
-                        "title":  ''
+                        "title": ''
                     }
                 });
                 markersIndex[data.conductor_id] = vm.markers.length - 1;
             }
-            function succes(c){
-                vm.markers[markersIndex[data.conductor_id]].options.itle = c.data.nombres +' '+ c.data.apellidos;
+            function succes(c) {
+                vm.markers[markersIndex[data.conductor_id]].options.itle = c.data.nombres + ' ' + c.data.apellidos;
                 vm.markers[markersIndex[data.conductor_id]].window = {
                     cImagen: c.data.imagen,
                     cNombres: c.data.nombres,
@@ -112,15 +112,16 @@
                     cCvehiculo: c.data.vehiculo.codigo_vial
                 };
             }
-            function error(e){
+
+            function error(e) {
                 console.log('error', e)
             }
         }
 
-        function cargarMapa(){
+        function cargarMapa() {
             vm.voc = 0;
             vm.markers = [];
-            markersIndex=[];
+            markersIndex = [];
             vm.map = {
                 center: {
                     latitude: authService.currentUser().central.miDireccionLa,
@@ -134,7 +135,7 @@
             vm.options = {scrollwheel: false, icon: '../assets/images/marker.png'};
         }
 
-        vm.prueba = function(ruta_id){
+        vm.prueba = function (ruta_id) {
             var old_ruta = vm.ruta || null;
             vm.ruta = ruta_id;
             vm.mostrar = true;
@@ -176,12 +177,12 @@
         }
 
 
-        $scope.fight = function() {
+        $scope.fight = function () {
             // Don't start a new fight if we are already fighting
 
         };
 
-        $scope.stopFight = function() {
+        $scope.stopFight = function () {
 
         };
 

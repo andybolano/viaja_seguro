@@ -1,6 +1,6 @@
 <div ng-controller="ActividadesController as vm" class="contenedor">
     <div class="row">
-        <div class="col s12" >
+        <div class="col s12">
             <div class="row white col s12" style="border-radius: 15px; border:2px solid #D50000; width: 100%">
                 <div class="contenedor">
                     <div class="row">
@@ -8,9 +8,10 @@
                             <h2><b style="color: black">Agendar Actividades</b></h2>
                         </div>
                         <div class="col s4">
-                            <div class="input-field col s12 grey lighten-3" style="padding: .5em; border-radius: 15px; height: 37px; border: none">
+                            <div class="input-field col s12 grey lighten-3"
+                                 style="padding: .5em; border-radius: 15px; height: 37px; border: none">
                                 <i class="material-icons prefix" style="color: #D50000;">search</i>
-                                <input  id="icon_prefix" type="text" ng-model="filtro">
+                                <input id="icon_prefix" type="text" ng-model="filtro">
                                 <label for="icon_prefix">Buscar</label>
                             </div>
                         </div>
@@ -19,7 +20,7 @@
                         <div class="col s12">
                             <table class="striped bordered responsive-table">
                                 <thead>
-                                <th style="color: #D50000;text-align: center" >Fecha</th>
+                                <th style="color: #D50000;text-align: center">Fecha</th>
                                 <th style="color: #D50000;text-align: center">Hora</th>
                                 <th style="color: #D50000;text-align: center">Actividad</th>
                                 <th style="color: #D50000;text-align: center"></th>
@@ -77,15 +78,18 @@
                         <div class="row">
                             <div class="input-field col s5" style="margin-right: 30px">
                                 <i class="material-icons prefix" style="color: #D50000">fiber_new</i>
-                                <input style="border-radius: 15px" id="nombre" type="text" class="validate" name="nombre" ng-model="vm.selectedActividad.nombre">
+                                <input style="border-radius: 15px" id="nombre" type="text" class="validate"
+                                       name="nombre" ng-model="vm.selectedActividad.nombre">
                                 <label for="nombre" class="{{vm.active}}">Nombre</label>
                             </div>
                             <div class="input-field col s5" ng-hide="vm.editMode">
-                                <input style="border-radius: 15px" id="estado" type="text" class="validate" name="estado" ng-model="vm.selectedActividad.estado" required readonly>
+                                <input style="border-radius: 15px" id="estado" type="text" class="validate"
+                                       name="estado" ng-model="vm.selectedActividad.estado" required readonly>
                                 <label for="estado" class="active">Estado</label>
                             </div>
                             <div class="input-field col s5" ng-show="vm.editMode">
-                                <select style="border-radius: 15px" class="browser-default" name="selectestado" id="selectestado" ng-show="vm.editMode"
+                                <select style="border-radius: 15px" class="browser-default" name="selectestado"
+                                        id="selectestado" ng-show="vm.editMode"
                                         ng-model="vm.selectedActividad.estado" required>
                                     <option value="Pendiente"> Pendiente</option>
                                     <option value="Finalizada"> Finalizada</option>
@@ -97,21 +101,25 @@
                         <div class="row">
                             <div class="input-field col s5" style="margin-right: 30px">
                                 <i class="material-icons prefix" style="color: #D50000">date_range</i>
-                                <input style="border-radius: 15px; border: none" id="fecha" type="date" class="datepicker validate" name="fecha"  ng-model="vm.selectedActividad.fecha" required>
+                                <input style="border-radius: 15px; border: none" id="fecha" type="date"
+                                       class="datepicker validate" name="fecha" ng-model="vm.selectedActividad.fecha"
+                                       required>
                                 <label for="fecha" class="active">Fecha</label>
                             </div>
 
                             <div class="input-field col s5" style="height: 35px">
                                 <i class="material-icons prefix" style="color: #D50000">alarm</i>
-                                <input  id="hora" type="time" name="hora"  ng-model="vm.selectedActividad.hora" required>
+                                <input id="hora" type="time" name="hora" ng-model="vm.selectedActividad.hora" required>
                                 <label for="hora" class="active">Hora</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s11">
                                 <i class="material-icons prefix" style="color: #D50000">description</i>
-                                <textarea style="border-radius: 15px" id="descripcin" class="materialize-textarea" name="descripcin"
-                                          ng-model="vm.selectedActividad.descripcion" length="250" maxlength="250"></textarea>
+                                <textarea style="border-radius: 15px" id="descripcin" class="materialize-textarea"
+                                          name="descripcin"
+                                          ng-model="vm.selectedActividad.descripcion" length="250"
+                                          maxlength="250"></textarea>
                                 <label for="descripcin" class="{{vm.active}}">Descripcion</label>
                             </div>
                         </div>
@@ -124,9 +132,11 @@
         <div class="modal-footer">
             <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red accent-4 "
                style="margin-left:10px; border-radius: 25px;">Salir</a>
-            <a style="border-radius: 25px;margin-right: 10px;" class="waves-effect waves-light btn light-green " ng-class="{'disabled': formNuevaActividad.$invalid}" ng-hide="vm.editMode"
+            <a style="border-radius: 25px;margin-right: 10px;" class="waves-effect waves-light btn light-green "
+               ng-class="{'disabled': formNuevaActividad.$invalid}" ng-hide="vm.editMode"
                ng-click="vm.guardar()">Guardar</a>
-            <a style=" border-radius: 25px;margin-right: 10px" class="waves-effect waves-light btn light-green " ng-class="{'disabled': formNuevaActividad.$invalid}" ng-show="vm.editMode"
+            <a style=" border-radius: 25px;margin-right: 10px" class="waves-effect waves-light btn light-green "
+               ng-class="{'disabled': formNuevaActividad.$invalid}" ng-show="vm.editMode"
                ng-click="vm.update()">Modificar</a>
         </div>
 

@@ -1,6 +1,6 @@
 <div ng-controller="RutasController as vm" class="contenedor">
     <div class="row">
-        <div class="col s12" >
+        <div class="col s12">
             <div class="row white col s12" style="border-radius: 15px; border:2px solid #D50000; width: 100%">
                 <div class="contenedor">
                     <div class="row">
@@ -45,10 +45,12 @@
             <form name="formNuevaRuta" class="row">
                 <div class="col s4">
                     <div class="row">
-                        <div class="col s12 input-field" style="border: 1px solid grey; border-radius: 15px; margin-right: 30px">
+                        <div class="col s12 input-field"
+                             style="border: 1px solid grey; border-radius: 15px; margin-right: 30px">
                             <select class="browser-default" name="selectOrigen" id="selectOrigen"
                                     ng-options="central.ciudad.nombre for central in vm.centrales"
-                                    ng-model="vm.ruta.origen" required ng-change="vm.trazarRuta()" ng-hide="vm.editMode">
+                                    ng-model="vm.ruta.origen" required ng-change="vm.trazarRuta()"
+                                    ng-hide="vm.editMode">
                                 <option value="" disabled selected>Seleccione ciudad origen</option>
                                 <input type="text" class="validate" ng-show="vm.editMode"
                                        ng-model="vm.ruta.origen.ciudad.nombre" readonly>
@@ -57,10 +59,12 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col s12 input-field" style="border: 1px solid grey; border-radius: 15px; margin-right: 30px">
+                        <div class="col s12 input-field"
+                             style="border: 1px solid grey; border-radius: 15px; margin-right: 30px">
                             <select class="browser-default" name="selectDestino" id="selectDestino"
                                     ng-options="central.ciudad.nombre for central in vm.centrales"
-                                    ng-model="vm.ruta.destino" required ng-change="vm.trazarRuta()" ng-hide="vm.editMode">
+                                    ng-model="vm.ruta.destino" required ng-change="vm.trazarRuta()"
+                                    ng-hide="vm.editMode">
                                 <option value="" disabled selected>Seleccione ciudad destino</option>
                             </select>
                             <input type="text" class="validate" ng-show="vm.editMode"
@@ -70,7 +74,8 @@
                     </div>
                     <div class="row" ng-hide="vm.editMode">
                         <div class="col s12">
-                            <a class="btn btn-block light-green " href="javascript:;" ng-click="vm.trazarRuta()">Trazar ruta</a>
+                            <a class="btn btn-block light-green " href="javascript:;" ng-click="vm.trazarRuta()">Trazar
+                                ruta</a>
                         </div>
                     </div>
                     <div class="row" id="panel_ruta" style="overflow: auto; height: 300px"></div>
@@ -84,7 +89,8 @@
             <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red "
                style="margin-left:10px; border-radius: 25px">Salir</a>
             <div ng-hide="vm.editMode">
-                <a style="border-radius: 25px" class="waves-effect waves-light btn light-green" ng-class="{'disabled': formNuevaRuta.$invalid}"
+                <a style="border-radius: 25px" class="waves-effect waves-light btn light-green"
+                   ng-class="{'disabled': formNuevaRuta.$invalid}"
                    ng-click="vm.guardar()">Guardar</a>
             </div>
         </div>
