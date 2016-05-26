@@ -169,19 +169,25 @@ class EmpresaController extends Controller
     public function storeConductor(Request $request, $empresa_id)
     {
         $data = $request->json()->all();
-        $usuario = Usuario::nuevo($data['identificacion'], $data['identificacion'], $this->getRol('CONDUCTOR')->id, '');
-        $data['usuario_id'] = $usuario->id;
-        $vehiculo_conductor = $data['vehiculo'];
-        unset($data['vehiculo']);
+        DB::beginTransaction();
+        try{
+            $usuario = Usuario::nuevo($data['identificacion'], $data['identificacion'], $this->getRol('CONDUCTOR')->id, '');
+            $data['usuario_id'] = $usuario->id;
+            $vehiculo_conductor = $data['vehiculo'];
+            unset($data['vehiculo']);
 
-        $conductor = new Conductor($data);
-        $conductor->activo = true;
-        $empresa = Empresa::find($empresa_id);
-        if(!$empresa->conductores()->save($conductor)){
-            $usuario->delete();
-            return response()->json(['mensajeError' => 'no se ha podido almacenar el registro'], 400);
+            $conductor = new Conductor($data);
+            $conductor->activo = true;
+            $empresa = Empresa::find($empresa_id);
+            if(!$empresa->conductores()->save($conductor)){
+                DB::rollBack();
+                return response()->json(['mensajeError' => 'no se ha podido almacenar el registro'], 400);
+            }
+            DB::commit();
+            return $this->storeVehiculoconductor($conductor, $vehiculo_conductor);
+        }catch (\Exception $e){
+            DB::rollBack();
         }
-        return $this->storeVehiculoconductor($conductor, $vehiculo_conductor);
     }
 
     private function storeVehiculoconductor(&$conductor, $data){
