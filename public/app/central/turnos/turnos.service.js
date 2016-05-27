@@ -124,5 +124,9 @@
         this.moverPaquete = function (paquete_id, obj) {
             return $http.put(API + '/centrales/paquetes/' + paquete_id + '/mover', obj);
         }
+
+        this.moverPasajero = function (pasajero_id, obj) {
+            return $http.put(API + '/centrales/pasajeros/' + pasajero_id + '/mover', obj);
+        }
     }
 })();

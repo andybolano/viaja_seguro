@@ -143,14 +143,14 @@ class PasajeroController extends Controller
         }
     }
 
-    private function getRol($nombre)
-    {
-        return Rol::where('nombre', $nombre)->first();
-    }
-
-    public function getSolicitudes($central_id)
-    {
-
+    public function moverPasajero(Request $request, $pasajero_id){
+        $noty = new NotificacionController();
+        $pasajero = $this->show($pasajero_id);
+        json_decode($noty->enviarNotificacionConductores('Se te fue retirado un pasajero que se te habia asignado', $pasajero->conductor_id, 'Pasajero' ));
+        $pasajero->conductor_id = $request->conductor_id;
+        if($pasajero->save()){
+            return JsonResponse::create(array('message' => 'Se movio el pasajero conrrectamente de conductor.', json_decode($noty->enviarNotificacionConductores('Se te asigno un nuevo pasajero', $request->conductor_id, 'Pasajero' ))));
+        }
     }
 
 
