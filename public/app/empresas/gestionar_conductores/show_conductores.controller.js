@@ -8,111 +8,36 @@
         .module('app.empresas.conductores')
         .controller('ConductorController', ConductorController);
 
-    function ConductorController(conductoresEmpresaService, centralesService, $filter) {
+    function ConductorController(conductoresEmpresaService, $state) {
         var vm = this;
         vm.carga = false;
         vm.Conductores = []
         vm.ConductoresInactivos = []
+        vm.n_cond_doc_venc = 0;
         vm.activos = true;
         vm.mode = 'new';
 
         vm.nuevoConductor = nuevoConductor;
         vm.modificar = modificar;
         vm.openhabilitar = openhabilitar;
-        vm.guardar = guardar;
-        vm.update = update;
-        vm.habilitar = habilitar;
         vm.eliminar = eliminar;
 
         cargarConductores();
 
         function nuevoConductor() {
-            vm.mode = 'new';
-            vm.active = "";
-            vm.titulo = "Registrar Conductor";
-            vm.Conductor = {};
-            vm.Vehiculo = {};
-            loadCentrales();
-            document.getElementById("image").innerHTML = ['<img class="center" id="imagenlogo" style="width:300px; height: 300px; border-radius: 50%; position: absolute; left: 0; top: 0" ng-src="http://', vm.Conductor.imagen, '" />'].join('');
-            $("#modalNuevoConductor").openModal();
+            conductoresEmpresaService.conductor = {};
+            $state.go('app.empresas_nuevo_conductor');
         }
 
         function modificar(conductor) {
-            vm.mode = 'edit';
-            vm.titulo = "Modificar conductor"
-            vm.active = "active";
-            vm.Conductor = conductor;
-            cargarVehiculo();
-            document.getElementById("image").innerHTML = ['<img class="center" id="imagenlogo" style="width:300px; height: 300px; border-radius: 50%; position: absolute; left: 0; top: 0" src="http://', vm.Conductor.imagen, '" />'].join('');
-            loadCentrales();
-            $("#modalNuevoConductor").openModal();
+            conductoresEmpresaService.conductor = conductor;
+            $state.go('app.empresas_detalles_conductor', {conductor_id: conductor.id});
         }
 
         function openhabilitar(conductor) {
-            vm.mode = 'hbltr';
-            vm.titulo = "Habilitar conductor"
-            vm.active = "active";
-            vm.Conductor = conductor;
-            document.getElementById("image").innerHTML = ['<img class="center" id="imagenlogo" style="width:300px; height: 300px; border-radius: 50%; position: absolute; left: 0; top: 0" src="http://', vm.Conductor.imagen, '"  />'].join('');
-            cargarVehiculo();
-            loadCentrales();
-            $("#modalNuevoConductor").openModal();
+            conductoresEmpresaService.conductor = conductor;
+            $state.go('app.empresas_detalles_conductor', {conductor_id: conductor.id});
         };
-
-        function guardar() {
-            vm.Conductor.central_id = vm.Conductor.central.id;
-            delete vm.Conductor.central;
-            vm.Vehiculo.fecha_soat = $filter('date')(vm.Vehiculo.fecha_soat, 'yyyy-MM-dd');
-            vm.Vehiculo.fecha_tecnomecanica = $filter('date')(vm.Vehiculo.fecha_tecnomecanica, 'yyyy-MM-dd');
-            vm.Conductor.vehiculo = vm.Vehiculo;
-            var promisePost = conductoresEmpresaService.post(vm.Conductor);
-            promisePost.then(function (pl) {
-                if (pl.data.mensajeError) {
-                    Materialize.toast(pl.data.mensajeError, 5000, 'rounded');
-                } else {
-                    $("#modalNuevoConductor").closeModal();
-                    Materialize.toast('Conductor Guardado', 5000, 'rounded');
-                    vm.Conductor.id = pl.data.id;
-                    vm.Vehiculo.id = pl.data.vehiculo.id;
-                    modificarImagen();
-                    modificarImagenVehiculo();
-                }
-            }, function (error) {
-                var mensajeError = error.status == 401 ? error.data.mensajeError : 'A ocurrido un error inesperado';
-                Materialize.toast(mensajeError, 5000, 'rounded');
-                console.log('Error al guardar conductor', error);
-            });
-        }
-
-        function update() {
-            vm.Conductor.central_id = vm.Conductor.central.id;
-            delete vm.Conductor.central;
-            var promisePut = conductoresEmpresaService.put(vm.Conductor, vm.Conductor.id);
-            promisePut.then(function (pl) {
-                    Materialize.toast(pl.data.message, 5000, 'rounded');
-                    modificarImagen();
-                    cargarConductores();
-                    $("#modalNuevoConductor").closeModal();
-                },
-                function (errorPl) {
-                    console.log('Error Al Cargar Datos', errorPl);
-                });
-        }
-
-        function habilitar() {
-            vm.Conductor.central_id = vm.Conductor.central.id;
-            vm.Conductor.activo = true;
-            delete vm.Conductor.central;
-            var promisePut = conductoresEmpresaService.put(vm.Conductor, vm.Conductor.id);
-            promisePut.then(function (pl) {
-                    Materialize.toast('Conductor habilitado', 5000, 'rounded');
-                    cargarConductores();
-                    $("#modalNuevoConductor").closeModal();
-                },
-                function (errorPl) {
-                    console.log('Error habilitar conductor', errorPl);
-                });
-        }
 
         function eliminar(id) {
             swal({
@@ -153,41 +78,6 @@
             });
         }
 
-        function modificarImagen() {
-            if (vm.fileimage) {
-                var data = new FormData();
-                data.append('imagen', vm.fileimage);
-                conductoresEmpresaService.postImagen(vm.Conductor.id, data).then(success, error);
-            }
-            function success(p) {
-                vm.Conductor.imagen = p.data.nombrefile;
-                Materialize.toast('Imagen guardado correctamente', 5000);
-                cargarConductores();
-            }
-
-            function error(error) {
-                Materialize.toast('No se pudo guardar el archivo, error inesperado', 5000);
-                console.log('Error al guardar');
-            }
-        }
-
-        function modificarImagenVehiculo() {
-            if (vm.fileimageV) {
-                var data = new FormData();
-                data.append('imagen', vm.fileimageV);
-                conductoresEmpresaService.postImagenVehiculo(vm.Vehiculo.id, data).then(success, error);
-            }
-            function success(p) {
-                vm.Vehiculo.imagen = p.data.nombrefile;
-                Materialize.toast('Imagen guardada correctamente', 5000);
-            }
-
-            function error(error) {
-                Materialize.toast('No se pudo guardar el archivo, error inesperado', 5000);
-                console.log('Error al guardar');
-            }
-        }
-
         function cargarConductores() {
             vm.Conductores = []
             vm.ConductoresInactivos = []
@@ -195,6 +85,7 @@
             promiseGet.then(function (p) {
                 for (var i = 0; i < p.data.length; i++) {
                     if (p.data[i].activo == true) {
+                        p.data[i].doc_venc = documentacionPorVencer(p.data[i]);
                         vm.Conductores.push(p.data[i]);
                     } else {
                         vm.ConductoresInactivos.push(p.data[i]);
@@ -204,29 +95,37 @@
                 console.log('Error Al Cargar Datos', errorPl);
             });
         }
-
-        function cargarVehiculo() {
-            var promiseGet = conductoresEmpresaService.getVehiculoConductor(vm.Conductor.id);
-            promiseGet.then(function (p) {
-                vm.Vehiculo = p.data;
-                vm.Vehiculo.fecha_soat = vm.Vehiculo.fecha_soat ? new Date(vm.Vehiculo.fecha_soat) : new Date();
-                vm.Vehiculo.fecha_tecnomecanica = vm.Vehiculo.fecha_tecnomecanica ? new Date(vm.Vehiculo.fecha_tecnomecanica) : new Date();
-            }, function (errorPl) {
-                console.log('Error Al Cargar Datos', errorPl);
-            });
-        }
-
-        function loadCentrales() {
-            if (!vm.centrales) {
-                centralesService.getAll().then(success, error);
+        
+        function documentacionPorVencer(conductor) {
+            const fecha_licencia = conductor.fecha_licencia ? new Date(conductor.fecha_licencia) : null;
+            const fecha_seguroac = conductor.fecha_seguroac ? new Date(conductor.fecha_seguroac) : null;
+            const fecha_soat = conductor.vehiculo.fecha_soat ? new Date(conductor.vehiculo.fecha_soat) : null;
+            const fecha_tecnomecanica = conductor.vehiculo.fecha_tecnomecanica ? new Date(conductor.vehiculo.fecha_tecnomecanica) : null;
+            var diferencia = Math.floor((fecha_licencia - new Date()) / (1000 * 60 * 60 * 24))
+            if(diferencia <= 30){
+                conductor.pv_licencia = true;
+                vm.n_cond_doc_venc++;
+                return true;
             }
-            function success(p) {
-                vm.centrales = p.data;
+            diferencia = Math.floor((fecha_seguroac - new Date()) / (1000 * 60 * 60 * 24))
+            if(diferencia <= 30){
+                conductor.pv_seguroac = true;
+                vm.n_cond_doc_venc++;
+                return true;
             }
-
-            function error(error) {
-                console.log('Error al cargar centrales');
+            diferencia = Math.floor((fecha_soat - new Date()) / (1000 * 60 * 60 * 24))
+            if(diferencia <= 30){
+                conductor.pv_soat = true;
+                vm.n_cond_doc_venc++;
+                return true;
             }
+            diferencia = Math.floor((fecha_tecnomecanica - new Date()) / (1000 * 60 * 60 * 24))
+            if(diferencia <= 30){
+                conductor.pv_tecnomecanica = true;
+                vm.n_cond_doc_venc++;
+                return true;
+            }
+            return false;
         }
     }
 })();

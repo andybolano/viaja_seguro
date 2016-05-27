@@ -188,3 +188,11 @@ label {
     padding-left: 2px;
     padding-top: 1px;
 }
+
+.cond_doc_venc{
+    color: red !important;
+}
+.cond_doc_venc_detalles{
+    color: red !important;
+    border: 1px solid red !important;
+}

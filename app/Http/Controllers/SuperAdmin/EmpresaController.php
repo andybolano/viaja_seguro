@@ -183,19 +183,27 @@ class EmpresaController extends Controller
             if($this->getUsuario($data['identificacion'])){
                 return JsonResponse::create(array('mensajeError' => 'Ya se encuentra registrado un usuario para este conductor'));
             }else{
-                $usuario = Usuario::nuevo($data['identificacion'], $data['identificacion'], $this->getRol('CONDUCTOR')->id, '');
-                $data['usuario_id'] = $usuario->id;
-                $vehiculo_conductor = $data['vehiculo'];
-                unset($data['vehiculo']);
 
-                $conductor = new Conductor($data);
-                $conductor->activo = true;
-                $empresa = Empresa::find($empresa_id);
-                if(!$empresa->conductores()->save($conductor)){
-                    $usuario->delete();
-                    return response()->json(['mensajeError' => 'no se ha podido almacenar el registro'], 400);
+                $data = $request->json()->all();
+                \DB::beginTransaction();
+                try{
+                    $usuario = Usuario::nuevo($data['identificacion'], $data['identificacion'], $this->getRol('CONDUCTOR')->id, '');
+                    $data['usuario_id'] = $usuario->id;
+                    $vehiculo_conductor = $data['vehiculo'];
+                    unset($data['vehiculo']);
+
+                    $conductor = new Conductor($data);
+                    $conductor->activo = true;
+                    $empresa = Empresa::find($empresa_id);
+                    if(!$empresa->conductores()->save($conductor)){
+                        \DB::rollBack();
+                        return response()->json(['mensajeError' => 'no se ha podido almacenar el registro'], 400);
+                    }
+                    \DB::commit();
+                    return $this->storeVehiculoconductor($conductor, $vehiculo_conductor);
+                }catch (\Exception $e){
+                    \DB::rollBack();
                 }
-                return $this->storeVehiculoconductor($conductor, $vehiculo_conductor);
             }
         }
     }
@@ -234,12 +242,13 @@ class EmpresaController extends Controller
 
     public function getAllConductores($id)
     {
-        $conductores = Empresa::find($id)->conductores;
-        foreach ($conductores as &$conductor) {
-            if($conductor->central) {
-                $conductor->central->load('ciudad');
-            }
-        }
+        $conductores = Empresa::with('conductores.central', 'conductores.central.ciudad', 'conductores.vehiculo')->find($id)->conductores;
+//        foreach ($conductores as &$conductor) {
+//            $con
+//            if($conductor->central) {
+//                $conductor->central->load('ciudad');
+//            }
+//        }
         return $conductores;
     }
 

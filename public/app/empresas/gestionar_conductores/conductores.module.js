@@ -14,6 +14,22 @@
                 data: {
                     onlyAccess: 'EMPRESA'
                 }
+            })
+            .state('app.empresas_nuevo_conductor', {
+                url: '/empresa/conductores/nuevo',
+                templateUrl: 'empresas/gestionar_conductores/detalles_conductor.html',
+                controller: 'ConductorNuevoController as vm',
+                data: {
+                    onlyAccess: 'EMPRESA'
+                }
+            })
+            .state('app.empresas_detalles_conductor', {
+                url: '/empresa/conductores/:conductor_id',
+                templateUrl: 'empresas/gestionar_conductores/detalles_conductor.html',
+                controller: 'ConductorDetallesController as vm',
+                data: {
+                    onlyAccess: 'EMPRESA'
+                }
             });
     }
 

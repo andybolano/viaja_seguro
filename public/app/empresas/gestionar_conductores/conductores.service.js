@@ -7,6 +7,8 @@
 
     function conductoresService($http, authService, API) {
 
+        this.conductor = {};
+
         this.getAll = function () {
             return $http.get(API + '/empresas/' + authService.currentUser().empresa.id + '/conductores/all');
         };
