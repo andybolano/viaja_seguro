@@ -353,6 +353,67 @@
             });
         }
 
+        vm.modalMovePasajero = function (pasajero) {
+            vm.pasajero = pasajero;
+            $('#modalMovePasajero').openModal({
+                dismissible: false, // Modal can be dismissed by clicking outside of the modal
+                opacity: .5, // Opacity of modal background
+                in_duration: 400, // Transition in duration
+                out_duration: 300, // Transition out duration
+                ready: function () {
+                    turnosService.cargarTurnosC().then(function (p) {
+                        vm.crutas = p.data;
+                    });
+                }, // Callback for Modal open
+                //complete: function() { alert('Closed'); } // Callback for Modal close
+            });
+        }
+
+        vm.moverPasajero = function (pasajero_id, conductor_id) {
+            var obj = {
+                conductor_id: conductor_id
+            }
+            swal({
+                title: 'ESTAS SEGURO?',
+                text: 'Estas intentado mover un pasajero hacia otro conductor!',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#9ccc65',
+                cancelButtonColor: '#D50000',
+                confirmButtonText: 'Mover',
+                cancelButtonText: 'Cancelar',
+                closeOnConfirm: false
+            }, function (isConfirm) {
+                if (isConfirm) {
+                    turnosService.moverPasajero(pasajero_id, obj).then(succes, error);
+                    swal.disableButtons();
+                }
+                function succes(p) {
+                    setTimeout(function () {
+                        swal({
+                            title: 'Exito!',
+                            text: p.data.message,
+                            type: 'success',
+                            showCancelButton: false,
+                        }, function () {
+                            refrescarPasajeros(vm.conductor.id);
+                            $('#modalMovePasajero').closeModal();
+                        })
+                    }, 1000);
+                }
+
+                function error(error) {
+                    swal({
+                        title: 'Error!',
+                        text: 'No se pudo mover pasajero seleccionado',
+                        type: 'error',
+                        showCancelButton: false,
+                    }, function () {
+                    })
+                }
+            });
+        }
+
         //FIN PASAJEROS
 
         //GIROS

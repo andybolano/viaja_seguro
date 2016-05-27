@@ -5,3 +5,5 @@ Route::post('/api/centrales/{conductor_id}/pasajeros', 'Central\PasajeroControll
 Route::get('/api/pasajeros/{pasajero_id}', 'Central\PasajeroController@show');
 Route::put('/api/pasajeros/{pasajero_id}', 'Central\PasajeroController@update');
 Route::delete('/api/pasajeros/{pasajero_id}', 'Central\PasajeroController@destroy');
+
+Route::put('/api/centrales/pasajeros/{pasajero_id}/mover', 'Central\PasajeroController@moverPasajero');

@@ -409,7 +409,10 @@
                                     <td style="text-align: center">{{pasajero.telefono}}</td>
                                     <td style="text-align: center">{{pasajero.direccion}}</td>
                                     <!--<td style="text-align: center">{{pasajero.direccionD}}</td>-->
-                                    <td style="text-align: center"></td>
+                                    <td style="text-align: center" style="text-align: center;"><a href="javascript:;"
+                                                                                                  title="Mover pasajero a otro conductor"
+                                                                                                  ng-click="vm.modalMovePasajero(pasajero);"><i
+                                            class="material-icons">cached</i></a></td>
                                     <td style="text-align: center" style="text-align: center;"><a href="javascript:;"
                                                                                                   title="editar"
                                                                                                   ng-click="vm.cargarModificarPasajero(pasajero);"><i
@@ -1367,4 +1370,77 @@
         </div>
     </div>
     <!--fin modal cambiar paquete conductor-->
+
+    <!--modal cambiar pasajero de conductor-->
+    <div id="modalMovePasajero" class="modal modal-fixed-footer" style="width: 90%">
+        <div class="modal-content">
+            <div class="row">
+                <div class="col s6">
+                    <span> <br></span>
+                </div>
+                <div class="col s6">
+                    <h2><b style="color: black">Selecciona al conductor para cambiar al pasajero</b></h2>
+                </div>
+            </div>
+            <div class="col s12 " style="border-radius: 25px">
+                <div class="contenedor">
+                    <div class="row col s12">
+                        <div class="row col s6">
+                            <h2><b style="color: black">Detalles del giro</b></h2>
+                            <table class="striped bordered responsive-table">
+                                <thead>
+                                <th style="color: #D50000;text-align: center">Nombre</th>
+                                <th style="color: #D50000;text-align: center">Telefono</th>
+                                </thead>
+                                <tbody>
+                                <tr style="height: 35.5px">
+                                    <td style="text-align: center">{{vm.pasajero.identificacion}}</td>
+                                    <td style="text-align: center">{{vm.pasajero.nombres}} {{vm.pasajero.apellidos}}</td>
+                                    <td style="text-align: center">{{vm.pasajero.telefono}}</td>>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row col s6">
+                            <div ng-repeat="ruta in vm.crutas">
+                                <div ng-show="ruta.turnos.length > 0">
+                                    <h2>{{ruta.destino.ciudad.nombre}}</h2>
+                                    <table class="striped bordered responsive-table">
+                                        <thead>
+                                        <th style="color: #D50000;text-align: center">Turno</th>
+                                        <th style="color: #D50000;text-align: center">Identificacion</th>
+                                        <th style="color: #D50000;text-align: center">Nombre</th>
+                                        </thead>
+                                        <tbody>
+                                        <tr ng-repeat="turno in ruta.turnos">
+                                            <td style="text-align: center">{{turno.turno}}</td>
+                                            <td style="text-align: center">{{turno.conductor.identificacion}}</td>
+                                            <td style="text-align: center">{{turno.conductor.nombres}}
+                                                {{turno.conductor.apellidos}}
+                                            </td>
+                                            <!--<td style="text-align: center"><strong>{{conductor.cupos}} cupo(s) restantes para salir</strong></td>-->
+                                            <td style="text-align: center">
+                                                <a href="javascript:"
+                                                   ng-click="vm.moverPasajero(vm.pasajero.id, turno.conductor.id)">
+                                                    <i style="color: #D50000"
+                                                       class="material-icons prefix">touch_app</i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red accent-4"
+               style="margin-left:10px;border-radius: 25px;">Salir</a>
+        </div>
+    </div>
+    <!--fin modal cambiar pasajero de conductor-->
 </div>
