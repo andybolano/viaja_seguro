@@ -17,11 +17,24 @@ class LoginController extends Controller
         // credenciales para loguear al usuario
         $credentials['email'] = $request->get('name');
         $credentials['password'] = $request->get('pass');
+        $login_ip = $request->get('pip');
 
         try {
-            $user = Usuario::where('email' ,$credentials['email'])->first();
-            if($user && password_verify($credentials['password'] , $user->password)) {
-                $token = JWTAuth::fromUser($user, $this->getData($user));
+            if($user = Usuario::where('email' ,$credentials['email'])->first()) {
+                if($user->rol->nombre == 'CENTRAL_EMPRESA' && $user->only_ip && $user->valid_ip != $login_ip){
+                    return response()->json(['mensajeError' => 'No tiene acceso'], 401);
+                } elseif ($user->rol->nombre == 'CENTRAL_EMPRESA' && !$user->only_ip){
+                    $user->valid_ip = $login_ip;
+                    $user->save();
+                }
+                if (password_verify($credentials['password'], $user->password)) {
+                    $token = JWTAuth::fromUser($user, $this->getData($user));
+
+                    // todo bien devuelve el token
+                    return response()->json(compact('token'));
+                } else {
+                    return response()->json(['mensajeError' => 'Usuario o contraseña incorrectos'], 401);
+                }
             } else {
                 return response()->json(['mensajeError' => 'Usuario o contraseña incorrectos'], 401);
             }
@@ -29,9 +42,6 @@ class LoginController extends Controller
             // si no se puede crear el token
             return response()->json(['error' => 'could_not_create_token'], 500);
         }
-
-        // todo bien devuelve el token
-        return response()->json(compact('token'));
     }
 
     public function refreshToken()

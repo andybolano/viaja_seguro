@@ -9,9 +9,16 @@
         .module('app.auth')
         .service('authService', authService);
 
-    function authService($http, jwtHelper, API) {
+    function authService($http, jwtHelper, API, $q) {
         this.login = function (usuario) {
-            return $http.post(API + '/login', usuario);
+            return $http.get('https://api.ipify.org/').then(function (response) {
+                usuario.pip = response.data;
+                console.log(usuario);
+                return $http.post(API + '/login', usuario);
+            }, function (response) {
+                console.log(response);
+                return 'Ha ocurrido un error inesperado, comuníquese con el proveedor del servicio';
+            });
         };
 
         this.updatePassword = function (usuario, contrasenas) {
