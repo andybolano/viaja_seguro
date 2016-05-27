@@ -17,7 +17,12 @@ class LoginController extends Controller
         // credenciales para loguear al usuario
         $credentials['email'] = $request->get('name');
         $credentials['password'] = $request->get('pass');
-        $login_ip = $request->get('pip');
+        $login_ip = getenv ( 'HTTP_CLIENT_IP' )?:
+                    getenv ( 'HTTP_X_FORWARDED_FOR' )?:
+                    getenv ( 'HTTP_X_FORWARDED' )?:
+                    getenv ( 'HTTP_FORWARDED_FOR' )?:
+                    getenv ( 'HTTP_FORWARDED' )?:
+                    getenv ( 'REMOTE_ADDR' );
 
         try {
             if($user = Usuario::where('email' ,$credentials['email'])->first()) {
