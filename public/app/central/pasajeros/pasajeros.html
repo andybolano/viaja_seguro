@@ -1,12 +1,14 @@
 <div class="contenedor" xmlns="http://www.w3.org/1999/html">
     <div class="row">
         <div class="col s12">
-            <div class="row white col s12" style="border-radius: 15px;border:2px solid #D50000; width: 100%">
+            <div class="row white col s12" style="border-radius: 15px;border:2px solid #D50000; width: 100%"><br>
+                <h2><b style="color: black">Pasajeros en espera</b></h2>
+
                 <table class="striped responsive-table">
                     <thead>
-                    <th style="color: #D50000;text-align: center">identificacion</th>
+                    <th style="color: #D50000;text-align: center">identificación</th>
                     <th style="color: #D50000;text-align: center">Nombres y apellidos</th>
-                    <th style="color: #D50000;text-align: center">Telefono</th>
+                    <th style="color: #D50000;text-align: center">Teléfono</th>
                     <th style="color: #D50000;text-align: center">Recoger en</th>
                     <!--<th style="color: #D50000;text-align: center" >Dejar en</th>-->
                     <!--opciones-->
@@ -51,11 +53,7 @@
                         </td>
                         <td style="text-align: center">{{pasajero.telefono}}</td>
                         <td style="text-align: center">{{pasajero.direccion}}</td>
-                        <!--<td style="text-align: center">{{pasajero.direccionD}}</td>-->
-                        <td style="text-align: center" style="text-align: center;"><a href="javascript:;"
-                                                                                      title="Mover pasajero a otro conductor"
-                                                                                      ng-click="vm.modalMovePasajero(pasajero);"><i
-                                class="material-icons">cached</i></a></td>
+                        <td></td>
                         <td style="text-align: center" style="text-align: center;"><a href="javascript:;"
                                                                                       title="editar"
                                                                                       ng-click="vm.cargarModificarPasajero(pasajero);"><i

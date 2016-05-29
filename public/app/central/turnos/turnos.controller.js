@@ -5,7 +5,7 @@
         .module('app.centrales.turnos')
         .controller('turnosController', turnosController);
 
-    function turnosController(turnosService, planillasService, authService) {
+    function turnosController(turnosService, planillasService, authService, pasajerosService) {
         var vm = this;
 
         vm.conductores = [];
@@ -197,16 +197,31 @@
             }
         }
 
+        function cargarPasajerosEnEspera() {
+            pasajerosService.refrescarPasajeros().then(success, error);
+            function success(p) {
+                vm.listaPasajerosEspera = [];
+
+                angular.forEach(p.data, function (pasajero) {
+                    vm.listaPasajerosEspera.push(pasajero);
+                })
+            }
+            function error(error) {
+                console.log('error a traer la lista de pasajeros')
+            }
+        }
+
         //PASAJEROS
         function refrescarPasajeros(conductor_id) {
             // document.getElementById("guardar").disabled = false;
             // document.getElementById("actualizar").disabled = true;
+            cargarPasajerosEnEspera();
             getCuposDisponiblesConductor(conductor_id);
             turnosService.refrescarPasajeros(conductor_id).then(success, error);
             function success(p) {
                 vm.listaPasajeros = [];
                 for (var i = 0; i < p.data.length; i++) {
-                    if (p.data[i].estado == "En espera" && p.data[i].conductor_id == conductor_id) {
+                    if (p.data[i].estado == "Asignado" && p.data[i].conductor_id == conductor_id) {
                         vm.listaPasajeros.push(p.data[i]);
                         vm.Pasajeros = {};
                     } else {
@@ -369,6 +384,51 @@
             });
         }
 
+        vm.asigarPasajeroConductor = function (pasajero_id, conductor_id) {
+            var obj = {
+                conductor_id: conductor_id
+            }
+            swal({
+                title: 'ESTAS SEGURO?',
+                text: 'Estas intentado asignar este pasajero al conductor escogido!',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#9ccc65',
+                cancelButtonColor: '#D50000',
+                confirmButtonText: 'Mover',
+                cancelButtonText: 'Cancelar',
+                closeOnConfirm: false
+            }, function (isConfirm) {
+                if (isConfirm) {
+                    turnosService.moverPasajero(pasajero_id, obj).then(succes, error);
+                    swal.disableButtons();
+                }
+                function succes(p) {
+                    setTimeout(function () {
+                        swal({
+                            title: 'Exito!',
+                            text: p.data.message,
+                            type: 'success',
+                            showCancelButton: false,
+                        }, function () {
+                            refrescarPasajeros(vm.conductor.id);
+                            cargarPasajerosEnEspera();
+                        })
+                    }, 300);
+                }
+
+                function error(error) {
+                    swal({
+                        title: 'Error!',
+                        text: 'No se pudo asignar pasajero seleccionado',
+                        type: 'error',
+                        showCancelButton: false,
+                    }, function () {
+                    })
+                }
+            });
+        }
+
         vm.moverPasajero = function (pasajero_id, conductor_id) {
             var obj = {
                 conductor_id: conductor_id
@@ -397,6 +457,7 @@
                             showCancelButton: false,
                         }, function () {
                             refrescarPasajeros(vm.conductor.id);
+                            cargarPasajerosEnEspera();
                             $('#modalMovePasajero').closeModal();
                         })
                     }, 1000);

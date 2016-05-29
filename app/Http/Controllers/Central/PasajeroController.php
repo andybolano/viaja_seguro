@@ -197,7 +197,9 @@ class PasajeroController extends Controller
             if (is_null($pasajero)) {
                 \App::abort(404);
             } else {
-                $pasajero->delete();
+                $pasajero->conductor_id = '';
+                $pasajero->estado = 'En espera';
+                $pasajero->save();
                 return JsonResponse::create(array('message' => "Pasajero eliminado correctamente",  200));
             }
         } catch (Exception $ex) {
@@ -209,8 +211,11 @@ class PasajeroController extends Controller
     {
         $noty = new NotificacionController();
         $pasajero = $this->show($pasajero_id);
-        json_decode($noty->enviarNotificacionConductores('Se te fue retirado un pasajero que se te habia asignado', $pasajero->conductor_id, 'Pasajero'));
+        if($pasajero->conductor_id){
+            json_decode($noty->enviarNotificacionConductores('Se te fue retirado un pasajero que se te habia asignado', $pasajero->conductor_id, 'Pasajero'));
+        }
         $pasajero->conductor_id = $request->conductor_id;
+        $pasajero->estado = 'Asignado';
         if ($pasajero->save()) {
             return JsonResponse::create(array('message' => 'Se movio el pasajero conrrectamente de conductor.', json_decode($noty->enviarNotificacionConductores('Se te asigno un nuevo pasajero', $request->conductor_id, 'Pasajero'))));
         }

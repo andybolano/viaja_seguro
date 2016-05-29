@@ -361,9 +361,9 @@
                         <div class="col s12">
                             <table class="striped responsive-table">
                                 <thead>
-                                <th style="color: #D50000;text-align: center">identificacion</th>
+                                <th style="color: #D50000;text-align: center">identificación</th>
                                 <th style="color: #D50000;text-align: center">Nombres y apellidos</th>
-                                <th style="color: #D50000;text-align: center">Telefono</th>
+                                <th style="color: #D50000;text-align: center">Telófono</th>
                                 <th style="color: #D50000;text-align: center">Recoger en</th>
                                 <!--<th style="color: #D50000;text-align: center" >Dejar en</th>-->
                                 <!--opciones-->
@@ -424,6 +424,46 @@
                                 </tr>
                                 </tbody>
                             </table>
+                            <br><br>
+                            <fieldset>
+                                <legend style="text-align: center"><h2>Lista de pasajeros en espera</h2></legend>
+
+                                <table class="striped responsive-table" ng-if="vm.listaPasajerosEspera.length > 0">
+                                    <thead>
+                                    <th style="color: #D50000;text-align: center">identificación</th>
+                                    <th style="color: #D50000;text-align: center">Nombres y apellidos</th>
+                                    <th style="color: #D50000;text-align: center">Teléfono</th>
+                                    <th style="color: #D50000;text-align: center">Recoger en</th>
+                                    <!--<th style="color: #D50000;text-align: center" >Dejar en</th>-->
+                                    <!--opciones-->
+                                    <th style="color: #D50000;text-align: center" width="10px"></th>
+                                    <th style="color: #D50000;text-align: center" width="10px"></th>
+                                    <th style="color: #D50000;text-align: center" width="10px"></th>
+                                    </thead>
+                                    <tbody>
+
+
+                                    <tr ng-repeat="pasajeroespera in vm.listaPasajerosEspera" >
+                                        <td style="text-align: center">{{pasajeroespera.identificacion}}</td>
+                                        <td style="text-align: center">{{pasajeroespera.nombres}} {{pasajeroespera.cliente.apellidos}}
+                                        </td>
+                                        <td style="text-align: center">{{pasajeroespera.telefono}}</td>
+                                        <td style="text-align: center">{{pasajeroespera.direccion}}</td>
+                                        <td></td>
+                                        <td style="text-align: center">
+                                            <a href="javascript:"
+                                               ng-click="vm.asigarPasajeroConductor(pasajeroespera.id, vm.conductor.id)">
+                                                <i style="color: #D50000"
+                                                   class="material-icons prefix">touch_app</i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div ng-if="vm.listaPasajerosEspera.length <= 0">
+                                    <h2>No se han registrado pasajeros en la cola</h2>
+                                </div>
+                            </fieldset>
                         </div>
                     </div>
                 </div>
