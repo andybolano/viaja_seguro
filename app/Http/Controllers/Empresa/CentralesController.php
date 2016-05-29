@@ -380,6 +380,24 @@ class CentralesController extends Controller
         return $arr;
     }
 
+    public function getTotalDeducciones($central_id, $dia)
+    {
+        $dias = ['domingo','lunes','martes','miercoles','jueves','viernes','sabado'];
+        $valor = 'valor_'.$dias[$dia];
+        $central = Central::with('deducciones')->where('id', $central_id)->first();
+        $arr = [
+            'cobors' => [],
+            'total' => 0
+        ];
+        foreach ($central->deducciones as $deduccion) {
+            if($deduccion->estado){
+                $arr['cobors'][] = ['nombre' => $deduccion->nombre, 'valor' => $deduccion->pivot->$valor];
+                $arr['total'] += $deduccion->pivot->$valor;
+            }
+        }
+        return $arr;
+    }
+
     public function setDeducciones(Request $request, $central_id)
     {
         try{
