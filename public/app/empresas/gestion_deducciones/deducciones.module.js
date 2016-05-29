@@ -14,12 +14,19 @@
                 data: {
                     onlyAccess: 'EMPRESA'
                 }
+            })
+          .state('app.empresas_valores_deducciones', {
+                url: '/empresa/deducciones/valores',
+                templateUrl: 'empresas/gestion_deducciones/ValoresDeducciones.html',
+                data: {
+                    onlyAccess: 'EMPRESA'
+                }
             });
     }
 
     function run(appMenu) {
         appMenu.addTo([
-            {nombre: 'Deducciones', link: 'app.empresas_gestion_deducciones', icon: 'rate_review'}
+            {nombre: 'Deducciones', link: 'app.empresas_valores_deducciones', icon: 'rate_review'}
         ], 'EMPRESA');
     }
 })();

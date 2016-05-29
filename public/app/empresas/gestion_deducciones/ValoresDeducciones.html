@@ -1,0 +1,95 @@
+<div ng-controller="valoresDeduccionesController as vm" class="contenedor">
+    <div class="row">
+        <div class="col s12">
+            <div class="row white col s12" style="border-radius: 15px; border:2px solid #D50000; width: 100%">
+                <div class="contenedor">
+                    <div class="row">
+                        <div class="col s9">
+                            <div class="row">
+                                <h2 class="col" style="color: black; margin-top: 2px; font-weight: bold">Deducciones</h2>
+                                <select class="browser-default validate col s3 select-central" name="central" id="central"
+                                        ng-options="central.ciudad.nombre for central in vm.centrales"
+                                        ng-change="vm.cargarValoresDeducciones(vm.central)"
+                                        ng-show="vm.Deducciones.length > 0"
+                                        ng-model="vm.central" required>
+                                    <option value="" disabled selected>Central</option>
+                                </select>
+                            </div>
+                        </div>
+                        <a class="col s2 offset-s1 chip center-align" ui-sref="app.empresas_gestion_deducciones">
+                            <span style="border-radius: 25px; color: red; min-width: 170px; font-size: 16px">Conceptos</span>
+                        </a>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <table class="striped bordered responsive-table">
+                                <thead>
+                                <th style="color: #D50000;"></th>
+                                <th style="color: #D50000;">Lunes</th>
+                                <th style="color: #D50000;">Martes</th>
+                                <th style="color: #D50000;">Miercoles</th>
+                                <th style="color: #D50000;">Jueves</th>
+                                <th style="color: #D50000;">Viernes</th>
+                                <th style="color: #D50000;">Sabado</th>
+                                <th style="color: #D50000;">Domingo</th>
+                                </thead>
+                                <tbody>
+                                <form name="valoresForm" id="valoresForm">
+                                    <tr ng-repeat="deduccion in vm.valores_deducciones | filter : filtro">
+                                        <td style="text-align: left">{{deduccion.nombre}} (&#36)</td>
+                                        <td style="padding-left: 0">
+                                            <div class="input-field input-valor-deduccion">
+                                                <input type="number" class="validate" ng-model="deduccion.valor_lunes" required min="0">
+                                            </div>
+                                        </td>
+                                        <td style="padding-left: 0">
+                                            <div class="input-field input-valor-deduccion">
+                                                <input type="number" class="validate" ng-model="deduccion.valor_martes" required min="0">
+                                            </div>
+                                        </td>
+                                        <td style="padding-left: 0">
+                                            <div class="input-field input-valor-deduccion">
+                                                <input type="number" class="validate" ng-model="deduccion.valor_miercoles" required min="0">
+                                            </div>
+                                        </td>
+                                        <td style="padding-left: 0">
+                                            <div class="input-field input-valor-deduccion">
+                                                <input type="number" class="validate" ng-model="deduccion.valor_jueves" required min="0">
+                                            </div>
+                                        </td>
+                                        <td style="padding-left: 0">
+                                            <div class="input-field input-valor-deduccion">
+                                                <input type="number" class="validate" ng-model="deduccion.valor_viernes" required min="0">
+                                            </div>
+                                        </td>
+                                        <td style="padding-left: 0">
+                                            <div class="input-field input-valor-deduccion">
+                                                <input type="number" class="validate" ng-model="deduccion.valor_sabado" required min="0">
+                                            </div>
+                                        </td>
+                                        <td style="padding-left: 0">
+                                            <div class="input-field input-valor-deduccion">
+                                                <input type="number" class="validate" ng-model="deduccion.valor_domingo" required min="0">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </form>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed-action-btn" style="bottom: 10px; right: 24px;">
+        <button class="waves-effect waves-light btn light-green " ng-click="vm.guardar()"
+                g-class="{'disabled': valoresForm.$invalid}" style="margin-left:10px; border-radius: 25px"
+                ng-disabled="valoresForm.$invalid">
+            Guardar
+        </button>
+    </div>
+
+
+</div>

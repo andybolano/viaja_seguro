@@ -66,7 +66,7 @@ class CentralesController extends Controller
             return response()->json($central, 201);
         } catch (\Exception $exc) {
             $usuario->delete();
-            return response()->json(array("exception"=>$exc->getMessage()), 400);
+            return response()->json(array("exception"=>$exc->getMessage()), 500);
         }
     }
 
@@ -368,5 +368,43 @@ class CentralesController extends Controller
             ];
         }
         return $rutas;
+    }
+
+    public function getDeducciones($central_id)
+    {
+        $central = Central::with('deducciones')->where('id', $central_id)->first();
+        $arr = [];
+        foreach ($central->deducciones as $deduccion) {
+            $arr[] = $deduccion->pivot;
+        }
+        return $arr;
+    }
+
+    public function setDeducciones(Request $request, $central_id)
+    {
+        try{
+            DB::beginTransaction();
+            $central = Central::find($central_id);
+            $data = $request->json()->all();
+            $arr = [];
+            foreach ($data as $item) {
+                $arr[$item['id']] = [
+                    'valor_lunes' => $item['valor_lunes'],
+                    'valor_martes' => $item['valor_martes'],
+                    'valor_miercoles' => $item['valor_miercoles'],
+                    'valor_jueves' => $item['valor_jueves'],
+                    'valor_viernes' => $item['valor_viernes'],
+                    'valor_sabado' => $item['valor_sabado'],
+                    'valor_domingo' => $item['valor_domingo']
+                ];
+            }
+            $central->deducciones()->sync($arr);
+            DB::commit();
+            return response()->json(201);
+        } catch (\Exception $exc) {
+            DB::rollback();
+//            return response()->json(["exception"=>$exc->getMessage()], 500);
+        }
+
     }
 }

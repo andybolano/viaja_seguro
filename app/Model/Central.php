@@ -65,4 +65,17 @@ class Central extends Model
     {
         return $this->hasMany(Paquete::class);
     }
+
+    public function deducciones()
+    {
+        return $this->belongsToMany(Deduccion::class, 'deducciones_central')->withPivot(
+            'valor_lunes',
+            'valor_martes',
+            'valor_miercoles',
+            'valor_jueves',
+            'valor_viernes',
+            'valor_sabado',
+            'valor_domingo'
+        );
+    }
 }

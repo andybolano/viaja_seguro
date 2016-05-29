@@ -5,7 +5,12 @@
                 <div class="contenedor">
                     <div class="row">
                         <div class="col s8">
-                            <h2><b style="color: black">Deducciones</b></h2>
+                            <a ui-sref="app.empresas_valores_deducciones" class="waves-effect waves-teal waves-light btn-flat"
+                               style="float: left; padding: 0 0">
+                                <i class="material-icons red-text text-accent-4" style="font-size: 26px;">arrow_back</i>
+                            </a>
+                            <h2 style="padding-left: 20px; margin: 0 0; padding-top: 3px">
+                                <b style="color: black">Deducciones</b></h2>
                         </div>
                         <div class="col s4">
                             <div class="input-field col s12 grey lighten-3"
@@ -20,15 +25,13 @@
                         <div class="col s12">
                             <table class="striped bordered responsive-table">
                                 <thead>
-                                <th style="text-align: center; color: #D50000;">Nombre</th>
-                                <th style="text-align: center; color: #D50000;">Valor</th>
+                                <th style="color: #D50000;">Nombre</th>
                                 <th style="text-align: center; color: #D50000;">Estado</th>
                                 <th style="text-align: center; color: #D50000;">Acciones</th>
                                 </thead>
                                 <tbody>
                                 <tr ng-repeat="deduccion in vm.Deducciones | filter : filtro">
                                     <td style="text-align: left">{{deduccion.nombre}}</td>
-                                    <td style="text-align: center">{{deduccion.valor | currency}}</td>
                                     <td style="text-align: center">
                                         <div class="switch center">
                                             <label>

@@ -11,6 +11,14 @@
         this.getAll = function () {
             return $http.get(myAPI);
         }
+        
+        this.getByCentral = function (central_id) {
+            return $http.get(API+'/centrales/'+central_id+'/deducciones');
+        }
+
+        this.postInCentral = function (central_id, data) {
+            return $http.post(API+'/centrales/'+central_id+'/deducciones', data);
+        }
 
         this.post = function (object) {
             return $http.post(myAPI, object);

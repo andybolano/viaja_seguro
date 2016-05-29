@@ -196,3 +196,28 @@ label {
     color: red !important;
     border: 1px solid red !important;
 }
+
+.input-valor-deduccion {
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    width: 70px;
+}
+
+.input-valor-deduccion input{
+    font-weight: normal;
+    height: 20px;
+}
+
+.select-central {
+    font-size: 20px !important;
+    background-color: #D50000;
+    color: white;
+    border-radius: 15px;
+}
+
+.select-central option {
+    font-size: 17px;
+    background-color: white;
+    color: #000;
+}

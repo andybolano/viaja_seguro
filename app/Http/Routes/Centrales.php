@@ -20,3 +20,6 @@ Route::get('/api/centrales/solicitudes_paquetes/{solicitud_id}', 'Empresa\Centra
 Route::get('/api/centrales/solicitudes_giros/{solicitud_id}', 'Empresa\CentralesController@getSolicitudGiro');
 Route::put('/api/centrales/solicitudes/{solicitud_id}/rechazo', 'Empresa\CentralesController@rechazarSolicitud');
 Route::put('/api/centrales/solicitudes/{solicitud_id}/aceptar', 'Empresa\CentralesController@aceptarSolicitudPasajero');
+
+Route::get('/api/centrales/{central_id}/deducciones', 'Empresa\CentralesController@getDeducciones');
+Route::post('/api/centrales/{central_id}/deducciones', 'Empresa\CentralesController@setDeducciones');
