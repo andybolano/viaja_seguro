@@ -35,9 +35,9 @@
         vm.getCliente = getCliente;
         //pasajeros
         vm.addPasajero = addPasajero;
-        vm.asignarPasajero = asignarPasajero;
-        vm.cargarModificarPasajero = cargarModificarPasajero;
-        vm.modificarPasajero = modificarPasajero;
+        // vm.asignarPasajero = asignarPasajero;
+        // vm.cargarModificarPasajero = cargarModificarPasajero;
+        // vm.modificarPasajero = modificarPasajero;
         vm.eliminarPasajero = eliminarPasajero;
         //giros
         vm.addGiro = addGiro;
@@ -54,7 +54,7 @@
         vm.verDescripcionPaquete = verDescripcionPaquete;
 
         //despacho
-        vm.limpiarPasajeros = limpiarPasajeros;
+        // vm.limpiarPasajeros = limpiarPasajeros;
         vm.limpiarGiros = limpiarGiros;
         vm.limpiarPaquetes = limpiarPaquetes;
 
@@ -199,8 +199,8 @@
 
         //PASAJEROS
         function refrescarPasajeros(conductor_id) {
-            document.getElementById("guardar").disabled = false;
-            document.getElementById("actualizar").disabled = true;
+            // document.getElementById("guardar").disabled = false;
+            // document.getElementById("actualizar").disabled = true;
             getCuposDisponiblesConductor(conductor_id);
             turnosService.refrescarPasajeros(conductor_id).then(success, error);
             function success(p) {
@@ -274,43 +274,43 @@
             });
         }
 
-        function asignarPasajero() {
-            vm.Pasajeros.conductor_id = vm.conductor.id;
-            vm.Pasajeros.cliente_id = vm.cliente.id;
-            if (vm.cupos <= 0) {
-                Materialize.toast('El conductor no posee cupos disponibles', '5000', "rounded");
-            } else {
-                turnosService.asignarPasajero(vm.Pasajeros).then(success, error);
-            }
-            function success(p) {
-                refrescarPasajeros(vm.conductor.id);
-                Materialize.toast(p.data.message, '5000', 'rounded');
-            }
+        // function asignarPasajero() {
+        //     vm.Pasajeros.conductor_id = vm.conductor.id;
+        //     vm.Pasajeros.cliente_id = vm.cliente.id;
+        //     if (vm.cupos <= 0) {
+        //         Materialize.toast('El conductor no posee cupos disponibles', '5000', "rounded");
+        //     } else {
+        //         turnosService.asignarPasajero(vm.Pasajeros).then(success, error);
+        //     }
+        //     function success(p) {
+        //         refrescarPasajeros(vm.conductor.id);
+        //         Materialize.toast(p.data.message, '5000', 'rounded');
+        //     }
+        //
+        //     function error(error) {
+        //         console.log('Error al guardar')
+        //     }
+        // }
 
-            function error(error) {
-                console.log('Error al guardar')
-            }
-        }
+        // function cargarModificarPasajero(item) {
+        //     document.getElementById("actualizar").disabled = false;
+        //     document.getElementById("guardar").disabled = true;
+        //     vm.Pasajeros = item;
+        // };
 
-        function cargarModificarPasajero(item) {
-            document.getElementById("actualizar").disabled = false;
-            document.getElementById("guardar").disabled = true;
-            vm.Pasajeros = item;
-        };
-
-        function modificarPasajero() {
-            turnosService.modificarPasajero(vm.Pasajeros.id, vm.Pasajeros).then(success, error);
-            function success(p) {
-                Materialize.toast(p.data.message, '5000', "rounded");
-                refrescarPasajeros(vm.conductor.id);
-                document.getElementById("guardar").disabled = false;
-                document.getElementById("actualizar").disabled = true;
-            }
-
-            function error(error) {
-                console.log('Error al guardar')
-            }
-        };
+        // function modificarPasajero() {
+        //     turnosService.modificarPasajero(vm.Pasajeros.id, vm.Pasajeros).then(success, error);
+        //     function success(p) {
+        //         Materialize.toast(p.data.message, '5000', "rounded");
+        //         refrescarPasajeros(vm.conductor.id);
+        //         document.getElementById("guardar").disabled = false;
+        //         document.getElementById("actualizar").disabled = true;
+        //     }
+        //
+        //     function error(error) {
+        //         console.log('Error al guardar')
+        //     }
+        // };
 
         function eliminarPasajero(pasajero_id) {
             swal({
@@ -755,12 +755,12 @@
 
         //FIN PAQUETES
 
-        function limpiarPasajeros(conductor_id) {
-            document.getElementById("guardar").disabled = false;
-            document.getElementById("actualizar").disabled = true;
-            refrescarPasajeros(conductor_id)
-            vm.Pasajeros = "";
-        };
+        // function limpiarPasajeros(conductor_id) {
+        //     document.getElementById("guardar").disabled = false;
+        //     document.getElementById("actualizar").disabled = true;
+        //     refrescarPasajeros(conductor_id)
+        //     vm.Pasajeros = "";
+        // };
 
         function limpiarGiros(conductor_id) {
             document.getElementById("guardarG").disabled = false;

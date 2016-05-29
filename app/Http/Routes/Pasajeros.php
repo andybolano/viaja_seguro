@@ -1,6 +1,7 @@
 <?php
 
-Route::get('/api/centrales/{conductor_id}/pasajeros', 'Central\PasajeroController@index');
+Route::get('/api/centrales/conductor/{conductor_id}/pasajeros', 'Central\PasajeroController@index');
+Route::get('/api/centrales/{central_id}/pasajeros', 'Central\PasajeroController@obtenerPasajerosCentral');
 Route::post('/api/centrales/{conductor_id}/pasajeros', 'Central\PasajeroController@store');
 Route::get('/api/pasajeros/{pasajero_id}', 'Central\PasajeroController@show');
 Route::put('/api/pasajeros/{pasajero_id}', 'Central\PasajeroController@update');

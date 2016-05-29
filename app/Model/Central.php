@@ -48,7 +48,7 @@ class Central extends Model
 
     public function pasajeros()
     {
-        return $this->hasMany(Pasajero::class);
+        return $this->hasMany(Pasajero::class)->where('estado', '=', 'En espera');
     }
 
     public function solicitudes()

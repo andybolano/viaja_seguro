@@ -352,7 +352,7 @@
          style="width: 90%;min-height:85%;">
         <!--<form action="" name="formPasajero">-->
         <div class="modal-content">
-            <h2><b style="color: black">Asignar pasajeros a: {{vm.conductor.nombres}} {{vm.conductor.apellidos}}</b>
+            <h2><b style="color: black">Pasajeros asignados a: {{vm.conductor.nombres}} {{vm.conductor.apellidos}}</b>
             </h2>
             <h2><b style="color: black">Cupos disponibles: {{vm.cupos}}</b></h2>
             <div class="col s12" style="border-radius: 25px">
@@ -372,36 +372,36 @@
                                 <th style="color: #D50000;text-align: center" width="10px"></th>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td style="text-align: center"><input style="border: 1px solid black" type="text"
-                                                                          ng-model="vm.Pasajeros.identificacion"
-                                                                          ng-blur="vm.getCliente(vm.Pasajeros.identificacion)">
-                                    </td>
-                                    <td style="text-align: center"><input style="border: 1px solid black" type="text"
-                                                                          ng-model="vm.Pasajeros.nombres" required></td>
-                                    <td style="text-align: center"><input style="border: 1px solid black" type="text"
-                                                                          ng-model="vm.Pasajeros.telefono" required>
-                                    </td>
-                                    <td style="text-align: center"><input style="border: 1px solid black" type="text"
-                                                                          ng-model="vm.Pasajeros.direccion" required>
-                                    </td>
-                                    <!--<td style="text-align: center"><input type="text" ng-model="vm.Pasajeros.direccionD" required></td>-->
-                                    <td style="text-align: center">
-                                        <button class="btn waves-effect waves-light green " title="Guardar" id="guardar"
-                                                ng-click="vm.asignarPasajero();" disabled=""><i class="material-icons">save</i>
-                                        </button>
-                                    </td>
-                                    <td style="text-align: center">
-                                        <button class="btn waves-effect waves-light blue" title="Actualizar"
-                                                id="actualizar" ng-click="vm.modificarPasajero();" disabled=""><i
-                                                class="material-icons">reply</i></button>
-                                    </td>
-                                    <td style="text-align: center">
-                                        <button class="btn waves-effect waves-light red" title="limpiar" id="limpiar"
-                                                ng-click="vm.limpiarPasajeros(vm.conductor.id);"><i
-                                                class="material-icons">clear</i></button>
-                                    </td>
-                                </tr>
+                                <!--<tr>-->
+                                    <!--<td style="text-align: center"><input style="border: 1px solid black" type="text"-->
+                                                                          <!--ng-model="vm.Pasajeros.identificacion"-->
+                                                                          <!--ng-blur="vm.getCliente(vm.Pasajeros.identificacion)">-->
+                                    <!--</td>-->
+                                    <!--<td style="text-align: center"><input style="border: 1px solid black" type="text"-->
+                                                                          <!--ng-model="vm.Pasajeros.nombres" required></td>-->
+                                    <!--<td style="text-align: center"><input style="border: 1px solid black" type="text"-->
+                                                                          <!--ng-model="vm.Pasajeros.telefono" required>-->
+                                    <!--</td>-->
+                                    <!--<td style="text-align: center"><input style="border: 1px solid black" type="text"-->
+                                                                          <!--ng-model="vm.Pasajeros.direccion" required>-->
+                                    <!--</td>-->
+                                    <!--&lt;!&ndash;<td style="text-align: center"><input type="text" ng-model="vm.Pasajeros.direccionD" required></td>&ndash;&gt;-->
+                                    <!--<td style="text-align: center">-->
+                                        <!--<button class="btn waves-effect waves-light green " title="Guardar" id="guardar"-->
+                                                <!--ng-click="vm.asignarPasajero();" disabled=""><i class="material-icons">save</i>-->
+                                        <!--</button>-->
+                                    <!--</td>-->
+                                    <!--<td style="text-align: center">-->
+                                        <!--<button class="btn waves-effect waves-light blue" title="Actualizar"-->
+                                                <!--id="actualizar" ng-click="vm.modificarPasajero();" disabled=""><i-->
+                                                <!--class="material-icons">reply</i></button>-->
+                                    <!--</td>-->
+                                    <!--<td style="text-align: center">-->
+                                        <!--<button class="btn waves-effect waves-light red" title="limpiar" id="limpiar"-->
+                                                <!--ng-click="vm.limpiarPasajeros(vm.conductor.id);"><i-->
+                                                <!--class="material-icons">clear</i></button>-->
+                                    <!--</td>-->
+                                <!--</tr>-->
                                 <tr ng-repeat="pasajero in vm.listaPasajeros">
                                     <td style="text-align: center">{{pasajero.identificacion}}</td>
                                     <td style="text-align: center">{{pasajero.nombres}} {{pasajero.cliente.apellidos}}
@@ -413,10 +413,10 @@
                                                                                                   title="Mover pasajero a otro conductor"
                                                                                                   ng-click="vm.modalMovePasajero(pasajero);"><i
                                             class="material-icons">cached</i></a></td>
-                                    <td style="text-align: center" style="text-align: center;"><a href="javascript:;"
-                                                                                                  title="editar"
-                                                                                                  ng-click="vm.cargarModificarPasajero(pasajero);"><i
-                                            class="material-icons">create</i></a></td>
+                                    <!--<td style="text-align: center" style="text-align: center;"><a href="javascript:;"-->
+                                                                                                  <!--title="editar"-->
+                                                                                                  <!--ng-click="vm.cargarModificarPasajero(pasajero);"><i-->
+                                            <!--class="material-icons">create</i></a></td>-->
                                     <td style="text-align: center" style="text-align: center;"><a href="javascript:;"
                                                                                                   title="eliminar"
                                                                                                   ng-click="vm.eliminarPasajero(pasajero.id)"><i
@@ -1386,7 +1386,7 @@
                 <div class="contenedor">
                     <div class="row col s12">
                         <div class="row col s6">
-                            <h2><b style="color: black">Detalles del giro</b></h2>
+                            <h2><b style="color: black">Detalles del pasajero</b></h2>
                             <table class="striped bordered responsive-table">
                                 <thead>
                                 <th style="color: #D50000;text-align: center">Nombre</th>
@@ -1396,7 +1396,7 @@
                                 <tr style="height: 35.5px">
                                     <td style="text-align: center">{{vm.pasajero.identificacion}}</td>
                                     <td style="text-align: center">{{vm.pasajero.nombres}} {{vm.pasajero.apellidos}}</td>
-                                    <td style="text-align: center">{{vm.pasajero.telefono}}</td>>
+                                    <td style="text-align: center">{{vm.pasajero.telefono}}</td>
                                 </tr>
                                 </tbody>
                             </table>

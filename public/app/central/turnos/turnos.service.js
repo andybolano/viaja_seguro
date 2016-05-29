@@ -35,12 +35,12 @@
         }
 
         //cliente
-        this.getCliente = function (ide) {
-            return $http.get(API + '/central/clientes/' + ide);
-        }
+        // this.getCliente = function (ide) {
+        //     return $http.get(API + '/central/clientes/' + ide);
+        // }
         //pasajeros
         this.refrescarPasajeros = function (id) {
-            return $http.get(API + '/centrales/' + id + '/pasajeros');
+            return $http.get(API + '/centrales/conductor/' + id + '/pasajeros');
         }
 
         this.asignarPasajero = function (object) {
