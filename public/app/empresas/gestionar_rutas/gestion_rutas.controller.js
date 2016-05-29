@@ -171,6 +171,7 @@
 
                     directionsDisplay.setPanel($("#panel_ruta").get(0));
                     directionsDisplay.setDirections(response);
+                    console.log(response.routes)
                 } else {
                     alert("No existen rutas entre ambos puntos");
                 }
