@@ -26,6 +26,7 @@ class RutasController extends Controller
         $ruta = new Ruta();
         $ruta->id_central_origen = $data['origen']['id'];
         $ruta->id_central_destino = $data['destino']['id'];
+        $ruta->trayectoria = $data['trayectoria'];
         if($ruta->save()){
             return response()->json($ruta, 201);
         }else {

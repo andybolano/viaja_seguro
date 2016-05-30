@@ -271,10 +271,12 @@ class EmpresaController extends Controller
         $rutas = [];
         foreach ($centrales as $central) {
             foreach ($central->rutas as $ruta) {
+                $trayectoria = Ruta::find($ruta->id);
                 $rutas[] = [
                     'id' => $ruta->id,
                     'origen' => $central->load('ciudad'),
-                    'destino' => $ruta->destino->load('ciudad')
+                    'destino' => $ruta->destino->load('ciudad'),
+                    'trayectoria' => $trayectoria->trayectoria
                 ];
             }
         }

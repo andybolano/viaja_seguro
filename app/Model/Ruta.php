@@ -7,6 +7,8 @@ class Ruta extends Model
 
     protected $table = 'rutas_centrales';
 
+    public $fillable = ['id_central_origen', 'id_central_destino', 'trayectoria'];
+
     protected $guarded = ['id'];
 
     public $timestamps = false;

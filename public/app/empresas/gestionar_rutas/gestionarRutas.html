@@ -72,6 +72,17 @@
                             <label for="selectDestino" class="active">Ciudad destino</label>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col s12 input-field"
+                             style="border: 1px solid grey; border-radius: 15px; margin-right: 30px">
+                            <input id="trayectoria" name="trayectoria" style="border: solid 1px black; border-radius: 15px" type="text" class="validate"
+                                   ng-model="vm.ruta.trayectoria" ng-hide="vm.editMode" required>
+                            <p ng-hide="vm.editMode">Agrega en este campo los municipios en orden, entre las rutas seleccionadas, separandolas por un guion (-)</p>
+                            <input id="trayectoria" name="trayectoria" type="text" class="validate" ng-show="vm.editMode"
+                                   ng-model="vm.ruta.trayectoria" readonly>
+                            <label for="trayectoria" class="active">Trayectoria</label>
+                        </div>
+                    </div>
                     <div class="row" ng-hide="vm.editMode">
                         <div class="col s12">
                             <a class="btn btn-block light-green " href="javascript:;" ng-click="vm.trazarRuta()">Trazar

@@ -41,6 +41,7 @@
             vm.ruta.origen.direccion = ruta.origen.direccion;
             vm.ruta.destino.ciudad.nombre = ruta.destino.ciudad.nombre;
             vm.ruta.destino.direccion = ruta.destino.direccion;
+            vm.ruta.trayectoria = ruta.trayectoria;
             vm.trazarRuta();
         }
 
@@ -171,7 +172,6 @@
 
                     directionsDisplay.setPanel($("#panel_ruta").get(0));
                     directionsDisplay.setDirections(response);
-                    console.log(response.routes)
                 } else {
                     alert("No existen rutas entre ambos puntos");
                 }
