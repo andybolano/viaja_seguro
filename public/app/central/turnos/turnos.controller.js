@@ -379,7 +379,7 @@
                         }, function () {
                             refrescarPasajeros(vm.conductor.id);
                         })
-                    }, 2000);
+                    }, 300);
                 }
 
                 function error(error) {
@@ -653,7 +653,7 @@
                         }, function () {
                             refrescarGiros(vm.conductor.id);
                         })
-                    }, 2000);
+                    }, 300);
                 }
 
                 function error(error) {
@@ -825,7 +825,7 @@
                         }, function () {
                             refrescarPaquetes(vm.conductor.id);
                         })
-                    }, 2000);
+                    }, 300);
                 }
 
                 function error(error) {
@@ -952,7 +952,7 @@
                                 $('#modalPlanilla').openModal();
                                 cargarRutas();
                             });
-                        }, 3000);
+                        }, 300);
                     }
 
                     function error(error) {
