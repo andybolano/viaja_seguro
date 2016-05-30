@@ -213,7 +213,7 @@ class ConductorController extends Controller
 
     public function getCupos($conductor_id){
         list($total) = DB::table('vehiculos')->select(
-            DB::raw('( (cupos) - (select count(conductor_id) from pasajeros where conductor_id ='.$conductor_id.' and estado = "En espera") ) as total'))
+            DB::raw('( (cupos) - (select count(conductor_id) from pasajeros where conductor_id ='.$conductor_id.' and estado = "Asignado") ) as total'))
             ->where('conductor_id', $conductor_id)->get('total');
 
         return $total->total;
@@ -281,7 +281,7 @@ class ConductorController extends Controller
     public function enviarNotificacionBusquedaClientes(Request $request){
         $noty = new NotificacionController();
 
-        $pasajero = Pasajero::where('identificacion', $request['identificacion'])->where('estado', 'En espera')->first();
+        $pasajero = Pasajero::where('identificacion', $request['identificacion'])->where('estado', 'Asignado')->first();
         $mensaje = 'En conductor a marcado que ira a recogerte, llegara en cualquier momento.';
             if($noty->enviarNotificacionClientes($mensaje, $request['identificacion'], 'Busqueda')){
             $pasajero->estado = 'En busqueda';
