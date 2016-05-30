@@ -88,8 +88,28 @@
                         <!--</div>-->
 
                         <strong><b style="font-size: 20px">Solicitudes</b></strong>
+                        <a style="border-radius: 25px; height: 30px; padding: -20px"
+                           class="btn waves-effect waves-light  red accent-4"
+                           ng-click="vm.addNewSolicitudPasajero(ruta)">
+                            Agregar pasajeros
+                        </a>
                         <div style="overflow-y: scroll; height: 300px">
                             <div class="row center">
+                                <ul ng-repeat="algo in ruta.solicitud_nuevos_pasajeros" class="collection"
+                                    style="border-radius: 25px;" ng-show="ruta.solicitud_nuevos_pasajeros.length > 0">
+                                    <li class="collection-item">
+                                        <div>
+                                            <strong>{{algo.datos_pasajeros.length}} Pasajero(s)</strong>
+                                            <a href="javascript:;" class="secondary-content"
+                                               ng-click="vm.getSolicitudPasajero(algo.id)">
+                                                <!--<i class="material-icons">visibility</i>-->
+                                                <div title="Pasajero esperando vehiculo en la central">
+                                                    <i class="material-icons" style="color: red">person</i>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </li>
+                                </ul>
                                 <ul ng-repeat="algo in ruta.solicitud_pasajeros" class="collection"
                                     style="border-radius: 25px;" ng-show="ruta.solicitud_pasajeros.length > 0">
                                     <li class="collection-item">
@@ -98,7 +118,7 @@
                                             <a href="javascript:;" class="secondary-content"
                                                ng-click="vm.getSolicitudPasajero(algo.id)">
                                                 <!--<i class="material-icons">visibility</i>-->
-                                                <div>
+                                                <div title="Solicitud de un cliente en espera">
                                                     <img class="circle" style="height: 30px; width: 30px"
                                                          src="http://dev.viajaseguro.co/public/assets/images/90786.gif"
                                                          alt="">
@@ -115,7 +135,7 @@
                                             <a href="javascript:;" class="secondary-content"
                                                ng-click="vm.getSolicitudPaquete(algo.id)">
                                                 <!--<i class="material-icons">visibility</i>-->
-                                                <div>
+                                                <div title="Solicitud de un cliente en espera">
                                                     <img class="circle" style="height: 30px; width: 30px"
                                                          src="http://dev.viajaseguro.co/public/assets/images/90786.gif"
                                                          alt="">
@@ -132,7 +152,7 @@
                                             <a href="javascript:;" class="secondary-content"
                                                ng-click="vm.getSolicitudGiro(algo.id)">
                                                 <!--<i class="material-icons">visibility</i>-->
-                                                <div>
+                                                <div title="Solicitud de un cliente en espera">
                                                     <img class="circle" style="height: 30px; width: 30px"
                                                          src="http://dev.viajaseguro.co/public/assets/images/90786.gif"
                                                          alt="">
@@ -373,34 +393,34 @@
                                 </thead>
                                 <tbody>
                                 <!--<tr>-->
-                                    <!--<td style="text-align: center"><input style="border: 1px solid black" type="text"-->
-                                                                          <!--ng-model="vm.Pasajeros.identificacion"-->
-                                                                          <!--ng-blur="vm.getCliente(vm.Pasajeros.identificacion)">-->
-                                    <!--</td>-->
-                                    <!--<td style="text-align: center"><input style="border: 1px solid black" type="text"-->
-                                                                          <!--ng-model="vm.Pasajeros.nombres" required></td>-->
-                                    <!--<td style="text-align: center"><input style="border: 1px solid black" type="text"-->
-                                                                          <!--ng-model="vm.Pasajeros.telefono" required>-->
-                                    <!--</td>-->
-                                    <!--<td style="text-align: center"><input style="border: 1px solid black" type="text"-->
-                                                                          <!--ng-model="vm.Pasajeros.direccion" required>-->
-                                    <!--</td>-->
-                                    <!--&lt;!&ndash;<td style="text-align: center"><input type="text" ng-model="vm.Pasajeros.direccionD" required></td>&ndash;&gt;-->
-                                    <!--<td style="text-align: center">-->
-                                        <!--<button class="btn waves-effect waves-light green " title="Guardar" id="guardar"-->
-                                                <!--ng-click="vm.asignarPasajero();" disabled=""><i class="material-icons">save</i>-->
-                                        <!--</button>-->
-                                    <!--</td>-->
-                                    <!--<td style="text-align: center">-->
-                                        <!--<button class="btn waves-effect waves-light blue" title="Actualizar"-->
-                                                <!--id="actualizar" ng-click="vm.modificarPasajero();" disabled=""><i-->
-                                                <!--class="material-icons">reply</i></button>-->
-                                    <!--</td>-->
-                                    <!--<td style="text-align: center">-->
-                                        <!--<button class="btn waves-effect waves-light red" title="limpiar" id="limpiar"-->
-                                                <!--ng-click="vm.limpiarPasajeros(vm.conductor.id);"><i-->
-                                                <!--class="material-icons">clear</i></button>-->
-                                    <!--</td>-->
+                                <!--<td style="text-align: center"><input style="border: 1px solid black" type="text"-->
+                                <!--ng-model="vm.Pasajeros.identificacion"-->
+                                <!--ng-blur="vm.getCliente(vm.Pasajeros.identificacion)">-->
+                                <!--</td>-->
+                                <!--<td style="text-align: center"><input style="border: 1px solid black" type="text"-->
+                                <!--ng-model="vm.Pasajeros.nombres" required></td>-->
+                                <!--<td style="text-align: center"><input style="border: 1px solid black" type="text"-->
+                                <!--ng-model="vm.Pasajeros.telefono" required>-->
+                                <!--</td>-->
+                                <!--<td style="text-align: center"><input style="border: 1px solid black" type="text"-->
+                                <!--ng-model="vm.Pasajeros.direccion" required>-->
+                                <!--</td>-->
+                                <!--&lt;!&ndash;<td style="text-align: center"><input type="text" ng-model="vm.Pasajeros.direccionD" required></td>&ndash;&gt;-->
+                                <!--<td style="text-align: center">-->
+                                <!--<button class="btn waves-effect waves-light green " title="Guardar" id="guardar"-->
+                                <!--ng-click="vm.asignarPasajero();" disabled=""><i class="material-icons">save</i>-->
+                                <!--</button>-->
+                                <!--</td>-->
+                                <!--<td style="text-align: center">-->
+                                <!--<button class="btn waves-effect waves-light blue" title="Actualizar"-->
+                                <!--id="actualizar" ng-click="vm.modificarPasajero();" disabled=""><i-->
+                                <!--class="material-icons">reply</i></button>-->
+                                <!--</td>-->
+                                <!--<td style="text-align: center">-->
+                                <!--<button class="btn waves-effect waves-light red" title="limpiar" id="limpiar"-->
+                                <!--ng-click="vm.limpiarPasajeros(vm.conductor.id);"><i-->
+                                <!--class="material-icons">clear</i></button>-->
+                                <!--</td>-->
                                 <!--</tr>-->
                                 <tr ng-repeat="pasajero in vm.listaPasajeros">
                                     <td style="text-align: center">{{pasajero.identificacion}}</td>
@@ -414,9 +434,9 @@
                                                                                                   ng-click="vm.modalMovePasajero(pasajero);"><i
                                             class="material-icons">cached</i></a></td>
                                     <!--<td style="text-align: center" style="text-align: center;"><a href="javascript:;"-->
-                                                                                                  <!--title="editar"-->
-                                                                                                  <!--ng-click="vm.cargarModificarPasajero(pasajero);"><i-->
-                                            <!--class="material-icons">create</i></a></td>-->
+                                    <!--title="editar"-->
+                                    <!--ng-click="vm.cargarModificarPasajero(pasajero);"><i-->
+                                    <!--class="material-icons">create</i></a></td>-->
                                     <td style="text-align: center" style="text-align: center;"><a href="javascript:;"
                                                                                                   title="eliminar"
                                                                                                   ng-click="vm.eliminarPasajero(pasajero.id)"><i
@@ -425,45 +445,45 @@
                                 </tbody>
                             </table>
                             <br><br>
-                            <fieldset>
-                                <legend style="text-align: center"><h2>Lista de pasajeros en espera</h2></legend>
+                            <!--<fieldset>-->
+                            <!--<legend style="text-align: center"><h2>Lista de pasajeros en espera</h2></legend>-->
 
-                                <table class="striped responsive-table" ng-if="vm.listaPasajerosEspera.length > 0">
-                                    <thead>
-                                    <th style="color: #D50000;text-align: center">identificación</th>
-                                    <th style="color: #D50000;text-align: center">Nombres y apellidos</th>
-                                    <th style="color: #D50000;text-align: center">Teléfono</th>
-                                    <th style="color: #D50000;text-align: center">Recoger en</th>
-                                    <!--<th style="color: #D50000;text-align: center" >Dejar en</th>-->
-                                    <!--opciones-->
-                                    <th style="color: #D50000;text-align: center" width="10px"></th>
-                                    <th style="color: #D50000;text-align: center" width="10px"></th>
-                                    <th style="color: #D50000;text-align: center" width="10px"></th>
-                                    </thead>
-                                    <tbody>
+                            <!--<table class="striped responsive-table" ng-if="vm.listaPasajerosEspera.length > 0">-->
+                            <!--<thead>-->
+                            <!--<th style="color: #D50000;text-align: center">identificación</th>-->
+                            <!--<th style="color: #D50000;text-align: center">Nombres y apellidos</th>-->
+                            <!--<th style="color: #D50000;text-align: center">Teléfono</th>-->
+                            <!--<th style="color: #D50000;text-align: center">Recoger en</th>-->
+                            <!--&lt;!&ndash;<th style="color: #D50000;text-align: center" >Dejar en</th>&ndash;&gt;-->
+                            <!--&lt;!&ndash;opciones&ndash;&gt;-->
+                            <!--<th style="color: #D50000;text-align: center" width="10px"></th>-->
+                            <!--<th style="color: #D50000;text-align: center" width="10px"></th>-->
+                            <!--<th style="color: #D50000;text-align: center" width="10px"></th>-->
+                            <!--</thead>-->
+                            <!--<tbody>-->
 
 
-                                    <tr ng-repeat="pasajeroespera in vm.listaPasajerosEspera" >
-                                        <td style="text-align: center">{{pasajeroespera.identificacion}}</td>
-                                        <td style="text-align: center">{{pasajeroespera.nombres}} {{pasajeroespera.cliente.apellidos}}
-                                        </td>
-                                        <td style="text-align: center">{{pasajeroespera.telefono}}</td>
-                                        <td style="text-align: center">{{pasajeroespera.direccion}}</td>
-                                        <td></td>
-                                        <td style="text-align: center">
-                                            <a href="javascript:"
-                                               ng-click="vm.asigarPasajeroConductor(pasajeroespera.id, vm.conductor.id)">
-                                                <i style="color: #D50000"
-                                                   class="material-icons prefix">touch_app</i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                                <div ng-if="vm.listaPasajerosEspera.length <= 0" class="center">
-                                    <h2><b>No se han registrado pasajeros en la cola</b></h2>
-                                </div>
-                            </fieldset>
+                            <!--<tr ng-repeat="pasajeroespera in vm.listaPasajerosEspera" >-->
+                            <!--<td style="text-align: center">{{pasajeroespera.identificacion}}</td>-->
+                            <!--<td style="text-align: center">{{pasajeroespera.nombres}} {{pasajeroespera.cliente.apellidos}}-->
+                            <!--</td>-->
+                            <!--<td style="text-align: center">{{pasajeroespera.telefono}}</td>-->
+                            <!--<td style="text-align: center">{{pasajeroespera.direccion}}</td>-->
+                            <!--<td></td>-->
+                            <!--<td style="text-align: center">-->
+                            <!--<a href="javascript:"-->
+                            <!--ng-click="vm.asigarPasajeroConductor(pasajeroespera.id, vm.conductor.id)">-->
+                            <!--<i style="color: #D50000"-->
+                            <!--class="material-icons prefix">touch_app</i>-->
+                            <!--</a>-->
+                            <!--</td>-->
+                            <!--</tr>-->
+                            <!--</tbody>-->
+                            <!--</table>-->
+                            <!--<div ng-if="vm.listaPasajerosEspera.length <= 0" class="center">-->
+                            <!--<h2><b>No se han registrado pasajeros en la cola</b></h2>-->
+                            <!--</div>-->
+                            <!--</fieldset>-->
                         </div>
                     </div>
                 </div>
@@ -1435,7 +1455,8 @@
                                 <tbody>
                                 <tr style="height: 35.5px">
                                     <td style="text-align: center">{{vm.pasajero.identificacion}}</td>
-                                    <td style="text-align: center">{{vm.pasajero.nombres}} {{vm.pasajero.apellidos}}</td>
+                                    <td style="text-align: center">{{vm.pasajero.nombres}} {{vm.pasajero.apellidos}}
+                                    </td>
                                     <td style="text-align: center">{{vm.pasajero.telefono}}</td>
                                 </tr>
                                 </tbody>
@@ -1483,4 +1504,90 @@
         </div>
     </div>
     <!--fin modal cambiar pasajero de conductor-->
+
+    <!--modal nueva solicitud pasajeros-->
+    <div id="modalNewSolicitudPasajero" class="modal modal-fixed-footer"
+         style="width: 90%;height: 40%;">
+        <!--<form action="" name="formPasajero">-->
+        <div class="modal-content">
+            <h2><b style="color: black">Agregar pasajeros a la cola de {{vm.selectedRuta.destino.ciudad.nombre | uppercase}}</b>
+            </h2>
+            <div class="col s12" style="border-radius: 25px">
+                <div class="contenedor">
+                    <div class="row">
+                        <div class="col s12">
+                            <table class="striped responsive-table">
+                                <thead>
+                                <th style="color: #D50000;text-align: center">identificación</th>
+                                <th style="color: #D50000;text-align: center">Nombres y apellidos</th>
+                                <th style="color: #D50000;text-align: center">Teléfono</th>
+                                <th style="color: #D50000;text-align: center">Recoger en</th>
+                                <!--<th style="color: #D50000;text-align: center" >Dejar en</th>-->
+                                <!--opciones-->
+                                <th style="color: #D50000;text-align: center" width="10px"></th>
+                                <th style="color: #D50000;text-align: center" width="10px"></th>
+                                <th style="color: #D50000;text-align: center" width="10px"></th>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td style="text-align: center"><input style="border: 1px solid black" type="text"
+                                                                          ng-model="vm.Pasajeros.identificacion"
+                                                                          ng-blur="vm.getCliente(vm.Pasajeros.identificacion)">
+                                    </td>
+                                    <td style="text-align: center"><input style="border: 1px solid black" type="text"
+                                                                          ng-model="vm.Pasajeros.nombre" required></td>
+                                    <td style="text-align: center"><input style="border: 1px solid black" type="text"
+                                                                          ng-model="vm.Pasajeros.telefono" required>
+                                    </td>
+                                    <td style="text-align: center"><input style="border: 1px solid black" type="text"
+                                                                          ng-model="vm.Newdireccion" required>
+                                    </td>
+                                    <!--<td style="text-align: center"><input type="text" ng-model="vm.Pasajeros.direccionD" required></td>-->
+                                    <td style="text-align: center">
+                                        <button class="btn waves-effect waves-light green " title="Guardar" id="guardar"
+                                                ng-click="vm.asignarSolicitudPasajero();" disabled=""><i class="material-icons">save</i>
+                                        </button>
+                                    </td>
+                                    <td style="text-align: center">
+                                        <!--<button class="btn waves-effect waves-light blue" title="Actualizar"-->
+                                                <!--id="actualizar" ng-click="vm.modificarPasajero();" disabled=""><i-->
+                                                <!--class="material-icons">reply</i></button>-->
+                                    </td>
+                                    <td style="text-align: center">
+                                        <button class="btn waves-effect waves-light red" title="limpiar" id="limpiar"
+                                                ng-click="vm.limpiarPasajeros(vm.conductor.id);"><i
+                                                class="material-icons">clear</i></button>
+                                    </td>
+                                </tr>
+                                <!--<tr ng-repeat="pasajero in vm.listaPasajerosEspera">-->
+                                    <!--<td style="text-align: center">{{pasajero.identificacion}}</td>-->
+                                    <!--<td style="text-align: center">{{pasajero.nombres}} {{pasajero.cliente.apellidos}}-->
+                                    <!--</td>-->
+                                    <!--<td style="text-align: center">{{pasajero.telefono}}</td>-->
+                                    <!--<td style="text-align: center">{{pasajero.direccion}}</td>-->
+                                    <!--<td></td>-->
+                                    <!--<td style="text-align: center" style="text-align: center;"><a href="javascript:;"-->
+                                                                                                  <!--title="editar"-->
+                                                                                                  <!--ng-click="vm.cargarModificarPasajero(pasajero);"><i-->
+                                            <!--class="material-icons">create</i></a></td>-->
+                                    <!--<td style="text-align: center" style="text-align: center;"><a href="javascript:;"-->
+                                                                                                  <!--title="eliminar"-->
+                                                                                                  <!--ng-click="vm.eliminarPasajero(pasajero.id)"><i-->
+                                            <!--class="material-icons" style="color:#F44336">remove</i></a></td>-->
+                                <!--</tr>-->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red accent-4"
+               style="margin-left:10px;border-radius: 25px;">Salir</a>
+        </div>
+        <!--</form>-->
+    </div>
+    <!--fin modal nueva solicitud pasajeros-->
+
 </div>

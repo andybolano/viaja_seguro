@@ -197,9 +197,9 @@ class PasajeroController extends Controller
             if (is_null($pasajero)) {
                 \App::abort(404);
             } else {
-                $pasajero->conductor_id = '';
-                $pasajero->estado = 'En espera';
-                $pasajero->save();
+//                $pasajero->conductor_id = '';
+//                $pasajero->estado = 'En espera';
+                $pasajero->delete();
                 return JsonResponse::create(array('message' => "Pasajero eliminado correctamente",  200));
             }
         } catch (Exception $ex) {

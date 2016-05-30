@@ -11,21 +11,21 @@
         .run(run);
 
     function config($stateProvider) {
-        $stateProvider
-            .state('app.centrales_pasajeros', {
-                url: '/centrales/pasajeros',
-                templateUrl: 'central/pasajeros/pasajeros.html',
-                controller : 'pasajerosController',
-                controllerAs : 'vm',
-                data: {
-                    onlyAccess: 'CENTRAL_EMPRESA'
-                }
-            })
+        // $stateProvider
+        //     .state('app.centrales_pasajeros', {
+        //         url: '/centrales/pasajeros',
+        //         templateUrl: 'central/pasajeros/pasajeros.html',
+        //         controller : 'pasajerosController',
+        //         controllerAs : 'vm',
+        //         data: {
+        //             onlyAccess: 'CENTRAL_EMPRESA'
+        //         }
+        //     })
     };
 
     function run(appMenu) {
-        appMenu.addTo([
-            {nombre: 'Pasajeros', link: 'app.centrales_pasajeros', icon: 'person_add'},
-        ], 'CENTRAL_EMPRESA');
+        // appMenu.addTo([
+        //     {nombre: 'Pasajeros', link: 'app.centrales_pasajeros', icon: 'person_add'},
+        // ], 'CENTRAL_EMPRESA');
     }
 })();

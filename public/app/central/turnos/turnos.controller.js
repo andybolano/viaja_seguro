@@ -35,6 +35,8 @@
         vm.getCliente = getCliente;
         //pasajeros
         vm.addPasajero = addPasajero;
+        vm.addNewSolicitudPasajero = addNewSolicitudPasajero;
+        vm.asignarSolicitudPasajero = asignarSolicitudPasajero;
         // vm.asignarPasajero = asignarPasajero;
         // vm.cargarModificarPasajero = cargarModificarPasajero;
         // vm.modificarPasajero = modificarPasajero;
@@ -54,7 +56,7 @@
         vm.verDescripcionPaquete = verDescripcionPaquete;
 
         //despacho
-        // vm.limpiarPasajeros = limpiarPasajeros;
+        vm.limpiarPasajeros = limpiarPasajeros;
         vm.limpiarGiros = limpiarGiros;
         vm.limpiarPaquetes = limpiarPaquetes;
 
@@ -198,9 +200,12 @@
         }
 
         function cargarPasajerosEnEspera() {
+            document.getElementById("guardar").disabled = false;
+            // document.getElementById("actualizar").disabled = true;
             pasajerosService.refrescarPasajeros().then(success, error);
             function success(p) {
                 vm.listaPasajerosEspera = [];
+                vm.Pasajeros = {};
 
                 angular.forEach(p.data, function (pasajero) {
                     vm.listaPasajerosEspera.push(pasajero);
@@ -256,9 +261,9 @@
             function succes(p) {
                 vm.cliente.id = p.data.id;
                 //pasajeros
-                vm.Pasajeros.nombres = p.data.nombres + ' ' + p.data.apellidos;
+                vm.Pasajeros.nombre = p.data.nombres + ' ' + p.data.apellidos;
                 vm.Pasajeros.telefono = p.data.telefono;
-                vm.Pasajeros.direccion = p.data.direccion;
+                vm.Newdireccion = p.data.direccion;
                 //giros
                 vm.Giros.nombres = p.data.nombres + ' ' + p.data.apellidos;
                 vm.Giros.telefono = p.data.telefono;
@@ -289,30 +294,34 @@
             });
         }
 
-        // function asignarPasajero() {
-        //     vm.Pasajeros.conductor_id = vm.conductor.id;
-        //     vm.Pasajeros.cliente_id = vm.cliente.id;
-        //     if (vm.cupos <= 0) {
-        //         Materialize.toast('El conductor no posee cupos disponibles', '5000', "rounded");
-        //     } else {
-        //         turnosService.asignarPasajero(vm.Pasajeros).then(success, error);
-        //     }
-        //     function success(p) {
-        //         refrescarPasajeros(vm.conductor.id);
-        //         Materialize.toast(p.data.message, '5000', 'rounded');
-        //     }
-        //
-        //     function error(error) {
-        //         console.log('Error al guardar')
-        //     }
-        // }
+        function asignarSolicitudPasajero() {
+            var object = {
+                central_id : authService.currentUser().central.id,
+                tipo: 'pasajero',
+                pasajeros : vm.Pasajeros,
+                ruta_id : vm.selectedRuta.id,
+                ciudad_direccion : authService.currentUser().central.ciudad.nombre,
+                direccion_recogida : vm.Newdireccion
+            }
+            turnosService.asignarSolicitudPasajero(object).then(success, error);
+            function success(p) {
+                vm.Pasajeros = {};
+                vm.Newdireccion = '';
+                Materialize.toast('Se guardo en espera al pasajero correctamente !', 5000);
+                // $('#modalNewSolicitudPasajero').closeModal();
+            }
+            function error(e) {
+                Materialize.toast(e.menssage, 4000);
+            }
+            
+        }
 
         // function cargarModificarPasajero(item) {
         //     document.getElementById("actualizar").disabled = false;
         //     document.getElementById("guardar").disabled = true;
         //     vm.Pasajeros = item;
         // };
-
+        //
         // function modificarPasajero() {
         //     turnosService.modificarPasajero(vm.Pasajeros.id, vm.Pasajeros).then(success, error);
         //     function success(p) {
@@ -326,6 +335,23 @@
         //         console.log('Error al guardar')
         //     }
         // };
+
+        function addNewSolicitudPasajero(ruta) {
+            vm.selectedRuta = ruta;
+            $('#modalNewSolicitudPasajero').openModal({
+                dismissible: false, // Modal can be dismissed by clicking outside of the modal
+                opacity: .5, // Opacity of modal background
+                in_duration: 400, // Transition in duration
+                out_duration: 300, // Transition out duration
+                ready: function () {
+                    document.getElementById("guardar").disabled = false;
+                    // document.getElementById("actualizar").disabled = true;
+                    vm.Pasajeros = {};
+                    vm.Newdireccion = '';
+                }, // Callback for Modal open
+                //complete: function() { alert('Closed'); } // Callback for Modal close
+            });
+        }
 
         function eliminarPasajero(pasajero_id) {
             swal({
@@ -816,12 +842,13 @@
 
         //FIN PAQUETES
 
-        // function limpiarPasajeros(conductor_id) {
-        //     document.getElementById("guardar").disabled = false;
-        //     document.getElementById("actualizar").disabled = true;
-        //     refrescarPasajeros(conductor_id)
-        //     vm.Pasajeros = "";
-        // };
+        function limpiarPasajeros() {
+            document.getElementById("guardar").disabled = false;
+            // document.getElementById("actualizar").disabled = true;
+            // refrescarPasajeros(conductor_id)
+            vm.Pasajeros = {};
+            vm.Newdireccion = '';
+        };
 
         function limpiarGiros(conductor_id) {
             document.getElementById("guardarG").disabled = false;
@@ -1072,9 +1099,13 @@
 
         vm.selectCsolicitud = function (solicitud_id, conductor_id) {
             turnosService.getCupos(conductor_id).then(function (p) {
+                console.log(vm.solicitud)
                 if (vm.solicitud.tipo == 'vehiculo' && p.data < vm.solicitud.datos_pasajeros.length) {
                     Materialize.toast('El conductor tiene ' + p.data + ' cupo(s) disponible(s), ud esta necesitando ' + vm.solicitud.datos_pasajeros.length + ' cupo(s) disponible(s)', '5000', 'rounded')
-                } else {
+                } else if (vm.solicitud.tipo == 'pasajero' && p.data < vm.solicitud.datos_pasajeros.length) {
+                    Materialize.toast('El conductor tiene ' + p.data + ' cupo(s) disponible(s), ud esta necesitando ' + vm.solicitud.datos_pasajeros.length + ' cupo(s) disponible(s)', '5000', 'rounded')
+                }else
+                {
                     swal({
                         title: 'ESPERA UN MOMENTO!',
                         text: 'Seguro quieres asigarle este pedido al conductor?',

@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\NotificacionController;
 use App\Model\Central;
+use App\Model\Cliente;
+use App\Model\DataSolicitudPasajero;
 use App\Model\Giro;
 use App\Model\Paquete;
 use App\Model\Pasajero;
@@ -151,6 +153,8 @@ class CentralesController extends Controller
                 //'origen' => $ruta->origen->load('ciudad'),
                 'destino' => $ruta->destino->load('ciudad'),
                 'turnos' => $ruta->turnos->load('conductor'),
+                'solicitud_nuevos_pasajeros'=> $ruta->solicitudes()
+                    ->where(['tipo'=> 'pasajero', 'estado'=> 'p'])->get()->load('datos_pasajeros'),
                 'solicitud_pasajeros'=> $ruta->solicitudes()
                 ->where(['tipo'=> 'vehiculo', 'estado'=> 'p'])->get()->load('datos_pasajeros'),
                 'solicitud_paquetes'=> $ruta->solicitudes()
@@ -222,7 +226,7 @@ class CentralesController extends Controller
         $solicitud['conductores'] = Ruta::find($solicitud->ruta_id)->turnos->load('conductor');
         foreach($solicitud['conductores'] as $cupos){
             list($total) = DB::table('vehiculos')->select(
-                DB::raw('( (cupos) - (select count(conductor_id) from pasajeros where conductor_id ='.$cupos->conductor_id.' and estado = "En espera") ) as total'))
+                DB::raw('( (cupos) - (select count(conductor_id) from pasajeros where conductor_id ='.$cupos->conductor_id.' and estado = "Asignado") ) as total'))
                 ->where('conductor_id', $cupos->conductor_id)->get('total');
             $solicitud['conductores'][$i]['cupos'] = $total->total;
             $i++;
@@ -238,7 +242,7 @@ class CentralesController extends Controller
         $solicitud['conductores'] = Ruta::find($solicitud->ruta_id)->turnos->load('conductor');
         foreach($solicitud['conductores'] as $cupos){
             list($total) = DB::table('vehiculos')->select(
-                DB::raw('( (cupos) - (select count(conductor_id) from pasajeros where conductor_id ='.$cupos->conductor_id.' and estado = "En espera") ) as total'))
+                DB::raw('( (cupos) - (select count(conductor_id) from pasajeros where conductor_id ='.$cupos->conductor_id.' and estado = "Asignado") ) as total'))
                 ->where('conductor_id', $cupos->conductor_id)->get('total');
             $solicitud['conductores'][$i]['cupos'] = $total->total;
             $i++;
@@ -254,7 +258,7 @@ class CentralesController extends Controller
         $solicitud['conductores'] = Ruta::find($solicitud->ruta_id)->turnos->load('conductor');
         foreach($solicitud['conductores'] as $cupos){
             list($total) = DB::table('vehiculos')->select(
-                DB::raw('( (cupos) - (select count(conductor_id) from pasajeros where conductor_id ='.$cupos->conductor_id.' and estado = "En espera") ) as total'))
+                DB::raw('( (cupos) - (select count(conductor_id) from pasajeros where conductor_id ='.$cupos->conductor_id.' and estado = "Asignado") ) as total'))
                 ->where('conductor_id', $cupos->conductor_id)->get('total');
             $solicitud['conductores'][$i]['cupos'] = $total->total;
             $i++;
@@ -266,20 +270,30 @@ class CentralesController extends Controller
     public function aceptarSolicitudPasajero(Request $request, $id)
     {
         $noty = new NotificacionController();
-        $solicitud = Solicitud::find($id)->load('cliente');
-        $solicitud->estado = 'a';
-        $solicitud->conductor_id = $request->conductor_id;
-        if($solicitud->save()){
-            if($solicitud->tipo != 'vehiculo'){
-                $mensaje = 'Su solicitud de vehiculo a sido aceptada, espere a que el vehiculo lo recoja';
-            }else {
-                $mensaje = 'Su solicitud a sido acepta, por favor espere a que el vehiculo recoja su pedido';
-            }
-            $noty->enviarNotificacionClientes($mensaje, $solicitud->cliente_id, 'Confirmacion');
+        $solicitud = Solicitud::find($id);
+        if($solicitud->load('cliente')){
+            $solicitud->estado = 'a';
+            $solicitud->conductor_id = $request->conductor_id;
+            if($solicitud->save()){
+                if($solicitud->tipo != 'vehiculo'){
+                    $mensaje = 'Su solicitud de vehiculo a sido aceptada, espere a que el vehiculo lo recoja';
+                }else {
+                    $mensaje = 'Su solicitud a sido acepta, por favor espere a que el vehiculo recoja su pedido';
+                }
+                $noty->enviarNotificacionClientes($mensaje, $solicitud->cliente_id, 'Confirmacion');
 
-            return JsonResponse::create(array('message' => 'Solicitud aprovada', $this->moverPedidoSolicitud($id)));
+                return JsonResponse::create(array('message' => 'Solicitud aprovada', $this->moverPedidoSolicitud($id)));
+            }else{
+                return JsonResponse::create(array('message' => 'No se pudo aprovar la solicitud'));
+            }
         }else{
-            return JsonResponse::create(array('message' => 'No se pudo aprovar la solicitud'));
+            $solicitud->estado = 'a';
+            $solicitud->conductor_id = $request->conductor_id;
+            if($solicitud->save()){
+                return JsonResponse::create(array('message' => 'Solicitud aprovada', $this->moverPedidoSolicitud($id)));
+            }else{
+                return JsonResponse::create(array('message' => 'No se pudo aprovar la solicitud'));
+            }
         }
     }
 
@@ -287,18 +301,21 @@ class CentralesController extends Controller
         $solicitud = Solicitud::find($solicitud_id);
         $noty = new NotificacionController();
         if($solicitud->tipo == 'vehiculo'){
-            $solicitud->load('cliente');
-            $solicitud->load('datos_pasajeros');
-            foreach($solicitud->datos_pasajeros as $pasajero){
-                $p = new Pasajero();
-                $p->identificacion = $pasajero->identificacion;
-                $p->nombres = $pasajero->nombre;
-                $p->direccion = "$solicitud->ciudad_direccion"." $solicitud->direccion_recogida";
-                $p->conductor_id = $solicitud->conductor_id;
-                $p->central_id = $solicitud->central_id;
-                $p->telefono = $solicitud->cliente->telefono;
-                if($p->save()){
-                    json_decode($noty->enviarNotificacionConductores('Se te asigno un nuevo pasajero', $solicitud->conductor_id, 'Pasajeros' ));
+            $cliente = $solicitud->load('cliente');
+            if($cliente) {
+                $solicitud->load('datos_pasajeros');
+                foreach($solicitud->datos_pasajeros as $pasajero){
+                    $p = new Pasajero();
+                    $p->identificacion = $pasajero->identificacion;
+                    $p->nombres = $pasajero->nombre;
+                    $p->direccion = "$solicitud->ciudad_direccion"." $solicitud->direccion_recogida";
+                    $p->conductor_id = $solicitud->conductor_id;
+                    $p->central_id = $solicitud->central_id;
+                    $p->telefono = $solicitud->cliente->telefono;
+                    $p->estado = 'Asignado';
+                    if($p->save()){
+                        json_decode($noty->enviarNotificacionConductores('Se te asigno un nuevo pasajero', $solicitud->conductor_id, 'Pasajeros' ));
+                    }
                 }
             }
         }
@@ -337,6 +354,23 @@ class CentralesController extends Controller
                 $g->monto = $detalle->descripcion;
                 if($g->save()){
                     json_decode($noty->enviarNotificacionConductores('Se te asigno un nuevo giro', $solicitud->conductor_id, 'Giro' ));
+                }
+            }
+        }
+        if($solicitud->tipo == 'pasajero'){
+            if($solicitud->load('datos_pasajeros')) {
+                foreach($solicitud->datos_pasajeros as $pasajero){
+                    $p = new Pasajero();
+                    $p->identificacion = $pasajero->identificacion;
+                    $p->nombres = $pasajero->nombre;
+                    $p->direccion = "$solicitud->ciudad_direccion"." $solicitud->direccion_recogida";
+                    $p->conductor_id = $solicitud->conductor_id;
+                    $p->central_id = $solicitud->central_id;
+                    $p->telefono = $pasajero->telefono;
+                    $p->estado = 'Asignado';
+                    if($p->save()){
+                        json_decode($noty->enviarNotificacionConductores('Se te asigno un nuevo pasajero', $solicitud->conductor_id, 'Pasajeros' ));
+                    }
                 }
             }
         }
@@ -424,5 +458,22 @@ class CentralesController extends Controller
 //            return response()->json(["exception"=>$exc->getMessage()], 500);
         }
 
+    }
+
+    public function addNewSolicitudPasajero(Request $request){
+        $data = $request->json()->all();
+//        $cliente = Cliente::find($cliente_id);
+        if($data['tipo'] == 'pasajero') {
+            $pasajero = $data['pasajeros'];
+            unset($data['pasajeros']);
+            $solicitud = new Solicitud($data);
+            if($solicitud->save()) {
+                $solicitud->datos_pasajeros()->save(new DataSolicitudPasajero($pasajero));
+                \App::make('\App\Events\NuevaSolicitudEvent')->enviarNotificacion($data['tipo'], 'Existe una nueva solicitud, verificala en la seccion de despacho', $data['central_id']);
+                return response()->json($solicitud->id, 200);
+            } else {
+                return response()->json(['menssage' => 'No se ha podido almacenar la solicitud'], 400);
+            }
+        }
     }
 }
