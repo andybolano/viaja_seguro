@@ -20,4 +20,6 @@
 
     RewriteCond %{HTTP:Authorization} ^(.*)
     RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
+    AddType audio/mpeg .mp3
 </IfModule>
+AddType audio/mpeg .mp3
