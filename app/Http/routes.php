@@ -26,8 +26,7 @@ Route::group(['middleware' => 'cors'], function () {
     Route::get('/api/departamentos', 'SuperAdmin\CiudadesController@getDepartamentos');
     Route::get('/api/departamentos/{dpto_id}/municipios', 'SuperAdmin\CiudadesController@getMunicipios');
 
-    Route::group(['middleware' => 'jwt.auth'],function () {
-
+    Route::group(['middleware' => 'jwt.auth'], function () {
         include 'Routes/Conductores.php';
         include 'Routes/Vehiculos.php';
         include 'Routes/Cliente.php';
@@ -37,15 +36,23 @@ Route::group(['middleware' => 'cors'], function () {
         include 'Routes/Pagos.php';
         include 'Routes/Deducciones.php';
         include 'Routes/Actividades.php';
-
         include('Routes/Empresas.php');
         include('Routes/Rutas.php');
         include('Routes/Centrales.php');
         include('Routes/ServiciosEmpresa.php');
         include('Routes/Ciudades.php');
-
         include('Routes/Usuarios.php');
-
     });
 
+    Route::get('/api/assets/sounds/notySolicitudes', function(){
+        $filename = "../public/assets/sounds/noty.mp3";
+        $filesize = (int) File::size($filename);
+        $file = File::get($filename);
+        $response = Response::make($file, 200);
+        $response->header('Content-Type', 'audio/mpeg');
+        $response->header('Content-Length', $filesize);
+        $response->header('Accept-Ranges', 'bytes');
+        $response->header('Content-Range', 'bytes 0-'.$filesize.'/'.$filesize);
+        return $response;
+    });
 });
