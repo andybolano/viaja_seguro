@@ -14,7 +14,7 @@
             var options = {
                 icon: API +'/assets/images/icono.png',
                 body: data.message,
-                sound: '/sounds/noty.mp3'
+                sound: API + '/assets/sounds/notySolicitudes'
             }
             if (!isNotificationSupported()) {
                 logg("Tu navegador no soporta Notificaciones. Por favor, utiliza una versión Reciente del Navegador Google Chrome o Safari.");
@@ -22,7 +22,7 @@
             }
             // Si el Navegador soporta las Notificaciones HTML 5, entonces que proceda a Notificar
             var notificacion = new Notification('Nueva notificación de: ' + data.tipo, options);
-            var audio = new Audio('/sounds/noty.mp3');
+            var audio = new Audio(API + '/assets/sounds/notySolicitudes');
             audio.play();
             setTimeout(notificacion.close.bind(notificacion), 10000);
 
@@ -36,7 +36,7 @@
             var options = {
                 icon: 'http://' + data.conductor.imagen,
                 body: data.message,
-                sound: '/sounds/noty.mp3'
+                sound: API + '/assets/sounds/notySolicitudes'
             }
             if (!isNotificationSupported()) {
                 logg("Tu navegador no soporta Notificaciones. Por favor, utiliza una versión Reciente del Navegador Google Chrome o Safari.");
@@ -44,7 +44,7 @@
             }
             // Si el Navegador soporta las Notificaciones HTML 5, entonces que proceda a Notificar
             var notificacion = new Notification('Nueva: ' + data.tipo, options);
-            var audio = new Audio('/sounds/noty.mp3');
+            var audio = new Audio(API + '/assets/sounds/notySolicitudes');
             audio.play();
             setTimeout(notificacion.close.bind(notificacion), 10000);
             // Redireccionamos a un determinado Destino o URL al hacer click en la Notificación
