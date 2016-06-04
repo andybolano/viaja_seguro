@@ -31,27 +31,27 @@ class CentralesController extends Controller
     {
         if ($ciudad = Input::get('ciudad'))
             return $this->getByCiudad($ciudad);
-        try{
+        try {
             $centrales = Empresa::find($empresa_id)->centrales;
-            foreach($centrales as $central) {
+            foreach ($centrales as $central) {
                 $central->ciudad->load('departamento');
             }
             $centrales->load('usuario');
             return $centrales;
-        }catch(\Exception $e){
-            return response()->json(array("exception"=>$e->getMessage()), 400);
+        } catch (\Exception $e) {
+            return response()->json(array("exception" => $e->getMessage()), 400);
         }
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request, $empresa_id)
     {
-        try{
+        try {
             $data = $request->json()->all();
             $ciudad = Municipio::find($data['ciudad']['codigo']);
             unset($data['ciudad']);
@@ -61,21 +61,21 @@ class CentralesController extends Controller
             $data['usuario_id'] = $usuario->id;
             $central = new Central($data);
             $central->ciudad()->associate($ciudad);
-            if(!Empresa::find($empresa_id)->centrales()->save($central)){
+            if (!Empresa::find($empresa_id)->centrales()->save($central)) {
                 return response()->json(['mensajeError' => 'no se ha podido almacenar el usuario'], 400);
                 $usuario->delete();
             }
             return response()->json($central, 201);
         } catch (\Exception $exc) {
             $usuario->delete();
-            return response()->json(array("exception"=>$exc->getMessage()), 500);
+            return response()->json(array("exception" => $exc->getMessage()), 500);
         }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $codigo
+     * @param  int $codigo
      * @return \Illuminate\Http\Response
      */
     public function show($codigo)
@@ -85,7 +85,7 @@ class CentralesController extends Controller
 
     public function getByCiudad($ciudad)
     {
-        $central = Central::whereHas('ciudad', function($query) use ($ciudad) {
+        $central = Central::whereHas('ciudad', function ($query) use ($ciudad) {
             return $query->where('nombre', $ciudad);
         })->first();
         $central->ciudad->load('departamento');
@@ -95,14 +95,14 @@ class CentralesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @param  int $central_id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $central_id)
     {
-        try{
-            if($central = Central::find($central_id)) {
+        try {
+            if ($central = Central::find($central_id)) {
                 $data = $request->json()->all();
                 $central->miDireccionLa = $data['miDireccionLa'];
                 $central->miDireccionLo = $data['miDireccionLo'];
@@ -110,11 +110,11 @@ class CentralesController extends Controller
                 $central->telefono = $data['telefono'];
                 $central->save();
                 return response()->json(['mensaje' => 'registro actualizado'], 201);
-            }else{
+            } else {
                 return response()->json(['mensaje' => 'la central no existe'], 400);
             }
         } catch (\Exception $exc) {
-            return response()->json(array("exception"=>$exc->getMessage(), ''=>$exc->getLine()), 400);
+            return response()->json(array("exception" => $exc->getMessage(), '' => $exc->getLine()), 400);
         }
 
     }
@@ -122,23 +122,23 @@ class CentralesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $central_id
+     * @param  int $central_id
      * @return \Illuminate\Http\Response
      */
     public function destroy($central_id)
     {
-        try{
+        try {
             $central = Central::find($central_id);
-            if($central){
+            if ($central) {
                 $usuario = $central->usuario;
                 $central->delete();
                 $usuario->delete();
                 return response()->json(['mensaje' => 'registro eliminado'], 201);
-            }else{
+            } else {
                 return response()->json(['mensaje' => 'la central no existe'], 400);
             }
         } catch (\Exception $exc) {
-            return response()->json(array("exception"=>$exc->getMessage(), ''=>$exc->getLine()), 400);
+            return response()->json(array("exception" => $exc->getMessage(), '' => $exc->getLine()), 400);
         }
 
     }
@@ -153,14 +153,14 @@ class CentralesController extends Controller
                 //'origen' => $ruta->origen->load('ciudad'),
                 'destino' => $ruta->destino->load('ciudad'),
                 'turnos' => $ruta->turnos->load('conductor'),
-                'solicitud_nuevos_pasajeros'=> $ruta->solicitudes()
-                    ->where(['tipo'=> 'pasajero', 'estado'=> 'p'])->get()->load('datos_pasajeros'),
-                'solicitud_pasajeros'=> $ruta->solicitudes()
-                ->where(['tipo'=> 'vehiculo', 'estado'=> 'p'])->get()->load('datos_pasajeros'),
-                'solicitud_paquetes'=> $ruta->solicitudes()
-                    ->where(['tipo'=> 'paquete', 'estado'=> 'p'])->get()->load('detalles'),
-                'solicitud_giros'=> $ruta->solicitudes()
-                    ->where(['tipo'=> 'giro', 'estado'=> 'p'])->get()->load('detalles')
+                'solicitud_nuevos_pasajeros' => $ruta->solicitudes()
+                    ->where(['tipo' => 'pasajero', 'estado' => 'p'])->get()->load('datos_pasajeros'),
+                'solicitud_pasajeros' => $ruta->solicitudes()
+                    ->where(['tipo' => 'vehiculo', 'estado' => 'p'])->get()->load('datos_pasajeros'),
+                'solicitud_paquetes' => $ruta->solicitudes()
+                    ->where(['tipo' => 'paquete', 'estado' => 'p'])->get()->load('detalles'),
+                'solicitud_giros' => $ruta->solicitudes()
+                    ->where(['tipo' => 'giro', 'estado' => 'p'])->get()->load('detalles')
 
             ];
         }
@@ -171,7 +171,7 @@ class CentralesController extends Controller
     {
         $conductores = [];
         foreach (Central::find($id)->conductores as &$conductor) {
-            if($conductor->activo) {
+            if ($conductor->activo) {
                 if ($conductor->central) {
                     $conductor->central->load('ciudad');
                     $conductor->load('vehiculo');
@@ -188,7 +188,7 @@ class CentralesController extends Controller
         $vehiculos->load('conductor');
         $arr = [];
         foreach ($vehiculos as &$vehiculo) {
-            if($vehiculo->conductor->activo) {
+            if ($vehiculo->conductor->activo) {
                 $arr[] = $vehiculo;
             }
         }
@@ -203,30 +203,31 @@ class CentralesController extends Controller
     public function getSolicitudesPasajeros($central_id)
     {
         return Central::find($central_id)->solicitudes()
-            ->where(['tipo'=> 'vehiculo', 'estado'=> 'p'])->get()->load('datos_pasajeros');
+            ->where(['tipo' => 'vehiculo', 'estado' => 'p'])->get()->load('datos_pasajeros');
     }
 
     public function getSolicitudesPaquetes($central_id)
     {
         return Central::find($central_id)->solicitudes()
-            ->where(['tipo'=> 'paquete', 'estado'=> 'p'])->get()->load('detalles');
+            ->where(['tipo' => 'paquete', 'estado' => 'p'])->get()->load('detalles');
     }
 
     public function getSolicitudesGiros($central_id)
     {
         return Central::find($central_id)->solicitudes()
-            ->where(['tipo'=> 'giro', 'estado'=> 'p'])->get()->load('detalles');
+            ->where(['tipo' => 'giro', 'estado' => 'p'])->get()->load('detalles');
     }
 
-    public function getSolicitudPasajero($solicitud_id){
+    public function getSolicitudPasajero($solicitud_id)
+    {
         $i = 0;
         $solicitud = Solicitud::find($solicitud_id)->load('datos_pasajeros');
         $solicitud['ruta'] = Ruta::find($solicitud->ruta_id);
         $solicitud['ruta']['destino'] = Central::find($solicitud['ruta']->id_central_destino)->ciudad;
         $solicitud['conductores'] = Ruta::find($solicitud->ruta_id)->turnos->load('conductor');
-        foreach($solicitud['conductores'] as $cupos){
+        foreach ($solicitud['conductores'] as $cupos) {
             list($total) = DB::table('vehiculos')->select(
-                DB::raw('( (cupos) - (select count(conductor_id) from pasajeros where conductor_id ='.$cupos->conductor_id.' and estado = "Asignado") ) as total'))
+                DB::raw('( (cupos) - (select count(conductor_id) from pasajeros where conductor_id =' . $cupos->conductor_id . ' and estado = "Asignado") ) as total'))
                 ->where('conductor_id', $cupos->conductor_id)->get('total');
             $solicitud['conductores'][$i]['cupos'] = $total->total;
             $i++;
@@ -234,15 +235,16 @@ class CentralesController extends Controller
         return JsonResponse::create($solicitud);
     }
 
-    public function getSolicitudPaquete($solicitud_id){
-        $i=0;
+    public function getSolicitudPaquete($solicitud_id)
+    {
+        $i = 0;
         $solicitud = Solicitud::find($solicitud_id)->load('detalles');
         $solicitud['ruta'] = Ruta::find($solicitud->ruta_id);
         $solicitud['ruta']['destino'] = Central::find($solicitud['ruta']->id_central_destino)->ciudad;
         $solicitud['conductores'] = Ruta::find($solicitud->ruta_id)->turnos->load('conductor');
-        foreach($solicitud['conductores'] as $cupos){
+        foreach ($solicitud['conductores'] as $cupos) {
             list($total) = DB::table('vehiculos')->select(
-                DB::raw('( (cupos) - (select count(conductor_id) from pasajeros where conductor_id ='.$cupos->conductor_id.' and estado = "Asignado") ) as total'))
+                DB::raw('( (cupos) - (select count(conductor_id) from pasajeros where conductor_id =' . $cupos->conductor_id . ' and estado = "Asignado") ) as total'))
                 ->where('conductor_id', $cupos->conductor_id)->get('total');
             $solicitud['conductores'][$i]['cupos'] = $total->total;
             $i++;
@@ -250,15 +252,16 @@ class CentralesController extends Controller
         return JsonResponse::create($solicitud);
     }
 
-    public function getSolicitudGiro($solicitud_id){
-        $i=0;
+    public function getSolicitudGiro($solicitud_id)
+    {
+        $i = 0;
         $solicitud = Solicitud::find($solicitud_id)->load('detalles');
         $solicitud['ruta'] = Ruta::find($solicitud->ruta_id);
         $solicitud['ruta']['destino'] = Central::find($solicitud['ruta']->id_central_destino)->ciudad;
         $solicitud['conductores'] = Ruta::find($solicitud->ruta_id)->turnos->load('conductor');
-        foreach($solicitud['conductores'] as $cupos){
+        foreach ($solicitud['conductores'] as $cupos) {
             list($total) = DB::table('vehiculos')->select(
-                DB::raw('( (cupos) - (select count(conductor_id) from pasajeros where conductor_id ='.$cupos->conductor_id.' and estado = "Asignado") ) as total'))
+                DB::raw('( (cupos) - (select count(conductor_id) from pasajeros where conductor_id =' . $cupos->conductor_id . ' and estado = "Asignado") ) as total'))
                 ->where('conductor_id', $cupos->conductor_id)->get('total');
             $solicitud['conductores'][$i]['cupos'] = $total->total;
             $i++;
@@ -271,126 +274,129 @@ class CentralesController extends Controller
     {
         $noty = new NotificacionController();
         $solicitud = Solicitud::find($id);
-        if($solicitud->load('cliente')){
+        if ($solicitud->load('cliente')) {
             $solicitud->estado = 'a';
             $solicitud->conductor_id = $request->conductor_id;
-            if($solicitud->save()){
-                if($solicitud->tipo != 'vehiculo'){
+            if ($solicitud->save()) {
+                if ($solicitud->tipo != 'vehiculo') {
                     $mensaje = 'Su solicitud de vehiculo a sido aceptada, espere a que el vehiculo lo recoja';
-                }else {
+                } else {
                     $mensaje = 'Su solicitud a sido acepta, por favor espere a que el vehiculo recoja su pedido';
                 }
                 $noty->enviarNotificacionClientes($mensaje, $solicitud->cliente_id, 'Confirmacion');
 
                 return JsonResponse::create(array('message' => 'Solicitud aprovada', $this->moverPedidoSolicitud($id)));
-            }else{
+            } else {
                 return JsonResponse::create(array('message' => 'No se pudo aprovar la solicitud'));
             }
-        }else{
+        } else {
             $solicitud->estado = 'a';
             $solicitud->conductor_id = $request->conductor_id;
-            if($solicitud->save()){
+            if ($solicitud->save()) {
                 return JsonResponse::create(array('message' => 'Solicitud aprovada', $this->moverPedidoSolicitud($id)));
-            }else{
+            } else {
                 return JsonResponse::create(array('message' => 'No se pudo aprovar la solicitud'));
             }
         }
     }
 
-    public function moverPedidoSolicitud($solicitud_id){
+    public function moverPedidoSolicitud($solicitud_id)
+    {
         $solicitud = Solicitud::find($solicitud_id);
         $noty = new NotificacionController();
-        if($solicitud->tipo == 'vehiculo'){
+        if ($solicitud->tipo == 'vehiculo') {
             $cliente = $solicitud->load('cliente');
-            if($cliente) {
+            if ($cliente) {
                 $solicitud->load('datos_pasajeros');
-                foreach($solicitud->datos_pasajeros as $pasajero){
+                foreach ($solicitud->datos_pasajeros as $pasajero) {
                     $p = new Pasajero();
                     $p->identificacion = $pasajero->identificacion;
                     $p->nombres = $pasajero->nombre;
-                    $p->direccion = "$solicitud->ciudad_direccion"." $solicitud->direccion_recogida";
+                    $p->direccion = "$solicitud->ciudad_direccion" . " $solicitud->direccion_recogida";
                     $p->conductor_id = $solicitud->conductor_id;
                     $p->central_id = $solicitud->central_id;
                     $p->telefono = $solicitud->cliente->telefono;
                     $p->estado = 'Asignado';
-                    if($p->save()){
-                        json_decode($noty->enviarNotificacionConductores('Se te asigno un nuevo pasajero', $solicitud->conductor_id, 'Pasajeros' ));
+                    if ($p->save()) {
+                        json_decode($noty->enviarNotificacionConductores('Se te asigno un nuevo pasajero', $solicitud->conductor_id, 'Pasajeros'));
                     }
                 }
             }
         }
-        if ($solicitud->tipo == 'paquete'){
+        if ($solicitud->tipo == 'paquete') {
             $p = new Paquete();
             $solicitud->load('detalles', 'cliente');
-            foreach($solicitud->detalles as $detalle){
+            foreach ($solicitud->detalles as $detalle) {
                 $p->conductor_id = $solicitud->conductor_id;
                 $p->central_id = $solicitud->central_id;
                 $p->ide_remitente = $solicitud->cliente->identificacion;
-                $p->nombres = $solicitud->cliente->nombres .$solicitud->cliente->apellidos;
+                $p->nombres = $solicitud->cliente->nombres . $solicitud->cliente->apellidos;
                 $p->telefono = $solicitud->cliente->telefono;
-                $p->direccion = "$solicitud->ciudad_direccion"." $solicitud->direccion_recogida";
+                $p->direccion = "$solicitud->ciudad_direccion" . " $solicitud->direccion_recogida";
                 $p->nombre_receptor = $detalle->destinatario;
                 $p->telefono_receptor = $detalle->telefono;
                 $p->direccionD = $detalle->direccion;
                 $p->descripcion_paquete = $detalle->descripcion;
-                if($p->save()){
-                    $noty->enviarNotificacionConductores('Se te asigno un nuevo paquete', $solicitud->conductor_id, 'Paquete' );
+                if ($p->save()) {
+                    $noty->enviarNotificacionConductores('Se te asigno un nuevo paquete', $solicitud->conductor_id, 'Paquete');
                 }
             }
         }
-        if($solicitud->tipo == 'giro'){
+        if ($solicitud->tipo == 'giro') {
             $g = new Giro();
             $solicitud->load('detalles', 'cliente');
-            foreach($solicitud->detalles as $detalle){
+            foreach ($solicitud->detalles as $detalle) {
                 $g->conductor_id = $solicitud->conductor_id;
                 $g->central_id = $solicitud->central_id;
                 $g->ide_remitente = $solicitud->cliente->identificacion;
-                $g->nombres = $solicitud->cliente->nombres .$solicitud->cliente->apellidos;
+                $g->nombres = $solicitud->cliente->nombres . $solicitud->cliente->apellidos;
                 $g->telefono = $solicitud->cliente->telefono;
-                $g->direccion = "$solicitud->ciudad_direccion"." $solicitud->direccion_recogida";
+                $g->direccion = "$solicitud->ciudad_direccion" . " $solicitud->direccion_recogida";
                 $g->nombre_receptor = $detalle->destinatario;
                 $g->telefono_receptor = $detalle->telefono;
                 $g->direccionD = $detalle->direccion;
                 $g->monto = $detalle->descripcion;
-                if($g->save()){
-                    json_decode($noty->enviarNotificacionConductores('Se te asigno un nuevo giro', $solicitud->conductor_id, 'Giro' ));
+                if ($g->save()) {
+                    json_decode($noty->enviarNotificacionConductores('Se te asigno un nuevo giro', $solicitud->conductor_id, 'Giro'));
                 }
             }
         }
-        if($solicitud->tipo == 'pasajero'){
-            if($solicitud->load('datos_pasajeros')) {
-                foreach($solicitud->datos_pasajeros as $pasajero){
+        if ($solicitud->tipo == 'pasajero') {
+            if ($solicitud->load('datos_pasajeros')) {
+                foreach ($solicitud->datos_pasajeros as $pasajero) {
                     $p = new Pasajero();
                     $p->identificacion = $pasajero->identificacion;
                     $p->nombres = $pasajero->nombre;
-                    $p->direccion = "$solicitud->ciudad_direccion"." $solicitud->direccion_recogida";
+                    $p->direccion = "$solicitud->ciudad_direccion" . " $solicitud->direccion_recogida";
                     $p->conductor_id = $solicitud->conductor_id;
                     $p->central_id = $solicitud->central_id;
                     $p->telefono = $pasajero->telefono;
                     $p->estado = 'Asignado';
-                    if($p->save()){
-                        json_decode($noty->enviarNotificacionConductores('Se te asigno un nuevo pasajero', $solicitud->conductor_id, 'Pasajeros' ));
+                    if ($p->save()) {
+                        json_decode($noty->enviarNotificacionConductores('Se te asigno un nuevo pasajero', $solicitud->conductor_id, 'Pasajeros'));
                     }
                 }
             }
         }
     }
 
-    public function rechazarSolicitud(Request $request, $solicitud_id){
+    public function rechazarSolicitud(Request $request, $solicitud_id)
+    {
         $noty = new NotificacionController();
         $solicitud = Solicitud::find($solicitud_id);
         $solicitud->estado = 'r';
         $message = $request->causa_rechazo;
         $solicitud->causa_rechazo = $message;
-        if($solicitud->save()){
-            $noty->enviarNotificacionClientes($message, $solicitud->cliente_id,'Rechazo');
+        if ($solicitud->save()) {
+            $noty->enviarNotificacionClientes($message, $solicitud->cliente_id, 'Rechazo');
             return JsonResponse::create(array('message' => 'Se rechazo la solicitud correctamente'));
-        }else{
+        } else {
             return JsonResponse::create(array('message' => 'Ocurrio un error al rechazar la solicitud '));
         }
     }
 
-    function getConductoresEnRuta($central){
+    function getConductoresEnRuta($central)
+    {
         $central = Central::find($central);
         $rutas = [];
         foreach ($central->rutas as $ruta) {
@@ -416,15 +422,15 @@ class CentralesController extends Controller
 
     public function getTotalDeducciones($central_id, $dia)
     {
-        $dias = ['domingo','lunes','martes','miercoles','jueves','viernes','sabado'];
-        $valor = 'valor_'.$dias[$dia];
+        $dias = ['domingo', 'lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'];
+        $valor = 'valor_' . $dias[$dia];
         $central = Central::with('deducciones')->where('id', $central_id)->first();
         $arr = [
             'cobors' => [],
             'total' => 0
         ];
         foreach ($central->deducciones as $deduccion) {
-            if($deduccion->estado){
+            if ($deduccion->estado) {
                 $arr['cobors'][] = ['nombre' => $deduccion->nombre, 'valor' => $deduccion->pivot->$valor];
                 $arr['total'] += $deduccion->pivot->$valor;
             }
@@ -434,7 +440,7 @@ class CentralesController extends Controller
 
     public function setDeducciones(Request $request, $central_id)
     {
-        try{
+        try {
             DB::beginTransaction();
             $central = Central::find($central_id);
             $data = $request->json()->all();
@@ -460,19 +466,67 @@ class CentralesController extends Controller
 
     }
 
-    public function addNewSolicitudPasajero(Request $request){
+    private function verificarCliente($identificacion)
+    {
+        return Cliente::where('identificacion', $identificacion)->first();
+
+    }
+
+    private function crearUsuarioPasajero($identificacion)
+    {
+        return Usuario::nuevo($identificacion, $identificacion, $this->getRol('CLIENTE')->id);
+    }
+
+    /**
+     * @param $pasajero
+     * @return bool
+     */
+    private function createNewClienteSiNoExiste($data)
+    {
+        $cliente = new Cliente();
+        $pasajero = $data['pasajeros'];
+        unset($data['pasajeros']);
+        $usuario = $this->crearUsuarioPasajero($pasajero['identificacion']);
+        if($usuario){
+            $cliente->identificacion = $pasajero['identificacion'];
+            $cliente->nombres = $pasajero['nombre'];
+            $cliente->telefono = $pasajero['telefono'];
+            $cliente->direccion = $data['ciudad_direccion'].' '.$data['direccion_recogida'];
+            $cliente->usuario_id = $usuario->id;
+            if($cliente->save()){
+                return $cliente;
+            }else{
+                $usuario->delete();
+            }
+        }
+    }
+
+    private function createSolicitudNewPasajeros($data)
+    {
+        $pasajero = $data['pasajeros'];
+        unset($data['pasajeros']);
+        $solicitud = new Solicitud($data);
+        if ($solicitud->save()) {
+            $solicitud->datos_pasajeros()->save(new DataSolicitudPasajero($pasajero));
+            \App::make('\App\Events\NuevaSolicitudEvent')->enviarNotificacion($data['tipo'], 'Existe una nueva solicitud, verificala en la seccion de despacho', $data['central_id']);
+            return response()->json($solicitud->id, 200);
+        } else {
+            return response()->json(['menssage' => 'No se ha podido almacenar la solicitud'], 400);
+        }
+    }
+
+    public function addNewSolicitudPasajero(Request $request)
+    {
         $data = $request->json()->all();
-//        $cliente = Cliente::find($cliente_id);
-        if($data['tipo'] == 'pasajero') {
-            $pasajero = $data['pasajeros'];
-            unset($data['pasajeros']);
-            $solicitud = new Solicitud($data);
-            if($solicitud->save()) {
-                $solicitud->datos_pasajeros()->save(new DataSolicitudPasajero($pasajero));
-                \App::make('\App\Events\NuevaSolicitudEvent')->enviarNotificacion($data['tipo'], 'Existe una nueva solicitud, verificala en la seccion de despacho', $data['central_id']);
-                return response()->json($solicitud->id, 200);
+        if ($data['tipo'] == 'pasajero') {
+            if ($this->verificarCliente($data['pasajeros']['identificacion'])) {
+                return $this->createSolicitudNewPasajeros($data);
             } else {
-                return response()->json(['menssage' => 'No se ha podido almacenar la solicitud'], 400);
+                $pasajero = $data['pasajeros'];
+                $cliente = $this->createNewClienteSiNoExiste($data);
+                if ($cliente){
+                    return $this->createSolicitudNewPasajeros($data);
+                }
             }
         }
     }

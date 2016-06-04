@@ -67,7 +67,8 @@ class PasajeroController extends Controller
 
     }
 
-    private function crearUsuarioPasajero($identificacion){
+    private function crearUsuarioPasajero($identificacion)
+    {
         return Usuario::nuevo($identificacion, $identificacion, $this->getRol('CLIENTE')->id);
     }
 
@@ -77,50 +78,58 @@ class PasajeroController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
+
+    private function createCliente($cliente)
+    {
+        $usuario = $this->crearUsuarioPasajero($cliente['identificacion']);
+        $cliente = new Cliente();
+        $cliente->identificacion = $cliente['identificacion'];
+        $cliente->nombres = $cliente['nombres'];
+        $cliente->telefono = $cliente['telefono'];
+        $cliente->direccion = $cliente['direccion'];
+        $cliente->usuario_id = $cliente->id;
+
+        return array('cliente' => $cliente->save(), 'usuario' => $usuario);
+
+    }
+
     public function store(Request $request, $central_id)
     {
         $data = $request->json()->all();
 
         $ecliente = $this->verificarCliente($data['identificacion']);
-        if(!$ecliente){
-            $usuario = $this->crearUsuarioPasajero($data['identificacion']);
-            $cliente = new Cliente();
-            $cliente->identificacion = $data['identificacion'];
-            $cliente->nombres = $data['nombres'];
-            $cliente->telefono = $data['telefono'];
-            $cliente->direccion = $data['direccion'];
-            $cliente->usuario_id = $usuario->id;
-
-            if($cliente->save()){
-                if($usuario){
+        if (!$ecliente) {
+            $cliente = $this->createCliente($data);
+            if ($cliente['cliente']) {
+                if ($cliente['usuario']) {
                     $pasajero = new Pasajero($data);
                     $pasajero->identificacion = $data['identificacion'];
                     $pasajero->nombres = $data['nombres'];
                     $pasajero->telefono = $data['telefono'];
                     $pasajero->direccion = $data['direccion'];
                     $pasajero->central_id = $central_id;
-                    if($pasajero->save()){
+                    if ($pasajero->save()) {
                         return JsonResponse::create(array('message' => "Se puso en espera al pasajero correctamente", 200));
-                    }else{
+                    } else {
                         return response()->json(['message' => 'no se ha podido almacenar el registro'], 400);
                     }
-                }else{
-                    $usuario->delete();
+                } else {
+                    $cliente['usuario']->delete();
                     return response()->json(['message' => 'no se ha podido almacenar el registro'], 400);
                 }
-            }else{
+            } else {
                 return response()->json(['message' => 'no se ha podido almacenar el registro'], 400);
             }
-        }else{
+        } else {
             $pasajero = new Pasajero($data);
             $pasajero->identificacion = $data['identificacion'];
             $pasajero->nombres = $data['nombres'];
             $pasajero->telefono = $data['telefono'];
             $pasajero->direccion = $data['direccion'];
             $pasajero->central_id = $central_id;
-            if($pasajero->save()){
+            if ($pasajero->save()) {
                 return JsonResponse::create(array('message' => "Se puso en espera al pasajero correctamente", 200));
-            }else{
+            } else {
                 return response()->json(['message' => 'no se ha podido almacenar el registro'], 400);
             }
         }
@@ -200,7 +209,7 @@ class PasajeroController extends Controller
 //                $pasajero->conductor_id = '';
 //                $pasajero->estado = 'En espera';
                 $pasajero->delete();
-                return JsonResponse::create(array('message' => "Pasajero eliminado correctamente",  200));
+                return JsonResponse::create(array('message' => "Pasajero eliminado correctamente", 200));
             }
         } catch (Exception $ex) {
             return JsonResponse::create(array('message' => "No se pudo Eliminar el Pasajero", "exception" => $ex->getMessage(), "request" => json_encode($id)), 401);
@@ -211,7 +220,7 @@ class PasajeroController extends Controller
     {
         $noty = new NotificacionController();
         $pasajero = $this->show($pasajero_id);
-        if($pasajero->conductor_id){
+        if ($pasajero->conductor_id) {
             json_decode($noty->enviarNotificacionConductores('Se te fue retirado un pasajero que se te habia asignado', $pasajero->conductor_id, 'Pasajero'));
         }
         $pasajero->conductor_id = $request->conductor_id;
@@ -221,7 +230,8 @@ class PasajeroController extends Controller
         }
     }
 
-    private function getRol($rol){
+    private function getRol($rol)
+    {
         return Rol::where('nombre', $rol)->first();
     }
 

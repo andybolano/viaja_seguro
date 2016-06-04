@@ -1,21 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Events\NuevaSolicitudEvent;
+
 use App\Model\Central;
-use App\Model\Conductor;
-use App\Model\Turno;
-use App\Model\Viaje;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Vinkla\Pusher\PusherManager;
 use Illuminate\Routing\Controller;
-use Vinkla\Pusher\Facades\Pusher;
-use DB;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use App\Http\Requests;
-use Illuminate\Support\Facades\App;
-use App\Model\Solicitud;
-use App\Model\Ruta;
 use App\Model\Cliente;
 
 class PdfController extends Controller
@@ -38,34 +30,66 @@ class PdfController extends Controller
 
     }
 
-    public function invoice()
+    private function createCliente($cliente)
     {
-        return $ecliente = $this->verificarCliente(1120745953);
+        $usuario = $this->crearUsuarioPasajero($cliente['identificacion']);
+        $cliente = new Cliente();
+        $cliente->identificacion = $cliente['identificacion'];
+        $cliente->nombres = $cliente['nombres'];
+        $cliente->telefono = $cliente['telefono'];
+        $cliente->direccion = $cliente['direccion'];
+        $cliente->usuario_id = $cliente->id;
+
+        return array('cliente' => $cliente->save(), 'usuario' => $usuario);
+
+    }
+
+    public function invoice(Request $request)
+    {
+        $data = $request->json()->all();
+
+        $ecliente = $this->verificarCliente($data['identificacion']);
+        if (!$ecliente) {
+            $cliente = $this->createCliente($data);
+            if ($cliente['cliente']) {
+                if ($cliente['usuario']) {
+                    $pasajero = new Pasajero($data);
+                    $pasajero->identificacion = $data['identificacion'];
+                    $pasajero->nombres = $data['nombres'];
+                    $pasajero->telefono = $data['telefono'];
+                    $pasajero->direccion = $data['direccion'];
+                    $pasajero->central_id = $data['central_id'];
+                    if ($pasajero->save()) {
+                        return JsonResponse::create(array('message' => "Se puso en espera al pasajero correctamente", 200));
+                    } else {
+                        return response()->json(['message' => 'no se ha podido almacenar el registro'], 400);
+                    }
+                } else {
+                    $cliente['usuario']->delete();
+                    return response()->json(['message' => 'no se ha podido almacenar el registro'], 400);
+                }
+            } else {
+                return response()->json(['message' => 'no se ha podido almacenar el registro'], 400);
+            }
+        } else {
+            $pasajero = new Pasajero($data);
+            $pasajero->identificacion = $data['identificacion'];
+            $pasajero->nombres = $data['nombres'];
+            $pasajero->telefono = $data['telefono'];
+            $pasajero->direccion = $data['direccion'];
+            $pasajero->central_id = $central_id;
+            if ($pasajero->save()) {
+                return JsonResponse::create(array('message' => "Se puso en espera al pasajero correctamente", 200));
+            } else {
+                return response()->json(['message' => 'no se ha podido almacenar el registro'], 400);
+            }
+        }
 
 
-//        $noty = new NotificacionController();
-//        DB::connection()->enableQueryLog();
-//        $viaje = Viaje::find(70);
-//        foreach ($viaje->paquetes as $paquete){
-//                $viaje['datos']  = DB::table('datos_solicitudes_girospaquetes')
-//                    ->join('solicitudes_cliente', 'datos_solicitudes_girospaquetes.solicitud_id', '=', 'solicitudes_cliente.id')
-//                    ->join('clientes', 'solicitudes_cliente.cliente_id', '=', 'clientes.id')
-//                    ->join('paquetes', 'datos_solicitudes_girospaquetes.destinatario', '=', 'paquetes.nombre_receptor')
-//                    ->select('solicitudes_cliente.id', 'solicitudes_cliente.estado', 'solicitudes_cliente.cliente_id', 'clientes.identificacion')
-//                    ->where('clientes.identificacion', $paquete->ide_remitente)
-//                    ->where('solicitudes_cliente.tipo', 'paquete')
-//                    ->where('solicitudes_cliente.estado', '<>', 'f')
-//                    ->get();
-//        }
-//        foreach ($viaje['datos'] as $dato){
-//            DB::table('solicitudes_cliente')
-//                ->where('id', $dato->id)
-//                ->update(['estado' => 'f']);
-//            $noty->enviarNotificacionClientes('Finalizo su solicitud, gracias por haber echo uso de nuestro servicio', $dato->cliente_id, 'Finalizado');
-//        }
-//        $query = DB::getQueryLog();
-//        $lastQuery = end($query);
-//        print_r($lastQuery);
-//        return JsonResponse::create($viaje['datos']);
+        $central = Central::find($central_id);
+        if (!$central->pasajeros()->save($pasajero)) {
+            $pasajero->delete();
+            return response()->json(['message' => 'no se ha podido almacenar el registro'], 400);
+        }
     }
 }
