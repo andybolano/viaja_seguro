@@ -112,29 +112,37 @@
                 cancelButtonColor: '#D50000',
                 confirmButtonText: 'Eliminar',
                 cancelButtonText: 'Cancelar',
-                closeOnConfirm: false
-            }, function (isConfirm) {
+                preConfirm: function () {
+                    return new Promise(function (resolve) {
+                        swal.enableLoading();
+                        setTimeout(function () {
+                            resolve();
+                        }, 300);
+                    });
+                },
+                allowOutsideClick: false
+            }).then(function (isConfirm) {
                 if (isConfirm) {
                     var promiseDelete = deduccionesService.delete(id);
                     swal.disableButtons();
                     promiseDelete.then(function (pl) {
-                        setTimeout(function () {
-                            swal({
-                                title: 'Exito!',
-                                text: 'Deduccion eliminada correctamente',
-                                type: 'success',
-                                showCancelButton: false,
-                            }, function () {
-                                cargarDeducciones();
-                            });
-                        }, 2000);
+
+                        swal({
+                            title: 'Exito!',
+                            text: 'Deduccion eliminada correctamente',
+                            type: 'success',
+                            showCancelButton: false,
+                        }).then(function () {
+                            cargarDeducciones();
+                        });
+
                     }, function (errorPl) {
                         swal({
                             title: 'Error!',
                             text: 'No se pudo eliminar la deduccion seleccionada',
                             type: 'error',
                             showCancelButton: false,
-                        }, function () {
+                        }).then(function () {
                         });
                     });
                 }

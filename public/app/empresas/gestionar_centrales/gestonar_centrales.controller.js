@@ -93,23 +93,31 @@
                 cancelButtonColor: '#D50000',
                 confirmButtonText: 'Eliminar',
                 cancelButtonText: 'Cancelar',
-                closeOnConfirm: false
-            }, function (isConfirm) {
+                preConfirm: function () {
+                    return new Promise(function (resolve) {
+                        swal.enableLoading();
+                        setTimeout(function () {
+                            resolve();
+                        }, 300);
+                    });
+                },
+                allowOutsideClick: false
+            }).then(function (isConfirm) {
                 if (isConfirm) {
                     centralesService.delete(id).then(success, error);
                     swal.disableButtons();
                 }
                 function success(p) {
-                    setTimeout(function () {
-                        swal({
-                            title: 'Exito!',
-                            text: 'Central eliminada correctamente',
-                            type: 'success',
-                            showCancelButton: false,
-                        }, function () {
-                            loadCentrales()
-                        });
-                    }, 2000);
+
+                    swal({
+                        title: 'Exito!',
+                        text: 'Central eliminada correctamente',
+                        type: 'success',
+                        showCancelButton: false,
+                    }).then(function () {
+                        loadCentrales()
+                    });
+
                 }
 
                 function error(error) {
@@ -118,7 +126,7 @@
                         text: 'No se pudo eliminar la central seleccionada',
                         type: 'error',
                         showCancelButton: false,
-                    }, function () {
+                    }).then(function () {
                     });
                 }
             });

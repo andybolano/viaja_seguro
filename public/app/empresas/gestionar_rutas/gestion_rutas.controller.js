@@ -68,23 +68,31 @@
                 cancelButtonColor: '#D50000',
                 confirmButtonText: 'Eliminar',
                 cancelButtonText: 'Cancelar',
-                closeOnConfirm: false
-            }, function (isConfirm) {
+                preConfirm: function () {
+                    return new Promise(function (resolve) {
+                        swal.enableLoading();
+                        setTimeout(function () {
+                            resolve();
+                        }, 300);
+                    });
+                },
+                allowOutsideClick: false
+            }).then(function (isConfirm) {
                 if (isConfirm) {
                     rutasService.delete(id).then(success, error);
                     swal.disableButtons();
                 }
                 function success(p) {
-                    setTimeout(function () {
-                        swal({
-                            title: 'Exito!',
-                            text: 'Ruta eliminada correctamente',
-                            type: 'success',
-                            showCancelButton: false,
-                        }, function () {
-                            loadRutas()
-                        })
-                    }, 2000);
+
+                    swal({
+                        title: 'Exito!',
+                        text: 'Ruta eliminada correctamente',
+                        type: 'success',
+                        showCancelButton: false,
+                    }).then(function () {
+                        loadRutas()
+                    })
+
                 }
 
                 function error(error) {
@@ -93,7 +101,7 @@
                         text: 'No se pudo eliminar la ruta seleccionada',
                         type: 'error',
                         showCancelButton: false,
-                    }, function () {
+                    }).then(function () {
                     })
                 }
             });

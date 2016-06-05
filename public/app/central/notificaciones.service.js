@@ -12,7 +12,7 @@
 
         this.onSolicitudRecived = function (data) {
             var options = {
-                icon: API +'/assets/images/icono.png',
+                icon: API + '/assets/images/icono.png',
                 body: data.message,
                 sound: API + '/assets/sounds/notySolicitudes'
             }
@@ -41,6 +41,7 @@
             if (!isNotificationSupported()) {
                 logg("Tu navegador no soporta Notificaciones. Por favor, utiliza una versión Reciente del Navegador Google Chrome o Safari.");
                 return;
+
             }
             // Si el Navegador soporta las Notificaciones HTML 5, entonces que proceda a Notificar
             var notificacion = new Notification('Nueva: ' + data.tipo, options);

@@ -33,6 +33,7 @@
                     vm.listaPasajeros.push(pasajero);
                 })
             }
+
             function error(error) {
                 console.log('error a traer la lista de pasajeros')
             }
@@ -105,23 +106,31 @@
                 cancelButtonColor: '#D50000',
                 confirmButtonText: 'Eliminar',
                 cancelButtonText: 'Cancelar',
-                closeOnConfirm: false
-            }, function (isConfirm) {
+                preConfirm: function () {
+                    return new Promise(function (resolve) {
+                        swal.enableLoading();
+                        setTimeout(function () {
+                            resolve();
+                        }, 300);
+                    });
+                },
+                allowOutsideClick: false
+            }).then(function (isConfirm) {
                 if (isConfirm) {
                     pasajerosService.eliminarPasajero(pasajero_id).then(succes, error);
                     swal.disableButtons();
                 }
                 function succes(p) {
-                    setTimeout(function () {
-                        swal({
-                            title: 'Exito!',
-                            text: 'Pasajero retirado correctamente',
-                            type: 'success',
-                            showCancelButton: false,
-                        }, function () {
-                            refrescarPasajeros();
-                        })
-                    }, 500);
+
+                    swal({
+                        title: 'Exito!',
+                        text: 'Pasajero retirado correctamente',
+                        type: 'success',
+                        showCancelButton: false,
+                    }, function () {
+                        refrescarPasajeros();
+                    })
+
                 }
 
                 function error(error) {
@@ -130,7 +139,7 @@
                         text: 'No se pudo retirar al pasajero seleccionado',
                         type: 'error',
                         showCancelButton: false,
-                    }, function () {
+                    }).then(function () {
                     })
                 }
             });
