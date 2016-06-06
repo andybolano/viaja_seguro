@@ -28,22 +28,27 @@ Route::group(['middleware' => 'cors'], function () {
 
     Route::group(['middleware' => 'jwt.auth'], function () {
 
-        $ruta = $_SERVER["DOCUMENT_ROOT"]."/dev_viajaseguro_co/"."app/Http/Routes";
-        foreach (glob("$ruta/*.php") as $filename)
-        {
+        $ruta = $_SERVER["DOCUMENT_ROOT"] . "/" . "app/Http/Routes";
+        foreach (glob("$ruta/*.php") as $filename) {
             include_once $filename;
         }
+
+//        $ruta = $_SERVER["DOCUMENT_ROOT"]."/viaja_seguro/"."app/Http/Routes";
+//        foreach (glob("$ruta/*.php") as $filename)
+//        {
+//            include_once $filename;
+//        }
     });
 
-    Route::get('/api/assets/sounds/notySolicitudes', function(){
+    Route::get('/api/assets/sounds/notySolicitudes', function () {
         $filename = "../public/assets/sounds/noty.mp3";
-        $filesize = (int) File::size($filename);
+        $filesize = (int)File::size($filename);
         $file = File::get($filename);
         $response = Response::make($file, 200);
         $response->header('Content-Type', 'audio/mpeg');
         $response->header('Content-Length', $filesize);
         $response->header('Accept-Ranges', 'bytes');
-        $response->header('Content-Range', 'bytes 0-'.$filesize.'/'.$filesize);
+        $response->header('Content-Range', 'bytes 0-' . $filesize . '/' . $filesize);
         return $response;
     });
 });
