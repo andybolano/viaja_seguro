@@ -28,7 +28,7 @@ Route::group(['middleware' => 'cors'], function () {
 
     Route::group(['middleware' => 'jwt.auth'], function () {
 
-        $ruta = $_SERVER["DOCUMENT_ROOT"]."/viaja_seguro/"."app/Http/Routes";
+        $ruta = $_SERVER["DOCUMENT_ROOT"]."/dev_viajaseguro_co/"."app/Http/Routes";
         foreach (glob("$ruta/*.php") as $filename)
         {
             include_once $filename;
