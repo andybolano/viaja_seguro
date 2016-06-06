@@ -36,4 +36,8 @@ class Viaje extends Model
     {
         return $this->belongsToMany(Deduccion::class, 'viaje_deducciones', 'viaje_id', 'deduccion_id');
     }
+    
+    public function ruta(){
+        return $this->belongsTo(Ruta::class);
+    }
 }

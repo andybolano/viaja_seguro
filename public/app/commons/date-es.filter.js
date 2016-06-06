@@ -19,6 +19,9 @@
             if (format == 'short') {
                 return date.getDate() + " de " + meses[date.getMonth()];
             }
+            if(format == 'mes'){
+                return date.getDate() + " de " + meses[date.getMonth()];
+            }
         };
     }
 })();

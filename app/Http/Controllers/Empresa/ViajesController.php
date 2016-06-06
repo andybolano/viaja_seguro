@@ -46,9 +46,9 @@ class ViajesController extends Controller
         $viaje->ruta_id = $ruta_id;
         $viaje->fecha = date("Y-m-d");
 
-        $pasajeros = Pasajero::select('*')->where('conductor_id', $conductor_id)->where('estado', '=', 'En espera')->get();
-        $giros = Giro::select('*')->where('conductor_id', $conductor_id)->where('estado', '=', 'En espera')->get();
-        $paquetes = Paquete::select('*')->where('conductor_id', $conductor_id)->where('estado', '=', 'En espera')->get();
+        $pasajeros = Pasajero::select('*')->where('conductor_id', $conductor_id)->where('estado', '=', 'Asignado')->get();
+        $giros = Giro::select('*')->where('conductor_id', $conductor_id)->where('estado', '=', 'Asignado')->get();
+        $paquetes = Paquete::select('*')->where('conductor_id', $conductor_id)->where('estado', '=', 'Asignado')->get();
 
         if($viaje->save()){
             $noty->enviarNotificacionConductores('La central a autorizado tu salida, acercate a secretaria para recivir la planilla.', $conductor_id, 'Despacho');

@@ -27,21 +27,12 @@ Route::group(['middleware' => 'cors'], function () {
     Route::get('/api/departamentos/{dpto_id}/municipios', 'SuperAdmin\CiudadesController@getMunicipios');
 
     Route::group(['middleware' => 'jwt.auth'], function () {
-        include 'Routes/Conductores.php';
-        include 'Routes/Vehiculos.php';
-        include 'Routes/Cliente.php';
-        include 'Routes/Paquetes.php';
-        include 'Routes/Pasajeros.php';
-        include 'Routes/Giros.php';
-        include 'Routes/Pagos.php';
-        include 'Routes/Deducciones.php';
-        include 'Routes/Actividades.php';
-        include('Routes/Empresas.php');
-        include('Routes/Rutas.php');
-        include('Routes/Centrales.php');
-        include('Routes/ServiciosEmpresa.php');
-        include('Routes/Ciudades.php');
-        include('Routes/Usuarios.php');
+
+        $ruta = $_SERVER["DOCUMENT_ROOT"]."/viaja_seguro/"."app/Http/Routes";
+        foreach (glob("$ruta/*.php") as $filename)
+        {
+            include_once $filename;
+        }
     });
 
     Route::get('/api/assets/sounds/notySolicitudes', function(){

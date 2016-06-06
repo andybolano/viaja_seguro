@@ -17,6 +17,7 @@ class Ruta extends Model
     {
         return $this->belongsTo(Central::class, 'id_central_origen', 'id');
     }
+    
 
     public function destino()
     {

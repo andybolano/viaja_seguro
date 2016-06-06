@@ -4,11 +4,11 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Planilla extends Model
+class PlanillaEspecial extends Model
 {
-    protected $table = 'planilla';
+    protected $table = 'planilla_especial';
 
-    protected $fillable = ['id', 'numero_planilla', 'viaje_id', 'central_id'];
+    protected $fillable = ['numero_planilla', 'viaje_id', 'central_id'];
 
     public $timestamps = false;
 
@@ -19,7 +19,7 @@ class Planilla extends Model
 
     public function viaje()
     {
-        return $this->belongsTo(Viaje::class)->with('ruta.origen.ciudad', 'ruta.destino.ciudad', 'pasajeros', 'giros', 'paquetes', 'deducciones');
+        return $this->belongsTo(Viaje::class)->with('ruta.origen.ciudad', 'ruta.destino.ciudad', 'pasajeros');
     }
 
     public function central()
