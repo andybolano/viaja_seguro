@@ -956,7 +956,7 @@
                 } else {
                     swal({
                         title: '',
-                        text: 'ESTA A PUNTO DE DESPACHAR AL CONDUCTOR <b>'+(obj.conductor.nombres + ' '+ obj.conductor.apellidos).toUpperCase()+'</b>',
+                        text: 'ESTA A PUNTO DE DESPACHAR AL CONDUCTOR <b>' + (obj.conductor.nombres + ' ' + obj.conductor.apellidos).toUpperCase() + '</b>',
                         type: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#3085d6',
@@ -993,10 +993,10 @@
                             cancelButtonText: 'Cerrar',
                             closeOnConfirm: true
                         }).then(function (IsComfirm) {
-                            if (IsComfirm){
-                                if(p.data.tipo == 'especial'){
+                            if (IsComfirm) {
+                                if (p.data.tipo == 'especial') {
                                     cargarDatosPlanillaEspecial(p.data.central_id, p.data.id)
-                                }else{
+                                } else {
                                     cargarDatosPlanillaNormal(p.data.central_id, p.data.id)
                                 }
                                 cargarRutas();
@@ -1022,9 +1022,9 @@
             function success(response) {
                 vm.planilla = {};
                 vm.planilla = response.data;
-                if(response.data.tipo == 'especial'){
+                if (response.data.tipo == 'especial') {
                     $('#modalPlanillaEspecial').openModal();
-                }else{
+                } else {
                     turnosService.obtenerDatosPlanillasNormal(central_id, planilla_id).then(successN, errorN);
                 }
                 function successN(response) {
@@ -1032,10 +1032,12 @@
                     vm.planilla = response.data;
                     $('#modalPlanillaNormal').openModal();
                 }
+
                 function errorN(response) {
                     console.log('Ocurrio un error !');
                 }
             }
+
             function error(response) {
                 console.log('Ocurrio un error !');
             }
@@ -1048,6 +1050,7 @@
                 vm.planilla = response.data;
                 $('#modalPlanillaNormal').openModal();
             }
+
             function errorN(response) {
                 console.log('Ocurrio un error !');
             }
@@ -1188,43 +1191,27 @@
         }
 
         function imprimir() {
-            var ficha = document.getElementById('planillaEspecial');
-            var ventimp = window.open('', 'popimpr');
-            var originalContents = document.body.innerHTML;
-            ventimp.document.write( ficha.innerHTML );
-            ventimp.document.close();
-            // var css = ventimp.document.createElement("link");
-            // css.setAttribute("rel", "stylesheet");
-            // css.setAttribute("type", "text/css");
-            // css.setAttribute("media", "print");
-            // css.setAttribute("href", "http://dev.viajaseguro.co/public/assets/css/style-planilla-especial.css");
-            // ventimp.document.head.appendChild(css);
-            ventimp.print( );
-            ventimp.close();
-            document.body.innerHTML = originalContents;
-            // ventimp.document.write(ficha.innerHTML);
-            // ventimp.document.close();
-            // var css = ventimp.document.createElement("link");
-            // css.setAttribute("href", "http://dev.viajaseguro.co/public/assets/css/print-style-planilla-especial.css");
-            // css.setAttribute("media", "print");
-            // css.setAttribute("rel", "stylesheet");
-            // ventimp.document.head.appendChild(css);
-            // ventimp.print();
-            // ventimp.close();
+            var headstr = "<html ><head><title>Imprimir</title></head><body style='color: white'>";
+            var footstr = "</body>";
+            var newstr = document.getElementById('contenidoplanillaespecial').innerHTML;
+            var oldstr = document.body.innerHTML;
+            document.body.innerHTML = headstr+newstr+footstr;
+            window.print();
+            window.close();
+            // document.body.innerHTML = oldstr;
+            location.reload();
         }
 
         vm.imprimirNormal = function () {
-            var ficha = document.getElementById('page-wrap');
-            var ventimp = window.open(' ', 'popimpr');
-            ventimp.document.write(ficha.innerHTML);
-            ventimp.document.close();
-            var css = ventimp.document.createElement("link");
-            css.setAttribute("href", "http://dev.viajaseguro.co/public/assets/css/print-pdf.css");
-            css.setAttribute("media", "print");
-            css.setAttribute("rel", "stylesheet");
-            ventimp.document.head.appendChild(css);
-            ventimp.print();
-            ventimp.close();
+            var headstr = "<html ><head><title>Imprimir</title></head><body style='color: white'>";
+            var footstr = "</body>";
+            var newstr = document.getElementById('page-wrap').innerHTML;
+            var oldstr = document.body.innerHTML;
+            document.body.innerHTML = headstr+newstr+footstr;
+            window.print();
+            window.close();
+            // document.body.innerHTML = oldstr;
+            location.reload();
         }
 
         function getSolicitudes() {

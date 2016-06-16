@@ -14,14 +14,14 @@
         initialize();
         function initialize() {
             cargarPlanillas();
-            cargarDeducciones();
         }
 
         function cargarPlanillas() {
+            vm.planillas = {};
             planillasService.getPlanillas().then(succes, error);
             function succes(response) {
-                vm.planillas = {};
-                vm.planillas = response.data;
+                vm.planillas = response.data.planillas;
+                vm.tipo = response.data.tipo;
             }
 
             function error(error) {
@@ -29,23 +29,98 @@
             }
         }
 
-        function cargarDeducciones() {
-            var promiseGet = planillasService.getDeducciones();
-            promiseGet.then(function (pl) {
-                vm.Deducciones = pl.data;
-            }, function (errorPl) {
-                console.log('Error Al Cargar Datos', errorPl);
-            });
+
+        function cargarDatosPlanillaEspecial(central_id, planilla_id) {
+            turnosService.obtenerDatosPlanillas(central_id, planilla_id).then(success, error);
+            function success(response) {
+                vm.planilla = {};
+                vm.planilla = response.data;
+                if (response.data.tipo == 'especial') {
+                    $('#modalPlanillaEspecial').openModal();
+                } else {
+                    turnosService.obtenerDatosPlanillasNormal(central_id, planilla_id).then(successN, errorN);
+                }
+                function successN(response) {
+                    vm.planilla = {};
+                    vm.planilla = response.data;
+                    $('#modalPlanillaNormal').openModal();
+                }
+
+                function errorN(response) {
+                    console.log('Ocurrio un error !');
+                }
+            }
+
+            function error(response) {
+                console.log('Ocurrio un error !');
+            }
+        }
+
+        function cargarDatosPlanillaNormal(central_id, planilla_id) {
+            turnosService.obtenerDatosPlanillasNormal(central_id, planilla_id).then(successN, errorN);
+            function successN(response) {
+                vm.planilla = {};
+                vm.planilla = response.data;
+                $('#modalPlanillaNormal').openModal();
+            }
+
+            function errorN(response) {
+                console.log('Ocurrio un error !');
+            }
+        }
+
+        function cargarDatosPlanillaEspecial(central_id, planilla_id) {
+            planillasService.obtenerDatosPlanillas(central_id, planilla_id).then(success, error);
+            function success(response) {
+                vm.planilla = {};
+                vm.planilla = response.data;
+                if (response.data.tipo == 'especial') {
+                    $('#modalPlanillaEspecial').openModal();
+                } else {
+                    planillasService.obtenerDatosPlanillasNormal(central_id, planilla_id).then(successN, errorN);
+                }
+                function successN(response) {
+                    vm.planilla = {};
+                    vm.planilla = response.data;
+                    $('#modalPlanillaNormal').openModal();
+                }
+
+                function errorN(response) {
+                    console.log('Ocurrio un error !');
+                }
+            }
+
+            function error(response) {
+                console.log('Ocurrio un error !');
+            }
+        }
+
+        function cargarDatosPlanillaNormal(central_id, planilla_id) {
+            planillasService.obtenerDatosPlanillasNormal(central_id, planilla_id).then(successN, errorN);
+            function successN(response) {
+                vm.planilla = {};
+                vm.planilla = response.data;
+                $('#modalPlanillaNormal').openModal();
+            }
+
+            function errorN(response) {
+                console.log('Ocurrio un error !');
+            }
         }
 
         function verPlanilla(planilla) {
-            planillasService.getPlanilla(planilla.viaje_id).then(succes, error);
-            vm.id = planilla.viaje_id;
+            vm.planilla = {};
+            planillasService.getPlanilla(planilla.id).then(succes, error);
+            vm.id = planilla.id;
             function succes(p) {
-                vm.planilla = {};
-                vm.planilla = p.data;
-                vm.planilla.total = p.data.total;
-                $('#modalPlanilla').openModal();
+                if (p.data.tipo == 'especial') {
+                    cargarDatosPlanillaEspecial(p.data.central_id, p.data.id)
+                } else {
+                    cargarDatosPlanillaNormal(p.data.central_id, p.data.id)
+                }
+                // vm.planilla = p.data;
+                // vm.planilla.total = p.data.total;
+                // $('#modalPlanilla').openModal();
             }
 
             function error(e) {
@@ -54,82 +129,30 @@
         }
 
         function imprimir() {
-            var printContents = document.getElementById('page-wrap').innerHTML;
-            var popupWin = window.open('', '_blank', '');
-            popupWin.document.open();
-            popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" media="print" href="../../../assets/css/pdf.css" /></head><body onload="window.print()">' + printContents + '</body></html>');
-            popupWin.document.close();
+            var headstr = "<html ><head><title>Imprimir</title></head><body style='color: white'>";
+            var footstr = "</body>";
+            var newstr = document.getElementById('contenidoplanillaespecial').innerHTML;
+            var oldstr = document.body.innerHTML;
+            document.body.innerHTML = headstr+newstr+footstr;
+            window.print();
+            window.close();
+            // document.body.innerHTML = oldstr;
+            location.reload();
         }
 
-        vm.irimpresion = function () {
-            // var imgData = "http://"+vm.planilla.central.empresa.logo;
-            var doc = new jsPDF('landscape', 'pt', 'letter');
-
-            doc.setFont("times");
-            doc.setFontType("italic");
-
-            doc.internal.scaleFactor = 1.25;
-            doc.addHTML(document.getElementById('page-wrap'), 15, 15, {
-                pagesplit: true,
-                'background': '#fff',
-                'heigth': 500
-            }, function () {
-                if (document.getElementById('giros')) {
-                    doc.addPage();
-                    doc.addHTML(document.getElementById('giros'), 15, 15, {
-                        pagesplit: true,
-                        'background': '#fff',
-                        'heigth': 500
-                    }, function () {
-                        if (document.getElementById('paquetes')) {
-                            doc.addPage();
-                            doc.addHTML(document.getElementById('paquetes'), 15, 15, {
-                                pagesplit: true,
-                                'background': '#fff',
-                                'heigth': 500
-                            }, function () {
-                                doc.output("dataurlnewwindow");
-                            });
-                        } else {
-                            doc.output("dataurlnewwindow");
-                        }
-                    });
-                } else {
-                    doc.output("dataurlnewwindow");
-                }
-            });
+        vm.imprimirNormal = function () {
+            var headstr = "<html ><head><title>Imprimir</title></head><body style='color: white'>";
+            var footstr = "</body>";
+            var newstr = document.getElementById('page-wrap').innerHTML;
+            var oldstr = document.body.innerHTML;
+            document.body.innerHTML = headstr+newstr+footstr;
+            window.print();
+            window.close();
+            // document.body.innerHTML = oldstr;
+            location.reload();
         }
 
-        vm.otrai = function () {
-            // var getImageFromUrl = function(url, callback) {
-            //     var img = new Image();
-            //
-            //     img.onError = function() {
-            //         alert('Cannot load image: "'+url+'"');
-            //     };
-            //     img.onload = function() {
-            //         callback(img);
-            //     };
-            //     img.setAttribute('crossOrigin', 'anonymous');
-            //     img.src = url;
-            // }
 
-            var createPDF = function (imgData) {
-                var doc = new jsPDF('landscape', 'pt', 'letter');
 
-                doc.addHTML($('#page-wrap')[0], 15, 15, {
-                    'background': '#fff',
-                    'heigth': 200
-                }, function () {
-                    // doc.addImage(imgData, 'PNG', 10, 10, 50, 50, 'monkey'); // Cache the image using the alias 'monkey'
-                    var string = doc.output("dataurlnewwindow");
-                    $('.preview-pane').attr('src', string);
-
-                });
-                doc.output('dataurlnewwindow');
-            }
-
-            // getImageFromUrl('http://'+vm.planilla.central.empresa.logo, createPDF);
-        }
     }
 })();

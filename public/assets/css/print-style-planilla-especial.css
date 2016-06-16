@@ -1,8 +1,9 @@
 @media print {
-<!--table {
-    mso-displayed-decimal-separator: "\,";
-    mso-displayed-thousand-separator: "\.";
-}
+<!--
+    table {
+        mso-displayed-decimal-separator: "\,";
+        mso-displayed-thousand-separator: "\.";
+    }
 
     .xl157730 {
         padding: 0px;
@@ -816,4 +817,5 @@
     }
 
 -->
+
 }

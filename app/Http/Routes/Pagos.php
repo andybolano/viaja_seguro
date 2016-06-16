@@ -6,4 +6,4 @@ Route::get('/api/conductores/{conductor_id}/pagos_prestaciones/{prestacion_id?}'
 Route::post('/api/conductores/{conductor_id}/pagos_prestaciones', 'Empresa\PagosController@storePago');
 
 Route::get('/api/centrales/{central_id}/planillas', 'Empresa\PagosController@getPlanillas');
-Route::get('/api/empresa/pagos/planilla/{viaje_iid}', 'Empresa\PagosController@getPlanilla');
+Route::get('/api/central/{central_id}/pagos/planilla/{planilla_id}', 'Empresa\PagosController@getPlanilla');

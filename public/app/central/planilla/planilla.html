@@ -17,7 +17,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col s12">
+                        <div class="col s12" ng-show="vm.tipo == 'normal'">
                             <table class="striped responsive-table">
                                 <thead style="border-bottom: red">
                                 <th style="color: #D50000;text-align: center">Número de planilla</th>
@@ -37,25 +37,414 @@
                                 </tbody>
                             </table>
                         </div>
+                        <div class="col s12" ng-if="vm.tipo == 'especial'">
+                            <table class="striped responsive-table">
+                                <thead style="border-bottom: red">
+                                <th style="color: #D50000;text-align: center">Número de planilla</th>
+                                <th style="color: #D50000;text-align: center">Acciones</th>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="planilla in vm.planillas | filter : filtro">
+                                    <td style="text-align: center">{{planilla.numero_planilla}}</td>
+                                    <td style="text-align: center">
+                                        <a href="javascript:" ng-click="vm.verPlanilla(planilla)">
+                                            <i style="color: #D50000" class="material-icons prefix">visibility</i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
+
+
+
+
+        <!--modal planilla especial-->
+        <div id="modalPlanillaEspecial" class="modal modal-fixed-footer"
+             style="width: 75%;min-height:90%; border-radius: 15px">
+            <div class="modal-content" id="planillaEspecial">
+                <!--<link rel="stylesheet" type="text/css" media="print" href="http://dev.viajaseguro.co/public/assets/css/style-planilla-especial.css" />-->
+                <div id="contenidoplanillaespecial" align=center x:publishsource="Excel">
+                    <table border=0 cellpadding=0 cellspacing=0 width=783 style='border-collapse:
+ collapse;table-layout:fixed;width:589pt'>
+
+                        <tr height=20 style='height:15.0pt'>
+                            <td height=20 class=xl157730 width=80 style='height:15.0pt;width:60pt'></td>
+                            <td class=xl157730 width=118 style='width:89pt'></td>
+                            <td class=xl157730 width=109 style='width:82pt'></td>
+                            <td class=xl157730 width=110 style='width:83pt'></td>
+                            <td class=xl157730 width=128 style='width:96pt'></td>
+                            <td class=xl157730 width=109 style='width:82pt'></td>
+                            <td class=xl157730 width=129 style='width:97pt'></td>
+                        </tr>
+                        <tr height=20 style='height:15.0pt'>
+                            <td height=20 class=xl157730 style='height:15.0pt'></td>
+                            <td colspan=3 rowspan=3 height=109 width=337 style='border-right:.5pt solid black;
+  border-bottom:.5pt solid black;height:81.75pt;width:254pt' align=left
+                                valign=top><span style='mso-ignore:vglayout;
+  position:absolute;z-index:2;margin-left:11px;margin-top:7px;width:314px;
+  height:92px'><img width=314 height=92
+                    src="../assets/images/pespecial/FUEC%20COOTRASAN_7730_image002.png"
+                    v:shapes="Imagen_x0020_2"></span><span
+                                    style='mso-ignore:vglayout2'>
+  <table cellpadding=0 cellspacing=0>
+   <tr>
+    <td colspan=3 rowspan=3 height=109 class=xl867730 width=337
+        style='border-right:.5pt solid black;border-bottom:.5pt solid black;
+    height:81.75pt;width:254pt'>&nbsp;</td>
+   </tr>
+  </table>
+  </span></td>
+                            <td colspan=3 rowspan=3 height=109 width=366 style='border-right:.5pt solid black;
+  border-bottom:.5pt solid black;height:81.75pt;width:275pt' align=left
+                                valign=top><span style='mso-ignore:vglayout;
+  position:absolute;z-index:1;margin-left:1px;margin-top:2px;width:365px;
+  height:106px'><img width=365 height=106
+                     src="../assets/images/pespecial/FUEC%20COOTRASAN_7730_image004.png"
+                     v:shapes="Imagen_x0020_1"></span><span
+                                    style='mso-ignore:vglayout2'>
+  <table cellpadding=0 cellspacing=0>
+   <tr>
+    <td colspan=3 rowspan=3 height=109 class=xl867730 width=366
+        style='border-right:.5pt solid black;border-bottom:.5pt solid black;
+    height:81.75pt;width:275pt'>&nbsp;</td>
+   </tr>
+  </table>
+  </span></td>
+                        </tr>
+                        <tr height=48 style='mso-height-source:userset;height:36.0pt'>
+                            <td height=48 class=xl157730 style='height:36.0pt'></td>
+                        </tr>
+                        <tr height=41 style='mso-height-source:userset;height:30.75pt'>
+                            <td height=41 class=xl157730 style='height:30.75pt'></td>
+                        </tr>
+                        <tr height=20 style='height:15.0pt'>
+                            <td height=20 class=xl157730 style='height:15.0pt'></td>
+                            <td colspan=6 class=xl907730 style='border-right:.5pt solid black'>FORMATO
+                                ÚNICO DE EXTRACTO DEL SERVICIO PÚBLICO DE TRANSPORTE TERRESTRE
+                            </td>
+                        </tr>
+                        <tr height=20 style='height:15.0pt'>
+                            <td height=20 class=xl157730 style='height:15.0pt'></td>
+                            <td colspan=6 class=xl917730 style='border-right:.5pt solid black'>AUTOMOTOR
+                                ESPECIAL
+                            </td>
+                        </tr>
+                        <tr height=20 style='height:15.0pt'>
+                            <td height=20 class=xl157730 style='height:15.0pt'></td>
+                            <td colspan=6 class=xl947730 style='border-right:.5pt solid black'>No
+                                {{vm.planilla.numero_planilla}}
+                            </td>
+                        </tr>
+                        <tr height=20 style='height:15.0pt'>
+                            <td height=20 class=xl157730 style='height:15.0pt'></td>
+                            <td colspan=4 class=xl777730>{{vm.planilla.central.empresa.nombre | uppercase}}</td>
+                            <td colspan=2 class=xl977730 style='border-right:.5pt solid black'>NIT:
+                                {{vm.planilla.central.empresa.nit | uppercase}}
+                            </td>
+                        </tr>
+                        <tr height=20 style='height:15.0pt'>
+                            <td height=20 class=xl157730 style='height:15.0pt'></td>
+                            <td colspan=6 class=xl737730 style='border-right:.5pt solid black'>CONTRATO
+                                No: {{vm.planilla.central.empresa.nresolucion | uppercase}}
+                            </td>
+                        </tr>
+                        <tr height=20 style='height:15.0pt'>
+                            <td height=20 class=xl157730 style='height:15.0pt'></td>
+                            <td colspan=4 class=xl737730 style='border-right:.5pt solid black'>CONTRATANTE:<span
+                                    style='mso-spacerun:yes'> </span>LUIS ARIZA CARRILLO
+                            </td>
+                            <td colspan=2 class=xl977730 style='border-right:.5pt solid black;border-left:
+  none'>NIT/CC: {{vm.planilla.central.empresa.pjuridica | uppercase}}
+                            </td>
+                        </tr>
+                        <tr height=20 style='height:15.0pt'>
+                            <td height=20 class=xl157730 style='height:15.0pt'></td>
+                            <td colspan=6 class=xl777730 style='border-right:.5pt solid black'>OBJETO
+                                CONTRATO
+                            </td>
+                        </tr>
+                        <tr height=20 style='height:15.0pt'>
+                            <td height=20 class=xl157730 style='height:15.0pt'></td>
+                            <td colspan=6 class=xl977730 style='border-right:.5pt solid black'>TRANSPORTAR
+                                UN GRUPO DE PERSONAS PARTICULARES O VIAJE EXPRESO
+                            </td>
+                        </tr>
+                        <tr height=20 style='height:15.0pt'>
+                            <td height=20 class=xl157730 style='height:15.0pt'></td>
+                            <td colspan=6 class=xl777730 style='border-right:.5pt solid black'>RECORRIDO
+                                :<span style='mso-spacerun:yes'> </span>{{vm.planilla.viaje.ruta.trayectoria | uppercase}}
+                            </td>
+                        </tr>
+                        <tr height=20 style='height:15.0pt'>
+                            <td height=20 class=xl157730 style='height:15.0pt'></td>
+                            <td class=xl737730 style='border-top:none'>ORIGEN:</td>
+                            <td class=xl747730 style='border-top:none'>{{vm.planilla.viaje.ruta.origen.ciudad.nombre |
+                                uppercase}}
+                            </td>
+                            <td class=xl747730 style='border-top:none'>&nbsp;</td>
+                            <td class=xl747730 style='border-top:none'>DESTINO:</td>
+                            <td class=xl747730 style='border-top:none'>{{vm.planilla.viaje.ruta.destino.ciudad.nombre |
+                                uppercase}}
+                            </td>
+                            <td class=xl757730 style='border-top:none'>&nbsp;</td>
+                        </tr>
+                        <tr height=20 style='height:15.0pt'>
+                            <td height=20 class=xl157730 style='height:15.0pt'></td>
+                            <td colspan=6 class=xl817730 style='border-right:.5pt solid black'>VIGENCIA
+                                DEL CONTRATO
+                            </td>
+                        </tr>
+                        <tr height=20 style='height:15.0pt'>
+                            <td height=20 class=xl157730 style='height:15.0pt'></td>
+                            <td rowspan=2 class=xl847730 style='border-bottom:.5pt solid black;
+  border-top:none'>FECHA INICIAL
+                            </td>
+                            <td class=xl637730 style='border-top:none'>&nbsp;</td>
+                            <td class=xl637730 style='border-top:none'>&nbsp;</td>
+                            <td class=xl697730 style='border-top:none'>DIA</td>
+                            <td class=xl697730 style='border-top:none'>MES</td>
+                            <td class=xl707730 style='border-top:none'>AÑO</td>
+                        </tr>
+                        <tr height=20 style='height:15.0pt'>
+                            <td height=20 class=xl157730 style='height:15.0pt'></td>
+                            <td class=xl657730>&nbsp;</td>
+                            <td class=xl657730>&nbsp;</td>
+                            <td class=xl717730>{{vm.planilla.viaje.fecha | date:'dd'}}</td>
+                            <td class=xl717730>{{vm.planilla.viaje.fecha | date:'MMMM' | uppercase}}</td>
+                            <td class=xl727730>{{vm.planilla.viaje.fecha | date:'yyyy'}}</td>
+                        </tr>
+                        <tr height=20 style='height:15.0pt'>
+                            <td height=20 class=xl157730 style='height:15.0pt'></td>
+                            <td rowspan=2 class=xl847730 style='border-bottom:.5pt solid black;
+  border-top:none'>FECHA FINAL
+                            </td>
+                            <td class=xl637730 style='border-top:none'>&nbsp;</td>
+                            <td class=xl637730 style='border-top:none'>&nbsp;</td>
+                            <td class=xl637730 style='border-top:none'>&nbsp;</td>
+                            <td class=xl637730 style='border-top:none'>&nbsp;</td>
+                            <td class=xl647730 style='border-top:none'>&nbsp;</td>
+                        </tr>
+                        <tr height=20 style='height:15.0pt'>
+                            <td height=20 class=xl157730 style='height:15.0pt'></td>
+                            <td class=xl657730>&nbsp;</td>
+                            <td class=xl657730>&nbsp;</td>
+                            <td class=xl717730>{{vm.planilla.viaje.fecha | date:'dd'}}</td>
+                            <td class=xl717730>{{vm.planilla.viaje.fecha | date:'MMMM' | uppercase}}</td>
+                            <td class=xl727730>{{vm.planilla.viaje.fecha | date:'yyyy'}}</td>
+                        </tr>
+                        <tr height=20 style='height:15.0pt'>
+                            <td height=20 class=xl157730 style='height:15.0pt'></td>
+                            <td colspan=6 class=xl817730 style='border-right:.5pt solid black'>CARACTERISTICAS
+                                DEL VEHICULO
+                            </td>
+                        </tr>
+                        <tr height=20 style='height:15.0pt'>
+                            <td height=20 class=xl157730 style='height:15.0pt'></td>
+                            <td colspan=2 class=xl687730>PLACA</td>
+                            <td class=xl687730 style='border-top:none;border-left:none'>MODELO</td>
+                            <td class=xl687730 style='border-top:none;border-left:none'>MARCA</td>
+                            <td colspan=2 class=xl687730 style='border-left:none'>CLASE</td>
+                        </tr>
+                        <tr height=20 style='height:15.0pt'>
+                            <td height=20 class=xl157730 style='height:15.0pt'></td>
+                            <td colspan=2 class=xl777730 style='border-right:.5pt solid black'>
+                                {{vm.planilla.viaje.conductor.vehiculo.placa | uppercase}}
+                            </td>
+                            <td class=xl667730 style='border-top:none;border-left:none'>
+                                {{vm.planilla.viaje.conductor.vehiculo.modelo | uppercase}}
+                            </td>
+                            <td class=xl667730 style='border-top:none;border-left:none'>&nbsp;</td>
+                            <td colspan=2 class=xl777730 style='border-right:.5pt solid black;border-left:
+  none'>AUTOMOVIL
+                            </td>
+                        </tr>
+                        <tr height=20 style='height:15.0pt'>
+                            <td height=20 class=xl157730 style='height:15.0pt'></td>
+                            <td colspan=3 class=xl807730>NÚMERO INTERNO</td>
+                            <td colspan=3 class=xl817730 style='border-right:.5pt solid black;border-left:
+  none'>NÚMERO DE OPERACIÓN
+                            </td>
+                        </tr>
+                        <tr height=20 style='height:15.0pt'>
+                            <td height=20 class=xl157730 style='height:15.0pt'></td>
+                            <td colspan=3 class=xl777730 style='border-right:.5pt solid black'>
+                                {{vm.planilla.viaje.conductor.vehiculo.codigo_vial}}
+                            </td>
+                            <td colspan=3 class=xl777730 style='border-right:.5pt solid black;border-left:
+  none'>{{vm.planilla.viaje.conductor.toperacion}}
+                            </td>
+                        </tr>
+                        <tr height=20 style='height:15.0pt'>
+                            <td height=20 class=xl157730 style='height:15.0pt'></td>
+                            <td colspan=2 class=xl687730>NOMBRES Y APELLIDOS</td>
+                            <td class=xl687730 style='border-top:none;border-left:none'>CEDULA</td>
+                            <td colspan=2 class=xl687730 style='border-left:none'>No DE LICENCIA DE
+                                CONDUCCIÓN
+                            </td>
+                            <td class=xl687730 style='border-top:none;border-left:none'>VIGENCIA</td>
+                        </tr>
+                        <tr height=20 style='height:15.0pt'>
+                            <td height=20 class=xl157730 style='height:15.0pt'></td>
+                            <td colspan=2 class=xl777730 style='border-right:.5pt solid black'>
+                                {{vm.planilla.viaje.conductor.nombres || uppercase}} {{vm.planilla.viaje.conductor.apellidos
+                                || uppercase}}
+                            </td>
+                            <td class=xl687730 style='border-top:none;border-left:none'>
+                                {{vm.planilla.viaje.conductor.identificacion}}
+                            </td>
+                            <td colspan=2 class=xl777730 style='border-right:.5pt solid black;border-left:
+  none'>{{vm.planilla.viaje.conductor.nlicencia}}
+                            </td>
+                            <td class=xl687730 style='border-top:none;border-left:none'>&nbsp;</td>
+                        </tr>
+                        <tr height=20 style='height:15.0pt'>
+                            <td height=20 class=xl157730 style='height:15.0pt'></td>
+                            <td colspan=6 class=xl807730>REPONSABLE DEL CONTRATANTE</td>
+                        </tr>
+                        <tr height=20 style='height:15.0pt' ng-repeat="pasajero in vm.planilla.viaje.pasajeros">
+                            <td height=20 class=xl157730 style='height:15.0pt'></td>
+                            <td colspan=6 class=xl777730 style='border-right:.5pt solid black'>
+                                {{pasajero.nombres |uppercase}}
+                            </td>
+                        </tr>
+                        <tr height=44 style='mso-height-source:userset;height:33.0pt'>
+                            <td height=44 class=xl157730 style='height:33.0pt'></td>
+                            <td colspan=6 rowspan=3 height=114 width=703 style='height:85.5pt;width:529pt'
+                                align=left valign=top><span style='mso-ignore:vglayout;
+  position:absolute;z-index:3;margin-left:256px;margin-top:3px;width:202px;
+  height:110px'><img width=202 height=110
+                     src="../assets/images/pespecial/FUEC%20COOTRASAN_7730_image006.png"
+                     v:shapes="Imagen_x0020_3"></span><span
+                                    style='mso-ignore:vglayout2'>
+  <table cellpadding=0 cellspacing=0>
+   <tr>
+    <td colspan=6 rowspan=3 height=114 class=xl697730 width=703
+        style='height:85.5pt;width:529pt'>&nbsp;</td>
+   </tr>
+  </table>
+  </span></td>
+                        </tr>
+                        <tr height=41 style='mso-height-source:userset;height:30.75pt'>
+                            <td height=41 class=xl157730 style='height:30.75pt'></td>
+                        </tr>
+                        <tr height=29 style='mso-height-source:userset;height:21.75pt'>
+                            <td height=29 class=xl157730 style='height:21.75pt'></td>
+                        </tr>
+                        <tr height=20 style='height:15.0pt'>
+                            <td height=20 class=xl157730 style='height:15.0pt'></td>
+                            <td colspan=6 class=xl767730>COOPERATIVA DE TRANSPORTADORES DE SAN JUAN DEL
+                                CESAR<span style='mso-spacerun:yes'> </span>COOTRASAN Nit 824.004.192
+                            </td>
+                        </tr>
+                        <tr height=20 style='height:15.0pt'>
+                            <td height=20 class=xl157730 style='height:15.0pt'></td>
+                            <td colspan=6 class=xl767730>Resolución de Habilitación No 0191 del 30 de
+                                Noviembre del 2001 Emanada del Ministerio de Transporte Seccional Cesar
+                            </td>
+                        </tr>
+                        <tr height=20 style='height:15.0pt'>
+                            <td height=20 class=xl157730 style='height:15.0pt'></td>
+                            <td colspan=6 class=xl767730>Oficina Principal Cra. 8 No. 16 B - 37<span
+                                    style='mso-spacerun:yes'> </span>Tel: 570 84 33 - 5 71 49 91 Fax: 5 71 49
+                                39 Valledupar-Cesar
+                            </td>
+                        </tr>
+                        <tr height=20 style='height:15.0pt'>
+                            <td height=20 class=xl157730 style='height:15.0pt'></td>
+                            <td colspan=6 class=xl677730>Email: Cootrasan4@hotmail.com</td>
+                        </tr>
+                        <tr height=20 style='height:15.0pt'>
+                            <td height=20 class=xl157730 style='height:15.0pt'></td>
+                            <td class=xl677730></td>
+                            <td class=xl677730></td>
+                            <td align=left valign=top><span style='mso-ignore:vglayout;
+  position:absolute;z-index:4;margin-left:0px;margin-top:10px;width:247px;
+  height:54px'><img width=247 height=54
+                    src="../assets/images/pespecial/FUEC%20COOTRASAN_7730_image008.png"
+                    v:shapes="Imagen_x0020_4"></span><span
+                                    style='mso-ignore:vglayout2'>
+  <table cellpadding=0 cellspacing=0>
+   <tr>
+    <td height=20 class=xl677730 width=110 style='height:15.0pt;width:83pt'></td>
+   </tr>
+  </table>
+  </span></td>
+                            <td class=xl677730></td>
+                            <td class=xl677730></td>
+                            <td class=xl677730></td>
+                        </tr>
+                        <tr height=20 style='height:15.0pt'>
+                            <td height=20 class=xl157730 style='height:15.0pt'></td>
+                            <td class=xl157730></td>
+                            <td class=xl157730></td>
+                            <td class=xl157730></td>
+                            <td class=xl157730></td>
+                            <td class=xl157730></td>
+                            <td class=xl157730></td>
+                        </tr>
+                        <tr height=20 style='height:15.0pt'>
+                            <td height=20 class=xl157730 style='height:15.0pt'></td>
+                            <td class=xl157730></td>
+                            <td class=xl157730></td>
+                            <td class=xl157730></td>
+                            <td class=xl157730></td>
+                            <td class=xl157730></td>
+                            <td class=xl157730></td>
+                        </tr>
+                        <tr height=20 style='height:15.0pt'>
+                            <td height=20 class=xl157730 style='height:15.0pt'></td>
+                            <td class=xl157730></td>
+                            <td class=xl157730></td>
+                            <td class=xl157730></td>
+                            <td class=xl157730></td>
+                            <td class=xl157730></td>
+                            <td class=xl157730></td>
+                        </tr>
+                        <tr height=0 style='display:none'>
+                            <td width=80 style='width:60pt'></td>
+                            <td width=118 style='width:89pt'></td>
+                            <td width=109 style='width:82pt'></td>
+                            <td width=110 style='width:83pt'></td>
+                            <td width=128 style='width:96pt'></td>
+                            <td width=109 style='width:82pt'></td>
+                            <td width=129 style='width:97pt'></td>
+                        </tr>
+                        <![endif]>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
+                   style="margin-left:10px; border-radius: 25px">Salir</a>
+                <a href="javascript:;" ng-click="vm.imprimir()" class="waves-effect waves-light btn green"
+                   style="margin-left:10px; border-radius: 25px">Imprimir</a>
+            </div>
+        </div>
+        <!--fin modal planilla especial-->
+
+
         <!--modal planilla-->
-        <div id="modalPlanilla" class="modal modal-fixed-footer" style="width: 75%;border-radius: 15px">
-            <div class="modal-content padding" id="planilla">
+        <div id="modalPlanillaNormal" class="modal modal-fixed-footer" style="width: 75%;min-height:90%; border-radius: 15px">
+            <div class="modal-content" id="planilla">
                 <div id="page-wrap" class="page-wrap">
                     <table class="tg">
                         <tr>
                             <th class="tg-yw4l" rowspan="6" style="margin-left: 30px">
-                                <img ng-src="http://{{vm.planilla.central.empresa.logo}}" alt=""
+                                <img ng-src="http://{{vm.planilla.viaje.central.empresa.logo}}" alt=""
                                      style="border-radius: 50%; width: 150px; height: 150px">
                             </th>
                             <th class="tg-yw4l"></th>
                         </tr>
                         <tr>
-                            <td class="tg-g145" colspan="3">{{vm.planilla.central.empresa.nombre | uppercase}}</td>
+                            <td class="tg-g145" colspan="3">{{vm.planilla.viaje.central.empresa.nombre |
+                                uppercase}}
+                            </td>
                             <td class="tg-smzr"></td>
                         </tr>
                         <tr>
@@ -66,8 +455,9 @@
                             <td class="tg-smzr"></td>
                         </tr>
                         <tr>
-                            <td class="tg-smzr" colspan="3">RESOLUCION No. {{vm.planilla.central.empresa.nresolucion |
-                                uppercase}} {{vm.planilla.central.empresa.fecha_resolucion | date: 'longDate'}} -
+                            <td class="tg-smzr" colspan="3">RESOLUCION No.
+                                {{vm.planilla.central.empresa.nresolucion | uppercase}}
+                                {{vm.planilla.central.empresa.fecha_resolucion | date: 'longDate'}} -
                                 MINISTERIO DE TRANSPORTE
                             </td>
                             <td class="tg-smzr"></td>
@@ -77,8 +467,8 @@
                         </tr>
                         <tr>
                             <td class="tg-smzr" colspan="3">{{vm.planilla.central.direccion | uppercase}}
-                                {{vm.planilla.central.ciudaddepa.nombre | uppercase }} -
-                                {{ vm.planilla.central.ciudaddepa.departamento.nombre | uppercase}} TEL:
+                                {{vm.planilla.central.ciudad.nombre | uppercase }} -
+                                {{ vm.planilla.central.ciudad.departamento.nombre | uppercase}} TEL:
                                 {{vm.planilla.central.telefono}}
                             </td>
                             <td class="tg-smzr"></td>
@@ -98,26 +488,29 @@
                         </tr>
                         <tr>
                             <td class="tg-smzr">PROPIETARIO:</td>
-                            <td class="tg-smzr">{{vm.planilla.conductor.vehiculo.nombre_propietario | uppercase}}</td>
-                            <td class="tg-smzr">C.C: {{vm.planilla.conductor.vehiculo.identificacion_propietario |
+                            <td class="tg-smzr">{{vm.planilla.viaje.conductor.vehiculo.nombre_propietario |
                                 uppercase}}
                             </td>
-                            <td class="tg-123c">{{vm.planilla.central.ciudaddepa.nombre | uppercase }}</td>
-                            <td class="tg-123c">LA JAGUA</td>
+                            <td class="tg-smzr">C.C:
+                                {{vm.planilla.viaje.conductor.vehiculo.identificacion_propietario | uppercase}}
+                            </td>
+                            <td class="tg-123c">{{vm.planilla.viaje.ruta.origen.ciudad.nombre | uppercase }}</td>
+                            <td class="tg-123c">{{vm.planilla.viaje.ruta.destino.ciudad.nombre | uppercase}}</td>
                         </tr>
                         <tr>
                             <td class="tg-smzr">CONDUCTOR:</td>
-                            <td class="tg-smzr">{{vm.planilla.conductor.nombres | uppercase}} {{
-                                vm.planilla.conductor.apellidos | uppercase}}
+                            <td class="tg-smzr">{{vm.planilla.viaje.conductor.nombres | uppercase}}
+                                {{vm.planilla.viaje.conductor.apellidos | uppercase}}
                             </td>
-                            <td class="tg-smzr">LIC No: {{vm.planilla.conductor.nlicencia}}</td>
-                            <td class="tg-smzr">TARJETA OPE: {{vm.planilla.conductor.toperacion}}</td>
+                            <td class="tg-smzr">LIC No: {{vm.planilla.viaje.conductor.nlicencia}}</td>
+                            <td class="tg-smzr">TARJETA OPE: {{vm.planilla.viaje.conductor.toperacion}}</td>
                             <td class="tg-smzr"></td>
                         </tr>
                         <tr>
                             <td class="tg-smzr">VEHICULO:</td>
-                            <td class="tg-smzr">{{vm.planilla.conductor.vehiculo.modelo | uppercase}}</td>
-                            <td class="tg-smzr">PLACA: {{vm.planilla.conductor.vehiculo.placa | uppercase}}</td>
+                            <td class="tg-smzr">{{vm.planilla.viaje.conductor.vehiculo.modelo | uppercase}}</td>
+                            <td class="tg-smzr">PLACA: {{vm.planilla.viaje.conductor.vehiculo.placa | uppercase}}
+                            </td>
                             <td class="tg-smzr"></td>
                             <td class="tg-123c"></td>
                         </tr>
@@ -130,7 +523,7 @@
                                     <th class="tg-yw4l">CEDULA</th>
                                     <th class="tg-yw4l">NOMBRE Y APELLIDOS</th>
                                 </tr>
-                                <tr ng-repeat="pasajero in vm.planilla.pasajeros">
+                                <tr ng-repeat="pasajero in vm.planilla.viaje.pasajeros">
                                     <td>{{pasajero.identificacion}}</td>
                                     <td>{{pasajero.nombres}}</td>
                                 </tr>
@@ -143,7 +536,7 @@
                                 <tr>
                                     <th class="tg-g145" colspan="2">DEDUCCIONES</th>
                                 </tr>
-                                <tr ng-repeat="deduccion in vm.planilla.deducciones">
+                                <tr ng-repeat="deduccion in vm.planilla.viaje.deducciones">
                                     <td>{{deduccion.nombre}}</td>
                                     <td>{{deduccion.valor | currency}}</td>
                                 </tr>
@@ -159,284 +552,12 @@
                         </div>
                     </div>
                 </div>
-                <hr>
-                <div id="enco" class="enco">
-                    <br>
-                    <h2>ENCOMIENDAS</h2>
-                    <div ng-if="vm.planilla.giros.length > 0" ng-repeat="giro in vm.planilla.giros" id="giros">
-                        <table class="tb">
-                            <tr>
-                                <th class="tb-031e" colspan="3" rowspan="3">
-                                    <img ng-src="http://{{vm.planilla.central.empresa.logo}}" alt=""
-                                         style="border-radius: 50%; width: 150px; height: 150px">
-                                </th>
-                                <th class="tb-yw4l"><br></th>
-                                <th class="tb-9hbo">{{vm.planilla.central.ciudaddepa.nombre | uppercase }}</th>
-                                <th class="tb-yw4l" colspan="3" rowspan="2"></th>
-                                <th class="tb-yw4l"></th>
-                                <th class="tb-9hbo" colspan="3">CODAZZI - CESAR</th>
-                                <th class="tb-yw4l" rowspan="5"></th>
-                                <th class="tb-yw4l" style="text-align: right">SERVICIO:</th>
-                            </tr>
-                            <tr>
-                                <td class="tb-yw4l">Telefono :</td>
-                                <td class="tb-fs7x">{{vm.planilla.central.telefono | uppercase}}</td>
-                                <td class="tb-yw4l">Telefono :</td>
-                                <td class="tb-fs7x" colspan="3">559955</td>
-                                <td class="tb-lqy6">GIRO: <i class="material-icons"
-                                                             style="border: solid 1px black">done</i></td>
-                            </tr>
-                            <tr>
-                                <td class="tb-yw4l" colspan="2">{{vm.planilla.central.direccion | uppercase}}</td>
-                                <td class="tb-yw4l" colspan="2"></td>
-                                <td class="tb-yw4l" colspan="5">CARRERA 18D N° 22 B - 14</td>
-                                <td class="tb-lqy6">ENCOMIENDA:</td>
-                            </tr>
-                            <tr>
-                                <td class="tb-rk67" colspan="3">{{vm.planilla.central.empresa.nombre | uppercase}}</td>
-                                <td class="tb-yw4l"></td>
-                                <td class="tb-yw4l" colspan="5">OFIDINA DE:</td>
-                                <td class="tb-yw4l">DIA</td>
-                                <td class="tb-yw4l">MES</td>
-                                <td class="tb-yw4l">AÑO</td>
-                                <td class="tb-9hbo">REMESA</td>
-                            </tr>
-                            <tr>
-                                <td class="tb-yw4l" colspan="4">NIT: {{vm.planilla.central.empresa.nit | uppercase}}
-                                </td>
-                                <td class="tb-yw4l" colspan="5"></td>
-                                <td class="tb-yw4l"></td>
-                                <td class="tb-yw4l"></td>
-                                <td class="tb-yw4l"></td>
-                                <td class="tb-yw4l">N° {{vm.planilla.numero_planilla | uppercase}}</td>
-                            </tr>
-                            <tr>
-                                <td class="tb-yw4l" colspan="14"></td>
-                            </tr>
-                            <tr>
-                                <td class="tb-yw4l" colspan="3">Remitente:</td>
-                                <td class="tb-yw4l" colspan="7">{{giro.nombres}}</td>
-                                <td class="tb-yw4l"></td>
-                                <td class="tb-yw4l">C.C:</td>
-                                <td class="tb-yw4l" colspan="2">{{giro.ide_remitente}}</td>
-                            </tr>
-                            <tr>
-                                <td class="tb-yw4l" colspan="3">Dirección:</td>
-                                <td class="tb-yw4l" colspan="7">{{giro.direccion}}</td>
-                                <td class="tb-yw4l"></td>
-                                <td class="tb-yw4l">Telefono :</td>
-                                <td class="tb-yw4l" colspan="2">{{giro.telefono}}</td>
-                            </tr>
-                            <tr>
-                                <td class="tb-yw4l" colspan="3">Destinatario:</td>
-                                <td class="tb-yw4l" colspan="7">{{giro.nombre_receptor}}</td>
-                                <td class="tb-yw4l"></td>
-                                <td class="tb-yw4l">C.C:</td>
-                                <td class="tb-yw4l" colspan="2">{{giro.ide_receptor}}</td>
-                            </tr>
-                            <tr>
-                                <td class="tb-yw4l" colspan="3">Dirección:</td>
-                                <td class="tb-yw4l" colspan="7">{{giro.direccionD}}</td>
-                                <td class="tb-yw4l"></td>
-                                <td class="tb-yw4l">Telefono :</td>
-                                <td class="tb-yw4l" colspan="2">{{giro.telefono_receptor}}</td>
-                            </tr>
-                            <tr>
-                                <td class="tb-yw4l" colspan="3">Conductor:</td>
-                                <td class="tb-yw4l" colspan="6">{{vm.planilla.conductor.nombres | uppercase}}
-                                    {{vm.planilla.conductor.apellidos | uppercase}}
-                                </td>
-                                <td class="tb-yw4l">Movil:</td>
-                                <td class="tb-yw4l">{{vm.planilla.conductor.vehiculo.codigo_vial | uppercase}}</td>
-                                <td class="tb-yw4l">Placa:</td>
-                                <td class="tb-yw4l" colspan="2">{{vm.planilla.conductor.vehiculo.placa | uppercase}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="tb-yw4l" colspan="14"></td>
-                            </tr>
-                            <tr>
-                                <td class="tb-yw4l" colspan="10">Contenido:</td>
-                                <td class="tb-yw4l" rowspan="3"></td>
-                                <td class="tb-l2oz">ENVIO $</td>
-                                <td class="tb-baqh" colspan="2"></td>
-                            </tr>
-                            <tr>
-                                <td class="tb-yw4l" colspan="10" rowspan="2">LA SUMA DE {{giro.monto | currency}}
-                                    PESOS
-                                </td>
-                                <td class="tb-l2oz">COMISION $</td>
-                                <td class="tb-baqh" colspan="2"></td>
-                            </tr>
-                            <tr>
-                                <td class="tb-l2oz">TOTAL $</td>
-                                <td class="tb-baqh" colspan="2"></td>
-                            </tr>
-                            <tr>
-                                <td class="tb-yw4l" colspan="14"></td>
-                            </tr>
-                            <tr>
-                                <td class="tb-baqh" colspan="4">FIRMA DEL REMITENTE</td>
-                                <td class="tb-baqh" colspan="4">ELABORADO POR:</td>
-                                <td class="tb-yw4l" colspan="6" rowspan="2">Recibí a entera satisfacción los bienes y/o
-                                    giros enviados y enumerados<br>en este comprobante.<br>Firma recibido:
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="tb-yw4l" colspan="4" rowspan="2"></td>
-                                <td class="tb-yw4l" colspan="4" rowspan="2"></td>
-                            </tr>
-                            <tr>
-                                <td class="tb-yw4l" colspan="6">C . C / NIT:</td>
-                            </tr>
-                            <tr>
-                                <td class="tb-yw4l" colspan="14"></td>
-                            </tr>
-                        </table>
-                        <br>
-                    </div>
-
-                    <!--//PAQUETES-->
-                    <div ng-if="vm.planilla.paquetes.length > 0" ng-repeat="paquete in vm.planilla.paquetes"
-                         id="paquetes">
-                        <table class="tb">
-                            <tr>
-                                <th class="tb-031e" colspan="3" rowspan="3">
-                                    <img ng-src="http://{{vm.planilla.central.empresa.logo}}" alt=""
-                                         style="border-radius: 50%; width: 150px; height: 150px">
-                                </th>
-                                <th class="tb-yw4l"><br></th>
-                                <th class="tb-9hbo">{{vm.planilla.central.ciudaddepa.nombre | uppercase }}</th>
-                                <th class="tb-yw4l" colspan="3" rowspan="2"></th>
-                                <th class="tb-yw4l"></th>
-                                <th class="tb-9hbo" colspan="3">CODAZZI - CESAR</th>
-                                <th class="tb-yw4l" rowspan="5"></th>
-                                <th class="tb-yw4l" style="text-align: right">SERVICIO:</th>
-                            </tr>
-                            <tr>
-                                <td class="tb-yw4l">Telefono :</td>
-                                <td class="tb-fs7x">{{vm.planilla.central.telefono | uppercase}}</td>
-                                <td class="tb-yw4l">Telefono :</td>
-                                <td class="tb-fs7x" colspan="3">559955</td>
-                                <td class="tb-lqy6">GIRO:</td>
-                            </tr>
-                            <tr>
-                                <td class="tb-yw4l" colspan="2">{{vm.planilla.central.direccion | uppercase}}</td>
-                                <td class="tb-yw4l" colspan="2"></td>
-                                <td class="tb-yw4l" colspan="5">CARRERA 18D N° 22 B - 14</td>
-                                <td class="tb-lqy6">ENCOMIENDA: <i class="material-icons"
-                                                                   style="border: solid 1px black">done</i></td>
-                            </tr>
-                            <tr>
-                                <td class="tb-rk67" colspan="3">{{vm.planilla.central.empresa.nombre | uppercase}}</td>
-                                <td class="tb-yw4l"></td>
-                                <td class="tb-yw4l" colspan="5">OFIDINA DE:</td>
-                                <td class="tb-yw4l">DIA</td>
-                                <td class="tb-yw4l">MES</td>
-                                <td class="tb-yw4l">AÑO</td>
-                                <td class="tb-9hbo">REMESA</td>
-                            </tr>
-                            <tr>
-                                <td class="tb-yw4l" colspan="4">NIT: {{vm.planilla.central.empresa.nit | uppercase}}
-                                </td>
-                                <td class="tb-yw4l" colspan="5"></td>
-                                <td class="tb-yw4l"></td>
-                                <td class="tb-yw4l"></td>
-                                <td class="tb-yw4l"></td>
-                                <td class="tb-yw4l">N° {{vm.planilla.numero_planilla | uppercase}}</td>
-                            </tr>
-                            <tr>
-                                <td class="tb-yw4l" colspan="14"></td>
-                            </tr>
-                            <tr>
-                                <td class="tb-yw4l" colspan="3">Remitente:</td>
-                                <td class="tb-yw4l" colspan="7">{{paquete.nombres}}</td>
-                                <td class="tb-yw4l"></td>
-                                <td class="tb-yw4l">C.C:</td>
-                                <td class="tb-yw4l" colspan="2">{{paquete.ide_remitente}}</td>
-                            </tr>
-                            <tr>
-                                <td class="tb-yw4l" colspan="3">Dirección:</td>
-                                <td class="tb-yw4l" colspan="7">{{paquete.direccion}}</td>
-                                <td class="tb-yw4l"></td>
-                                <td class="tb-yw4l">Telefono :</td>
-                                <td class="tb-yw4l" colspan="2">{{paquete.telefono}}</td>
-                            </tr>
-                            <tr>
-                                <td class="tb-yw4l" colspan="3">Destinatario:</td>
-                                <td class="tb-yw4l" colspan="7">{{paquete.nombre_receptor}}</td>
-                                <td class="tb-yw4l"></td>
-                                <td class="tb-yw4l">C.C:</td>
-                                <td class="tb-yw4l" colspan="2">{{paquete.ide_receptor}}</td>
-                            </tr>
-                            <tr>
-                                <td class="tb-yw4l" colspan="3">Dirección:</td>
-                                <td class="tb-yw4l" colspan="7">{{paquete.direccionD}}</td>
-                                <td class="tb-yw4l"></td>
-                                <td class="tb-yw4l">Telefono :</td>
-                                <td class="tb-yw4l" colspan="2">{{paquete.telefono_receptor}}</td>
-                            </tr>
-                            <tr>
-                                <td class="tb-yw4l" colspan="3">Conductor:</td>
-                                <td class="tb-yw4l" colspan="6">{{vm.planilla.conductor.nombres | uppercase}}
-                                    {{vm.planilla.conductor.apellidos | uppercase}}
-                                </td>
-                                <td class="tb-yw4l">Movil:</td>
-                                <td class="tb-yw4l">{{vm.planilla.conductor.vehiculo.codigo_vial | uppercase}}</td>
-                                <td class="tb-yw4l">Placa:</td>
-                                <td class="tb-yw4l" colspan="2">{{vm.planilla.conductor.vehiculo.placa | uppercase}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="tb-yw4l" colspan="14"></td>
-                            </tr>
-                            <tr>
-                                <td class="tb-yw4l" colspan="10">Contenido:</td>
-                                <td class="tb-yw4l" rowspan="3"></td>
-                                <td class="tb-l2oz">ENVIO $</td>
-                                <td class="tb-baqh" colspan="2"></td>
-                            </tr>
-                            <tr>
-                                <td class="tb-yw4l" colspan="10" rowspan="2">{{paquete.descripcion | uppercase}}</td>
-                                <td class="tb-l2oz">COMISION $</td>
-                                <td class="tb-baqh" colspan="2"></td>
-                            </tr>
-                            <tr>
-                                <td class="tb-l2oz">TOTAL $</td>
-                                <td class="tb-baqh" colspan="2"></td>
-                            </tr>
-                            <tr>
-                                <td class="tb-yw4l" colspan="14"></td>
-                            </tr>
-                            <tr>
-                                <td class="tb-baqh" colspan="4">FIRMA DEL REMITENTE</td>
-                                <td class="tb-baqh" colspan="4">ELABORADO POR:</td>
-                                <td class="tb-yw4l" colspan="6" rowspan="2">Recibí a entera satisfacción los bienes y/o
-                                    giros enviados y enumerados<br>en este comprobante.<br>Firma recibido:
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="tb-yw4l" colspan="4" rowspan="2"></td>
-                                <td class="tb-yw4l" colspan="4" rowspan="2"></td>
-                            </tr>
-                            <tr>
-                                <td class="tb-yw4l" colspan="6">C . C / NIT:</td>
-                            </tr>
-                            <tr>
-                                <td class="tb-yw4l" colspan="14"></td>
-                            </tr>
-                        </table>
-                        <br>
-                    </div>
-
-
-                </div>
             </div>
             <div class="modal-footer">
                 <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red"
-                   style="margin-left:10px; border-radius: 15px">Salir</a>
-                <a href="javascript:;" ng-click="vm.irimpresion()" class="waves-effect waves-light btn green"
-                   style="margin-left:10px; border-radius: 15px">Imprimir</a>
+                   style="margin-left:10px; border-radius: 25px">Salir</a>
+                <a href="javascript:;" ng-click="vm.imprimirNormal()" class="waves-effect waves-light btn green"
+                   style="margin-left:10px; border-radius: 25px">Imprimir</a>
             </div>
         </div>
         <!--fin modal planilla-->

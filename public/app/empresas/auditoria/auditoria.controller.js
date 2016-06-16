@@ -93,56 +93,27 @@
         }
 
         function imprimir() {
-            var ficha = document.getElementById('planilla');
-            var ventimp = window.open(' ', 'popimpr');
-            ventimp.document.write(ficha.innerHTML);
-            ventimp.document.close();
-            var css = ventimp.document.createElement("link");
-            css.setAttribute("href", "../assets/css/pdf.css");
-            css.setAttribute("rel", "stylesheet");
-            css.setAttribute("type", "text/css");
-            ventimp.document.head.appendChild(css);
-            ventimp.print();
-            ventimp.close();
+            var headstr = "<html ><head><title>Imprimir</title></head><body style='color: white'>";
+            var footstr = "</body>";
+            var newstr = document.getElementById('contenidoplanillaespecial').innerHTML;
+            var oldstr = document.body.innerHTML;
+            document.body.innerHTML = headstr+newstr+footstr;
+            window.print();
+            window.close();
+            // document.body.innerHTML = oldstr;
+            location.reload();
         }
 
-        vm.irimpresion = function () {
-            // var imgData = "http://"+vm.planilla.central.empresa.logo;
-            var doc = new jsPDF('landscape', 'pt', 'letter');
-
-            doc.setFont("times");
-            doc.setFontType("italic");
-
-            doc.internal.scaleFactor = 1.25;
-            doc.addHTML(document.getElementById('page-wrap'), 15, 15, {
-                pagesplit: true,
-                'background': '#fff',
-                'heigth': 500
-            }, function () {
-                if (document.getElementById('giros')) {
-                    doc.addPage();
-                    doc.addHTML(document.getElementById('giros'), 15, 15, {
-                        pagesplit: true,
-                        'background': '#fff',
-                        'heigth': 500
-                    }, function () {
-                        if (document.getElementById('paquetes')) {
-                            doc.addPage();
-                            doc.addHTML(document.getElementById('paquetes'), 15, 15, {
-                                pagesplit: true,
-                                'background': '#fff',
-                                'heigth': 500
-                            }, function () {
-                                doc.output("dataurlnewwindow");
-                            });
-                        } else {
-                            doc.output("dataurlnewwindow");
-                        }
-                    });
-                } else {
-                    doc.output("dataurlnewwindow");
-                }
-            });
+        vm.imprimirNormal = function () {
+            var headstr = "<html ><head><title>Imprimir</title></head><body style='color: white'>";
+            var footstr = "</body>";
+            var newstr = document.getElementById('page-wrap').innerHTML;
+            var oldstr = document.body.innerHTML;
+            document.body.innerHTML = headstr+newstr+footstr;
+            window.print();
+            window.close();
+            // document.body.innerHTML = oldstr;
+            location.reload();
         }
     }
 })();

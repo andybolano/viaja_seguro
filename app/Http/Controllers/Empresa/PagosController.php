@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Empresa;
 
+use App\Model\Central;
 use App\Model\Planilla;
 use App\Model\Conductor;
 use App\Model\Empresa;
 use App\Model\PagoPrestacion;
+use App\Model\PlanillaEspecial;
 use App\Model\Prestacion;
 use App\Model\Vehiculo;
 use Illuminate\Http\JsonResponse;
@@ -16,35 +18,43 @@ use App\Model\Viaje;
 
 class PagosController extends Controller
 {
+    private function verificartipoCentral($central_id)
+    {
+        return Central::find($central_id)->load('empresa');
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function getPlanillas($central){
-        $planilla = Planilla::where('central_id', $central)->get();
-        $planilla->load('conductor');
-        return $planilla;
+    public function getPlanillas($central_id)
+    {
+        $tipoEmpresa = $this->verificartipoCentral($central_id);
+        if ($tipoEmpresa->empresa->tipo == '1') {
+            return array('planillas' => PlanillaEspecial::where('central_id', $central_id)->get(), 'tipo' => 'especial');
+        } else {
+            return array('planillas' => Planilla::where('central_id', $central_id)->get(), 'tipo' => 'normal');
+        }
     }
 
-    public function getPlanilla($viaje){
-        $consulta = Planilla::select('*')->where('viaje_id', $viaje)->first()->load('viaje', 'central');
-        $consulta['giros'] = \DB::table('giros')->join('viaje_giros', 'giros.id', '=', 'viaje_giros.giro_id')
-            ->join('viajes', 'viaje_giros.viaje_id', '=', 'viajes.id')
-            ->where('viajes.id', $viaje)->select('*')->get();
-        $consulta['pasajeros'] = \DB::table('pasajeros')->join('viaje_pasajeros', 'pasajeros.id', '=', 'viaje_pasajeros.pasajero_id')
-            ->where('viajes.id', $viaje)->join('viajes', 'viaje_pasajeros.viaje_id', '=', 'viajes.id')->select('*')->get();
-        $consulta['paquetes'] = \DB::table('paquetes')->join('viaje_paquetes', 'paquetes.id', '=', 'viaje_paquetes.paquete_id')
-            ->where('viajes.id', $viaje)->join('viajes', 'viaje_paquetes.viaje_id', '=', 'viajes.id')->select('*')->get();
-        $consulta['deducciones'] = \DB::table('deducciones')->join('viaje_deducciones', 'deducciones.id', '=', 'viaje_deducciones.deduccion_id')
-            ->where('viajes.id', $viaje)->join('viajes', 'viaje_deducciones.viaje_id', '=', 'viajes.id')->select('*')->get();
+    public function getPlanilla($central_id, $planilla_id)
+    {
 
-        $consulta['conductor'] = Viaje::find($viaje)->conductor;
-        
-        return JsonResponse::create($consulta);
-
+        $tipoEmpresa = $this->verificartipoCentral($central_id);
+        if ($tipoEmpresa->empresa->tipo == '1') {
+            $planilla = PlanillaEspecial::find($planilla_id);
+            $planilla['tipo'] = 'especial';
+            $planilla->load('viaje.conductor', 'central');
+            return JsonResponse::create($planilla);
+        } else {
+            $planilla = Planilla::find($planilla_id);
+            $planilla['tipo'] = 'normal';
+            $planilla->load('viaje.conductor', 'central.ciudad.departamento');
+            return JsonResponse::create($planilla);
+        }
     }
 
-    public function getPrestaciones(){
+    public function getPrestaciones()
+    {
         return Prestacion::all();
     }
 
@@ -56,7 +66,7 @@ class PagosController extends Controller
             $pagosConductor = $c->pagosPrestaciones($prestacion_id);
             foreach ($pagosConductor as $p) {
                 $p->conductor = [
-                    'nombre' => $c->nombres.' '.$c->apellidos,
+                    'nombre' => $c->nombres . ' ' . $c->apellidos,
                     'identificacion' => $c->identificacion
                 ];
                 $pagos[] = $p;
@@ -68,10 +78,10 @@ class PagosController extends Controller
     public function getPagosConductor($conductor_id, $prestacion_id = null)
     {
         $pagos = [];
-        if($prestacion_id){
+        if ($prestacion_id) {
             $pagosConductor = PagoPrestacion::where('conductor_id', $conductor_id)
                 ->where('prestacion_id', $prestacion_id)->get();
-        }else{
+        } else {
             $pagosConductor = PagoPrestacion::where('conductor_id', $conductor_id)->get();
         }
         foreach ($pagosConductor as $p) {
@@ -89,7 +99,7 @@ class PagosController extends Controller
             'fecha' => $data['fecha'] ? $data['fecha'] : date("Y-m-d"),
             'valor' => $data['valor'],
         ]);
-        if(!$conductor->pagosPrestaciones()->save($pago)){
+        if (!$conductor->pagosPrestaciones()->save($pago)) {
             return response()->json(['message' => 'no se pudo almacenar el registro'], 400);
         }
         return $pago;
