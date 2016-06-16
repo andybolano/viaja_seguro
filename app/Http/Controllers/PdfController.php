@@ -44,52 +44,8 @@ class PdfController extends Controller
 
     }
 
-    public function invoice(Request $request)
+    public function invoice()
     {
-        $data = $request->json()->all();
-
-        $ecliente = $this->verificarCliente($data['identificacion']);
-        if (!$ecliente) {
-            $cliente = $this->createCliente($data);
-            if ($cliente['cliente']) {
-                if ($cliente['usuario']) {
-                    $pasajero = new Pasajero($data);
-                    $pasajero->identificacion = $data['identificacion'];
-                    $pasajero->nombres = $data['nombres'];
-                    $pasajero->telefono = $data['telefono'];
-                    $pasajero->direccion = $data['direccion'];
-                    $pasajero->central_id = $data['central_id'];
-                    if ($pasajero->save()) {
-                        return JsonResponse::create(array('message' => "Se puso en espera al pasajero correctamente", 200));
-                    } else {
-                        return response()->json(['message' => 'no se ha podido almacenar el registro'], 400);
-                    }
-                } else {
-                    $cliente['usuario']->delete();
-                    return response()->json(['message' => 'no se ha podido almacenar el registro'], 400);
-                }
-            } else {
-                return response()->json(['message' => 'no se ha podido almacenar el registro'], 400);
-            }
-        } else {
-            $pasajero = new Pasajero($data);
-            $pasajero->identificacion = $data['identificacion'];
-            $pasajero->nombres = $data['nombres'];
-            $pasajero->telefono = $data['telefono'];
-            $pasajero->direccion = $data['direccion'];
-            $pasajero->central_id = $central_id;
-            if ($pasajero->save()) {
-                return JsonResponse::create(array('message' => "Se puso en espera al pasajero correctamente", 200));
-            } else {
-                return response()->json(['message' => 'no se ha podido almacenar el registro'], 400);
-            }
-        }
-
-
-        $central = Central::find($central_id);
-        if (!$central->pasajeros()->save($pasajero)) {
-            $pasajero->delete();
-            return response()->json(['message' => 'no se ha podido almacenar el registro'], 400);
-        }
+        return str_pad((int) 2,7,"0",STR_PAD_LEFT);
     }
 }

@@ -196,14 +196,14 @@ class DespachoController extends Controller
                 }
             }
             $totalD = 0;
-            foreach($data['deducciones'] as $deduccion){
+            foreach ($data['deducciones'] as $deduccion) {
                 $viaje->deducciones()->attach($deduccion['id']);
-                if($deduccion['nombre'] == 'PASAJE'){
+                if ($deduccion['nombre'] == 'PASAJE') {
 //                    $valorP = $deduccion['valor'];
                     $valorP = 17000;
 
                 }
-                if($deduccion['nombre'] != 'PASAJE'){
+                if ($deduccion['nombre'] != 'PASAJE') {
 //                    $totalD += $deduccion['valor'];
 //                    $totalD += $deduccion['valor'];
                 }
@@ -281,13 +281,28 @@ class DespachoController extends Controller
 
     public function generarNumeroPlanillaEspecial($central_id)
     {
+        $central = Central::find($central_id)->load('empresa', 'ciudad.departamento');
+        $cterritorial = $central->ciudad->departamento->codigoT;
+        $nrE = $central->empresa->nresolucion;
+        $dUano = substr($central->empresa->fecha_resolucion, 2, 2);
+        $anoActual = date("Y");
+        if (!$nrE) {
+            $nrE = 0000;
+        }
+        $cCompleto = $cterritorial . $nrE . $dUano . $anoActual;
         $planilla = \DB::table('planilla_especial')->where('numero_planilla',
             \DB::raw("(select max(`numero_planilla`) from planilla_especial)"))->where('central_id', $central_id)->get();
         if (!$planilla) {
-            return 'A001';
+            return $cCompleto . '00000001';
         } else {
             foreach ($planilla as $c) {
-                return ++$c->numero_planilla;
+                $incrementar = substr($c->numero_planilla, 13, 8);//obtengo ultimos 8 digitos
+                //$sumar = substr_count($incrementar, '0');//cuento la cantidad de ceros exitentes en esos numeros
+                $incremento = ++$incrementar;//asigno el numero a incrementar
+                $numero_completo = $cCompleto.str_pad($incremento, 8, "0", STR_PAD_LEFT);//porque lo parseas?
+
+                //completo el codigo completo y concateno con sumar+1 ceros y el numero que incrementa hacia la izq
+                return $numero_completo;
             }
         }
     }
