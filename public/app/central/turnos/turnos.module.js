@@ -13,7 +13,9 @@
                 templateUrl: 'central/turnos/gestionarTurnos.html',
                 data: {
                     onlyAccess: 'CENTRAL_EMPRESA'
-                }
+                },
+                controller: 'NewTurnosController',
+                controllerAs: 'vm'
             })
     };
 

@@ -88,11 +88,17 @@ class LoginController extends Controller
                 $data['usuario']['central'] = [
                     'id' => $central->id,
                     'nombre' => $central->nombre,
-                    'nombre' => $central->nombre,
                     'ciudad' => $central->ciudad,
+                    'departamento' => $central->ciudad->departamento,
                     'empresa' => [
                         'id' => $central->empresa->id,
                         'nombre' => $central->empresa->nombre,
+                        'nit' => $central->empresa->nit,
+                        'nresolucion' => $central->empresa->nresolucion,
+                        'fecha_resolucion' => $central->empresa->fecha_resolucion,
+                        'telefono' => $central->empresa->telefono,
+                        'direccion' => $central->empresa->direccion,
+                        'pjuridica' => $central->empresa->pjuridica,
                         'servicios' => $this->checkServiciosEmpresa($central->empresa->servicios)
                     ],
                     'miDireccionLa' => $central->miDireccionLa,

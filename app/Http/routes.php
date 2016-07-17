@@ -28,16 +28,16 @@ Route::group(['middleware' => 'cors'], function () {
 
     Route::group(['middleware' => 'jwt.auth'], function () {
 
-        $ruta = realpath($_SERVER["DOCUMENT_ROOT"] . "/../app/Http/Routes");
-        foreach (glob("$ruta/*.php") as $filename) {
-            include_once $filename;
-        }
-
-//        $ruta = $_SERVER["DOCUMENT_ROOT"]."/viaja_seguro/"."app/Http/Routes";
-//        foreach (glob("$ruta/*.php") as $filename)
-//        {
+//        $ruta = realpath($_SERVER["DOCUMENT_ROOT"] . "/../app/Http/Routes");
+//        foreach (glob("$ruta/*.php") as $filename) {
 //            include_once $filename;
 //        }
+
+        $ruta = $_SERVER["DOCUMENT_ROOT"]."/viaja_seguro/"."app/Http/Routes";
+        foreach (glob("$ruta/*.php") as $filename)
+        {
+            include_once $filename;
+        }
     });
 
     Route::get('/api/assets/sounds/notySolicitudes', function () {

@@ -13,7 +13,7 @@ class Turno extends Model
 
     public function conductor()
     {
-        return $this->belongsTo(Conductor::class);
+        return $this->belongsTo(Conductor::class)->with('vehiculo');
     }
 
 }

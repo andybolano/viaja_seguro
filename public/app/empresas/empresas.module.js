@@ -13,6 +13,6 @@
             'app.empresas.pagos_prestaciones',
             'app.empresas.auditoria',
             //libs
-            'google-maps'
+            // 'google-maps'
         ]);
 })();
