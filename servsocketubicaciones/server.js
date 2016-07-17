@@ -7,7 +7,7 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     io = require('socket.io'),
     app = express(),
-    server = app.listen('8070'),
+    server = app.listen('8007'),
     io = io.listen(server);
 
 require('./socket')(io);
