@@ -94,20 +94,21 @@
             })
         }
 
-        function movedConductor(turno, $index) {
-            turno.splice($index, 1);
+        function movedConductor($index) {
+            vm.conductoresDeRuta.splice($index, 1);
         }
 
         function addConductor(ruta) {
-            updateTurnos(ruta, 'agregar');
+            // updateTurnos(ruta, 'agregar');
         }
 
-        function updateTurnos(ruta, accion) {
+        function updateTurnos(accion) {
+            console.log('updateTurnos');
             accion || (accion = 'default')
-            for (var i = 0; i < ruta.length; i++) {
-                ruta.turno = i + 1;
+            for (var i = 0; i < vm.conductoresDeRuta.length; i++) {
+                vm.conductoresDeRuta[i].turno = i + 1;
             }
-            newTurnosService.updateTurnos(vm.selectedRuta.id, {'turnos': ruta, 'accion': accion}).then(success, error);
+            newTurnosService.updateTurnos(vm.selectedRuta.id, {'turnos': vm.conductoresDeRuta, 'accion': accion}).then(success, error);
             function success(p) {
             }
 

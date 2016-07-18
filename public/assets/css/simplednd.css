@@ -11,11 +11,11 @@
  * The dnd-list should always have a min-height,
  * otherwise you can't drop to it once it's empty
  */
-.simpleDemo ul[dnd-list] {
-    border: 0;
-    min-height: 42px;
-    padding-left: 0px;
-}
+/*.simpleDemo ul[dnd-list] {*/
+    /*border: 0;*/
+    /*min-height: 42px;*/
+    /*padding-left: 0px;*/
+/*}*/
 
 /**
  * The dndDraggingSource class will be applied to
@@ -47,13 +47,13 @@
  */
 .simpleDemo ul[dnd-list] li {
     background-color: #fff;
-    border: 1px solid #ddd;
+    /*border: 1px solid #ddd;*/
     display: block;
-    padding: 10px 15px;
-    margin: 2px 2px;
+    /*padding: 10px 15px;*/
+    /*margin: 2px 2px;*/
     float: left;
-    height: 190px;
-    width: 285px;
+    height: 120px;
+    width: 100%;
 }
 
 /**

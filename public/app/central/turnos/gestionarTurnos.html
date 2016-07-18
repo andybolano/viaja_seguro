@@ -23,19 +23,18 @@
                             <a href="javascript:;" style="color: red;"><i class="material-icons">add</i></a>
                         </div>
                     </h2>
-                    <div ng-if="vm.conductoresDeRuta.length > 0">
+                    <div ng-if="vm.conductoresDeRuta.length > 0" class="simpleDemo">
                         <ul dnd-list="vm.conductoresDeRuta" class="collection"
                             dnd-inserted="vm.addConductor(ruta)">
                             <li class="collection-item avatar"
                                 ng-repeat="turno in vm.conductoresDeRuta"
                                 dnd-draggable="turno"
-                                dnd-moved="vm.movedConductor(turno, $index)"
+                                dnd-moved="vm.movedConductor($index)"
                                 dnd-effect-allowed="move"
                                 dnd-selected="vm.selectedTurno = turno"
                                 dnd-dragend="vm.updateTurnos(vm.conductoresDeRuta)">
                                 <img ng-src="http://{{turno.conductor.imagen}}" alt="" class="circle">
                                 <span class="title">{{turno.conductor.nombres}} {{turno.conductor.apellidos}}</span>
-
                                 <div class="center red accent-4" style="border-radius: 15px; height: 30px; position:relative">
                                     <a style="color:white;" ng-if="vm.servicios.giros" title="Asignar giros"
                                        class="waves-effect waves-teal" ng-click="vm.addGiro(turno.conductor)">
