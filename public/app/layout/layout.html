@@ -20,8 +20,8 @@
     </nav>
 </div>
 <div class="nav-bar">
-    <ul id="slide-out" class="side-nav fixed" style="width: 220px;margin-top: 60px;">
-        <li class="no-padding" style="background-color: white; width: 220px; position: fixed">
+    <ul id="slide-out" class="side-nav fixed" style="width: 200px;margin-top: 60px;">
+        <li class="no-padding" style="background-color: white; width: 200px; position: fixed">
             <ul>
                 <li id="user">
                     <div style="text-align:center;padding-top: 30px;padding-left: 10px;" class="center">
@@ -57,7 +57,7 @@
         </div>
     </ul>
 </div>
-<div ui-view id="container" style="padding-left:220px; zoom:90%">
+<div ui-view id="container" style="padding-left:200px; zoom:90%">
 </div>
 
 
@@ -70,13 +70,13 @@
     });
     function abrirMenu() {
         if (abierto) {
-            $("#slide-out").animate({"left": "-=220px"}, 300);
-            $("#container").animate({"padding-left": "-=220px"}, 300);
+            $("#slide-out").animate({"left": "-=200px"}, 280);
+            $("#container").animate({"padding-left": "-=200px"}, 280);
             abierto = false;
         } else {
             abierto = true;
-            $("#slide-out").animate({"left": "+=220px"}, 300);
-            $("#container").animate({"padding-left": "+=220px"}, 300);
+            $("#slide-out").animate({"left": "+=200px"}, 280);
+            $("#container").animate({"padding-left": "+=200px"}, 280);
         }
     }
 </script>

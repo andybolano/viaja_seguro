@@ -1,5 +1,5 @@
 (function () {
-    var ActionChannel = pusher.subscribe('marcadores');
+    // var ActionChannel = pusher.subscribe('marcadores');
     'use strict';
 
     angular

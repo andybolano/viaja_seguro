@@ -18,7 +18,7 @@
         }
 
         this.getSolicitudesDeRuta = function (ruta_id) {
-            return $http.get(API + '/central/ruta/'+ruta_id+'/getSolicitudesDeRuta');
+            return $http.get(API + '/central/ruta/' + ruta_id + '/getSolicitudesDeRuta');
         }
 
         this.getConductoresEnRuta = function (ruta_id) {
@@ -130,6 +130,18 @@
 
         this.moverPasajero = function (pasajero_id, obj) {
             return $http.put(API + '/centrales/pasajeros/' + pasajero_id + '/mover', obj);
+        }
+
+        this.despacharUnConductor = function (object) {
+            return $http.post(API + '/centrales/' + authService.currentUser().central.id + '/despacharUnConductor', object);
+        }
+
+        this.obtenerDatosPlanillas = function (central_id, planilla_id) {
+            return $http.get(API + '/centrales/' + central_id + '/planillaEspecial/' + planilla_id);
+        }
+
+        this.obtenerDatosPlanillasNormal = function (central_id, planilla_id) {
+            return $http.get(API + '/centrales/' + central_id + '/planillaNormal/' + planilla_id);
         }
     }
 

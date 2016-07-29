@@ -15,6 +15,7 @@
         vm.conductoresDeRuta = [];
         vm.selectedTurno = {};
         vm.Conductores = [];
+        vm.conductorSelected = null;
 
         vm.Pasajeros = {};
         vm.Paquetes = {};
@@ -52,6 +53,10 @@
         vm.eliminarPaquete = eliminarPaquete;
         vm.verDescripcionPaquete = verDescripcionPaquete;
 
+        vm.limpiarPasajeros = limpiarPasajeros;
+        vm.limpiarGiros = limpiarGiros;
+        vm.limpiarPaquetes = limpiarPaquetes;
+
         //solicitudes
         vm.getSolicitudPasajero = getSolicitudPasajero;
         vm.getSolicitudGiro = getSolicitudGiro;
@@ -61,6 +66,7 @@
 
         function init() {
             cargarRutas();
+            cargarDeducciones();
             vm.user = authService.currentUser();
         }
 
@@ -78,6 +84,7 @@
         function cargarConductoresYSolicitudesDeRuta($index) {
             vm.activeMenu = $index;
             vm.selectedRuta = vm.rutas[$index];
+            vm.conductorSelected = null;
             newTurnosService.getConductoresDeRutas(vm.selectedRuta.id).then(function (response) {
                 vm.conductoresDeRuta = response.data;
                 cargarSolicitudesDeRuta(vm.selectedRuta.id);
@@ -99,11 +106,22 @@
         }
 
         function addConductor(ruta) {
-            // updateTurnos(ruta, 'agregar');
+            updateTurnos(ruta, 'agregar');
         }
 
+        vm.selecciondarConductor = function ($index) {
+          vm.conductorSelected = vm.conductoresDeRuta[$index];
+        };
+
+        vm.confirm = function () {
+            if(!vm.selectedRuta){
+
+            }else{
+                vm.addNewConductor();
+            }
+        };
+
         function updateTurnos(accion) {
-            console.log('updateTurnos');
             accion || (accion = 'default')
             for (var i = 0; i < vm.conductoresDeRuta.length; i++) {
                 vm.conductoresDeRuta[i].turno = i + 1;
@@ -329,20 +347,24 @@
         }
 
         function addNewSolicitudPasajero(ruta) {
-            vm.selectedRuta = ruta;
-            $('#modalNewSolicitudPasajero').openModal({
-                dismissible: false, // Modal can be dismissed by clicking outside of the modal
-                opacity: .5, // Opacity of modal background
-                in_duration: 400, // Transition in duration
-                out_duration: 300, // Transition out duration
-                ready: function () {
-                    document.getElementById("guardar").disabled = false;
-                    // document.getElementById("actualizar").disabled = true;
-                    vm.Pasajeros = {};
-                    vm.Newdireccion = '';
-                }, // Callback for Modal open
-                //complete: function() { alert('Closed'); } // Callback for Modal close
-            });
+            if(!vm.selectedRuta){
+
+            }else{
+                vm.selectedRuta = ruta;
+                $('#modalNewSolicitudPasajero').openModal({
+                    dismissible: false, // Modal can be dismissed by clicking outside of the modal
+                    opacity: .5, // Opacity of modal background
+                    in_duration: 400, // Transition in duration
+                    out_duration: 300, // Transition out duration
+                    ready: function () {
+                        document.getElementById("guardar").disabled = false;
+                        // document.getElementById("actualizar").disabled = true;
+                        vm.Pasajeros = {};
+                        vm.Newdireccion = '';
+                    }, // Callback for Modal open
+                    //complete: function() { alert('Closed'); } // Callback for Modal close
+                });
+            }
         }
 
         function eliminarPasajero(pasajero_id) {
@@ -1035,25 +1057,194 @@
             }, function error(e) {
 
             });
+        };
+
+        function limpiarPasajeros() {
+            document.getElementById("guardar").disabled = false;
+            // document.getElementById("actualizar").disabled = true;
+            // refrescarPasajeros(conductor_id)
+            vm.Pasajeros = {};
+            vm.Newdireccion = '';
+        };
+
+        function limpiarGiros(conductor_id) {
+            document.getElementById("guardarG").disabled = false;
+            document.getElementById("actualizarG").disabled = true;
+            refrescarGiros(conductor_id)
+            vm.Giros = "";
+        };
+
+        function limpiarPaquetes(conductor_id) {
+            document.getElementById("guardarP").disabled = false;
+            document.getElementById("actualizarP").disabled = true;
+            refrescarPaquetes(conductor_id)
+            vm.Paquetes = "";
+        };
+
+        // itemActionChannel.bind("NuevaSolicitudEvent", function (data) {
+        //     if (authService.currentUser().central.id == data.central_id) {
+        //         cargarRutas();
+        //     }
+        // });
+        //
+        // itemActionChannel.bind("ModificarSolicitudEvent", function (data) {
+        //     if (authService.currentUser().central.id == data.central_id) {
+        //         cargarRutas();
+        //     }
+        // });
+        //
+        // itemActionChannel.bind("CancelarSolicitudEvent", function (data) {
+        //     if (authService.currentUser().central.id == data.central_id) {
+        //         cargarRutas();
+        //     }
+        // });
+
+        vm.despacharEsteConductor = function () {
+            var obj = {
+                ruta: vm.selectedRuta,
+                conductor: vm.conductorSelected.conductor,
+                deducciones: vm.Deducciones
+            };
+            vm.ruta = vm.selectedRuta;
+            newTurnosService.getCupos(obj.conductor.id).then(function (p) {
+                if (p.data != 0) {
+                    swal({
+                        title: 'ESPERA UN MOMENTO!',
+                        text: 'El conductor <b>' + obj.conductor.nombres + ' ' + obj.conductor.apellidos + '</b> aun tiene cupos disponibles',
+                        type: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#9ccc65',
+                        cancelButtonColor: '#D50000',
+                        confirmButtonText: 'Despachar',
+                        cancelButtonText: 'Cancelar',
+                        preConfirm: function () {
+                            return new Promise(function (resolve) {
+                                swal.enableLoading();
+                                setTimeout(function () {
+                                    resolve();
+                                }, 300);
+                            });
+                        },
+                        allowOutsideClick: false
+                    }).then(despachar);
+                } else {
+                    swal({
+                        title: '',
+                        text: 'ESTA A PUNTO DE DESPACHAR AL CONDUCTOR <b>' + (obj.conductor.nombres + ' ' + obj.conductor.apellidos).toUpperCase() + '</b>',
+                        type: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Despachar',
+                        cancelButtonText: 'Cancelar',
+                        preConfirm: function () {
+                            return new Promise(function (resolve) {
+                                swal.enableLoading();
+                                setTimeout(function () {
+                                    resolve();
+                                }, 300);
+                            });
+                        },
+                        allowOutsideClick: false
+                    }).then(despachar);
+                }
+                function despachar(isConfirm) {
+                    if (isConfirm) {
+                        newTurnosService.despacharUnConductor(obj).then(succes, error);
+                    }
+                    function succes(p) {
+                        // vm.ruta.turnos.splice(turno, 1);
+                        // updateTurnos(vm.ruta, 'quitar');
+                        swal.disableButtons();
+                        swal({
+                            title: 'Exito!',
+                            text: 'El coductor ha sido despachado exitosamete',
+                            type: 'success',
+                            showCancelButton: true,
+                            confirmButtonColor: '#9ccc65',
+                            cancelButtonColor: '#D50000',
+                            confirmButtonText: 'Mostrar planilla',
+                            cancelButtonText: 'Cerrar',
+                            closeOnConfirm: true
+                        }).then(function (IsComfirm) {
+                            if (IsComfirm) {
+                                if (p.data.tipo == 'especial') {
+                                    cargarDatosPlanillaEspecial(p.data.central_id, p.data.id)
+                                } else {
+                                    cargarDatosPlanillaNormal(p.data.central_id, p.data.id)
+                                }
+                                cargarRutas();
+                            }
+                        });
+                        vm.conductorSelected = null;
+                    }
+
+                    function error(error) {
+                        swal(
+                            'ERROR!!',
+                            'Ocurrio un error al despachar el conductor)',
+                            'error'
+                        );
+                    }
+                };
+            });
+        };
+
+        function cargarDatosPlanillaEspecial(central_id, planilla_id) {
+            newTurnosService.obtenerDatosPlanillas(central_id, planilla_id).then(success, error);
+            function success(response) {
+                vm.planilla = {};
+                vm.planilla = response.data;
+                if (response.data.tipo == 'especial') {
+                    $('#modalPlanillaEspecial').openModal();
+                } else {
+                    newTurnosService.obtenerDatosPlanillasNormal(central_id, planilla_id).then(successN, errorN);
+                }
+                function successN(response) {
+                    vm.planilla = {};
+                    vm.planilla = response.data;
+                    $('#modalPlanillaNormal').openModal();
+                }
+
+                function errorN(response) {
+                    console.log('Ocurrio un error !');
+                }
+            }
+
+            function error(response) {
+                console.log('Ocurrio un error !');
+            }
         }
 
-        itemActionChannel.bind("NuevaSolicitudEvent", function (data) {
-            if (authService.currentUser().central.id == data.central_id) {
-                cargarRutas();
+        function cargarDatosPlanillaNormal(central_id, planilla_id) {
+            newTurnosService.obtenerDatosPlanillasNormal(central_id, planilla_id).then(successN, errorN);
+            function successN(response) {
+                vm.planilla = {};
+                vm.planilla = response.data;
+                $('#modalPlanillaNormal').openModal();
             }
-        });
 
-        itemActionChannel.bind("ModificarSolicitudEvent", function (data) {
-            if (authService.currentUser().central.id == data.central_id) {
-                cargarRutas();
+            function errorN(response) {
+                console.log('Ocurrio un error !');
             }
-        });
+        }
 
-        itemActionChannel.bind("CancelarSolicitudEvent", function (data) {
-            if (authService.currentUser().central.id == data.central_id) {
-                cargarRutas();
-            }
-        });
+        function cargarDeducciones() {
+            var promiseGet = planillasService.getDeducciones();
+            promiseGet.then(function (p) {
+                vm.Deducciones = [];
+                for (var i = 0; i < p.data.length; i++) {
+                    if (p.data[i].estado == true) {
+                        vm.Deducciones.push(p.data[i]);
+                    } else {
+                        console.log('algun error');
+                    }
+                }
+            }, function (errorPl) {
+                console.log('Error Al Cargar Datos', errorPl);
+            });
+        }
+
         init();
     }
 })();
