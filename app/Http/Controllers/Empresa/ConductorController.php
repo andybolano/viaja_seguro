@@ -41,7 +41,7 @@ class ConductorController extends Controller
 
             if ($request->hasFile('imagen')) {
                 $request->file('imagen')->move('images/conductores/', "conductor$id.png");
-                $nombrefile = $_SERVER['SERVER_NAME'].'/public/images/conductores/'."conductor$id.png";
+                $nombrefile = $_SERVER['SERVER_NAME'].'/images/conductores/'."conductor$id.png";
 //                \Storage::disk('local')->put("conductor$id.png",  \File::get($file));
                 $conductor->imagen = $nombrefile;
                 $conductor->save();

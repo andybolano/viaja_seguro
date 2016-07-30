@@ -33,7 +33,7 @@ class VehiculoController extends Controller
 
             if ($request->hasFile('imagen')) {
                 $request->file('imagen')->move('images/vehiculos/', "vehiculo$id.png");
-                $nombrefile = $_SERVER['SERVER_NAME'].'/public/images/vehiculos/'."vehiculo$id.png";
+                $nombrefile = $_SERVER['SERVER_NAME'].'/images/vehiculos/'."vehiculo$id.png";
                 $vehiculo->imagen = $nombrefile;
                 $vehiculo->save();
                 return response()->json(['nombrefile'=>$nombrefile], 201);

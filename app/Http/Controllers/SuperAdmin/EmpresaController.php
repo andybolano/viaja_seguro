@@ -97,7 +97,7 @@ class EmpresaController extends Controller
         try{
             if ($request->hasFile('logo')) {
                 $request->file('logo')->move('images/empresas/', "empresa$id.png");
-                $nombrefile = $_SERVER['SERVER_NAME'].'/public/images/empresas/'."empresa$id.png";
+                $nombrefile = $_SERVER['SERVER_NAME'].'/images/empresas/'."empresa$id.png";
                 $empresa = $this->show($id);
                 $empresa->logo = $nombrefile;
                 $empresa->save();
