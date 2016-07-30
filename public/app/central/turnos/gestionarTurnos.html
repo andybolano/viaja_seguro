@@ -259,18 +259,17 @@
                         <tr>
                             <td style="text-align: center">
                                 <ul ng-repeat="algo in vm.solicitudes.solicitud_nuevos_pasajeros" class="collection"
-                                    style="border-radius: 25px;"
-                                    ng-if="vm.solicitudes.solicitud_nuevos_pasajeros.length > 0">
+                                    style="border-radius: 25px;" ng-if="vm.solicitudes.solicitud_nuevos_pasajeros.length > 0"
+                                    ng-click="vm.getSolicitudPasajero(algo.id)">
                                     <li class="collection-item">
                                         <div style="font-size: 12px">
                                             <strong>{{algo.datos_pasajeros.length}} Pasajero(s)</strong>
-                                            <a href="javascript:;" class="secondary-content"
-                                               ng-click="vm.getSolicitudPasajero(algo.id)">
+                                            <!--<a href="javascript:;" class="secondary-content">-->
                                                 <!--<i class="material-icons">visibility</i>-->
                                                 <!--<div title="Pasajero esperando vehiculo en la central">-->
                                                 <!--<i class="material-icons" style="color: red">person</i>-->
                                                 <!--</div>-->
-                                            </a>
+                                            <!--</a>-->
                                         </div>
                                     </li>
                                 </ul>
