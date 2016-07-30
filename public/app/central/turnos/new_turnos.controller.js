@@ -16,6 +16,7 @@
         vm.selectedTurno = {};
         vm.Conductores = [];
         vm.conductorSelected = null;
+        vm.indexConductor = null;
 
         vm.Pasajeros = {};
         vm.Paquetes = {};
@@ -110,13 +111,14 @@
         }
 
         vm.selecciondarConductor = function ($index) {
-          vm.conductorSelected = vm.conductoresDeRuta[$index];
+            vm.indexConductor = $index;
+            vm.conductorSelected = vm.conductoresDeRuta[$index];
         };
 
         vm.confirm = function () {
-            if(!vm.selectedRuta){
+            if (!vm.selectedRuta) {
 
-            }else{
+            } else {
                 vm.addNewConductor();
             }
         };
@@ -126,7 +128,10 @@
             for (var i = 0; i < vm.conductoresDeRuta.length; i++) {
                 vm.conductoresDeRuta[i].turno = i + 1;
             }
-            newTurnosService.updateTurnos(vm.selectedRuta.id, {'turnos': vm.conductoresDeRuta, 'accion': accion}).then(success, error);
+            newTurnosService.updateTurnos(vm.selectedRuta.id, {
+                'turnos': vm.conductoresDeRuta,
+                'accion': accion
+            }).then(success, error);
             function success(p) {
             }
 
@@ -346,9 +351,9 @@
         }
 
         function addNewSolicitudPasajero(ruta) {
-            if(!vm.selectedRuta){
+            if (!vm.selectedRuta) {
 
-            }else{
+            } else {
                 vm.selectedRuta = ruta;
                 $('#modalNewSolicitudPasajero').openModal({
                     dismissible: false, // Modal can be dismissed by clicking outside of the modal
@@ -1080,23 +1085,23 @@
             vm.Paquetes = "";
         };
 
-        // itemActionChannel.bind("NuevaSolicitudEvent", function (data) {
-        //     if (authService.currentUser().central.id == data.central_id) {
-        //         cargarRutas();
-        //     }
-        // });
-        //
-        // itemActionChannel.bind("ModificarSolicitudEvent", function (data) {
-        //     if (authService.currentUser().central.id == data.central_id) {
-        //         cargarRutas();
-        //     }
-        // });
-        //
-        // itemActionChannel.bind("CancelarSolicitudEvent", function (data) {
-        //     if (authService.currentUser().central.id == data.central_id) {
-        //         cargarRutas();
-        //     }
-        // });
+        itemActionChannel.bind("NuevaSolicitudEvent", function (data) {
+            if (authService.currentUser().central.id == data.central_id) {
+                cargarRutas();
+            }
+        });
+
+        itemActionChannel.bind("ModificarSolicitudEvent", function (data) {
+            if (authService.currentUser().central.id == data.central_id) {
+                cargarRutas();
+            }
+        });
+
+        itemActionChannel.bind("CancelarSolicitudEvent", function (data) {
+            if (authService.currentUser().central.id == data.central_id) {
+                cargarRutas();
+            }
+        });
 
         vm.despacharEsteConductor = function () {
             var obj = {
@@ -1152,8 +1157,9 @@
                         newTurnosService.despacharUnConductor(obj).then(succes, error);
                     }
                     function succes(p) {
-                        // vm.ruta.turnos.splice(turno, 1);
-                        // updateTurnos(vm.ruta, 'quitar');
+
+                        vm.conductoresDeRuta.splice(vm.indexConductor, 1);
+                        updateTurnos(vm.ruta, 'quitar');
                         swal.disableButtons();
                         swal({
                             title: 'Exito!',
@@ -1176,6 +1182,7 @@
                             }
                         });
                         vm.conductorSelected = null;
+                        vm.indexConductor = null;
                     }
 
                     function error(error) {
@@ -1244,12 +1251,12 @@
             });
         }
 
-        vm.imprimir = function() {
+        vm.imprimir = function () {
             var headstr = "<html ><head><title>Imprimir</title></head><body style='color: white'>";
             var footstr = "</body>";
             var newstr = document.getElementById('contenidoplanillaespecial').innerHTML;
             var oldstr = document.body.innerHTML;
-            document.body.innerHTML = headstr+newstr+footstr;
+            document.body.innerHTML = headstr + newstr + footstr;
             window.print();
             window.close();
             // document.body.innerHTML = oldstr;

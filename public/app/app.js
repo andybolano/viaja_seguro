@@ -10,7 +10,7 @@
             'ui.router',
             'ui.keypress',
             'angular-jwt',
-            //'google-maps',
+            'google-maps',
 
             //app modules
             'ejemplo',
@@ -61,7 +61,7 @@
     }
 
     function run($rootScope, $state, jwtHelper, notificacionService) {
-        // notificacionService.pusher();
+        notificacionService.pusher();
         $rootScope.$on('$stateChangeStart', function (e, to) {
             if (!to.data || !to.data.noRequiresLogin) {
                 var jwt = sessionStorage.getItem('jwt');
