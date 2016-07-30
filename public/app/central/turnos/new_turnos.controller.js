@@ -184,14 +184,13 @@
             }).then(function (isConfirm) {
                 if (isConfirm) {
                     swal.disableButtons();
-
                     swal({
                         title: 'Exito!',
                         text: 'Has removido al condcutor de la ruta',
                         type: 'success',
                         showCancelButton: false,
                     }).then(function () {
-                        ruta.splice($index, 1);
+                        vm.conductoresDeRuta.splice($index, 1);
                         updateTurnos(ruta, 'quitar');
                     });
 
@@ -1243,6 +1242,18 @@
             }, function (errorPl) {
                 console.log('Error Al Cargar Datos', errorPl);
             });
+        }
+
+        vm.imprimir = function() {
+            var headstr = "<html ><head><title>Imprimir</title></head><body style='color: white'>";
+            var footstr = "</body>";
+            var newstr = document.getElementById('contenidoplanillaespecial').innerHTML;
+            var oldstr = document.body.innerHTML;
+            document.body.innerHTML = headstr+newstr+footstr;
+            window.print();
+            window.close();
+            // document.body.innerHTML = oldstr;
+            location.reload();
         }
 
         init();

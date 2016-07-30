@@ -5,7 +5,7 @@
         .module('app.centrales.planillas')
         .controller('planillaController', planillaController);
 
-    function planillaController(planillasService, $scope, $compile, $timeout) {
+    function planillaController(planillasService, $scope, $compile, $timeout, authService) {
         var vm = this;
 
         vm.imprimir = imprimir;
@@ -14,6 +14,7 @@
         initialize();
         function initialize() {
             cargarPlanillas();
+            vm.user = authService.currentUser();
         }
 
         function cargarPlanillas() {

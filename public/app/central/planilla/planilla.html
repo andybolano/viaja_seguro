@@ -68,7 +68,6 @@
         <div id="modalPlanillaEspecial" class="modal modal-fixed-footer"
              style="width: 75%;min-height:90%; border-radius: 15px">
             <div class="modal-content" id="planillaEspecial">
-                <!--<link rel="stylesheet" type="text/css" media="print" href="http://dev.viajaseguro.co/public/assets/css/style-planilla-especial.css" />-->
                 <div id="contenidoplanillaespecial" align=center x:publishsource="Excel">
                     <table border=0 cellpadding=0 cellspacing=0 width=783 style='border-collapse:
  collapse;table-layout:fixed;width:589pt'>
@@ -105,7 +104,7 @@
                                 valign=top><span style='mso-ignore:vglayout;
   position:absolute;z-index:1;margin-left:1px;margin-top:2px;width:365px;
   height:106px'><img width=365 height=106
-                     src="../assets/images/pespecial/FUEC%20COOTRASAN_7730_image004.png"
+                     ng-src="http://{{vm.planilla.central.empresa.logo}}"
                      v:shapes="Imagen_x0020_1"></span><span
                                     style='mso-ignore:vglayout2'>
   <table cellpadding=0 cellspacing=0>
@@ -313,23 +312,6 @@
                                 {{pasajero.nombres |uppercase}}
                             </td>
                         </tr>
-                        <tr height=44 style='mso-height-source:userset;height:33.0pt'>
-                            <td height=44 class=xl157730 style='height:33.0pt'></td>
-                            <td colspan=6 rowspan=3 height=114 width=703 style='height:85.5pt;width:529pt'
-                                align=left valign=top><span style='mso-ignore:vglayout;
-  position:absolute;z-index:3;margin-left:256px;margin-top:3px;width:202px;
-  height:110px'><img width=202 height=110
-                     src="../assets/images/pespecial/FUEC%20COOTRASAN_7730_image006.png"
-                     v:shapes="Imagen_x0020_3"></span><span
-                                    style='mso-ignore:vglayout2'>
-  <table cellpadding=0 cellspacing=0>
-   <tr>
-    <td colspan=6 rowspan=3 height=114 class=xl697730 width=703
-        style='height:85.5pt;width:529pt'>&nbsp;</td>
-   </tr>
-  </table>
-  </span></td>
-                        </tr>
                         <tr height=41 style='mso-height-source:userset;height:30.75pt'>
                             <td height=41 class=xl157730 style='height:30.75pt'></td>
                         </tr>
@@ -338,26 +320,24 @@
                         </tr>
                         <tr height=20 style='height:15.0pt'>
                             <td height=20 class=xl157730 style='height:15.0pt'></td>
-                            <td colspan=6 class=xl767730>COOPERATIVA DE TRANSPORTADORES DE SAN JUAN DEL
-                                CESAR<span style='mso-spacerun:yes'> </span>COOTRASAN Nit 824.004.192
+                            <td colspan=6 class=xl767730>{{vm.planilla.central.empresa.nombre}} Nit {{vm.planilla.central.empresa.nit}}
                             </td>
                         </tr>
                         <tr height=20 style='height:15.0pt'>
                             <td height=20 class=xl157730 style='height:15.0pt'></td>
-                            <td colspan=6 class=xl767730>Resolución de Habilitación No 0191 del 30 de
-                                Noviembre del 2001 Emanada del Ministerio de Transporte Seccional Cesar
+                            <td colspan=6 class=xl767730>Resolución de Habilitación No {{vm.planilla.central.empresa.nresolucion}}
+                                de {{vm.planilla.central.empresa.fecha_resolucion | date: 'longDate'}} Emanada del Ministerio de Transporte Seccional Cesar
+                            </td>
+                        </tr>.
+                        <tr height=20 style='height:15.0pt'>
+                            <td height=20 class=xl157730 style='height:15.0pt'></td>
+                            <td colspan=6 class=xl767730>Oficina Principal {{vm.planilla.central.empresa.direccion}}<span
+                                    style='mso-spacerun:yes'> </span>Tel: {{vm.planilla.central.empresa.telefono}} {{vm.user.central.ciudad.nombre}}-{{vm.user.central.departamento.nombre}}
                             </td>
                         </tr>
                         <tr height=20 style='height:15.0pt'>
                             <td height=20 class=xl157730 style='height:15.0pt'></td>
-                            <td colspan=6 class=xl767730>Oficina Principal Cra. 8 No. 16 B - 37<span
-                                    style='mso-spacerun:yes'> </span>Tel: 570 84 33 - 5 71 49 91 Fax: 5 71 49
-                                39 Valledupar-Cesar
-                            </td>
-                        </tr>
-                        <tr height=20 style='height:15.0pt'>
-                            <td height=20 class=xl157730 style='height:15.0pt'></td>
-                            <td colspan=6 class=xl677730>Email: Cootrasan4@hotmail.com</td>
+                            <!--<td colspan=6 class=xl677730>Email: Cootrasan4@hotmail.com</td>-->
                         </tr>
                         <tr height=20 style='height:15.0pt'>
                             <td height=20 class=xl157730 style='height:15.0pt'></td>
@@ -415,7 +395,6 @@
                             <td width=109 style='width:82pt'></td>
                             <td width=129 style='width:97pt'></td>
                         </tr>
-                        <![endif]>
                     </table>
                 </div>
             </div>
