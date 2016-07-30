@@ -61,9 +61,6 @@
         </div>
 
 
-
-
-
         <!--modal planilla especial-->
         <div id="modalPlanillaEspecial" class="modal modal-fixed-footer"
              style="width: 75%;min-height:90%; border-radius: 15px">
@@ -177,7 +174,8 @@
                         <tr height=20 style='height:15.0pt'>
                             <td height=20 class=xl157730 style='height:15.0pt'></td>
                             <td colspan=6 class=xl777730 style='border-right:.5pt solid black'>RECORRIDO
-                                :<span style='mso-spacerun:yes'> </span>{{vm.planilla.viaje.ruta.trayectoria | uppercase}}
+                                :<span style='mso-spacerun:yes'> </span>{{vm.planilla.viaje.ruta.trayectoria |
+                                uppercase}}
                             </td>
                         </tr>
                         <tr height=20 style='height:15.0pt'>
@@ -291,7 +289,8 @@
                         <tr height=20 style='height:15.0pt'>
                             <td height=20 class=xl157730 style='height:15.0pt'></td>
                             <td colspan=2 class=xl777730 style='border-right:.5pt solid black'>
-                                {{vm.planilla.viaje.conductor.nombres || uppercase}} {{vm.planilla.viaje.conductor.apellidos
+                                {{vm.planilla.viaje.conductor.nombres || uppercase}}
+                                {{vm.planilla.viaje.conductor.apellidos
                                 || uppercase}}
                             </td>
                             <td class=xl687730 style='border-top:none;border-left:none'>
@@ -320,19 +319,25 @@
                         </tr>
                         <tr height=20 style='height:15.0pt'>
                             <td height=20 class=xl157730 style='height:15.0pt'></td>
-                            <td colspan=6 class=xl767730>{{vm.planilla.central.empresa.nombre}} Nit {{vm.planilla.central.empresa.nit}}
+                            <td colspan=6 class=xl767730>{{vm.planilla.central.empresa.nombre}} Nit
+                                {{vm.planilla.central.empresa.nit}}
                             </td>
                         </tr>
                         <tr height=20 style='height:15.0pt'>
                             <td height=20 class=xl157730 style='height:15.0pt'></td>
-                            <td colspan=6 class=xl767730>Resolución de Habilitación No {{vm.planilla.central.empresa.nresolucion}}
-                                de {{vm.planilla.central.empresa.fecha_resolucion | date: 'longDate'}} Emanada del Ministerio de Transporte Seccional Cesar
+                            <td colspan=6 class=xl767730>Resolución de Habilitación No
+                                {{vm.planilla.central.empresa.nresolucion}}
+                                de {{vm.planilla.central.empresa.fecha_resolucion | date: 'longDate'}} Emanada del
+                                Ministerio de Transporte Seccional Cesar
                             </td>
-                        </tr>.
+                        </tr>
+                        .
                         <tr height=20 style='height:15.0pt'>
                             <td height=20 class=xl157730 style='height:15.0pt'></td>
-                            <td colspan=6 class=xl767730>Oficina Principal {{vm.planilla.central.empresa.direccion}}<span
-                                    style='mso-spacerun:yes'> </span>Tel: {{vm.planilla.central.empresa.telefono}} {{vm.user.central.ciudad.nombre}}-{{vm.user.central.departamento.nombre}}
+                            <td colspan=6 class=xl767730>Oficina Principal
+                                {{vm.planilla.central.empresa.direccion}}<span
+                                        style='mso-spacerun:yes'> </span>Tel: {{vm.planilla.central.empresa.telefono}}
+                                {{vm.user.central.ciudad.nombre}}-{{vm.user.central.departamento.nombre}}
                             </td>
                         </tr>
                         <tr height=20 style='height:15.0pt'>
@@ -409,91 +414,254 @@
 
 
         <!--modal planilla-->
-        <div id="modalPlanillaNormal" class="modal modal-fixed-footer" style="width: 75%;min-height:90%; border-radius: 15px">
+        <div id="modalPlanillaNormal" class="modal modal-fixed-footer"
+             style="width: 75%;min-height:90%; border-radius: 15px">
             <div class="modal-content" id="planilla">
                 <div id="page-wrap" class="page-wrap">
-                    <table class="tg">
-                        <tr>
-                            <th class="tg-yw4l" rowspan="6" style="margin-left: 30px">
-                                <img ng-src="http://{{vm.planilla.viaje.central.empresa.logo}}" alt=""
-                                     style="border-radius: 50%; width: 150px; height: 150px">
-                            </th>
-                            <th class="tg-yw4l"></th>
+                    <table border=0 cellpadding=0 cellspacing=0 width=818 style='border-collapse:
+ collapse;table-layout:fixed;width:614pt'>
+                        <col width=80 span=2 style='width:60pt'>
+                        <col width=98 style='mso-width-source:userset;mso-width-alt:3584;width:74pt'>
+                        <col width=80 span=7 style='width:60pt'>
+                        <tr height=20 style='height:15.0pt'>
+                            <td colspan=2 rowspan=7 height=155 width=160 style='height:116.25pt;
+  width:120pt' align=left valign=top><span style='mso-ignore:vglayout;
+  position:absolute;z-index:1;margin-left:4px;margin-top:5px;width:152px;
+  height:138px'><img width=152 height=138
+                     ng-src="http://{{vm.planilla.central.empresa.logo}}" v:shapes="Imagen_x0020_1"></span><span
+                                    style='mso-ignore:vglayout2'>
+  <table cellpadding=0 cellspacing=0>
+   <tr>
+    <td colspan=2 rowspan=7 height=155 class=xl694637 width=160
+        style='height:116.25pt;width:120pt'>&nbsp;</td>
+   </tr>
+  </table>
+  </span></td>
+                            <td class=xl684637 width=98 style='width:74pt'>&nbsp;</td>
+                            <td class=xl684637 width=80 style='width:60pt'>&nbsp;</td>
+                            <td class=xl684637 width=80 style='width:60pt'>&nbsp;</td>
+                            <td class=xl684637 width=80 style='width:60pt'>&nbsp;</td>
+                            <td class=xl684637 width=80 style='width:60pt'>&nbsp;</td>
+                            <td class=xl684637 width=80 style='width:60pt'>&nbsp;</td>
+                            <td class=xl684637 width=80 style='width:60pt'>&nbsp;</td>
+                            <td class=xl724637 width=80 style='width:60pt'>&nbsp;</td>
                         </tr>
-                        <tr>
-                            <td class="tg-g145" colspan="3">{{vm.planilla.viaje.central.empresa.nombre |
-                                uppercase}}
-                            </td>
-                            <td class="tg-smzr"></td>
-                        </tr>
-                        <tr>
-                            <td class="tg-smzr" colspan="3">PERSONERIA JURIDICA No.
+                        <tr height=24 style='mso-height-source:userset;height:18.0pt'>
+                            <td colspan=7 height=24 class=xl644637 style='height:18.0pt'><span
+                                    style='orphans: auto;widows: 1;-webkit-text-stroke-width: 0px'>PERSONERIA JURIDICA No.
                                 {{vm.planilla.central.empresa.pjuridica | uppercase}} NIT:
-                                {{vm.planilla.central.empresa.nit | uppercase}}
-                            </td>
-                            <td class="tg-smzr"></td>
+                                {{vm.planilla.central.empresa.nit | uppercase}}</span></td>
+                            <td class=xl734637>&nbsp;</td>
                         </tr>
-                        <tr>
-                            <td class="tg-smzr" colspan="3">RESOLUCION No.
+                        <tr height=25 style='mso-height-source:userset;height:18.75pt'>
+                            <td colspan=7 height=25 class=xl654637 style='height:18.75pt'><span
+                                    style='orphans: auto;widows: 1;-webkit-text-stroke-width: 0px'>RESOLUCION No.
                                 {{vm.planilla.central.empresa.nresolucion | uppercase}}
                                 {{vm.planilla.central.empresa.fecha_resolucion | date: 'longDate'}} -
-                                MINISTERIO DE TRANSPORTE
-                            </td>
-                            <td class="tg-smzr"></td>
+                                MINISTERIO DE TRANSPORTE</span></td>
+                            <td class=xl734637>&nbsp;</td>
                         </tr>
-                        <tr>
-                            <td class="tg-smzr"></td>
-                        </tr>
-                        <tr>
-                            <td class="tg-smzr" colspan="3">{{vm.planilla.central.direccion | uppercase}}
+                        <tr height=26 style='mso-height-source:userset;height:19.5pt'>
+                            <td height=26 class=xl154637 style='height:19.5pt'></td>
+                            <td class=xl664637 colspan=6><span
+                                    style='orphans: auto;widows: 1;-webkit-text-stroke-width: 0px'>{{vm.planilla.central.direccion | uppercase}}
                                 {{vm.planilla.central.ciudad.nombre | uppercase }} -
                                 {{ vm.planilla.central.ciudad.departamento.nombre | uppercase}} TEL:
-                                {{vm.planilla.central.telefono}}
-                            </td>
-                            <td class="tg-smzr"></td>
+                                {{vm.planilla.central.telefono}}</span></td>
+                            <td class=xl734637>&nbsp;</td>
                         </tr>
-                        <tr>
-                            <td class="tg-yw4l"></td>
-                            <td class="tg-gh1y" colspan="2">PLANILLA DE DESPACHO</td>
-                            <td class="tg-smzr"></td>
-                            <td class="tg-smzr"></td>
+                        <tr height=20 style='height:15.0pt'>
+                            <td height=20 class=xl154637 style='height:15.0pt'></td>
+                            <td class=xl154637></td>
+                            <td class=xl154637></td>
+                            <td class=xl154637></td>
+                            <td class=xl154637></td>
+                            <td class=xl154637></td>
+                            <td class=xl154637></td>
+                            <td class=xl734637>&nbsp;</td>
                         </tr>
-                        <tr>
-                            <td class="tg-123c">PLANILLA No. {{vm.planilla.numero_planilla | uppercase}}</td>
-                            <td class="tg-123c">FECHA: {{vm.planilla.viaje.fecha | date}}</td>
-                            <td class="tg-123c">HORA: 2:58:37</td>
-                            <td class="tg-smzr">CIUDAD ORIGEN</td>
-                            <td class="tg-smzr">CIUDAD DESTINO</td>
+                        <tr height=20 style='height:15.0pt'>
+                            <td height=20 class=xl154637 style='height:15.0pt'></td>
+                            <td class=xl154637></td>
+                            <td colspan=3 class=xl654637><span
+                                    style='orphans: auto;widows: 1;-webkit-text-stroke-width: 0px'>PLANILLA
+  DE DESPACHO</span></td>
+                            <td class=xl154637></td>
+                            <td class=xl154637></td>
+                            <td class=xl734637>&nbsp;</td>
                         </tr>
-                        <tr>
-                            <td class="tg-smzr">PROPIETARIO:</td>
-                            <td class="tg-smzr">{{vm.planilla.viaje.conductor.vehiculo.nombre_propietario |
-                                uppercase}}
-                            </td>
-                            <td class="tg-smzr">C.C:
-                                {{vm.planilla.viaje.conductor.vehiculo.identificacion_propietario | uppercase}}
-                            </td>
-                            <td class="tg-123c">{{vm.planilla.viaje.ruta.origen.ciudad.nombre | uppercase }}</td>
-                            <td class="tg-123c">{{vm.planilla.viaje.ruta.destino.ciudad.nombre | uppercase}}</td>
+                        <tr height=20 style='height:15.0pt'>
+                            <td height=20 class=xl154637 style='height:15.0pt'></td>
+                            <td class=xl154637></td>
+                            <td class=xl154637></td>
+                            <td class=xl154637></td>
+                            <td class=xl154637></td>
+                            <td class=xl154637></td>
+                            <td class=xl154637></td>
+                            <td class=xl734637>&nbsp;</td>
                         </tr>
-                        <tr>
-                            <td class="tg-smzr">CONDUCTOR:</td>
-                            <td class="tg-smzr">{{vm.planilla.viaje.conductor.nombres | uppercase}}
-                                {{vm.planilla.viaje.conductor.apellidos | uppercase}}
+                        <tr height=20 style='height:15.0pt'>
+                            <td height=20 class=xl784637 colspan=2 style='height:15.0pt'><span
+                                    style='orphans: auto;widows: 1;-webkit-text-stroke-width: 0px'>PLANILLA No. {{vm.planilla.numero_planilla | uppercase}}</span>
                             </td>
-                            <td class="tg-smzr">LIC No: {{vm.planilla.viaje.conductor.nlicencia}}</td>
-                            <td class="tg-smzr">TARJETA OPE: {{vm.planilla.viaje.conductor.toperacion}}</td>
-                            <td class="tg-smzr"></td>
+                            <td colspan=2 class=xl804637><span
+                                    style='orphans: auto;widows: 1;-webkit-text-stroke-width: 0px'>FECHA: {{vm.planilla.viaje.fecha | date}}</span>
+                            </td>
+                            <td colspan=2 class=xl804637><span
+                                    style='orphans: auto;widows: 1;-webkit-text-stroke-width: 0px'>HORA: 2:58:37</span></td>
+                            <td colspan=2 class=xl804637><span
+                                    style='orphans: auto;widows: 1;-webkit-text-stroke-width: 0px'>CIUDAD ORIGEN</span></td>
+                            <td colspan=2 class=xl804637 style='border-right:.5pt solid black'><span
+                                    style='orphans: auto;widows: 1;-webkit-text-stroke-width: 0px'>CIUDAD DESTINO</span>
+                            </td>
                         </tr>
-                        <tr>
-                            <td class="tg-smzr">VEHICULO:</td>
-                            <td class="tg-smzr">{{vm.planilla.viaje.conductor.vehiculo.modelo | uppercase}}</td>
-                            <td class="tg-smzr">PLACA: {{vm.planilla.viaje.conductor.vehiculo.placa | uppercase}}
+                        <tr height=4 style='mso-height-source:userset;height:3.0pt'>
+                            <td height=4 class=xl714637 style='height:3.0pt'>&nbsp;</td>
+                            <td class=xl154637></td>
+                            <td class=xl154637></td>
+                            <td class=xl154637></td>
+                            <td class=xl154637></td>
+                            <td class=xl154637></td>
+                            <td class=xl154637></td>
+                            <td class=xl154637></td>
+                            <td class=xl154637></td>
+                            <td class=xl734637>&nbsp;</td>
+                        </tr>
+                        <tr height=20 style='height:15.0pt'>
+                            <td colspan=2 height=20 class=xl824637 style='height:15.0pt'><span
+                                    style='orphans: auto;widows: 1;-webkit-text-stroke-width: 0px'>PROPIETARIO:</span>
                             </td>
-                            <td class="tg-smzr"></td>
-                            <td class="tg-123c"></td>
+                            <td colspan=2 class=xl804637><span
+                                    style='orphans: auto;widows: 1;-webkit-text-stroke-width: 0px'>{{vm.planilla.viaje.conductor.vehiculo.nombre_propietario |
+                                uppercase}}</span></td>
+                            <td colspan=2 class=xl804637><span
+                                    style='orphans: auto;widows: 1;-webkit-text-stroke-width: 0px'>C.C:
+                                {{vm.planilla.viaje.conductor.vehiculo.identificacion_propietario | uppercase}}</span></td>
+                            <td colspan=2 class=xl804637><span
+                                    style='orphans: auto;widows: 1;-webkit-text-stroke-width: 0px'>{{vm.planilla.viaje.ruta.origen.ciudad.nombre | uppercase }}</span>
+                            </td>
+                            <td colspan=2 class=xl804637 style='border-right:.5pt solid black'><span
+                                    style='orphans: auto;widows: 1;-webkit-text-stroke-width: 0px'>{{vm.planilla.viaje.ruta.destino.ciudad.nombre | uppercase}}</span></td>
+                        </tr>
+
+                        <tr height=3 style='mso-height-source:userset;height:2.25pt'>
+                            <td height=3 class=xl714637 style='height:2.25pt'>&nbsp;</td>
+                            <td class=xl154637></td>
+                            <td class=xl154637></td>
+                            <td class=xl154637></td>
+                            <td class=xl154637></td>
+                            <td class=xl154637></td>
+                            <td class=xl154637></td>
+                            <td class=xl154637></td>
+                            <td class=xl154637></td>
+                            <td class=xl734637>&nbsp;</td>
+                        </tr>
+
+                        <tr height=20 style='height:15.0pt'>
+                            <td colspan=2 height=20 class=xl824637 style='height:15.0pt'><span
+                                    style='orphans: auto;widows: 1;-webkit-text-stroke-width: 0px'>CONDUCTOR:</span>
+                            </td>
+                            <td colspan=2 class=xl804637><span
+                                    style='orphans: auto;widows: 1;-webkit-text-stroke-width: 0px'>{{vm.planilla.viaje.conductor.nombres | uppercase}}
+                                {{vm.planilla.viaje.conductor.apellidos | uppercase}}</span></td>
+                            <td colspan=2 class=xl804637><span
+                                    style='orphans: auto;widows: 1;-webkit-text-stroke-width: 0px'>LIC No: {{vm.planilla.viaje.conductor.nlicencia}}</span></td>
+                            <td colspan=2 class=xl804637><span
+                                    style='orphans: auto;widows: 1;-webkit-text-stroke-width: 0px'>TARJETA OPE: {{vm.planilla.viaje.conductor.toperacion}}</span></td>
+                            <td class=xl794637>&nbsp;</td>
+                            <td class=xl834637>&nbsp;</td>
+                        </tr>
+                        <tr height=3 style='mso-height-source:userset;height:2.25pt'>
+                            <td height=3 class=xl714637 style='height:2.25pt'>&nbsp;</td>
+                            <td class=xl154637></td>
+                            <td class=xl154637></td>
+                            <td class=xl154637></td>
+                            <td class=xl154637></td>
+                            <td class=xl154637></td>
+                            <td class=xl154637></td>
+                            <td class=xl154637></td>
+                            <td class=xl154637></td>
+                            <td class=xl734637>&nbsp;</td>
+                        </tr>
+                        <tr height=20 style='height:15.0pt'>
+                            <td colspan=2 height=20 class=xl824637 style='height:15.0pt'><span
+                                    style='orphans: auto;widows: 1;-webkit-text-stroke-width: 0px'>VEHICULO:</span></td>
+                            <td colspan=2 class=xl804637><span
+                                    style='orphans: auto;widows: 1;-webkit-text-stroke-width: 0px'>{{vm.planilla.viaje.conductor.vehiculo.modelo | uppercase}}</span></td>
+                            <td colspan=2 class=xl804637><span
+                                    style='orphans: auto;widows: 1;-webkit-text-stroke-width: 0px'>PLACA: {{vm.planilla.viaje.conductor.vehiculo.placa | uppercase}}</span></td>
+                            <td class=xl794637>&nbsp;</td>
+                            <td class=xl794637>&nbsp;</td>
+                            <td class=xl794637>&nbsp;</td>
+                            <td class=xl834637>&nbsp;</td>
+                        </tr>
+                        <tr height=4 style='mso-height-source:userset;height:3.0pt'>
+                            <td height=4 class=xl864637 style='height:3.0pt'>&nbsp;</td>
+                            <td class=xl764637>&nbsp;</td>
+                            <td class=xl764637>&nbsp;</td>
+                            <td class=xl764637>&nbsp;</td>
+                            <td class=xl764637>&nbsp;</td>
+                            <td class=xl764637>&nbsp;</td>
+                            <td class=xl764637>&nbsp;</td>
+                            <td class=xl764637>&nbsp;</td>
+                            <td class=xl764637>&nbsp;</td>
+                            <td class=xl774637>&nbsp;</td>
+                        </tr>
+                        <tr height=20 style='height:15.0pt'>
+                            <td height=20 class=xl934637 style='height:15.0pt;border-top:none'>&nbsp;</td>
+                            <td class=xl794637 style='border-top:none'>&nbsp;</td>
+                            <td class=xl794637 style='border-top:none'>&nbsp;</td>
+                            <td class=xl794637 style='border-top:none'>&nbsp;</td>
+                            <td class=xl794637 style='border-top:none'>&nbsp;</td>
+                            <td class=xl794637 style='border-top:none'>&nbsp;</td>
+                            <td class=xl794637 style='border-top:none'>&nbsp;</td>
+                            <td class=xl794637 style='border-top:none'>&nbsp;</td>
+                            <td class=xl794637 style='border-top:none'>&nbsp;</td>
+                            <td class=xl834637 style='border-top:none'>&nbsp;</td>
+                        </tr>
+                        <tr height=20 style='height:15.0pt'>
+                            <td colspan=2 height=20 class=xl844637 style='height:15.0pt'><span
+                                    style='orphans: auto;widows: 1;-webkit-text-stroke-width: 0px'>CEDULA</span></td>
+                            <td colspan=3 class=xl854637 style='border-right:.5pt solid black'><span
+                                    style='orphans: auto;widows: 1;-webkit-text-stroke-width: 0px'>NOMBRE Y
+  APELLIDOS</span></td>
+                            <td class=xl904637 style='border-top:none;border-left:none'>&nbsp;</td>
+                            <td class=xl684637 style='border-top:none'>&nbsp;</td>
+                            <td colspan=3 class=xl854637 style='border-right:.5pt solid black'><span
+                                    style='orphans: auto;widows: 1;-webkit-text-stroke-width: 0px'>DEDUCCIONES</span>
+                            </td>
+                        </tr>
+                        <tr height=20 style='mso-height-source:userset;height:15.0pt'>
+                            <td colspan=2 height=20 class=xl884637 width=160 style='height:15.0pt;
+  width:120pt'><span style='orphans: auto;widows: 1;-webkit-text-stroke-width: 0px'>1051674769</span></td>
+                            <td colspan=3 class=xl654637 style='border-right:.5pt solid black'><span
+                                    style='orphans: auto;widows: 1;-webkit-text-stroke-width: 0px'>Belkys Rada</span>
+                            </td>
+                            <td class=xl714637 style='border-left:none'>&nbsp;</td>
+                            <td colspan=4 class=xl914637 style='border-right:.5pt solid black'><span
+                                    style='orphans: auto;widows: 1;-webkit-text-stroke-width: 0px'>INGRESO
+  ADMINISTRATIVO</span></td>
+                        </tr>
+                        <tr height=20 style='height:15.0pt'>
+                            <td colspan=2 height=20 class=xl944637 width=160 style='height:15.0pt;
+  width:120pt'>&nbsp;</td>
+                            <td colspan=3 class=xl984637 style='border-right:.5pt solid black'></td>
+                            <td class=xl714637 style='border-left:none'>&nbsp;</td>
+                            <td colspan=4 class=xl914637 style='border-right:.5pt solid black'><span
+                                    style='orphans: auto;widows: 1;-webkit-text-stroke-width: 0px'>PASAJE</span></td>
+                        </tr>
+
+
+                        <tr height=20 style='height:15.0pt'>
+                            <td colspan=2 height=20 class=xl964637 style='height:15.0pt'>&nbsp;</td>
+                            <td colspan=3 class=xl974637 style='border-right:.5pt solid black'>&nbsp;</td>
+                            <td class=xl864637 style='border-left:none'>&nbsp;</td>
+                            <td colspan=2 class=xl754637><span
+                                    style='orphans: auto;widows: 1;-webkit-text-stroke-width: 0px'>TOTAL:</span></td>
+                            <td colspan=2 class=xl1014637 style='border-right:.5pt solid black'>{{vm.planilla.total | currency}}</td>
                         </tr>
                     </table>
+
 
                     <div class="blended_grid">
                         <div class="pageColumnLeft">
@@ -524,7 +692,7 @@
                                 <table class="tg">
                                     <tr>
                                         <td>TOTAL:</td>
-                                        <td>{{vm.planilla.total | currency}}</td>
+                                        <td></td>
                                     </tr>
                                 </table>
                             </div>
