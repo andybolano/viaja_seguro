@@ -14,35 +14,7 @@
     function ConductorNuevoController(conductoresEmpresaService, centralesService, $filter) {
         var vm = this;
         vm.addmode = true;
-        vm.Conductor = {
-            apellidos: "Pérez Machado",
-            correo: "tavo5@correo.com",
-            direccion: "calle 32 #  77-70",
-            fecha_licencia: new Date("2017-08-12") ,
-            fecha_seguroac: new Date("2017-08-12") ,
-            identificacion: "9202100155",
-            nlicencia: "9202100155",
-            nombres: "Tavo",
-            seguroac: true,
-            telefono: "8247242",
-            tipo_licencia: "a1",
-            toperacion: "9202100155",
-            vehiculo: {
-                codigo_vial: "777",
-                color: "negro",
-                cupos: "4",
-                fecha_soat: new Date("2017-04-14") ,
-                fecha_tecnomecanica: new Date("2017-06-08") ,
-                identificacion_propietario: "9202100155",
-                modelo: "stick",
-                nombre_propietario: "Tavo Pérez",
-                placa: "TVP-777",
-                soat: true,
-                tarjeta_propiedad: true,
-                tecnomecanica: true,
-                tel_propietario: "8247242",
-            }
-        };
+        vm.Conductor = {};
 
         vm.guardar = guardar;
 
