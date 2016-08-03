@@ -235,7 +235,7 @@
                                                         <p><b>Fecha de vencimiento</b></p>
                                                         <input style="border-radius: 15px" type="date"
                                                                class="datepicker" name="fecha_soat"
-                                                               ng-model="vm.Conductor.fecha_licencia" id="fecha_licencia"
+                                                               ng-model="vm.fecha_licencia" id="fecha_licencia"
                                                                ui-date="{ dateFormat: 'yy-MM-DD' }" min-date="minDate"
                                                                required>
                                                     </div>
@@ -268,7 +268,7 @@
                                                         <p><b>Fecha de vencimiento</b></p>
                                                         <input style="border-radius: 15px" type="date"
                                                                class="datepicker" name="fecha_soat"
-                                                               ng-model="vm.Conductor.vehiculo.fecha_soat" id="fecha_soat"
+                                                               ng-model="vm.fecha_soat" id="fecha_soat"
                                                                ui-date="{ dateFormat: 'yy-MM-DD' }" min-date="minDate"
                                                                required>
                                                     </div>
@@ -288,7 +288,7 @@
                                                         <p><b>Fecha de vencimiento</b></p>
                                                         <input style="border-radius: 15px" type="date"
                                                                class="datepicker" name="fecha_tecnomecanica"
-                                                               ng-model="vm.Conductor.vehiculo.fecha_tecnomecanica"
+                                                               ng-model="vm.fecha_tecnomecanica"
                                                                id="fecha_tecnomecanica"
                                                                ui-date="{ dateFormat: 'yy-MM-DD' }" min-date="minDate"
                                                                required>
@@ -309,7 +309,7 @@
                                                         <p><b>Fecha de vencimiento</b></p>
                                                         <input style="border-radius: 15px" type="date"
                                                                class="datepicker" name="fecha_seguro"
-                                                               ng-model="vm.Conductor.fecha_seguroac"
+                                                               ng-model="vm.fecha_seguroac"
                                                                id="fecha_seguro"
                                                                ui-date="{ dateFormat: 'yy-MM-DD' }" min-date="minDate"
                                                                required>
@@ -342,7 +342,7 @@
                 <!--style="margin-left:10px;border-radius: 25px">-->
             <!--Modificar-->
         </button>
-        <button class="waves-effect waves-light btn light-green " ng-show="!vm.Conductor.activo"
+        <button class="waves-effect waves-light btn light-green " ng-show="!vm.Conductor.activo && vm.enablemode"
                 ng-click="vm.habilitar()" ng-class="{'disabled': formConductor.$invalid}"
                 ng-disabled="formConductor.$invalid"
                 style="margin-left:10px;border-radius: 25px">

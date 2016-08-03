@@ -91,14 +91,15 @@
             vm.ConductoresInactivos = []
             var promiseGet = conductoresEmpresaService.getAll();
             promiseGet.then(function (p) {
-                for (var i = 0; i < p.data.length; i++) {
-                    if (p.data[i].activo == true) {
-                        p.data[i].doc_venc = documentacionPorVencer(p.data[i]);
-                        vm.Conductores.push(p.data[i]);
+                p.data.forEach(function (conductor) {
+                    if (conductor.activo === true) {
+                        console.log(conductor);
+                        conductor.doc_venc = documentacionPorVencer(conductor);
+                        vm.Conductores.push(conductor);
                     } else {
-                        vm.ConductoresInactivos.push(p.data[i]);
+                        vm.ConductoresInactivos.push(conductor);
                     }
-                }
+                });
             }, function (errorPl) {
                 console.log('Error Al Cargar Datos', errorPl);
             });

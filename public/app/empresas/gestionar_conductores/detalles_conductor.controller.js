@@ -14,11 +14,14 @@
     function ConductorDetallesController(conductoresEmpresaService, centralesService) {
         var vm = this;
         vm.active = "active";
+        vm.enablemode = true;
         vm.Conductor = conductoresEmpresaService.conductor;
-        vm.Conductor.fecha_licencia = vm.Conductor.fecha_licencia ? new Date(vm.Conductor.fecha_licencia) : null;
-        vm.Conductor.fecha_seguroac = vm.Conductor.fecha_seguroac ? new Date(vm.Conductor.fecha_seguroac) : null;
-        vm.Conductor.vehiculo.fecha_soat = vm.Conductor.vehiculo.fecha_soat ? new Date(vm.Conductor.vehiculo.fecha_soat) : null;
-        vm.Conductor.vehiculo.fecha_tecnomecanica = vm.Conductor.vehiculo.fecha_tecnomecanica ? new Date(vm.Conductor.vehiculo.fecha_tecnomecanica) : null;
+        vm.fecha_licencia = vm.Conductor.fecha_licencia ? new Date(vm.Conductor.fecha_licencia) : null;
+        vm.fecha_seguroac = vm.Conductor.fecha_seguroac ? new Date(vm.Conductor.fecha_seguroac) : null;
+        if(vm.Conductor.vehiculo){
+            vm.fecha_soat = vm.Conductor.vehiculo.fecha_soat ? new Date(vm.Conductor.vehiculo.fecha_soat) : null;
+            vm.fecha_tecnomecanica = vm.Conductor.vehiculo.fecha_tecnomecanica ? new Date(vm.Conductor.vehiculo.fecha_tecnomecanica) : null;
+        }
 
         vm.habilitar = habilitar;
         vm.update = update;
