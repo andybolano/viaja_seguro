@@ -53,6 +53,8 @@
         vm.modificarPaquete = modificarPaquete;
         vm.eliminarPaquete = eliminarPaquete;
         vm.verDescripcionPaquete = verDescripcionPaquete;
+        //cliente
+        vm.getCliente = getCliente;
 
         vm.limpiarPasajeros = limpiarPasajeros;
         vm.limpiarGiros = limpiarGiros;
