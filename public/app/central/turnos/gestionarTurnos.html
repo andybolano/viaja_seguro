@@ -261,7 +261,7 @@
                                 <ul ng-repeat="algo in vm.solicitudes.solicitud_nuevos_pasajeros" class="collection"
                                     style="border-radius: 25px;" ng-if="vm.solicitudes.solicitud_nuevos_pasajeros.length > 0"
                                     ng-click="vm.getSolicitudPasajero(algo.id)">
-                                    <li class="collection-item">
+                                    <li class="collection-item nuevo-servicio">
                                         <div style="font-size: 12px">
                                             <strong>{{algo.datos_pasajeros.length}} Pasajero(s)</strong>
                                             <!--<a href="javascript:;" class="secondary-content">-->
@@ -276,7 +276,7 @@
                                 <ul ng-repeat="algo in vm.solicitudes.solicitud_pasajeros" class="collection"
                                     style="border-radius: 25px;" ng-if="vm.solicitudes.solicitud_pasajeros.length > 0"
                                     ng-click="vm.getSolicitudPasajero(algo.id)">
-                                    <li class="collection-item">
+                                    <li class="collection-item nuevo-servicio">
                                         <div style="font-size: 12px">
                                             <strong>{{algo.datos_pasajeros.length}} Pasajero(s)</strong>
                                             <!--<a href="javascript:;" class="secondary-content">-->
@@ -313,7 +313,7 @@
                                 <ul ng-repeat="algo in vm.solicitudes.solicitud_giros" class="collection"
                                     style="border-radius: 25px;" ng-if="vm.solicitudes.solicitud_giros.length > 0"
                                     ng-click="vm.getSolicitudGiro(algo.id)">
-                                    <li class="collection-item">
+                                    <li class="collection-item nuevo-servicio">
                                         <div style="font-size: 12px">
                                             <strong>{{algo.detalles.length}} Giro(s)</strong>
                                             <!--<a href="javascript:;" class="secondary-content">-->
@@ -350,7 +350,7 @@
                                 <ul ng-repeat="algo in vm.solicitudes.solicitud_paquetes" class="collection"
                                     style="border-radius: 25px;" ng-if="vm.solicitudes.solicitud_paquetes.length > 0"
                                     ng-click="vm.getSolicitudPaquete(algo.id)">
-                                    <li class="collection-item">
+                                    <li class="collection-item nuevo-servicio">
                                         <div style="font-size: 12px">
                                             <strong>{{algo.detalles.length}} Paquete(s)</strong>
                                             <!--<a href="javascript:;" class="secondary-content">-->
@@ -1007,8 +1007,8 @@
          style="width: 90%;min-height:35%;">
         <!--<form action="" name="formPasajero">-->
         <div class="modal-content">
-            <h2><b style="color: black">Pasajeros asignados a: {{vm.conductor.nombres}} {{vm.conductor.apellidos}}</b>
-            </h2>
+            <h2><b style="color: black">Conductor: {{vm.conductor.nombres}} {{vm.conductor.apellidos}}</b></h2>
+            <h2><b style="color: black">Pasajeros: {{vm.conductor.vehiculo.cupos - vm.cupos}}</b></h2>
             <h2><b style="color: black">Cupos disponibles: {{vm.cupos}}</b></h2>
             <div class="col s12" style="border-radius: 25px">
                 <div class="contenedor">
@@ -1792,7 +1792,7 @@
                             </table>
                         </div>
                         <div class="col s6">
-                            <h2><b style="color: black">Asigna este pedido a un conductor</b></h2>
+                            <h2><b style="color: black">Asignar pasajeros al conductor</b></h2>
                             <table class="striped bordered responsive-table">
                                 <thead>
                                 <th style="color: #D50000;text-align: center">Turno</th>

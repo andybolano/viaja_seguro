@@ -255,3 +255,12 @@ label {
         left: 15%;
     }
 }
+.nuevo-servicio{
+    cursor: pointer;
+}
+
+.nuevo-servicio:hover{
+    background-color: #D50000;
+    color: white;
+    font-size: 14px !important;
+}
