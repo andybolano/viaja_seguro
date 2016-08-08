@@ -121,26 +121,26 @@
                     swal.disableButtons();
                 }
                 function succes(p) {
-
-                    swal({
-                        title: 'Exito!',
-                        text: 'Pasajero retirado correctamente',
-                        type: 'success',
-                        showCancelButton: false,
-                    }, function () {
+                    Materialize.toast('Exito: Pasajero retirado correctamente', 8000);
+                    // swal({
+                    //     title: 'Exito!',
+                    //     text: 'Pasajero retirado correctamente',
+                    //     type: 'success',
+                    //     showCancelButton: false,
+                    // }, function () {
                         refrescarPasajeros();
-                    })
-
+                    // })
                 }
 
                 function error(error) {
-                    swal({
-                        title: 'Error!',
-                        text: 'No se pudo retirar al pasajero seleccionado',
-                        type: 'error',
-                        showCancelButton: false,
-                    }).then(function () {
-                    })
+                    Materialize.toast('Error: No se pudo retirar al pasajero seleccionado', 8000);
+                    // swal({
+                    //     title: 'Error!',
+                    //     text: 'No se pudo retirar al pasajero seleccionado',
+                    //     type: 'error',
+                    //     showCancelButton: false,
+                    // }).then(function () {
+                    // })
                 }
             });
         }

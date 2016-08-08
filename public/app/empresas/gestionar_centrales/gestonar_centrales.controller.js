@@ -108,26 +108,26 @@
                     swal.disableButtons();
                 }
                 function success(p) {
-
-                    swal({
-                        title: 'Exito!',
-                        text: 'Central eliminada correctamente',
-                        type: 'success',
-                        showCancelButton: false,
-                    }).then(function () {
+                    Materialize.toast('Exito: Central eliminada correctamente', 8000);
+                    // swal({
+                    //     title: 'Exito!',
+                    //     text: 'Central eliminada correctamente',
+                    //     type: 'success',
+                    //     showCancelButton: false,
+                    // }).then(function () {
                         loadCentrales()
-                    });
-
+                    // });
                 }
 
                 function error(error) {
-                    swal({
-                        title: 'Error!',
-                        text: 'No se pudo eliminar la central seleccionada',
-                        type: 'error',
-                        showCancelButton: false,
-                    }).then(function () {
-                    });
+                    Materialize.toast('Error: No se pudo eliminar la central seleccionada', 8000);
+                    // swal({
+                    //     title: 'Error!',
+                    //     text: 'No se pudo eliminar la central seleccionada',
+                    //     type: 'error',
+                    //     showCancelButton: false,
+                    // }).then(function () {
+                    // });
                 }
             });
         }

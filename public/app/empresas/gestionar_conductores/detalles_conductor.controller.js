@@ -81,23 +81,25 @@
                     var promiseDelete = conductoresEmpresaService.delete(id);
                     swal.disableButtons();
                     promiseDelete.then(function (pl) {
-                        swal({
-                            title: 'Exito!',
-                            text: 'Conductor inhabilitado correctamente',
-                            type: 'success',
-                            showCancelButton: false,
-                        }).then(function () {
+                        Materialize.toast('Exito: Conductor inhabilitado correctamente', 8000);
+                        // swal({
+                        //     title: 'Exito!',
+                        //     text: 'Conductor inhabilitado correctamente',
+                        //     type: 'success',
+                        //     showCancelButton: false,
+                        // }).then(function () {
                             cargarConductores();
-                        });
+                        // });
 
                     }, function (errorPl) {
-                        swal({
-                            title: 'Error!',
-                            text: 'No se pudo inhabilitar el conductor seleccionado',
-                            type: 'error',
-                            showCancelButton: false,
-                        }).then(function () {
-                        });
+                        Materialize.toast('Error: No se pudo inhabilitar el conductor seleccionado', 8000);
+                        // swal({
+                        //     title: 'Error!',
+                        //     text: 'No se pudo inhabilitar el conductor seleccionado',
+                        //     type: 'error',
+                        //     showCancelButton: false,
+                        // }).then(function () {
+                        // });
                     });
                 }
             });
