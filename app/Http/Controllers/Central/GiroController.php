@@ -26,6 +26,39 @@ class GiroController extends Controller
 
     }
 
+    private function verificarCliente($identificacion)
+    {
+        return $cliente = Cliente::where('identificacion', $identificacion)->first();
+
+    }
+
+    private function crearUsuarioPasajero($identificacion)
+    {
+        return Usuario::nuevo($identificacion, $identificacion, $this->getRol('CLIENTE')->id);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+
+    private function createCliente($cliente)
+    {
+        $usuario = $this->crearUsuarioPasajero($cliente['identificacion']);
+        $cliente = new Cliente();
+        $cliente->identificacion = $cliente['identificacion'];
+        $cliente->nombres = $cliente['nombres'];
+        $cliente->telefono = $cliente['telefono'];
+        $cliente->direccion = $cliente['direccion'];
+        $cliente->usuario_id = $cliente->id;
+
+        return array('cliente' => $cliente->save(), 'usuario' => $usuario);
+
+    }
+
+
     public function store(Request $request, $central_id){
         $noty = new NotificacionController();
         try{

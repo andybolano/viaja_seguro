@@ -1610,11 +1610,19 @@
 .black-text {
   color: #000000 !important; }
 
+.red-text{
+
+}
+
 .white {
   background-color: #FFFFFF !important; }
 
 .white-text {
   color: #FFFFFF !important; }
+
+.gris {
+  background-color: #eeeeee !important;
+}
 
 .transparent {
   background-color: transparent !important; }

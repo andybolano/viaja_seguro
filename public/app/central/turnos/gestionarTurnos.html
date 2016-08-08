@@ -175,26 +175,25 @@
                     <table>
                         <tr>
                             <td>
-                                <div class="card-reveal red accent-4"
-                                     style="border-radius: 15px; height: 90%; width: 90%;margin-bottom:20px;margin-left: 15px;margin-right: 10px;">
+                                <div class="card-reveal gris"
+                                     style="border-radius: 15px; height: 90%; width: 90%;margin-bottom:20px;margin-left: 15px;margin-right: 10px; color: #eeeeee">
                                     <div ng-if="vm.conductorSelected != null">
-                                        <span style="font-size: 15px; margin-left: 10px;" class="white-text"><b>Informacion del conductor</b></span>
-                                        <p style="font-size: small; margin-left: 10px;" class="white-text">
+                                        <span style="font-size: 15px; margin-left: 10px;" class="red-text"><b>Informacion del conductor</b></span>
+                                        <p style="font-size: small; margin-left: 10px;" class="black-text">
                                             Identificacion :{{vm.conductorSelected.conductor.identificacion}}<br>
                                             Nombre : {{vm.conductorSelected.conductor.nombres}}
                                             {{vm.conductorSelected.conductor.apellidos}}<br>
                                             Telefono : {{vm.conductorSelected.conductor.telefono}}
 
                                         </p>
-                                        <p style="font-size: small; margin-left: 10px;" class="white-text"><b
-                                                style="font-size: medium">Datos
-                                            de vehiculo:</b> <br>
+                                        <p style="font-size: small; margin-left: 10px;" class="black-text"><b
+                                                style="font-size: medium" class="red-text">Datos de vehiculo:</b> <br>
                                             Placa : {{vm.conductorSelected.conductor.vehiculo.placa}} <br>
                                             Modelo : {{vm.conductorSelected.conductor.vehiculo.modelo}}<br>
                                             Codigo vial : {{vm.conductorSelected.conductor.vehiculo.codigo_vial}}
                                         </p>
                                     </div>
-                                    <div ng-if="vm.conductorSelected == null" style="color: white; margin-left: 10px">No
+                                    <div class="black-text" ng-if="vm.conductorSelected == null" style="color: white; margin-left: 10px">No
                                         se ha seleccionado ningun conductor para el
                                         despacho
                                     </div>
