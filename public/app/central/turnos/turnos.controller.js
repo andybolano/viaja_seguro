@@ -144,17 +144,16 @@
             }).then(function (isConfirm) {
                 if (isConfirm) {
                     swal.disableButtons();
-
-                    swal({
-                        title: 'Exito!',
-                        text: 'Has removido al condcutor de la ruta',
-                        type: 'success',
-                        showCancelButton: false,
-                    }).then(function () {
+                    Materialize.toast('Exito: Has removido al condcutor de la ruta', 5000);
+                    // swal({
+                    //     title: 'Exito!',
+                    //     text: 'Has removido al condcutor de la ruta',
+                    //     type: 'success',
+                    //     showCancelButton: false,
+                    // }).then(function () {
                         ruta.turnos.splice($index, 1);
                         updateTurnos(ruta, 'quitar');
-                    });
-
+                    // });
                 }
             });
         }
@@ -389,24 +388,26 @@
                     swal.disableButtons();
                 }
                 function succes(p) {
-                    swal({
-                        title: 'Exito!',
-                        text: 'Pasajero retirado correctamente',
-                        type: 'success',
-                        showCancelButton: false,
-                    }).then(function () {
+                    Materialize.toast('Exito: Pasajero retirado correctamente', 5000);
+                    // swal({
+                    //     title: 'Exito!',
+                    //     text: 'Pasajero retirado correctamente',
+                    //     type: 'success',
+                    //     showCancelButton: false,
+                    // }).then(function () {
                         refrescarPasajeros(vm.conductor.id);
-                    })
+                    // })
                 }
 
                 function error(error) {
-                    swal({
-                        title: 'Error!',
-                        text: 'No se pudo retirar al pasajero seleccionado',
-                        type: 'error',
-                        showCancelButton: false,
-                    }).then(function () {
-                    })
+                    Materialize.toast('Error: No se pudo retirar al pasajero seleccionado', 5000);
+                    // swal({
+                    //     title: 'Error!',
+                    //     text: 'No se pudo retirar al pasajero seleccionado',
+                    //     type: 'error',
+                    //     showCancelButton: false,
+                    // }).then(function () {
+                    // })
                 }
             });
         }
@@ -455,26 +456,27 @@
                     swal.disableButtons();
                 }
                 function succes(p) {
-                    swal({
-                        title: 'Exito!',
-                        text: p.data.message,
-                        type: 'success',
-                        showCancelButton: false,
-                    }).then(function () {
+                    Materialize.toast('Exito: ' + p.data.message, 5000);
+                    // swal({
+                    //     title: 'Exito!',
+                    //     text: p.data.message,
+                    //     type: 'success',
+                    //     showCancelButton: false,
+                    // }).then(function () {
                         refrescarPasajeros(vm.conductor.id);
                         cargarPasajerosEnEspera();
-                    })
-
+                    // })
                 }
 
                 function error(error) {
-                    swal({
-                        title: 'Error!',
-                        text: 'No se pudo asignar pasajero seleccionado',
-                        type: 'error',
-                        showCancelButton: false,
-                    }).then(function () {
-                    })
+                    Materialize.toast('Error: No se pudo asignar pasajero seleccionado', 5000);
+                    // swal({
+                    //     title: 'Error!',
+                    //     text: 'No se pudo asignar pasajero seleccionado',
+                    //     type: 'error',
+                    //     showCancelButton: false,
+                    // }).then(function () {
+                    // })
                 }
             });
         }
@@ -507,26 +509,29 @@
                     swal.disableButtons();
                 }
                 function succes(p) {
-                    swal({
-                        title: 'Exito!',
-                        text: p.data.message,
-                        type: 'success',
-                        showCancelButton: false,
-                    }).then(function () {
+                    Materialize.toast('Exito: ' + p.data.message, 5000);
+
+                    // swal({
+                    //     title: 'Exito!',
+                    //     text: p.data.message,
+                    //     type: 'success',
+                    //     showCancelButton: false,
+                    // }).then(function () {
                         refrescarPasajeros(vm.conductor.id);
                         cargarPasajerosEnEspera();
                         $('#modalMovePasajero').closeModal();
-                    })
+                    // })
                 }
 
                 function error(error) {
-                    swal({
-                        title: 'Error!',
-                        text: 'No se pudo mover pasajero seleccionado',
-                        type: 'error',
-                        showCancelButton: false,
-                    }).then(function () {
-                    })
+                    Materialize.toast('Error: No se pudo mover pasajero seleccionado', 5000);
+                    // swal({
+                    //     title: 'Error!',
+                    //     text: 'No se pudo mover pasajero seleccionado',
+                    //     type: 'error',
+                    //     showCancelButton: false,
+                    // }).then(function () {
+                    // })
                 }
             });
         }
@@ -640,26 +645,27 @@
                     swal.disableButtons();
                 }
                 function succes(p) {
-                    swal({
-                        title: 'Exito!',
-                        text: p.data.message,
-                        type: 'success',
-                        showCancelButton: false,
-                    }).then(function () {
+                    Materialize.toast('Exito: '+p.data.message, 5000);
+                    // swal({
+                    //     title: 'Exito!',
+                    //     text: p.data.message,
+                    //     type: 'success',
+                    //     showCancelButton: false,
+                    // }).then(function () {
                         refrescarGiros(vm.conductor.id);
                         $('#modalMoveGiro').closeModal();
-                    })
-
+                    // })
                 }
 
                 function error(error) {
-                    swal({
-                        title: 'Error!',
-                        text: 'No se pudo mover giro seleccionado',
-                        type: 'error',
-                        showCancelButton: false,
-                    }).then(function () {
-                    })
+                    Materialize.toast('Error: No se pudo mover giro seleccionado', 5000);
+                    // swal({
+                    //     title: 'Error!',
+                    //     text: 'No se pudo mover giro seleccionado',
+                    //     type: 'error',
+                    //     showCancelButton: false,
+                    // }).then(function () {
+                    // })
                 }
             });
         }
@@ -689,26 +695,26 @@
                     swal.disableButtons();
                 }
                 function succes(p) {
-
-                    swal({
-                        title: 'Exito!',
-                        text: 'Giro retirado correctamente',
-                        type: 'success',
-                        showCancelButton: false,
-                    }).then(function () {
-                        refrescarGiros(vm.conductor.id);
-                    })
-
+                    Materialize.toast('Exito: Giro retirado correctamente', 5000);
+                    // swal({
+                    //     title: 'Exito!',
+                    //     text: 'Giro retirado correctamente',
+                    //     type: 'success',
+                    //     showCancelButton: false,
+                    // }).then(function () {
+                    //     refrescarGiros(vm.conductor.id);
+                    // })
                 }
 
                 function error(error) {
-                    swal({
-                        title: 'Error!',
-                        text: 'No se pudo retirar giro seleccionado',
-                        type: 'error',
-                        showCancelButton: false,
-                    }).then(function () {
-                    })
+                    Materialize.toast('Error: No se pudo retirar giro seleccionado', 5000);
+                    // swal({
+                    //     title: 'Error!',
+                    //     text: 'No se pudo retirar giro seleccionado',
+                    //     type: 'error',
+                    //     showCancelButton: false,
+                    // }).then(function () {
+                    // })
                 }
             });
         }
@@ -827,27 +833,27 @@
                     swal.disableButtons();
                 }
                 function succes(p) {
-
-                    swal({
-                        title: 'Exito!',
-                        text: p.data.message,
-                        type: 'success',
-                        showCancelButton: false,
-                    }).then(function () {
+                    Materialize.toast('Exito: '+p.data.message, 5000);
+                    // swal({
+                    //     title: 'Exito!',
+                    //     text: p.data.message,
+                    //     type: 'success',
+                    //     showCancelButton: false,
+                    // }).then(function () {
                         refrescarPaquetes(vm.conductor.id);
                         $('#modalMovePaquete').closeModal();
-                    })
-
+                    // })
                 }
 
                 function error(error) {
-                    swal({
-                        title: 'Error!',
-                        text: 'No se pudo mover paquete seleccionado',
-                        type: 'error',
-                        showCancelButton: false,
-                    }).then(function () {
-                    })
+                    Materialize.toast('Error: No se pudo mover paquete seleccionado', 5000);
+                    // swal({
+                    //     title: 'Error!',
+                    //     text: 'No se pudo mover paquete seleccionado',
+                    //     type: 'error',
+                    //     showCancelButton: false,
+                    // }).then(function () {
+                    // })
                 }
             });
         }
@@ -877,26 +883,26 @@
                     swal.disableButtons();
                 }
                 function succes(p) {
-
-                    swal({
-                        title: 'Exito!',
-                        text: 'Paquete retirado correctamente',
-                        type: 'success',
-                        showCancelButton: false,
-                    }).then(function () {
+                    Materialize.toast('Exito: Paquete retirado correctamente', 5000);
+                    // swal({
+                    //     title: 'Exito!',
+                    //     text: 'Paquete retirado correctamente',
+                    //     type: 'success',
+                    //     showCancelButton: false,
+                    // }).then(function () {
                         refrescarPaquetes(vm.conductor.id);
-                    })
-
+                    // })
                 }
 
                 function error(error) {
-                    swal({
-                        title: 'Error!',
-                        text: 'No se pudo retirar paquete seleccionado',
-                        type: 'error',
-                        showCancelButton: false,
-                    }).then(function () {
-                    })
+                    Materialize.toast('Error: No se pudo retirar paquete seleccionado', 5000);
+                    // swal({
+                    //     title: 'Error!',
+                    //     text: 'No se pudo retirar paquete seleccionado',
+                    //     type: 'error',
+                    //     showCancelButton: false,
+                    // }).then(function () {
+                    // })
                 }
             });
         }
@@ -1007,11 +1013,12 @@
                     }
 
                     function error(error) {
-                        swal(
-                            'ERROR!!',
-                            'Ocurrio un error al despachar el conductor)',
-                            'error'
-                        );
+                        Materialize.toast('Error: Ocurrio un error al despachar el conductor', 5000);
+                        // swal(
+                        //     'ERROR!!',
+                        //     'Ocurrio un error al despachar el conductor)',
+                        //     'error'
+                        // );
                     }
                 };
             });
@@ -1303,21 +1310,23 @@
                 }
                 function succes(p) {
                     swal.disableButtons();
-                    swal({
-                        title: 'Exito!',
-                        text: p.data.message,
-                        type: 'success',
-                    }).then(function () {
+                    Materialize.toast('Error: '+p.data.message, 5000);
+                    // swal({
+                    //     title: 'Exito!',
+                    //     text: p.data.message,
+                    //     type: 'success',
+                    // }).then(function () {
                         cargarRutas();
-                    });
+                    // });
                 }
 
                 function error(error) {
-                    swal(
-                        'ERROR!!',
-                        error.data.message,
-                        'error'
-                    );
+                    Materialize.toast('Error: '+error.data.message, 5000);
+                    // swal(
+                    //     'ERROR!!',
+                    //     error.data.message,
+                    //     'error'
+                    // );
                 }
             })
         }
@@ -1357,24 +1366,26 @@
                         }
                         function succes(p) {
                             swal.disableButtons();
-                            swal({
-                                title: 'Exito!',
-                                text: p.data.message,
-                                type: 'success',
-                            }).then(function () {
+                            Materialize.toast('Exito: '+p.data.message, 5000);
+                            // swal({
+                            //     title: 'Exito!',
+                            //     text: p.data.message,
+                            //     type: 'success',
+                            // }).then(function () {
                                 cargarRutas();
-                            });
+                            // });
                             $('#modalSolicitud').closeModal();
                             $('#modalSolicitudPG').closeModal();
 
                         }
 
                         function error(error) {
-                            swal(
-                                'ERROR!!',
-                                error.data.message,
-                                'error'
-                            );
+                            Materialize.toast('Error: '+error.data.message, 5000);
+                            // swal(
+                            //     'ERROR!!',
+                            //     error.data.message,
+                            //     'error'
+                            // );
                         }
                     });
                 }
