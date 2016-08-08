@@ -10,6 +10,7 @@
 
         var vm = this;
         var stop;
+        var _ruta;
         vm.map;
         vm.markers = [];
         vm.markerId = 1;
@@ -120,7 +121,31 @@
 
         function cargarMapa() {
             vm.voc = 0;
-            vm.markers = [];
+            var central = authService.currentUser().central;
+            // vm.markers = [];
+            vm.markers = [{
+                "id": "central_origen",
+                latitude: central.miDireccionLa,
+                longitude: central.miDireccionLo,
+                "window": {},
+                "options": {
+                    // "icon": '../assets/images/marker.png',
+                    "title": ''
+                }
+            }];
+            console.log(_ruta);
+            if (_ruta){
+                vm.markers.push({
+                    "id": "central_destino",
+                    latitude: _ruta.destino.miDireccionLa,
+                    longitude: _ruta.destino.miDireccionLo,
+                    "window": {},
+                    "options": {
+                        // "icon": '../assets/images/marker.png',
+                        "title": ''
+                    }
+                });
+            }
             markersIndex = [];
             vm.map = {
                 center: {
@@ -135,7 +160,9 @@
             vm.options = {scrollwheel: false, icon: '../assets/images/marker.png'};
         }
 
-        vm.prueba = function (ruta_id) {
+        vm.prueba = function (ruta) {
+            var ruta_id = ruta.id;
+            _ruta = ruta;
             var old_ruta = vm.ruta || null;
             vm.ruta = ruta_id;
             vm.mostrar = true;
