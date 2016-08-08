@@ -126,24 +126,25 @@
                     var promiseDelete = deduccionesService.delete(id);
                     swal.disableButtons();
                     promiseDelete.then(function (pl) {
-
-                        swal({
-                            title: 'Exito!',
-                            text: 'Deduccion eliminada correctamente',
-                            type: 'success',
-                            showCancelButton: false,
-                        }).then(function () {
+                        Materialize.toast('Exito: Deduccion eliminada correctamente', 8000);
+                        // swal({
+                        //     title: 'Exito!',
+                        //     text: 'Deduccion eliminada correctamente',
+                        //     type: 'success',
+                        //     showCancelButton: false,
+                        // }).then(function () {
                             cargarDeducciones();
-                        });
+                        // });
 
                     }, function (errorPl) {
-                        swal({
-                            title: 'Error!',
-                            text: 'No se pudo eliminar la deduccion seleccionada',
-                            type: 'error',
-                            showCancelButton: false,
-                        }).then(function () {
-                        });
+                        Materialize.toast('Error: No se pudo eliminar la deduccion seleccionada', 8000);
+                        // swal({
+                        //     title: 'Error!',
+                        //     text: 'No se pudo eliminar la deduccion seleccionada',
+                        //     type: 'error',
+                        //     showCancelButton: false,
+                        // }).then(function () {
+                        // });
                     });
                 }
             });

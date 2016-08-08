@@ -83,26 +83,26 @@
                     swal.disableButtons();
                 }
                 function success(p) {
-
-                    swal({
-                        title: 'Exito!',
-                        text: 'Ruta eliminada correctamente',
-                        type: 'success',
-                        showCancelButton: false,
-                    }).then(function () {
+                    Materialize.toast('Exito: Ruta eliminada correctamente', 8000);
+                    // swal({
+                    //     title: 'Exito!',
+                    //     text: 'Ruta eliminada correctamente',
+                    //     type: 'success',
+                    //     showCancelButton: false,
+                    // }).then(function () {
                         loadRutas()
-                    })
-
+                    // })
                 }
 
                 function error(error) {
-                    swal({
-                        title: 'Error!',
-                        text: 'No se pudo eliminar la ruta seleccionada',
-                        type: 'error',
-                        showCancelButton: false,
-                    }).then(function () {
-                    })
+                    Materialize.toast('Error: No se pudo eliminar la ruta seleccionada', 8000);
+                    // swal({
+                    //     title: 'Error!',
+                    //     text: 'No se pudo eliminar la ruta seleccionada',
+                    //     type: 'error',
+                    //     showCancelButton: false,
+                    // }).then(function () {
+                    // })
                 }
             });
         }
