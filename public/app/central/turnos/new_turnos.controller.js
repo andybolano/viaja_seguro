@@ -1014,7 +1014,6 @@
 
         vm.selectCsolicitud = function (solicitud_id, conductor_id) {
             newTurnosService.getCupos(conductor_id).then(function (p) {
-                console.log(vm.solicitud)
                 if (vm.solicitud.tipo == 'vehiculo' && p.data < vm.solicitud.datos_pasajeros.length) {
                     Materialize.toast('El conductor tiene ' + p.data + ' cupo(s) disponible(s), ud esta necesitando ' + vm.solicitud.datos_pasajeros.length + ' cupo(s) disponible(s)', '5000', 'rounded')
                 } else if (vm.solicitud.tipo == 'pasajero' && p.data < vm.solicitud.datos_pasajeros.length) {
@@ -1053,7 +1052,7 @@
                             //     text: p.data.message,
                             //     type: 'success',
                             // }).then(function () {
-                                cargarRutas();
+                            cargarSolicitudesDeRuta(vm.selectedRuta.id)
                             // });
                             $('#modalSolicitud').closeModal();
                             $('#modalSolicitudPG').closeModal();
