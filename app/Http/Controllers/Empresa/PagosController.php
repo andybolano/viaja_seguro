@@ -30,9 +30,17 @@ class PagosController extends Controller
     {
         $tipoEmpresa = $this->verificartipoCentral($central_id);
         if ($tipoEmpresa->empresa->tipo == '1') {
-            return array('planillas' => PlanillaEspecial::where('central_id', $central_id)->get(), 'tipo' => 'especial');
+            return array(
+                'planillas' => PlanillaEspecial::where('central_id', $central_id)
+                    ->with('viaje.conductor')
+                    ->get(),
+                'tipo' => 'especial');
         } else {
-            return array('planillas' => Planilla::where('central_id', $central_id)->get(), 'tipo' => 'normal');
+            return array(
+                'planillas' => Planilla::where('central_id', $central_id)
+                    ->with('viaje.conductor')
+                    ->get(),
+                'tipo' => 'normal');
         }
     }
 
