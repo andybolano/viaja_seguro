@@ -20,14 +20,18 @@
                         <div class="col s12" ng-show="vm.tipo == 'normal'">
                             <table class="striped responsive-table">
                                 <thead style="border-bottom: red">
-                                <th style="color: #D50000;text-align: center">Número de planilla</th>
-                                <th style="color: #D50000;text-align: center">Valor</th>
-                                <th style="color: #D50000;text-align: center">Acciones</th>
+                                <th style="color: #D50000;">Número de planilla</th>
+                                <th style="color: #D50000;">Conductor</th>
+                                <th style="color: #D50000;">Ruta</th>
+                                <th style="color: #D50000;">Valor</th>
+                                <th style="color: #D50000; text-align: center">Acciones</th>
                                 </thead>
                                 <tbody>
                                 <tr ng-repeat="planilla in vm.planillas | filter : filtro">
-                                    <td style="text-align: center">{{planilla.numero_planilla}}</td>
-                                    <td style="text-align: center">{{planilla.total | currency}}</td>
+                                    <td>{{planilla.numero_planilla}}</td>
+                                    <td>{{planilla.viaje.conductor.nombres}} {{planilla.viaje.conductor.apellidos}}</td>
+                                    <td>{{planilla.viaje.ruta.destino.ciudad.nombre}}</td>
+                                    <td>{{planilla.total | currency}}</td>
                                     <td style="text-align: center">
                                         <a href="javascript:" ng-click="vm.verPlanilla(planilla)">
                                             <i style="color: #D50000" class="material-icons prefix">visibility</i>
@@ -40,12 +44,16 @@
                         <div class="col s12" ng-if="vm.tipo == 'especial'">
                             <table class="striped responsive-table">
                                 <thead style="border-bottom: red">
-                                <th style="color: #D50000;text-align: center">Número de planilla</th>
-                                <th style="color: #D50000;text-align: center">Acciones</th>
+                                <th style="color: #D50000;">Número de planilla</th>
+                                <th style="color: #D50000;">Conductor</th>
+                                <th style="color: #D50000;">Ruta</th>
+                                <th style="color: #D50000; text-align: center">Acciones</th>
                                 </thead>
                                 <tbody>
                                 <tr ng-repeat="planilla in vm.planillas | filter : filtro">
-                                    <td style="text-align: center">{{planilla.numero_planilla}}</td>
+                                    <td>{{planilla.numero_planilla}}</td>
+                                    <td>{{planilla.viaje.conductor.nombres}} {{planilla.viaje.conductor.apellidos}}</td>
+                                    <td>{{planilla.viaje.ruta.destino.ciudad.nombre}}</td>
                                     <td style="text-align: center">
                                         <a href="javascript:" ng-click="vm.verPlanilla(planilla)">
                                             <i style="color: #D50000" class="material-icons prefix">visibility</i>
