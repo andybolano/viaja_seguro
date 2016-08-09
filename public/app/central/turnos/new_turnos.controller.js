@@ -42,13 +42,17 @@
         vm.eliminarPasajero = eliminarPasajero;
         //giros
         vm.addGiro = addGiro;
+        vm.addNewSolicitudGiro = addNewSolicitudGiro;
         vm.asignarGiro = asignarGiro;
+        vm.asignarSolicitudGiro = asignarSolicitudGiro;
         vm.cargarModificarGiro = cargarModificarGiro;
         vm.modificarGiro = modificarGiro;
         vm.eliminarGiro = eliminarGiro;
         //paquetes
         vm.addPaquete = addPaquete;
+        vm.addNewSolicitudPaquete = addNewSolicitudPaquete;
         vm.asignarPaquete = asignarPaquete;
+        vm.asignarSolicitudPaquete = asignarSolicitudPaquete;
         vm.cargarModificarPaquete = cargarModificarPaquete;
         vm.modificarPaquete = modificarPaquete;
         vm.eliminarPaquete = eliminarPaquete;
@@ -198,8 +202,8 @@
                     //     type: 'success',
                     //     showCancelButton: false,
                     // }).then(function () {
-                        vm.conductoresDeRuta.splice($index, 1);
-                        updateTurnos(ruta, 'quitar');
+                    vm.conductoresDeRuta.splice($index, 1);
+                    updateTurnos(ruta, 'quitar');
                     // });
                 }
             });
@@ -255,15 +259,15 @@
                 vm.cliente.id = p.data.id;
                 //pasajeros
                 vm.Pasajeros.nombre = p.data.nombres + ' ' + p.data.apellidos;
-                vm.Pasajeros.telefono = p.data.telefono;
+                vm.Pasajeros.telefono = parseInt(p.data.telefono);
                 vm.Newdireccion = p.data.direccion;
                 //giros
                 vm.Giros.nombres = p.data.nombres + ' ' + p.data.apellidos;
-                vm.Giros.telefono = p.data.telefono;
+                vm.Giros.telefono = parseInt(p.data.telefono);
                 vm.Giros.direccion = p.data.direccion;
                 //paquetes
                 vm.Paquetes.nombres = p.data.nombres + ' ' + p.data.apellidos;
-                vm.Paquetes.telefono = p.data.telefono;
+                vm.Paquetes.telefono = parseInt(p.data.telefono);
                 vm.Paquetes.direccion = p.data.direccion;
             }
 
@@ -352,23 +356,120 @@
             }
         }
 
+        function asignarSolicitudGiro() {
+            vm.Giros.cliente_id = vm.cliente.id;
+            var object = {
+                central_id: authService.currentUser().central.id,
+                tipo: 'giro',
+                giros: vm.Giros,
+                ruta_id: vm.selectedRuta.id,
+                ciudad_direccion: authService.currentUser().central.ciudad.nombre,
+                direccion_recogida: vm.Newdireccion
+            }
+            newTurnosService.asignarSolicitudGiro(object).then(success, error);
+            function success(p) {
+                vm.Giros = {};
+                vm.Newdireccion = '';
+                cargarSolicitudesDeRuta(vm.selectedRuta.id);
+                Materialize.toast('Se guardo en espera el giro correctamente !', 8000);
+                // $('#modalNewSolicitudPasajero').closeModal();
+            }
+
+            function error(e) {
+                Materialize.toast(e.menssage, 4000);
+            }
+        }
+
+        function asignarSolicitudPaquete() {
+            vm.Paquetes.cliente_id = vm.cliente.id;
+            var object = {
+                central_id: authService.currentUser().central.id,
+                tipo: 'paquete',
+                paquetes: vm.Paquetes,
+                ruta_id: vm.selectedRuta.id,
+                ciudad_direccion: authService.currentUser().central.ciudad.nombre,
+                direccion_recogida: vm.Newdireccion
+            }
+            newTurnosService.asignarSolicitudPaquete(object).then(success, error);
+            function success(p) {
+                vm.Paquetes = {};
+                vm.Newdireccion = '';
+                cargarSolicitudesDeRuta(vm.selectedRuta.id);
+                Materialize.toast('Se guardo en espera el paquete correctamente !', 8000);
+                // $('#modalNewSolicitudPasajero').closeModal();
+            }
+
+            function error(e) {
+                Materialize.toast(e.menssage, 4000);
+            }
+        }
+
         function addNewSolicitudPasajero(ruta) {
             if (!vm.selectedRuta) {
 
             } else {
                 vm.selectedRuta = ruta;
                 $('#modalNewSolicitudPasajero').openModal({
-                    dismissible: false, // Modal can be dismissed by clicking outside of the modal
+                    // dismissible: false, // Modal can be dismissed by clicking outside of the modal
                     opacity: .5, // Opacity of modal background
                     in_duration: 400, // Transition in duration
                     out_duration: 300, // Transition out duration
                     ready: function () {
-                        document.getElementById("guardar").disabled = false;
+                        // document.getElementById("guardar").disabled = false;
                         // document.getElementById("actualizar").disabled = true;
                         vm.Pasajeros = {};
                         vm.Newdireccion = '';
                     }, // Callback for Modal open
-                    //complete: function() { alert('Closed'); } // Callback for Modal close
+                    complete: function () {
+                        vm.Pasajeros = {};
+                        vm.cliente = {};
+                    } // Callback for Modal close
+                });
+            }
+        }
+
+        function addNewSolicitudGiro(ruta) {
+            if (!vm.selectedRuta) {
+
+            } else {
+                vm.selectedRuta = ruta;
+                $('#modalNewSolicitudGiro').openModal({
+                    // dismissible: false, // Modal can be dismissed by clicking outside of the modal
+                    opacity: .5, // Opacity of modal background
+                    in_duration: 400, // Transition in duration
+                    out_duration: 300, // Transition out duration
+                    ready: function () {
+                        // document.getElementById("actualizar").disabled = true;
+                        vm.Giros = {};
+                        vm.Newdireccion = '';
+                    }, // Callback for Modal open
+                    complete: function () {
+                        vm.Giros = {};
+                        vm.cliente = {};
+                    } // Callback for Modal close
+                });
+            }
+        }
+
+        function addNewSolicitudPaquete(ruta) {
+            if (!vm.selectedRuta) {
+
+            } else {
+                vm.selectedRuta = ruta;
+                $('#modalNewSolicitudPaquete').openModal({
+                    // dismissible: false, // Modal can be dismissed by clicking outside of the modal
+                    opacity: .5, // Opacity of modal background
+                    in_duration: 400, // Transition in duration
+                    out_duration: 300, // Transition out duration
+                    ready: function () {
+                        // document.getElementById("actualizar").disabled = true;
+                        vm.Paquetes = {};
+                        vm.Newdireccion = '';
+                    }, // Callback for Modal open
+                    complete: function () {
+                        vm.Paquetes = {};
+                        vm.cliente = {};
+                    } // Callback for Modal close
                 });
             }
         }
@@ -405,7 +506,7 @@
                     //     type: 'success',
                     //     showCancelButton: false,
                     // }).then(function () {
-                        refrescarPasajeros(vm.conductor.id);
+                    refrescarPasajeros(vm.conductor.id);
                     // })
                 }
 
@@ -473,8 +574,8 @@
                     //     type: 'success',
                     //     showCancelButton: false,
                     // }).then(function () {
-                        refrescarPasajeros(vm.conductor.id);
-                        cargarPasajerosEnEspera();
+                    refrescarPasajeros(vm.conductor.id);
+                    cargarPasajerosEnEspera();
                     // })
                 }
 
@@ -526,9 +627,9 @@
                     //     type: 'success',
                     //     showCancelButton: false,
                     // }).then(function () {
-                        refrescarPasajeros(vm.conductor.id);
-                        cargarPasajerosEnEspera();
-                        $('#modalMovePasajero').closeModal();
+                    refrescarPasajeros(vm.conductor.id);
+                    cargarPasajerosEnEspera();
+                    $('#modalMovePasajero').closeModal();
                     // })
                 }
 
@@ -653,15 +754,15 @@
                     swal.disableButtons();
                 }
                 function succes(p) {
-                    Materialize.toast('Exito: '+p.data.message, 8000);
+                    Materialize.toast('Exito: ' + p.data.message, 8000);
                     // swal({
                     //     title: 'Exito!',
                     //     text: p.data.message,
                     //     type: 'success',
                     //     showCancelButton: false,
                     // }).then(function () {
-                        refrescarGiros(vm.conductor.id);
-                        $('#modalMoveGiro').closeModal();
+                    refrescarGiros(vm.conductor.id);
+                    $('#modalMoveGiro').closeModal();
                     // })
                 }
 
@@ -842,15 +943,15 @@
                     swal.disableButtons();
                 }
                 function succes(p) {
-                    Materialize.toast('Exito: '+p.data.message, 8000);
+                    Materialize.toast('Exito: ' + p.data.message, 8000);
                     // swal({
                     //     title: 'Exito!',
                     //     text: p.data.message,
                     //     type: 'success',
                     //     showCancelButton: false,
                     // }).then(function () {
-                        refrescarPaquetes(vm.conductor.id);
-                        $('#modalMovePaquete').closeModal();
+                    refrescarPaquetes(vm.conductor.id);
+                    $('#modalMovePaquete').closeModal();
                     // })
                 }
 
@@ -899,7 +1000,7 @@
                     //     type: 'success',
                     //     showCancelButton: false,
                     // }).then(function () {
-                        refrescarPaquetes(vm.conductor.id);
+                    refrescarPaquetes(vm.conductor.id);
                     // })
                 }
 
@@ -991,18 +1092,18 @@
                 }
                 function succes(p) {
                     swal.disableButtons();
-                    Materialize.toast('Exito: '+p.data.message, 8000);
+                    Materialize.toast('Exito: ' + p.data.message, 8000);
                     // swal({
                     //     title: 'Exito!',
                     //     text: p.data.message,
                     //     type: 'success',
                     // }).then(function () {
-                        cargarRutas();
+                    cargarRutas();
                     // });
                 }
 
                 function error(error) {
-                    Materialize.toast('Error: '+error.data.message, 8000);
+                    Materialize.toast('Error: ' + error.data.message, 8000);
                     // swal(
                     //     'ERROR!!',
                     //     error.data.message,
@@ -1046,7 +1147,7 @@
                         }
                         function succes(p) {
                             swal.disableButtons();
-                            Materialize.toast('Exito: '+p.data.message, 8000);
+                            Materialize.toast('Exito: ' + p.data.message, 8000);
                             // swal({
                             //     title: 'Exito!',
                             //     text: p.data.message,
@@ -1060,7 +1161,7 @@
                         }
 
                         function error(error) {
-                            Materialize.toast('Error: '+error.data.message, 8000);
+                            Materialize.toast('Error: ' + error.data.message, 8000);
                             // swal(
                             //     'ERROR!!',
                             //     error.data.message,

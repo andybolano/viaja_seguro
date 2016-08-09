@@ -3,6 +3,7 @@
 use App\Http\Controllers\NotificacionController;
 use App\Model\Central;
 use App\Model\Cliente;
+use App\Model\DataSolicitudGiroPaquete;
 use App\Model\DataSolicitudPasajero;
 use App\Model\Giro;
 use App\Model\Paquete;
@@ -526,6 +527,94 @@ class CentralesController extends Controller
                 $cliente = $this->createNewClienteSiNoExiste($data);
                 if ($cliente){
                     return $this->createSolicitudNewPasajeros($data);
+                }
+            }
+        }
+    }
+
+    private function createSolicitudNewGiros($data, $cliente)
+    {
+        $giro = $data['giros'];
+        unset($data['giros']);
+        $data['cliente_id'] = $cliente;
+        $solicitud = new Solicitud($data);
+        if ($solicitud->save()) {
+            $solicitud->datos_giros_paquetes()->save(new DataSolicitudGiroPaquete($giro));
+            \App::make('\App\Events\NuevaSolicitudEvent')->enviarNotificacion($data['tipo'], 'Existe una nueva solicitud, verificala en la seccion de despacho', $data['central_id']);
+            return response()->json($solicitud->id, 200);
+        } else {
+            return response()->json(['menssage' => 'No se ha podido almacenar la solicitud'], 400);
+        }
+    }
+
+    public function addNewSolicitudGiro(Request $request)
+    {
+        $data = $request->json()->all();
+        $cliente = $data['giros']['cliente_id'];
+        $data['giros']['identificacion'] = $data['giros']['ide_remitente'];
+        $data['giros']['destinatario'] = $data['giros']['nombre_receptor'];
+        $data['giros']['telefono'] = $data['giros']['telefono_receptor'];
+        $data['giros']['direccion'] = $data['giros']['direccionD'];
+        $data['giros']['descripcion'] = $data['giros']['monto'];
+        unset($data['giros']['ide_remitente']);
+        unset($data['giros']['nombres']);
+        unset($data['giros']['nombre_receptor']);
+        unset($data['giros']['telefono_receptor']);
+        unset($data['giros']['direccionD']);
+        unset($data['giros']['monto']);
+        unset($data['giros']['cliente_id']);
+
+        if ($data['tipo'] == 'giro') {
+            if ($this->verificarCliente($data['giros']['identificacion'])) {
+                return $this->createSolicitudNewgiros($data, $cliente);
+            } else {
+                $giro = $data['giros'];
+                $cliente = $this->createNewClienteSiNoExiste($data);
+                if ($cliente){
+                    return $this->createSolicitudNewGiros($data, $cliente);
+                }
+            }
+        }
+    }
+
+    private function createSolicitudNewPaquetes($data, $cliente)
+    {
+        $paquete = $data['paquetes'];
+        unset($data['paquetes']);
+        $data['cliente_id'] = $cliente;
+        $solicitud = new Solicitud($data);
+        if ($solicitud->save()) {
+            $solicitud->datos_giros_paquetes()->save(new DataSolicitudGiroPaquete($paquete));
+            \App::make('\App\Events\NuevaSolicitudEvent')->enviarNotificacion($data['tipo'], 'Existe una nueva solicitud, verificala en la seccion de despacho', $data['central_id']);
+            return response()->json($solicitud->id, 200);
+        } else {
+            return response()->json(['menssage' => 'No se ha podido almacenar la solicitud'], 400);
+        }
+    }
+
+    public function addNewSolicitudPaquete(Request $request)
+    {
+        $data = $request->json()->all();
+        $cliente = $data['paquetes']['cliente_id'];
+        $data['paquetes']['identificacion'] = $data['paquetes']['ide_remitente'];
+        $data['paquetes']['destinatario'] = $data['paquetes']['nombre_receptor'];
+        $data['paquetes']['telefono'] = $data['paquetes']['telefono_receptor'];
+        $data['paquetes']['direccion'] = $data['paquetes']['direccionD'];
+        unset($data['paquetes']['ide_remitente']);
+        unset($data['paquetes']['nombres']);
+        unset($data['paquetes']['nombre_receptor']);
+        unset($data['paquetes']['telefono_receptor']);
+        unset($data['paquetes']['direccionD']);
+        unset($data['paquetes']['cliente_id']);
+        unset($data['paquetes']['ide_remitente']);
+        if ($data['tipo'] == 'paquete') {
+            if ($this->verificarCliente($data['paquetes']['identificacion'])) {
+                return $this->createSolicitudNewPaquetes($data, $cliente);
+            } else {
+                $paquete = $data['paquetes'];
+                $cliente = $this->createNewClienteSiNoExiste($data);
+                if ($cliente){
+                    return $this->createSolicitudNewPaquetes($data, $cliente);
                 }
             }
         }

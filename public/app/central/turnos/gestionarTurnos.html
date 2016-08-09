@@ -6,28 +6,36 @@
                     <!--<tbody>-->
                     <br>
                     <tr class="center">
-                        <td class="center" rowspan=2 style='border-bottom:4px solid red; width: 10%'><span style="margin-left: 25px">Rutas</span>
+                        <td class="center" rowspan=2 style='border-bottom:4px solid red; width: 10%'><span
+                                style="margin-left: 25px">Rutas</span>
                         </td>
-                        <td class="center" rowspan=2 style='border-bottom:4px solid red; width: 20%; margin-left: 50px'>Conductores
+                        <td class="center" rowspan=2 style='border-bottom:4px solid red; width: 20%; margin-left: 50px'>
+                            Conductores
                             <a ng-class="{'disabled': !vm.selectedRuta}" ng-click="vm.confirm()" href="javascript:;"
                                class="btn-floating verde"><i
                                     class="material-icons">add</i></a>
                         </td>
                         <td rowspan=2 style='border-bottom:4px solid red; text-align: center; width: 15%'>
-                            <div style="float: left">Origen <br><p>{{vm.user.central.ciudad.nombre}}</p></div>
-                            <img src="../../public/assets/font/icons/iconosviaja_v copia.png" style="width: 40px; height: 40px; float: left; position: relative">
+                            <div style="float: left">Origen <br>
+                                <p>{{vm.user.central.ciudad.nombre}}</p></div>
+                            <img src="../../public/assets/font/icons/iconosviaja_v copia.png"
+                                 style="width: 40px; height: 40px; float: left; position: relative">
                         </td>
                         <td class="center" ng-if="vm.selectedRuta.destino.ciudad.nombre" rowspan=2
                             style='border-bottom:4px solid red; text-align: center; width: 15%'>
-                            <div style="float: left">Destino <br><p>{{vm.selectedRuta.destino.ciudad.nombre}}</p></div>
-                            <img src="../../public/assets/font/icons/iconosviaja_v copia 2.png" style="width: 40px; height: 40px; float: left; position: relative">
+                            <div style="float: left">Destino <br>
+                                <p>{{vm.selectedRuta.destino.ciudad.nombre}}</p></div>
+                            <img src="../../public/assets/font/icons/iconosviaja_v copia 2.png"
+                                 style="width: 40px; height: 40px; float: left; position: relative">
                         </td>
                         <td class="center" ng-if="!vm.selectedRuta.destino.ciudad.nombre" rowspan=2
                             style='border-bottom:4px solid red; text-align: center; width: 15%'>
-                            <div style="float: left;">Destino <br><p>No seleccionado</p></div>
-                            <img src="../../public/assets/font/icons/iconosviaja_v copia 2.png" style="width: 40px; height: 40px; float: left; position: relative">
+                            <div style="float: left;">Destino <br>
+                                <p>No seleccionado</p></div>
+                            <img src="../../public/assets/font/icons/iconosviaja_v copia 2.png"
+                                 style="width: 40px; height: 40px; float: left; position: relative">
                         </td>
-                        <td class=""  rowspan=2 style='border-bottom:4px solid red; width: 12%'>
+                        <td class="" rowspan=2 style='border-bottom:4px solid red; width: 12%'>
                             <span>
                                 Pasajeros
                                 <a ng-class="{'disabled': !vm.selectedRuta}"
@@ -37,13 +45,13 @@
                                 </a>
                             </span>
                         </td>
-                        <td class="" rowspan=2 style='border-bottom:4px solid red; width: 12%'><span >Giros
+                        <td class="" rowspan=2 style='border-bottom:4px solid red; width: 12%'><span>Giros
                         <a ng-class="{'disabled': !vm.selectedRuta}"
                            ng-click="vm.addNewSolicitudGiro(vm.selectedRuta)" href="javascript:;"
                            class="btn-floating verde">
                                     <i class="material-icons">add</i>
                                 </a></span></td>
-                        <td class=""  rowspan=2 style='border-bottom:4px solid red; width: 12%'><span >Paquetes
+                        <td class="" rowspan=2 style='border-bottom:4px solid red; width: 12%'><span>Paquetes
                         <a ng-class="{'disabled': !vm.selectedRuta}"
                            ng-click="vm.addNewSolicitudPaquete(vm.selectedRuta)" href="javascript:;"
                            class="btn-floating verde">
@@ -55,9 +63,9 @@
 
                 <!--las rutas-->
                 <div style="float: left;" class="center">
-                    <table class="center" >
-                        <tr class="center" >
-                            <td class="center" >
+                    <table class="center">
+                        <tr class="center">
+                            <td class="center">
                                 <div class="collection" ng-if="vm.rutas.length > 0" style="border-radius: 15px;">
                                     <a href="javascript:;" ng-class="{active : vm.activeMenu === $index}"
                                        class="collection-item" ng-repeat="ruta in vm.rutas track by $index"
@@ -65,7 +73,7 @@
                                         {{ruta.destino.ciudad.nombre}}
                                     </a>
                                 </div>
-                                <div ng-if="vm.rutas.length <= 0" class="center" >
+                                <div ng-if="vm.rutas.length <= 0" class="center">
                                     No existen rutas disponibles
                                 </div>
                             </td>
@@ -77,7 +85,7 @@
                 <div style="float: left; width: 20%" class="simpleDemo center">
                     <table>
                         <tr>
-                            <td class="center" >
+                            <td class="center">
                                 <div ng-if="vm.conductoresDeRuta.length > 0">
                                     <ul dnd-list="vm.conductoresDeRuta" class="col s12 collection"
                                         dnd-inserted="vm.addConductor(ruta)" style="border: none">
@@ -149,7 +157,7 @@
                 <div style="float: left; width: 30%;" class="center">
                     <table>
                         <tr>
-                            <td class="center" >
+                            <td class="center">
                                 <div class="card-reveal gris"
                                      style="border-radius: 15px; height: 90%; width: 90%;margin-bottom:20px;margin-left: 15px;margin-right: 10px; color: #eeeeee">
                                     <div ng-if="vm.conductorSelected != null">
@@ -168,7 +176,8 @@
                                             Codigo vial : {{vm.conductorSelected.conductor.vehiculo.codigo_vial}}
                                         </p>
                                     </div>
-                                    <div class="black-text" ng-if="vm.conductorSelected == null" style="color: white; margin-left: 10px">No
+                                    <div class="black-text" ng-if="vm.conductorSelected == null"
+                                         style="color: white; margin-left: 10px">No
                                         se ha seleccionado ningun conductor para el
                                         despacho
                                     </div>
@@ -176,7 +185,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td style="text-align: center" class="center" >
+                            <td style="text-align: center" class="center">
                                 <img src="http://dev.viajaseguro.co/assets/font/icons/iconosviaja_v copia 3.png"
                                      style="height: 40px; width: 80px">
                                 <br>
@@ -195,18 +204,19 @@
                 <div style="float: left; width: 12%" class="center">
                     <table>
                         <tr>
-                            <td class="center" >
+                            <td class="center">
                                 <ul ng-repeat="algo in vm.solicitudes.solicitud_nuevos_pasajeros" class="collection"
-                                    style="border-radius: 25px;" ng-if="vm.solicitudes.solicitud_nuevos_pasajeros.length > 0"
+                                    style="border-radius: 25px;"
+                                    ng-if="vm.solicitudes.solicitud_nuevos_pasajeros.length > 0"
                                     ng-click="vm.getSolicitudPasajero(algo.id)">
                                     <li class="collection-item nuevo-servicio">
                                         <div style="font-size: 12px">
                                             <strong>{{algo.datos_pasajeros.length}} Pasajero(s)</strong>
                                             <!--<a href="javascript:;" class="secondary-content">-->
-                                                <!--<i class="material-icons">visibility</i>-->
-                                                <!--<div title="Pasajero esperando vehiculo en la central">-->
-                                                <!--<i class="material-icons" style="color: red">person</i>-->
-                                                <!--</div>-->
+                                            <!--<i class="material-icons">visibility</i>-->
+                                            <!--<div title="Pasajero esperando vehiculo en la central">-->
+                                            <!--<i class="material-icons" style="color: red">person</i>-->
+                                            <!--</div>-->
                                             <!--</a>-->
                                         </div>
                                     </li>
@@ -228,12 +238,13 @@
                                         </div>
                                     </li>
                                 </ul>
-                                <div class="center"  ng-if="vm.solicitudes.solicitud_pasajeros.length <= 0 && vm.solicitudes.solicitud_nuevos_pasajeros.length <= 0">
+                                <div class="center"
+                                     ng-if="vm.solicitudes.solicitud_pasajeros.length <= 0 && vm.solicitudes.solicitud_nuevos_pasajeros.length <= 0">
                                     <img src="http://dev.viajaseguro.co/assets/font/icons/iconosviaja-01.png"
                                          style="width: 30px; height: 40px"> <br>
                                     No existen solicitudes de pasajeros pendientes
                                 </div>
-                                <div ng-if="!vm.solicitudes" class="center" >
+                                <div ng-if="!vm.solicitudes" class="center">
                                     <img src="http://dev.viajaseguro.co/assets/font/icons/mapa_ICONORojo.png"
                                          style="width: 40px; height: 40px"><br>
                                     No ha seleccionado ninguna ruta
@@ -247,7 +258,7 @@
                 <div style="float: left; width: 12%;" class="center">
                     <table>
                         <tr>
-                            <td class="center" >
+                            <td class="center">
                                 <ul ng-repeat="algo in vm.solicitudes.solicitud_giros" class="collection"
                                     style="border-radius: 25px;" ng-if="vm.solicitudes.solicitud_giros.length > 0"
                                     ng-click="vm.getSolicitudGiro(algo.id)">
@@ -257,12 +268,12 @@
                                         </div>
                                     </li>
                                 </ul>
-                                <div ng-if="vm.solicitudes.solicitud_giros.length <= 0"class="center" >
+                                <div ng-if="vm.solicitudes.solicitud_giros.length <= 0" class="center">
                                     <img src="http://dev.viajaseguro.co/assets/font/icons/iconoGirnoRed.png"
                                          style="width: 30px; height: 40px"><br>
                                     No existen solicitudes de giros pendientes
                                 </div>
-                                <div ng-if="!vm.solicitudes"class="center" >
+                                <div ng-if="!vm.solicitudes" class="center">
                                     <img src="http://dev.viajaseguro.co/assets/font/icons/mapa_ICONORojo.png"
                                          style="width: 40px; height: 40px"><br>
                                     No ha seleccionado ninguna ruta
@@ -274,9 +285,9 @@
 
                 <!--los paquetes-->
                 <div style="float: left; width: 12%;" class="center">
-                    <table class="center" >
-                        <tr class="center" >
-                            <td class="center" >
+                    <table class="center">
+                        <tr class="center">
+                            <td class="center">
                                 <ul ng-repeat="algo in vm.solicitudes.solicitud_paquetes" class="collection"
                                     style="border-radius: 25px;" ng-if="vm.solicitudes.solicitud_paquetes.length > 0"
                                     ng-click="vm.getSolicitudPaquete(algo.id)">
@@ -286,12 +297,12 @@
                                         </div>
                                     </li>
                                 </ul>
-                                <div ng-if="vm.solicitudes.solicitud_paquetes.length <= 0"class="center" >
+                                <div ng-if="vm.solicitudes.solicitud_paquetes.length <= 0" class="center">
                                     <img src="http://dev.viajaseguro.co/assets/font/icons/iconosviaja-02.png"
                                          style="width: 40px; height: 40px"><br>
                                     No existen solicitudes de paquetes pendientes
                                 </div>
-                                <div ng-if="!vm.solicitudes"class="center" >
+                                <div ng-if="!vm.solicitudes" class="center">
                                     <img src="http://dev.viajaseguro.co/assets/font/icons/mapa_ICONORojo.png"
                                          style="width: 40px; height: 40px"><br>
                                     No ha seleccionado ninguna ruta
@@ -1332,7 +1343,7 @@
                                 <tr style="height: 35.5px">
                                     <td>{{vm.solicitud.detalles[0].identificacion}}</td>
                                     <td>{{vm.solicitud.detalles[0].destinatario}}</td>
-                                    <td>{{vm.solicitud.detalles[0].direccion_recogida}}</td>
+                                    <td>{{vm.solicitud.ciudad_direccion}} {{vm.solicitud.direccion_recogida}}</td>
                                     <td>{{vm.solicitud.detalles[0].direccion}}</td>
                                     <td>{{vm.solicitud.detalles[0].telefono}}</td>
                                 </tr>
@@ -1385,6 +1396,8 @@
         </div>
     </div>
     <!--fin modal solicitud paquete giro-->
+
+
 
     <!--modal cambair conductor-->
     <div id="modalMoveGiro" class="modal modal-fixed-footer" style="width: 90%">
@@ -1632,68 +1645,60 @@
                 <div class="contenedor">
                     <div class="row">
                         <div class="col s12">
-                            <table class="responsive-table">
-                                <thead>
-                                <th style="color: #D50000;text-align: center">identificación</th>
-                                <th style="color: #D50000;text-align: center">Nombres y apellidos</th>
-                                <th style="color: #D50000;text-align: center">Teléfono</th>
-                                <th style="color: #D50000;text-align: center">Recoger en</th>
-                                <!--<th style="color: #D50000;text-align: center" >Dejar en</th>-->
-                                <!--opciones-->
-                                <th style="color: #D50000;text-align: center" width="10px"></th>
-                                <th style="color: #D50000;text-align: center" width="10px"></th>
-                                <th style="color: #D50000;text-align: center" width="10px"></th>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td style="text-align: center"><input style="border: 1px solid grey; border-radius: 15px" type="text"
-                                                                          ng-model="vm.Pasajeros.identificacion"
-                                                                          ng-blur="vm.getCliente(vm.Pasajeros.identificacion)">
-                                    </td>
-                                    <td style="text-align: center"><input style="border: 1px solid grey; border-radius: 15px" type="text"
-                                                                          ng-model="vm.Pasajeros.nombre" required></td>
-                                    <td style="text-align: center"><input style="border: 1px solid grey; border-radius: 15px" type="text"
-                                                                          ng-model="vm.Pasajeros.telefono" required>
-                                    </td>
-                                    <td style="text-align: center"><input style="border: 1px solid grey; border-radius: 15px" type="text"
-                                                                          ng-model="vm.Newdireccion" required>
-                                    </td>
-                                    <!--<td style="text-align: center"><input type="text" ng-model="vm.Pasajeros.direccionD" required></td>-->
-                                    <td style="text-align: center">
-                                        <button class="btn waves-effect waves-light green " title="Guardar" id="guardar"
-                                                ng-click="vm.asignarSolicitudPasajero();" disabled=""><i
-                                                class="material-icons">save</i>
-                                        </button>
-                                    </td>
-                                    <td style="text-align: center">
-                                        <!--<button class="btn waves-effect waves-light blue" title="Actualizar"-->
-                                        <!--id="actualizar" ng-click="vm.modificarPasajero();" disabled=""><i-->
-                                        <!--class="material-icons">reply</i></button>-->
-                                    </td>
-                                    <td style="text-align: center">
-                                        <button class="btn waves-effect waves-light red" title="limpiar" id="limpiar"
-                                                ng-click="vm.limpiarPasajeros(vm.conductor.id);"><i
-                                                class="material-icons">clear</i></button>
-                                    </td>
-                                </tr>
-                                <!--<tr ng-repeat="pasajero in vm.listaPasajerosEspera">-->
-                                <!--<td style="text-align: center">{{pasajero.identificacion}}</td>-->
-                                <!--<td style="text-align: center">{{pasajero.nombres}} {{pasajero.cliente.apellidos}}-->
-                                <!--</td>-->
-                                <!--<td style="text-align: center">{{pasajero.telefono}}</td>-->
-                                <!--<td style="text-align: center">{{pasajero.direccion}}</td>-->
-                                <!--<td></td>-->
-                                <!--<td style="text-align: center" style="text-align: center;"><a href="javascript:;"-->
-                                <!--title="editar"-->
-                                <!--ng-click="vm.cargarModificarPasajero(pasajero);"><i-->
-                                <!--class="material-icons">create</i></a></td>-->
-                                <!--<td style="text-align: center" style="text-align: center;"><a href="javascript:;"-->
-                                <!--title="eliminar"-->
-                                <!--ng-click="vm.eliminarPasajero(pasajero.id)"><i-->
-                                <!--class="material-icons" style="color:#F44336">remove</i></a></td>-->
-                                <!--</tr>-->
-                                </tbody>
-                            </table>
+                            <form name="formPasajeros" novalidate>
+                                <table class="responsive-table">
+                                    <thead>
+                                    <th style="color: #D50000;text-align: center">identificación</th>
+                                    <th style="color: #D50000;text-align: center">Nombres y apellidos</th>
+                                    <th style="color: #D50000;text-align: center">Teléfono</th>
+                                    <th style="color: #D50000;text-align: center">Recoger en</th>
+                                    <!--<th style="color: #D50000;text-align: center" >Dejar en</th>-->
+                                    <!--opciones-->
+                                    <th style="color: #D50000;text-align: center" width="10px"></th>
+                                    <th style="color: #D50000;text-align: center" width="10px"></th>
+                                    <th style="color: #D50000;text-align: center" width="10px"></th>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td style="text-align: center"><input
+                                                style="border: 1px solid grey; border-radius: 15px" type="number"
+                                                ng-model="vm.Pasajeros.identificacion"
+                                                ng-blur="vm.getCliente(vm.Pasajeros.identificacion)" required>
+                                        </td>
+                                        <td style="text-align: center"><input
+                                                style="border: 1px solid grey; border-radius: 15px" type="text"
+                                                ng-model="vm.Pasajeros.nombre" required></td>
+                                        <td style="text-align: center"><input
+                                                style="border: 1px solid grey; border-radius: 15px" type="number"
+                                                ng-model="vm.Pasajeros.telefono" required>
+                                        </td>
+                                        <td style="text-align: center"><input
+                                                style="border: 1px solid grey; border-radius: 15px" type="text"
+                                                ng-model="vm.Newdireccion" required>
+                                        </td>
+                                        <!--<td style="text-align: center"><input type="text" ng-model="vm.Pasajeros.direccionD" required></td>-->
+                                        <td style="text-align: center">
+                                            <button ng-disabled="formPasajeros.$invalid" class="btn waves-effect waves-light green " title="Guardar"
+                                                    id="guardar"
+                                                    ng-click="vm.asignarSolicitudPasajero();"><i
+                                                    class="material-icons">save</i>
+                                            </button>
+                                        </td>
+                                        <td style="text-align: center">
+                                            <!--<button class="btn waves-effect waves-light blue" title="Actualizar"-->
+                                            <!--id="actualizar" ng-click="vm.modificarPasajero();" disabled=""><i-->
+                                            <!--class="material-icons">reply</i></button>-->
+                                        </td>
+                                        <td style="text-align: center">
+                                            <button class="btn waves-effect waves-light red" title="limpiar"
+                                                    id="limpiar"
+                                                    ng-click="vm.limpiarPasajeros(vm.conductor.id);"><i
+                                                    class="material-icons">clear</i></button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -1706,6 +1711,172 @@
         <!--</form>-->
     </div>
     <!--fin modal nueva solicitud pasajeros-->
+
+    <!--modal nueva solicitud de giro-->
+    <div id="modalNewSolicitudGiro" class="modal modal-fixed-footer" style="width: 90%;height: 40%;">
+        <div class="modal-header">
+            <h2 style="position: absolute; top: 50%;margin: -100px 0 0 -200px;left: 50%;" class="black-text">
+                <b>Agregar giros a la cola de {{vm.selectedRuta.destino.ciudad.nombre |
+                    uppercase}}</b>
+            </h2>
+        </div>
+
+        <div class="modal-content">
+            <br><br><br>
+            <div class="row col s12">
+                <form name="formGiro" novalidate>
+                    <table class="striped bordered responsive-table">
+                        <thead>
+                        <th style="color: #D50000;text-align: center">id remitente</th>
+                        <th style="color: #D50000;text-align: center">Nombres y apellidos</th>
+                        <th style="color: #D50000;text-align: center">Telefono</th>
+                        <th style="color: #D50000;text-align: center">Recoger en</th>
+                        <th style="color: #D50000;text-align: center">Entregar a</th>
+                        <th style="color: #D50000;text-align: center">Telefono</th>
+                        <th style="color: #D50000;text-align: center">Entregar en</th>
+                        <th style="color: #D50000;text-align: center">Monto</th>
+                        <!--opciones-->
+                        <th style="color: #D50000;text-align: center" width="10px"></th>
+                        <th style="color: #D50000;text-align: center" width="10px"></th>
+                        </thead>
+                        <tbody>
+                        <tr style="background-color: transparent;">
+                            <td style="text-align: center"><input style="border: 1px solid grey; border-radius: 15px"
+                                                                  type="number"
+                                                                  ng-model="vm.Giros.ide_remitente"
+                                                                  ng-blur="vm.getCliente(vm.Giros.ide_remitente)"
+                                                                  required>
+                            </td>
+                            <td style="text-align: center"><input style="border: 1px solid grey; border-radius: 15px"
+                                                                  type="text"
+                                                                  ng-model="vm.Giros.nombres" required></td>
+                            <td style="text-align: center"><input style="border: 1px solid grey; border-radius: 15px"
+                                                                  type="number"
+                                                                  ng-model="vm.Giros.telefono" required></td>
+                            <td style="text-align: center"><input style="border: 1px solid grey; border-radius: 15px"
+                                                                  type="text"
+                                                                  ng-model="vm.Giros.direccion" required></td>
+                            <td style="text-align: center"><input style="border: 1px solid grey; border-radius: 15px"
+                                                                  type="text"
+                                                                  ng-model="vm.Giros.nombre_receptor" required></td>
+                            <td style="text-align: center"><input style="border: 1px solid grey; border-radius: 15px"
+                                                                  type="number"
+                                                                  ng-model="vm.Giros.telefono_receptor" required></td>
+                            <td style="text-align: center"><input style="border: 1px solid grey; border-radius: 15px"
+                                                                  type="text"
+                                                                  ng-model="vm.Giros.direccionD" required></td>
+                            <td style="text-align: center"><input style="border: 1px solid grey; border-radius: 15px"
+                                                                  type="number"
+                                                                  ng-model="vm.Giros.monto" required></td>
+                            <td style="text-align: center">
+                                <button class="btn waves-effect waves-light green " title="Guardar"
+                                        id="guardarG" ng-click="vm.asignarSolicitudGiro();" ng-disabled="formGiro.$invalid"><i
+                                        class="material-icons">save</i></button>
+                            </td>
+                            <td style="text-align: center">
+                                <button class="btn waves-effect waves-light red" title="limpiar" id="limpiar"
+                                        ng-click="vm.limpiarGiros(vm.conductor.id);"><i class="material-icons">clear</i>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red accent-4"
+               style="margin-left:10px;border-radius: 25px;">Salir</a>
+        </div>
+    </div>
+    <!--fin modal nueva solicitud de giro-->
+
+
+
+    <!--modal nueva solicitud de paquete-->
+    <div id="modalNewSolicitudPaquete" class="modal modal-fixed-footer" style="width: 90%;height: 40%;">
+        <div class="modal-header">
+            <h2 style="position: absolute; top: 50%;margin: -100px 0 0 -200px;left: 50%;" class="black-text">
+                <b>Agregar paquetes a la cola de {{vm.selectedRuta.destino.ciudad.nombre |
+                    uppercase}}</b>
+            </h2>
+        </div>
+
+        <div class="modal-content">
+            <br><br><br>
+            <div class="row col s12">
+                <form name="formGiro" novalidate>
+                    <table class="striped bordered responsive-table">
+                        <thead>
+                        <th style="color: #D50000;text-align: center">id remitente</th>
+                        <th style="color: #D50000;text-align: center">Nombres y apellidos</th>
+                        <th style="color: #D50000;text-align: center">Telefono</th>
+                        <th style="color: #D50000;text-align: center">Recoger en</th>
+                        <th style="color: #D50000;text-align: center">Entregar a</th>
+                        <th style="color: #D50000;text-align: center">Telefono</th>
+                        <th style="color: #D50000;text-align: center">Entregar en</th>
+                        <th style="color: #D50000;text-align: center">Detalles</th>
+                        <!--opciones-->
+                        <th style="color: #D50000;text-align: center" width="10px"></th>
+                        <th style="color: #D50000;text-align: center" width="10px"></th>
+                        </thead>
+                        <tbody>
+                        <tr style="background-color: transparent;">
+                            <td style="text-align: center"><input style="border: 1px solid grey; border-radius: 15px"
+                                                                  type="number"
+                                                                  ng-model="vm.Paquetes.ide_remitente"
+                                                                  ng-blur="vm.getCliente(vm.Paquetes.ide_remitente)"
+                                                                  required>
+                            </td>
+                            <td style="text-align: center"><input style="border: 1px solid grey; border-radius: 15px"
+                                                                  type="text"
+                                                                  ng-model="vm.Paquetes.nombres" required></td>
+                            <td style="text-align: center"><input style="border: 1px solid grey; border-radius: 15px"
+                                                                  type="number"
+                                                                  ng-model="vm.Paquetes.telefono" required></td>
+                            <td style="text-align: center"><input style="border: 1px solid grey; border-radius: 15px"
+                                                                  type="text"
+                                                                  ng-model="vm.Paquetes.direccion" required></td>
+                            <td style="text-align: center"><input style="border: 1px solid grey; border-radius: 15px"
+                                                                  type="text"
+                                                                  ng-model="vm.Paquetes.nombre_receptor" required></td>
+                            <td style="text-align: center"><input style="border: 1px solid grey; border-radius: 15px"
+                                                                  type="number"
+                                                                  ng-model="vm.Paquetes.telefono_receptor" required></td>
+                            <td style="text-align: center"><input style="border: 1px solid grey; border-radius: 15px"
+                                                                  type="text"
+                                                                  ng-model="vm.Paquetes.direccionD" required></td>
+                            <td style="text-align: center"><input style="border: 1px solid grey; border-radius: 15px"
+                                                                  type="text"
+                                                                  ng-model="vm.Paquetes.descripcion" required></td>
+                            <td style="text-align: center">
+                                <button class="btn waves-effect waves-light green " title="Guardar"
+                                        id="guardarG" ng-click="vm.asignarSolicitudPaquete();" ng-disabled="formGiro.$invalid"><i
+                                        class="material-icons">save</i></button>
+                            </td>
+                            <td style="text-align: center">
+                                <button class="btn waves-effect waves-light red" title="limpiar" id="limpiar"
+                                        ng-click="vm.limpiarPaquetes(vm.conductor.id);"><i class="material-icons">clear</i>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red accent-4"
+               style="margin-left:10px;border-radius: 25px;">Salir</a>
+        </div>
+    </div>
+    <!--fin modal nueva solicitud de paquete-->
+
+
+
+
 
 
     <!--modal planilla especial-->
@@ -1965,19 +2136,24 @@
                     </tr>
                     <tr height=20 style='height:15.0pt'>
                         <td height=20 class=xl157730 style='height:15.0pt'></td>
-                        <td colspan=6 class=xl767730>{{vm.planilla.central.empresa.nombre}} Nit {{vm.planilla.central.empresa.nit}}
+                        <td colspan=6 class=xl767730>{{vm.planilla.central.empresa.nombre}} Nit
+                            {{vm.planilla.central.empresa.nit}}
                         </td>
                     </tr>
                     <tr height=20 style='height:15.0pt'>
                         <td height=20 class=xl157730 style='height:15.0pt'></td>
-                        <td colspan=6 class=xl767730>Resolución de Habilitación No {{vm.planilla.central.empresa.nresolucion}}
-                            de {{vm.planilla.central.empresa.fecha_resolucion | date: 'longDate'}} Emanada del Ministerio de Transporte Seccional Cesar
+                        <td colspan=6 class=xl767730>Resolución de Habilitación No
+                            {{vm.planilla.central.empresa.nresolucion}}
+                            de {{vm.planilla.central.empresa.fecha_resolucion | date: 'longDate'}} Emanada del
+                            Ministerio de Transporte Seccional Cesar
                         </td>
-                    </tr>.
+                    </tr>
+                    .
                     <tr height=20 style='height:15.0pt'>
                         <td height=20 class=xl157730 style='height:15.0pt'></td>
                         <td colspan=6 class=xl767730>Oficina Principal {{vm.planilla.central.empresa.direccion}}<span
-                                style='mso-spacerun:yes'> </span>Tel: {{vm.planilla.central.empresa.telefono}} {{vm.user.central.ciudad.nombre}}-{{vm.user.central.departamento.nombre}}
+                                style='mso-spacerun:yes'> </span>Tel: {{vm.planilla.central.empresa.telefono}}
+                            {{vm.user.central.ciudad.nombre}}-{{vm.user.central.departamento.nombre}}
                         </td>
                     </tr>
                     <tr height=20 style='height:15.0pt'>

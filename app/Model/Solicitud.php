@@ -28,6 +28,10 @@ class Solicitud extends Model
         return $this->hasMany(DataSolicitudPasajero::class);
     }
 
+    public function datos_giros_paquetes(){
+        return $this->hasMany(DataSolicitudGiroPaquete::class);
+    }
+
     public function detalles()
     {
         return $this->hasMany(DataSolicitudGiroPaquete::class);

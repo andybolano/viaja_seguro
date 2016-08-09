@@ -26,4 +26,6 @@ Route::post('/api/centrales/{central_id}/deducciones', 'Empresa\CentralesControl
 Route::get('/api/centrales/{central_id}/total_deducciones/{dia}', 'Empresa\CentralesController@getTotalDeducciones');
 
 Route::post('/api/centrales/solicitud/new_pasajeros', 'Empresa\CentralesController@addNewSolicitudPasajero');
+Route::post('/api/centrales/solicitud/new_giros', 'Empresa\CentralesController@addNewSolicitudGiro');
+Route::post('/api/centrales/solicitud/new_paquetes', 'Empresa\CentralesController@addNewSolicitudPaquete');
 Route::post('/api/centrales/{central_id}/despacharUnConductor', 'Central\DespachoController@despachar');
