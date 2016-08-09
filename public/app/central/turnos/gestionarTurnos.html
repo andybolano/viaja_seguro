@@ -2,30 +2,33 @@
     <div class="row">
         <div class="col s12">
             <div class="row white col s12" style="border-radius: 15px;border:2px solid #D50000; width: 100%">
-                <table style="table-layout:fixed;">
-                    <tbody>
+                <table style="text-align: center; width: 100%" class="center">
+                    <!--<tbody>-->
                     <br>
-                    <tr>
-                        <td rowspan=2 style='border-bottom:4px solid red;'><span style="margin-left: 25px">Rutas</span>
+                    <tr class="center">
+                        <td rowspan=2 style='border-bottom:4px solid red; width: 10%'><span style="margin-left: 25px">Rutas</span>
                         </td>
-                        <td rowspan=2 style='border-bottom:4px solid red;'>Conductores
+                        <td rowspan=2 style='border-bottom:4px solid red; width: 20%; margin-left: 50px'>Conductores
                             <a ng-class="{'disabled': !vm.selectedRuta}" ng-click="vm.confirm()" href="javascript:;"
                                class="btn-floating verde"><i
                                     class="material-icons">add</i></a>
                         </td>
-                        <td rowspan=2 style='border-bottom:4px solid red; text-align: center'> Origen
-                            <div><p>{{vm.user.central.ciudad.nombre}}</p></div>
+                        <td rowspan=2 style='border-bottom:4px solid red; text-align: center; width: 15%'>
+                            <div style="float: left">Origen <br><p>{{vm.user.central.ciudad.nombre}}</p></div>
+                            <img src="../../public/assets/font/icons/iconosviaja_v copia.png" style="width: 40px; height: 40px; float: left; position: relative">
                         </td>
                         <td ng-if="vm.selectedRuta.destino.ciudad.nombre" rowspan=2
-                            style='border-bottom:4px solid red; text-align: center'>Destino
-                            <div><p>{{vm.selectedRuta.destino.ciudad.nombre}}</p></div>
+                            style='border-bottom:4px solid red; text-align: center; width: 15%'>
+                            <div style="float: left">Destino <br><p>{{vm.selectedRuta.destino.ciudad.nombre}}</p></div>
+                            <img src="../../public/assets/font/icons/iconosviaja_v copia 2.png" style="width: 40px; height: 40px; float: left; position: relative">
                         </td>
                         <td ng-if="!vm.selectedRuta.destino.ciudad.nombre" rowspan=2
-                            style='border-bottom:4px solid red; text-align: center'>Destino
-                            <div><p>No seleccionado</p></div>
+                            style='border-bottom:4px solid red; text-align: center; width: 15%'>
+                            <div style="float: left;">Destino <br><p>No seleccionado</p></div>
+                            <img src="../../public/assets/font/icons/iconosviaja_v copia 2.png" style="width: 40px; height: 40px; float: left; position: relative">
                         </td>
-                        <td rowspan=2 style='border-bottom:4px solid red;'>
-                            <span style="margin-left: 15px">
+                        <td rowspan=2 style='border-bottom:4px solid red; width: 12%'>
+                            <span>
                                 Pasajeros
                                 <a ng-class="{'disabled': !vm.selectedRuta}"
                                    ng-click="vm.addNewSolicitudPasajero(vm.selectedRuta)" href="javascript:;"
@@ -34,17 +37,27 @@
                                 </a>
                             </span>
                         </td>
-                        <td rowspan=2 style='border-bottom:4px solid red;'><span style="margin-left: 30px">Giros</span></td>
-                        <td rowspan=2 style='border-bottom:4px solid red;'><span style="margin-left: 10px">Paquetes</span></td>
+                        <td rowspan=2 style='border-bottom:4px solid red; width: 12%'><span >Giros
+                        <a ng-class="{'disabled': !vm.selectedRuta}"
+                           ng-click="vm.addNewSolicitudPasajero(vm.selectedRuta)" href="javascript:;"
+                           class="btn-floating verde">
+                                    <i class="material-icons">add</i>
+                                </a></span></td>
+                        <td rowspan=2 style='border-bottom:4px solid red; width: 12%'><span >Paquetes
+                        <a ng-class="{'disabled': !vm.selectedRuta}"
+                           ng-click="vm.addNewSolicitudPasajero(vm.selectedRuta)" href="javascript:;"
+                           class="btn-floating verde">
+                                    <i class="material-icons">add</i>
+                                </a></span></td>
                     </tr>
-                    </tbody>
+                    <!--</tbody>-->
                 </table>
 
                 <!--las rutas-->
-                <div style="float: left">
+                <div style="float: left; width: 10%" class="center">
                     <table>
                         <tr>
-                            <td style="float: left; white-space:nowrap;">
+                            <td style="max-width: 10%">
                                 <div class="collection" ng-if="vm.rutas.length > 0" style="border-radius: 15px;">
                                     <a href="javascript:;" ng-class="{active : vm.activeMenu === $index}"
                                        class="collection-item" ng-repeat="ruta in vm.rutas track by $index"
@@ -61,7 +74,7 @@
                 </div>
 
                 <!--los conductores-->
-                <div style="float: left; width: 20%" class="simpleDemo">
+                <div style="float: left; width: 20%" class="simpleDemo center">
                     <table>
                         <tr>
                             <td>
@@ -122,44 +135,6 @@
                                             </div>
                                         </li>
                                     </ul>
-
-                                    <!--<ul dnd-list="vm.conductoresDeRuta" class="collection"-->
-                                    <!--dnd-inserted="vm.addConductor(ruta)">-->
-                                    <!--<li class="collection-item avatar"-->
-                                    <!--ng-repeat="turno in vm.conductoresDeRuta"-->
-                                    <!--dnd-draggable="turno"-->
-                                    <!--dnd-moved="vm.movedConductor($index)"-->
-                                    <!--dnd-effect-allowed="move"-->
-                                    <!--dnd-selected="vm.selectedTurno = turno"-->
-                                    <!--dnd-dragend="vm.updateTurnos(vm.conductoresDeRuta)">-->
-                                    <!--<img ng-src="http://{{turno.conductor.imagen}}" alt="" class="circle">-->
-                                    <!--<span class="title">{{turno.conductor.nombres}} {{turno.conductor.apellidos}}</span>-->
-                                    <!--<div class="center red accent-4"-->
-                                    <!--style="border-radius: 15px; height: 30px; position:relative">-->
-                                    <!--<a style="color:white;" ng-if="vm.servicios.giros" title="Asignar giros"-->
-                                    <!--class="waves-effect waves-teal" ng-click="vm.addGiro(turno.conductor)">-->
-                                    <!--<i class="material-icons prefix small">attach_money</i>-->
-                                    <!--</a>-->
-                                    <!--<a style="color:white;" ng-if="vm.servicios.encomiendas"-->
-                                    <!--title="Asignar paquetes" class="waves-effect waves-teal"-->
-                                    <!--ng-click="vm.addPaquete(turno.conductor)">-->
-                                    <!--<i class="material-icons prefix small">redeem</i>-->
-                                    <!--</a>-->
-                                    <!--<a style="color:white;" ng-if="vm.servicios.gestion_pasajeros"-->
-                                    <!--title="Asignar pasajeros" class="waves-effect waves-teal"-->
-                                    <!--ng-click="vm.addPasajero(turno.conductor)">-->
-                                    <!--<i class="material-icons prefix small">person</i>-->
-                                    <!--</a>-->
-                                    <!--</div>-->
-                                    <!--&lt;!&ndash;<span style="float: left; padding-left: -50px; position: relative"> <h2>{{turno.turno}}</h2></span>&ndash;&gt;-->
-                                    <!--<a href="javascript:;" ng-click="vm.selecciondarConductor($index)"-->
-                                    <!--class="secondary-content"><i class="material-icons" style="color:#c62828">touch_app</i></a>-->
-                                    <!--<a class="waves-effect waves-teal" style="float: right"-->
-                                    <!--ng-click="vm.remove(turno, $index)">-->
-                                    <!--<i class="material-icons prefix small" style="color:#c62828">delete</i>-->
-                                    <!--</a><br>-->
-                                    <!--</li>-->
-                                    <!--</ul>-->
                                 </div>
                                 <div ng-if="vm.conductoresDeRuta.length <= 0">
                                     <span>No has seleccionado ninguna ruta o la ruta seleccionada no posee conductores asignados</span>
@@ -171,7 +146,7 @@
 
 
                 <!--parte del despacho-->
-                <div style="float: left; margin-left: 5px; width: 27%; margin-top: 7px">
+                <div style="float: left; width: 30%;" class="center">
                     <table>
                         <tr>
                             <td>
@@ -213,47 +188,11 @@
                             </td>
                         </tr>
                     </table>
-
-                    <!--<table >-->
-                    <!--<h2 style="font-size: 15px">Datos del conductor seleccionado</h2>-->
-                    <!--<tr>-->
-                    <!--<td>-->
-                    <!--C.C: {{vm.conductorSelected.conductor.identificacion}}-->
-                    <!--</td>-->
-                    <!--<td>-->
-                    <!--Nombre: {{vm.conductorSelected.conductor.nombres}}-->
-                    <!--{{vm.conductorSelected.conductor.apellidos}}-->
-                    <!--</td>-->
-                    <!--<td>-->
-                    <!--Telefono: {{vm.conductorSelected.conductor.telefono}}-->
-                    <!--</td>-->
-                    <!--</tr>-->
-                    <!--</table>-->
-                    <!--<table ng-if="vm.conductorSelected != null" style="text-align: center">-->
-                    <!--<tr>-->
-                    <!--<td>-->
-                    <!--<h2 style="font-size: 15px">Detalles del vehiculo</h2>-->
-                    <!--<table>-->
-                    <!--<tr>-->
-                    <!--<br>-->
-                    <!--<td>Placa: {{vm.conductorSelected.conductor.vehiculo.placa}}</td>-->
-                    <!--<td>Modelo: {{vm.conductorSelected.conductor.vehiculo.modelo}}</td>-->
-                    <!--<td>Codigo vial: {{vm.conductorSelected.conductor.vehiculo.codigo_vial}}</td>-->
-                    <!--</tr>-->
-                    <!--</table>-->
-                    <!--</td>-->
-                    <!--</tr>-->
-                    <!--</table>-->
-                    <!--<table>-->
-                    <!--<div ng-if="vm.conductorSelected == null">No se ha seleccionado ningun conductor para el-->
-                    <!--despacho-->
-                    <!--</div>-->
-                    <!--</table>-->
                 </div>
 
 
                 <!--los pasajeros-->
-                <div style="float: left; width: 12%">
+                <div style="float: left; width: 12%" class="center">
                     <table>
                         <tr>
                             <td style="text-align: center">
@@ -305,7 +244,7 @@
                 </div>
 
                 <!--los giros-->
-                <div style="float: left; width: 12%; margin-left: 15px">
+                <div style="float: left; width: 12%;" class="center">
                     <table>
                         <tr>
                             <td style="text-align: center">
@@ -342,7 +281,7 @@
                 </div>
 
                 <!--los paquetes-->
-                <div style="float: left; width: 12%; margin-left: 15px">
+                <div style="float: left; width: 12%;" class="center">
                     <table>
                         <tr>
                             <td style="text-align: center">
