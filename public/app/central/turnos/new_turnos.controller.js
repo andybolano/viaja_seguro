@@ -258,15 +258,15 @@
             function succes(p) {
                 vm.cliente.id = p.data.id;
                 //pasajeros
-                vm.Pasajeros.nombre = p.data.nombres + ' ' + p.data.apellidos;
+                vm.Pasajeros.nombre = p.data.nombres;
                 vm.Pasajeros.telefono = parseInt(p.data.telefono);
                 vm.Newdireccion = p.data.direccion;
                 //giros
-                vm.Giros.nombres = p.data.nombres + ' ' + p.data.apellidos;
+                vm.Giros.nombres = p.data.nombres;
                 vm.Giros.telefono = parseInt(p.data.telefono);
                 vm.Giros.direccion = p.data.direccion;
                 //paquetes
-                vm.Paquetes.nombres = p.data.nombres + ' ' + p.data.apellidos;
+                vm.Paquetes.nombres = p.data.nombres;
                 vm.Paquetes.telefono = parseInt(p.data.telefono);
                 vm.Paquetes.direccion = p.data.direccion;
             }
