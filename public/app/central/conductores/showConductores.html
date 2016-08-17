@@ -30,15 +30,17 @@
                                             class="material-icons right"
                                             style="color: white; float: right">more_vert</i></span>
                                 </div>
-                                <div class="card-reveal red accent-4"
-                                     style="border-radius: 15px; height: 90%; width: 90%;margin-bottom:20px;margin-left: 15px;margin-right: 10px;">
-                                    <span style="font-size: small" class="card-title white-text"><strong>Informacion del conductor</strong><i
-                                            class="material-icons right">close</i></span>
-                                    <p style="font-size: small" class="white-text"> Identificacion :
-                                        {{conductor.identificacion}}<br>
-                                        Nombre : {{conductor.nombres}} {{conductor.apellidos}}</p>
-                                    <p style="font-size: small" class="white-text"><strong style="font-size: medium">Datos
-                                        de vehiculo:</strong> <br>
+                                <div class="card-reveal red accent-4" style="border-radius: 15px; height: 90%; width: 90%;margin-bottom:20px;margin-left: 15px;margin-right: 10px;">
+                                    <span style="font-size: small;"class="card-title white-text">
+                                        <i class="material-icons right">close</i>
+                                    </span>
+                                    <p style="font-size: small" class="white-text">
+                                        <strong style="font-size: small; color: #cacaca!important;">Informacion del conductor</strong><br>
+                                        Identificacion : {{conductor.identificacion}}<br>
+                                        Nombre : {{conductor.nombres}} {{conductor.apellidos}}
+                                    </p>
+                                    <p style="" class="white-text">
+                                        <strong style="font-size: small; color: #cacaca!important;">Datosde vehiculo:</strong> <br>
                                         Placa : {{conductor.vehiculo.placa}} <br>
                                         Codigo vial : {{conductor.vehiculo.codigo_vial}}
                                     </p>
