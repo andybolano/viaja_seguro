@@ -109,22 +109,16 @@
                                                          style="width: 60px; height: 60px">
                                                 </div>
                                                 <div class="col s1" style="padding: 0 0">
-                                                    <a class="waves-effect waves-teal" style="float: right"
-                                                       ng-click="vm.remove(turno, $index)">
-                                                        <i class="material-icons prefix small" style="color:#c62828">delete</i>
-                                                    </a>
-                                                    <a title="Datos del vehiculo" style="float: right"
-                                                       class="waves-effect waves-teal"
-                                                       ng-click="vm.selecciondarConductor($index)">
-                                                        <i style="color: black"
-                                                           class="material-icons prefix small">touch_app</i>
-                                                    </a>
                                                 </div>
                                             </div>
                                             <div class="center">
                                                 <strong style="font-size: 12.3px"><span class="title">{{turno.conductor.nombres}} {{turno.conductor.apellidos}}</span></strong>
                                             </div>
-                                            <div class="center red accent-4" style="border-radius: 15px;">
+                                            <div class="center red accent-4" style="border-radius: 15px; padding-top: 3px">
+                                                <a class="waves-effect waves-teal" style="float: left; color:white;"
+                                                   ng-click="vm.remove(turno, $index)">
+                                                    <i class="material-icons prefix small">delete</i>
+                                                </a>
                                                 <a style="color:white;" ng-if="vm.servicios.giros" title="Asignar giros"
                                                    class="waves-effect waves-teal"
                                                    ng-click="vm.addGiro(turno.conductor)">
@@ -139,6 +133,11 @@
                                                    title="Asignar pasajeros" class="waves-effect waves-teal"
                                                    ng-click="vm.addPasajero(turno.conductor)">
                                                     <i class="material-icons prefix small">person</i>
+                                                </a>
+                                                <a title="Datos del vehiculo" style="float: right; color: #afafaf;"
+                                                   class="waves-effect waves-teal"
+                                                   ng-click="vm.selecciondarConductor($index)">
+                                                    <i class="material-icons prefix small">touch_app</i>
                                                 </a>
                                             </div>
                                         </li>
