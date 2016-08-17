@@ -54,6 +54,7 @@
     float: left;
     height: 165px;
     width: 100%;
+    min-width: 210px;
     /*zoom: 85%;*/
     margin-bottom: 10px;
 }
