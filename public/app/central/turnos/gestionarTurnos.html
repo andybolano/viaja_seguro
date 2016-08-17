@@ -114,7 +114,8 @@
                                             <div class="center">
                                                 <strong style="font-size: 12.3px"><span class="title">{{turno.conductor.nombres}} {{turno.conductor.apellidos}}</span></strong>
                                             </div>
-                                            <div class="center red accent-4" style="border-radius: 15px; padding-top: 3px; padding-left: 3px; padding-right: 3px;">
+                                            <div class="center red accent-4"
+                                                 style="border-radius: 15px; padding-top: 3px; padding-left: 3px; padding-right: 3px;">
                                                 <a class="waves-effect waves-teal" style="float: left; color:white;"
                                                    ng-click="vm.remove(turno, $index)">
                                                     <i class="material-icons prefix small">delete</i>
@@ -655,30 +656,30 @@
                                 <tr style="background-color: transparent;">
                                     <td style="padding: 0 1px; text-align: center">
                                         <input style="border: 1px solid black" type="text"
-                                                                          ng-model="vm.Giros.ide_remitente"
-                                                                          ng-blur="vm.getCliente(vm.Giros.ide_remitente)">
+                                               ng-model="vm.Giros.ide_remitente"
+                                               ng-blur="vm.getCliente(vm.Giros.ide_remitente)">
                                     </td>
                                     <td style="padding: 0 1px; text-align: center">
                                         <input style="border: 1px solid black" type="text"
-                                                                          ng-model="vm.Giros.nombres"></td>
+                                               ng-model="vm.Giros.nombres"></td>
                                     <td style="padding: 0 1px; text-align: center">
                                         <input style="border: 1px solid black" type="text"
-                                                                          ng-model="vm.Giros.telefono"></td>
+                                               ng-model="vm.Giros.telefono"></td>
                                     <td style="padding: 0 1px; text-align: center">
                                         <input style="border: 1px solid black" type="text"
-                                                                          ng-model="vm.Giros.direccion"></td>
+                                               ng-model="vm.Giros.direccion"></td>
                                     <td style="padding: 0 1px; text-align: center">
                                         <input style="border: 1px solid black" type="text"
-                                                                          ng-model="vm.Giros.nombre_receptor"></td>
+                                               ng-model="vm.Giros.nombre_receptor"></td>
                                     <td style="padding: 0 1px; text-align: center">
                                         <input style="border: 1px solid black" type="text"
-                                                                          ng-model="vm.Giros.telefono_receptor"></td>
+                                               ng-model="vm.Giros.telefono_receptor"></td>
                                     <td style="padding: 0 1px; text-align: center">
                                         <input style="border: 1px solid black" type="text"
-                                                                          ng-model="vm.Giros.direccionD"></td>
+                                               ng-model="vm.Giros.direccionD"></td>
                                     <td style="padding: 0 1px; text-align: center">
                                         <input style="border: 1px solid black" type="text"
-                                                                          ng-model="vm.Giros.monto"></td>
+                                               ng-model="vm.Giros.monto"></td>
                                     <td style="padding: 0 1px; text-align: center">
                                         <button class="btn waves-effect waves-light green " title="Guardar"
                                                 id="guardarG" ng-click="vm.asignarGiro();" disabled=""><i
@@ -761,30 +762,30 @@
                                 <tr style="background-color: transparent;">
                                     <td style="padding: 0 1px; text-align: center">
                                         <input style="border: 1px solid black" type="text"
-                                                                          ng-model="vm.Paquetes.ide_remitente"
-                                                                          ng-blur="vm.getCliente(vm.Paquetes.ide_remitente)">
+                                               ng-model="vm.Paquetes.ide_remitente"
+                                               ng-blur="vm.getCliente(vm.Paquetes.ide_remitente)">
                                     </td>
                                     <td style="padding: 0 1px; text-align: center">
                                         <input style="border: 1px solid black" type="text"
-                                                                          ng-model="vm.Paquetes.nombres"></td>
+                                               ng-model="vm.Paquetes.nombres"></td>
                                     <td style="padding: 0 1px; text-align: center">
                                         <input style="border: 1px solid black" type="text"
-                                                                          ng-model="vm.Paquetes.telefono"></td>
+                                               ng-model="vm.Paquetes.telefono"></td>
                                     <td style="padding: 0 1px; text-align: center">
                                         <input style="border: 1px solid black" type="text"
-                                                                          ng-model="vm.Paquetes.direccion"></td>
+                                               ng-model="vm.Paquetes.direccion"></td>
                                     <td style="padding: 0 1px; text-align: center">
                                         <input style="border: 1px solid black" type="text"
-                                                                          ng-model="vm.Paquetes.nombre_receptor"></td>
+                                               ng-model="vm.Paquetes.nombre_receptor"></td>
                                     <td style="padding: 0 1px; text-align: center">
                                         <input style="border: 1px solid black" type="text"
-                                                                          ng-model="vm.Paquetes.telefono_receptor"></td>
+                                               ng-model="vm.Paquetes.telefono_receptor"></td>
                                     <td style="padding: 0 1px; text-align: center">
                                         <input style="border: 1px solid black" type="text"
-                                                                          ng-model="vm.Paquetes.direccionD"></td>
+                                               ng-model="vm.Paquetes.direccionD"></td>
                                     <td style="padding: 0 1px; text-align: center">
                                         <input style="border: 1px solid black" type="text"
-                                                                          ng-model="vm.Paquetes.descripcion_paquete">
+                                               ng-model="vm.Paquetes.descripcion_paquete">
                                     </td>
                                     <td style="padding: 0 1px; text-align: center">
                                         <button class="btn waves-effect waves-light green " title="Guardar"
@@ -1312,7 +1313,9 @@
                                 <tbody>
                                 <tr ng-repeat="conductor in vm.solicitud.conductores">
                                     <td style="padding: 0 1px; text-align: center">{{conductor.turno}}</td>
-                                    <td style="padding: 0 1px; text-align: center">{{conductor.conductor.identificacion}}</td>
+                                    <td style="padding: 0 1px; text-align: center">
+                                        {{conductor.conductor.identificacion}}
+                                    </td>
                                     <td style="padding: 0 1px; text-align: center">{{conductor.conductor.nombres}}
                                         {{conductor.conductor.apellidos}}
                                     </td>
@@ -1387,11 +1390,14 @@
                                 <tbody>
                                 <tr ng-repeat="conductor in vm.solicitud.conductores" style="height: 35.5px">
                                     <td style="padding: 0 1px; text-align: center">{{conductor.turno}}</td>
-                                    <td style="padding: 0 1px; text-align: center">{{conductor.conductor.identificacion}}</td>
+                                    <td style="padding: 0 1px; text-align: center">
+                                        {{conductor.conductor.identificacion}}
+                                    </td>
                                     <td style="padding: 0 1px; text-align: center">{{conductor.conductor.nombres}}
                                         {{conductor.conductor.apellidos}}
                                     </td>
-                                    <td style="padding: 0 1px; text-align: center"><strong>{{conductor.cupos}} cupo(s) restantes para
+                                    <td style="padding: 0 1px; text-align: center"><strong>{{conductor.cupos}} cupo(s)
+                                        restantes para
                                         salir</strong></td>
                                     <td style="padding: 0 1px; text-align: center">
                                         <a href="javascript:"
@@ -1416,7 +1422,6 @@
         </div>
     </div>
     <!--fin modal solicitud paquete giro-->
-
 
 
     <!--modal cambair conductor-->
@@ -1469,7 +1474,9 @@
                                         <tbody>
                                         <tr ng-repeat="turno in ruta.turnos">
                                             <td style="padding: 0 1px; text-align: center">{{turno.turno}}</td>
-                                            <td style="padding: 0 1px; text-align: center">{{turno.conductor.identificacion}}</td>
+                                            <td style="padding: 0 1px; text-align: center">
+                                                {{turno.conductor.identificacion}}
+                                            </td>
                                             <td style="padding: 0 1px; text-align: center">{{turno.conductor.nombres}}
                                                 {{turno.conductor.apellidos}}
                                             </td>
@@ -1549,7 +1556,9 @@
                                         <tbody>
                                         <tr ng-repeat="turno in ruta.turnos">
                                             <td style="padding: 0 1px; text-align: center">{{turno.turno}}</td>
-                                            <td style="padding: 0 1px; text-align: center">{{turno.conductor.identificacion}}</td>
+                                            <td style="padding: 0 1px; text-align: center">
+                                                {{turno.conductor.identificacion}}
+                                            </td>
                                             <td style="padding: 0 1px; text-align: center">{{turno.conductor.nombres}}
                                                 {{turno.conductor.apellidos}}
                                             </td>
@@ -1603,7 +1612,8 @@
                                 <tbody>
                                 <tr style="height: 35.5px">
                                     <td style="padding: 0 1px; text-align: center">{{vm.pasajero.identificacion}}</td>
-                                    <td style="padding: 0 1px; text-align: center">{{vm.pasajero.nombres}} {{vm.pasajero.apellidos}}
+                                    <td style="padding: 0 1px; text-align: center">{{vm.pasajero.nombres}}
+                                        {{vm.pasajero.apellidos}}
                                     </td>
                                     <td style="padding: 0 1px; text-align: center">{{vm.pasajero.telefono}}</td>
                                 </tr>
@@ -1623,7 +1633,9 @@
                                         <tbody>
                                         <tr ng-repeat="turno in ruta.turnos">
                                             <td style="padding: 0 1px; text-align: center">{{turno.turno}}</td>
-                                            <td style="padding: 0 1px; text-align: center">{{turno.conductor.identificacion}}</td>
+                                            <td style="padding: 0 1px; text-align: center">
+                                                {{turno.conductor.identificacion}}
+                                            </td>
                                             <td style="padding: 0 1px; text-align: center">{{turno.conductor.nombres}}
                                                 {{turno.conductor.apellidos}}
                                             </td>
@@ -1684,28 +1696,33 @@
                                     <tr>
                                         <td style="padding: 0 1px; text-align: center">
                                             <input
-                                                style="border: 1px solid grey; border-radius: 15px; padding: 0 10px;   margin: 0 2px; width: 90%" type="number"
-                                                ng-model="vm.Pasajeros.identificacion"
-                                                ng-blur="vm.getCliente(vm.Pasajeros.identificacion)" required>
+                                                    style="border: 1px solid grey; border-radius: 15px; padding: 0 10px;   margin: 0 2px; width: 90%"
+                                                    type="number"
+                                                    ng-model="vm.Pasajeros.identificacion"
+                                                    ng-blur="vm.getCliente(vm.Pasajeros.identificacion)" required>
                                         </td>
                                         <td style="padding: 0 1px; text-align: center">
                                             <input
-                                                style="border: 1px solid grey; border-radius: 15px; padding: 0 10px;   margin: 0 2px; width: 90%" type="text"
-                                                ng-model="vm.Pasajeros.nombre" required></td>
+                                                    style="border: 1px solid grey; border-radius: 15px; padding: 0 10px;   margin: 0 2px; width: 90%"
+                                                    type="text"
+                                                    ng-model="vm.Pasajeros.nombre" required></td>
                                         <td style="padding: 0 1px; text-align: center">
                                             <input
-                                                style="border: 1px solid grey; border-radius: 15px; padding: 0 10px;   margin: 0 2px; width: 90%" type="number"
-                                                ng-model="vm.Pasajeros.telefono" required>
+                                                    style="border: 1px solid grey; border-radius: 15px; padding: 0 10px;   margin: 0 2px; width: 90%"
+                                                    type="number"
+                                                    ng-model="vm.Pasajeros.telefono" required>
                                         </td>
                                         <td style="padding: 0 1px; text-align: center">
                                             <input
-                                                style="border: 1px solid grey; border-radius: 15px; padding: 0 10px;   margin: 0 2px; width: 90%" type="text"
-                                                ng-model="vm.Newdireccion" required>
+                                                    style="border: 1px solid grey; border-radius: 15px; padding: 0 10px;   margin: 0 2px; width: 90%"
+                                                    type="text"
+                                                    ng-model="vm.Newdireccion" required>
                                         </td>
                                         <!--<td style="textpadding: 0 1px; -align: center">
                                         <input type="text" ng-model="vm.Pasajeros.direccionD" required></td>-->
                                         <td style="padding: 0 1px; text-align: center">
-                                            <button ng-disabled="formPasajeros.$invalid" class="btn waves-effect waves-light green " title="Guardar"
+                                            <button ng-disabled="formPasajeros.$invalid"
+                                                    class="btn waves-effect waves-light green " title="Guardar"
                                                     id="guardar"
                                                     ng-click="vm.asignarSolicitudPasajero();"><i
                                                     class="material-icons">save</i>
@@ -1740,7 +1757,7 @@
     <!--fin modal nueva solicitud pasajeros-->
 
     <!--modal nueva solicitud de giro-->
-    <div id="modalNewSolicitudGiro" class="modal modal-fixed-footer" style="width: 90%;">
+    <div id="modalNewSolicitudGiro" class="modal modal-fixed-footer">
         <div class="modal-header">
             <h2 class="black-text" style="text-align: center; padding-top: 20px; margin: 0;">
                 <b>Agregar giros a la cola de {{vm.selectedRuta.destino.ciudad.nombre |
@@ -1750,71 +1767,80 @@
 
         <div class="modal-content">
             <div class="row col s12">
-                <form name="formGiro" novalidate>
-                    <table class="striped bordered responsive-table">
-                        <thead>
-                        <th style="color: #D50000;text-align: center">id remitente</th>
-                        <th style="color: #D50000;text-align: center">Nombres y apellidos</th>
-                        <th style="color: #D50000;text-align: center">Telefono</th>
-                        <th style="color: #D50000;text-align: center">Recoger en</th>
-                        <th style="color: #D50000;text-align: center">Entregar a</th>
-                        <th style="color: #D50000;text-align: center">Telefono</th>
-                        <th style="color: #D50000;text-align: center">Entregar en</th>
-                        <th style="color: #D50000;text-align: center">Monto</th>
-                        <!--opciones-->
-                        <th style="color: #D50000;text-align: center" width="10px"></th>
-                        <th style="color: #D50000;text-align: center" width="10px"></th>
-                        </thead>
-                        <tbody>
-                        <tr style="background-color: transparent;">
-                            <td style="padding: 0 1px; text-align: center">
-                                <input style="border: 1px solid grey; border-radius: 15px; padding: 0 10px; margin: 0 2px; width: 90%"
-                                                                  type="number"
-                                                                  ng-model="vm.Giros.ide_remitente"
-                                                                  ng-blur="vm.getCliente(vm.Giros.ide_remitente)"
-                                                                  required>
-                            </td>
-                            <td style="padding: 0 1px; text-align: center">
-                                <input style="border: 1px solid grey; border-radius: 15px; padding: 0 10px; margin: 0 2px; width: 90%"
-                                                                  type="text"
-                                                                  ng-model="vm.Giros.nombres" required></td>
-                            <td style="padding: 0 1px; text-align: center">
-                                <input style="border: 1px solid grey; border-radius: 15px; padding: 0 10px; margin: 0 2px; width: 90%"
-                                                                  type="number"
-                                                                  ng-model="vm.Giros.telefono" required></td>
-                            <td style="padding: 0 1px; text-align: center">
-                                <input style="border: 1px solid grey; border-radius: 15px; padding: 0 10px; margin: 0 2px; width: 90%"
-                                                                  type="text"
-                                                                  ng-model="vm.Giros.direccion" required></td>
-                            <td style="padding: 0 1px; text-align: center">
-                                <input style="border: 1px solid grey; border-radius: 15px; padding: 0 10px; margin: 0 2px; width: 90%"
-                                                                  type="text"
-                                                                  ng-model="vm.Giros.nombre_receptor" required></td>
-                            <td style="padding: 0 1px; text-align: center">
-                                <input style="border: 1px solid grey; border-radius: 15px; padding: 0 10px; margin: 0 2px; width: 90%"
-                                                                  type="number"
-                                                                  ng-model="vm.Giros.telefono_receptor" required></td>
-                            <td style="padding: 0 1px; text-align: center">
-                                <input style="border: 1px solid grey; border-radius: 15px; padding: 0 10px; margin: 0 2px; width: 90%"
-                                                                  type="text"
-                                                                  ng-model="vm.Giros.direccionD" required></td>
-                            <td style="padding: 0 1px; text-align: center">
-                                <input style="border: 1px solid grey; border-radius: 15px; padding: 0 10px; margin: 0 2px; width: 90%"
-                                                                  type="number"
-                                                                  ng-model="vm.Giros.monto" required></td>
-                            <td style="padding: 0 1px; text-align: center">
-                                <button class="btn waves-effect waves-light green " title="Guardar"
-                                        id="guardarG" ng-click="vm.asignarSolicitudGiro();" ng-disabled="formGiro.$invalid"><i
-                                        class="material-icons">save</i></button>
-                            </td>
-                            <td style="padding: 0 1px; text-align: center">
-                                <button class="btn waves-effect waves-light red" title="limpiar" id="limpiar"
-                                        ng-click="vm.limpiarGiros(vm.conductor.id);"><i class="material-icons">clear</i>
-                                </button>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                <form name="formGiroS" novalidate>
+                    <div class="row">
+                        <fieldset class="center">
+                            <legend style="color: red">Remitente</legend>
+                            <div class="input-field col s6 no-border">
+                                <input id="identificacion"
+                                       style="border: 1px solid grey; border-radius: 15px; padding-left: 10px"
+                                       type="number"
+                                       ng-model="vm.Giros.ide_remitente"
+                                       ng-blur="vm.getCliente(vm.Giros.ide_remitente)"
+                                       required autofocus>
+                                <label for="identificacion" class="active">Identificación</label>
+                            </div>
+                            <div class="input-field col s6 no-border">
+                                <input style="border: 1px solid grey; border-radius: 15px; padding-left: 10px"
+                                       type="text"
+                                       ng-model="vm.Giros.nombres" required>
+                                <label class="active">Nombres</label>
+                            </div>
+                            <div class="input-field col s6 no-border">
+                                <input style="border: 1px solid grey; border-radius: 15px; padding-left: 10px"
+                                       type="number"
+                                       ng-model="vm.Giros.telefono" required>
+                                <label class="active">Telefono</label>
+                            </div>
+                            <div class="input-field col s6 no-border">
+                                <input style="border: 1px solid grey; border-radius: 15px; padding-left: 10px"
+                                       type="text"
+                                       ng-model="vm.Giros.direccion" required>
+                                <label class="active">Dirección</label>
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <div class="row">
+                        <fieldset class="center">
+                            <legend style="color:red;">Receptor</legend>
+                            <div class="input-field col s6 no-border">
+                                <input style="border: 1px solid grey; border-radius: 15px; padding-left: 10px"
+                                       type="text"
+                                       ng-model="vm.Giros.nombre_receptor" required>
+                                <label class="active">Nombre</label>
+                            </div>
+                            <div class="input-field col s6 no-border">
+                                <input style="border: 1px solid grey; border-radius: 15px; padding-left: 10px"
+                                       type="number"
+                                       ng-model="vm.Giros.telefono_receptor" required>
+                                <label class="active">Telefono</label>
+                            </div>
+                            <div class="input-field col s6 no-border">
+                                <input style="border: 1px solid grey; border-radius: 15px;padding-left: 10px "
+                                       type="text"
+                                       ng-model="vm.Giros.direccionD" required>
+                                <label class="active">Dirección</label>
+                            </div>
+                            <div class="input-field col s6 no-border">
+                                <input style="border: 1px solid grey; border-radius: 15px; padding-left: 10px"
+                                       type="number"
+                                       ng-model="vm.Giros.monto" required>
+                                <label class="active">Total del monto</label>
+                            </div>
+                        </fieldset>
+                        <br>
+                        <div class="center">
+
+                            <button class="btn waves-effect waves-light green " title="Guardar"
+                                    id="guardarG" ng-click="vm.asignarSolicitudGiro();"
+                                    ng-disabled="formGiroS.$invalid"><i
+                                    class="material-icons">save</i></button>
+                            <button class="btn waves-effect waves-light red" title="limpiar" id="limpiar"
+                                    ng-click="vm.limpiarGiros(vm.conductor.id);"><i class="material-icons">clear</i>
+                            </button>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
@@ -1827,9 +1853,8 @@
     <!--fin modal nueva solicitud de giro-->
 
 
-
     <!--modal nueva solicitud de paquete-->
-    <div id="modalNewSolicitudPaquete" class="modal modal-fixed-footer" style="width: 90%;">
+    <div id="modalNewSolicitudPaquete" class="modal modal-fixed-footer">
         <div class="modal-header">
             <h2 class="black-text" style="text-align: center; padding-top: 20px; margin: 0;">
                 <b>Agregar paquetes a la cola de {{vm.selectedRuta.destino.ciudad.nombre |
@@ -1839,71 +1864,80 @@
 
         <div class="modal-content">
             <div class="row col s12">
-                <form name="formGiro" novalidate>
-                    <table class="striped bordered responsive-table">
-                        <thead>
-                        <th style="color: #D50000;text-align: center">id remitente</th>
-                        <th style="color: #D50000;text-align: center">Nombres y apellidos</th>
-                        <th style="color: #D50000;text-align: center">Telefono</th>
-                        <th style="color: #D50000;text-align: center">Recoger en</th>
-                        <th style="color: #D50000;text-align: center">Entregar a</th>
-                        <th style="color: #D50000;text-align: center">Telefono</th>
-                        <th style="color: #D50000;text-align: center">Entregar en</th>
-                        <th style="color: #D50000;text-align: center">Detalles</th>
-                        <!--opciones-->
-                        <th style="color: #D50000;text-align: center" width="10px"></th>
-                        <th style="color: #D50000;text-align: center" width="10px"></th>
-                        </thead>
-                        <tbody>
-                        <tr style="background-color: transparent;">
-                            <td style="padding: 0 1px; text-align: center">
-                                <input style="border: 1px solid grey; border-radius: 15px; padding: 0 10px; margin: 0 2px; width: 90%"
-                                                                  type="number"
-                                                                  ng-model="vm.Paquetes.ide_remitente"
-                                                                  ng-blur="vm.getCliente(vm.Paquetes.ide_remitente)"
-                                                                  required>
-                            </td>
-                            <td style="padding: 0 1px; text-align: center">
-                                <input style="border: 1px solid grey; border-radius: 15px; padding: 0 10px; margin: 0 2px; width: 90%"
-                                                                  type="text"
-                                                                  ng-model="vm.Paquetes.nombres" required></td>
-                            <td style="padding: 0 1px; text-align: center">
-                                <input style="border: 1px solid grey; border-radius: 15px; padding: 0 10px; margin: 0 2px; width: 90%"
-                                                                  type="number"
-                                                                  ng-model="vm.Paquetes.telefono" required></td>
-                            <td style="padding: 0 1px; text-align: center">
-                                <input style="border: 1px solid grey; border-radius: 15px; padding: 0 10px; margin: 0 2px; width: 90%"
-                                                                  type="text"
-                                                                  ng-model="vm.Paquetes.direccion" required></td>
-                            <td style="padding: 0 1px; text-align: center">
-                                <input style="border: 1px solid grey; border-radius: 15px; padding: 0 10px; margin: 0 2px; width: 90%"
-                                                                  type="text"
-                                                                  ng-model="vm.Paquetes.nombre_receptor" required></td>
-                            <td style="padding: 0 1px; text-align: center">
-                                <input style="border: 1px solid grey; border-radius: 15px; padding: 0 10px; margin: 0 2px; width: 90%"
-                                                                  type="number"
-                                                                  ng-model="vm.Paquetes.telefono_receptor" required></td>
-                            <td style="padding: 0 1px; text-align: center">
-                                <input style="border: 1px solid grey; border-radius: 15px; padding: 0 10px; margin: 0 2px; width: 90%"
-                                                                  type="text"
-                                                                  ng-model="vm.Paquetes.direccionD" required></td>
-                            <td style="padding: 0 1px; text-align: center">
-                                <input style="border: 1px solid grey; border-radius: 15px; padding: 0 10px; margin: 0 2px; width: 90%"
-                                                                  type="text"
-                                                                  ng-model="vm.Paquetes.descripcion" required></td>
-                            <td style="padding: 0 1px; text-align: center">
-                                <button class="btn waves-effect waves-light green " title="Guardar"
-                                        id="guardarG" ng-click="vm.asignarSolicitudPaquete();" ng-disabled="formGiro.$invalid"><i
-                                        class="material-icons">save</i></button>
-                            </td>
-                            <td style="padding: 0 1px; text-align: center">
-                                <button class="btn waves-effect waves-light red" title="limpiar" id="limpiar"
-                                        ng-click="vm.limpiarPaquetes(vm.conductor.id);"><i class="material-icons">clear</i>
-                                </button>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                <form name="formPaqueteS" novalidate>
+                    <div class="row">
+                        <fieldset class="center">
+                            <legend style="color: red">Remitente</legend>
+                            <div class="input-field col s6 no-border">
+                                <input style="border: 1px solid grey; border-radius: 15px; padding-left: 10px"
+                                       type="number"
+                                       ng-model="vm.Paquetes.ide_remitente"
+                                       ng-blur="vm.getCliente(vm.Paquetes.ide_remitente)"
+                                       required autofocus>
+                                <label for="identificacion" class="active">Identificación</label>
+                            </div>
+                            <div class="input-field col s6 no-border">
+                                <input style="border: 1px solid grey; border-radius: 15px; padding-left: 10px"
+                                       type="text"
+                                       ng-model="vm.Paquetes.nombres" required>
+                                <label class="active">Nombres</label>
+                            </div>
+                            <div class="input-field col s6 no-border">
+                                <input style="border: 1px solid grey; border-radius: 15px;  padding-left: 10px"
+                                       type="number"
+                                       ng-model="vm.Paquetes.telefono" required>
+                                <label class="active">Telefono</label>
+                            </div>
+                            <div class="input-field col s6 no-border">
+                                <input style="border: 1px solid grey; border-radius: 15px;  padding-left: 10px"
+                                       type="text"
+                                       ng-model="vm.Paquetes.direccion" required>
+                                <label class="active">Dirección</label>
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <div class="row">
+                        <fieldset class="center">
+                            <legend style="color:red;">Receptor</legend>
+                            <div class="input-field col s6 no-border">
+                                <input style="border: 1px solid grey; border-radius: 15px;  padding-left: 10px"
+                                       type="text"
+                                       ng-model="vm.Paquetes.nombre_receptor" required>
+                                <label class="active">Nombre</label>
+                            </div>
+                            <div class="input-field col s6 no-border">
+                                <input style="border: 1px solid grey; border-radius: 15px;  padding-left: 10px"
+                                       type="number"
+                                       ng-model="vm.Paquetes.telefono_receptor" required></td>
+                                <label class="active">Telefono</label>
+                            </div>
+                            <div class="input-field col s6 no-border">
+                                <input style="border: 1px solid grey; border-radius: 15px;  padding-left: 10px"
+                                       type="text"
+                                       ng-model="vm.Paquetes.direccionD" required></td>
+                                <label class="active">Dirección</label>
+                            </div>
+                            <div class="input-field col s6 no-border">
+                                <input style="border: 1px solid grey; border-radius: 15px;  padding-left: 10px"
+                                       type="text"
+                                       ng-model="vm.Paquetes.descripcion" required></td>
+                                <label class="active">Descripción del paquete</label>
+                            </div>
+                        </fieldset>
+                        <br>
+                        <div class="center">
+
+                            <button class="btn waves-effect waves-light green " title="Guardar"
+                                    id="guardarG" ng-click="vm.asignarSolicitudPaquete();"
+                                    ng-disabled="formPaqueteS.$invalid"><i
+                                    class="material-icons">save</i></button>
+                            <button class="btn waves-effect waves-light red" title="limpiar" id="limpiar"
+                                    ng-click="vm.limpiarPaquetes(vm.conductor.id);"><i
+                                    class="material-icons">clear</i>
+                            </button>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
@@ -1914,10 +1948,6 @@
         </div>
     </div>
     <!--fin modal nueva solicitud de paquete-->
-
-
-
-
 
 
     <!--modal planilla especial-->
@@ -2270,3 +2300,9 @@
     </div>
     <!--fin modal planilla especial-->
 </div>
+
+<style>
+    .no-border {
+        border: none !important;
+    }
+</style>
