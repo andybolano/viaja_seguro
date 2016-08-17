@@ -114,7 +114,7 @@
                                             <div class="center">
                                                 <strong style="font-size: 12.3px"><span class="title">{{turno.conductor.nombres}} {{turno.conductor.apellidos}}</span></strong>
                                             </div>
-                                            <div class="center red accent-4" style="border-radius: 15px; padding-top: 3px">
+                                            <div class="center red accent-4" style="border-radius: 15px; padding-top: 3px; padding-left: 3px; padding-right: 3px;">
                                                 <a class="waves-effect waves-teal" style="float: left; color:white;"
                                                    ng-click="vm.remove(turno, $index)">
                                                     <i class="material-icons prefix small">delete</i>
@@ -134,10 +134,10 @@
                                                    ng-click="vm.addPasajero(turno.conductor)">
                                                     <i class="material-icons prefix small">person</i>
                                                 </a>
-                                                <a title="Datos del vehiculo" style="float: right; color: #afafaf;"
+                                                <a title="Datos del vehiculo" style="float: right; color: white;"
                                                    class="waves-effect waves-teal"
                                                    ng-click="vm.selecciondarConductor($index)">
-                                                    <i class="material-icons prefix small">touch_app</i>
+                                                    <i class="material-icons prefix small" style="padding-right: 2px">touch_app</i>
                                                 </a>
                                             </div>
                                         </li>
