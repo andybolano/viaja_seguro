@@ -46,6 +46,14 @@
             return $http.post(API + '/centrales/solicitud/new_pasajeros', object);
         }
 
+        this.asignarSolicitudGiro = function (object) {
+            return $http.post(API + '/centrales/solicitud/new_giros', object);
+        }
+
+        this.asignarSolicitudPaquete = function (object) {
+            return $http.post(API + '/centrales/solicitud/new_paquetes', object);
+        }
+
         this.asignarPasajero = function (object) {
             return $http.post(API + '/centrales/' + authService.currentUser().central.id + '/pasajeros', object);
         }
