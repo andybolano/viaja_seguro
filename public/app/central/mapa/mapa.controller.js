@@ -52,18 +52,20 @@
             vm.ruta_id = 0;
             cargarRutas();
 
-            cdicponibles();
-            cantidadenturno();
-            causentes();
-            bpasajeros();
+            // cdicponibles();
+            // cantidadenturno();
+            // causentes();
+            // bpasajeros();
 
             if (angular.isDefined(stop)) return;
 
             stop = $interval(function () {
-                cdicponibles();
-                cantidadenturno();
-                causentes();
-                bpasajeros();
+                if(_ruta){
+                    cdicponibles();
+                    cantidadenturno();
+                    causentes();
+                    bpasajeros();
+                }
             }, 10000);
         }
 
@@ -172,7 +174,7 @@
         }
 
         function cdicponibles() {
-            mapaService.activostotal().then(function (c) {
+            mapaService.activostotal(_ruta.destino.id).then(function (c) {
                 vm.ato = c.data;
             }, function (e) {
                 console.log('error')
@@ -180,7 +182,7 @@
         }
 
         function causentes() {
-            mapaService.cantidadausente().then(function (c) {
+            mapaService.cantidadausente(_ruta.destino.id).then(function (c) {
                 vm.aus = c.data;
             }, function (e) {
                 console.log('error')
@@ -188,7 +190,7 @@
         }
 
         function bpasajeros() {
-            mapaService.bpasajeros().then(function (c) {
+            mapaService.bpasajeros(_ruta.destino.id).then(function (c) {
                 vm.bpa = c.data;
             }, function (e) {
                 console.log('error')
@@ -196,11 +198,11 @@
         }
 
         function cantidadenturno() {
-            mapaService.cantidadenturno().then(function (c) {
-                vm.etu = c.data;
-            }, function (e) {
-                console.log('error')
-            })
+            mapaService.cantidadenturno(_ruta.id).then(function (c) {
+                    vm.etu = c.data;
+                }, function (e) {
+                    console.log('error')
+                })
         }
 
 
