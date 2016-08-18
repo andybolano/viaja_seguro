@@ -17,6 +17,7 @@
         vm.Conductores = [];
         vm.conductorSelected = null;
         vm.indexConductor = null;
+        vm.active = 'active';
 
         vm.Pasajeros = {};
         vm.Paquetes = {};
@@ -269,6 +270,7 @@
                 vm.Paquetes.nombres = p.data.nombres;
                 vm.Paquetes.telefono = parseInt(p.data.telefono);
                 vm.Paquetes.direccion = p.data.direccion;
+                vm.active = 'active';
             }
 
             function error(error) {
@@ -649,8 +651,8 @@
 
         //GIROS
         function refrescarGiros(conductor_id) {
-            document.getElementById("guardarG").disabled = false;
-            document.getElementById("actualizarG").disabled = true;
+            // document.getElementById("guardarG").disabled = false;
+            // document.getElementById("actualizarG").disabled = true;
             newTurnosService.refrescarGiros(conductor_id).then(success, error);
             function success(p) {
                 vm.listaGiros = [];
@@ -691,8 +693,8 @@
         }
 
         function cargarModificarGiro(item) {
-            document.getElementById("actualizarG").disabled = false;
-            document.getElementById("guardarG").disabled = true;
+            // document.getElementById("actualizarG").disabled = false;
+            // document.getElementById("guardarG").disabled = true;
             vm.Giros = item;
         };
 
@@ -701,8 +703,8 @@
             function success(p) {
                 Materialize.toast(p.data.message, '5000', "rounded");
                 refrescarGiros(vm.conductor.id);
-                document.getElementById("guardarG").disabled = false;
-                document.getElementById("actualizarG").disabled = true;
+                // document.getElementById("guardarG").disabled = false;
+                // document.getElementById("actualizarG").disabled = true;
             }
 
             function error(error) {
@@ -832,8 +834,8 @@
 
         //PAQUETES
         function refrescarPaquetes(conductor_id) {
-            document.getElementById("guardarP").disabled = false;
-            document.getElementById("actualizarP").disabled = true;
+            // document.getElementById("guardarP").disabled = false;
+            // document.getElementById("actualizarP").disabled = true;
             newTurnosService.refrescarPaquetes(conductor_id).then(success, error);
             function success(p) {
                 vm.listaPaquetes = [];
@@ -875,8 +877,8 @@
         }
 
         function cargarModificarPaquete(item) {
-            document.getElementById("actualizarP").disabled = false;
-            document.getElementById("guardarP").disabled = true;
+            // document.getElementById("actualizarP").disabled = false;
+            // document.getElementById("guardarP").disabled = true;
             vm.Paquetes = item;
         };
 
@@ -885,8 +887,8 @@
             function success(p) {
                 Materialize.toast(p.data.message, '5000', 'rounded');
                 refrescarPaquetes(vm.conductor.id);
-                document.getElementById("guardarP").disabled = false;
-                document.getElementById("actualizarP").disabled = true;
+                // document.getElementById("guardarP").disabled = false;
+                // document.getElementById("actualizarP").disabled = true;
             }
 
             function error(error) {
@@ -1185,14 +1187,14 @@
 
         function limpiarGiros(conductor_id) {
             document.getElementById("guardarG").disabled = false;
-            document.getElementById("actualizarG").disabled = true;
+            // document.getElementById("actualizarG").disabled = true;
             refrescarGiros(conductor_id)
             vm.Giros = "";
         };
 
         function limpiarPaquetes(conductor_id) {
             document.getElementById("guardarP").disabled = false;
-            document.getElementById("actualizarP").disabled = true;
+            // document.getElementById("actualizarP").disabled = true;
             refrescarPaquetes(conductor_id)
             vm.Paquetes = "";
         };
