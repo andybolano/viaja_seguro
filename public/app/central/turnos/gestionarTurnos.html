@@ -1757,7 +1757,7 @@
     <!--fin modal nueva solicitud pasajeros-->
 
     <!--modal nueva solicitud de giro-->
-    <div id="modalNewSolicitudGiro" class="modal modal-fixed-footer">
+    <div id="modalNewSolicitudGiro" class="modal modal-fixed-footer" style="width: 30%">
         <div class="modal-header">
             <h2 class="black-text" style="text-align: center; padding-top: 20px; margin: 0;">
                 <b>Agregar giros a la cola de {{vm.selectedRuta.destino.ciudad.nombre |
@@ -1778,25 +1778,25 @@
                                        ng-model="vm.Giros.ide_remitente"
                                        ng-blur="vm.getCliente(vm.Giros.ide_remitente)"
                                        required autofocus>
-                                <label for="identificacion" class="active">Identificación</label>
+                                <label for="identificacion" class="{{vm.active}}">Identificación</label>
                             </div>
                             <div class="input-field col s6 no-border">
                                 <input style="border: 1px solid grey; border-radius: 15px; padding-left: 10px"
                                        type="text"
                                        ng-model="vm.Giros.nombres" required>
-                                <label class="active">Nombres</label>
+                                <label class="{{vm.active}}">Nombres</label>
                             </div>
                             <div class="input-field col s6 no-border">
                                 <input style="border: 1px solid grey; border-radius: 15px; padding-left: 10px"
                                        type="number"
                                        ng-model="vm.Giros.telefono" required>
-                                <label class="active">Telefono</label>
+                                <label class="{{vm.active}}">Telefono</label>
                             </div>
                             <div class="input-field col s6 no-border">
                                 <input style="border: 1px solid grey; border-radius: 15px; padding-left: 10px"
                                        type="text"
                                        ng-model="vm.Giros.direccion" required>
-                                <label class="active">Dirección</label>
+                                <label class="{{vm.active}}">Dirección</label>
                             </div>
                         </fieldset>
                     </div>
@@ -1854,7 +1854,7 @@
 
 
     <!--modal nueva solicitud de paquete-->
-    <div id="modalNewSolicitudPaquete" class="modal modal-fixed-footer">
+    <div id="modalNewSolicitudPaquete" class="modal modal-fixed-footer" style="width: 30%">
         <div class="modal-header">
             <h2 class="black-text" style="text-align: center; padding-top: 20px; margin: 0;">
                 <b>Agregar paquetes a la cola de {{vm.selectedRuta.destino.ciudad.nombre |
@@ -1874,25 +1874,25 @@
                                        ng-model="vm.Paquetes.ide_remitente"
                                        ng-blur="vm.getCliente(vm.Paquetes.ide_remitente)"
                                        required autofocus>
-                                <label for="identificacion" class="active">Identificación</label>
+                                <label for="identificacion" class="{{vm.active}}">Identificación</label>
                             </div>
                             <div class="input-field col s6 no-border">
                                 <input style="border: 1px solid grey; border-radius: 15px; padding-left: 10px"
                                        type="text"
                                        ng-model="vm.Paquetes.nombres" required>
-                                <label class="active">Nombres</label>
+                                <label class="{{vm.active}}">Nombres</label>
                             </div>
                             <div class="input-field col s6 no-border">
                                 <input style="border: 1px solid grey; border-radius: 15px;  padding-left: 10px"
                                        type="number"
                                        ng-model="vm.Paquetes.telefono" required>
-                                <label class="active">Telefono</label>
+                                <label class="{{vm.active}}">Telefono</label>
                             </div>
                             <div class="input-field col s6 no-border">
                                 <input style="border: 1px solid grey; border-radius: 15px;  padding-left: 10px"
                                        type="text"
                                        ng-model="vm.Paquetes.direccion" required>
-                                <label class="active">Dirección</label>
+                                <label class="{{vm.active}}">Dirección</label>
                             </div>
                         </fieldset>
                     </div>

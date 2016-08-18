@@ -17,6 +17,7 @@
         vm.Conductores = [];
         vm.conductorSelected = null;
         vm.indexConductor = null;
+        vm.active = 'active';
 
         vm.Pasajeros = {};
         vm.Paquetes = {};
@@ -269,6 +270,7 @@
                 vm.Paquetes.nombres = p.data.nombres;
                 vm.Paquetes.telefono = parseInt(p.data.telefono);
                 vm.Paquetes.direccion = p.data.direccion;
+                vm.active = 'active';
             }
 
             function error(error) {
