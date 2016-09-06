@@ -262,20 +262,34 @@ class ConductorController extends Controller
         }
     }
 
-    public function cdisponibles(){
-        return JsonResponse::create(Conductor::where('estado', 'Disponible')->count());
+    public function cdisponibles($central_id){
+        return JsonResponse::create(Conductor::where([
+//            'estado' => 'Disponible',
+            'central_id' => $central_id,
+            'activo' => 1
+        ])->count());
     }
 
-    public function cantidadturnos(){
-        return JsonResponse::create(Turno::count());
+    public function cantidadturnos($ruta_id){
+        return JsonResponse::create(Turno::where([
+            'ruta_id' => $ruta_id,
+        ])->count());
     }
 
-    public function causentes(){
-        return JsonResponse::create(Conductor::where('estado', 'Ausente')->count());
+    public function causentes($central_id){
+        return JsonResponse::create(Conductor::where([
+            'estado' => 'Ausente',
+            'central_id' => $central_id,
+            'activo' => 1
+        ])->count());
     }
 
-    public function bpasajeros(){
-        return JsonResponse::create(Conductor::where('estado', 'En ruta')->count());
+    public function bpasajeros($central_id){
+        return JsonResponse::create(Conductor::where([
+            'estado' => 'En ruta',
+            'central_id' => $central_id,
+            'activo' => 1
+        ])->count());
     }
 
     public function enviarNotificacionBusquedaClientes(Request $request){

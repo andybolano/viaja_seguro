@@ -5,25 +5,26 @@
         .module('app.centrales.mapa')
         .service('mapaService', mapaService);
 
-    function mapaService($http, API) {
+    function mapaService($http, API, authService) {
+
         this.getUbicacionConductores = function (ruta_id) {
             return $http.get(API + '/conductores/rutas/' + ruta_id + '/ubicacion');
         }
 
-        this.activostotal = function () {
-            return $http.get(API + '/conductores/disponibles');
+        this.activostotal = function (central_id) {
+            return $http.get(API + '/centrales/' + central_id + '/conductores/disponibles');
         }
 
-        this.cantidadenturno = function () {
-            return $http.get(API + '/conductores/turnos/cantidad');
+        this.cantidadenturno = function (ruta_id) {
+            return $http.get(API + '/rutas/' + ruta_id + '/conductores/en_turno');
         }
 
-        this.cantidadausente = function () {
-            return $http.get(API + '/conductores/ausentes');
+        this.cantidadausente = function (central_id) {
+            return $http.get(API + '/centrales/' + central_id + '/conductores/ausentes');
         }
 
-        this.bpasajeros = function () {
-            return $http.get(API + '/conductores/buscandopasajeros');
+        this.bpasajeros = function (central_id) {
+            return $http.get(API + '/centrales/' + central_id + '/conductores/buscandopasajeros');
         }
     }
 })();
